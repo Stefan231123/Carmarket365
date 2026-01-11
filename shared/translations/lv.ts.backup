@@ -1,0 +1,4584 @@
+import { TranslationStrings } from '../translations';
+
+export const lvTranslations: TranslationStrings = {
+  common: {
+    loading: 'Ielādē...',
+    error: 'Kļūda',
+    retry: 'Mēģināt vēlreiz',
+    close: 'Aizvērt',
+    cancel: 'Atcelt',
+    confirm: 'Apstiprināt',
+    continue: 'Turpināt',
+    back: 'Atpakaļ',
+    next: 'Tālāk',
+    previous: 'Iepriekšējais',
+    search: 'Meklēt',
+    filter: 'Filtrēt',
+    clear: 'Notīrīt',
+    save: 'Saglabāt',
+    edit: 'Rediģēt',
+    delete: 'Dzēst',
+    add: 'Pievienot',
+    view: 'Skatīt',
+    contact: 'Kontakts',
+    phone: 'Tālrunis',
+    email: 'E-pasts',
+    location: 'Atrašanās vieta',
+    price: 'Cena',
+    currency: 'EUR',
+    year: 'Gads',
+    make: 'Marka',
+    model: 'Modelis',
+    mileage: 'Nobraukums',
+    condition: 'Stāvoklis',
+    features: 'Īpašības',
+    description: 'Apraksts',
+    images: 'Attēli',
+    seller: 'Pārdevējs',
+    dealer: 'Dīleris',
+    private: 'Privāts',
+    yes: 'Jā',
+    no: 'Nē',
+    menu: 'Izvēlne',
+    new: 'Jauns',
+    certified: 'Sertificēts',
+    vehicle: 'Transportlīdzeklis',
+    message: 'Ziņojums',
+    default: 'Noklusējums',
+    secondary: 'Sekundārs',
+    outline: 'Kontūra',
+    ghost: 'Caurspīdīgs',
+    link: 'Saite',
+    destructive: 'Destruktīvs',
+    small: 'Mazs',
+    large: 'Liels',
+    option: 'Opcija',
+    sending: 'Sūta...',
+    processing: 'Apstrādā...',
+    loading: 'Ielādē...',
+    errorLoadingImage: 'Kļūda attēla ielādē',
+  },
+
+  // Forms - validation, labels, placeholders, actions
+  forms: {
+    validation: {
+      nameRequired: 'Vārds ir obligāts',
+      emailRequired: 'E-pasts ir obligāts',
+      emailInvalid: 'Lūdzu, ievadiet derīgu e-pasta adresi',
+      phoneRequired: 'Tālruņa numurs ir obligāts',
+      messageRequired: 'Ziņojums ir obligāts',
+      loanAmountRequired: 'Kredīta summa ir obligāta',
+      annualIncomeRequired: 'Gada ienākumi ir obligāti',
+      creditScoreRequired: 'Kredīta reitings ir obligāts',
+      employmentStatusRequired: 'Nodarbinātības statuss ir obligāts',
+      yearsAtJobRequired: 'Gadi pašreizējā darbā ir obligāti',
+      monthlyExpensesRequired: 'Mēneša izdevumi ir obligāti',
+      makeRequired: 'Marka ir obligāta',
+      modelRequired: 'Modelis ir obligāts',
+      yearRequired: 'Gads ir obligāts',
+      yearInvalid: 'Nederīgs gads',
+      mileageRequired: 'Nobraukums ir obligāts',
+      mileageNegative: 'Nobraukums nevar būt negatīvs',
+      dateRequired: 'Lūdzu, izvēlieties datumu',
+      timeRequired: 'Lūdzu, izvēlieties laiku',
+    },
+    labels: {
+      businessName: 'Uzņēmuma nosaukums',
+      businessType: 'Uzņēmuma tips',
+      vatNumber: 'PVN numurs',
+      firstName: 'Vārds',
+      lastName: 'Uzvārds',
+      fullName: 'Pilnais vārds',
+      email: 'E-pasts',
+      password: 'Parole',
+      confirmPassword: 'Apstiprināt paroli',
+      phoneNumber: 'Tālruņa numurs',
+      phone: 'Tālrunis',
+      message: 'Ziņojums',
+      street: 'Iela',
+      city: 'Pilsēta',
+      state: 'Štats/Reģions',
+      postalCode: 'Pasta indekss',
+      country: 'Valsts',
+      make: 'Marka',
+      model: 'Modelis',
+      year: 'Gads',
+      mileage: 'Nobraukums',
+      condition: 'Stāvoklis',
+      price: 'Cena',
+      location: 'Vieta',
+      description: 'Apraksts',
+      exteriorColor: 'Ārējā krāsa',
+      interiorColor: 'Iekšējā krāsa',
+      fuelType: 'Degvielas veids',
+      transmission: 'Transmisija',
+      bodyType: 'Virsbūves tips',
+      contactName: 'Kontaktpersona',
+      contactEmail: 'Kontakta e-pasts',
+      rememberMe: 'Atcerēties mani',
+      termsAccepted: 'Noteikumi akceptēti',
+      contactPhone: 'Kontakta tālrunis',
+      privacyAccepted: 'Privātuma politika akceptēta',
+    },
+    actions: {
+      sendMessage: 'Nosūtīt ziņojumu',
+    },
+    placeholders: {
+      selectMake: 'Izvēlieties marku',
+      selectModel: 'Izvēlieties modeli',
+      selectYear: 'Izvēlieties gadu',
+      selectCondition: 'Izvēlieties stāvokli',
+      selectFuelType: 'Izvēlieties degvielas veidu',
+      selectTransmission: 'Izvēlieties transmisiju',
+      selectBodyType: 'Izvēlieties virsbūves tipu',
+      selectDrivetrain: 'Izvēlieties piedziņu',
+      enterName: 'Ievadiet savu pilno vārdu',
+      enterEmail: 'Ievadiet savu e-pasta adresi',
+      enterPassword: 'Ievadiet paroli',
+      enterPhone: 'Ievadiet savu tālruņa numuru',
+      enterModel: 'Ievadiet modeli',
+      enterMileage: 'Ievadiet nobraukumu',
+      enterPrice: 'Ievadiet minimālo cenu',
+      enterLocation: 'Ievadiet atrasanās vietu',
+      enterCity: 'Ievadiet pilsētu',
+      enterDescription: 'Ievadiet aprakstu',
+      searchCars: 'Meklēt automašīnas',
+      searchListings: 'Meklēt sludinājumus',
+      searchFAQs: 'Meklēt BUJ',
+      anyMake: 'Jebkura marka',
+      anyModel: 'Jebkurš modelis',
+      anyYear: 'Jebkurš gads',
+      anyMileage: 'Jebkurš nobraukums',
+      minPrice: 'Min cena',
+      maxPrice: 'Max cena',
+      role: 'Loma',
+      sortBy: 'Kārtot pēc',
+      filterBy: 'Filtrēt pēc',
+      dealerNameOrCity: 'Dīlera nosaukums vai pilsēta',
+      allStates: 'Visi štati',
+      allSpecialties: 'Visas specializācijas',
+      egFiftyThousand: 'piem. 50,000',
+      successMessage: 'Veiksmes ziņojums',
+      requiredFieldMessage: 'Šis lauks ir obligāts',
+      enterMessage: 'Ievadiet ziņojumu',
+      contactMessage: 'Sveiki, mani interesē {year} {make} {model}. Lūdzu, sazinieties ar mani ar sīkāku informāciju.',
+    },
+    buttons: {
+      submit: 'Iesniegt',
+      register: 'Reģistrēties',
+      signIn: 'Pierakstīties',
+      signUp: 'Reģistrēties',
+      signOut: 'Izrakstīties',
+      backToSignIn: 'Atpakaļ uz pierakstīšanos',
+      backToHome: 'Atpakaļ uz sākumu',
+      createAccount: 'Izveidot kontu',
+      forgotPassword: 'Aizmirsu paroli',
+      resetPassword: 'Atiestatīt paroli',
+      updateProfile: 'Atjaunināt profilu',
+      uploadPhotos: 'Augšupielādēt fotogrāfijas',
+      removePhoto: 'Noņemt fotogrāfiju',
+      publishListing: 'Publicēt sludinājumu',
+      saveDraft: 'Saglabāt melnrakstu',
+      previewListing: 'Priekšskatīt sludinājumu',
+      editListing: 'Rediģēt sludinājumu',
+      deleteListing: 'Dzēst sludinājumu',
+      viewListing: 'Skatīt sludinājumu',
+      viewDetails: 'Skatīt detaļas',
+      contactDealer: 'Sazināties ar dīleri',
+      scheduleTestDrive: 'Ieplānot testa braucienu',
+      requestFinancing: 'Pieprasīt finansējumu',
+      shareVehicle: 'Dalīties ar transportlīdzekli',
+      saveToFavorites: 'Saglabāt favorītos',
+      removeFromFavorites: 'Noņemt no favorītiem',
+      applyFilters: 'Lietot filtrus',
+      clearFilters: 'Notīrīt filtrus',
+      clearSearch: 'Notīrīt meklēšanu',
+      searchVehicles: 'Meklēt transportlīdzekļus',
+      viewAllCars: 'Skatīt visas automašīnas',
+      loadMore: 'Ielādēt vairāk',
+      showMore: 'Rādīt vairāk',
+      showLess: 'Rādīt mazāk'
+    }
+  },
+
+  // Modals - titles, descriptions, success messages
+  modals: {
+    contactCar: {
+      title: 'Sazināties ar pārdevēju',
+      description: 'Nosūtīt ziņojumu par šo automašīnu',
+      successTitle: 'Ziņojums veiksmīgi nosūtīts!',
+      successDescription: 'Jūsu ziņojums ir nosūtīts pārdevējam. Viņi ar jums sazināsies drīzumā.',
+    },
+    financing: {
+      title: 'Saņemiet iepriekšēju finansēšanas apstiprinājumu',
+      description: 'Saņemiet iepriekšēju apstiprinājumu auto finansēšanai minūšu laikā',
+      badges: {
+        financingAvailable: 'Finansēšana pieejama',
+      },
+      employmentStatus: {
+        retired: 'Pensionārs',
+        student: 'Students',
+        unemployed: 'Bezdarbnieks',
+      },
+      financialInformation: 'Finanšu informācija',
+      desiredLoanAmount: 'Vēlamā kredīta summa',
+      placeholders: {
+        enterFullName: 'Ievadiet savu pilno vārdu',
+        enterPhone: 'Ievadiet savu tālruņa numuru',
+        enterEmail: 'Ievadiet savu e-pasta adresi',
+        enterLoanAmount: 'Ievadiet kredīta summu',
+        enterAnnualIncome: 'Ievadiet gada ienākumus',
+        enterMonthlyExpenses: 'Ievadiet mēneša izdevumus',
+        selectRange: 'Izvēlieties diapazonu',
+        selectStatus: 'Izvēlieties statusu',
+        selectDuration: 'Izvēlieties ilgumu',
+      },
+      validation: {
+        validEmail: 'Lūdzu, ievadiet derīgu e-pasta adresi',
+        monthlyExpensesRequired: 'Mēneša izdevumi ir obligāti',
+      },
+    },
+    scheduleTestDrive: {
+      title: 'Ieplānot testa braucienu',
+      description: 'Rezervēt tikšanos šī transportlīdzekļa testa braucienam',
+      badge: 'Testa brauciens pieejams',
+      labels: {
+        fullName: 'Pilnais vārds',
+        email: 'E-pasts',
+        phone: 'Tālruņa numurs',
+        preferredDate: 'Vēlamais datums',
+        preferredTime: 'Vēlamais laiks',
+        specialRequests: 'Īpaši pieprasījumi',
+      },
+      placeholders: {
+        enterFullName: 'Ievadiet savu pilno vārdu',
+        enterEmail: 'Ievadiet savu e-pasta adresi',
+        enterPhone: 'Ievadiet savu tālruņa numuru',
+        selectDate: 'Izvēlieties vēlamo datumu',
+        selectTime: 'Izvēlieties vēlamo laiku',
+        enterRequests: 'Kādi īpaši pieprasījumi vai jautājumi?',
+      },
+      validation: {
+        emailInvalid: 'Lūdzu, ievadiet derīgu e-pasta adresi',
+        dateRequired: 'Lūdzu, izvēlieties vēlamo datumu',
+        timeRequired: 'Lūdzu, izvēlieties vēlamo laiku',
+      },
+      success: {
+        title: 'Testa brauciens ieplānots!',
+        description: 'Jūsu testa brauciena pieprasījums ir nosūtīts pārdevējam. Viņi ar jums sazināsies, lai apstiprinātu tikšanos.',
+      },
+      actions: {
+        cancel: 'Atcelt',
+        schedule: 'Ieplānot testa braucienu',
+        scheduling: 'Plāno...',
+      },
+    },
+    tradeIn: {
+      title: 'Iemaiņas vērtības aprēķinātājs',
+      description: 'Saņemiet tūlītēju sava pašreizējā transportlīdzekļa iemaiņas vērtības aprēķinu',
+      tabs: {
+        vehicleInfo: 'Transportlīdzekļa informācija',
+        condition: 'Stāvoklis',
+        results: 'Rezultāti'
+      },
+      form: {
+        labels: {
+          make: 'Marka',
+          model: 'Modelis',
+          year: 'Gads',
+          mileage: 'Nobraukums (km)',
+          condition: 'Vispārējais stāvoklis',
+          accident: 'Avāriju vēsture',
+          serviceHistory: 'Apkopes vēsture',
+          modifications: 'Modifikācijas'
+        },
+        placeholders: {
+          selectMake: 'Izvēlieties marku',
+          selectModel: 'Izvēlieties modeli',
+          selectYear: 'Izvēlieties gadu',
+          enterMileage: 'Ievadiet nobraukumu kilometros',
+          selectCondition: 'Izvēlieties vispārējo stāvokli',
+          selectAccidentHistory: 'Izvēlieties avāriju vēsturi',
+          selectServiceHistory: 'Izvēlieties apkopes vēsturi',
+          selectModifications: 'Izvēlieties modifikācijas'
+        },
+        options: {
+          condition: {
+            excellent: 'Izcils',
+            good: 'Labs',
+            fair: 'Apmierinošs',
+            poor: 'Slikts'
+          },
+          accident: {
+            none: 'Nav avāriju',
+            minor: 'Neliela avārija',
+            major: 'Liela avārija',
+            multiple: 'Vairākas avārijas'
+          },
+          serviceHistory: {
+            complete: 'Pilna apkopes vēsture',
+            partial: 'Daļēja apkopes vēsture',
+            none: 'Nav apkopes vēstures'
+          },
+          modifications: {
+            none: 'Nav modifikāciju',
+            minor: 'Nelielas modifikācijas',
+            major: 'Lielas modifikācijas'
+          }
+        }
+      },
+      validation: {
+        makeRequired: 'Lūdzu, izvēlieties marku',
+        modelRequired: 'Lūdzu, izvēlieties modeli',
+        yearRequired: 'Lūdzu, izvēlieties gadu',
+        mileageRequired: 'Lūdzu, ievadiet nobraukumu',
+        mileageInvalid: 'Lūdzu, ievadiet derīgu nobraukumu',
+        conditionRequired: 'Lūdzu, izvēlieties vispārējo stāvokli',
+        accidentRequired: 'Lūdzu, izvēlieties avāriju vēsturi',
+        serviceRequired: 'Lūdzu, izvēlieties apkopes vēsturi',
+        modificationsRequired: 'Lūdzu, izvēlieties modifikācijas'
+      },
+      results: {
+        title: 'Jūsu iemaiņas aprēķins',
+        estimatedValue: 'Aprēķinātā iemaiņas vērtība',
+        range: 'Diapazons',
+        confidence: 'Uzticamības līmenis',
+        confidenceLevels: {
+          high: 'Augsts',
+          medium: 'Vidējs',
+          low: 'Zems'
+        },
+        factors: {
+          title: 'Faktori, kas ietekmē jūsu aprēķinu',
+          positive: 'Pozitīvi faktori',
+          negative: 'Negatīvi faktori',
+          neutral: 'Neitrāli faktori'
+        },
+        recommendations: {
+          title: 'Ieteikumi',
+          maintenance: 'Apsveriet apkopes problēmu risināšanu pirms iemaiņas',
+          documentation: 'Savāciet visas apkopes atskaites un dokumentāciju',
+          inspection: 'Iegādājieties profesionālu apskati precīzam novērtējumam',
+          timing: 'Apsveriet tirgus laiku jūsu konkrētajai markai un modelim'
+        },
+        disclaimer: {
+          title: 'Svarīga informācija',
+          text: 'Šis ir aprēķinātais izmaksas, pamatojoties uz sniegto informāciju. Faktiskās iemaiņas vērtības var atšķirties atkarībā no dīlera politikas, pašreizējiem tirgus apstākļiem un transportlīdzekļa fiziskās apskates. Mēs iesakām saņemt piedāvājumus no vairākiem dīleriem visatbilstošākajam novērtējumam.'
+        }
+      },
+      actions: {
+        calculate: 'Aprēķināt vērtējumu',
+        recalculate: 'Pārskaitīt',
+        getQuotes: 'Saņemt dīleru piedāvājumus',
+        startOver: 'Sākt no jauna',
+        close: 'Aizvērt',
+        next: 'Tālāk',
+        previous: 'Atpakaļ'
+      },
+      loading: {
+        calculating: 'Aprēķina jūsu vērtējumu...',
+        fetchingData: 'Iegūst tirgus datus...'
+      }
+    },
+    badges: {
+      new: 'Jauns',
+      certified: 'Sertificēts',
+    },
+  },
+
+  features: {
+    title: 'Kāpēc izvēlēties CarMarket365?',
+    items: {
+      verifiedListings: {
+        title: 'Pārbaudīti sludinājumi',
+        description: 'Visi sludinājumi tiek pārbaudīti kvalitatīvas un drošas iepirkšanās pieredzes nodrošināšanai'
+      },
+      advancedSearch: {
+        title: 'Uzlabota meklēšana',
+        description: 'Atrodiet perfekto transportlīdzekli ar mūsu jaudīgajiem filtriem un meklēšanas opcijām'
+      },
+      bestPrices: {
+        title: 'Labākās cenas',
+        description: 'Salīdziniet cenas starp tūkstošiem pārdevēju, lai atrastu labākos darījumus'
+      },
+      freeDelivery: {
+        title: 'Bezmaksas piegāde',
+        description: 'Baudi bezmaksas transportlīdzekļa piegādi izvēlētās atrašanās vietās'
+      },
+      quickProcess: {
+        title: 'Ātrs process',
+        description: 'No meklēšanas līdz pirkumam - vienkāršs un ātrs process'
+      },
+      expertSupport: {
+        title: 'Eksperta atbalsts',
+        description: '24/7 klientu atbalsts, lai palīdzētu ar jebkuru jautājumu'
+      }
+    }
+  },
+
+  header: {
+    welcome: 'Laipni lūdzam CarMarket365',
+    signIn: 'Pierakstīties',
+    signOut: 'Izrakstīties',
+    myAccount: 'Mans konts',
+    dashboard: 'Panelis',
+    home: 'Sākums',
+    browseCars: 'Pārlūkot automašīnas',
+    sellCar: 'Pārdot',
+    savedCars: 'Saglabātās automašīnas',
+    financing: 'Finansēšana',
+    about: 'Par mums',
+    contact: 'Kontakti',
+    faq: 'Bieži uzdotie jautājumi',
+    help: 'Palīdzība',
+  },
+
+  hero: {
+    title: 'Atrodiet Savu Ideālo Automašīnu',
+    subtitle: 'Meklējiet starp tūkstošiem kvalitatīvu lietotu automašīnu no pārbaudītiem dīleriem un privātpersonu',
+    searchButton: 'Meklēt Automašīnas',
+    advancedSearch: 'Paplašināta Meklēšana',
+    vehicleTypes: {
+      cars: 'Automašīnas',
+      motorbikes: 'Motocikli',
+      trucks: 'Kravas automašīnas',
+    },
+    searchForm: {
+      make: 'Marka',
+      model: 'Modelis',
+      priceFrom: 'Cena No',
+      priceTo: 'Cena Līdz',
+      yearFrom: 'Gads No',
+      mileage: 'Nobraukums (km)',
+      location: 'Atrašanās vieta',
+      anyMake: 'Jebkura Marka',
+      anyModel: 'Jebkurš Modelis',
+      minPrice: 'Minimālā Cena',
+      maxPrice: 'Maksimālā Cena',
+      minYear: 'Minimālais Gads',
+      anyYear: 'Jebkurš Gads',
+      anyMileage: 'Jebkurš Nobraukums',
+      maxMileage: 'Maksimālais Nobraukums',
+      noMin: 'Nav Minimuma',
+      noMax: 'Nav Maksimuma',
+      enterLocation: 'Ievadiet pilsētu vai pasta indeksu',
+    },
+    availableCars: 'Vairāk nekā 50 000 automašīnu pieejamas visā valstī',
+  },
+
+  // Last Search Section
+  lastSearch: {
+    title: 'Pēdējā meklēšana',
+    description: 'BMW automašīnas no €20 000 - €35 000, gadi 2019-2022 • Atrasti 247 rezultāti',
+    viewMore: 'Skatīt vairāk',
+    matchPercentage: '% atbilstība',
+  },
+
+  // Interesting Suggestions Section
+  suggestions: {
+    title: 'Šis varētu jūs interesēt',
+    description: 'Jauni BMW sludinājumi, kas atbilst jūsu kritērijiem • Tikko pievienoti platformai',
+    seeMore: 'Skatīt vairāk ieteikumu',
+    daysAgo: 'd atpakaļ',
+  },
+
+  // Popular Brands Section
+  brands: {
+    title: 'Iepērcieties pēc zīmola',
+    description: 'Pārlūkojiet automašīnas no populārākajiem ražotājiem',
+    carsCount: 'automašīnas',
+  },
+
+  cars: {
+    title: 'Automašīnas pārdošanai',
+    searchPlaceholder: 'Marka, modelis vai atslēgvārds',
+    noResults: 'Nav atrasts neviens transportlīdzeklis, kas atbilstu jūsu kritērijiem',
+    resultsCount: 'Atrasti {count} transportlīdzekļi',
+    viewDetails: 'Skatīt detaļas',
+    contactSeller: 'Sazināties ar pārdevēju',
+    saveToFavorites: 'Saglabāt favorītos',
+    removeFromFavorites: 'Noņemt no favorītiem',
+    carDetails: 'Automašīnas detaļas',
+    specifications: 'Specifikācijas',
+    fuelType: 'Degvielas veids',
+    transmission: 'Pārnesumkārba',
+    bodyType: 'Virsbūves tips',
+    exteriorColor: 'Ārējā krāsa',
+    interiorColor: 'Iekšējā krāsa',
+    drivetrain: 'Piedziņa',
+    vin: 'VIN kods',
+    inspection: 'Apskate',
+    history: 'Vēsture',
+    financing: 'Finansēšana',
+    testDrive: 'Testa brauciens',
+    makeOffer: 'Izdarīt piedāvājumu',
+    featured: 'Izceltie sludinājumi',
+    handpicked: 'Rūpīgi atlasītas automašīnas jums',
+    discover: 'Atklājiet mūsu rūpīgi atlasītos premium transportlīdzekļus',
+    allCars: 'Visas automašīnas',
+    newCars: 'Jaunas automašīnas',
+    certifiedPreOwned: 'Sertificētas lietotas',
+    electric: 'Elektriskās',
+    luxury: 'Luksusa',
+    viewAllCars: 'Skatīt visas automašīnas',
+  },
+
+  filters: {
+    title: 'Meklēšanas filtri',
+    anyMake: 'Jebkura marka',
+    anyModel: 'Jebkurš modelis',
+    anyYear: 'Jebkurš gads',
+    priceRange: 'Cenu diapazons',
+    priceMin: 'Minimālā cena',
+    priceMax: 'Maksimālā cena',
+    yearRange: 'Gadu diapazons',
+    yearMin: 'Minimālais gads',
+    yearMax: 'Maksimālais gads',
+    mileageMax: 'Maksimālais nobraukums',
+    location: 'Atrašanās vieta',
+    fuelTypes: 'Degvielas veids',
+    transmissionTypes: 'Pārnesumkārba',
+    bodyTypes: 'Virsbūves tips',
+    condition: 'Stāvoklis',
+    applyFilters: 'Lietot filtrus',
+    clearFilters: 'Notīrīt filtrus',
+  },
+
+  auth: {
+    signIn: 'Pierakstīties',
+    signUp: 'Reģistrēties',
+    signOut: 'Izrakstīties',
+    email: 'E-pasts',
+    password: 'Parole',
+    confirmPassword: 'Apstiprināt paroli',
+    firstName: 'Vārds',
+    lastName: 'Uzvārds',
+    phoneNumber: 'Tālruņa numurs',
+    rememberMe: 'Atcerēties mani',
+    forgotPassword: 'Aizmirsta parole?',
+    createAccount: 'Izveidot kontu',
+    alreadyHaveAccount: 'Jau ir konts?',
+    dontHaveAccount: 'Vēl nav konta?',
+    loginWith: 'Vai turpiniet ar',
+    registerAs: 'Reģistrēties kā',
+    privatePerson: 'Privātpersona',
+    dealerAccount: 'Dīlera konts',
+    userType: 'Es esmu',
+    
+    // SignIn page specific
+    backToHome: 'Atpakaļ uz sākumu',
+    signInToAccount: 'Pierakstieties savā kontā',
+    welcomeBack: 'Laipni lūdzam atpakaļ',
+    enterCredentials: 'Ievadiet savus pieejas datus, lai piekļūtu savam kontam',
+    privatePersonDescription: 'Pirciet vai pārdodiet savu automašīnu',
+    dealerDescription: 'Profesionāls pārdevējs',
+    pro: 'Pro',
+    enterYourEmail: 'Ievadiet savu e-pastu',
+    enterYourPassword: 'Ievadiet savu paroli',
+    signingIn: 'Pierakstās...',
+    orContinueWith: 'Vai turpiniet ar',
+    google: 'Google',
+    facebook: 'Facebook',
+    createPrivateAccount: 'Izveidot privāto kontu',
+    registerAsDealer: 'Reģistrēties kā dīleris',
+    dealerBenefits: 'Dīlera priekšrocības',
+    professionalDashboard: '• Professional dealer dashboard',
+    inventoryManagement: '• Advanced inventory management',
+    customerTracking: '• Customer inquiry tracking',
+    enhancedVisibility: '• Enhanced listing visibility',
+    analyticsInsights: '• Analytics and insights',
+    
+    // UserSignUp page specific
+    createYourAccount: 'Izveidojiet savu kontu',
+    joinThousands: 'Pievienojieties tūkstošiem automašīnu entūziastŪ',
+    privateAccount: 'Privātais konts',
+    buyAndSellCars: 'Pirciet un pārdodiet automašīnas, saglabājiet iecienītākās un pārvaldiet savus sludiņājumus',
+    fullName: 'Pilnais vārds',
+    enterFullName: 'Ievadiet savu pilno vārdu',
+    emailAddress: 'E-pasta adrese',
+    createStrongPassword: 'Izveidojiet drāšu paroli',
+    confirmYourPassword: 'Apstipriniet savu paroli',
+    mustBeCharacters: 'Jābūt vismaz 8 rakstzīmēm',
+    agreeToTerms: 'I agree to the',
+    termsOfService: 'Lietošanas noteikumi',
+    and: 'and',
+    privacyPolicy: 'Privātuma politika',
+    creatingAccount: 'Izveido kontu...',
+    wantSellAsDealer: 'Vēlaties pārdot automašīnas kā dīleris?',
+    createDealerAccount: 'Izveidot dīlera kontu',
+    joinCommunityText: 'Izveidojot kontu, jūs pievienojaties mūsu automašīnu entūziastū kopiena un piekrītat mūsu platformas vadlīnijām.',
+    
+    // Error messages for signup
+    pleaseAgreeTerms: 'Lūdzu, piekrītiet noteikumiem',
+    passwordsNotMatch: 'Paroles nesakrīt',
+    passwordMinLength: 'Parolei jābūt vismaz 8 rakstzīmes gara',
+    registrationFailed: 'Reģistrācija neizdevās',
+    
+    // DealerSignUp page specific
+    backToSignIn: 'Atpakaļ uz pierakstīšanos',
+    dealerRegistration: 'Dīlera reģistrācija',
+    joinCarMarketDealer: 'Pievienojieties CarMarket365 kā profesionāls dīleris',
+    businessInformation: 'Uzņēmuma informācija',
+    tellUsAboutBusiness: 'Pastāstiet mums par savu dīlera uzņēmumu',
+    businessName: 'Uzņēmuma nosaukums',
+    businessNamePlaceholder: 'Jūsu uzņēmuma nosaukums SIA',
+    businessType: 'Uzņēmuma tips',
+    selectBusinessType: 'Izvēlieties uzņēmuma tipu',
+    carDealership: 'Automašīnu dīlerī',
+    usedCarLot: 'Lietotu automašīnu tirdzniecība',
+    autoTrader: 'Autotirgotājs',
+    carBroker: 'Automašīnu brokeris',
+    rentalCompany: 'Nomas uzņēmums',
+    other: 'Other',
+    vatNumber: 'VAT Number',
+    vatNumberPlaceholder: 'DE123456789',
+    taxId: 'Nodokļa identifikācijas numurs',
+    optional: 'Optional',
+    yearEstablished: 'Dibināšanas gads',
+    selectYear: 'Izvēlieties gadu',
+    businessDescription: 'Uzņēmuma apraksts',
+    businessDescriptionPlaceholder: 'Describe your business, specializations, and services...',
+    contactPerson: 'Contact Person',
+    primaryContactInfo: 'Primary contact information for your business',
+    position: 'Position',
+    positionPlaceholder: 'e.g., Owner, Sales Manager',
+    businessEmail: 'Business Email',
+    businessEmailPlaceholder: 'business@example.com',
+    businessAddress: 'Business Address',
+    dealershipLocation: "Your dealership's physical location",
+    streetAddress: 'Street Address',
+    streetAddressPlaceholder: '123 Business Street',
+    city: 'City',
+    cityPlaceholder: 'Munich',
+    stateRegion: 'State/Region',
+    stateRegionPlaceholder: 'Bavaria',
+    postalCode: 'Postal Code',
+    postalCodePlaceholder: '80331',
+    country: 'Country',
+    selectCountry: 'Select country',
+    germany: 'Germany',
+    austria: 'Austria',
+    switzerland: 'Switzerland',
+    netherlands: 'Netherlands',
+    belgium: 'Belgium',
+    france: 'France',
+    italy: 'Italy',
+    spain: 'Spain',
+    accountSetup: 'Account Setup',
+    createSecureDealerAccount: 'Create your secure dealer account',
+    termsAndAgreements: 'Terms and Agreements',
+    acceptTermsConditions: 'I accept the Terms and Conditions',
+    agreeToTermsAndDealer: 'You agree to our Terms of Service and Dealer Agreement.',
+    acceptPrivacyPolicy: 'I accept the Privacy Policy',
+    understandDataCollection: 'You understand how we collect and use your data.',
+    receiveMarketingCommunications: 'I would like to receive marketing communications',
+    getUpdatesFeatures: 'Get updates about new features and business opportunities.',
+    alreadyHaveAccountSignIn: 'Already have an account? Sign In',
+    
+    // Validation error messages for dealer signup
+    businessNameRequired: 'Business name is required',
+    businessTypeRequired: 'Business type is required',
+    vatNumberRequired: 'VAT number is required',
+    firstNameRequired: 'First name is required',
+    lastNameRequired: 'Last name is required',
+    emailRequired: 'Email is required',
+    phoneRequired: 'Phone number is required',
+    streetRequired: 'Street address is required',
+    cityRequired: 'City is required',
+    postalCodeRequired: 'Postal code is required',
+    passwordRequired: 'Password is required',
+    confirmPasswordRequired: 'Please confirm password',
+    validEmailRequired: 'Please enter a valid email address',
+    validVatNumber: 'Please enter a valid VAT number (e.g., DE123456789)',
+    passwordMinEightChars: 'Password must be at least 8 characters',
+    acceptTermsRequired: 'You must accept the terms and conditions',
+    acceptPrivacyRequired: 'You must accept the privacy policy',
+    resetPassword: 'Atiestatīt savu paroli',
+    resetPasswordDescription: 'Ievadiet savu e-pasta adresi, un mēs nosūtīsim jums saiti paroles atiestatīšanai.',
+    sendResetLink: 'Nosūtīt atiestatīšanas saiti',
+    checkYourEmail: 'Pārbaudiet savu e-pastu',
+    resetLinkSent: 'Mēs nosūtījām paroles atiestatīšanas saiti uz',
+    nextSteps: 'Nākamie soļi',
+    checkEmailInbox: 'Pārbaudiet savu e-pasta iesūtni (un spam mapi)',
+    clickResetLink: 'Noklikšķiniet uz atiestatīšanas saites e-pastā',
+    createNewPassword: 'Izveidojiet jaunu paroli',
+    tryAnotherEmail: 'Izmēģiniet citu e-pastu',
+
+    // Password strength indicators
+    passwordStrength: {
+      title: 'Paroles stiprums',
+      levels: {
+        weak: 'Vājā',
+        medium: 'Vidējā',
+        strong: 'Stiprā',
+        veryStrong: 'Ļoti stiprā'
+      },
+      requirements: {
+        minLength: 'Vismaz 8 rakstzīmes',
+        uppercase: 'Vismaz viens liels burts',
+        lowercase: 'Vismaz viens mazs burts',
+        number: 'Vismaz viens cipars',
+        special: 'Vismaz viena īpašā rakstzīme',
+        noSpaces: 'Nav atstarpu',
+        notCommon: 'Nav bieži izmantotā parole'
+      }
+    },
+
+    // Social login
+    socialLogin: {
+      title: 'Vai turpiniet ar',
+      google: {
+        button: 'Turpināt ar Google',
+        connecting: 'Savienojas ar Google...'
+      },
+      facebook: {
+        button: 'Turpināt ar Facebook',
+        connecting: 'Savienojas ar Facebook...'
+      }
+    },
+
+    // Access denied messages
+    accessDenied: {
+      title: 'Piekļuve liegta',
+      adminOnly: 'Šī sadaļa ir pieejama tikai administratoriem.',
+      dealerOnly: 'Šī funkcija ir pieejama tikai dīleriem.',
+      memberOnly: 'Jums ir jāpierakstās, lai piekļūtu šai sadaļai.',
+      verificationRequired: 'Jūsu kontam nepieciešama pārbaude, lai piekļūtu šai funkcijai.',
+      subscriptionRequired: 'Šī funkcija prasa aktīvu abonementu.',
+      permissionDenied: 'Jums nav atļaujas veikt šo darbību.',
+      sessionExpired: 'Jūsu sesija ir beigusies. Lūdzu, pierakstieties vēlreiz.',
+      accountSuspended: 'Jūsu konts ir apturēts. Sazinieties ar atbalstu.',
+      emailNotVerified: 'Lūdzu, apstipriniet savu e-pasta adresi, lai turpinātu.',
+      profileIncomplete: 'Lūdzu, pabeidziet savu profilu, lai piekļūtu šai funkcijai.',
+      ageRestriction: 'Jums jābūt vismaz 18 gadu vecam, lai izmantotu šo funkciju.',
+      locationRestricted: 'Šī funkcija nav pieejama jūsu atrašanās vietā.',
+      maintenanceMode: 'Sistēma pašlaik tiek uzturēta. Lūdzu, mēģiniet vēlāk.',
+      tryAgain: 'Mēģiniet vēlreiz',
+      goHome: 'Doties uz sākumu',
+      contactSupport: 'Sazināties ar atbalstu',
+      signIn: 'Pierakstīties',
+      upgrade: 'Uzlabot kontu'
+    }
+  },
+
+  browseCars: {
+    title: 'Pārlūkot automašīnas',
+    subtitle: 'Atrodiet savu nākamo transportlīdzekli no tūkstošiem kvalitatīvu sludinājumu',
+    sortOptions: {
+      newest: 'Jaunākie sludinājumi',
+      oldest: 'Vecākie sludinājumi',
+      priceLowToHigh: 'Cena: no zemākas uz augstāku',
+      priceHighToLow: 'Cena: no augstākas uz zemāku',
+      mileageLowToHigh: 'Nobraukums: no mazāka uz lielāku',
+      mileageHighToLow: 'Nobraukums: no lielāka uz mazāku',
+      yearNewestFirst: 'Gads: jaunākie vispirms',
+      yearOldestFirst: 'Gads: vecākie vispirms',
+    },
+    viewOptions: {
+      grid: 'Režģa skats',
+      list: 'Saraksta skats',
+    },
+    filters: {
+      title: 'Filtri',
+      category: 'Kategorija',
+      priceRange: 'Cenu diapazons',
+      yearRange: 'Gadu diapazons',
+      mileageRange: 'Nobraukuma diapazons',
+      fuelType: 'Degvielas veids',
+      transmission: 'Transmisija',
+      bodyType: 'virsbūves tips',
+      condition: 'Stāvoklis',
+      features: 'Īpašības',
+      location: 'Atrašanās vieta',
+      sellerType: 'Pārdevēja tips',
+      certification: 'Sertifikācija',
+      availability: 'Pieejamība',
+      clearAll: 'Notīrīt visus filtrus',
+      apply: 'Lietot filtrus',
+      showing: 'Rāda {count} rezultātus',
+      reset: 'Atiestatīt filtrus',
+      close: 'Aizvērt filtrus'
+    },
+    results: {
+      found: 'Atrasti {count} transportlīdzekļi',
+      foundSingle: 'Atrasts 1 transportlīdzeklis',
+      noResults: 'Nav atrasts neviens transportlīdzeklis',
+      noResultsMessage: 'Mēģiniet pielāgot savus meklēšanas filtrus',
+      loading: 'Ielādē transportlīdzekļus...',
+      loadMore: 'Ielādēt vairāk',
+      showingResults: 'Rāda {start}-{end} no {total} rezultātiem'
+    },
+    carCard: {
+      year: 'Gads',
+      mileage: 'Nobraukums',
+      fuelType: 'Degviela',
+      transmission: 'Transmisija',
+      price: 'Cena',
+      negotiable: 'Sarunājama',
+      certified: 'Sertificēts',
+      featured: 'Izceltais',
+      new: 'Jauns',
+      dealer: 'Dīleris',
+      private: 'Privāts',
+      contactDealer: 'Sazināties ar dīleri',
+      contactSeller: 'Sazināties ar pārdevēju',
+      viewDetails: 'Skatīt detaļas',
+      saveToFavorites: 'Saglabāt favorītos',
+      removeFromFavorites: 'Noņemt no favorītiem',
+      share: 'Dalīties',
+      compare: 'Salīdzināt',
+      scheduleViewing: 'Ieplānot apskati',
+      requestFinancing: 'Pieprasīt finansējumu',
+      getInsuranceQuote: 'Saņemt apdrošināšanas piedāvājumu',
+      reportListing: 'Ziņot par sludinājumu'
+    },
+    searchSuggestions: {
+      title: 'Ieteiktās meklēšanas',
+      popularSearches: 'Populārākās meklēšanas',
+      recentSearches: 'Nesenie meklējumi',
+      savedSearches: 'Saglabātie meklējumi',
+      clearRecentSearches: 'Notīrīt nesenās meklēšanas'
+    },
+    errorStates: {
+      loadingError: 'Kļūda ielādējot transportlīdzekļus',
+      networkError: 'Tīkla kļūda. Pārbaudiet savienojumu.',
+      tryAgain: 'Mēģiniet vēlreiz',
+      goHome: 'Doties uz sākumu'
+    }
+  },
+
+  advancedSearch: {
+    title: 'Uzlabotā meklēšana',
+    subtitle: 'Atrodiet precīzi to, ko meklējat, izmantojot detalizētus filtrus',
+    resetFilters: 'Atiestatīt visus filtrus',
+    searchResults: 'Meklēšanas rezultāti',
+    sections: {
+      basicInformation: {
+        title: 'Pamata informācija'
+      },
+      technicalSpecs: {
+        title: 'Tehniskie dati'
+      },
+      featuresEquipment: {
+        title: 'Iezīmes un aprīkojums'
+      },
+      preferencesAndCertifications: {
+        title: 'Preferences un sertifikācijas'
+      },
+      vehicleDetails: {
+        title: 'Transportlīdzekļa informācija'
+      },
+      priceLocation: {
+        title: 'Cena un atrašanās vieta'
+      },
+      featuresOptions: {
+        title: 'Īpašības un opcijas'
+      }
+    },
+    ranges: {
+      any: 'Jebkurš',
+      from: 'No',
+      to: 'Līdz'
+    },
+    fields: {
+      make: 'Marka',
+      model: 'Modelis',
+      yearRange: 'Gadu diapazons',
+      priceRange: 'Cenu diapazons',
+      mileageRange: 'Nobraukuma diapazons',
+      engineSize: 'Dzinēja tilpums',
+      power: 'Jauda',
+      fuelType: 'Degvielas veids',
+      transmission: 'Transmisija',
+      drivetrain: 'Piedziņa',
+      bodyType: 'Virsbūves tips',
+      doors: 'Durvju skaits',
+      seats: 'Sēdvietu skaits',
+      exteriorColor: 'Ārējā krāsa',
+      interiorColor: 'Iekšējā krāsa',
+      condition: 'Stāvoklis',
+      sellerType: 'Pārdevēja tips',
+      location: 'Atrašanās vieta',
+      searchRadius: 'Meklēšanas rādiuss'
+    },
+    placeholders: {
+      selectMake: 'Izvēlieties marku',
+      selectModel: 'Izvēlieties modeli',
+      anyMake: 'Jebkura marka',
+      anyModel: 'Jebkurš modelis',
+      minPrice: 'Min. cena',
+      maxPrice: 'Maks. cena',
+      minYear: 'Min. gads',
+      maxYear: 'Maks. gads',
+      minMileage: 'Min. nobraukums',
+      maxMileage: 'Maks. nobraukums',
+      minEngineSize: 'Min. tilpums',
+      maxEngineSize: 'Maks. tilpums',
+      minPower: 'Min. jauda',
+      maxPower: 'Maks. jauda',
+      anyFuelType: 'Jebkura degviela',
+      anyTransmission: 'Jebkura transmisija',
+      anyBodyType: 'Jebkura virsbūve',
+      anyCondition: 'Jebkurš stāvoklis',
+      enterLocation: 'Ievadiet pilsētu vai pasta indeksu',
+      anyColor: 'Jebkura krāsa'
+    },
+    distances: {
+      km5: '5 km',
+      km10: '10 km',
+      km25: '25 km',
+      km50: '50 km',
+      km100: '100 km',
+      km200: '200 km',
+      nationwide: 'Visā valstī'
+    },
+    doors: {
+      '2': '2 durvis',
+      '3': '3 durvis', 
+      '4': '4 durvis',
+      '5': '5 durvis'
+    },
+    seats: {
+      '2': '2 sēdvietas',
+      '4': '4 sēdvietas',
+      '5': '5 sēdvietas',
+      '7': '7 sēdvietas',
+      '8': '8+ sēdvietas'
+    },
+    mileage: {
+      under25k: 'Zem 25,000 km',
+      under50k: 'Zem 50,000 km',
+      under100k: 'Zem 100,000 km',
+      under150k: 'Zem 150,000 km',
+      over150k: 'Virs 150,000 km'
+    },
+    sellerTypes: {
+      all: 'Visi pārdevēji',
+      dealer: 'Tikai dīleri',
+      private: 'Tikai privātpersonas',
+      certified: 'Tikai sertificētie'
+    }
+  },
+
+  sell: {
+    title: 'Pārdodiet savu automašīnu',
+    expressTitle: 'Ekspres pārdošana',
+    sellYourCar: 'Pārdodiet savu transportlīdzekli',
+    carInformation: 'Automašīnas informācija',
+    uploadPhotos: 'Augšupielādēt fotogrāfijas',
+    setPrice: 'Noteikt cenu',
+    contactInformation: 'Kontaktinformācija',
+    publish: 'Publicēt',
+    draft: 'Saglabāt kā melnrakstu',
+    preview: 'Priekšskatījums',
+    required: 'Obligāts',
+    optional: 'Neobligāts',
+    addPhotos: 'Pievienot fotogrāfijas',
+    removePhoto: 'Noņemt fotogrāfiju',
+    mainPhoto: 'Galvenā fotogrāfija',
+    additionalInfo: 'Papildu informācija',
+    sellerNotes: 'Pārdevēja piezīmes',
+    
+    // Step titles
+    steps: {
+      vehicleType: 'Transportlīdzekļa tips',
+      basicInfo: 'Pamatinformācija',
+      details: 'Detaļas',
+      photosAndContact: 'Fotogrāfijas un kontakti',
+    },
+    
+    // Vehicle type selection
+    vehicleTypes: {
+      car: {
+        name: 'Automašīna',
+        description: 'Sedani, apvidus auto, kupeja, hečbeki',
+      },
+      truck: {
+        name: 'Kravas auto',
+        description: 'Pikapa automašīnas, komerctransports',
+      },
+      motorbike: {
+        name: 'Motocikls',
+        description: 'Motocikli, skūteri, ATV',
+      },
+    },
+    bodyTypes: {
+      sedan: 'Sedan',
+      suv: 'SUV',
+      truck: 'Kravas auto',
+      coupe: 'Kupejs',
+      hatchback: 'Hecbeks',
+      convertible: 'Kabriolets',
+      wagon: 'Universālis',
+      van: 'Furgons',
+      crossover: 'Krosovers'
+    },
+    drivetrains: {
+      fwd: 'Priekšējais piedziņa',
+      rwd: 'Aizmugurējais piedziņa',
+      awd: 'Pilnpiedzīņa',
+      fourwd: '4x4 piedziņa'
+    },
+    colors: {
+      black: 'Melns',
+      white: 'Balts',
+      silver: 'Sudraba',
+      gray: 'Pelēks',
+      red: 'Sarkans',
+      blue: 'Zils',
+      green: 'Zaļš',
+      brown: 'Brūns',
+      gold: 'Zelta',
+      orange: 'Oranžs',
+      purple: 'Violets',
+      yellow: 'Dzeltens'
+    },
+    
+    // Headers and descriptions
+    headers: {
+      vehicleTypeQuestion: 'Kāda veida transportlīdzekli pārdodat?',
+      basicInformation: 'Pamatinformācija',
+      basicInfoDescription: 'Pastāstiet mums par savu {vehicleType}',
+      additionalDetails: 'Papildu detaļas',
+      additionalDetailsDescription: 'Pievienojiet vairāk detaļu par savu {vehicleType}',
+      photosAndContact: 'Fotogrāfijas un kontaktinformācija',
+      photosAndContactDescription: 'Pievienojiet fotogrāfijas un kontaktinformāciju',
+      vehicleDetails: 'Transportlīdzekļa informācija',
+      photosAndContactInfo: 'Fotogrāfijas un kontaktinformācija',
+      uploadVehiclePhotos: 'Augšupielādēt transportlīdzekļa fotogrāfijas',
+      addUpToTenPhotos: 'Pievienojiet līdz 10 fotogrāfijām',
+    },
+    
+    // Form fields and labels
+    fields: {
+      make: 'Marka',
+      model: 'Modelis',
+      year: 'Gads',
+      mileage: 'Nobraukums',
+      condition: 'Stāvoklis',
+      fuelType: 'Degvielas veids',
+      transmission: 'Ātrumkārba',
+      exteriorColor: 'Ārējā krāsa',
+      interiorColor: 'Iekšējā krāsa',
+      askingPrice: 'Prasītā cena',
+      featuresAndOptions: 'Aprīkojums un papildopcijas',
+      description: 'Apraksts',
+      vehiclePhotos: 'Transportlīdzekļa fotogrāfijas',
+      contactName: 'Kontaktpersonas vārds',
+      phoneNumber: 'Tālruņa numurs',
+      emailAddress: 'E-pasta adrese',
+      location: 'Atrašanās vieta',
+    },
+    
+    // Placeholders
+    placeholders: {
+      selectMake: 'Izvēlieties marku',
+      enterModel: 'Ievadiet modeli',
+      selectYear: 'Izvēlieties gadu',
+      selectCondition: 'Izvēlieties stāvokli',
+      enterMileage: 'Ievadiet nobraukumu',
+      selectFuelType: 'Izvēlieties degvielas veidu',
+      selectTransmission: 'Izvēlieties ātrumkārbu',
+      exteriorColorExample: 'piem., balta, melna, sudraba',
+      interiorColorExample: 'piem., melna, bēša, pelēka',
+      priceExample: '25.000',
+      descriptionExample: 'Aprakstiet sava transportlīdzekļa stāvokli, vēsturi un citus papildu datus...',
+      yourFullName: 'Jūsu pilns vārds',
+      phoneExample: '(+371) 12-345-678',
+      emailExample: 'jūsu.epasts@piemērs.lv',
+      cityState: 'Pilsēta, Valsts',
+      yourName: 'Jūsu vārds',
+      yourPhoneNumber: 'Jūsu tālruņa numurs',
+      yourEmail: 'Jūsu e-pasts',
+      cityCountry: 'Pilsēta, Valsts',
+      enterAskingPrice: 'Ievadiet vēlamo cenu',
+      describeYourVehicle: 'Aprakstiet savu transportlīdzekli...',
+      selectFuel: 'Izvēlieties degvielas veidu',
+      selectTransmissionType: 'Izvēlieties transmisijas veidu',
+      choosePhotos: 'Izvēlieties fotogrāfijas',
+    },
+    
+    // Button labels
+    buttons: {
+      nextStep: 'Nākamais solis',
+      previous: 'Iepriekšējais',
+      createListing: 'Izveidot sludinājumu',
+    },
+    
+    // Preview section
+    
+    // Photo upload
+    photos: {
+      instruction: 'Pievienojiet līdz 10 augstas kvalitātes fotogrāfijas savam transportlīdzeklim. Pirmā fotogrāfija būs galvenais attēls meklēšanas rezultātos.',
+      selected: '{count} fotogrāfij{plural} izvēlētas',
+      photo: 'a',
+      photos: 'as',
+    },
+    
+    // Vehicle makes (can be expanded)
+    makes: ['Toyota', 'Honda', 'Ford', 'Chevrolet', 'BMW', 'Mercedes-Benz', 'Audi', 'Volkswagen', 'Nissan', 'Hyundai'],
+    
+    // Fuel types
+    fuelTypes: {
+      gasoline: 'Benzīns',
+      electric: 'Elektriskais',
+      hybrid: 'Hibrīds',
+      diesel: 'Dīzelis',
+      pluginHybrid: 'Uzlādējamais hibrīds',
+      flexFuel: 'Elastīgā degviela',
+      cng: 'CNG',
+      lpg: 'LPG',
+    },
+    
+    // Transmissions
+    transmissions: {
+      automatic: 'Automātiskā',
+      manual: 'Mehāniskā',
+      cvt: 'CVT',
+    },
+    
+    // Conditions
+    conditions: {
+      new: 'Jauns',
+      likeNew: 'Kā jauns',
+      excellent: 'Izcils',
+      veryGood: 'ļoti labs',
+      good: 'Labs',
+      fair: 'Apmierinošs',
+      poor: 'Slikts',
+    },
+    
+    // Features list
+    features: {
+      airConditioning: 'Gaisa kondicionēšana',
+      leatherSeats: 'Ādas sēdekļi',
+      heatedSeats: 'Apsildāmi sēdekļi',
+      sunroof: 'Saules jumts',
+      gpsNavigation: 'GPS navigācija',
+      backupCamera: 'Atpakaļgaitas kamera',
+      bluetooth: 'Bluetooth',
+      usbPorts: 'USB porti',
+      premiumSound: 'Premium skaņas sistēma',
+      keylessEntry: 'Bezvadu atslēgas',
+      remoteStart: 'Attālināta iedarbināšana',
+      cruiseControl: 'Kruīza kontrole',
+      parkingSensors: 'Parkošanās sensori',
+      blindSpotMonitoring: 'Aklās zonas kontrole',
+    },
+  },
+
+  countries: {
+    northMacedonia: 'Ziemeļmaķedonija',
+    albania: 'Albānija',
+    kosovo: 'Kosova',
+    slovenia: 'Slovēnija',
+    latvia: 'Latvija',
+    global: 'Globāls',
+    chooseCountry: 'Izvēlieties savu valsti',
+    changeCountry: 'Mainīt valsti',
+    detectedLocation: 'Noteiktā atrašanās vieta',
+    currentSite: 'Pašreizējā vietne',
+    localBenefits: 'Vietējie ieguvumi',
+    localCurrency: 'Vietējā valūta un cenas',
+    localLanguages: 'Dzimtās valodas atbalsts',
+    localDealers: 'Vietējie dīleri un krājumi',
+    regionalFeatures: 'Reģionālās īpašības',
+  },
+
+  business: {
+    qualityUsedCars: 'Kvalitatīvas lietotās automašīnas no',
+    registeredDealers: 'reģistrētie dīleri',
+  },
+
+  success: {
+    saved: 'Veiksmīgi saglabāts!',
+    updated: 'Veiksmīgi atjaunināts!',
+    deleted: 'Veiksmīgi dzēsts!',
+    sent: 'Veiksmīgi nosūtīts!',
+    published: 'Veiksmīgi publicēts!',
+    registered: 'Veiksmīgi reģistrēts!',
+    loggedIn: 'Veiksmīgi pierakstījies!',
+    loggedOut: 'Veiksmīgi izrakstījies!',
+    passwordReset: 'Paroles atiestatīšanas e-pasts nosūtīts!',
+    subscribed: 'Veiksmīgi abonēts!',
+    contactSent: 'Kontakta ziņojums nosūtīts!',
+    favoriteAdded: 'Pievienots favorītiem!',
+    favoriteRemoved: 'Noņemts no favorītiem!',
+  },
+
+  redirect: {
+    welcome: 'Laipni lūdzam CarMarket365!',
+    detectedFrom: 'Mēs noteicām, ka jūs apmeklējat no',
+    redirectMessage: 'Jūs tiksiet novirzīti uz mūsu {country} vietni labākajai vietējai pieredzei, vai arī varat izvēlēties citu valsti.',
+    continueToSite: 'Turpināt uz {country} vietni',
+    chooseDifferent: 'Izvēlēties citu valsti',
+    localBenefitsTitle: 'Vietējie ieguvumi {country}',
+    howDetected: 'Kā mēs to noteicām?',
+    hideDetails: 'Slēpt detaļas',
+    changeAnytime: 'Jūs varat mainīt savas valsts izvēli jebkurā laikā no galvenes.',
+    countrySpecificExperience: 'Katra valsts vietne piedāvā lokalizētu saturu, cenas un valodu iespējas labākajai pieredzei.',
+    adminTestingMode: 'Administratora/testēšanas režīms',
+    adminNotAvailable: 'Administratora/testēšanas režīms - nav pieejams klientiem',
+    selectCountryToContinue: 'Lūdzu, izvēlieties savu valsti, lai turpinātu. Tas noteiks jūsu vietējo vietni, valodu un valūtu.'
+  },
+
+  carSpecs: {
+    conditions: {
+      new: 'Jauns',
+      likeNew: 'Kā jauns',
+      excellent: 'Lielisks',
+      veryGood: 'Ļoti labs',
+      good: 'Labs',
+      fair: 'Vidējs',
+      poor: 'Slikts',
+      used: 'Lietots',
+      certifiedPreOwned: 'Sertificēts lietots'
+    },
+    fuelTypes: {
+      gasoline: 'Benzīns',
+      petrol: 'Benzīns',
+      diesel: 'Dīzeļdegviela',
+      electric: 'Elektriskais',
+      hybrid: 'Hibrīds',
+      pluginHybrid: 'Plugin hibrīds',
+      cng: 'CNG',
+      lpg: 'LPG',
+      flexFuel: 'Flex degviela'
+    },
+    transmissions: {
+      manual: 'Manuālā',
+      automatic: 'Automātiskā',
+      cvt: 'CVT',
+      semiAutomatic: 'Pusmanuālā'
+    },
+    bodyTypes: {
+      sedan: 'Sedans',
+      hatchback: 'Hecbeks',
+      coupe: 'Kupejs',
+      wagon: 'Universāls',
+      suv: 'SUV',
+      truck: 'Pikaps',
+      van: 'Mikroautobuss',
+      convertible: 'Kabriolets',
+      pickup: 'Pikaps',
+      minivan: 'Minivens'
+    },
+    drivetrains: {
+      fwd: 'Priekšējo riteņu',
+      rwd: 'Aizmugurējo riteņu',
+      awd: 'Visu riteņu',
+      fourWD: '4 riteņu piedziņa'
+    },
+    colors: {
+      black: 'Melns',
+      white: 'Balts',
+      silver: 'Sudrabs',
+      gray: 'Pelēks',
+      grey: 'Pelēks',
+      blue: 'Zils',
+      red: 'Sarkans',
+      green: 'Zaļš',
+      brown: 'Brūns',
+      gold: 'Zelts',
+      yellow: 'Dzeltens',
+      orange: 'Oranžs',
+      purple: 'Violets',
+      beige: 'Bēšs',
+      other: 'Citas',
+      unknown: 'Nezināms'
+    },
+    features: {
+      airConditioning: 'Gaisa kondicionēšana',
+      leatherSeats: 'Ādas sēdekļi',
+      heatedSeats: 'Sēdekļu apsildes',
+      sunroof: 'Sauleslūka',
+      gpsNavigation: 'GPS navigācija',
+      backupCamera: 'Atpakaļgaitas kamera',
+      bluetooth: 'Bluetooth',
+      cruiseControl: 'Kruīza kontrole',
+      alloyWheels: 'Sakausējuma diski',
+      amFmRadio: 'AM/FM radio',
+      antiLockBrakes: 'ABS bremzes',
+      electronicStabilityControl: 'Elektroniskā stabilitātes kontrole',
+      airbags: 'Gaisa spilveni',
+      powerSteering: 'Stūres pastiprinātājs',
+      cooledSeats: 'Dzesēti sēdekļi',
+      moonroof: 'Mēness jumts',
+      usbPorts: 'USB porti',
+      wirelessCharging: 'Bezvadu uzlāde',
+      blindSpotMonitoring: 'Aklā punkta monitorings',
+      premiumSound: 'Premium skaņas sistēma',
+      keylessEntry: 'Atslēgu nebūšana',
+      remoteStart: 'Attālināts starts',
+      parkingSensors: 'Stāvvietu sensori',
+      electricWindows: 'Elektriskie logi',
+      centralLocking: 'Centrālā slēgšana',
+      powerBrakes: 'Pastiprinātās bremzes'
+    }
+  },
+
+  dashboard: {
+    overview: 'Pārskats',
+    listings: 'Sludinājumi',
+    inquiries: 'Pieprasījumi',
+    analytics: 'Analītika',
+    reports: 'Pārskati',
+    userManagement: 'Lietotāju pārvaldība',
+    allListings: 'Visi sludinājumi',
+    myListings: 'Mani sludinājumi',
+    savedCars: 'Saglabātās automašīnas',
+    lastSearch: 'Pēdējā meklēšana',
+    signInToAccessDashboard: 'Pierakstieties, lai piekļūtu panelim',
+    settings: 'Iestatījumi',
+    profile: 'Profils',
+    contact: 'Kontakti',
+    adminPanel: 'Administratora panelis',
+    dealerDashboard: 'Dīlera panelis',
+    myDashboard: 'Mans panelis',
+    expressSale: 'Ekspres pārdošana'
+  },
+
+  footer: {
+    quickLinks: 'Ātrās saites',
+    support: 'Atbalsts',
+    legal: 'Juridiskais',
+    searchCars: 'Meklēt automašīnas',
+    sellYourCar: 'Pārdot savu automašīnu',
+    registeredDealers: 'Reģistrētie dīleri',
+    carReviews: 'Auto atsauksmes',
+    contactUs: 'Sazināties ar mums',
+    safetyTips: 'Drošības padomi',
+    dealerSupport: 'Dīleru atbalsts',
+    privacyPolicy: 'Privātuma politika',
+    termsOfService: 'Lietošanas noteikumi',
+    aboutUs: 'Par mums',
+    faq: 'BUJ',
+    cookiePolicy: 'Sīkdatņu politika',
+    imprint: 'Impressum',
+    accessibility: 'Pieejamība',
+    signInToAccess: 'Pierakstieties, lai piekļūtu',
+    followUs: 'Sekojiet mums',
+    newsletter: 'Jaunumi',
+    subscribeNewsletter: 'Abonēt jaunumus',
+    emailAddress: 'E-pasta adrese',
+    subscribe: 'Abonēt',
+    copyright: 'Autortiesības',
+    allRightsReserved: 'Visas tiesības aizsargātas',
+    dashboard: 'Panelis',
+    contactSupport: 'Sazināties ar atbalstu',
+    marketplace: 'Tirgus'
+  },
+
+  finalFixes: {
+    expressSell: {
+      carBrands: [
+        'Audi', 'BMW', 'Mercedes-Benz', 'Volkswagen', 'Toyota', 
+        'Ford', 'Opel', 'Peugeot', 'Renault'
+      ],
+      carModels: [
+        '3 sērija', '5 sērija', 'X3', 'X5', 'A4', 'A6', 'Golf', 'Passat'
+      ],
+      conditionLabel: 'Stāvoklis *',
+      conditionPlaceholder: 'Izvēlieties stāvokli',
+      descriptionPlaceholder: 'Aprakstiet sava auto īpašības, vēsturi un kāpēc tas ir lieliska pirkums...',
+      namePlaceholder: 'Jūsu pilnais vārds',
+      locationPlaceholder: 'Pilsēta, Valsts',
+      uploadPhotos: 'Augšupielādēt fotoattēlus',
+      uploadPhotosDescription: 'Pievienojiet fotoattēlus, lai padarītu savu sludinājumu pievilcīgāku',
+      uploadCarPhotos: 'Augšupielādēt auto fotoattēlus',
+      addUpToTenPhotos: 'Pievienojiet līdz 10 fotoattēliem. Pirmais fotoattēls būs galvenais attēls.',
+      choosePhotos: 'Izvēlieties fotoattēlus',
+      mainPhoto: 'Galvenais fotoattēls',
+    },
+    savedCars: {
+      title: 'Saglabātās automašīnas',
+      back: 'Atpakaļ',
+      noSavedCars: 'Vēl nav saglabātu automašīnu',
+      startBrowsing: 'Sāciet pārlūkot mūsu inventāru, lai saglabātu jūsu iecienītākos transportlīdzekļus vēlākai aplūkošanai.',
+      browseVehicles: 'Pārlūkot transportlīdzekļus',
+      carsSaved: 'automašīnas saglabātas',
+      clearAll: 'Notīrīt visu',
+      sortBy: 'Kārtot pēc',
+      recentlySaved: 'Nesen saglabātas',
+      priceLowToHigh: 'Cena: No zemākas uz augstāku',
+      priceHighToLow: 'Cena: No augstākas uz zemāku',
+      yearNewestFirst: 'Gads: Jaunākās vispirms',
+      yearOldestFirst: 'Gads: Vecākās vispirms',
+      filterPlaceholder: 'Filtrēt',
+      allCars: 'Visas automašīnas',
+      savedThisWeek: 'Saglabātas šajā nedēļā',
+      savedDate: 'Saglabāts',
+      contact: 'Kontakts',
+      view: 'Detaļas'
+    }
+  },
+
+  faq: {
+    title: 'Bieži uzdotie jautājumi',
+    subtitle: 'Atrodiet atbildes uz biežākajiem jautājumiem par automašīnu pirkšanu, pārdošanu, finansēšanu un CarMarket365 izmantošanu.',
+    searchPlaceholder: 'Meklēt BUJ...',
+    browseByCategory: 'Pārlūkot pēc kategorijām',
+    allQuestions: 'Visi jautājumi',
+    stillNeedHelp: 'Joprojām vajag palīdzību?',
+    stillNeedHelpDescription: 'Nevarat atrast to, ko meklējat? Mūsu atbalsta komanda ir gatava palīdzēt.',
+    callSupport: 'Zvanīt atbalstam',
+    emailUs: 'Rakstiet mums',
+    liveChat: 'Tiešsaistes čats',
+    available247: 'Pieejams 24/7',
+    noResultsFound: 'Nav atrasti rezultāti',
+    noResultsText: 'Mēģiniet meklēt ar citiem atslēgvārdiem vai pārlūkojiet pēc kategorijām.',
+    clearSearch: 'Notīrīt meklēšanu',
+    staticContent: {
+      categories: {
+        buying: 'Automašīnu pirkšana',
+        selling: 'Automašīnu pārdošana',
+        financing: 'Finansēšana un maksājumi',
+        safety: 'Drošība un aizsardzība',
+        account: 'Konts un lietošana'
+      },
+      questions: [
+        {
+          id: 'buy-1',
+          category: 'buying',
+          question: 'Kā es varu nopirkt savu pirmo automašīnu uz CarMarket365?',
+          answer: 'Lai iegādātos automašīnu, sāciet ar transportlīdzekļu meklēšanu, izmantojot mūsu detalizētos filtrus. Kad atrodat jums patīkamu automašīnu, sazinieties ar pārdevēju tieši caur mūsu platformu. Mēs vienmēr iesakām apskatīt automašīnu pirms pirkšanas un pārbaudīt dokumentāciju.'
+        },
+        {
+          id: 'buy-2',
+          category: 'buying',
+          question: 'Vai pārdevēji platformā ir pārbaudīti?',
+          answer: 'Jā, visi profesionālie pārdevēji ir pārbaudīti no mūsu komandas. Privātie pārdevēji arī tiek pakļauti pamata pārbaudes procesam. Meklējiet pārbaudes nozīmīti pārdevēja profilos pilnai pārredzamībai.'
+        },
+        {
+          id: 'buy-3',
+          category: 'buying',
+          question: 'Vai es varu izmēģināt automašīnu pirms pirkšanas?',
+          answer: 'Protams! Vairākums pārdevēju atļauj testa braucienus. Sazinieties ar pārdevēju, lai ieplānotu tikšanos testa braucienam. Vienmēr paņemiet līdzi derīgas vadītāja apliecības un pārliecinieties, ka automašīnai ir derīga apdrošināšana.'
+        },
+        {
+          id: 'buy-4',
+          category: 'buying',
+          question: 'Ko man vajadzētu pārbaudīt pirms automašīnas pirkšanas?',
+          answer: 'Pārbaudiet: automašīnas vēsturi, juridiskos dokumentus, fizisko stāvokli, galvenās sistēmas (dzinējs, bremzes, pārnesumkārba) un veiciet testa braucienu. Mēs arī iesakām apskatīšanu pie uzticama mehāniķa.'
+        },
+        {
+          id: 'buy-5',
+          category: 'buying',
+          question: 'Vai CarMarket365 nodrošina garantijas automašīnām?',
+          answer: 'CarMarket365 ir platforma, kas savieno pircējus ar pārdevējiem. Garantijas nodrošina atsevišķi pārdevēji. Vairākums profesionālo pārdevēju piedāvā ierobežotas garantijas. Pārbaudiet garantijas detaļas ar pārdevēju pirms pirkšanas.'
+        },
+        {
+          id: 'sell-1',
+          category: 'selling',
+          question: 'Cik maksā automašīnas pārdošana uz CarMarket365?',
+          answer: 'Pamata sludinājums ir bezmaksas privātajiem pārdevējiem. Mēs arī piedāvājam premium opcijas ar papildu funkcijām, piemēram, labāku redzamību un profesionālu fotogrāfiju. Profesionālajiem pārdevējiem ir mēneša plāni ar papildu funkcijām.'
+        },
+        {
+          id: 'sell-2',
+          category: 'selling',
+          question: 'Cik ilgu laiku aizņem automašīnas pārdošana?',
+          answer: 'Pārdošanas laiks atkarīgs no vairākiem faktoriem: cenas, automašīnas stāvokļa, tirgus pieprasījuma un sludinājuma kvalitātes. Vidēji automašīnas tiek pārdotas 2-8 nedēļu laikā. Sludinājumi ar konkurētspējīgām cenām un kvalitatīvām fotogrāfijām pārdodas ātrāk.'
+        },
+        {
+          id: 'sell-3',
+          category: 'selling',
+          question: 'Kā es varu palielināt savas automašīnas pārdošanas iespējas?',
+          answer: 'Izmantojiet profesionālas fotogrāfijas, rakstiet detalizētus aprakstus, noteiciet konkurētspējīgas cenas, esiet godīgi par automašīnas stāvokli un ātri atbildiet uz jautājumiem. Apsveriet arī mūsu profesionālās fotogrāfijas pakalpojumu.'
+        },
+        {
+          id: 'sell-4',
+          category: 'selling',
+          question: 'Kādi dokumenti man nepieciešami automašīnas pārdošanai?',
+          answer: 'Jums būs nepieciešami: reģistrācijas apliecība, identitātes dokuments, tehniskā apskate un pašreizējā apdrošināšanas apliecība. Automašīnām, kas vecākas par 4 gadiem, nepieciešama arī tehniskās apskates apliecība.'
+        },
+        {
+          id: 'sell-5',
+          category: 'selling',
+          question: 'Vai es varu mainīt sava sludinājuma cenu?',
+          answer: 'Jā, jūs varat mainīt cenu jebkurā laikā no sava pārvaldības paneļa. Mēs iesakām sekot līdzi tirgum un pielāgot cenas pēc nepieciešamības, lai maksimizētu pircēju interesi.'
+        },
+        {
+          id: 'financing-1',
+          category: 'financing',
+          question: 'Vai CarMarket365 piedāvā finansēšanas opcijas?',
+          answer: 'Mēs sadarbojamies ar vairākām finanšu iestādēm, lai piedāvātu kredīta opcijas. Jūs varat pieteikties iepriekšējai apstiprinājumam caur mūsu platformu. Procentu likmes un nosacījumi atkarīgi no jūsu finanšu profila un izvēlētā transportlīdzekļa.'
+        },
+        {
+          id: 'financing-2',
+          category: 'financing',
+          question: 'Kāda informācija nepieciešama kredīta pieteikumam?',
+          answer: 'Pieteikumam nepieciešama: personiskā informācija, mēneša ienākumi, nodarbinātības informācija, kredīta vēsture un informācija par automašīnu, ko vēlaties iegādāties. Iepriekšējā apstiprināšanas process parasti aizņem 10-15 minūtes.'
+        },
+        {
+          id: 'financing-3',
+          category: 'financing',
+          question: 'Kāda ir zemākā procentu likme, ko varu saņemt?',
+          answer: 'Procentu likmes sākas no 3,9% gadā kvalificētiem pieteicējiem. Faktiskā likme atkarīga no jūsu kredīta reitinga, ienākumiem, kredīta termiņa un automašīnas veida. Izmantojiet mūsu kredīta kalkulatoru sākotnējiem aprēķiniem.'
+        },
+        {
+          id: 'safety-1',
+          category: 'safety',
+          question: 'Kā būt drošam, pērkot no privāta pārdevēja?',
+          answer: 'Vienmēr tiksimies publiskās vietās, paņemiet kādu līdzi, apskatiet automašīnu dienas gaismā, pārbaudiet pārdevēja identitāti un nenesājiet lielas skaidras naudas summas. Izmantojiet mūsu ieteiktās maksājumu metodes drošām darījumiem.'
+        },
+        {
+          id: 'safety-2',
+          category: 'safety',
+          question: 'Ko darīt, ja pārdevējs šķiet aizdomīgs?',
+          answer: 'Uzticieties saviem instinktiem. Ja kaut kas šķiet aizdomīgs, neturpiniet darījumu. Ziņojiet par aizdomīgu aktivitāti mūsu drošības komandai uz safety@carmarket365.com. Mēs izmeklēsim un veiks atbilstošus pasākumus.'
+        },
+        {
+          id: 'safety-3',
+          category: 'safety',
+          question: 'Kā es varu pārbaudīt, vai automašīna nav zogta?',
+          answer: 'Pārbaudiet transportlīdzekļa VIN mūsu datubāzēs un pieprasiet transportlīdzekļa vēstures ziņojumu. Pārliecinieties, ka VIN uz automašīnas atbilst dokumentiem. Ja ir šaubas, sazinieties ar vietējām iestādēm pirms pirkšanas.'
+        },
+        {
+          id: 'account-1',
+          category: 'account',
+          question: 'Kā izveidot kontu uz CarMarket365?',
+          answer: 'Noklikšķiniet "Reģistrēties" lapas augšpusē. Jūs varat izvēlēties starp privāto kontu (pircējiem un privātajiem pārdevējiem) vai profesionālo kontu (pārdevējiem un dīleriem). Process ir bezmaksas un aizņem tikai dažas minūtes.'
+        },
+        {
+          id: 'account-2',
+          category: 'account',
+          question: 'Vai es varu vēlāk mainīt sava konta veidu?',
+          answer: 'Jā, jūs varat jebkurā laikā uzlabot no privātā uz profesionālo kontu. Sazinieties ar mūsu klientu atbalstu, lai saņemtu palīdzību ar pārcelšanu. Ņemiet vērā, ka dažas funkcijas var nebūt pārceļamas.'
+        },
+        {
+          id: 'account-3',
+          category: 'account',
+          question: 'Kā atiestatīt savu paroli?',
+          answer: 'Noklikšķiniet "Aizmirsu paroli?" pierakstīšanās lapā. Ievadiet savu e-pasta adresi, un mēs nosūtīsim jums atiestatīšanas saiti. Saite ir derīga 24 stundas drošības apsvērumu dēļ.'
+        },
+        {
+          id: 'account-4',
+          category: 'account',
+          question: 'Kā dzēst savu kontu?',
+          answer: 'Jūs varat dzēst savu kontu no konta iestatījumiem vai sazinoties ar mums tieši. Ņemiet vērā, ka dzēšana ir pastāvīga, un jūs zaudēsiet visus savus datus un sludinājumus.'
+        },
+        {
+          id: 'account-5',
+          category: 'account',
+          question: 'Vai es varu turēt vairākus kontus?',
+          answer: 'Katra persona var turēt tikai vienu aktīvu kontu. Vairāki konti var izraisīt konta apturēšanu. Ja jums nepieciešams mainīt konta veidu, sazinieties ar mūsu atbalstu palīdzībai.'
+        }
+      ]
+    }
+  },
+
+  admin: {
+    panel: 'Administratora panelis',
+    dashboard: 'Administratora pārvaldības panelis'
+  },
+
+  dealer: {
+    notFound: 'Dīleris nav atrasts',
+    information: 'Dīlera informācija',
+    businessHours: 'Darba laiks',
+    vehicleInventory: 'Transportlīdzekļu krājumi',
+    viewListing: 'Apskatīt sludinājumu',
+    editListing: 'Rediģēt sludinājumu',
+    deleteListing: 'Dzēst sludinājumu'
+  },
+
+  pages: {
+    help: {
+      title: 'Palīdzības centrs'
+    },
+    feedback: {
+      title: 'Atsauksmes'
+    },
+    disclaimer: {
+      title: 'Atrunas'
+    },
+    insurance: {
+      title: 'Automašīnu apdrošināšana'
+    }
+  },
+
+  financing: {
+    title: 'Automašīnu finansēšana',
+    subtitle: 'Atrodiet labākās finansēšanas iespējas jūsu nākamās automašīnas iegādei.',
+    loanCalculator: 'Kredīta kalkulators',
+    monthlyPayment: 'Ikmēneša maksājums',
+    totalInterest: 'Kopējās procentu summa',
+    totalPayment: 'Kopējais maksājums',
+    loanAmount: 'Kredīta summa',
+    interestRate: 'Procentu likme',
+    loanTerm: 'Kredīta termiņš',
+    years: 'gadi',
+    calculate: 'Aprēķināt',
+    financialInformation: 'Finanšu informācija',
+    desiredLoanAmount: 'Vēlamā kredīta summa',
+    enterLoanAmount: 'Ievadiet kredīta summu',
+    enterAnnualIncome: 'Ievadiet gada ienākumus',
+    enterMonthlyExpenses: 'Ievadiet mēneša izdevumus',
+    selectRange: 'Izvēlieties diapazonu',
+    selectStatus: 'Izvēlieties statusu',
+    selectDuration: 'Izvēlieties ilgumu'
+  },
+
+  contact: {
+    title: 'Sazināties ar mums',
+    subtitle: 'Mēs esam šeit, lai palīdzētu. Sazinies ar mūsu komandu.',
+    phoneSupport: {
+      title: 'Tālruņa atbalsts',
+      description: 'Runājiet tieši ar mūsu atbalsta komandu',
+      number: '+371 2000 0000'
+    },
+    emailSupport: {
+      title: 'E-pasta atbalsts', 
+      description: 'Nosūtiet mums e-pastu, un mēs atbildēsim 24 stundu laikā'
+    },
+    businessHours: {
+      title: 'Darba laiks',
+      description: 'Mūsu atbalsta komanda ir pieejama:',
+      timeRange: {
+        weekdays: 'Darba dienās: 9:00 - 18:00',
+        weekend: 'Nedēļas nogalēs: 10:00 - 16:00'
+      }
+    },
+    officeLocation: {
+      title: 'Biroja adrese',
+      address: {
+        street: 'Brīvības iela 123',
+        city: 'Rīga, LV-1010',
+        country: 'Latvija'
+      }
+    },
+    form: {
+      title: 'Sūtīt ziņojumu',
+      inquiryType: {
+        label: 'Pieprasījuma tips',
+        options: {
+          general: 'Vispārīgs jautājums',
+          technical: 'Tehnisks atbalsts',
+          billing: 'Norēķini un maksājumi',
+          dealer: 'Dīleru atbalsts',
+          report: 'Ziņot par problēmu',
+          feedback: 'Atsauksmes',
+          partnership: 'Sadarbības iespējas',
+          media: 'Mediju pieprasījumi'
+        }
+      },
+      fields: {
+        name: 'Pilnais vārds',
+        email: 'E-pasta adrese',
+        phone: 'Tālruņa numurs',
+        subject: 'Tēma',
+        message: 'Ziņojums'
+      },
+      placeholders: {
+        enterName: 'Ievadiet savu pilno vārdu',
+        enterEmail: 'Ievadiet savu e-pasta adresi',
+        enterPhone: 'Ievadiet savu tālruņa numuru',
+        enterSubject: 'Ievadiet ziņojuma tēmu',
+        enterMessage: 'Ievadiet savu ziņojumu...'
+      }
+    },
+    success: {
+      title: 'Ziņojums nosūtīts!',
+      message: 'Paldies par jūsu ziņojumu. Mēs ar jums sazināsimies drīzumā.'
+    }
+  },
+
+  carDetail: {
+    title: 'Transportlīdzekļa detaļas',
+    backToResults: 'Atpakaļ uz rezultātiem',
+    shareVehicle: 'Dalīties ar transportlīdzekli',
+    tabs: {
+      overview: 'Pārskats',
+      specifications: 'Specifikācijas',
+      features: 'Īpašības',
+      inspection: 'Apskate',
+      history: 'Vēsture',
+      financing: 'Finansēšana',
+      insurance: 'Apdrošināšana'
+    },
+    overview: {
+      basicInfo: 'Pamata informācija',
+      description: 'Apraksts',
+      keyFeatures: 'Galvenās īpašības',
+      condition: 'Stāvoklis',
+      location: 'Atrašanās vieta',
+      availability: 'Pieejamība',
+      lastUpdated: 'Pēdējoreiz atjaunināts',
+      viewCount: 'Skatīšanās reižu skaits',
+      inquiryCount: 'Pieprasījumu skaits'
+    },
+    features: {
+      safety: 'Drošība',
+      comfort: 'Komforts',
+      technology: 'Tehnoloģijas'
+    },
+    inspection: {
+      title: 'Apskates ziņojums',
+      overallCondition: 'Vispārējais stāvoklis',
+      exterior: 'Eksterjers',
+      interior: 'Interjers',
+      mechanical: 'Mehānika',
+      lastInspection: 'Pēdējā apskate',
+      nextInspection: 'Nākamā apskate'
+    },
+    history: {
+      title: 'Transportlīdzekļa vēsture',
+      previousOwners: 'Iepriekšējie īpašnieki',
+      serviceRecords: 'Apkopes ieraksti',
+      accidentHistory: 'Negadījumu vēsture',
+      modifications: 'Modifikācijas'
+    },
+    actions: {
+      contactSeller: 'Sazināties ar pārdevēju',
+      scheduleViewing: 'Ieplānot apskati',
+      scheduleTestDrive: 'Ieplānot testa braucienu',
+      requestFinancing: 'Pieprasīt finansējumu',
+      getInsuranceQuote: 'Saņemt apdrošināšanas piedāvājumu',
+      saveToFavorites: 'Saglabāt favorītos',
+      removeFromFavorites: 'Noņemt no favorītiem',
+      shareVehicle: 'Dalīties ar transportlīdzekli',
+      reportListing: 'Ziņot par sludinājumu',
+      printDetails: 'Izdrukāt detaļas',
+      compareVehicles: 'Salīdzināt transportlīdzekļus'
+    },
+    seller: {
+      dealerInfo: 'Dīlera informācija',
+      privateSellerInfo: 'Privāta pārdevēja informācija',
+      rating: 'Vērtējums',
+      reviews: 'Atsauksmes',
+      otherListings: 'Citi sludinājumi',
+      businessHours: 'Darba laiks',
+      showContact: 'Rādīt kontaktinformāciju'
+    }
+  },
+
+  dealerDashboard: {
+    title: 'Dīlera panelis',
+    welcome: 'Laipni lūdzam atpakaļ',
+    tabs: {
+      overview: 'Pārskats',
+      myListings: 'Mani sludinājumi',
+      inquiries: 'Pieprasījumi',
+      analytics: 'Analītika',
+      expressListings: 'Ekspres sludinājumi'
+    },
+    overview: {
+      title: 'Pārskata panelis',
+      stats: {
+        activeListings: {
+          title: 'Aktīvie sludinājumi',
+          subtitle: 'Pašlaik aktīvie sludinājumi'
+        },
+        totalViews: {
+          title: 'Kopējās skatīšanās',
+          subtitle: 'Šajā mēnesī'
+        },
+        inquiries: {
+          title: 'Pieprasījumi',
+          subtitle: 'Jauni šajā nedēļā'
+        },
+        revenue: {
+          title: 'Ieņēmumi',
+          subtitle: 'Šajā mēnesī'
+        }
+      },
+      recentInquiries: {
+        title: 'Nesenie pieprasījumi',
+        viewAll: 'Skatīt visus',
+        inquiryTypes: {
+          general: 'Vispārīgs',
+          testDrive: 'Testa brauciens',
+          financing: 'Finansējums'
+        },
+        timeAgo: {
+          minute: 'minūti atpakaļ',
+          hour: 'stundu atpakaļ',
+          day: 'dienu atpakaļ'
+        }
+      },
+      actions: {
+        createListing: 'Izveidot sludinājumu',
+        manageInventory: 'Pārvaldīt krājumus',
+        viewReports: 'Skatīt pārskatus'
+      }
+    },
+    myListings: {
+      title: 'Mani sludinājumi',
+      createNew: 'Izveidot jaunu sludinājumu',
+      statusOptions: {
+        all: 'Visi',
+        active: 'Aktīvie',
+        pending: 'Gaida apstiprinājumu',
+        sold: 'Pārdotas',
+        expired: 'Beigušies',
+        draft: 'Melnraksti'
+      },
+      actions: {
+        edit: 'Rediģēt',
+        view: 'Skatīt',
+        duplicate: 'Dublēt',
+        delete: 'Dzēst',
+        promote: 'Reklamēt'
+      }
+    },
+    inquiries: {
+      title: 'Pieprasījumi',
+      filterByStatus: 'Filtrēt pēc statusa',
+      inquiryTypes: {
+        contact: 'Kontakts',
+        testDrive: 'Testa brauciens',
+        financing: 'Finansējums'
+      },
+      status: {
+        new: 'Jauns',
+        responded: 'Atbildēts',
+        closed: 'Aizvērts'
+      },
+      actions: {
+        respond: 'Atbildēt',
+        markAsRead: 'Atzīmēt kā lasītu',
+        archive: 'Arhivēt'
+      }
+    }
+  },
+
+  adminDashboard: {
+    title: 'Administratora panelis',
+    welcome: 'Administratora pārvaldības panelis',
+    tabs: {
+      overview: 'Pārskats',
+      allListings: 'Visi sludinājumi',
+      userManagement: 'Lietotāju pārvaldība',
+      reports: 'Pārskati'
+    },
+    overview: {
+      title: 'Sistēmas pārskats',
+      stats: {
+        totalUsers: {
+          title: 'Kopējie lietotāji',
+          subtitle: 'Reģistrētie lietotāji'
+        },
+        activeDealers: {
+          title: 'Aktīvie dīleri',
+          subtitle: 'Aktīvie dīleru konti'
+        },
+        totalListings: {
+          title: 'Kopējie sludinājumi',
+          subtitle: 'Visi sludinājumi sistēmā'
+        },
+        platformRevenue: {
+          title: 'Platformas ieņēmumi',
+          subtitle: 'Šajā mēnesī'
+        }
+      }
+    },
+    allListings: {
+      title: 'Visu sludinājumu pārvaldība',
+      filterByStatus: 'Filtrēt pēc statusa',
+      statusOptions: {
+        all: 'Visi',
+        pending: 'Gaida apstiprinājumu',
+        approved: 'Apstiprināti',
+        rejected: 'Noraidīti',
+        flagged: 'Atzīmēti'
+      },
+      actions: {
+        approve: 'Apstiprināt',
+        reject: 'Noraidīt',
+        flag: 'Atzīmēt',
+        delete: 'Dzēst'
+      }
+    },
+    userManagement: {
+      title: 'Lietotāju pārvaldība',
+      filterByRole: 'Filtrēt pēc lomas',
+      roleFilter: {
+        all: 'Visas lomas',
+        admin: 'Administratori',
+        dealer: 'Dīleri',
+        user: 'Lietotāji'
+      },
+      actions: {
+        viewProfile: 'Skatīt profilu',
+        editUser: 'Rediģēt lietotāju',
+        suspendUser: 'Apturēt lietotāju',
+        deleteUser: 'Dzēst lietotāju'
+      }
+    }
+  },
+
+  // Legal pages
+  pages: {
+    privacyPolicy: {
+      title: 'Privātuma politika',
+      lastUpdated: 'Pēdējoreiz atjaunināts',
+      sections: {
+        dataCollection: {
+          title: 'Datu vākšana',
+          content: 'Mēs apkopojam informāciju, kad jūs izmantojat mūsu pakalpojumus...'
+        },
+        dataUsage: {
+          title: 'Datu izmantošana',
+          content: 'Mēs izmantojam jūsu datus, lai nodrošinātu un uzlabotu mūsu pakalpojumus...'
+        },
+        dataSharing: {
+          title: 'Datu kopīgošana',
+          content: 'Mēs nedalāmies ar jūsu personas datiem ar trešajām pusēm...'
+        },
+        cookies: {
+          title: 'Sīkdatnes',
+          content: 'Mēs izmantojam sīkdatnes, lai uzlabotu jūsu pieredzi...'
+        },
+        userRights: {
+          title: 'Jūsu tiesības',
+          content: 'Jums ir tiesības piekļūt, labot vai dzēst savus datus...'
+        },
+        contact: {
+          title: 'Sazinieties ar mums',
+          content: 'Ja jums ir jautājumi par šo privātuma politiku...'
+        }
+      }
+    },
+    termsOfService: {
+      title: 'Lietošanas noteikumi',
+      lastUpdated: 'Pēdējoreiz atjaunināts',
+      sections: {
+        acceptance: {
+          title: 'Noteikumu pieņemšana',
+          content: 'Izmantojot mūsu pakalpojumus, jūs piekrītat šiem noteikumiem...'
+        },
+        serviceDescription: {
+          title: 'Pakalpojuma apraksts',
+          content: 'CarMarket365 ir tiešsaistes platforma automašīnu pirkšanai un pārdošanai...'
+        },
+        userAccounts: {
+          title: 'Lietotāju konti',
+          content: 'Jums jāizveido konts, lai izmantotu dažas mūsu funkcijas...'
+        },
+        listingRules: {
+          title: 'Sludinājumu noteikumi',
+          content: 'Visiem sludinājumiem jāatbilst mūsu kvalitātes standartiem...'
+        },
+        payments: {
+          title: 'Maksājumi un nodevas',
+          content: 'Daži pakalpojumi var prasīt maksājumus...'
+        },
+        liability: {
+          title: 'Atbildība',
+          content: 'Mūsu atbildība ir ierobežota likumā paredzētajā apjomā...'
+        },
+        termination: {
+          title: 'Izbeigšana',
+          content: 'Mēs varam izbeigt jūsu kontu pārkāpumu gadījumā...'
+        }
+      }
+    },
+    cookiePolicy: {
+      title: 'Sīkdatņu politika',
+      lastUpdated: 'Pēdējoreiz atjaunināts',
+      whatAreCookies: {
+        title: 'Kas ir sīkdatnes?',
+        content: 'Sīkdatnes ir mazi teksta faili, ko saglabā jūsu ierīcē...'
+      },
+      typesOfCookies: {
+        title: 'Sīkdatņu veidi',
+        essential: {
+          title: 'Būtiskās sīkdatnes',
+          description: 'Nepieciešamas tīmekļa vietnes pamatfunkciju darbībai'
+        },
+        functional: {
+          title: 'Funkcionālās sīkdatnes',
+          description: 'Ļauj tīmekļa vietnei atcerēties jūsu izvēles'
+        },
+        analytics: {
+          title: 'Analītiskās sīkdatnes',
+          description: 'Palīdz mums saprast, kā apmeklētāji izmanto tīmekļa vietni'
+        },
+        marketing: {
+          title: 'Mārketinga sīkdatnes',
+          description: 'Izmanto, lai rādītu jums atbilstošu reklāmu'
+        }
+      },
+      manageCookies: {
+        title: 'Sīkdatņu pārvaldība',
+        content: 'Jūs varat kontrolēt sīkdatnes, mainot sava pārlūka iestatījumus...'
+      }
+    }
+  },
+
+  errors: {
+    generic: 'Radās kļūda. Lūdzu, mēģiniet vēlreiz.',
+    network: 'Tīkla kļūda. Lūdzu, pārbaudiet savu savienojumu.',
+    notFound: 'Pieprasītais vienums netika atrasts.',
+    unauthorized: 'Jums nav atļaujas piekļūt šim resursam.',
+    forbidden: 'Piekļuve šim resursam ir aizliegta.',
+    serverError: 'Servera kļūda. Lūdzu, mēģiniet vēlāk.',
+    validation: 'Lūdzu, pārbaudiet savus datus un mēģiniet vēlreiz.',
+    required: 'Šis lauks ir obligāts.',
+    invalidEmail: 'Lūdzu, ievadiet derīgu e-pasta adresi.',
+    invalidPhone: 'Lūdzu, ievadiet derīgu tālruņa numuru.',
+    passwordTooShort: 'Parolei jābūt vismaz 8 rakstzīmes garai.',
+    passwordMismatch: 'Paroles nesakrīt.',
+    fileTooBig: 'Faila izmērs ir pārāk liels.',
+    invalidFileType: 'Nederīgs faila tips.',
+    noInternetConnection: 'Nav interneta savienojuma.',
+    sessionExpired: 'Jūsu sesija ir beigušās. Lūdzu, pierakstieties vēlreiz.',
+    errorBoundary: {
+      message: 'Radās kļūda. Lūdzu, mēģiniet atjaunot lapu.',
+      details: 'Kļūdas detālas',
+      stackTrace: 'Stekšu izsekošana:',
+      refreshPage: 'Atjaunot lapu',
+    },
+  },
+
+  // Legal section
+  legal: {
+    accessibility: {
+      title: 'Pieejamība',
+      subtitle: 'Mūsu apņemšanās padarīt CarMarket365 pieejamu visiem.',
+      backToHome: 'Atpakaļ uz sākumu',
+      commitmentTitle: 'Mūsu apņemšanās pieejamībai',
+      commitmentDescription: 'CarMarket365 cenšas nodrošināt iekļaujošu pieredzi.',
+      commitmentText: 'Mēs uzskatām, ka visiem jābūt vienlīdzīgai piekļuvei mūsu platformai, neatkarīgi no viņu spējām.',
+      
+      visual: {
+        title: 'Vizuālais atbalsts',
+        features: [
+          'Augsts kontrasts labākai lasāmībai',
+          'Regulējams teksta izmērs',
+          'Skaidra un strukturēta navigācija',
+          'Alternatīvi attēlu apraksti'
+        ]
+      },
+      motor: {
+        title: 'Motorikas atbalsts',
+        features: [
+          'Pilna navigācija ar tastatūru',
+          'Lielākas klikšķēšanas zonas',
+          'Pietiekams laiks darbībām',
+          'Vienkārši un skaidri vadības elementi'
+        ]
+      },
+      audio: {
+        title: 'Audio atbalsts',
+        features: [
+          'Transkripti audio saturam',
+          'Subtitri video',
+          'Teksta alternatīvas skaņām',
+          'Saderība ar ekrāna lasītājiem'
+        ]
+      },
+      cognitive: {
+        title: 'Kognitīvais atbalsts',
+        features: [
+          'Vienkārša un saprotama valoda',
+          'Soli pa solim instrukcijas',
+          'Palīdzīgi kļūdu ziņojumi',
+          'Loģiska satura organizācija'
+        ]
+      },
+      
+      standardsTitle: 'Pieejamības standarti',
+      standardsDescription: 'Mūsu platforma ir izveidota atbilstoši starptautiskajiem standartiem.',
+      wcagTitle: 'WCAG 2.1 atbilstība',
+      wcagDescription: 'Mēs cenšamies atbilst WCAG 2.1 AA rekomendācijām tīmekļa pieejamībai.',
+      compatibilityTitle: 'Saderība ar palīgtehnoloģijām',
+      compatibilityDescription: 'Mūsu platforma ir testēta ar ekrāna lasītājiem un citām palīgtehnoloģijām.',
+      
+      feedbackTitle: 'Atsauksmes par pieejamību?',
+      feedbackText: 'Ja jums ir problēmas ar pieejamību vai priekšlikumi uzlabojumiem, sazinieties ar mums: accessibility@carmarket365.com',
+      returnToPlatform: 'Atgriezties platformā',
+      contactTeam: 'Sazināties ar komandu'
+    },
+
+    cookies: {
+      title: 'Sīkdatņu politika',
+      subtitle: 'Kā mēs izmantojam sīkdatnes, lai uzlabotu jūsu pieredzi.',
+      backToHome: 'Atpakaļ uz sākumu',
+      policyTitle: 'Mūsu sīkdatņu politika',
+      policyDescription: 'Mēs izmantojam sīkdatnes, lai sniegtu vislabāko iespējamo pakalpojumu.',
+      policyText: 'Sīkdatnes ir mazi teksta faili, kas tiek saglabāti jūsu ierīcē, apmeklējot mūsu vietni. Tie palīdz mums nodrošināt personalizētu pieredzi.',
+      
+      essential: {
+        title: 'Būtiskās sīkdatnes',
+        features: [
+          'Lietotāju sesiju atbalsts',
+          'Drošības iestatījumu saglabāšana',
+          'Platformas pamatfunkcionalitāte',
+          'Privātuma iestatījumu īstenošana'
+        ]
+      },
+      functional: {
+        title: 'Funkcionālās sīkdatnes',
+        features: [
+          'Jūsu iestatījumu atcerēšanās',
+          'Valodas iestatījumu saglabāšana',
+          'Attēlojuma personalizēšana',
+          'Pēdējo meklējumu saglabāšana'
+        ]
+      },
+      analytics: {
+        title: 'Analītikas sīkdatnes',
+        features: [
+          'Vietnes izmantošanas izpratne',
+          'Veiktspējas uzlabošana',
+          'Tehnisko problēmu identificēšana',
+          'Satura optimizācija'
+        ]
+      },
+      marketing: {
+        title: 'Mārketinga sīkdatnes',
+        features: [
+          'Atbilstoša reklāma',
+          'Reklāmas efektivitātes mērīšana',
+          'Satura personalizēšana',
+          'Konversiju izsekošana'
+        ]
+      },
+      
+      managementTitle: 'Sīkdatņu iestatījumu pārvaldība',
+      managementDescription: 'Jums ir pilna kontrole pār sīkdatnēm, kuras mēs izmantojam jūsu ierīcē.',
+      
+      browserTitle: 'Pārlūka iestatījumi',
+      browserFeatures: [
+        'Bloķēt vai atļaut sīkdatnes',
+        'Dzēst esošās sīkdatnes',
+        'Iestatīt sīkdatņu derīguma termiņu',
+        'Pārvaldīt trešo pušu sīkdatnes'
+      ],
+      
+      platformTitle: 'Platformas vadības elementi',
+      platformFeatures: [
+        'Sīkdatņu iestatījumu centrs',
+        'Atteikšanās iespējas',
+        'Detalizēti pārvaldības iestatījumi',
+        'Regulāri iestatījumu atjauninājumi'
+      ],
+      
+      questionsTitle: 'Jautājumi par sīkdatnēm?',
+      questionsText: 'Ja jums ir jautājumi par mūsu sīkdatņu politiku vai nepieciešama palīdzība iestatījumu pārvaldībā, sazinieties ar mums: cookies@carmarket365.com',
+      returnToPlatform: 'Atgriezties platformā',
+      cookieSupport: 'Sīkdatņu atbalsts'
+    },
+
+    imprint: {
+      title: 'Rekvizīti',
+      subtitle: 'Juridiskā informācija un uzņēmuma dati atbilstoši likuma prasībām.',
+      backToHome: 'Atpakaļ uz sākumu',
+      legalInfoTitle: 'Juridiskā informācija',
+      legalInfoDescription: 'Informācija par uzņēmumu un juridiskie dati atbilstoši likuma prasībām.',
+      legalInfoText: 'Šī lapa satur juridiski nepieciešamo informāciju par CarMarket365 atbilstoši spēkā esošajiem likumiem un noteikumiem.',
+      
+      companyDetails: {
+        title: 'Uzņēmuma dati',
+        companyName: 'Uzņēmuma nosaukums',
+        companyNameValue: 'CarMarket365 GmbH',
+        registrationNumber: 'Reģistrācijas numurs',
+        registrationNumberValue: 'HRB 123456 B',
+        vatId: 'PVN ID',
+        vatIdValue: 'DE123456789',
+        commercialRegister: 'Komercreģistrs',
+        commercialRegisterValue: 'Amtsgericht Berlin'
+      },
+      
+      businessAddress: {
+        title: 'Juridiskā adrese',
+        registeredAddress: 'Reģistrētā adrese',
+        street: 'Unter den Linden 1',
+        city: '10117 Berlīne',
+        country: 'Vācija'
+      },
+      
+      management: {
+        title: 'Vadība',
+        managingDirector: 'Izpilddirektors',
+        managingDirectorValue: 'Max Mustermann',
+        authorizedRepresentative: 'Pilnvarots pārstāvis',
+        authorizedRepresentativeValue: 'Anna Schmidt'
+      },
+      
+      contactInfo: {
+        title: 'Kontaktinformācija',
+        phone: 'Tālrunis',
+        phoneValue: '+49 (0) 30 12345678',
+        email: 'E-pasts',
+        emailValue: 'info@carmarket365.com',
+        businessHours: 'Darba laiks',
+        businessHoursValue: 'P-Pt: 9:00 - 18:00 CET'
+      },
+      
+      legalNotice: {
+        title: 'Juridiskais paziņojums',
+        paragraph1: 'CarMarket365 cenšas sniegt precīzu un aktuālu informāciju. Tomēr mēs nevaram garantēt visa satura pilnību vai precizitāti.',
+        paragraph2: 'Šī platforma darbojas kā tirgus vieta, kas savieno automašīnu pircējus un pārdevējus. CarMarket365 nav atbildīgs par sludinājumu precizitāti vai lietotāju uzvedību.',
+        paragraph3: 'Strīdu vai sūdzību gadījumā lūdzu sazinieties ar mums, izmantojot iepriekš norādīto informāciju. Mēs cenšamies atrisināt visus jautājumus savlaicīgi un taisnīgi.'
+      },
+      
+      questionsTitle: 'Juridiski jautājumi?',
+      questionsText: 'Juridiskiem jautājumiem vai problēmu ziņošanai lūdzu sazinieties ar mūsu juridisko nodaļu: legal@carmarket365.com',
+      returnToPlatform: 'Atgriezties platformā',
+      contactLegal: 'Sazināties ar juridisko komandu'
+    }
+  },
+
+  // Private Dashboard
+  privateDashboard: {
+    title: 'Mana mājaslapā',
+    welcomeMessage: 'Laipni lūdzam atpakaļ',
+    
+    // Navigation
+    navigation: {
+      dashboard: 'Pārskats',
+      myVehicles: 'Mani transportlīdzekļi',
+      messages: 'Ziņojumi',
+      favorites: 'Favorīti',
+      settings: 'Iestatījumi'
+    },
+    
+    // Stats cards
+    stats: {
+      activeListings: {
+        title: 'Aktīvie sludinājumi',
+        count: 'sludinājumi'
+      },
+      totalViews: {
+        title: 'Kopējie skatījumi',
+        count: 'skatījumi'
+      },
+      messages: {
+        title: 'Ziņojumi',
+        unread: 'neprolasīti'
+      },
+      savedVehicles: {
+        title: 'Saglabātie transportlīdzekļi',
+        count: 'saglabāti'
+      }
+    },
+    
+    // Quick actions
+    quickActions: {
+      title: 'Ātras darbības',
+      sellVehicle: 'Pārdot transportlīdzekli',
+      browseVehicles: 'Pārlūkot transportlīdzekļus',
+      viewMessages: 'Skatīt ziņojumus',
+      editProfile: 'Rediģēt profilu'
+    }
+  },
+
+  // Saved Cars section
+  savedCars: {
+    title: 'Saglabātās automašīnas',
+    noSavedCars: 'Pagaidām nav saglabātas automašīnas',
+    startBrowsing: 'Sāciet pārlūkot mūsu inventāru, lai saglabātu patīkamās automašīnas vēlākai apskatei.',
+    browseVehicles: 'Pārlūkot automašīnas',
+    carsSaved: 'automašīnas saglabātas',
+    clearAll: 'Notīrīt visu',
+    sortBy: 'Kārtot pēc',
+    recentlySaved: 'Nesen saglabāts',
+    priceLowToHigh: 'Cena: no mazākās',
+    priceHighToLow: 'Cena: no lielākās',
+    yearNewestFirst: 'Gads: jaunākais pirmais',
+    yearOldestFirst: 'Gads: vecākais pirmais',
+    filterPlaceholder: 'Filtrēt',
+    allCars: 'Visas automašīnas',
+    savedThisWeek: 'Šonedēļ saglabāts',
+    savedDate: 'Saglabāts',
+    contact: 'Kontakts',
+    view: 'Detaļas'
+  },
+
+  // Sell Vehicle section
+  sellVehicle: {
+    title: 'Pārdot transportlīdzekli',
+    subtitle: 'Izveidojiet savu transportlīdzekļa sludinājumu',
+    
+    steps: {
+      vehicleInfo: 'Transportlīdzekļa informācija',
+      photos: 'Fotogrāfijas',
+      pricing: 'Cenu noteikšana',
+      contact: 'Kontaktinformācija',
+      review: 'Pārskatīt'
+    },
+    
+    vehicleInfo: {
+      basicDetails: 'Pamatinformācija',
+      specifications: 'Specifikācijas',
+      condition: 'Stāvoklis',
+      features: 'Īpašības'
+    },
+    
+    photos: {
+      title: 'Pievienot fotogrāfijas',
+      dragDrop: 'Velciet un nometiet attēlus šeit',
+      orClick: 'vai noklikšķiniet, lai izvēlētos',
+      maxFiles: 'Maksimums 20 fotogrāfijas',
+      supportedFormats: 'Atbalstītie formāti: JPG, PNG'
+    },
+    
+    pricing: {
+      title: 'Iestatīt cenu',
+      askingPrice: 'Prasītā cena',
+      marketValue: 'Tirgus vērtība',
+      negotiable: 'Cena sarunājama'
+    }
+  },
+
+  // Index page content  
+  indexPage: {
+    hero: {
+      title: 'Atrodiet savu sapņu automašīnu',
+      subtitle: 'Pārlūkojiet tūkstošiem automašīnu no uzticamiem dīleriem',
+      searchPlaceholder: 'Meklēt pēc markas, modeļa...'
+    },
+    
+    features: {
+      title: 'Kāpēc izvēlēties mūs?',
+      verified: {
+        title: 'Pārbaudīti dīleri',
+        description: 'Visi mūsu dīleri ir rūpīgi pārbaudīti'
+      },
+      financing: {
+        title: 'Finansēšanas iespējas',
+        description: 'Elastīgi maksājuma plāni visiem'
+      },
+      inspection: {
+        title: 'Detalizēta inspekcija',
+        description: 'Katrs transportlīdzeklis tiek rūpīgi pārbaudīts'
+      }
+    }
+  },
+
+  // About section
+  about: {
+    title: 'Par mums',
+    subtitle: 'Jūsu uzticamais partneris automašīnu pirkšanā un pārdošanā',
+    
+    mission: {
+      title: 'Mūsu misija',
+      description: 'Mēs cenšamies revolucionizēt veidu, kā cilvēki pērk un pārdod automašīnas, padarot procesu vienkāršāku, drošāku un caurskatāmāku visiem iesaistītajiem.'
+    },
+    
+    values: {
+      title: 'Mūsu vērtības',
+      trust: {
+        title: 'Uzticība',
+        description: 'Mēs veidojam uzticību ar caurskatāmību un godīgumu katrā darījumā.'
+      },
+      quality: {
+        title: 'Kvalitāte',
+        description: 'Mēs nodrošinām tikai augstākās kvalitātes transportlīdzekļus un pakalpojumus.'
+      },
+      innovation: {
+        title: 'Inovācija',
+        description: 'Mēs nepārtraukti uzlabojam mūsu platformu ar jaunākajām tehnoloģijām.'
+      }
+    },
+    
+    team: {
+      title: 'Mūsu komanda',
+      description: 'Pieredzes bagāti profesionāļi, kas strādā jūsu labā'
+    },
+    
+    stats: {
+      vehicles: 'Transportlīdzekļi',
+      dealers: 'Dīleri',
+      customers: 'Apmierināti klienti',
+      years: 'Gadi pieredzē'
+    }
+  },
+
+  // Car Reviews section
+  carReviews: {
+    title: 'Automašīnu apskatījumi',
+    subtitle: 'Ekspertu un lietotāju atsauksmes',
+    
+    categories: {
+      all: 'Visi',
+      sedan: 'Sedani',
+      suv: 'SUV',
+      hatchback: 'Hečbeki',
+      coupe: 'Kupe',
+      convertible: 'Kabrioleti'
+    },
+    
+    filters: {
+      sortBy: 'Kārtot pēc',
+      newest: 'Jaunākais',
+      oldest: 'Vecākais',
+      rating: 'Vērtējums',
+      popularity: 'Popularitāte'
+    },
+    
+    review: {
+      readMore: 'Lasīt vairāk',
+      readLess: 'Lasīt mazāk',
+      expertReview: 'Eksperta atsauksme',
+      userReview: 'Lietotāja atsauksme',
+      pros: 'Plusi',
+      cons: 'Mīnusi',
+      rating: 'Vērtējums'
+    }
+  },
+
+  // Safety Tips section
+  safetyTips: {
+    title: 'Drošības padomi',
+    subtitle: 'Palieciet drošībā, pērkot vai pārdodot automašīnas',
+    
+    buying: {
+      title: 'Pirkšanas padomi',
+      tips: [
+        'Vienmēr inspicējiet transportlīdzekli klātienē',
+        'Pārbaudiet transportlīdzekļa vēsturi',
+        'Veiciet testa braucienu',
+        'Pārbaudiet visus dokumentus',
+        'Izmantojiet drošas maksājuma metodes'
+      ]
+    },
+    
+    selling: {
+      title: 'Pārdošanas padomi',
+      tips: [
+        'Tikties ar pircējiem drošās vietās',
+        'Pārbaudiet pircēja identitāti',
+        'Saglabājiet visus dokumentus',
+        'Izmantojiet rakstisku līgumu',
+        'Paziņojiet par pārdošanu atbildīgajām institūcijām'
+      ]
+    },
+    
+    online: {
+      title: 'Tiešsaistes drošība',
+      tips: [
+        'Nekad nenodot personīgu informāciju',
+        'Izmantot drošus saziņas kanālus',
+        'Izvairīties no šķietami pārāk labiem piedāvājumiem',
+        'Pārbaudīt dīlera reputāciju',
+        'Uzticēties savām sajūtām'
+      ]
+    }
+  },
+
+  // Express Sell section
+  expressSell: {
+    title: 'Express pārdošana',
+    subtitle: 'Ātri pārdodiet savu automašīnu',
+    
+    benefits: {
+      title: 'Express pārdošanas priekšrocības',
+      fast: {
+        title: 'Ātri',
+        description: 'Saņemiet piedāvājumu 24 stundu laikā'
+      },
+      easy: {
+        title: 'Viegli',
+        description: 'Vienkāršs process bez stresa'
+      },
+      secure: {
+        title: 'Droši',
+        description: 'Drošs darījums ar garantiju'
+      }
+    },
+    
+    process: {
+      title: 'Kā tas darbojas',
+      step1: {
+        title: 'Iesniegt informāciju',
+        description: 'Pastāstiet mums par savu automašīnu'
+      },
+      step2: {
+        title: 'Saņemt piedāvājumu',
+        description: 'Saņemiet piedāvājumu 24 stundu laikā'
+      },
+      step3: {
+        title: 'Pabeigt darījumu',
+        description: 'Vienkāršs dokumentu noformēšanas process'
+      }
+    },
+    
+    form: {
+      title: 'Sākt express pārdošanu',
+      vehicleDetails: 'Transportlīdzekļa detaļas',
+      contactInfo: 'Kontaktinformācija',
+      submit: 'Iesniegt pieprasījumu'
+    }
+  },
+
+  // Financing Calculator
+  financingCalculator: {
+    title: 'Finansēšanas kalkulators',
+    
+    sections: {
+      vehicleDetails: 'Transportlīdzekļa detaļas',
+      downPayment: 'Sākotnējais maksājums',
+      loanTerms: 'Kredīta noteikumi',
+      monthlyPayment: 'Mēneša maksājums',
+      loanSummary: 'Kredīta kopsavilkums',
+    },
+    
+    fields: {
+      vehiclePrice: 'Transportlīdzekļa cena',
+      salesTax: 'Pārdošanas nodoklis',
+      dealerFees: 'Dīlera nodevas',
+      tradeInValue: 'Maiņas vērtība',
+      downPayment: 'Sākotnējais maksājums',
+      downPaymentPercent: 'Sākotnējā maksājuma procents',
+      loanTerm: 'Kredīta termiņš',
+      interestRate: 'Procentu likme (GPL)',
+      monthlyPayment: 'Mēneša maksājuma aprēķins',
+      totalLoanAmount: 'Kopējā kredīta summa',
+      totalInterest: 'Kopējie procenti',
+      totalCost: 'Kopējās izmaksas',
+    },
+    
+    labels: {
+      months: 'mēneši',
+      years: 'gadi',
+      percent: '%',
+      perMonth: '/mēnesī',
+      loanAmount: 'Kredīta summa',
+      interestPaid: 'Samaksātie procenti',
+      totalPaid: 'Kopā samaksāts',
+    },
+    
+    buttons: {
+      calculate: 'Aprēķināt maksājumu',
+      reset: 'Atiestatīt kalkulatoru',
+      getPreApproved: 'Saņemt iepriekšēju apstiprinājumu',
+      findFinancing: 'Atrast finansēšanas iespējas',
+    },
+    
+    notes: {
+      estimate: 'Šis ir aptuvens aprēķins. Reālie nosacījumi var atšķirties.',
+      disclaimer: 'Maksājumu aprēķini ir aplēses un var neatspoguļot faktiskos kredīta nosacījumus.',
+      taxesVary: 'Nodokļu likmes atšķiras atkarībā no atrašanās vietas.',
+      additionalFees: 'Var piemērot papildu nodevas.',
+    },
+  },
+
+  // FAQ section  
+  faqPage: {
+    title: 'Biežāk uzdotie jautājumi',
+    subtitle: 'Atrodiet atbildes uz populārākajiem jautājumiem',
+    
+    categories: {
+      buying: 'Pirkšana',
+      selling: 'Pārdošana',
+      financing: 'Finansēšana',
+      account: 'Konts',
+      technical: 'Tehniskais atbalsts'
+    },
+    
+    searchPlaceholder: 'Meklēt BUJ...',
+    noResults: 'Nav atrasti rezultāti.',
+    contactSupport: 'Sazināties ar atbalstu',
+    
+    common: {
+      howToBuy: {
+        question: 'Kā iegādāties automašīnu?',
+        answer: 'Pārlūkojiet mūsu sarakstu, sazinieties ar pārdevēju un vienojieties par tikšanos transportlīdzekļa apskatei.'
+      },
+      paymentMethods: {
+        question: 'Kādas maksājuma metodes ir pieejamas?',
+        answer: 'Mēs atbalstām dažādas maksājuma metodes, ieskaitot skaidru naudu, bankas pārskaitījumu un finansēšanu.'
+      },
+      warranty: {
+        question: 'Vai automašīnām ir garantija?',
+        answer: 'Garantijas nosacījumi atšķiras atkarībā no pārdevēja. Pārbaudiet konkrētā sludinājuma detaļas.'
+      }
+    }
+  },
+
+  // Dealers section
+  dealersPage: {
+    title: 'Mūsu dīleri',
+    subtitle: 'Uzticami automašīnu dīleri visā valstī',
+    
+    search: {
+      placeholder: 'Meklēt dīleri...',
+      location: 'Atrašanās vieta',
+      specialty: 'Specializācija',
+      allLocations: 'Visas atrašanās vietas',
+      allSpecialties: 'Visas specializācijas'
+    },
+    
+    badges: {
+      certified: 'Sertificēts',
+      premium: 'Premium',
+      topRated: 'Augstu vērtēts'
+    },
+    
+    contact: {
+      phone: 'Tālrunis',
+      email: 'E-pasts',
+      website: 'Mājaslapā',
+      address: 'Adrese',
+      hours: 'Darba laiks'
+    }
+  },
+
+  // Registered Dealers section
+  registeredDealers: {
+    title: 'Reģistrētie dīleri',
+    subtitle: 'Pārbaudīti un uzticami automašīnu pārdevēji',
+    
+    stats: {
+      totalDealers: 'Kopā dīleri',
+      activeDealers: 'Aktīvie dīleri',
+      totalVehicles: 'Kopā transportlīdzekļi',
+      averageRating: 'Vidējais vērtējums'
+    },
+    
+    benefits: {
+      title: 'Dīlera priekšrocības',
+      verified: 'Pārbaudīta identitāte',
+      insurance: 'Apdrošināti darījumi',
+      support: '24/7 atbalsts',
+      marketing: 'Mārketinga atbalsts'
+    },
+    
+    becomeDealer: {
+      title: 'Kļūt par dīleri',
+      subtitle: 'Pievienojieties mūsu uzticamo partneru tīklam',
+      benefits: [
+        'Plašs klientu loks',
+        'Mārketinga instrumenti',
+        'Tehniskais atbalsts',
+        'Konkurētspējīgas komisijas maksas'
+      ],
+      requirements: {
+        title: 'Prasības',
+        items: [
+          'Derīga uzņēmējdarbības licence',
+          'Apdrošināšanas polise',
+          'Minimums 2 gadu pieredze',
+          'Pozitīvas atsauksmes'
+        ]
+      }
+    }
+  },
+
+  // Car Detail page
+  carDetail: {
+    backToCars: 'Atpakaļ pie automašīnām',
+    overview: 'Pārskats',
+    specifications: 'Specifikācijas',
+    features: 'Īpašības',
+    financing: 'Finansēšana',
+    contact: 'Kontakts',
+    
+    status: {
+      available: 'Pieejams',
+      sold: 'Pārdots',
+      pending: 'Gaidāms',
+      reserved: 'Rezervēts'
+    },
+    
+    basicInfo: {
+      price: 'Cena',
+      mileage: 'Nobraukums',
+      year: 'Gads',
+      condition: 'Stāvoklis',
+      location: 'Atrašanās vieta',
+      vin: 'VIN kods',
+      bodyType: 'Virsbūves tips',
+      fuelType: 'Degvielas veids',
+      transmission: 'Transmisija',
+      drivetrain: 'Piedziņa',
+      exteriorColor: 'Ārējā krāsa',
+      interiorColor: 'Iekšējā krāsa'
+    },
+    
+    engine: {
+      title: 'Dzinējs un veiktspēja',
+      displacement: 'Dzinēja tilpums',
+      power: 'Jauda',
+      torque: 'Griezes moments',
+      fuelEconomy: 'Degvielas patēriņš',
+      acceleration: 'Paātrinājums 0-100 km/h',
+      topSpeed: 'Maksimālais ātrums'
+    },
+    
+    features: {
+      safety: 'Drošības sistēmas',
+      comfort: 'Komforts',
+      technology: 'Tehnoloģijas',
+      exterior: 'Ārējās īpašības',
+      interior: 'Iekšējās īpašības'
+    },
+    
+    actions: {
+      contactSeller: 'Sazināties ar pārdevēju',
+      scheduleTest: 'Ieplānot testa braucienu',
+      requestFinancing: 'Pieprasīt finansējumu',
+      saveToFavorites: 'Saglabāt favorītos',
+      shareVehicle: 'Dalīties',
+      reportListing: 'Ziņot par sludinājumu',
+      printDetails: 'Drukāt detaļas'
+    },
+    
+    seller: {
+      title: 'Pārdevēja informācija',
+      dealerBadge: 'Autorizēts dīleris',
+      privateSeller: 'Privāts pārdevējs',
+      rating: 'Vērtējums',
+      reviews: 'atsauksmes',
+      yearsInBusiness: 'gadi biznesā',
+      totalSold: 'kopā pārdots',
+      responseTime: 'atbildes laiks',
+      location: 'Atrašanās vieta',
+      phone: 'Tālrunis',
+      email: 'E-pasts'
+    },
+    
+    financing: {
+      title: 'Finansēšanas iespējas',
+      monthlyFrom: 'No',
+      perMonth: '/mēnesī',
+      calculatePayment: 'Aprēķināt maksājumu',
+      getPreApproved: 'Saņemt apstiprinājumu',
+      
+      calculator: {
+        downPayment: 'Sākotnējais maksājums',
+        loanTerm: 'Kredīta termiņš',
+        interestRate: 'Procentu likme',
+        monthlyPayment: 'Mēneša maksājums'
+      }
+    },
+    
+    similar: {
+      title: 'Līdzīgi transportlīdzekļi',
+      subtitle: 'Citi transportlīdzekļi, kas jums varētu patikt',
+      viewMore: 'Skatīt vairāk līdzīgus'
+    },
+    
+    loading: {
+      loadingVehicle: 'Ielādē transportlīdzekli...',
+      loadingDetails: 'Ielādē detaļas...'
+    },
+    
+    errors: {
+      carNotFound: 'Automašīna nav atrasta',
+      failedToLoad: 'Neizdevās ielādēt transportlīdzekļa detaļas',
+      dsntExist: 'Meklētais transportlīdzeklis neeksistē vai ir noņemts',
+      hasBeenRemoved: 'ir noņemts',
+      backToCars: 'Atpakaļ pie automašīnām'
+    },
+    
+    contact: {
+      contactDealer: 'Sazināties ar dīleri',
+      interestedIn: 'Mani interesē',
+      preferredContactMethod: 'Vēlamā saziņas metode',
+      additionalMessage: 'Papildu ziņojums',
+      sendInquiry: 'Nosūtīt pieprasījumu',
+      callNow: 'Zvanīt tagad',
+      emailDealer: 'Rakstīt dīlerim',
+      scheduleViewing: 'Ieplānot apskati'
+    },
+    
+    testDrive: {
+      scheduleTestDrive: 'Ieplānot testa braucienu',
+      preferredDate: 'Vēlamais datums',
+      preferredTime: 'Vēlamais laiks',
+      contactInfo: 'Kontaktinformācija',
+      additionalNotes: 'Papildu piezīmes',
+      submitRequest: 'Iesniegt pieprasījumu'
+    },
+    
+    share: {
+      shareVehicle: 'Dalīties ar transportlīdzekli',
+      shareOnSocial: 'Dalīties sociālajos tīklos',
+      copyLink: 'Kopēt saiti',
+      linkCopied: 'Saite nokopēta!',
+      linkCopiedToClipboard: 'Saite nokopēta starpliktuvē!',
+      emailToFriend: 'Nosūtīt draugam',
+      generateQR: 'Ģenerēt QR kodu'
+    }
+  },
+
+  // Comparison feature
+  comparison: {
+    title: 'Salīdzināt automašīnas',
+    clearAll: 'Notīrīt visu',
+    compareCars: 'Salīdzināt automašīnas',
+    compareNow: 'Salīdzināt tagad',
+    
+    fields: {
+      price: 'Cena',
+      year: 'Gads',
+      mileage: 'Nobraukums',
+      fuelType: 'Degvielas veids',
+      transmission: 'Transmisija',
+      drivetrain: 'Piedziņas veids',
+      bodyType: 'Virsbūves tips',
+      exteriorColor: 'Ārējā krāsa',
+      interiorColor: 'Iekšējā krāsa',
+      engine: 'Dzinējs',
+      horsepower: 'Zirgspēki',
+      torque: 'Griezes moments',
+      fuelEconomy: 'Degvielas patēriņš',
+      seatingCapacity: 'Sēdvietu skaits',
+      features: 'Pamatīpašības',
+      safety: 'Drošības sistēmas',
+      warranty: 'Garantija',
+      dealerInfo: 'Informācija par dīleri'
+    },
+    
+    bar: {
+      compareCars: 'Salīdzināt automašīnas',
+      selected: 'izvēlēts',
+      max: 'maks.',
+      compare: 'Salīdzināt',
+      clear: 'Notīrīt'
+    },
+    
+    notAvailable: 'N/A'
+  },
+
+  // Final fixes section
+  finalFixes: {
+    savedCars: {
+      title: 'Saglabātās automašīnas',
+      back: 'Atpakaļ',
+      noSavedCars: 'Pagaidām nav saglabātu automašīnu',
+      startBrowsing: 'Sāciet pārlūkot mūsu inventāru, lai saglabātu patīkamās automašīnas vēlākai apskatei.',
+      browseVehicles: 'Pārlūkot automašīnas',
+      carsSaved: 'automašīnas saglabātas',
+      clearAll: 'Notīrīt visu',
+      sortBy: 'Kārtot pēc',
+      recentlySaved: 'Nesen saglabāts',
+      priceLowToHigh: 'Cena: no mazākās',
+      priceHighToLow: 'Cena: no lielākās',
+      arNewestFirst: 'Gads: jaunākais pirmais',
+      arOldestFirst: 'Gads: vecākais pirmais',
+      filterPlaceholder: 'Filtrēt',
+      allCars: 'Visas automašīnas',
+      savedThisWeek: 'Šonedēļ saglabāts',
+      savedDate: 'Saglabāts',
+      contact: 'Kontakts',
+      view: 'Detaļas'
+    }
+  },
+
+  // Hardcoded fixes section
+  hardcodedFixes: {
+    vehicleTypes: {
+      sedan: 'Sedans',
+      suv: 'SUV',
+      hatchback: 'Hečbeks',
+      coupe: 'Kupe',
+      convertible: 'Kabriolets',
+      wagon: 'Universālis',
+      truck: 'Kravas auto',
+      van: 'Furgons',
+      motorcycle: 'Motocikls'
+    },
+    
+    makes: {
+      'Audi': 'Audi',
+      'BMW': 'BMW',
+      'Mercedes-Benz': 'Mercedes-Benz',
+      'Volkswagen': 'Volkswagen',
+      'Toyota': 'Toyota',
+      'Honda': 'Honda',
+      'Ford': 'Ford',
+      'Chevrolet': 'Chevrolet',
+      'Nissan': 'Nissan',
+      'Hyundai': 'Hyundai'
+    },
+    
+    conditions: {
+      'Excellent': 'Lieliska',
+      'Very Good': 'Ļoti laba',
+      'Good': 'Laba',
+      'Fair': 'Vidēja',
+      'Poor': 'Slikta'
+    },
+    
+    fuelTypes: {
+      'Gasoline': 'Benzīns',
+      'Diesel': 'Dīzelis',
+      'Electric': 'Elektriskā',
+      'Hybrid': 'Hibrīds',
+      'Plug-in Hybrid': 'Plug-in hibrīds'
+    },
+    
+    transmissions: {
+      'Manual': 'Manuāla',
+      'Automatic': 'Automātiskā',
+      'Semi-Automatic': 'Pusautomātiskā',
+      'CVT': 'CVT'
+    },
+    
+    drivetrains: {
+      'Front-wheel drive': 'Priekšējo riteņu piedziņa',
+      'Rear-wheel drive': 'Aizmugurējo riteņu piedziņa',
+      'All-wheel drive': 'Pilnpiedziņa',
+      'Four-wheel drive': '4x4 piedziņa'
+    },
+    
+    dealers: {
+      'Premium Motors': 'Premium Motors',
+      'BMW Center': 'BMW centrs',
+      'Auto House': 'Auto House',
+      'Elite Motors': 'Elite Motors',
+      'Sports Cars GmbH': 'Sports Cars GmbH',
+      'City Motors': 'City Motors',
+      'BMW Dresden': 'BMW Drēzdene',
+      'Auto Leipzig': 'Auto Leipciga',
+      'Premium Cars': 'Premium Cars',
+      'BMW Düsseldorf': 'BMW Dīseldorfa'
+    },
+    
+    fuel: {
+      'Diesel': 'Dīzelis',
+      'Petrol': 'Benzīns',
+      'Electric': 'Elektriskā',
+      'Hybrid': 'Hibrīds'
+    },
+    
+    transmission: {
+      'Automatic': 'Automātiskā',
+      'Manual': 'Manuāla',
+      'Semi-Automatic': 'Pusautomātiskā'
+    },
+
+    // Valstu testa lapas specifiskais saturs
+    countryTestPage: {
+      codeLabel: 'Kods:',
+      loadingCars: 'Ielādē automašīnas...',
+      errorPrefix: 'Kļūda:',
+      carListingsFor: 'Automašīnu saraksts valstij',
+      onlyListedDescription: 'Tikai automašīnas, kas norādītas <strong>{country} ({code})</strong>, tiks parādītas zemāk',
+      foundCarsIn: 'Atrasts {count} automašīnas valstī {country}',
+      countryFilteredResults: '🔒 Rezultāti filtrēti pēc valsts',
+      noCarsFound: 'Automašīnas nav atrastas',
+      noCarsInCountry: 'Šobrīd nav automašīnu, kas norādītas valstī {country}.',
+      trySwitchingCountry: 'Mēģiniet mainīt valsti, izmantojot pārslēgšanas pogu augšā.',
+      carIdAndCountry: 'ID: {id} | Valsts: {country}',
+      developmentNote: '<strong>Piezīme:</strong> Ražošanā valstis tiek automātiski noteiktas no apakšdomēna (piemēram, mk.carmarket365.com, al.carmarket365.com). Šis pārslēgšanas rīks darbojas tikai izstrādes režīmā.',
+    },
+
+    // Administratora informācijas panelis - statusa žetoni un testa dati
+    adminDashboard: {
+      statusBadges: {
+        suspended: 'Atturēts',
+      },
+      mockData: {
+        // Lietotāju vārdi
+        johnDealer: 'Jānis Dīleris',
+        johnDealerEmail: 'janis@dileri.com',
+        annaCustomer: 'Anna Klienta',
+        annaCustomerEmail: 'anna@klients.com',
+        bobAdmin: 'Rūdolfs Administrators',
+        bobAdminEmail: 'rudolfs@admin.com',
+        
+        // Sludinājumu virsraksti
+        bmw3Series2022: '2022 BMW 3 sērija',
+        audiA42021: '2021 Audi A4',
+        mercedesCClass2020: '2020 Mercedes C-klase',
+        
+        // Kategorijas
+        sedan: 'Sedans',
+        luxury: 'Luksusa',
+        
+        // Uzņēmumu nosaukumi
+        premiumMotors: 'Premium Motors',
+        eliteCars: 'Elite Cars',
+        
+        // Aktivitāšu lietotāji
+        premiumMotorsGmbH: 'Premium Motors GmbH',
+        suspiciousUser: 'Aizdomīgs lietotājs',
+        autoHausBerlin: 'Auto Haus Berlīne',
+        
+        // Laika indikatori
+        twoHoursAgo: 'Pirms 2 stundām',
+        fourHoursAgo: 'Pirms 4 stundām',
+        sixHoursAgo: 'Pirms 6 stundām',
+        eightHoursAgo: 'Pirms 8 stundām',
+      },
+    },
+
+    // Dīlera informācijas paneļa testa dati
+    dealerDashboard: {
+      mockData: {
+        // Automašīnu virsraksti
+        bmw3Series320i2022: '2022 BMW 3 sērija 320i',
+        audiA4Avant2021: '2021 Audi A4 Avant',
+        mercedesCClass2020: '2020 Mercedes C-klase',
+        
+        // Nobraukuma vērtības
+        mileage25k: '25 000 km',
+        mileage18k: '18 000 km',
+        mileage32k: '32 000 km',
+      },
+    },
+
+    // Fiksētais finansēšanas teksts
+    financing: {
+      features: {
+        quickApproval: {
+          title: 'Ātra apstiprināšana',
+          description: 'Saņemiet apstiprinājumu dažu minūšu laikā',
+        },
+        lowRates: {
+          title: 'Zemas likmes',
+          description: 'Konkurētspējīgas procentu likmes',
+        },
+        noCreditImpact: {
+          title: 'Neietekmē kredītvestu',
+          description: 'Tikai mīkstā kredīta pārbaude',
+        },
+        expertSupport: {
+          title: 'Ekspertu atbalsts',
+          description: 'Specializēti kredītu speciālisti',
+        },
+      },
+      form: {
+        creditScoreRange: 'Kredīta reitinga diapazons',
+        loanTerm: 'Kredīta termiņš',
+      },
+      summary: {
+        loanSummary: 'Kredīta kopsavilkums',
+        loanAmount: 'Kredīta summa',
+        monthlyPayment: 'Mēneša maksājums',
+        totalInterest: 'Kopējie procenti',
+        totalPayment: 'Kopējais maksājums',
+      },
+      options: {
+        financingOptions: 'Finansēšanas iespējas',
+        chooseOption: 'Izvēlieties iespēju, kas jums visvairāk piemērota',
+        traditionalAutoLoan: 'Tradicionālais auto kredīts',
+        mostPopular: 'Populārākais',
+        leaseOptions: 'Līzinga iespējas',
+      },
+    },
+
+    // Dīleru lapa - fiksētie rindiņi
+    dealers: {
+      searchLabel: 'Meklēt dīlerus',
+      stateLabel: 'Reģions',
+      specialtyLabel: 'Specializācija',
+      allStatesOption: 'Visi reģioni',
+      allSpecialtiesOption: 'Visas specializācijas',
+      sortByDistance: 'Pēc attāluma',
+      sortByRating: 'Pēc vērtējuma',
+      sortByInventory: 'Pēc automašīnu skaita',
+      sortByLabel: 'Kārtot pēc:',
+      dealersFound: 'dīleru atrasts',
+      specialtiesHeader: 'Specializācijas',
+      certificationsHeader: 'Sertifikācijas',
+      noDealersFound: 'Dīleri nav atrasti',
+      tryAdjustingFilters: 'Mēģiniet mainīt meklēšanas kritērijus',
+      viewProfilee: 'Skatīt profilu',
+      contact: 'Kontakti',
+      clearFilters: 'Notīrīt filtrus',
+      milesAway: 'km',
+      cars: 'automašīnas',
+      reviews: 'atsauksmes',
+      hoursLabel: 'Darba laiki',
+    },
+
+    registeredDealers: {
+      title: 'Reģistrētie dīleri',
+      subtitle: 'Pārlūkojiet mūsu pārbaudīto automašīnu dīleru tīklu',
+      viewProfilee: 'Skatīt profilu',
+      viewInventory: 'Skatīt inventāru',
+      contactDealer: 'Sazināties ar dīleri',
+      backToHome: 'Atpakaļ uz sākumu',
+      allDealersVerified: 'Visi dīleri ir pārbaudīti',
+      customerRated: 'Klientu novērtēti',
+      supportAvailable: 'Atbalsts 24/7',
+      browseNetwork: 'Pārlūkojiet mūsu {count} pārbaudīto dīleru tīklu visā Vācijā',
+      reviews: 'atsauksmes',
+      verifiedSince: 'Pārbaudīts kopš {year}',
+      experience: 'Pieredze:',
+      totalSales: 'Kopējās pārdošanas:',
+      viewDealerProfile: 'Skatīt dīlera profilu',
+      verifiedDealers: 'Pārbaudītie dīleri',
+      totalDealers: 'Kopējie dīleri',
+      averageRating: 'Vidējais vērtējums',
+      totalInventory: 'Kopējais inventārs',
+      searchDealers: 'Meklēt dīlerus',
+      allLocations: 'Visas atrašanās vietas',
+      sortBy: 'Kārtot pēc',
+      ars: 'gadi',
+      
+      // Dīleru specializācijas
+      specialties: {
+        luxuryCars: 'Luksusa automašīnas',
+        suvs: 'Visureigumi',
+        electricVehicles: 'Elektromobiļi',
+        familyCars: 'Ģimenes automašīnas',
+        compactCars: 'Kompaktās automašīnas',
+        hybrids: 'Hibrīdi',
+        sportsCars: 'Sporta automašīnas',
+        convertibles: 'Kabrioleti',
+        performance: 'Veiktspēja',
+        mercedesBenz: 'Mercedes-Benz',
+        porsche: 'Porsche',
+        luxury: 'Luksuss',
+        businotssCars: 'Biznesa automašīnas',
+        fleetSales: 'Autoparku pārdošana',
+        leasing: 'Līzings',
+        ecoFriendly: 'Ekoloģiski',
+      },
+
+      // Dīleru apraksti
+      descriptions: {
+        autoMaxDescription: 'Vadošais luksusa automašīnu dīleris Berlīnē ar vairāk nekā 15 gadu pieredzi. Specializējas premium vācu zīmolos.',
+        cityMotorsDescription: 'Ģimenes dīlercentrs, kas apkalpo Mincheni un apkārtējos rajonus. Slavens ar lielisku klientu apkalpošanu un godīgām cenām.',
+        ecoWheelsDescription: 'Vadošais elektrisko un hibrīda automašīnu speciālists Hamburgā. Apņēmies nodrošināt ekoloģiskus transporta risinājumus.',
+        rheinAutoDescription: 'Augstas veiktspējas un sporta automašīnu speciālisti Reinzemē. Plašs augstas veiktspējas automašīnu klāsts.',
+        stuttgartLuxuryDescription: 'Autorizētais Mercedes-Benz un Porsche dīleris Štutgartē. Vācu inženierijas mājas.',
+        nordFahrzeugeDescription: 'Korporatīvo automašīnu speciālists, kas apkalpo Frankfurtes biznesa rajonu. Eksperts autoparku un līzinga risinājumos.',
+      },
+    },
+
+    // Dīleru atbalsta lapa - fiksētie rindiņi
+    dealerSupport: {
+      supportCenterText: 'Mūsu specializētā dīleru atbalsta komanda palīdzēs jums maksimāli palielināt panākumus CarMarket365. Saņemiet palīdzību inventāra pārvaldībā, klientu jautājumos un platformas funkcijās.',
+      dashboardSupport: {
+        title: 'Informācijas paneļa atbalsts',
+        description: 'Uzziniet, kā izmantot dīlera informācijas paneli',
+        topics: ['Inventāra pārvaldība', 'Analītikas skatīšana', 'Sludinājumu rediģēšana']
+      },
+      inventoryManagement: {
+        title: 'Inventāra pārvaldība',
+        description: 'Pārvaldīt savu automašīnu krājumu',
+        topics: ['Automašīnu pievienošana', 'Cenu atjaunināšana', 'Attēlu augšupielāde']
+      },
+      customerInquiries: {
+        title: 'Klientu pieprasījumi',
+        description: 'Atbilde uz klientu ziņojumiem',
+        topics: ['Ziņojumu centrs', 'Atbildes veidnes', 'Kontaktu pārvaldība']
+      }
+    }
+  },
+
+  // Extended UI Demo and Additional Content
+  uiDemo: {
+    title: 'UI komponenšu demonstrācija',
+    subtitle: 'Visvairāk izmantotie UI elementi',
+    
+    buttons: {
+      title: 'Pogas',
+      variants: {
+        primary: 'Primāra',
+        secondary: 'Sekundāra',
+        outline: 'Kontūra',
+        ghost: 'Caurspīdīga',
+        link: 'Saite',
+        destructive: 'Destruktīva'
+      },
+      sizes: {
+        small: 'Maza',
+        medium: 'Vidēja',
+        large: 'Liela'
+      },
+      states: {
+        default: 'Noklusējuma',
+        hover: 'Uzvedot peli',
+        active: 'Aktīva',
+        disabled: 'Atspējota',
+        loading: 'Ielādē'
+      }
+    },
+    
+    forms: {
+      title: 'Veidlapas',
+      elements: {
+        input: 'Ievades lauks',
+        textarea: 'Teksta lauks',
+        select: 'Izvēlne',
+        checkbox: 'Atzīmējamais rūtiņa',
+        radio: 'Radio poga',
+        switch: 'Slēdzis',
+        slider: 'Slīdnis'
+      },
+      validation: {
+        required: 'Obligāts lauks',
+        email: 'E-pasta formāts',
+        minLength: 'Minimālais garums',
+        maxLength: 'Maksimālais garums',
+        pattern: 'Šablona atbilstība'
+      }
+    },
+    
+    layout: {
+      title: 'Izkārtojums',
+      grid: 'Režģis',
+      flexbox: 'Flexbox',
+      spacing: 'Atstarpes',
+      breakpoints: 'Lūzuma punkti'
+    }
+  },
+
+  // Additional country test content
+  countryTest: {
+    title: 'Valsts testa sistēma',
+    subtitle: 'Lokalizācijas un valūtas testēšana',
+    
+    regions: {
+      northAmerica: 'Ziemeļamerika',
+      southAmerica: 'Dienvidamerika',
+      europe: 'Eiropa',
+      asia: 'Āzija',
+      africa: 'Āfrika',
+      oceania: 'Okeānija'
+    },
+    
+    currencies: {
+      usd: 'ASV dolāri',
+      eur: 'Eiro',
+      gbp: 'Sterliņu mārciņas',
+      jpy: 'Japānas jenas',
+      cad: 'Kanādas dolāri',
+      aud: 'Austrālijas dolāri'
+    },
+    
+    languages: {
+      english: 'Angļu',
+      spanish: 'Spāņu',
+      french: 'Franču',
+      german: 'Vācu',
+      italian: 'Itāļu',
+      portuguese: 'Portugāļu',
+      russian: 'Krievu',
+      chinese: 'Ķīniešu',
+      japanese: 'Japāņu',
+      arabic: 'Arābu'
+    }
+  },
+
+  // Veidlapas un ievades lauki
+  forms: {
+    placeholders: {
+      selectMake: 'Izvēlieties marku',
+      selectModel: 'Izvēlieties modeli',
+      selectYear: 'Izvēlieties gadu',
+      selectCondition: 'Izvēlieties stāvokli',
+      selectFuelType: 'Izvēlieties degvielas tipu',
+      selectTransmission: 'Izvēlieties transmisiju',
+      selectBodyType: 'Izvēlieties virsbūves tipu',
+      selectDrivetrain: 'Izvēlieties piedziņas tipu',
+      enterName: 'Ievadiet vārdu',
+      enterEmail: 'Ievadiet e-pastu',
+      enterPassword: 'Ievadiet paroli',
+      enterPhone: 'Ievadiet tālruni',
+      enterModel: 'Ievadiet modeli',
+      enterMileage: 'Ievadiet nobraukumu',
+      enterPrice: 'Ievadiet cenu',
+      enterLocation: 'Ievadiet atrašanās vietu',
+      enterCity: 'Ievadiet pilsētu',
+      enterDescription: 'Ievadiet aprakstu',
+      searchCars: 'Meklēt automašīnas',
+      searchListings: 'Meklēt sludinājumos',
+      searchFAQs: 'Meklēt FAQ',
+      anyMake: 'Jebkura marka',
+      anyModel: 'Jebkurš modelis',
+      anyYear: 'Jebkurš gads',
+      anyMileage: 'Jebkurš nobraukums',
+      minPrice: 'Min. cena',
+      maxPrice: 'Maks. cena',
+      role: 'Loma',
+      sortBy: 'Kārtot pēc',
+      filterBy: 'Filtrēt pēc',
+      dealerNameOrCity: 'Dīlera nosaukums vai pilsēta',
+      allStates: 'Visi reģioni',
+      allSpecialties: 'Visas specializācijas',
+      egFiftyThousand: 'piemēram, 50 000',
+      successMessage: 'Jūsu sludinājums ir veiksmīgi izveidots!',
+      requiredFieldMessage: 'Šis lauks ir obligāts aizpildīšanai',
+      enterMessage: 'Ievadiet savu ziņojumu',
+    },
+    labels: {
+      businessName: 'Uzņēmuma nosaukums',
+      businessType: 'Uzņēmuma tips',
+      vatNumber: 'PVN numurs',
+      firstName: 'Vārds',
+      lastName: 'Uzvārds',
+      email: 'E-pasts',
+      password: 'Parole',
+      confirmPassword: 'Apstiprināt paroli',
+      phoneNumber: 'Tālruņa numurs',
+      street: 'Iela',
+      city: 'Pilsēta',
+      state: 'Reģions',
+      postalCode: 'Pasta indekss',
+      country: 'Valsts',
+      make: 'Marka',
+      model: 'Modelis',
+      year: 'Gads',
+      mileage: 'Nobraukums',
+      condition: 'Stāvoklis',
+      fuelType: 'Degvielas tips',
+      transmission: 'Transmisija',
+      bodyType: 'Virsbūves tips',
+      exteriorColor: 'Virsbūves krāsa',
+      interiorColor: 'Interjera krāsa',
+      price: 'Cena',
+      description: 'Apraksts',
+      contactName: 'Kontaktpersona',
+      contactPhone: 'Kontakta tālrunis',
+      contactEmail: 'Kontakta e-pasts',
+      location: 'Atrašanās vieta',
+      rememberMe: 'Atcerēties mani',
+      termsAccepted: 'Nosacījumi pieņemti',
+      privacyAccepted: 'Privātuma politika pieņemta',
+    },
+    buttons: {
+      submit: 'Sūtīt',
+      register: 'Reģistrēties',
+      signIn: 'Ielogoties',
+      signUp: 'Izveidot kontu',
+      signOut: 'Izlogoties',
+      backToSignIn: 'Atpakaļ uz ielogošanos',
+      backToHome: 'Atpakaļ uz sākumu',
+      createAccount: 'Izveidot kontu',
+      forgotPassword: 'Aizmirsu paroli',
+      resetPassword: 'Atjaunot paroli',
+      updateProfile: 'Atjaunināt profilu',
+      uploadPhotos: 'Augšupielādēt fotoattēlus',
+      removePhoto: 'Noņemt fotoattēlu',
+      publishListing: 'Publicēt sludinājumu',
+      saveDraft: 'Saglabāt kā melnrakstu',
+      previewListing: 'Priekšskatīt sludinājumu',
+      editListing: 'Rediģēt sludinājumu',
+      deleteListing: 'Dzēst sludinājumu',
+      viewListing: 'Skatīt sludinājumu',
+      viewDetails: 'Skatīt detaļas',
+      contactDealer: 'Sazināties ar dīleri',
+      scheduleTestDrive: 'Pieteikt testa braucienu',
+      requestFinancing: 'Pieprasīt finansējumu',
+      shareVehicle: 'Dalīties ar transportlīdzekli',
+      saveToFavorites: 'Pievienot favorītiem',
+      removeFromFavorites: 'Noņemt no favorītiem',
+      applyFilters: 'Pielietot filtrus',
+      clearFilters: 'Notīrīt filtrus',
+      clearSearch: 'Notīrīt meklēšanu',
+      searchVehicles: 'Meklēt automašīnas',
+      viewAllCars: 'Skatīt visas automašīnas',
+      loadMore: 'Ielādēt vairāk',
+      showMore: 'Rādīt vairāk',
+      showLess: 'Rādīt mazāk',
+    },
+    validation: {
+      nameMinLength: 'Vārdam jābūt vismaz 2 rakstzīmju garam',
+      validEmail: 'Lūdzu, ievadiet derīgu e-pasta adresi',
+      messageMinLength: 'Ziņojumam jābūt vismaz 10 rakstzīmju garam',
+    },
+  },
+
+  // Extended forms content
+  extendedForms: {
+    dealerProfile: {
+      title: 'Dīlera profila veidlapa',
+      sections: {
+        basicInfo: 'Pamatinformācija',
+        businessDetails: 'Uzņēmējdarbības detaļas',
+        services: 'Pakalpojumi',
+        certifications: 'Sertifikāti',
+        gallery: 'Galerija'
+      },
+      
+      fields: {
+        dealershipName: 'Dīlercentra nosaukums',
+        establishedYear: 'Dibināšanas gads',
+        licenseNumber: 'Licences numurs',
+        taxId: 'Nodokļu ID',
+        website: 'Tīmekļa vietne',
+        socialMedia: 'Sociālie mediji',
+        specializations: 'Specializācijas',
+        languages: 'Valodas',
+        paymentMethods: 'Maksājuma metodes',
+        certificationBody: 'Sertificējošā organizācija',
+        certificationDate: 'Sertifikācijas datums',
+        showroomImages: 'Izstāžu zāles attēli',
+        teamPhotos: 'Komandas fotogrāfijas'
+      }
+    },
+    
+    vehicleInspection: {
+      title: 'Transportlīdzekļa inspekcijas forma',
+      categories: {
+        exterior: 'Ārējais izskats',
+        interior: 'Iekšējais izskats',
+        engine: 'Dzinējs',
+        transmission: 'Transmisija',
+        brakes: 'Bremzes',
+        suspension: 'Balstiekārta',
+        electrical: 'Elektriskā sistēma',
+        safety: 'Drošības sistēmas'
+      },
+      
+      conditions: {
+        excellent: 'Lielisks',
+        good: 'Labs',
+        fair: 'Vidējs',
+        poor: 'Slikts',
+        needsRepair: 'Nepieciešams remonts',
+        notApplicable: 'Neattiecas'
+      },
+      
+      checklist: {
+        bodyDamage: 'Virsbūves bojājumi',
+        paintCondition: 'Krāsas stāvoklis',
+        tireCondition: 'Riepu stāvoklis',
+        lights: 'Gaismas',
+        mirrors: 'Spoguļi',
+        seatWear: 'Sēdvietu nolietojums',
+        dashboard: 'Panelis',
+        airConditioning: 'Gaisa kondicionēšana',
+        engineNoise: 'Dzinēja troksnis',
+        fluidLeaks: 'Šķidruma noplūdes',
+        brakeResponse: 'Bremžu atsaucība',
+        steeringAlignment: 'Stūres līdzinājums'
+      }
+    },
+    
+    insuranceQuote: {
+      title: 'Apdrošināšanas piedāvājuma pieprasījums',
+      sections: {
+        personalInfo: 'Personīgā informācija',
+        vehicleInfo: 'Transportlīdzekļa informācija',
+        coverage: 'Segums',
+        drivingHistory: 'Braukšanas vēsture'
+      },
+      
+      coverageTypes: {
+        liability: 'Atbildības apdrošināšana',
+        comprehensive: 'Visaptverošā apdrošināšana',
+        collision: 'Sadursmju apdrošināšana',
+        uninsured: 'Neapdrošinātu braucēju apdrošināšana',
+        personalInjury: 'Personisko savainojumu apdrošināšana',
+        medicalPayments: 'Medicīnisko maksājumu apdrošināšana'
+      },
+      
+      deductibles: {
+        none: 'Nav',
+        low: 'Zema (€250)',
+        medium: 'Vidēja (€500)',
+        high: 'Augsta (€1000)',
+        veryHigh: 'Ļoti augsta (€2500)'
+      }
+    }
+  },
+
+  // Additional specialized content
+  specializedContent: {
+    electricVehicles: {
+      title: 'Elektriskie transportlīdzekļi',
+      features: {
+        batteryCapacity: 'Akumulatora ietilpība',
+        chargingTime: 'Uzlādes laiks',
+        range: 'Brauciena attālums',
+        chargingPorts: 'Uzlādes porti',
+        motorPower: 'Elektromotora jauda',
+        efficiency: 'Energoefektivitāte'
+      },
+      
+      charging: {
+        homeCharging: 'Mājas uzlāde',
+        publicCharging: 'Publiskā uzlāde',
+        fastCharging: 'Ātrā uzlāde',
+        superCharging: 'Super uzlāde',
+        chargingNetworks: 'Uzlādes tīkli',
+        chargingCosts: 'Uzlādes izmaksas'
+      },
+      
+      benefits: {
+        environmental: 'Vides ieguvumi',
+        costSavings: 'Izmaksu ietaupījums',
+        performance: 'Veiktspēja',
+        convenience: 'Ērtība',
+        incentives: 'Stimuli'
+      }
+    },
+    
+    luxuryCars: {
+      title: 'Luksusa automašīnas',
+      features: {
+        premiumMaterials: 'Premium materiāli',
+        advancedTechnology: 'Uzlabotās tehnoloģijas',
+        customization: 'Personalizācija',
+        conciergeService: 'Konsjerža pakalpojums',
+        extendedWarranty: 'Pagarinātā garantija'
+      },
+      
+      brands: {
+        german: 'Vācu luksuss',
+        italian: 'Itāļu stils',
+        british: 'Britu elegance',
+        american: 'Amerikāņu spēks',
+        japanese: 'Japāņu precizitāte'
+      }
+    },
+    
+    commercialVehicles: {
+      title: 'Komerctransports',
+      categories: {
+        vans: 'Mikroautobusi',
+        trucks: 'Kravas automašīnas',
+        buses: 'Autobusi',
+        trailers: 'Piekabas',
+        specialVehicles: 'Īpašie transportlīdzekļi'
+      },
+      
+      specifications: {
+        payloadCapacity: 'Kravas ietilpība',
+        towingCapacity: 'Vilkšanas kapacitāte',
+        fuelEfficiency: 'Degvielas ekonomija',
+        maintenanceCosts: 'Apkopes izmaksas',
+        financing: 'Komerciāls finansējums'
+      }
+    }
+  },
+
+  // Enhanced seller tools and features
+  sellerTools: {
+    title: 'Pārdevēja instrumenti',
+    
+    listingOptimization: {
+      title: 'Sludinājuma optimizācija',
+      tips: {
+        photography: 'Fotogrāfiju padomi',
+        description: 'Apraksta uzrakstīšana',
+        pricing: 'Cenas noteikšana',
+        keywords: 'Atslēgvārdu izmantošana',
+        timing: 'Optimāls publicēšanas laiks'
+      },
+      
+      photoTips: [
+        'Izmantojiet dabīgo gaismu',
+        'Tīriet automašīnu pirms fotografēšanas',
+        'Fotografējiet no dažādiem leņķiem',
+        'Iekļaujiet iekšējā izskatu',
+        'Rādiet īpašās funkcijas',
+        'Izvairieties no fona sajaukšanas'
+      ],
+      
+      descriptionTips: [
+        'Sāciet ar uzsitošu virsrakstu',
+        'Uzsvērtie galvenie līdzekļi',
+        'Miniet apkopes vēsturi',
+        'Norādiet visus izmaiņu/atjauninājumus',
+        'Esiet godīgi par jebkādiem defektiem',
+        'Iekļaujiet kontaktinformāciju'
+      ]
+    },
+    
+    marketAnalysis: {
+      title: 'Tirgus analīze',
+      comparables: 'Salīdzināmās cenas',
+      marketTrends: 'Tirgus tendences',
+      demandIndicators: 'Pieprasījuma rādītāji',
+      pricingRecommendations: 'Cenu ieteikumi',
+      
+      insights: {
+        averageTimeToSell: 'Vidējais pārdošanas laiks',
+        priceFlexibility: 'Cenas elastība',
+        seasonalFactors: 'Sezonālie faktori',
+        competitorAnalysis: 'Konkurentu analīze'
+      }
+    },
+    
+    communicationTools: {
+      title: 'Saziņas instrumenti',
+      templates: {
+        initialResponse: 'Pirmā atbilde',
+        scheduleViewing: 'Apskates plānošana',
+        negotiation: 'Sarunu veidne',
+        followUp: 'Sekošana',
+        thankYou: 'Pateicības vēstule'
+      },
+      
+      autoResponses: {
+        inquiryReceived: 'Pieprasījums saņemts',
+        viewingConfirmation: 'Apskates apstiprinājums',
+        priceChange: 'Cenas izmaiņas',
+        soldNotification: 'Pārdošanas paziņojums'
+      }
+    }
+  },
+
+  // Additional comprehensive modals
+  additionalModals: {
+    close: 'Aizvērt',
+    confirm: 'Apstiprināt',
+    cancel: 'Atcelt',
+    save: 'Saglabāt',
+    delete: 'Dzēst',
+    contactSeller: 'Sazināties ar pārdevēju',
+    scheduleTestDrive: 'Ieplānot testa braucienu',
+    requestFinancing: 'Pieprasīt finansējumu',
+    reportListing: 'Ziņot par sludinājumu',
+    shareListing: 'Dalīties ar sludinājumu',
+    sendMessage: 'Nosūtīt ziņojumu',
+    yourName: 'Jūsu vārds',
+    yourEmail: 'Jūsu e-pasts',
+    yourPhone: 'Jūsu tālrunis',
+    message: 'Ziņojums',
+    interestedIn: 'Mani interesē',
+    preferredTime: 'Vēlamais laiks',
+    additionalNotes: 'Papildu piezīmes',
+    
+    share: {
+      title: 'Dalīties ar šo automašīnu',
+      description: 'Dalīties ar šo transportlīdzekli ar draugiem un ģimeni',
+      copyLink: 'Kopēt saiti',
+      linkCopied: 'Saite nokopēta!',
+      linkCopiedToClipboard: 'Saite nokopēta starpliktuvē',
+      shareViaEmail: 'Dalīties e-pastā',
+      shareOnWhatsApp: 'Dalīties WhatsApp',
+      facebook: 'Facebook',
+      twitter: 'Twitter',
+      close: 'Aizvērt'
+    }
+  },
+
+  // Enhanced dealer dashboard content  
+  dealerDashboardEnhanced: {
+    title: 'Dīlera pārskats',
+    subtitle: 'Pārvaldiet savus sludinājumus, izsekojiet veiktspēju un attīstiet uzņēmējdarbību',
+    
+    tabs: {
+      overview: 'Pārskats',
+      myListings: 'Mani sludinājumi',
+      inquiries: 'Pieprasījumi',
+      analytics: 'Analīze',
+      expressListings: 'Express sludinājumi',
+    },
+    
+    overview: {
+      stats: {
+        activeListings: {
+          title: 'Aktīvie sludinājumi',
+          description: '+2 no iepriekšējā mēneša',
+          fromLastMonth: 'no iepriekšējā mēneša',
+        },
+        totalViews: {
+          title: 'Kopējie skatījumi',
+          description: '+15% no iepriekšējā mēneša',
+          fromLastMonth: 'no iepriekšējā mēneša',
+        },
+        inquiries: {
+          title: 'Pieprasījumi',
+          description: '+7 kopš vakardienas',
+          fromYesterday: 'kopš vakardienas',
+        },
+        revenue: {
+          title: 'Ieņēmumi',
+          description: '+12% no iepriekšējā mēneša',
+          fromLastMonth: 'no iepriekšējā mēneša',
+        },
+      },
+      
+      performance: {
+        title: 'Mēneša veiktspēja',
+        description: 'Pārdoto automašīnu skaits pa mēnešiem šajā gadā',
+        monthlyData: {
+          january: 'Janvāris',
+          december: 'Decembris',
+          november: 'Novembris',
+          sold: 'pārdots',
+        },
+      },
+      
+      recentInquiries: {
+        title: 'Pēdējie pieprasījumi',
+        description: 'Jaunākās klientu vēstules',
+        inquiryTypes: {
+          viewing: 'Apskate',
+          price: 'Cenas pieprasījums',
+          financing: 'Finansējums',
+        },
+        timeAgo: {
+          hoursAgo: 'pirms stundām',
+        },
+      },
+      
+      actions: {
+        addNewListing: 'Pievienot jaunu sludinājumu',
+        viewAnalytics: 'Skatīt analīzi',
+      },
+    },
+    
+    myListings: {
+      title: 'Mani sludinājumi',
+      
+      searchPlaceholder: 'Meklēt sludinājumus...',
+      filterByStatus: 'Filtrēt pēc stāvokļa',
+      statusOptions: {
+        allStatus: 'Visi statusi',
+        active: 'Aktīvs',
+        sold: 'Pārdots',
+        pending: 'Gaidāms',
+      },
+      exportReport: 'Eksportēt ziņojumu',
+      export: 'Eksportēt',
+      
+      tableHeaders: {
+        car: 'Automašīna',
+        price: 'Cena',
+        status: 'Statuss',
+        views: 'Skatījumi',
+        inquiries: 'Pieprasījumi',
+        listed: 'Uzlikts',
+        actions: 'Darbības',
+      },
+      
+      statusBadges: {
+        active: 'Aktīvs',
+        sold: 'Pārdots',
+        pending: 'Gaidāms',
+      },
+      
+      actions: {
+        viewListing: 'Skatīt sludinājumu',
+        editListing: 'Rediģēt sludinājumu',
+        deleteListing: 'Dzēst sludinājumu',
+      },
+      
+      mobileView: {
+        views: 'skatījumi',
+        inquiries: 'pieprasījumi',
+      },
+    },
+    
+    inquiries: {
+      title: 'Klientu pieprasījumi',
+      description: 'Pārvaldīt un atbildēt uz klientu pieprasījumiem',
+      
+      inquiryTypes: {
+        testDriveRequest: 'Testa brauciena pieprasījums',
+        priceInquiry: 'Cenas pieprasījums',
+      },
+      
+      status: {
+        new: 'Jauns',
+        responded: 'Atbildēts',
+      },
+      
+      actions: {
+        respond: 'Atbildēt',
+      },
+      
+      time: {
+        hoursAgo: 'pirms stundām',
+        dayAgo: 'pirms dienas',
+      },
+    },
+    
+    analytics: {
+      popularListings: {
+        title: 'Populārākie sludinājumi',
+        description: 'Visvairāk skatītie sludinājumi šajā mēnesī',
+        views: 'skatījumi',
+        inquiries: 'pieprasījumi',
+      },
+      
+      performanceMetrics: {
+        title: 'Veiktspējas metrikas',
+        description: 'Galvenie veiktspējas rādītāji',
+        metrics: {
+          averageTimeToSell: 'Vidējais pārdošanas laiks',
+          conversionRate: 'Konversijas līmenis',
+          averageListingViews: 'Vidējie sludinājuma skatījumi',
+          responseTime: 'Atbildes laiks',
+        },
+        values: {
+          days: 'dienas',
+          hours: 'stundas',
+        },
+      },
+    },
+    
+    expressListings: {
+      title: 'Express pārdošanas sludinājumi',
+      description: 'Privātie pārdevēji, kas meklē ātru pārdošanu jūsu apkārtnē',
+      newListings: 'jauns',
+      searchPlaceholder: 'Meklēt express sludinājumus...',
+      filterByStatus: 'Statuss',
+      expressBadge: 'Express',
+      sellerContact: 'Pārdevēja kontakti',
+      submittedOn: 'Iesniegts',
+      statusBadges: {
+        new: 'Jauns',
+        contacted: 'Sazinājies',
+        sold: 'Pārdots',
+        expired: 'Beidzies'
+      },
+      statusOptions: {
+        allStatus: 'Visi statusi',
+        new: 'Jauns',
+        contacted: 'Sazinājies',
+        sold: 'Pārdots',
+        expired: 'Beidzies'
+      },
+    },
+  },
+
+  // Admin dashboard comprehensive content
+  adminDashboardComprehensive: {
+    title: 'Administratora pārskats',
+    subtitle: 'Sistēmas pārvaldība un uzraudzība',
+    
+    overview: {
+      systemHealth: {
+        title: 'Sistēmas veselība',
+        status: {
+          operational: 'Darbojas',
+          warning: 'Brīdinājums',
+          critical: 'Kritisks',
+          maintenance: 'Apkope'
+        },
+        
+        metrics: {
+          serverUptime: 'Servera darbības laiks',
+          responseTime: 'Atbildes laiks',
+          errorRate: 'Kļūdu līmenis',
+          activeConnections: 'Aktīvie savienojumi',
+          databasePerformance: 'Datubāzes veiktspēja',
+          storageUsage: 'Krātuves izmantošana'
+        }
+      },
+      
+      businessMetrics: {
+        title: 'Biznesa metrikas',
+        totalUsers: 'Kopā lietotāji',
+        activeDealers: 'Aktīvie dīleri',
+        totalListings: 'Kopā sludinājumi',
+        monthlyRevenue: 'Mēneša ieņēmumi',
+        conversionRate: 'Konversijas līmenis',
+        customerSatisfaction: 'Klientu apmierinātība'
+      },
+      
+      recentActivity: {
+        title: 'Pēdējā aktivitāte',
+        newUserRegistrations: 'Jaunu lietotāju reģistrācijas',
+        newDealerApplications: 'Jauni dīleru pieteikumi',
+        systemAlerts: 'Sistēmas brīdinājumi',
+        supportTickets: 'Atbalsta biļetes',
+        paymentIssues: 'Maksājumu problēmas'
+      }
+    },
+    
+    userManagement: {
+      title: 'Lietotāju pārvaldība',
+      filterByRole: 'Filtrēt pēc lomas',
+      roleFilter: {
+        all: 'Visas lomas',
+        admin: 'Administratori',
+        dealer: 'Dīleri',
+        user: 'Lietotāji'
+      },
+      
+      userStats: {
+        totalUsers: 'Kopā lietotāji',
+        newThisMonth: 'Jauni šajā mēnesī',
+        activeToday: 'Aktīvi šodien',
+        suspendedAccounts: 'Apturētie konti'
+      },
+      
+      bulkActions: {
+        selectAll: 'Izvēlēties visus',
+        sendEmail: 'Sūtīt e-pastu',
+        suspendUsers: 'Apturēt lietotājus',
+        activateUsers: 'Aktivizēt lietotājus',
+        exportData: 'Eksportēt datus'
+      },
+      
+      actions: {
+        viewProfile: 'Skatīt profilu',
+        editUser: 'Rediģēt lietotāju',
+        suspendUser: 'Apturēt lietotāju',
+        deleteUser: 'Dzēst lietotāju'
+      }
+    },
+    
+    contentModeration: {
+      title: 'Satura moderācija',
+      pendingReviews: 'Gaida pārbaudi',
+      reportedContent: 'Ziņotais saturs',
+      flaggedListings: 'Atzīmētie sludinājumi',
+      
+      categories: {
+        inappropriateContent: 'Nepiemērots saturs',
+        suspiciousActivity: 'Aizdomīga aktivitāte',
+        fraudulentListings: 'Krāpnieciski sludinājumi',
+        policyViolations: 'Politikas pārkāpumi'
+      },
+      
+      moderationActions: {
+        approve: 'Apstiprināt',
+        reject: 'Noraidīt',
+        requestChanges: 'Pieprasīt izmaiņas',
+        escalate: 'Eskalēt',
+        permanentBan: 'Pastāvīgs liegums'
+      }
+    },
+    
+    systemSettings: {
+      title: 'Sistēmas iestatījumi',
+      generalSettings: 'Vispārīgie iestatījumi',
+      securitySettings: 'Drošības iestatījumi',
+      emailSettings: 'E-pasta iestatījumi',
+      paymentSettings: 'Maksājumu iestatījumi',
+      
+      maintenance: {
+        title: 'Sistēmas apkope',
+        scheduledMaintenance: 'Ieplānotā apkope',
+        backupStatus: 'Rezerves kopiju statuss',
+        databaseCleanup: 'Datubāzes tīrīšana',
+        logRotation: 'Žurnālu rotācija'
+      }
+    },
+    
+    reports: {
+      title: 'Ziņojumi un analīze',
+      userReports: 'Lietotāju ziņojumi',
+      salesReports: 'Pārdošanas ziņojumi',
+      financialReports: 'Finanšu ziņojumi',
+      performanceReports: 'Veiktspējas ziņojumi',
+      
+      scheduledReports: {
+        daily: 'Ikdienas',
+        weekly: 'Iknedēļas',
+        monthly: 'Ikmēneša',
+        quarterly: 'Ik ceturksnis'
+      }
+    }
+  },
+
+  // Extended page content for blog and resources
+  blogAndResources: {
+    blog: {
+      title: 'CarMarket365 blogs',
+      subtitle: 'Jaunākās ziņas, padomi un ieskati automašīnu pasaulē',
+      
+      categories: {
+        news: 'Jaunumi',
+        buyingGuides: 'Pirkšanas ceļveži',
+        sellingTips: 'Pārdošanas padomi',
+        maintenance: 'Apkope',
+        reviews: 'Apskatījumi',
+        industry: 'Nozares ziņas',
+        electric: 'Elektriskie transportlīdzekļi',
+        luxury: 'Luksusa automašīnas'
+      },
+      
+      featuredPosts: {
+        title: 'Izceltie raksti',
+        readMore: 'Lasīt vairāk',
+        featuredBadge: 'Izcelta'
+      },
+      
+      postMeta: {
+        publishedBy: 'Publicējis',
+        on: '',
+        readTime: 'Lasīšanas laiks',
+        minutes: 'minūtes',
+        tags: 'Birkas',
+        category: 'Kategorija'
+      },
+      
+      search: {
+        placeholder: 'Meklēt rakstus...',
+        results: 'meklēšanas rezultāti',
+        noResults: 'Nav atrasti raksti. Mēģiniet citādāk.',
+        suggestions: 'Meklēšanas ieteikumi'
+      },
+      
+      newsletter: {
+        title: 'Abonējiet mūsu jaunumu vēstuli',
+        description: 'Saņemiet jaunākos rakstus un padomus tieši savā e-pasta kastītē',
+        emailPlaceholder: 'Ievadiet savu e-pasta adresi',
+        subscribe: 'Abonēt',
+        success: 'Paldies! Esat veiksmīgi abonējis mūsu jaunumu vēstuli.',
+        error: 'Radās kļūda. Lūdzu, mēģiniet vēlreiz.'
+      }
+    },
+    
+    resources: {
+      title: 'Resursi',
+      subtitle: 'Noderīgi instrumenti un informācija automašīnu pircējiem un pārdevējiem',
+      
+      categories: {
+        calculators: 'Kalkulatori',
+        checklists: 'Kontrolsaraksti',
+        guides: 'Ceļveži',
+        templates: 'Veidnes',
+        tools: 'Instrumenti'
+      },
+      
+      calculators: {
+        loanCalculator: {
+          title: 'Kredīta kalkulators',
+          description: 'Aprēķiniet savus automašīnas kredīta maksājumus'
+        },
+        affordabilityCalculator: {
+          title: 'Maksātspējas kalkulators',
+          description: 'Noskaidrojiet, cik dārgu automašīnu varat atļauties'
+        },
+        tradeInCalculator: {
+          title: 'Maiņas vērtības kalkulators',
+          description: 'Novērtējiet sava transportlīdzekļa maiņas vērtību'
+        },
+        fuelCostCalculator: {
+          title: 'Degvielas izmaksu kalkulators',
+          description: 'Aprēķiniet degvielas izmaksas dažādiem transportlīdzekļiem'
+        }
+      },
+      
+      checklists: {
+        buyingChecklist: {
+          title: 'Automašīnas pirkšanas kontrolsaraksts',
+          description: 'Soli pa solim ceļvedis automašīnas pirkšanai'
+        },
+        sellingChecklist: {
+          title: 'Automašīnas pārdošanas kontrolsaraksts',
+          description: 'Viss, kas nepieciešams veiksmīgai pārdošanai'
+        },
+        inspectionChecklist: {
+          title: 'Inspekcijas kontrolsaraksts',
+          description: 'Ko pārbaudīt pirms automašīnas iegādes'
+        }
+      }
+    }
+  },
+
+  // Galīgie labojumi atlikušajam fiksētajam angļu tekstam
+  finalFixes: {
+    // Lapa ExpressSell - automašīnu markas, modeļi un aizpildītāji
+    expressSell: {
+      carBrands: [
+        'Audi', 'BMW', 'Mercedes-Benz', 'Volkswagen', 'Toyota', 
+        'Ford', 'Opel', 'Peugeot', 'Renault'
+      ],
+      carModels: [
+        '3 sērija', '5 sērija', 'X3', 'X5', 'A4', 'A6', 'Golf', 'Passat'
+      ],
+      conditionLabel: 'Stāvoklis *',
+      conditionPlaceholder: 'Izvēlieties stāvokli',
+      descriptionPlaceholder: 'Aprakstiet savas automašīnas īpašības, vēsturi un kāpēc tā ir lieliska pirkuma izvēle...',
+      namePlaceholder: 'Jūsu pilnais vārds',
+      locationPlaceholder: 'Pilsēta, štats',
+      uploadPhotos: 'Augšupielādējiet fotoattēlus',
+      uploadPhotosDescription: 'Pievienojiet fotoattēlus, lai padarītu sludinājumu pievilcīgāku',
+      uploadCarPhotos: 'Augšupielādējiet automašīnas fotoattēlus',
+      addUpToTenPhotos: 'Pievienojiet līdz 10 fotoattēliem. Pirmais fotoattēls būs galvenais attēls.',
+      choosePhotos: 'Izvēlieties fotoattēlus',
+      mainPhoto: 'Galvenais fotoattēls',
+      priceAndDescription: 'Cena un apraksts',
+      setPriceAndDescription: 'Iestatiet vēlamo cenu un aprakstiet transportlīdzekli',
+      askingPriceEuros: 'Prasītā cena (€) *',
+      priceExample: 'piemēram, 25 000',
+      contactInformation: 'Kontaktinformācija',
+      howShouldBuyersContact: 'Kā pircējiem sazināties ar jums?',
+      fullNameRequired: 'Pilnais vārds *',
+      yourFullName: 'Jūsu pilnais vārds',
+      PhoneNumberRequired: 'Tālruņa numurs *',
+      PhonePlaceholder: 'Jūsu tālruņa numurs',
+      emailAddressRequired: 'E-pasta adrese *',
+      yourEmail: 'jusu.epasts@piemers.com',
+      locationRequired: 'Atrašanās vieta *',
+      cityState: 'Pilsēta, štats',
+      carDetailsStep: 'Automašīnas detaļas',
+      photosStep: 'Fotoattēli',
+      priceDescriptionStep: 'Cena un apraksts',
+      contactInfoStep: 'Kontaktinformācija',
+      backToHome: 'Atpakaļ uz sākumu',
+      title: 'Eksprespārdošana',
+      listMyCarQuickly: 'Ātri un viegli ievietojiet savu automašīnu sludinājumā',
+      previous: 'Iepriekšējais',
+      next: 'Nākamais',
+      listMyCyear: 'Ievietot manu automašīnu',
+    },
+    
+    // Lapa DealerSignUp - veidlapu aizpildītāji
+    dealerSignUp: {
+      firstNamePlaceholder: 'Jānis',
+      lastNamePlaceholder: 'Bērziņš',
+    },
+    
+    // Lapa SavedCars - filtra aizpildītājs
+    savedCars: {
+      filterPlaceholder: 'Filtrēt pēc',
+      sortBy: 'Kārtot pēc',
+      recentlySaved: 'Nesen saglabātās',
+      priceLowToHigh: 'Cena: no zemās uz augsto',
+      priceHighToLow: 'Cena: no augstas uz zemo',
+      yearNewestFirst: 'Gads: jaunākās vispirms',
+      arOldestFirst: 'Gads: vecākās vispirms',
+      allCars: 'Visas automašīnas',
+      savedThisWeek: 'Šajā nedēļā saglabātās',
+      back: 'Atpakaļ',
+      noSavedCars: 'Nav saglabātu automašīnu',
+      startBrowsing: 'Sāciet pārlūkot mūsu plašo transportlīdzekļu krājumu un saglabājiet iecienītākos šeit.',
+      browseVehicles: 'Pārlūkot transportlīdzekļus',
+      title: 'Saglabātās automašīnas',
+      clearAll: 'Notīrīt visu',
+      carsSaved: 'automašīnas saglabātas',
+      savedDate: 'Saglabāts',
+      contact: 'Kontakts',
+      view: 'Skatīt',
+    },
+    
+    // Lapa UIDemo - demo aizpildītāji
+    uiDemo: {
+      namePlaceholder: 'Ievadiet savu vārdu',
+      emailPlaceholder: 'Ievadiet savu e-pastu',
+      optionPlaceholder: 'Izvēlieties opciju',
+      enhancedUIComponentsDemo: 'Uzlaboto UI komponentu demonstrācija',
+      showcaseNewlyIntegrated: 'Tikko integrēto UI komponentu ar uzlabotu funkcionalitāti demonstrācija',
+      buttonVariants: 'Pogu varianti',
+      variousButtonStyles: 'Dažādi pogu stili un izmēri ar uzlabotiem fokusa stāvokļiem',
+      enhancedFormComponotnts: 'Uzlabotie veidlapu komponenti',
+      formComponotntsWithValidation: 'Veidlapu komponenti ar uzlabotu validāciju un pieejamību',
+      selectOption: 'Izvēlieties opciju',
+      thisIsPublicDisplayName: 'Šis ir jūsu publiskais rādāmais vārds.',
+      submitForm: 'Iesniegt veidlapu',
+      cardTitle: 'Kartes virsraksts',
+      cardDescription: 'Šis ir kartes apraksts ar uzlabotu stilu',
+      cardContentExample: 'Kartes saturs iet šeit ar uzlabotiem atstarpēm un tipogrāfiju.',
+      anotherCard: 'Cita karte',
+      cardsNowResponsive: 'Kartes tagad ir ar labāku atsaucīgu dizainu',
+      cardAction: 'Kartes darbība',
+      enhancedFeatures: 'Uzlabotas funkcijas',
+      improvedAccessibility: 'Uzlabota pieejamība un dizaina žetoni',
+      feature1: 'Funkcija 1',
+      feature2: 'Funkcija 2',
+      enhancedAccordion: 'Uzlabots akordeons',
+      accordionWithAnimations: 'Akordeons ar uzlabotām animācijām un pieejamību',
+      whatAreNewFeatures: 'Kādas ir jaunās funkcijas?',
+      newFeaturesAnswer: 'Uzlabotie UI komponenti ietver uzlabotu pieejamību, labākus fokusa stāvokļus, saskaņotus dizaina žetonus un uzlabotas animācijas. Visi komponenti tagad seko mūsdienīgiem dizaina paraugiem un labākajām praksēm.',
+      howDoFormsWork: 'Kā darbojas veidlapas?',
+      formsWorkAnswer: 'Veidlapu komponenti ir izstrādāti ar React Hook Form integrāciju, automātisku validāciju un uzlabotām pieejamības funkcijām. Tie nodrošina labāku kļūdu apstrādi un lietotāja atgriezenisko saiti.',
+      whatAboutImages: 'Kas ar attēlu apstrādi?',
+      imagesAnswer: 'ImageWithFallback komponents nodrošina automātisku kļūdu apstrādi bojātiem attēliem, rādot noklusējuma aizstājēju, kad attēli neielādējas. Tas uzlabo lietotāja pieredzi visā aplikācijā.',
+      imageWithFallback: 'Attēls ar aizstājēju',
+      demonstratesAutoFallback: 'Demonstrē automātisko aizstājēju bojātiem attēliem',
+      workingImage: 'Darbojoša attēla',
+      brokenImageFallback: 'Bojāts attēls (rāda aizstājēju)',
+    },
+
+    // Finansēšanas kalkulators
+    financingCalculator: {
+      title: 'Finansēšanas kalkulators',
+      subtitle: 'Aprēķiniet savus mēneša maksājumus',
+      
+      labels: {
+        vehiclePrice: 'Transportlīdzekļa cena',
+        downPayment: 'Pirmā iemaksa',
+        loanTerm: 'Kredīta termiņš',
+        interestRate: 'Procentu likme',
+        tradeInValue: 'Maiņas vērtība',
+        salesTax: 'Pārdošanas nodoklis',
+        fees: 'Papildu maksas',
+      },
+      
+      units: {
+        months: 'mēneši',
+        years: 'gadi',
+        percent: '%',
+        perMonth: '/mēnesī',
+        loanAmount: 'Kredīta summa',
+        interestPaid: 'Maksātie procenti',
+        totalPaid: 'Kopā maksāts',
+      },
+      
+      buttons: {
+        calculate: 'Aprēķināt maksājumu',
+        reset: 'Atiestatīt kalkulatoru',
+        getPreApproved: 'Saņemt priekšapstiprinājumu',
+        findFinancing: 'Atrast finansēšanas iespējas',
+      },
+      
+      notes: {
+        estimate: 'Šis ir aptuvens aprēķins. Faktiskais nosacījumi var atšķirties.',
+        disclaimer: 'Maksājumu aprēķini ir aptuveni un var neatspoguļot faktiskos kredīta nosacījumus.',
+        taxesVary: 'Nodokļu likmes atšķiras atkarībā no atrašanās vietas.',
+        additionalFees: 'Var tikt piemērotas papildu maksas.',
+      },
+    },
+  },
+
+  carDetail: {
+    // Galvene un navigācija
+    backToSearch: 'Atpakaļ uz meklēšanu',
+    
+    // Transportlīdzekļa virsraksts un informācija
+    vehicleTitle: 'Transportlīdzekļa virsraksts',
+    locationLabel: 'Atrašanās vieta',
+    priceLabel: 'Cena',
+    originalPrice: 'Sākotnējā cena',
+    savingsAmount: 'Atlaide',
+    
+    // Statusa žetoni
+    certified: 'Sertificēts',
+    featured: 'Izcelts',
+    newArrival: 'Jauns iestādes',
+    priceReduced: 'Cena samazināta',
+    greatDeal: 'Lieliska piedāvājums',
+    verified: 'Pārbaudīts',
+    
+    // Attēlu galerija
+    mainImage: 'Galvenais attēls',
+    imageGallery: 'Attēlu galerija',
+    viewFullscreen: 'Skatīt pilnekrāna režīmā',
+    imageCounter: 'no',
+    
+    // Cilnes un saturs
+    tabs: {
+      overview: 'Pārskats',
+      features: 'Īpašības',
+      inspection: 'Inspekcija',
+      history: 'Vēsture',
+    },
+    
+    // Pārskata cilne
+    overview: {
+      vehicleDetails: 'Transportlīdzekļa detaļas',
+      mileage: 'Nobraukums',
+      fuelType: 'Degvielas tips',
+      transmission: 'Transmisija',
+      year: 'Gads',
+      exteriorColor: 'Eksterjera krāsa',
+      interiorColor: 'Interjera krāsa',
+      bodyType: 'Virsbūves tips',
+      drivetrain: 'Piedziņas tips',
+      vin: 'VIN',
+      description: 'Apraksts',
+      miles: 'jūdzes',
+    },
+    
+    // Īpašību cilne
+    features: {
+      title: 'Īpašības',
+      featuresAndOptions: 'Īpašības un opcijas',
+    },
+    
+    // Inspekcijas cilne
+    inspection: {
+      title: 'Inspekcijas atskaite',
+      lastUpdated: 'Pēdējoreiz atjaunots:',
+      excellentCondition: 'Lielisks stāvoklis',
+      pointInspection: 'Pabeigta 150 punktu inspekcija',
+      inspectionCompleted: 'inspekcija pabeigta',
+      inspectionScore: 'Inspekcijas reitings',
+    },
+    
+    // Vēstures cilne
+    history: {
+      title: 'Transportlīdzekļa vēsture',
+      vehicleHistory: 'Transportlīdzekļa vēsture',
+      listedForSale: 'Izlikts pārdošanā',
+      vehicleAdded: 'Transportlīdzeklis pievienots platformā',
+      lastService: 'Pēdējais apkope',
+      regularMaintenance: 'Plānotā apkope pabeigta',
+    },
+    
+    // Darbību pogas
+    actions: {
+      callDealer: 'Zvanīt dīlerim',
+      sendMessage: 'Sūtīt ziņojumu',
+      scheduleTestDrive: 'Pieteikt testa braucienu',
+      getPreApproved: 'Saņemt priekšapstiprinājumu',
+      calculatePayment: 'Aprēķināt maksājumu',
+      saveVehicle: 'Saglabāt transportlīdzekli',
+      shareVehicle: 'Dalīties ar transportlīdzekli',
+      reportListing: 'Ziņot par sludinājumu',
+      requestInformation: 'Pieprasīt informāciju',
+      viewMoreFromDealer: 'Skatīt vairāk no dīlera',
+    },
+    
+    // Kontaktu informācija
+    contact: {
+      dealerInformation: 'Dīlera informācija',
+      contactDealer: 'Sazināties ar dīleri',
+      dealerRating: 'Dīlera vērtējums',
+      dealerReviews: 'Dīlera atsauksmes',
+      averageResponseTime: 'Vidējais atbildes laiks',
+      hoursOfOperation: 'Darba laiki',
+      directions: 'Norādes',
+      website: 'Tīmekļa vietne',
+    },
+    
+    // Līdzīgās automašīnas
+    similar: {
+      title: 'Līdzīgās automašīnas',
+      similarVehicles: 'Līdzīgi transportlīdzekļi',
+      fromThisDealer: 'No šī dīlera',
+      inThisArea: 'Šajā rajonā',
+      sameModel: 'Tā paša modeļa',
+      priceRange: 'Līdzīgā cenu kategorijā',
+    },
+    
+    // Finansēšanas informācija
+    financing: {
+      financingAvailable: 'Finansēšana pieejama',
+      monthlyPayment: 'Mēneša maksājums',
+      estimatedPayment: 'Aptuvenais maksājums',
+      getFinancing: 'Saņemt finansējumu',
+      leaseOptions: 'Līzinga iespējas',
+      tradeInValue: 'Maiņas vērtība',
+      calculatePayments: 'Aprēķināt maksājumus',
+      preApproval: 'Priekšapstiprinājums',
+    },
+    
+    // Kļūdas un brīdinājumi
+    errors: {
+      imageLoadError: 'Nav iespējams ielādēt attēlu',
+      contactError: 'Kļūda sūtot ziņojumu',
+      unavailable: 'Šis transportlīdzeklis vairs nav pieejams',
+      priceChanged: 'Cena ir mainījusies kopš jūsu pēdējās vizītes',
+    },
+    
+    // Transports
+    shipping: {
+      shippingAvailable: 'Piegāde pieejama',
+      estimatedShipping: 'Aptuvenā piegādes cena',
+      localDelivery: 'Vietējā piegāde',
+      nationwide: 'Piegāde visā valstī',
+      contactForShipping: 'Sazināties par piegādi',
+    },
+  },
+
+  // Papildu tulkojumi automašīnu specifikācijām un tehniskajiem terminiem
+  vehicleSpecs: {
+    engine: {
+      title: 'Dzinējs',
+      displacement: 'Darba tilpums',
+      power: 'Jauda',
+      torque: 'Griezes moments',
+      cylinders: 'Cilindru skaits',
+      configuration: 'Konfigurācija',
+      fuelSystem: 'Degvielas sistēma',
+      aspiration: 'Gaisa padeve',
+      compression: 'Saspiešanas pakāpe',
+      valve: 'Vārstu skaits',
+    },
+    
+    performance: {
+      title: 'Veiktspēja',
+      acceleration: 'Paātrinājums 0-100 km/h',
+      topSpeed: 'Maksimālais ātrums',
+      fuelEconomy: 'Degvielas patēriņš',
+      urbanCycle: 'Pilsētā',
+      extraUrbanCycle: 'Ārpus pilsētas',
+      combinedCycle: 'Kombinēts',
+      co2Emissions: 'CO2 emisijas',
+      emissionStandard: 'Emisiju standarts',
+    },
+    
+    dimensions: {
+      title: 'Izmēri un svars',
+      length: 'Garums',
+      width: 'Platums',
+      height: 'Augstums',
+      wheelbase: 'Riteņu bāze',
+      groundClearance: 'Klīrens',
+      curbWeight: 'Pašmasa',
+      grossWeight: 'Pilnā masa',
+      loadCapacity: 'Kravas kapacitāte',
+      trunkVolume: 'Bagāžnieka tilpums',
+    },
+    
+    features: {
+      safety: {
+        title: 'Drošības sistēmas',
+        airbags: 'Drošības spilveni',
+        abs: 'ABS (Pretbloķēšanas sistēma)',
+        esp: 'ESP (Stabilizācijas vadība)',
+        tractionControl: 'Saidres kontrole',
+        brakeAssist: 'Bremzēšanas asistents',
+        blindSpotMonitor: 'Aklās zonas monitors',
+        laneKeepAssist: 'Joslas saglabāšanas asistents',
+        adaptiveCruiseControl: 'Adaptīvs kruīza kontroles sistēma',
+        parkingAssist: 'Stāvēšanas asistents',
+        reverseCamera: 'Atpakaļskata kamera',
+      },
+      
+      comfort: {
+        title: 'Komforts un aprīkojums',
+        airConditioning: 'Gaisa kondicionēšana',
+        climateControl: 'Klimata kontrole',
+        heatedSeats: 'Sēdekļu apsildes',
+        ventilatedSeats: 'Sēdekļu ventilācija',
+        electricSeats: 'Elektriskā sēdekļu regulēšana',
+        memorySeats: 'Sēdekļu atmiņas funkcija',
+        steeringWheelHeating: 'Stūres apsildes',
+        sunroof: 'Vējlūka',
+        panoramicRoof: 'Panorāmas jumts',
+        ambientLighting: 'Ambient apgaismojums',
+      },
+      
+      technology: {
+        title: 'Tehnoloģijas',
+        infotainmentSystem: 'Izklaides sistēma',
+        navigationSystem: 'Navigācijas sistēma',
+        bluetoothConnectivity: 'Bluetooth savienojamība',
+        wirelessCharging: 'Bezvadu uzlāde',
+        usbPorts: 'USB porti',
+        keylessEntry: 'Bezvadu durvju slēgšana',
+        pushButtonStart: 'Dzinēja iedarbināšana ar pogu',
+        digitalInstrumentCluster: 'Digitālais instrumentu panelis',
+        headUpDisplay: 'Head-up displejs',
+        soundSystem: 'Skaņas sistēma',
+      },
+    },
+    
+    warranty: {
+      title: 'Garantija un apkope',
+      manufacturerWarranty: 'Ražotāja garantija',
+      extendedWarranty: 'Pagarinātā garantija',
+      serviceInterval: 'Apkopes intervāls',
+      serviceHistory: 'Apkopes vēsture',
+      nextService: 'Nākamā apkope',
+      warrantyTransferable: 'Pārnesamā garantija',
+      roadAssistance: 'Ceļa palīdzība',
+      maintenanceIncluded: 'Apkope iekļauta',
+    }
+  },
+
+  // Finansēšanas un apdrošināšanas termini
+  insurance: {
+    title: 'Apdrošināšana',
+    types: {
+      comprehensive: 'KASKO apdrošināšana',
+      thirdParty: 'Civiltiesiskās atbildības apdrošināšana',
+      collision: 'Sadursmju apdrošināšana',
+      theft: 'Zādzības apdrošināšana',
+      fire: 'Ugunsnelaimes apdrošināšana',
+      naturalDisasters: 'Dabas katastrofu apdrošināšana',
+      vandalism: 'Vandalisma apdrošināšana',
+      glass: 'Stiklu apdrošināšana',
+    },
+    
+    terms: {
+      premium: 'Apdrošināšanas prēmija',
+      deductible: 'Pašriska',
+      coverage: 'Segums',
+      claim: 'Apdrošināšanas atlīdzība',
+      policyHolder: 'Polices turētājs',
+      beneficiary: 'Labuma guvējs',
+      exclusion: 'Izslēgums',
+      rider: 'Papildu segums',
+      noClaimsBonus: 'Bezavāriju piemaksa',
+    }
+  },
+
+  // Automašīnu kategorijas un tipi
+  vehicleCategories: {
+    bySize: {
+      microcar: 'Mikroautomašīna',
+      citycar: 'Pilsētas automašīna',
+      supermini: 'Supermini',
+      compactCar: 'Kompaktā automašīna',
+      midSizeCar: 'Vidējā izmēra automašīna',
+      fullSizeCar: 'Pilna izmēra automašīna',
+      luxuryCar: 'Luksusa automašīna',
+    },
+    
+    byBody: {
+      sedan: 'Sedans',
+      hatchback: 'Hečbeks',
+      wagon: 'Universālis',
+      coupe: 'Kupe',
+      convertible: 'Kabriolets',
+      suv: 'SUV',
+      crossover: 'Crossover',
+      minivan: 'Minivens',
+      pickup: 'Pikapss',
+      van: 'Furgons',
+    },
+    
+    byPurpose: {
+      familyCar: 'Ģimenes automašīna',
+      sportsCar: 'Sporta automašīna',
+      offRoadVehicle: 'Bezceļu transportlīdzeklis',
+      commercialVehicle: 'Komerctransports',
+      electricVehicle: 'Elektroautomašīna',
+      hybridVehicle: 'Hibrīdautomašīna',
+      economyCar: 'Ekonomiska automašīna',
+      premiumCar: 'Premium automašīna',
+    }
+  },
+
+  // Automašīnu stāvokļa novērtējums
+  conditionAssessment: {
+    exterior: {
+      title: 'Eksterjers',
+      paintCondition: 'Krāsojuma stāvoklis',
+      bodyDamage: 'Virsbūves bojājumi',
+      rustCondition: 'Rūsas stāvoklis',
+      chromeTrim: 'Hromētas detaļas',
+      plasticTrim: 'Plastmasas detaļas',
+      windows: 'Logi',
+      mirrors: 'Spoguļi',
+      bumpers: 'Bamperis',
+      grill: 'Režģis',
+      headlights: 'Priekšējie lukturi',
+      taillights: 'Aizmugurējie lukturi',
+    },
+    
+    interior: {
+      title: 'Interjers',
+      seatCondition: 'Sēdekļu stāvoklis',
+      dashboardCondition: 'Ierīču paneļa stāvoklis',
+      carpetCondition: 'Grīdas seguma stāvoklis',
+      electronicSystems: 'Elektroniskās sistēmas',
+      climateControl: 'Klimata sistēma',
+      audioSystem: 'Audio sistēma',
+      instruments: 'Instrumenti',
+      switches: 'Slēdži',
+      lighting: 'Apgaismojums',
+      storage: 'Uzglabāšanas vietas',
+    },
+    
+    mechanical: {
+      title: 'Mehāniskā daļa',
+      engineCondition: 'Dzinēja stāvoklis',
+      transmissionCondition: 'Transmisijas stāvoklis',
+      brakeSystem: 'Bremžu sistēma',
+      suspensionSystem: 'Amortizācijas sistēma',
+      steeringSystem: 'Stūrēšanas sistēma',
+      exhaustSystem: 'Izplūdes sistēma',
+      coolingSystem: 'Dzesēšanas sistēma',
+      electricalSystem: 'Elektriskā sistēma',
+      tires: 'Riepas',
+      wheels: 'Diski',
+    }
+  },
+
+  // Automašīnu tirgus termini
+  marketTerms: {
+    pricing: {
+      askingPrice: 'Prasītā cena',
+      marketValue: 'Tirgus vērtība',
+      tradeInValue: 'Maiņas vērtība',
+      retailValue: 'Mazumtirdzniecības vērtība',
+      wholesaleValue: 'Vairumtirdzniecības vērtība',
+      depreciation: 'Nolietojums',
+      appreciation: 'Vērtības pieaugums',
+      negotiablePrice: 'Sarunu cena',
+      firmPrice: 'Fiksēta cena',
+      bestOffer: 'Labākais piedāvājums',
+    },
+    
+    documentation: {
+      title: 'Dokumentācija',
+      registration: 'Reģistrācijas apliecība',
+      inspection: 'Tehniskā apskate',
+      insurance: 'Apdrošināšana',
+      serviceRecords: 'Apkopes ieraksti',
+      ownershipHistory: 'Īpašnieku vēsture',
+      accidentHistory: 'Avāriju vēsture',
+      lien: 'Ķīla',
+      clearTitle: 'Tīrs īpašuma dokuments',
+      salvageTitle: 'Glābšanas dokuments',
+    }
+  }
+};
+

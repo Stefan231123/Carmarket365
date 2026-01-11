@@ -1,0 +1,27 @@
+{
+  "metadata": {
+    "extractedAt": "2025-09-18T16:33:36.790Z",
+    "version": "1.0.0",
+    "totalKeys": 0,
+    "languages": [
+      "en",
+      "sq"
+    ]
+  },
+  "translations": {
+    "en": {
+      "language": "en",
+      "file": "en.ts",
+      "extractedAt": "2025-09-18T16:33:36.802Z",
+      "totalKeys": 0,
+      "translations": {}
+    },
+    "sq": {
+      "language": "sq",
+      "file": "sq.ts",
+      "extractedAt": "2025-09-18T16:33:36.806Z",
+      "totalKeys": 0,
+      "translations": {}
+    }
+  }
+}

@@ -1,0 +1,8 @@
+browseCars.results.endOfResults
+browseCars.results.loadMore
+browseCars.results.noResults
+browseCars.results.noResultsMessage
+browseCars.results.of
+browseCars.results.results
+browseCars.results.showing
+browseCars.results.tryDifferentFilters

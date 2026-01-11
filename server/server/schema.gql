@@ -1,0 +1,147 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type AuthResponse {
+  access_token: String!
+  user: User!
+}
+
+type Car {
+  bodyType: String
+  color: String
+  countryCode: String
+  createdAt: DateTime!
+  description: String
+  fuelType: String!
+  id: ID!
+  images: [String!]!
+  isAvailable: Boolean!
+  isFeatured: Boolean!
+  location: String!
+  make: String!
+  mileage: Int!
+  model: String!
+  price: Float!
+  seller: User!
+  transmission: String!
+  updatedAt: DateTime!
+  year: Int!
+}
+
+input CarFilterInput {
+  bodyType: String
+  countryCode: String
+  fuelType: String
+  isAvailable: Boolean
+  isFeatured: Boolean
+  location: String
+  make: String
+  maxMileage: Int
+  maxPrice: Float
+  maxYear: Int
+  minPrice: Float
+  minYear: Int
+  model: String
+  transmission: String
+}
+
+input CreateCarInput {
+  bodyType: String
+  color: String
+  countryCode: String
+  description: String
+  fuelType: String!
+  images: [String!]
+  isFeatured: Boolean
+  location: String!
+  make: String!
+  mileage: Int!
+  model: String!
+  price: Float!
+  transmission: String!
+  year: Int!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  addToSavedListings(carId: String!): User!
+  createCar(input: CreateCarInput!): Car!
+  deleteCar(id: String!): Boolean!
+  login(input: LoginInput!): AuthResponse!
+  register(input: RegisterInput!): AuthResponse!
+  removeFromSavedListings(carId: String!): User!
+  updateCar(id: String!, input: UpdateCarInput!): Car!
+}
+
+type Query {
+  getCarById(id: String!): Car!
+  getCarMakes: [String!]!
+  getCarModels(make: String!): [String!]!
+  getCars(filters: CarFilterInput): [Car!]!
+  getCarsByMake(make: String!): [Car!]!
+  getCurrentUser: User!
+  getFeaturedCars(limit: Int! = 10): [Car!]!
+  getUserById(id: String!): User!
+  getUsers: [User!]!
+}
+
+input RegisterInput {
+  dealerAddress: String
+  dealerCity: String
+  dealerName: String
+  dealerPhoneNumber: String
+  email: String!
+  name: String
+  password: String!
+  role: UserRole
+}
+
+input UpdateCarInput {
+  bodyType: String
+  color: String
+  countryCode: String
+  description: String
+  fuelType: String
+  images: [String!]
+  isAvailable: Boolean
+  isFeatured: Boolean
+  location: String
+  make: String
+  mileage: Int
+  model: String
+  price: Float
+  transmission: String
+  year: Int
+}
+
+type User {
+  cars: [Car!]!
+  createdAt: DateTime!
+  dealerAddress: String
+  dealerCity: String
+  dealerLogoUrl: String
+  dealerName: String
+  dealerPhoneNumber: String
+  email: String!
+  id: ID!
+  name: String
+  role: UserRole!
+  savedListingIds: [String!]!
+  updatedAt: DateTime!
+}
+
+enum UserRole {
+  ADMIN
+  DEALER
+  USER
+}

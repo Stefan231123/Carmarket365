@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarMarket365 - Context-Aware Translation Proofreading</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: #1e293b;
+            color: white;
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .language-select {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            background: #334155;
+            color: white;
+            font-size: 14px;
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 20px;
+            height: calc(100vh - 80px);
+        }
+
+        .preview-section {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-header {
+            background: #f1f5f9;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .preview-url {
+            font-family: 'SF Mono', Consolas, monospace;
+            background: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .preview-reload {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .preview-iframe {
+            flex: 1;
+            width: 100%;
+            border: none;
+        }
+
+        .proofreading-panel {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            max-height: calc(100vh - 120px);
+        }
+
+        .panel-header {
+            background: #f8fafc;
+            padding: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .panel-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .translations-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0;
+        }
+
+        .translation-item {
+            border-bottom: 1px solid #f1f5f9;
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .translation-item:hover {
+            background: #f8fafc;
+        }
+
+        .translation-item.active {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .translation-key {
+            font-family: 'SF Mono', Consolas, monospace;
+            background: #f1f5f9;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #475569;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        .translation-original {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .translation-current {
+            font-size: 14px;
+            color: #1e293b;
+        }
+
+        .translation-editor {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            width: 90%;
+            max-width: 600px;
+            z-index: 1000;
+            display: none;
+        }
+
+        .editor-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: none;
+        }
+
+        .editor-header {
+            padding: 20px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .editor-body {
+            padding: 20px;
+        }
+
+        .editor-footer {
+            padding: 20px;
+            border-top: 1px solid #e2e8f0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #374151;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+
+        .context-info {
+            background: #f0f9ff;
+            border: 1px solid #bae6fd;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: #0c4a6e;
+        }
+
+        .stats-bar {
+            background: #f8fafc;
+            padding: 10px 20px;
+            border-top: 1px solid #e2e8f0;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .highlight-element {
+            outline: 3px solid #fbbf24 !important;
+            background: rgba(251, 191, 36, 0.1) !important;
+        }
+
+        @media (max-width: 1200px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+            
+            .proofreading-panel {
+                max-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>🚗 CarMarket365 Context-Aware Proofreading</h1>
+            <div class="header-controls">
+                <select class="language-select" id="languageSelect">
+                    <option value="en">English</option>
+                    <option value="sq">Albanian</option>
+                    <option value="mk">Macedonian</option>
+                    <option value="sl">Slovenian</option>
+                    <option value="lv">Latvian</option>
+                    <option value="ru">Russian</option>
+                </select>
+                <button class="btn btn-primary" onclick="exportChanges()">📤 Export Changes</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="preview-section">
+            <div class="preview-header">
+                <input type="url" class="preview-url" id="previewUrl" value="http://localhost:3000" placeholder="Enter your site URL">
+                <button class="preview-reload" onclick="reloadPreview()">🔄 Reload</button>
+            </div>
+            <iframe class="preview-iframe" id="previewFrame" src="about:blank"></iframe>
+        </div>
+
+        <div class="proofreading-panel">
+            <div class="panel-header">
+                <div class="panel-title">Translation Keys</div>
+                <input type="text" class="search-box" id="searchBox" placeholder="🔍 Search translations..." onkeyup="filterTranslations()">
+            </div>
+            <div class="translations-list" id="translationsList">
+                <!-- Translations will be loaded here -->
+            </div>
+            <div class="stats-bar">
+                <span id="statsText">0 translations loaded</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Translation Editor Modal -->
+    <div class="editor-overlay" id="editorOverlay" onclick="closeEditor()"></div>
+    <div class="translation-editor" id="translationEditor">
+        <div class="editor-header">
+            <h3>Edit Translation</h3>
+        </div>
+        <div class="editor-body">
+            <div class="context-info" id="contextInfo"></div>
+            
+            <div class="form-group">
+                <label class="form-label">Translation Key</label>
+                <input type="text" class="form-input" id="editKey" readonly>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Original (English)</label>
+                <textarea class="form-input" id="editOriginal" readonly></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" id="editCurrentLabel">Current Translation</label>
+                <textarea class="form-input" id="editCurrent" placeholder="Enter translation..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Notes</label>
+                <textarea class="form-input" id="editNotes" placeholder="Add notes about this translation..."></textarea>
+            </div>
+        </div>
+        <div class="editor-footer">
+            <button class="btn btn-secondary" onclick="closeEditor()">Cancel</button>
+            <button class="btn btn-primary" onclick="saveTranslation()">Save</button>
+        </div>
+    </div>
+
+    <script>
+        let translations = {};
+        let modifications = new Map();
+        let currentLanguage = 'sq';
+
+        // Initialize the interface
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSampleTranslations();
+            reloadPreview();
+            
+            document.getElementById('languageSelect').addEventListener('change', function() {
+                currentLanguage = this.value;
+                renderTranslations();
+            });
+        });
+
+        function loadSampleTranslations() {
+            // Sample translations for demo
+            translations = {
+                'header.welcome': {
+                    en: 'Welcome to CarMarket365',
+                    sq: 'Mirë se vini në CarMarket365',
+                    context: 'Main page header greeting',
+                    section: 'header'
+                },
+                'auth.signIn': {
+                    en: 'Sign In',
+                    sq: 'Kyçu',
+                    context: 'Login button text',
+                    section: 'auth'
+                },
+                'common.loading': {
+                    en: 'Loading...',
+                    sq: 'Po ngarkohet...',
+                    context: 'Loading indicator text',
+                    section: 'common'
+                },
+                'cars.viewDetails': {
+                    en: 'View Details',
+                    sq: 'Shiko detajet',
+                    context: 'Button to view car details',
+                    section: 'cars'
+                },
+                'sell.title': {
+                    en: 'Sell Your Car',
+                    sq: 'Shit makinën tuaj',
+                    context: 'Page title for selling a car',
+                    section: 'sell'
+                },
+                'footer.contact': {
+                    en: 'Contact Us',
+                    sq: 'Kontakt',
+                    context: 'Footer contact link',
+                    section: 'footer'
+                }
+            };
+            
+            renderTranslations();
+        }
+
+        function renderTranslations() {
+            const container = document.getElementById('translationsList');
+            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
+            
+            container.innerHTML = '';
+            let count = 0;
+            
+            Object.entries(translations).forEach(([key, data]) => {
+                if (searchTerm && !key.toLowerCase().includes(searchTerm) && 
+                    !data[currentLanguage]?.toLowerCase().includes(searchTerm)) {
+                    return;
+                }
+                
+                count++;
+                const item = document.createElement('div');
+                item.className = 'translation-item';
+                item.onclick = () => openEditor(key);
+                
+                const isModified = modifications.has(key);
+                const currentText = isModified ? 
+                    modifications.get(key).languages[currentLanguage] || data[currentLanguage] :
+                    data[currentLanguage];
+                
+                item.innerHTML = `
+                    <div class="translation-key">${key}</div>
+                    <div class="translation-original">${data.en}</div>
+                    <div class="translation-current" style="${isModified ? 'color: #f59e0b; font-weight: 600;' : ''}">${currentText || '[Missing translation]'}</div>
+                `;
+                
+                container.appendChild(item);
+            });
+            
+            document.getElementById('statsText').textContent = 
+                `${count} translations • ${modifications.size} modified`;
+        }
+
+        function filterTranslations() {
+            renderTranslations();
+        }
+
+        function openEditor(key) {
+            const data = translations[key];
+            if (!data) return;
+            
+            document.getElementById('editKey').value = key;
+            document.getElementById('editOriginal').value = data.en;
+            document.getElementById('editCurrent').value = 
+                modifications.has(key) ? 
+                modifications.get(key).languages[currentLanguage] || data[currentLanguage] :
+                data[currentLanguage] || '';
+            document.getElementById('editNotes').value = 
+                modifications.has(key) ? modifications.get(key).notes || '' : '';
+            document.getElementById('editCurrentLabel').textContent = 
+                `Current Translation (${currentLanguage.toUpperCase()})`;
+            
+            document.getElementById('contextInfo').innerHTML = `
+                <strong>Context:</strong> ${data.context}<br>
+                <strong>Section:</strong> ${data.section}<br>
+                <strong>Usage:</strong> This text appears ${getUsageContext(key)}
+            `;
+            
+            document.getElementById('editorOverlay').style.display = 'block';
+            document.getElementById('translationEditor').style.display = 'block';
+            
+            // Try to highlight the element in the preview
+            highlightInPreview(key);
+        }
+
+        function closeEditor() {
+            document.getElementById('editorOverlay').style.display = 'none';
+            document.getElementById('translationEditor').style.display = 'none';
+            removeHighlightFromPreview();
+        }
+
+        function saveTranslation() {
+            const key = document.getElementById('editKey').value;
+            const newValue = document.getElementById('editCurrent').value;
+            const notes = document.getElementById('editNotes').value;
+            
+            if (!modifications.has(key)) {
+                modifications.set(key, { languages: {}, notes: '' });
+            }
+            
+            modifications.get(key).languages[currentLanguage] = newValue;
+            modifications.get(key).notes = notes;
+            
+            closeEditor();
+            renderTranslations();
+            
+            // Update the preview if possible
+            updatePreviewText(key, newValue);
+        }
+
+        function highlightInPreview(key) {
+            try {
+                const iframe = document.getElementById('previewFrame');
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                
+                // Remove existing highlights
+                iframeDoc.querySelectorAll('.highlight-element').forEach(el => {
+                    el.classList.remove('highlight-element');
+                });
+                
+                // Try to find and highlight the element
+                // This is a simplified approach - in production you'd need more sophisticated matching
+                const elements = iframeDoc.querySelectorAll('*');
+                elements.forEach(el => {
+                    if (el.textContent && el.textContent.trim() === translations[key][currentLanguage]) {
+                        el.classList.add('highlight-element');
+                    }
+                });
+            } catch (error) {
+                console.log('Cannot highlight in cross-origin iframe');
+            }
+        }
+
+        function removeHighlightFromPreview() {
+            try {
+                const iframe = document.getElementById('previewFrame');
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                iframeDoc.querySelectorAll('.highlight-element').forEach(el => {
+                    el.classList.remove('highlight-element');
+                });
+            } catch (error) {
+                // Ignore cross-origin errors
+            }
+        }
+
+        function updatePreviewText(key, newValue) {
+            try {
+                const iframe = document.getElementById('previewFrame');
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                
+                // Find elements with the old text and update them
+                const elements = iframeDoc.querySelectorAll('*');
+                elements.forEach(el => {
+                    if (el.textContent && el.textContent.trim() === translations[key][currentLanguage]) {
+                        el.textContent = newValue;
+                    }
+                });
+            } catch (error) {
+                console.log('Cannot update preview text in cross-origin iframe');
+            }
+        }
+
+        function getUsageContext(key) {
+            const contexts = {
+                'header.': 'in the website header/navigation',
+                'footer.': 'in the website footer',
+                'auth.': 'in login/registration forms',
+                'common.': 'throughout the website',
+                'cars.': 'on car listing pages',
+                'sell.': 'on the sell car page',
+                'search.': 'in search functionality',
+                'modal.': 'in popup dialogs'
+            };
+            
+            for (const [prefix, context] of Object.entries(contexts)) {
+                if (key.startsWith(prefix)) {
+                    return context;
+                }
+            }
+            
+            return 'in various parts of the website';
+        }
+
+        function reloadPreview() {
+            const url = document.getElementById('previewUrl').value;
+            const iframe = document.getElementById('previewFrame');
+            
+            if (url && url.startsWith('http')) {
+                iframe.src = url + '?lang=' + currentLanguage;
+            } else {
+                iframe.src = 'about:blank';
+            }
+        }
+
+        function exportChanges() {
+            if (modifications.size === 0) {
+                alert('No changes to export.');
+                return;
+            }
+            
+            const changes = {
+                metadata: {
+                    exportedAt: new Date().toISOString(),
+                    totalTranslations: Object.keys(translations).length,
+                    modifiedTranslations: modifications.size,
+                    language: currentLanguage,
+                    proofreader: prompt('Enter your name:') || 'Anonymous'
+                },
+                modifications: Object.fromEntries(modifications)
+            };
+            
+            const blob = new Blob([JSON.stringify(changes, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `translation-changes-${currentLanguage}-${new Date().toISOString().slice(0, 10)}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Load real translation data if available
+        function loadTranslationFile(file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.translations) {
+                        // Handle extracted format
+                        translations = {};
+                        Object.entries(data.translations).forEach(([lang, langData]) => {
+                            Object.entries(langData.translations).forEach(([key, transData]) => {
+                                if (!translations[key]) {
+                                    translations[key] = { context: transData.context, section: transData.section };
+                                }
+                                translations[key][lang] = transData.value;
+                            });
+                        });
+                        renderTranslations();
+                    }
+                } catch (error) {
+                    alert('Error loading file: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // File upload handling
+        document.addEventListener('dragover', function(e) {
+            e.preventDefault();
+        });
+
+        document.addEventListener('drop', function(e) {
+            e.preventDefault();
+            const files = e.dataTransfer.files;
+            if (files.length > 0 && files[0].name.endsWith('.json')) {
+                loadTranslationFile(files[0]);
+            }
+        });
+    </script>
+</body>
+</html>

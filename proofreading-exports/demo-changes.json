@@ -1,0 +1,28 @@
+{
+  "metadata": {
+    "exportedAt": "2025-09-18T16:35:17.411Z",
+    "totalTranslations": 1573,
+    "modifiedTranslations": 3,
+    "proofreader": "Demo Proofreader"
+  },
+  "modifications": {
+    "about": {
+      "languages": {
+        "sq": "Rreth nesh - Faqja e përmirësuar"
+      },
+      "notes": "Made the 'About' page title more descriptive"
+    },
+    "auth.signIn": {
+      "languages": {
+        "sq": "Hyr në llogari"
+      },
+      "notes": "More formal tone for sign in"
+    },
+    "common.loading": {
+      "languages": {
+        "sq": "Po ngarkohet..."
+      },
+      "notes": "Consistent with Albanian loading patterns"
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "name": "carmarket365-qa-scripts",
+  "version": "1.0.0",
+  "description": "Quality Assurance scripts for CarMarket365 translation system testing",
+  "type": "module",
+  "scripts": {
+    "test:translations": "tsx translation-validator.ts",
+    "test:cross-browser": "tsx cross-browser-test.ts",
+    "test:performance": "tsx performance-test.ts",
+    "test:all": "npm run test:translations && npm run test:cross-browser && npm run test:performance",
+    "test:quick": "tsx translation-validator.ts --quick",
+    "test:ci": "npm run test:translations && npm run test:cross-browser -- --headless",
+    "generate:report": "tsx generate-report.ts",
+    "clean:reports": "rm -rf ../qa-reports/*",
+    "install:browsers": "npx playwright install",
+    "setup": "npm install && npm run install:browsers"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0",
+    "tsx": "^4.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "keywords": [
+    "qa",
+    "testing",
+    "internationalization",
+    "translation",
+    "cross-browser",
+    "automation"
+  ],
+  "author": "CarMarket365 QA Team",
+  "license": "MIT"
+}
