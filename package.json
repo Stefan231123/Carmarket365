@@ -6,16 +6,19 @@
     "dev": "vite",
     "dev:backend": "nodemon",
     "dev:all": "concurrently \"npm run dev:backend\" \"npm run dev\"",
-    "build": "vite build",
-    "build:with-check": "tsc && vite build",
+    "build": "vite build --config vite.config.frontend.ts",
+    "build:frontend": "vite build --config vite.config.frontend.ts",
+    "build:with-check": "tsc && vite build --config vite.config.frontend.ts",
     "build:backend": "tsc --project server/tsconfig.json",
-    "build:all": "npm run build:backend && npm run build",
+    "build:all": "npm run build:backend && npm run build:frontend",
     "start": "node server/dist/main.js",
     "start:backend": "NODE_ENV=production node server/dist/main.js",
     "start:dev": "NODE_ENV=development npm run dev:all",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit && tsc --project server/tsconfig.json --noEmit"
+    "typecheck": "tsc --noEmit",
+    "typecheck:frontend": "tsc --noEmit --project ./client",
+    "typecheck:backend": "tsc --project server/tsconfig.json --noEmit"
   },
   "dependencies": {
     "@apollo/client": "^4.0.0",
