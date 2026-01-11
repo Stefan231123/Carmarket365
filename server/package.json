@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "type": "commonjs",
   "scripts": {
-    "start": "ts-node src/main.ts",
-    "dev": "nodemon src/main.ts"
+    "start": "node dist/main.js",
+    "start:dev": "ts-node src/main.ts",
+    "dev": "nodemon src/main.ts",
+    "build": "tsc",
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "@nestjs/apollo": "^13.1.0",
