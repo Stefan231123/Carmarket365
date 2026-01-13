@@ -14,7 +14,6 @@ import {
   Car
 } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
-import { useVehicleSpecTranslator } from '../utils/vehicleSpecTranslations';
 
 interface AdvancedSearchProps {
   onSearch: (filters: SearchFilters) => void;
@@ -77,7 +76,6 @@ interface SearchFilters {
 
 export function AdvancedSearch({ onSearch, onClose }: AdvancedSearchProps) {
   const { t } = useTranslation();
-  const vehicleTranslator = useVehicleSpecTranslator(t);
   const [filters, setFilters] = useState<SearchFilters>({
     // Basic Specifications
     make: "",
@@ -132,8 +130,8 @@ export function AdvancedSearch({ onSearch, onClose }: AdvancedSearchProps) {
     sortBy: "standard"
   });
 
-  // AutoScout24 exact filter options
-  const carMakes = [
+  // Get translated vehicle data from translation files
+  const carMakes = t('advancedSearch.staticVehicleData.makes', { returnObjects: true }) as string[] || [
     "Audi", "BMW", "Mercedes-Benz", "Volkswagen", "Opel", "Ford", "Renault", 
     "Peugeot", "Fiat", "Citroen", "Skoda", "SEAT", "Toyota", "Nissan", 
     "Honda", "Mazda", "Hyundai", "Kia", "Volvo", "Jaguar", "Land Rover", 
@@ -142,42 +140,42 @@ export function AdvancedSearch({ onSearch, onClose }: AdvancedSearchProps) {
     "Subaru", "Mitsubishi", "Suzuki", "Dacia", "Mini", "Smart", "Jeep"
   ];
 
-  const bodyTypes = [
+  const bodyTypes = t('advancedSearch.staticVehicleData.bodyTypes', { returnObjects: true }) as string[] || [
     "Compact", "Convertible", "Coupe", "SUV/Off-Road/Pick-up", 
     "Station wagon", "Sedans", "Van", "Transporter", "Other"
   ];
 
-  const fuelTypes = [
+  const fuelTypes = t('advancedSearch.staticVehicleData.fuelTypes', { returnObjects: true }) as string[] || [
     "Hybrid (Electric/Gasoline)", "Hybrid (Electric/Diesel)", 
     "Gasoline", "CNG", "Diesel", "Electric", "Hydrogen", "LPG", "Ethanol", "Others"
   ];
 
-  const transmissions = ["Automatic", "Manual", "Semi-automatic"];
+  const transmissions = t('advancedSearch.staticVehicleData.transmissions', { returnObjects: true }) as string[] || ["Automatic", "Manual", "Semi-automatic"];
 
-  const drivetrains = ["Front-wheel drive", "Rear-wheel drive", "All-wheel drive", "4WD"];
+  const drivetrains = t('advancedSearch.staticVehicleData.drivetrains', { returnObjects: true }) as string[] || ["Front-wheel drive", "Rear-wheel drive", "All-wheel drive", "4WD"];
 
-  const sellerTypes = ["Dealer", "Private"];
+  const sellerTypes = t('advancedSearch.staticVehicleData.sellerTypes', { returnObjects: true }) as string[] || ["Dealer", "Private"];
 
-  const conditions = ["New", "Used", "Employee's car", "Antique/Classic", "Demonstration", "Pre-registered"];
+  const conditions = t('advancedSearch.staticVehicleData.conditions', { returnObjects: true }) as string[] || ["New", "Used", "Employee's car", "Antique/Classic", "Demonstration", "Pre-registered"];
 
-  const exteriorColors = [
+  const exteriorColors = t('advancedSearch.staticVehicleData.colors', { returnObjects: true }) as string[] || [
     "Black", "White", "Silver", "Gray", "Red", "Blue", "Green", "Brown", 
     "Gold", "Orange", "Purple", "Yellow", "Beige", "Bronze"
   ];
 
-  const paintworkTypes = ["Metallic", "Pearl", "Matt", "Other"];
+  const paintworkTypes = t('advancedSearch.staticVehicleData.paintworkTypes', { returnObjects: true }) as string[] || ["Metallic", "Pearl", "Matt", "Other"];
 
-  const interiorColors = ["Black", "Gray", "Beige", "Brown", "Red", "Blue", "White", "Other"];
+  const interiorColors = t('advancedSearch.staticVehicleData.interiorColors', { returnObjects: true }) as string[] || ["Black", "Gray", "Beige", "Brown", "Red", "Blue", "White", "Other"];
 
-  const upholsteryTypes = ["Fabric", "Full leather", "Part leather", "Alcantara", "Other"];
+  const upholsteryTypes = t('advancedSearch.staticVehicleData.upholsteryTypes', { returnObjects: true }) as string[] || ["Fabric", "Full leather", "Part leather", "Alcantara", "Other"];
 
-  const countries = ["Germany", "Austria", "Italy", "Belgium", "Netherlands", "Spain", "Luxembourg", "France"];
+  const countries = t('advancedSearch.staticVehicleData.countries', { returnObjects: true }) as string[] || ["Germany", "Austria", "Italy", "Belgium", "Netherlands", "Spain", "Luxembourg", "France"];
 
-  const emissionClasses = ["Euro 6", "Euro 5", "Euro 4", "Euro 3", "Euro 2", "Euro 1"];
+  const emissionClasses = t('advancedSearch.staticVehicleData.emissionClasses', { returnObjects: true }) as string[] || ["Euro 6", "Euro 5", "Euro 4", "Euro 3", "Euro 2", "Euro 1"];
 
-  const emissionLabels = ["Green (4)", "Yellow (3)", "Orange (2)", "Red (1)", "No badge"];
+  const emissionLabels = t('advancedSearch.staticVehicleData.emissionLabels', { returnObjects: true }) as string[] || ["Green (4)", "Yellow (3)", "Orange (2)", "Red (1)", "No badge"];
 
-  const guaranteeOptions = ["Manufacturer guarantee", "Dealer guarantee", "No guarantee"];
+  const guaranteeOptions = t('advancedSearch.staticVehicleData.guaranteeOptions', { returnObjects: true }) as string[] || ["Manufacturer guarantee", "Dealer guarantee", "No guarantee"];
 
   // Feature handling functions
   const handleFeatureChange = (feature: string, checked: boolean) => {
@@ -204,8 +202,8 @@ export function AdvancedSearch({ onSearch, onClose }: AdvancedSearchProps) {
     return count;
   };
   
-  // AutoScout24 comprehensive features list
-  const features = [
+  // Get features from translation data
+  const features = t('advancedSearch.staticVehicleData.features', { returnObjects: true }) as string[] || [
     // Drivetrain & Performance
     "4WD", "All-wheel drive", "Sport suspension", "Adaptive suspension", 
     
@@ -407,7 +405,7 @@ placeholder={t('advancedSearch.placeholders.anyModel')}
                   <SelectContent>
                     <SelectItem value="any-type">{t('advancedSearch.placeholders.anyType')}</SelectItem>
                     {bodyTypes.map((type) => (
-                      <SelectItem key={type} value={type}>{vehicleTranslator.translateBodyType(type)}</SelectItem>
+                      <SelectItem key={type} value={type}>{type}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -421,7 +419,7 @@ placeholder={t('advancedSearch.placeholders.anyModel')}
                   <SelectContent>
                     <SelectItem value="any">{t('advancedSearch.placeholders.any')}</SelectItem>
                     {drivetrains.map((drivetrain) => (
-                      <SelectItem key={drivetrain} value={drivetrain}>{vehicleTranslator.translateDrivetrain(drivetrain)}</SelectItem>
+                      <SelectItem key={drivetrain} value={drivetrain}>{drivetrain}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -439,7 +437,7 @@ placeholder={t('advancedSearch.placeholders.anyModel')}
                   <SelectContent>
                     <SelectItem value="any">{t('advancedSearch.placeholders.any')}</SelectItem>
                     {fuelTypes.map((fuel) => (
-                      <SelectItem key={fuel} value={fuel}>{vehicleTranslator.translateFuelType(fuel)}</SelectItem>
+                      <SelectItem key={fuel} value={fuel}>{fuel}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -453,7 +451,7 @@ placeholder={t('advancedSearch.placeholders.anyModel')}
                   <SelectContent>
                     <SelectItem value="any">{t('advancedSearch.placeholders.any')}</SelectItem>
                     {transmissions.map((trans) => (
-                      <SelectItem key={trans} value={trans}>{vehicleTranslator.translateTransmission(trans)}</SelectItem>
+                      <SelectItem key={trans} value={trans}>{trans}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -471,7 +469,7 @@ placeholder={t('advancedSearch.placeholders.anyModel')}
                   <SelectContent>
                     <SelectItem value="any-color">{t('advancedSearch.placeholders.anyColor')}</SelectItem>
                     {exteriorColors.map((color) => (
-                      <SelectItem key={color} value={color}>{vehicleTranslator.translateColor(color)}</SelectItem>
+                      <SelectItem key={color} value={color}>{color}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -485,7 +483,7 @@ placeholder={t('advancedSearch.placeholders.anyModel')}
                   <SelectContent>
                     <SelectItem value="any-color">{t('advancedSearch.placeholders.anyColor')}</SelectItem>
                     {interiorColors.map((color) => (
-                      <SelectItem key={color} value={color}>{vehicleTranslator.translateColor(color)}</SelectItem>
+                      <SelectItem key={color} value={color}>{color}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -551,7 +549,7 @@ placeholder={t('advancedSearch.placeholders.anyModel')}
                 <SelectContent>
                   <SelectItem value="any-condition">{t('advancedSearch.placeholders.anyCondition')}</SelectItem>
                   {conditions.map((condition) => (
-                    <SelectItem key={condition} value={condition}>{vehicleTranslator.translateCondition(condition)}</SelectItem>
+                    <SelectItem key={condition} value={condition}>{condition}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
