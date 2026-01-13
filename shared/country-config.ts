@@ -86,7 +86,20 @@ export function getCountryFromSubdomain(subdomain: string): CountryConfig | null
 
 export function getCurrentCountry(): CountryConfig | null {
   if (typeof window !== 'undefined') {
-    return getCountryFromDomain(window.location.hostname);
+    const isVercel = window.location.hostname.includes('vercel.app');
+    
+    if (isVercel) {
+      // For Vercel deployment, check URL parameters
+      const urlParams = new URLSearchParams(window.location.search);
+      const countryCode = urlParams.get('country');
+      if (countryCode && COUNTRIES[countryCode]) {
+        return COUNTRIES[countryCode];
+      }
+      return null; // No country specified on Vercel
+    } else {
+      // For other deployments, use subdomain detection
+      return getCountryFromDomain(window.location.hostname);
+    }
   }
   return null;
 }
@@ -97,6 +110,19 @@ export function getCurrentLanguages(): Language[] {
 }
 
 export function getDefaultLanguage(): string {
+  if (typeof window !== 'undefined') {
+    const isVercel = window.location.hostname.includes('vercel.app');
+    
+    if (isVercel) {
+      // For Vercel, check lang parameter first
+      const urlParams = new URLSearchParams(window.location.search);
+      const langCode = urlParams.get('lang');
+      if (langCode && LANGUAGES[langCode]) {
+        return langCode;
+      }
+    }
+  }
+  
   const country = getCurrentCountry();
   return country?.defaultLanguage || 'en';
 }

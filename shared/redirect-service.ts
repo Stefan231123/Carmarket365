@@ -68,6 +68,7 @@ export class RedirectService {
 
     const currentUrl = new URL(window.location.href);
     const targetDomain = this.getTargetDomain(country);
+    const isVercel = window.location.hostname.includes('vercel.app');
     
     // Build target URL
     let targetUrl = `${currentUrl.protocol}//${targetDomain}`;
@@ -76,15 +77,30 @@ export class RedirectService {
       targetUrl += currentUrl.pathname;
     }
     
-    if (options.preserveQuery !== false && currentUrl.search) {
-      targetUrl += currentUrl.search;
+    // Handle query parameters
+    const urlParams = new URLSearchParams(currentUrl.search);
+    
+    if (isVercel) {
+      // For Vercel, add country as a query parameter
+      urlParams.set('country', country.code);
+      if (country.defaultLanguage) {
+        urlParams.set('lang', country.defaultLanguage);
+      }
+    }
+    
+    if (options.preserveQuery !== false && urlParams.toString()) {
+      targetUrl += '?' + urlParams.toString();
     }
 
     // Mark redirect as shown
     this.markRedirectShown();
 
     // Perform redirect
-    console.log(`Redirecting to country subdomain: ${targetUrl}`);
+    if (isVercel) {
+      console.log(`Redirecting to country site with parameters: ${targetUrl}`);
+    } else {
+      console.log(`Redirecting to country subdomain: ${targetUrl}`);
+    }
     window.location.href = targetUrl;
   }
 
@@ -162,11 +178,20 @@ export class RedirectService {
   }
 
   /**
-   * Check if current URL is on a country subdomain
+   * Check if current URL is on a country subdomain or has country parameters
    */
   private isOnCountrySubdomain(): boolean {
-    const country = getCountryFromDomain(window.location.hostname);
-    return country !== null;
+    const isVercel = window.location.hostname.includes('vercel.app');
+    
+    if (isVercel) {
+      // For Vercel, check if country parameter exists
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.has('country');
+    } else {
+      // For non-Vercel, check subdomain
+      const country = getCountryFromDomain(window.location.hostname);
+      return country !== null;
+    }
   }
 
   /**
@@ -176,9 +201,15 @@ export class RedirectService {
     const isLocalhost = window.location.hostname.includes('localhost') || 
                        window.location.hostname.includes('127.0.0.1');
     
+    // Check if we're on Vercel deployment
+    const isVercel = window.location.hostname.includes('vercel.app');
+    
     if (isLocalhost) {
       // Development: use .localhost format
       return `${country.code}.localhost:${window.location.port}`;
+    } else if (isVercel) {
+      // Vercel deployment: use same domain with country parameter
+      return window.location.hostname;
     } else {
       // Production: use actual domain
       return country.domain;
