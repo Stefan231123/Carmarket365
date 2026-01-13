@@ -5265,5 +5265,39 @@ export const mkTranslations: TranslationStrings = {
   // Навигација
   navigation: {
     backToHome: 'Назад кон почетна',
-  }
+  },
+
+  // Sell section for ExpressSell component
+  sell: {
+    fuelTypes: {
+      gasoline: 'Бензин',
+      diesel: 'Дизел',
+      hybrid: 'Хибрид',
+      electric: 'Електричен',
+      lpg: 'ПЛГ (пропан)',
+      cng: 'Природен гас',
+      pluginHybrid: 'Plug-in хибрид',
+      flexFuel: 'Флекс гориво',
+    },
+    transmissions: {
+      manual: 'Мануелна',
+      automatic: 'Автоматска',
+      semiAutomatic: 'Полуавтоматска',
+      cvt: 'CVT'
+    },
+    conditions: {
+      excellent: 'Одлична',
+      veryGood: 'Многу добра',
+      good: 'Добра',
+      fair: 'Задоволителна',
+      poor: 'Лоша'
+    }
+  },
+
+  // Forms section for placeholders
+  forms: {
+    placeholders: {
+      egFiftyThousand: 'пр. 50.000 км'
+    }
+  },
 };

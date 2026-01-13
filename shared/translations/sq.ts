@@ -475,7 +475,7 @@ export const sqTranslations: TranslationStrings = {
     privateAccount: 'Private Account',
     buyAndSellCars: 'Buy and sell cars, save favorites, and manage your listings',
     fullName: 'Full Name',
-    enterFullName: 'Enter your full name',
+    enterFullName: 'Shkruaj emrin tënd të plotë',
     emailAddress: 'Email Address',
     createStrongPassword: 'Create a strong password',
     confirmYourPassword: 'Confirm your password',
@@ -4879,5 +4879,39 @@ export const sqTranslations: TranslationStrings = {
   // Navigimi
   navigation: {
     backToHome: 'Kthehu tek faqja kryesore',
-  }
+  },
+
+  // Sell section for ExpressSell component
+  sell: {
+    fuelTypes: {
+      gasoline: 'Benzinë',
+      diesel: 'Dizel',
+      hybrid: 'Hibrid',
+      electric: 'Elektrike',
+      lpg: 'LPG (propan)',
+      cng: 'Gaz natyror',
+      pluginHybrid: 'Hibrid plug-in',
+      flexFuel: 'Karburant fleks',
+    },
+    transmissions: {
+      manual: 'Manuale',
+      automatic: 'Automatike',
+      semiAutomatic: 'Gjysëm-automatike',
+      cvt: 'CVT'
+    },
+    conditions: {
+      excellent: 'E shkëlqyer',
+      veryGood: 'Shumë e mirë',
+      good: 'E mirë',
+      fair: 'E kënaqshme',
+      poor: 'E dobët'
+    }
+  },
+
+  // Forms section for placeholders
+  forms: {
+    placeholders: {
+      egFiftyThousand: 'p.sh. 50.000 km'
+    }
+  },
 };
