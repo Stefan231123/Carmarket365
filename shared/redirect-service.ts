@@ -17,45 +17,8 @@ export class RedirectService {
    * Check if we should perform automatic redirection
    */
   async shouldRedirect(): Promise<{ shouldRedirect: boolean; targetCountry?: CountryConfig }> {
-    // Skip if we're already on a country subdomain
-    if (this.isOnCountrySubdomain()) {
-      return { shouldRedirect: false };
-    }
-
-    // Skip if admin/testing bypass parameter is present
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.has('no-redirect') || urlParams.has('admin')) {
-      return { shouldRedirect: false };
-    }
-
-    // Skip if user has explicitly chosen to stay on global (for admin purposes)
-    const userPreference = this.getUserPreference();
-    if (userPreference === 'global') {
-      return { shouldRedirect: false };
-    }
-
-    // Skip if redirect was already shown in this session and user made a choice
-    if (this.wasRedirectShown()) {
-      // If user previously made a choice, redirect to that country
-      if (userPreference && userPreference !== 'global' && COUNTRIES[userPreference]) {
-        return { shouldRedirect: true, targetCountry: COUNTRIES[userPreference] };
-      }
-    }
-
-    // Get recommended country from IP geolocation
-    let targetCountry = await geolocationService.getRecommendedCountry();
-    
-    // If user has a country preference, use that instead of geolocation
-    if (userPreference && userPreference !== 'global' && COUNTRIES[userPreference]) {
-      targetCountry = COUNTRIES[userPreference];
-    }
-    
-    // If no country detected, use default fallback (North Macedonia)
-    if (!targetCountry) {
-      targetCountry = COUNTRIES.mk; // Default fallback country
-    }
-
-    return { shouldRedirect: true, targetCountry };
+    // Always default to Macedonia - no redirects needed since we only support Macedonia
+    return { shouldRedirect: false };
   }
 
   /**

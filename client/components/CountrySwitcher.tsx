@@ -37,12 +37,12 @@ export function CountrySwitcher({ className, variant = 'button' }: CountrySwitch
   const TriggerComponent = variant === 'link' ? (
     <button className={`text-sm text-muted-foreground hover:text-foreground transition-colors ${className}`}>
       <Globe className="h-4 w-4 inline mr-1" />
-      Change Country
+      Change Language
     </button>
   ) : (
     <Button variant="outline" size="sm" className={className}>
       <Globe className="h-4 w-4 mr-2" />
-      {country?.name || 'Global'}
+      Language
     </Button>
   );
 
@@ -56,7 +56,7 @@ export function CountrySwitcher({ className, variant = 'button' }: CountrySwitch
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Globe className="h-5 w-5" />
-            Choose Your Country
+            Choose Your Language
           </DialogTitle>
         </DialogHeader>
         
@@ -64,85 +64,48 @@ export function CountrySwitcher({ className, variant = 'button' }: CountrySwitch
           {/* Current Status */}
           <div className="bg-muted/30 rounded-2xl p-4">
             <div className="flex items-center justify-between mb-3">
-              <h4 className="font-semibold text-sm">Current Site</h4>
-              {country && (
-                <Badge variant="secondary">
-                  {country.code === 'global' ? 'Global' : 'Country-Specific'}
-                </Badge>
-              )}
+              <h4 className="font-semibold text-sm">Current Language</h4>
+              <Badge variant="secondary">
+                Macedonia
+              </Badge>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-2xl">{country?.flag || '🌍'}</span>
+              <span className="text-2xl">🇲🇰</span>
               <div>
-                <div className="font-medium">{country?.name || 'Loading...'}</div>
+                <div className="font-medium">Macedonia</div>
                 <div className="text-xs text-muted-foreground">
-                  {country 
-                    ? (country.code === 'global' 
-                        ? 'Admin/Testing Mode' 
-                        : `Languages: ${country.languages.map(l => l.name).join(', ')}`
-                      )
-                    : 'Detecting your location...'
-                  }
+                  Available languages: Macedonian, Albanian
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Detected Country (if different) */}
-          {detectedCountry && detectedCountry.code !== country?.code && (
-            <div className="bg-blue-50 border border-blue-200 rounded-2xl p-4">
-              <div className="flex items-center gap-2 mb-2">
-                <MapPin className="h-4 w-4 text-blue-600" />
-                <span className="font-semibold text-sm text-blue-900">Detected Location</span>
-                {isGeolocationLoading && (
-                  <div className="w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
-                )}
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <span className="text-xl">{detectedCountry.flag}</span>
-                  <div>
-                    <div className="font-medium text-blue-900">{detectedCountry.name}</div>
-                    <div className="text-xs text-blue-700">Based on your location</div>
-                  </div>
-                </div>
-                <Button 
-                  size="sm" 
-                  onClick={() => handleCountrySelect(detectedCountry)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white"
-                >
-                  Switch
-                </Button>
-              </div>
-            </div>
-          )}
 
-          {/* Available Countries */}
+          {/* Language Selection */}
           <div>
-            <h4 className="font-semibold text-sm mb-3">Available Country Sites</h4>
+            <h4 className="font-semibold text-sm mb-3">Select Language</h4>
             <div className="grid grid-cols-1 gap-3">
-              {availableCountries.map((countryOption) => (
+              {country?.languages.map((language) => (
                 <button
-                  key={countryOption.code}
-                  onClick={() => handleCountrySelect(countryOption)}
+                  key={language.code}
+                  onClick={() => {
+                    if (language.code === 'mk') {
+                      window.location.href = window.location.pathname + '?country=mk&lang=mk';
+                    } else if (language.code === 'sq') {
+                      window.location.href = window.location.pathname + '?country=mk&lang=sq';
+                    }
+                    setIsOpen(false);
+                  }}
                   className="flex items-center justify-between p-3 rounded-2xl border border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50 transition-colors text-left"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-xl">{countryOption.flag}</span>
+                    <span className="text-xl">{language.flag}</span>
                     <div>
-                      <div className="font-medium">{countryOption.name}</div>
+                      <div className="font-medium">{language.name}</div>
                       <div className="text-xs text-muted-foreground">
-                        {countryOption.languages.map(l => l.name).join(', ')}
+                        {language.code === 'mk' ? 'Македонски јазик' : 'Gjuha shqipe'}
                       </div>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {countryOption.hasMultipleLanguages && (
-                      <Badge variant="outline" className="text-xs">
-                        Multi-Lang
-                      </Badge>
-                    )}
-                    <ExternalLink className="h-4 w-4 text-muted-foreground" />
                   </div>
                 </button>
               ))}
@@ -165,16 +128,16 @@ export function CountrySwitcher({ className, variant = 'button' }: CountrySwitch
             </div>
           )}
           
-          {/* Note about country-specific sites */}
+          {/* Note about language options */}
           {!isAdminMode && (
             <div className="pt-4 border-t border-zinc-200">
               <div className="text-center p-3 bg-muted/30 rounded-2xl">
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <Globe className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm font-medium">Country-Specific Experience</span>
+                  <span className="text-sm font-medium">CarMarket365 Macedonia</span>
                 </div>
                 <p className="text-xs text-muted-foreground">
-                  Each country site offers localized content, pricing, and language options for the best experience.
+                  Choose your preferred language: Macedonian or Albanian for the best experience.
                 </p>
               </div>
             </div>

@@ -72,12 +72,10 @@ export function LanguageSelector({
               </Select>
             )}
             
-            {/* Country Info (non-development mode) */}
-            {!isDevelopment && (
-              <span className="text-sm text-muted-foreground">
-                {country?.flag} {country?.name}
-              </span>
-            )}
+            {/* Country Info (always show Macedonia) */}
+            <span className="text-sm text-muted-foreground">
+              🇲🇰 Macedonia
+            </span>
             
             {/* Language Selector - only show if multiple languages */}
             {hasMultipleLanguages && (

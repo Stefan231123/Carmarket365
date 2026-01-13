@@ -4,6 +4,7 @@ import { InterestingSuggestions } from "@/components/InterestingSuggestions";
 import { PopularBrands } from "@/components/PopularBrands";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from '@/hooks/useTranslation';
+import { useEffect } from 'react';
 
 interface IndexProps {
   onAdvancedSearchClick?: () => void;
@@ -12,6 +13,19 @@ interface IndexProps {
 export default function Index({ onAdvancedSearchClick }: IndexProps) {
   const navigate = useNavigate();
   const { t } = useTranslation();
+
+  // Ensure Macedonia and Macedonian are set as defaults
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const country = urlParams.get('country');
+    const lang = urlParams.get('lang');
+    
+    // If no country/language parameters, set Macedonia as default
+    if (!country && !lang) {
+      const newUrl = `${window.location.pathname}?country=mk&lang=mk`;
+      window.history.replaceState({}, '', newUrl);
+    }
+  }, []);
 
   const handleCarClick = () => {
     navigate('/cars/1'); // Navigate to a sample car detail page

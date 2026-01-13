@@ -24,7 +24,7 @@ export const LANGUAGES: Record<string, Language> = {
   en: { code: 'en', name: 'English', flag: '🇬🇧' }, // Fallback language
 };
 
-// Country configurations
+// Country configurations - Only Macedonia with Macedonian and Albanian languages
 export const COUNTRIES: Record<string, CountryConfig> = {
   mk: {
     code: 'mk',
@@ -33,42 +33,6 @@ export const COUNTRIES: Record<string, CountryConfig> = {
     domain: 'mk.carmarket365.com',
     languages: [LANGUAGES.mk, LANGUAGES.sq],
     defaultLanguage: 'mk',
-    hasMultipleLanguages: true,
-  },
-  al: {
-    code: 'al',
-    name: 'Albania',
-    flag: '🇦🇱',
-    domain: 'al.carmarket365.com',
-    languages: [LANGUAGES.sq],
-    defaultLanguage: 'sq',
-    hasMultipleLanguages: false,
-  },
-  xk: {
-    code: 'xk',
-    name: 'Kosovo',
-    flag: '🇽🇰',
-    domain: 'xk.carmarket365.com',
-    languages: [LANGUAGES.sq],
-    defaultLanguage: 'sq',
-    hasMultipleLanguages: false,
-  },
-  si: {
-    code: 'si',
-    name: 'Slovenia',
-    flag: '🇸🇮',
-    domain: 'si.carmarket365.com',
-    languages: [LANGUAGES.sl],
-    defaultLanguage: 'sl',
-    hasMultipleLanguages: false,
-  },
-  lv: {
-    code: 'lv',
-    name: 'Latvia',
-    flag: '🇱🇻',
-    domain: 'lv.carmarket365.com',
-    languages: [LANGUAGES.lv, LANGUAGES.ru],
-    defaultLanguage: 'lv',
     hasMultipleLanguages: true,
   },
 };
@@ -95,13 +59,14 @@ export function getCurrentCountry(): CountryConfig | null {
       if (countryCode && COUNTRIES[countryCode]) {
         return COUNTRIES[countryCode];
       }
-      return null; // No country specified on Vercel
+      // Default to Macedonia if no country specified on Vercel
+      return COUNTRIES.mk;
     } else {
-      // For other deployments, use subdomain detection
-      return getCountryFromDomain(window.location.hostname);
+      // For other deployments, use subdomain detection or default to Macedonia
+      return getCountryFromDomain(window.location.hostname) || COUNTRIES.mk;
     }
   }
-  return null;
+  return COUNTRIES.mk; // Default to Macedonia
 }
 
 export function getCurrentLanguages(): Language[] {
@@ -124,7 +89,7 @@ export function getDefaultLanguage(): string {
   }
   
   const country = getCurrentCountry();
-  return country?.defaultLanguage || 'en';
+  return country?.defaultLanguage || 'mk'; // Default to Macedonian
 }
 
 export function hasMultipleLanguages(): boolean {
