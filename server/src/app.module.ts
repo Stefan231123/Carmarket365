@@ -41,6 +41,9 @@ import { CarsModule } from './cars/cars.module';
       playground: process.env.NODE_ENV === 'development',
       introspection: process.env.NODE_ENV === 'development',
       context: ({ req, res }) => ({ req, res }),
+      csrfPrevention: false, // Disable CSRF protection for frontend integration
+      cache: 'bounded',
+      plugins: [],
     }),
 
     // Feature modules
