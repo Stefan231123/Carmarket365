@@ -5,6 +5,7 @@ import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescri
 import { Menu, User, Heart, Car, Building2, Settings, LogOut, Search } from "lucide-react";
 import { useSafeAuth } from "@/contexts/AuthContextSafe";
 import { useTranslation } from "@/hooks/useTranslation";
+import { CountrySwitcher } from "@/components/CountrySwitcher";
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
@@ -121,14 +122,12 @@ export function Header({
 
           {/* Desktop Right Side Actions */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" size="sm" onClick={() => navigate('/advanced-search')} className="text-white hover:bg-white/10 hover:text-white hover:shadow-lg hover:shadow-white/20 transition-all duration-200 rounded-full px-4">
-              <Search className="h-4 w-4 mr-2" />
-              Advanced Search
-            </Button>
             <Button variant="ghost" size="sm" onClick={onSavedClick} className="text-white hover:bg-white/10 hover:text-white hover:shadow-lg hover:shadow-white/20 transition-all duration-200 rounded-full px-4">
               <Heart className="h-4 w-4 mr-2" />
               {t('header.savedCars')}
             </Button>
+            
+            <CountrySwitcher className="text-white" />
             
             {isAuthenticated && user ? (
               <div className="flex items-center gap-3">
@@ -237,14 +236,6 @@ export function Header({
                   <Button 
                     variant="outline" 
                     className="w-full justify-start h-12 text-base" 
-                    onClick={() => handleNavClick(() => navigate('/advanced-search'))}
-                  >
-                    <Search className="h-5 w-5 mr-3" />
-                    Advanced Search
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    className="w-full justify-start h-12 text-base" 
                     onClick={() => handleNavClick(onSellClick)}
                   >
                     <Car className="h-5 w-5 mr-3" />
@@ -258,7 +249,6 @@ export function Header({
                     <Car className="h-5 w-5 mr-3" />
                     {t('sell.expressTitle')}
                   </Button>
-                  
                   {isAuthenticated && user ? (
                     <>
                       <Button 

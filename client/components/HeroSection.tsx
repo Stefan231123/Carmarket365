@@ -18,11 +18,10 @@ export interface SearchFormData {
 }
 
 interface HeroSectionProps {
-  onAdvancedSearchClick?: () => void;
   onSearchCarsClick?: (searchData: SearchFormData) => void;
 }
 
-export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSectionProps) {
+export function HeroSection({ onSearchCarsClick }: HeroSectionProps) {
   const { t } = useTranslation();
   const [searchForm, setSearchForm] = useState<SearchFormData>({
     vehicleType: 'cars',
@@ -208,9 +207,6 @@ export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSe
               <Search className="h-4 w-4 mr-2" />
               {t('hero.searchButton')}
             </Button>
-            <button onClick={onAdvancedSearchClick} className="text-sm text-foreground/70 underline-offset-4 hover:underline">
-              {t('hero.advancedSearch')}
-            </button>
           </div>
         </Card>
 

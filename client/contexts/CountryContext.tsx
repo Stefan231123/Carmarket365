@@ -74,23 +74,27 @@ export function CountryProvider({ children }: CountryProviderProps) {
           console.log('🌍 Detected hostname:', hostname);
           
           if (hostname === 'localhost' || hostname === '127.0.0.1') {
-            // Development mode for GLOBAL site only (localhost without subdomain)
+            // Development mode - use Macedonia as default country
             setIsDevelopment(true);
             
-            // Global site - should always be English
-            setCountryState({
-              code: 'global',
-              name: 'Global',
-              flag: '🌍',
-              domain: 'localhost',
-              languages: [LANGUAGES.en],
-              defaultLanguage: 'en',
-              hasMultipleLanguages: false,
-            });
-            setCurrentLanguage('en');
+            // Check URL parameters for country/language
+            const urlParams = new URLSearchParams(window.location.search);
+            const countryParam = urlParams.get('country');
+            const langParam = urlParams.get('lang');
+            
+            // Use Macedonia as default for localhost development
+            const defaultCountry = COUNTRIES.mk;
+            setCountryState(defaultCountry);
+            
+            // Set language based on URL parameter or default to Macedonian
+            if (langParam && defaultCountry.languages.some(lang => lang.code === langParam)) {
+              setCurrentLanguage(langParam);
+            } else {
+              setCurrentLanguage(defaultCountry.defaultLanguage);
+            }
             setIsValidCountry(true);
             
-            console.log('🌍 Global localhost detected - using English');
+            console.log('🌍 Development localhost detected - using Macedonia with Macedonian language');
           } else {
             // Production domains or other development scenarios
             // This should not happen in development with localhost subdomains

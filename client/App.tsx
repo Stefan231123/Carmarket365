@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route, useNavigate, Navigate } from "react-route
 import { Suspense, lazy } from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { LanguageSelector } from "@/components/LanguageSelector";
 import { SafeAuthProvider } from "@/contexts/AuthContextSafe";
 import { CountryProvider } from "@/contexts/CountryContext";
 import { FavoritesProvider } from "@/contexts/FavoritesContext";
@@ -59,13 +58,11 @@ function AppContent() {
   const handleSellClick = () => navigate('/sell-vehicle');
   const handleSavedClick = () => navigate('/saved');
   const handleExpressSellClick = () => navigate('/express-sell');
-  const handleAdvancedSearchClick = () => navigate('/advanced-search');
   const handleContactUsClick = () => navigate('/contact');
   const handleRegisteredDealersClick = () => navigate('/registered-dealers');
 
   return (
     <div className="flex flex-col min-h-screen">
-      <LanguageSelector />
       <Header
         onSignInClick={handleSignInClick}
         onHomeClick={handleHomeClick}
@@ -80,7 +77,7 @@ function AppContent() {
           </div>
         }>
           <Routes>
-            <Route path="/" element={<Index onAdvancedSearchClick={handleAdvancedSearchClick} />} />
+            <Route path="/" element={<Index />} />
             <Route path="/cars" element={<BrowseCars />} />
             <Route path="/advanced-search" element={<AdvancedSearch />} />
             <Route path="/cars/:id" element={<CarDetail />} />
@@ -144,7 +141,6 @@ function AppContent() {
         </Suspense>
       </main>
       <Footer
-        onAdvancedSearchClick={handleAdvancedSearchClick}
         onSellClick={handleSellClick}
         onContactUsClick={handleContactUsClick}
         onRegisteredDealersClick={handleRegisteredDealersClick}
