@@ -8,37 +8,29 @@ interface CountrySwitcherProps {
 }
 
 export function CountrySwitcher({ className }: CountrySwitcherProps) {
-  const { country } = useCountry();
+  const { country, currentLanguage, setLanguage } = useCountry();
   
-  // Get current language from URL params
-  const getCurrentLanguage = () => {
-    if (typeof window !== 'undefined') {
-      const urlParams = new URLSearchParams(window.location.search);
-      const lang = urlParams.get('lang');
-      return lang || 'mk'; // Default to Macedonian
-    }
-    return 'mk';
-  };
-
-  const currentLang = getCurrentLanguage();
-
   const handleLanguageChange = (languageCode: string) => {
+    // Use the CountryContext setLanguage function
+    setLanguage(languageCode);
+    
+    // Also update URL for browser history
     if (typeof window !== 'undefined') {
       const url = new URL(window.location.href);
       url.searchParams.set('country', 'mk');
       url.searchParams.set('lang', languageCode);
-      window.location.href = url.toString();
+      window.history.pushState({}, '', url.toString());
     }
   };
 
   // Get current language details
-  const currentLanguage = country?.languages.find(lang => lang.code === currentLang);
+  const currentLanguageDetails = country?.languages.find(lang => lang.code === currentLanguage);
   
   return (
-    <Select value={currentLang} onValueChange={handleLanguageChange}>
+    <Select value={currentLanguage} onValueChange={handleLanguageChange}>
       <SelectTrigger className={`w-auto min-w-[40px] border-none hover:bg-white/10 ${className}`}>
         <SelectValue>
-          <span className="text-lg">{currentLanguage?.flag}</span>
+          <span className="text-lg">{currentLanguageDetails?.flag}</span>
         </SelectValue>
       </SelectTrigger>
       <SelectContent>

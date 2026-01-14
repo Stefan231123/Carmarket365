@@ -41,6 +41,36 @@ export function CountryProvider({ children }: CountryProviderProps) {
   const [geolocationError, setGeolocationError] = useState<string | null>(null);
   const [isDevelopment, setIsDevelopment] = useState(false);
 
+  // Listen for URL changes to update language
+  useEffect(() => {
+    const handleLanguageFromURL = () => {
+      if (typeof window !== 'undefined' && country) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
+        
+        if (langParam && country.languages.some(lang => lang.code === langParam)) {
+          if (currentLanguage !== langParam) {
+            setCurrentLanguage(langParam);
+            localStorage.setItem(`selectedLanguage_${country.code}`, langParam);
+          }
+        }
+      }
+    };
+
+    // Check URL on mount and when country is available
+    if (country) {
+      handleLanguageFromURL();
+    }
+
+    // Listen for popstate events (browser back/forward)
+    const handlePopState = () => handleLanguageFromURL();
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [country, currentLanguage]);
+
   useEffect(() => {
     const initializeCountryDetection = async () => {
       // First, detect country from domain
