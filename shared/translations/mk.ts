@@ -457,7 +457,8 @@ export const mkTranslations: TranslationStrings = {
     about: 'За нас',
     contact: 'Контакт',
     faq: 'Често поставувани прашања',
-    help: 'Помош'
+    help: 'Помош',
+    advancedSearch: 'Напредно пребарување'
   },
   hero: {
     title: 'Најдете го вашиот совршен автомобил',

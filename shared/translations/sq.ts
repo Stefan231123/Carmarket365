@@ -312,6 +312,7 @@ export const sqTranslations: TranslationStrings = {
     contact: 'Kontakt',
     faq: 'Pyetje të shpeshta',
     help: 'Ndihmë',
+    advancedSearch: 'Kërkimi i avancuar',
   },
 
   hero: {
@@ -628,6 +629,10 @@ export const sqTranslations: TranslationStrings = {
       additionalDetailsDescription: 'Shtoni më shumë detaje për {vehicleType} tuaj',
       photosAndContact: 'Foto dhe informacionet e kontaktit',
       photosAndContactDescription: 'Shtoni foto dhe detajet tuaja të kontaktit',
+      vehicleDetails: 'Detajet e automjetit',
+      photosAndContactInfo: 'Fotot dhe informacionet e kontaktit',
+      uploadVehiclePhotos: 'Ngarko fotot e automjetit',
+      addUpToTenPhotos: 'Shtoni deri në 10 foto'
     },
     
     // Form fields and labels
@@ -677,21 +682,6 @@ export const sqTranslations: TranslationStrings = {
       selectFuel: 'Zgjidhni llojin e karburantit',
       selectTransmissionType: 'Zgjidhni llojin e transmetimit',
       choosePhotos: 'Zgjidhni Fotot',
-    },
-    
-    // Headers
-    headers: {
-      vehicleTypeQuestion: 'Çfarë lloj automjeti po shisni?',
-      basicInformation: 'Informacionet Bazike',
-      basicInfoDescription: 'Na tregoni për {vehicleType} tuaj',
-      additionalDetails: 'Detaje Shtesë',
-      additionalDetailsDescription: 'Shtoni më shumë detaje për {vehicleType} tuaj',
-      photosAndContact: 'Fotot dhe Informacionet e Kontaktit',
-      photosAndContactDescription: 'Shtoni fotot dhe detajet tuaja të kontaktit',
-      vehicleDetails: 'Detajet e Automjetit',
-      photosAndContactInfo: 'Fotot dhe Informacionet e Kontaktit',
-      uploadVehiclePhotos: 'Ngarkoni Fotot e Automjetit',
-      addUpToTenPhotos: 'Shtoni deri në 10 foto',
     },
     
     // Button labels
