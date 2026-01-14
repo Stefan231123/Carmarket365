@@ -33,6 +33,7 @@ export function Header({
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useSafeAuth();
   const { t, currentLanguage } = useTranslation();
+  
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
@@ -199,8 +200,12 @@ export function Header({
             )}
             
             <Button size="sm" onClick={onExpressSellClick} className="bg-white text-black hover:bg-white/90 hover:shadow-lg hover:shadow-white/25 transition-all duration-200 rounded-full px-4">
-              <span className="hidden lg:inline">{t('sell.expressTitle')}</span>
-              <span className="lg:hidden">{t('sell.expressTitle')}</span>
+              <span className="hidden lg:inline">
+                {currentLanguage === 'mk' ? 'Експресна продажба' : currentLanguage === 'sq' ? 'Shitje ekspres' : t('sell.expressTitle')}
+              </span>
+              <span className="lg:hidden">
+                {currentLanguage === 'mk' ? 'Експресна продажба' : currentLanguage === 'sq' ? 'Shitje ekspres' : t('sell.expressTitle')}
+              </span>
             </Button>
           </div>
 
@@ -247,7 +252,7 @@ export function Header({
                     onClick={() => handleNavClick(onExpressSellClick)}
                   >
                     <Car className="h-5 w-5 mr-3" />
-                    {t('sell.expressTitle')}
+                    {currentLanguage === 'mk' ? 'Експресна продажба' : currentLanguage === 'sq' ? 'Shitje ekspres' : t('sell.expressTitle')}
                   </Button>
                   {isAuthenticated && user ? (
                     <>
