@@ -34,7 +34,7 @@ interface CountryProviderProps {
 
 export function CountryProvider({ children }: CountryProviderProps) {
   const [country, setCountryState] = useState<CountryConfig | null>(null);
-  const [currentLanguage, setCurrentLanguage] = useState<string>('en');
+  const [currentLanguage, setCurrentLanguage] = useState<string>('mk');
   const [isValidCountry, setIsValidCountry] = useState(false);
   const [detectedCountry, setDetectedCountry] = useState<CountryConfig | null>(null);
   const [isGeolocationLoading, setIsGeolocationLoading] = useState(false);
@@ -124,7 +124,6 @@ export function CountryProvider({ children }: CountryProviderProps) {
             }
             setIsValidCountry(true);
             
-            console.log('🌍 Development localhost detected - using Macedonia with Macedonian language');
           } else {
             // Production domains or other development scenarios
             // This should not happen in development with localhost subdomains

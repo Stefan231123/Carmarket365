@@ -32,7 +32,7 @@ export function Header({
 }: HeaderProps) {
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useSafeAuth();
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
