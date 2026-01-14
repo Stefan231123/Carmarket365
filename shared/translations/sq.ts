@@ -675,7 +675,7 @@ export const sqTranslations: TranslationStrings = {
       cityState: 'Qyteti, Shteti',
       yourName: 'Emri juaj',
       yourPhoneNumber: 'Numri juaj i telefonit',
-      yourEmail: 'Email-i juaj',
+      yourEmail: 'Adresa juaj e emailit',
       cityCountry: 'Qyteti, Vendi',
       enterAskingPrice: 'Shkruani çmimin e kërkuar',
       describeYourVehicle: 'Përshkruani automjetin tuaj...',
@@ -728,7 +728,7 @@ export const sqTranslations: TranslationStrings = {
     // Transmissions
     transmissions: {
       automatic: 'Automatik',
-      manual: 'Manual',
+      manual: 'Manuali',
       cvt: 'CVT',
     },
 
@@ -4884,7 +4884,7 @@ export const sqTranslations: TranslationStrings = {
       flexFuel: 'Karburant fleks',
     },
     transmissions: {
-      manual: 'Manuale',
+      manual: 'Manuali',
       automatic: 'Automatike',
       semiAutomatic: 'Gjysëm-automatike',
       cvt: 'CVT'
