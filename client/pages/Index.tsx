@@ -6,9 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from '@/hooks/useTranslation';
 import { useEffect } from 'react';
 
-interface IndexProps {}
+interface IndexProps {
+  onAdvancedSearchClick?: () => void;
+}
 
-export default function Index({}: IndexProps) {
+export default function Index({ onAdvancedSearchClick }: IndexProps) {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -61,11 +63,16 @@ export default function Index({}: IndexProps) {
     navigate(`/cars${params.toString() ? `?${params.toString()}` : ''}`);
   };
 
+  const handleAdvancedSearchClick = () => {
+    navigate('/advanced-search');
+  };
+
 
   return (
     <div className="min-h-screen">
       <HeroSection
         onSearchCarsClick={handleSearchCarsClick}
+        onAdvancedSearchClick={handleAdvancedSearchClick}
       />
       <LastSearch onCarClick={handleCarClick} />
       <InterestingSuggestions onCarClick={handleCarClick} />
