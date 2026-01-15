@@ -999,6 +999,12 @@ export const mkTranslations: TranslationStrings = {
       manual: 'Рачна',
       cvt: 'ЦВТ'
     },
+    conditions: {
+      excellent: 'Одлична',
+      veryGood: 'Многу добра',
+      good: 'Добра',
+      fair: 'Задоволителна'
+    },
     bodyTypes: {
       sedan: 'Седан',
       suv: 'СУВ',
