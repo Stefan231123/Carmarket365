@@ -125,19 +125,23 @@ export function CountryProvider({ children }: CountryProviderProps) {
             setIsValidCountry(true);
             
           } else {
-            // Production domains or other development scenarios
-            // This should not happen in development with localhost subdomains
-            console.log('🌐 Production or unknown domain detected');
-            setCountryState({
-              code: 'global',
-              name: 'Global',
-              flag: '🌍',
-              domain: 'carmarket365.com',
-              languages: [LANGUAGES.en],
-              defaultLanguage: 'en',
-              hasMultipleLanguages: false,
-            });
-            setCurrentLanguage('en');
+            // Production domains - use Macedonia as default with full multilingual support
+            console.log('🌐 Production domain detected - enabling multilingual support');
+            
+            // Check URL parameters for language preference
+            const urlParams = new URLSearchParams(window.location.search);
+            const langParam = urlParams.get('lang');
+            
+            // Use Macedonia as default country for production with full language support
+            const defaultCountry = COUNTRIES.mk;
+            setCountryState(defaultCountry);
+            
+            // Set language based on URL parameter or default to Macedonian
+            if (langParam && defaultCountry.languages.some(lang => lang.code === langParam)) {
+              setCurrentLanguage(langParam);
+            } else {
+              setCurrentLanguage(defaultCountry.defaultLanguage);
+            }
             setIsValidCountry(true);
           }
         } catch (error) {
