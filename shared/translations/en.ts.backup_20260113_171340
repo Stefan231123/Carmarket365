@@ -57,10 +57,6 @@ export const enTranslations: TranslationStrings = {
     processing: 'Processing...',
     loading: 'Loading...',
     errorLoadingImage: 'Error loading image',
-  
-    ascending: 'Ascending',
-  
-    descending: 'Descending',
   },
 
   // Forms - validation, labels, placeholders, actions
@@ -286,30 +282,6 @@ export const enTranslations: TranslationStrings = {
       new: 'New',
       certified: 'Certified',
     },
-  
-        excellentService: 'Excellent Service History',
-  
-        highAge: 'High Age',
-  
-        highMileage: 'High Mileage',
-  
-        lowAge: 'Low Age',
-  
-        lowMileage: 'Low Mileage',
-  
-        majorAccidents: 'Major Accidents',
-  
-        poorCondition: 'Poor Condition',
-  
-        additionalInfoPlaceholder: 'Any additional information about your vehicle...',
-  
-        locationExample: 'e.g., New York, NY',
-  
-        mileageExample: 'e.g., 50,000',
-  
-        modelExample: 'e.g., Civic, Camry, Golf',
-  
-        regular: 'Regular Maintenance',
   },
 
   hero: {
@@ -321,35 +293,7 @@ export const enTranslations: TranslationStrings = {
       cars: 'Cars',
       motorbikes: 'Motorbikes',
       trucks: 'Trucks',
-    
-    bodyColor: 'Body Color',
-  
-    euroEmission: 'Euro Emission Standard',
-  
-    fullServiceHistory: 'Full Service History',
-  
-    guarantee: 'Warranty/Guarantee',
-  
-    hadAccident: 'Has Had Accident',
-  
-    mileageFrom: 'Mileage From',
-  
-    mileageTo: 'Mileage To',
-  
-    nonSmoking: 'Non-Smoking Vehicle',
-  
-    onlyWithImages: 'Only with Images',
-  
-    paintWork: 'Paint Work Done',
-  
-    powerFrom: 'Power From (HP)',
-  
-    powerTo: 'Power To (HP)',
-  
-    searchTerm: 'Search Term',
-  
-    upholstery: 'Upholstery Type',
-  },
+    },
     searchForm: {
       make: 'Make',
       model: 'Model',
@@ -919,8 +863,6 @@ export const enTranslations: TranslationStrings = {
       parkingSensors: 'Parktronik',
       blindSpotMonitoring: 'Blind Spot Monitoring',
     },
-  
-      needsWork: 'Needs Work',
   },
 
   countries: {
