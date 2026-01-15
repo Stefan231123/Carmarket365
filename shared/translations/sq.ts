@@ -4871,32 +4871,6 @@ export const sqTranslations: TranslationStrings = {
     backToHome: 'Kthehu tek faqja kryesore',
   },
 
-  // Sell section for ExpressSell component
-  sell: {
-    fuelTypes: {
-      gasoline: 'Benzinë',
-      diesel: 'Dizel',
-      hybrid: 'Hibrid',
-      electric: 'Elektrike',
-      lpg: 'LPG (propan)',
-      cng: 'Gaz natyror',
-      pluginHybrid: 'Hibrid plug-in',
-      flexFuel: 'Karburant fleks',
-    },
-    transmissions: {
-      manual: 'Manuali',
-      automatic: 'Automatike',
-      semiAutomatic: 'Gjysëm-automatike',
-      cvt: 'CVT'
-    },
-    conditions: {
-      excellent: 'E shkëlqyer',
-      veryGood: 'Shumë e mirë',
-      good: 'E mirë',
-      fair: 'E kënaqshme',
-      poor: 'E dobët'
-    }
-  },
 
   // Forms section for placeholders
   forms: {
