@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug SellVehicle Language</title>
+</head>
+<body>
+    <h1>SellVehicle Language Detection Debug</h1>
+    
+    <div id="test-results">
+        <h2>Test Results:</h2>
+        <ul id="results"></ul>
+    </div>
+    
+    <div id="test-controls">
+        <h3>Test URLs:</h3>
+        <button onclick="testURL('http://localhost:8081/sell-vehicle')">Default (should be Macedonian)</button>
+        <button onclick="testURL('http://localhost:8081/sell-vehicle?lang=mk')">Explicit Macedonian</button>
+        <button onclick="testURL('http://localhost:8081/sell-vehicle?lang=sq')">Explicit Albanian</button>
+    </div>
+
+    <script>
+        function addResult(message, type = 'info') {
+            const results = document.getElementById('results');
+            const li = document.createElement('li');
+            li.style.color = type === 'error' ? 'red' : type === 'success' ? 'green' : 'black';
+            li.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            results.appendChild(li);
+            console.log(message);
+        }
+
+        function testURL(url) {
+            addResult(`Testing URL: ${url}`);
+            
+            // Create iframe to test the URL
+            const iframe = document.createElement('iframe');
+            iframe.style.width = '100%';
+            iframe.style.height = '600px';
+            iframe.style.border = '1px solid #ccc';
+            iframe.style.marginTop = '10px';
+            
+            iframe.onload = function() {
+                try {
+                    // Try to access iframe content (may fail due to CORS)
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    
+                    // Look for specific text content that should be translated
+                    setTimeout(() => {
+                        const content = iframeDoc.body.textContent;
+                        
+                        // Check for Macedonian translations
+                        if (content.includes('Каков тип на возило го продавате?')) {
+                            addResult('✓ Found Macedonian header text: "Каков тип на возило го продавате?"', 'success');
+                        } else if (content.includes('What type of vehicle are you selling?')) {
+                            addResult('✗ Found English header text: "What type of vehicle are you selling?"', 'error');
+                        }
+                        
+                        if (content.includes('Автомобил')) {
+                            addResult('✓ Found Macedonian vehicle type: "Автомобил"', 'success');
+                        } else if (content.includes('Car') && !content.includes('Автомобил')) {
+                            addResult('✗ Found English vehicle type: "Car"', 'error');
+                        }
+                        
+                        if (content.includes('Тип на возило')) {
+                            addResult('✓ Found Macedonian step text: "Тип на возило"', 'success');
+                        } else if (content.includes('Vehicle Type') && !content.includes('Тип на возило')) {
+                            addResult('✗ Found English step text: "Vehicle Type"', 'error');
+                        }
+                        
+                        // Check console logs in iframe (if accessible)
+                        try {
+                            const console = iframe.contentWindow.console;
+                            const originalLog = console.log;
+                            console.log = function(...args) {
+                                if (args.some(arg => typeof arg === 'string' && (arg.includes('language') || arg.includes('Country') || arg.includes('detected')))) {
+                                    addResult(`Console: ${args.join(' ')}`);
+                                }
+                                originalLog.apply(console, args);
+                            };
+                        } catch (e) {
+                            addResult('Cannot access iframe console due to CORS');
+                        }
+                        
+                    }, 2000); // Wait 2 seconds for React to render
+                    
+                } catch (e) {
+                    addResult(`Cannot access iframe content: ${e.message}`, 'error');
+                    addResult('This is likely due to CORS restrictions. Check browser dev tools for console logs.');
+                }
+            };
+            
+            iframe.src = url;
+            
+            // Remove previous iframe if exists
+            const existingIframe = document.querySelector('iframe');
+            if (existingIframe) {
+                existingIframe.remove();
+            }
+            
+            document.body.appendChild(iframe);
+        }
+        
+        addResult('Language detection test page loaded. Click buttons to test different URLs.');
+        addResult('Make sure to check browser console for additional language detection logs.');
+    </script>
+</body>
+</html>

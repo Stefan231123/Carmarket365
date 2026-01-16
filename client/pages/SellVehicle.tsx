@@ -15,7 +15,25 @@ import { useTranslation } from '../hooks/useTranslation';
 
 export default function SellVehicle() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
+  
+  // Debug logging for language detection
+  console.log('🔍 SellVehicle Debug - Current Language:', currentLanguage);
+  console.log('🔍 SellVehicle Debug - Translation test keys:');
+  const stepVehicleType = t('sell.steps.vehicleType');
+  const carName = t('sell.vehicleTypes.car.name');
+  const vehicleQuestion = t('sell.headers.vehicleTypeQuestion');
+  console.log('  - sell.steps.vehicleType:', stepVehicleType);
+  console.log('  - sell.vehicleTypes.car.name:', carName);
+  console.log('  - sell.headers.vehicleTypeQuestion:', vehicleQuestion);
+  
+  // Check if they're coming back as English
+  const isEnglish = stepVehicleType.includes('Vehicle Type') || carName === 'Car' || vehicleQuestion.includes('What type');
+  if (isEnglish) {
+    console.error('❌ SellVehicle: Getting English translations despite currentLanguage being:', currentLanguage);
+  } else {
+    console.log('✅ SellVehicle: Getting correct translations for language:', currentLanguage);
+  }
   const [vehicleType, setVehicleType] = useState<'car' | 'truck' | 'motorbike'>('car');
   const [images, setImages] = useState<string[]>([]);
   const [currentStep, setCurrentStep] = useState(1);
@@ -55,6 +73,28 @@ export default function SellVehicle() {
 
   return (
     <div className="min-h-screen bg-muted/30">
+      {/* Debug information - remove after testing */}
+      <div style={{ 
+        position: 'fixed', 
+        top: '10px', 
+        right: '10px', 
+        backgroundColor: 'rgba(0,0,0,0.8)', 
+        color: 'white', 
+        padding: '10px', 
+        fontSize: '12px', 
+        borderRadius: '5px', 
+        zIndex: 9999,
+        maxWidth: '400px'
+      }}>
+        <div><strong>Debug Info:</strong></div>
+        <div>Current Language: {currentLanguage}</div>
+        <div>Step text: {stepVehicleType}</div>
+        <div>Car name: {carName}</div>
+        <div>Question: {vehicleQuestion}</div>
+        <div style={{ color: isEnglish ? 'red' : 'green' }}>
+          Status: {isEnglish ? '❌ English (Wrong)' : '✅ Correct Language'}
+        </div>
+      </div>
       {/* Header */}
       <div className="border-b border-zinc-100 bg-white sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">

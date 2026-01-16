@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macedonian SellVehicle Conditions Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .pass {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .fail {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+        }
+        .iframe-container {
+            width: 100%;
+            height: 800px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .instructions {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .expected-values {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #007bff;
+        }
+        .test-steps {
+            counter-reset: step-counter;
+        }
+        .test-step {
+            counter-increment: step-counter;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            position: relative;
+            padding-left: 40px;
+        }
+        .test-step::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: #007bff;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Macedonian SellVehicle Conditions Dropdown Test</h1>
+    
+    <div class="test-container">
+        <h2>Test Overview</h2>
+        <p>This test verifies that the conditions dropdown in the SellVehicle page correctly displays Macedonian translations.</p>
+        
+        <div class="expected-values">
+            <h3>Expected Macedonian Condition Values:</h3>
+            <ul>
+                <li><strong>"Одлична"</strong> (excellent)</li>
+                <li><strong>"Многу добра"</strong> (veryGood)</li>
+                <li><strong>"Добра"</strong> (good)</li>
+                <li><strong>"Задоволителна"</strong> (fair)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>Manual Testing Instructions</h2>
+        <div class="instructions">
+            <p><strong>Please follow these steps to manually test the conditions dropdown:</strong></p>
+            <div class="test-steps">
+                <div class="test-step">Load the page below (it should automatically load with ?lang=mk parameter)</div>
+                <div class="test-step">Click through the form steps to reach Step 3 (Vehicle Details)</div>
+                <div class="test-step">Locate the "Condition" dropdown field</div>
+                <div class="test-step">Click on the dropdown to open the options</div>
+                <div class="test-step">Verify all four Macedonian condition values are displayed correctly</div>
+                <div class="test-step">Check that the overall page translation coverage appears to be 100%</div>
+                <div class="test-step">Take a screenshot showing the opened conditions dropdown</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>SellVehicle Page - Macedonian</h2>
+        <div class="iframe-container">
+            <iframe src="http://localhost:8081/sell-vehicle?lang=mk" title="SellVehicle Page in Macedonian"></iframe>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h2>Automated Checks</h2>
+        <div id="automated-results">
+            <div class="test-result warning">
+                <strong>Automated Testing:</strong> Loading page and performing basic checks...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Basic automated checks
+        document.addEventListener('DOMContentLoaded', function() {
+            const resultsContainer = document.getElementById('automated-results');
+            resultsContainer.innerHTML = '';
+            
+            // Check if the iframe loads successfully
+            const iframe = document.querySelector('iframe');
+            let loadTimeout;
+            
+            iframe.onload = function() {
+                clearTimeout(loadTimeout);
+                addResult('pass', 'Page Load: SellVehicle page loaded successfully with Macedonian language parameter');
+                
+                // Wait a bit for React to render, then try to access iframe content
+                setTimeout(function() {
+                    try {
+                        const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                        const urlCheck = iframe.contentWindow.location.href.includes('lang=mk');
+                        
+                        if (urlCheck) {
+                            addResult('pass', 'Language Parameter: Successfully loaded with lang=mk parameter');
+                        } else {
+                            addResult('fail', 'Language Parameter: lang=mk parameter not found in URL');
+                        }
+                        
+                        // Additional checks would go here if we could access the content
+                        addResult('warning', 'Manual Testing Required: Due to React app structure, manual verification of dropdown content is needed');
+                        
+                    } catch (e) {
+                        addResult('warning', 'Cross-Origin Restriction: Cannot access iframe content due to security restrictions. Manual testing required.');
+                    }
+                }, 2000);
+            };
+            
+            iframe.onerror = function() {
+                clearTimeout(loadTimeout);
+                addResult('fail', 'Page Load: Failed to load SellVehicle page');
+            };
+            
+            // Set a timeout for loading
+            loadTimeout = setTimeout(function() {
+                addResult('fail', 'Page Load: Timeout - Page took too long to load (>10 seconds)');
+            }, 10000);
+        });
+        
+        function addResult(type, message) {
+            const resultsContainer = document.getElementById('automated-results');
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result ${type}`;
+            resultDiv.innerHTML = `<strong>${type.toUpperCase()}:</strong> ${message}`;
+            resultsContainer.appendChild(resultDiv);
+        }
+        
+        // Add functionality to help with testing
+        function takeScreenshot() {
+            addResult('warning', 'Screenshot: Please use your browser\'s screenshot tool to capture the conditions dropdown');
+        }
+        
+        // Add a button for convenience
+        setTimeout(function() {
+            const container = document.querySelector('.test-container:last-child');
+            const button = document.createElement('button');
+            button.textContent = 'Reminder: Take Screenshot';
+            button.onclick = takeScreenshot;
+            button.style.cssText = 'padding: 10px 20px; margin-top: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer;';
+            container.appendChild(button);
+        }, 3000);
+    </script>
+</body>
+</html>

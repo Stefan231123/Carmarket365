@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Translate Function</title>
+</head>
+<body>
+    <h1>Translate Function Test</h1>
+    
+    <div id="results">
+        <h2>Translation Test Results:</h2>
+        <div id="test-output"></div>
+    </div>
+    
+    <script type="module">
+        // Import the translate function
+        import { translate } from '/shared/translations.js';
+        
+        const output = document.getElementById('test-output');
+        
+        function addResult(test, result) {
+            const div = document.createElement('div');
+            div.style.margin = '10px 0';
+            div.style.padding = '10px';
+            div.style.border = '1px solid #ccc';
+            div.innerHTML = `
+                <strong>${test}:</strong><br>
+                <code style="background: #f0f0f0; padding: 5px;">${result}</code>
+            `;
+            output.appendChild(div);
+            console.log(`${test}: ${result}`);
+        }
+        
+        // Test the specific keys that are failing
+        addResult('translate("mk", "sell.steps.vehicleType")', translate('mk', 'sell.steps.vehicleType'));
+        addResult('translate("mk", "sell.vehicleTypes.car.name")', translate('mk', 'sell.vehicleTypes.car.name'));
+        addResult('translate("mk", "sell.headers.vehicleTypeQuestion")', translate('mk', 'sell.headers.vehicleTypeQuestion'));
+        
+        // Test English versions for comparison
+        addResult('translate("en", "sell.steps.vehicleType")', translate('en', 'sell.steps.vehicleType'));
+        addResult('translate("en", "sell.vehicleTypes.car.name")', translate('en', 'sell.vehicleTypes.car.name'));
+        addResult('translate("en", "sell.headers.vehicleTypeQuestion")', translate('en', 'sell.headers.vehicleTypeQuestion'));
+        
+        // Test with wrong language
+        addResult('translate("xx", "sell.steps.vehicleType")', translate('xx', 'sell.steps.vehicleType'));
+        
+        // Test with wrong key
+        addResult('translate("mk", "nonexistent.key")', translate('mk', 'nonexistent.key'));
+    </script>
+</body>
+</html>

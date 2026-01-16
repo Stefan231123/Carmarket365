@@ -50,6 +50,7 @@ export function CountryProvider({ children }: CountryProviderProps) {
         
         if (langParam && country.languages.some(lang => lang.code === langParam)) {
           if (currentLanguage !== langParam) {
+            console.log('🌍 CountryContext: Setting language from URL param:', langParam);
             setCurrentLanguage(langParam);
             localStorage.setItem(`selectedLanguage_${country.code}`, langParam);
           }
@@ -85,9 +86,16 @@ export function CountryProvider({ children }: CountryProviderProps) {
         const storedLanguage = localStorage.getItem(`selectedLanguage_${domainCountry.code}`);
         const validLanguages = domainCountry.languages.map(lang => lang.code);
         
+        console.log('🌍 CountryContext: Domain country detected:', domainCountry.name, domainCountry.code);
+        console.log('🌍 CountryContext: Stored language:', storedLanguage);
+        console.log('🌍 CountryContext: Valid languages:', validLanguages);
+        console.log('🌍 CountryContext: Default language:', domainCountry.defaultLanguage);
+        
         if (storedLanguage && validLanguages.includes(storedLanguage)) {
+          console.log('🌍 CountryContext: Using stored language:', storedLanguage);
           setCurrentLanguage(storedLanguage);
         } else {
+          console.log('🌍 CountryContext: Using default language:', domainCountry.defaultLanguage);
           setCurrentLanguage(domainCountry.defaultLanguage);
         }
       } else {
@@ -117,9 +125,15 @@ export function CountryProvider({ children }: CountryProviderProps) {
             setCountryState(defaultCountry);
             
             // Set language based on URL parameter or default to Macedonian
+            console.log('🌍 CountryContext (localhost): URL lang param:', langParam);
+            console.log('🌍 CountryContext (localhost): Default country:', defaultCountry.name);
+            console.log('🌍 CountryContext (localhost): Available languages:', defaultCountry.languages.map(l => l.code));
+            
             if (langParam && defaultCountry.languages.some(lang => lang.code === langParam)) {
+              console.log('🌍 CountryContext (localhost): Using URL language:', langParam);
               setCurrentLanguage(langParam);
             } else {
+              console.log('🌍 CountryContext (localhost): Using default language:', defaultCountry.defaultLanguage);
               setCurrentLanguage(defaultCountry.defaultLanguage);
             }
             setIsValidCountry(true);

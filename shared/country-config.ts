@@ -39,7 +39,12 @@ export const COUNTRIES: Record<string, CountryConfig> = {
 
 // Utility functions
 export function getCountryFromDomain(hostname: string): CountryConfig | null {
-  // Extract subdomain from hostname (e.g., 'mk' from 'mk.carmarket365.com' or 'mk.localhost')
+  // Handle localhost development
+  if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.startsWith('localhost:')) {
+    return COUNTRIES.mk; // Default to Macedonia for localhost
+  }
+  
+  // Extract subdomain from hostname (e.g., 'mk' from 'mk.carmarket365.com')
   const subdomain = hostname.split('.')[0];
   return COUNTRIES[subdomain] || null;
 }
@@ -50,20 +55,22 @@ export function getCountryFromSubdomain(subdomain: string): CountryConfig | null
 
 export function getCurrentCountry(): CountryConfig | null {
   if (typeof window !== 'undefined') {
-    const isVercel = window.location.hostname.includes('vercel.app');
+    const hostname = window.location.hostname;
+    const isVercel = hostname.includes('vercel.app');
+    const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1' || hostname.startsWith('localhost:');
     
-    if (isVercel) {
-      // For Vercel deployment, check URL parameters
+    // Check URL parameters for both Vercel and localhost
+    if (isVercel || isLocalhost) {
       const urlParams = new URLSearchParams(window.location.search);
       const countryCode = urlParams.get('country');
       if (countryCode && COUNTRIES[countryCode]) {
         return COUNTRIES[countryCode];
       }
-      // Default to Macedonia if no country specified on Vercel
+      // Default to Macedonia for Vercel and localhost
       return COUNTRIES.mk;
     } else {
       // For other deployments, use subdomain detection or default to Macedonia
-      return getCountryFromDomain(window.location.hostname) || COUNTRIES.mk;
+      return getCountryFromDomain(hostname) || COUNTRIES.mk;
     }
   }
   return COUNTRIES.mk; // Default to Macedonia

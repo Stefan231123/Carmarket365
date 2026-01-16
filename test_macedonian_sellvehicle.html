@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SellVehicle Macedonian Translation Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .iframe-container {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        iframe {
+            width: 100%;
+            height: 800px;
+            border: none;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+        .step-button {
+            background: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .step-button:hover {
+            background: #0056b3;
+        }
+        .analysis {
+            background: #e7f3ff;
+            padding: 15px;
+            border-left: 4px solid #007bff;
+            margin: 10px 0;
+        }
+        .issue {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>SellVehicle Page - Macedonian Translation Test</h1>
+        <p>Testing URL: <code>http://localhost:8081/sell-vehicle?lang=mk</code></p>
+        
+        <div class="test-section">
+            <h2>Test Controls</h2>
+            <button class="step-button" onclick="loadPage()">Load Macedonian Page</button>
+            <button class="step-button" onclick="loadAlbanian()">Compare with Albanian</button>
+            <button class="step-button" onclick="simulateSteps()">Simulate All Steps</button>
+            <button class="step-button" onclick="analyzeContent()">Analyze Content</button>
+        </div>
+
+        <div class="iframe-container">
+            <iframe id="testFrame" src="about:blank"></iframe>
+        </div>
+
+        <div class="test-section">
+            <h2>Analysis Results</h2>
+            <div id="analysisResults">Click "Analyze Content" to see translation issues...</div>
+        </div>
+
+        <div class="test-section">
+            <h2>Expected Translation Keys (from component analysis)</h2>
+            <div class="analysis">
+                <h3>Critical Missing Translation Keys</h3>
+                <p>Based on the SellVehicle.tsx component, these translation keys should be available:</p>
+                <ul>
+                    <li><code>sell.conditions.excellent</code> - Vehicle condition "Excellent"</li>
+                    <li><code>sell.conditions.veryGood</code> - Vehicle condition "Very Good"</li>
+                    <li><code>sell.conditions.good</code> - Vehicle condition "Good"</li>
+                    <li><code>sell.conditions.fair</code> - Vehicle condition "Fair"</li>
+                </ul>
+                
+                <h3>Available Translation Keys (found in mk.ts)</h3>
+                <ul>
+                    <li>✅ <code>sellVehicle.title</code> - "Продај го вашето возило"</li>
+                    <li>✅ <code>sell.steps.vehicleType</code> - "Тип на возило"</li>
+                    <li>✅ <code>sell.steps.basicInfo</code> - "Основни информации"</li>
+                    <li>✅ <code>sell.steps.details</code> - "Детали"</li>
+                    <li>✅ <code>sell.steps.photosAndContact</code> - "Фотографии и контакт"</li>
+                    <li>✅ <code>sell.headers.vehicleTypeQuestion</code> - "Каков тип на возило го продавате?"</li>
+                    <li>✅ <code>sell.vehicleTypes.car.name</code> - "Автомобил"</li>
+                    <li>✅ <code>sell.vehicleTypes.truck.name</code> - "Камион"</li>
+                    <li>✅ <code>sell.vehicleTypes.motorbike.name</code> - "Мотоцикл"</li>
+                    <li>✅ <code>sell.buttons.nextStep</code> - "Следен чекор"</li>
+                    <li>✅ <code>sell.buttons.previous</code> - "Претходен"</li>
+                    <li>✅ <code>sell.buttons.createListing</code> - "Создај оглас"</li>
+                    <li>✅ <code>sell.fuelTypes.gasoline</code> - "Бензин"</li>
+                    <li>✅ <code>sell.fuelTypes.diesel</code> - "Дизел"</li>
+                    <li>✅ <code>sell.fuelTypes.electric</code> - "Електричен"</li>
+                    <li>✅ <code>sell.fuelTypes.hybrid</code> - "Хибриден"</li>
+                    <li>✅ <code>sell.transmissions.manual</code> - "Рачна"</li>
+                    <li>✅ <code>sell.transmissions.automatic</code> - "Автоматска"</li>
+                    <li>✅ All form field labels and placeholders are properly translated</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function loadPage() {
+            document.getElementById('testFrame').src = 'http://localhost:8081/sell-vehicle?lang=mk';
+        }
+        
+        function loadAlbanian() {
+            document.getElementById('testFrame').src = 'http://localhost:8081/sell-vehicle?lang=sq';
+        }
+        
+        function simulateSteps() {
+            loadPage();
+            setTimeout(() => {
+                const frame = document.getElementById('testFrame');
+                // Note: Due to CORS, we can't directly interact with iframe content from different origin
+                alert('To test steps manually:\n1. Click a vehicle type\n2. Click "Next Step"\n3. Fill forms and continue through all 4 steps\n4. Look for any English text that should be in Macedonian');
+            }, 2000);
+        }
+        
+        function analyzeContent() {
+            const analysisDiv = document.getElementById('analysisResults');
+            analysisDiv.innerHTML = `
+                <div class="analysis">
+                    <h3>Translation Analysis Based on Code Review</h3>
+                    <p><strong>CRITICAL FINDING:</strong> The main issue is missing vehicle condition translations:</p>
+                    
+                    <div class="issue">
+                        <strong>❌ Missing Translation Keys:</strong>
+                        <ul>
+                            <li><code>sell.conditions.excellent</code> - Will show "excellent" in English</li>
+                            <li><code>sell.conditions.veryGood</code> - Will show "veryGood" in English</li>
+                            <li><code>sell.conditions.good</code> - Will show "good" in English</li>
+                            <li><code>sell.conditions.fair</code> - Will show "fair" in English</li>
+                        </ul>
+                        <p>These keys are used in Step 3 of the SellVehicle form for the vehicle condition dropdown.</p>
+                    </div>
+                    
+                    <div style="background: #d4edda; border-left: 4px solid #28a745; padding: 10px; margin: 10px 0;">
+                        <strong>✅ Properly Translated Elements:</strong>
+                        <ul>
+                            <li>Page title and main headers</li>
+                            <li>Step indicators and navigation</li>
+                            <li>Vehicle type selection</li>
+                            <li>Form field labels (Make, Model, Year, etc.)</li>
+                            <li>Button text (Next Step, Previous, Create Listing)</li>
+                            <li>Fuel type options</li>
+                            <li>Transmission type options</li>
+                            <li>All placeholder text</li>
+                            <li>Upload photo instructions</li>
+                        </ul>
+                    </div>
+                    
+                    <h3>Recommended Fix</h3>
+                    <p>Add these keys to the mk.ts translation file in the <code>sell</code> section:</p>
+                    <pre style="background: #f1f1f1; padding: 10px; border-radius: 4px; font-family: monospace;">
+conditions: {
+  excellent: 'Одлична',
+  veryGood: 'Многу добра',
+  good: 'Добра', 
+  fair: 'Задоволителна'
+}</pre>
+                </div>
+            `;
+        }
+        
+        // Auto-load the page when the document loads
+        window.addEventListener('load', function() {
+            loadPage();
+        });
+    </script>
+</body>
+</html>

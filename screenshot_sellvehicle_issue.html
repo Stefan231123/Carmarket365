@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SellVehicle Macedonian Issue Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .issue-card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        .issue-header {
+            background: #dc3545;
+            color: white;
+            padding: 15px 20px;
+            font-weight: bold;
+        }
+        .issue-content {
+            padding: 20px;
+        }
+        .iframe-container {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+        .highlight {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .success {
+            background: #d4edda;
+            border: 1px solid #28a745;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .button:hover {
+            background: #0056b3;
+        }
+        .step-info {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        .code-block {
+            background: #f1f1f1;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 SellVehicle Macedonian Translation Issue Documentation</h1>
+        
+        <div class="issue-card">
+            <div class="issue-header">
+                ❌ CRITICAL ISSUE: Vehicle Condition Dropdown Not Translated
+            </div>
+            <div class="issue-content">
+                <p><strong>Location:</strong> Step 3 of SellVehicle form</p>
+                <p><strong>URL to test:</strong> <code>http://localhost:8081/sell-vehicle?lang=mk</code></p>
+                
+                <div class="step-info">
+                    <h3>📋 Steps to Reproduce the Issue:</h3>
+                    <ol>
+                        <li>Click "Load Macedonian Page" below</li>
+                        <li>Select any vehicle type (Car, Truck, or Motorbike)</li>
+                        <li>Click "Следен чекор" (Next Step)</li>
+                        <li>Fill in basic information and click "Следен чекор" again</li>
+                        <li>🚨 <strong>OBSERVE:</strong> In Step 3, the "Condition" dropdown shows English text</li>
+                    </ol>
+                </div>
+                
+                <button class="button" onclick="loadMacedonian()">Load Macedonian Page</button>
+                <button class="button" onclick="loadAlbanian()">Load Albanian (Working) Page</button>
+                
+                <div class="iframe-container">
+                    <iframe id="testFrame" src="about:blank"></iframe>
+                </div>
+                
+                <div class="highlight">
+                    <h4>🔍 What You Should Look For:</h4>
+                    <p>In Step 3, the "Condition" dropdown will show these <strong>UNTRANSLATED</strong> options:</p>
+                    <ul>
+                        <li>"excellent" (should be "Одлична")</li>
+                        <li>"veryGood" (should be "Многу добра")</li>
+                        <li>"good" (should be "Добра")</li>
+                        <li>"fair" (should be "Задоволителна")</li>
+                    </ul>
+                </div>
+                
+                <div class="success">
+                    <h4>✅ What Should Work Perfectly:</h4>
+                    <ul>
+                        <li><strong>Step 1:</strong> All vehicle type options in Macedonian</li>
+                        <li><strong>Step 2:</strong> All field labels and placeholders in Macedonian</li>
+                        <li><strong>Step 3:</strong> Fuel types and transmission options in Macedonian</li>
+                        <li><strong>Step 4:</strong> Photo upload and contact fields in Macedonian</li>
+                        <li><strong>All steps:</strong> Navigation buttons in Macedonian</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="issue-card">
+            <div class="issue-header">
+                🔧 Technical Root Cause
+            </div>
+            <div class="issue-content">
+                <p><strong>Missing Translation Keys:</strong> The Macedonian translation file lacks the <code>conditions</code> object.</p>
+                
+                <h4>❌ Currently Missing in mk.ts:</h4>
+                <div class="code-block">
+// This section is MISSING from /shared/translations/mk.ts:
+conditions: {
+  excellent: 'Одлична',
+  veryGood: 'Многу добра', 
+  good: 'Добра',
+  fair: 'Задоволителна'
+}
+                </div>
+                
+                <h4>✅ Present in sq.ts (Albanian):</h4>
+                <div class="code-block">
+// This section EXISTS in /shared/translations/sq.ts:
+conditions: {
+  new: 'E re',
+  likeNew: 'Si e re', 
+  excellent: 'Të shkëlqyer',
+  veryGood: 'Shumë të mira',
+  good: 'Të mira',
+  fair: 'Të pranueshme',
+  poor: 'Të dobëta',
+}
+                </div>
+            </div>
+        </div>
+        
+        <div class="issue-card">
+            <div class="issue-header">
+                📸 Screenshot Instructions
+            </div>
+            <div class="issue-content">
+                <p>To document this issue with screenshots:</p>
+                <ol>
+                    <li><strong>Screenshot 1:</strong> Take a screenshot of Step 1 (working perfectly)</li>
+                    <li><strong>Screenshot 2:</strong> Take a screenshot of Step 2 (working perfectly)</li>
+                    <li><strong>Screenshot 3:</strong> Take a screenshot of Step 3 showing the untranslated condition dropdown</li>
+                    <li><strong>Screenshot 4:</strong> Take a screenshot of Step 4 (working perfectly)</li>
+                    <li><strong>Comparison:</strong> Take a screenshot of Albanian version Step 3 showing translated conditions</li>
+                </ol>
+                
+                <div class="highlight">
+                    <p><strong>Key Evidence to Capture:</strong> The condition dropdown in Step 3 showing raw English keys instead of Macedonian translations.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function loadMacedonian() {
+            document.getElementById('testFrame').src = 'http://localhost:8081/sell-vehicle?lang=mk';
+        }
+        
+        function loadAlbanian() {
+            document.getElementById('testFrame').src = 'http://localhost:8081/sell-vehicle?lang=sq';
+        }
+        
+        // Auto-load Macedonian page
+        window.addEventListener('load', loadMacedonian);
+    </script>
+</body>
+</html>
