@@ -4872,6 +4872,47 @@ export const sqTranslations: TranslationStrings = {
   },
 
 
+  // Final fixes section for ExpressSell component
+  finalFixes: {
+    expressSell: {
+      title: 'Shitje ekspres',
+      listMyCarQuickly: 'Vendos automjetin për shitje shpejt dhe lehtë',
+      backToHome: 'Kthehu në fillore',
+      carDetailsStep: 'Detajet e automjetit',
+      photosStep: 'Fotot',
+      priceDescriptionStep: 'Çmimi dhe përshkrimi',
+      contactInfoStep: 'Informacionet e kontaktit',
+      carBrands: ['Audi', 'BMW', 'Mercedes-Benz', 'Volkswagen', 'Toyota', 'Ford', 'Opel', 'Peugeot', 'Renault'],
+      carModels: ['3 Series', '5 Series', 'X3', 'X5', 'A4', 'A6', 'Golf', 'Passat'],
+      conditionLabel: 'Gjendja e automjetit',
+      conditionPlaceholder: 'Zgjidhni gjendjen',
+      uploadPhotos: 'Ngarko fotot',
+      uploadPhotosDescription: 'Shtoni foto për ta bërë shpalljen më tërheqëse',
+      uploadCarPhotos: 'Ngarko fotot e automjetit',
+      addUpToTenPhotos: 'Shtoni deri në 10 foto',
+      choosePhotos: 'Zgjidhni fotot',
+      mainPhoto: 'Fotoja kryesore',
+      priceAndDescription: 'Çmimi dhe përshkrimi',
+      setPriceAndDescription: 'Caktoni çmimin dhe përshkruani automjetin',
+      askingPriceEuros: 'Çmimi i kërkuar (€)',
+      priceExample: 'p.sh. 25.000',
+      descriptionPlaceholder: 'Përshkruani automjetin, gjendjen, historikun...',
+      contactInformation: 'Informacionet e kontaktit',
+      howShouldBuyersContact: 'Si duhet t\'ju kontaktojnë blerësit?',
+      fullNameRequired: 'Emri i plotë *',
+      phoneNumberRequired: 'Numri i telefonit *',
+      emailAddressRequired: 'Adresa e emailit *',
+      locationRequired: 'Vendndodhja *',
+      namePlaceholder: 'Emri juaj i plotë',
+      phonePlaceholder: '070 123 456',
+      yourEmail: 'email.juaj@shembull.com',
+      locationPlaceholder: 'Shkup, Maqedoni',
+      previous: 'I mëparshëm',
+      next: 'Tjetër',
+      listMyCar: 'Publiko shpalljen'
+    }
+  },
+
   // Forms section for placeholders
   forms: {
     placeholders: {

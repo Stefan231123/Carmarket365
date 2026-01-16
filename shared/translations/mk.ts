@@ -5274,6 +5274,46 @@ export const mkTranslations: TranslationStrings = {
     backToHome: 'Назад кон почетна',
   },
 
+  // Final fixes section for ExpressSell component
+  finalFixes: {
+    expressSell: {
+      title: 'Експресна продажба',
+      listMyCarQuickly: 'Ставете го автомобилот на продажба брзо и лесно',
+      backToHome: 'Назад кон почетна',
+      carDetailsStep: 'Детали за возилото',
+      photosStep: 'Фотографии',
+      priceDescriptionStep: 'Цена и опис',
+      contactInfoStep: 'Контакт информации',
+      carBrands: ['Audi', 'BMW', 'Mercedes-Benz', 'Volkswagen', 'Toyota', 'Ford', 'Opel', 'Peugeot', 'Renault'],
+      carModels: ['3 Серија', '5 Серија', 'X3', 'X5', 'A4', 'A6', 'Golf', 'Passat'],
+      conditionLabel: 'Состојба на возилото',
+      conditionPlaceholder: 'Изберете состојба',
+      uploadPhotos: 'Прикачи фотографии',
+      uploadPhotosDescription: 'Додајте фотографии за да го направите огласот поатрактивен',
+      uploadCarPhotos: 'Прикачи слики од возилото',
+      addUpToTenPhotos: 'Додајте до 10 слики',
+      choosePhotos: 'Изберете слики',
+      mainPhoto: 'Главна слика',
+      priceAndDescription: 'Цена и опис',
+      setPriceAndDescription: 'Поставете цена и опишете го возилото',
+      askingPriceEuros: 'Барана цена (€)',
+      priceExample: 'пр. 25.000',
+      descriptionPlaceholder: 'Опишете го возилото, состојбата, историјата...',
+      contactInformation: 'Контакт информации',
+      howShouldBuyersContact: 'Како купувачите треба да ве контактираат?',
+      fullNameRequired: 'Полно име *',
+      phoneNumberRequired: 'Телефонски број *',
+      emailAddressRequired: 'Е-пошта *',
+      locationRequired: 'Локација *',
+      namePlaceholder: 'Вашето полно име',
+      phonePlaceholder: '070 123 456',
+      yourEmail: 'ваша.email@пример.com',
+      locationPlaceholder: 'Скопје, Македонија',
+      previous: 'Претходен',
+      next: 'Следен',
+      listMyCar: 'Објави го огласот'
+    }
+  },
 
   // Forms section for placeholders
   forms: {
