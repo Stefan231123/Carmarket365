@@ -82,16 +82,25 @@ export function CountryProvider({ children }: CountryProviderProps) {
         setCountryState(domainCountry);
         setIsValidCountry(true);
       
-        // Try to get language from localStorage first, then use default
+        // Check URL parameters FIRST, then localStorage, then default
+        const urlParams = new URLSearchParams(window.location.search);
+        const langParam = urlParams.get('lang');
         const storedLanguage = localStorage.getItem(`selectedLanguage_${domainCountry.code}`);
         const validLanguages = domainCountry.languages.map(lang => lang.code);
         
         console.log('🌍 CountryContext: Domain country detected:', domainCountry.name, domainCountry.code);
+        console.log('🌍 CountryContext: URL lang param:', langParam);
         console.log('🌍 CountryContext: Stored language:', storedLanguage);
         console.log('🌍 CountryContext: Valid languages:', validLanguages);
         console.log('🌍 CountryContext: Default language:', domainCountry.defaultLanguage);
         
-        if (storedLanguage && validLanguages.includes(storedLanguage)) {
+        // Priority: URL parameter > localStorage > default
+        if (langParam && validLanguages.includes(langParam)) {
+          console.log('🌍 CountryContext: Using URL language parameter:', langParam);
+          setCurrentLanguage(langParam);
+          // Update localStorage to remember this choice
+          localStorage.setItem(`selectedLanguage_${domainCountry.code}`, langParam);
+        } else if (storedLanguage && validLanguages.includes(storedLanguage)) {
           console.log('🌍 CountryContext: Using stored language:', storedLanguage);
           setCurrentLanguage(storedLanguage);
         } else {

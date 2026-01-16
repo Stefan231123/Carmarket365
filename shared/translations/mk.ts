@@ -5258,8 +5258,8 @@ export const mkTranslations: TranslationStrings = {
       recentlySaved: 'Скоро зачувани',
       priceLowToHigh: 'Цена: растечки',
       priceHighToLow: 'Цена: опаѓачки',
-      arNewestFirst: 'Година: најнови прво',
-      arOldestFirst: 'Година: најстари прво',
+      yearNewestFirst: 'Година: најнови прво',
+      yearOldestFirst: 'Година: најстари прво',
       filterPlaceholder: 'Филтер',
       allCars: 'Сите возила',
       savedThisWeek: 'Зачувани оваа недела',
@@ -5276,6 +5276,27 @@ export const mkTranslations: TranslationStrings = {
 
   // Final fixes section for ExpressSell component
   finalFixes: {
+    savedCars: {
+      title: 'Зачувани возила',
+      back: 'Назад',
+      noSavedCars: 'Сè уште нема зачувани возила',
+      startBrowsing: 'Започнете да го прегледувате нашиот инвентар за да зачувате возила што ви се допаѓаат за подоцна.',
+      browseVehicles: 'Прегледај возила',
+      carsSaved: 'возила зачувани',
+      clearAll: 'Исчисти сè',
+      sortBy: 'Сортирај по',
+      recentlySaved: 'Скоро зачувани',
+      priceLowToHigh: 'Цена: растечки',
+      priceHighToLow: 'Цена: опаѓачки',
+      yearNewestFirst: 'Година: најнови прво',
+      yearOldestFirst: 'Година: најстари прво',
+      filterPlaceholder: 'Филтер',
+      allCars: 'Сите возила',
+      savedThisWeek: 'Зачувани оваа недела',
+      savedDate: 'Зачувано',
+      contact: 'Контакт',
+      view: 'Детали'
+    },
     expressSell: {
       title: 'Експресна продажба',
       listMyCarQuickly: 'Ставете го автомобилот на продажба брзо и лесно',

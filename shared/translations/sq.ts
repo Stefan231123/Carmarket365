@@ -4874,6 +4874,27 @@ export const sqTranslations: TranslationStrings = {
 
   // Final fixes section for ExpressSell component
   finalFixes: {
+    savedCars: {
+      title: 'Makina të ruajtura',
+      back: 'Kthehu',
+      noSavedCars: 'Ende nuk ka makina të ruajtura',
+      startBrowsing: 'Filloni të shfletoni inventarin tonë për të ruajtur automjetet tuaja të preferuara për më vonë.',
+      browseVehicles: 'Shfletoni automjetet',
+      carsSaved: 'makina të ruajtura',
+      clearAll: 'Pastro të gjitha',
+      sortBy: 'Rendit sipas',
+      recentlySaved: 'Ruajtura së fundmi',
+      priceLowToHigh: 'Çmimi: Nga i ulti në të lartë',
+      priceHighToLow: 'Çmimi: Nga i larti në të ulët',
+      yearNewestFirst: 'Viti: Më të rejat së pari',
+      yearOldestFirst: 'Viti: Më të vjetrat së pari',
+      filterPlaceholder: 'Filtro',
+      allCars: 'Të gjitha makinat',
+      savedThisWeek: 'Ruajtura këtë javë',
+      savedDate: 'Ruajtur',
+      contact: 'Kontakt',
+      view: 'Detajet'
+    },
     expressSell: {
       title: 'Shitje ekspres',
       listMyCarQuickly: 'Vendos automjetin për shitje shpejt dhe lehtë',
