@@ -1949,6 +1949,59 @@ export const mkTranslations: TranslationStrings = {
       questionsMessage: 'Ако имате прашања за нашата политика за колачиња или треба помош со управување со вашите преференци, контактирајте нѐ на cookies@carmarket365.com',
       returnToPlatform: 'Врати се на платформата',
       cookieSupport: 'Поддршка за колачиња'
+    },
+    
+    imprint: {
+      title: 'Импресум',
+      subtitle: 'Правни информации и детали за компанијата како што се бараат по закон.',
+      backToHome: 'Назад на почетна',
+      legalInfoTitle: 'Правни информации (Импресум)',
+      legalInfoDescription: 'Информации за компанијата и правни детали како што се бараат по закон.',
+      legalInfoText: 'Оваа страница содржи правно потребни информации за CarMarket365 како што се задолжителни според применливите закони и прописи. Сите обезбедени информации се актуелни и точни.',
+      companyDetails: {
+        title: 'Детали за компанијата',
+        companyName: 'Име на компанијата',
+        companyNameValue: 'CarMarket365 GmbH',
+        registrationNumber: 'Регистрациски број',
+        registrationNumberValue: 'HRB 123456 B',
+        vatId: 'ДДВ ID',
+        vatIdValue: 'DE123456789',
+        commercialRegister: 'Трговски регистар',
+        commercialRegisterValue: 'Amtsgericht Berlin'
+      },
+      businessAddress: {
+        title: 'Деловна адреса',
+        registeredAddress: 'Регистрирана адреса',
+        addressLine1: 'Potsdamer Platz 1',
+        addressLine2: '10785 Berlin',
+        addressLine3: 'Германија'
+      },
+      management: {
+        title: 'Управување',
+        managingDirector: 'Управен директор',
+        managingDirectorValue: 'Max Mustermann',
+        authorizedRepresentative: 'Овластен претставник',
+        authorizedRepresentativeValue: 'Anna Schmidt'
+      },
+      contactInfo: {
+        title: 'Контакт информации',
+        phone: 'Телефон',
+        phoneValue: '+49 (0) 30 12345678',
+        email: 'Е-пошта',
+        emailValue: 'info@carmarket365.com',
+        businessHours: 'Работно време',
+        businessHoursValue: 'Пон-Пет: 9:00 - 18:00 CET'
+      },
+      legalNotice: {
+        title: 'Правна забелешка',
+        paragraph1: 'CarMarket365 е посветена на обезбедување точни и актуелни информации. Сепак, не можеме да гарантираме целосност или точност на сите содржини.',
+        paragraph2: 'Оваа платформа служи како пазар што поврзува купувачи и продавачи на возила. CarMarket365 не е одговорна за точноста на огласите или однесувањето на корисниците.',
+        paragraph3: 'За спорови или жалби, контактирајте нѐ користејќи ги информациите обезбедени погоре. Се стремиме да ги решиме сите прашања навремено и правично.'
+      },
+      questionsTitle: 'Правни прашања?',
+      questionsText: 'За правни прашања или за пријавување на грижи, контактирајте го нашиот правен оддел на legal@carmarket365.com',
+      returnToPlatform: 'Врати се на платформата',
+      contactLegal: 'Контактирај го правниот тим'
     }
   },
   advancedSearch: {
@@ -2224,59 +2277,6 @@ export const mkTranslations: TranslationStrings = {
         contactTeam: 'Контактирај го тимот за пристапност'
       }
     },
-
-    imprint: {
-      title: 'Импресум',
-      subtitle: 'Правни информации и детали за компанијата како што се бараат по закон.',
-      backToHome: 'Назад на почетна',
-      legalInfoTitle: 'Правни информации (Импресум)',
-      legalInfoDescription: 'Информации за компанијата и правни детали како што се бараат по закон.',
-      legalInfoText: 'Оваа страница содржи правно потребни информации за CarMarket365 како што се задолжителни според применливите закони и прописи. Сите обезбедени информации се актуелни и точни.',
-      companyDetails: {
-        title: 'Детали за компанијата',
-        companyName: 'Име на компанијата',
-        companyNameValue: 'CarMarket365 GmbH',
-        registrationNumber: 'Регистрациски број',
-        registrationNumberValue: 'HRB 123456 B',
-        vatId: 'ДДВ ID',
-        vatIdValue: 'DE123456789',
-        commercialRegister: 'Трговски регистар',
-        commercialRegisterValue: 'Amtsgericht Berlin'
-      },
-      businessAddress: {
-        title: 'Деловна адреса',
-        registeredAddress: 'Регистрирана адреса',
-        addressLine1: 'Potsdamer Platz 1',
-        addressLine2: '10785 Berlin',
-        addressLine3: 'Германија'
-      },
-      management: {
-        title: 'Управување',
-        managingDirector: 'Управен директор',
-        managingDirectorValue: 'Max Mustermann',
-        authorizedRepresentative: 'Овластен претставник',
-        authorizedRepresentativeValue: 'Anna Schmidt'
-      },
-      contactInfo: {
-        title: 'Контакт информации',
-        phone: 'Телефон',
-        phoneValue: '+49 (0) 30 12345678',
-        email: 'Електронска пошта',
-        emailValue: 'info@carmarket365.com',
-        businessHours: 'Работни часови',
-        businessHoursValue: 'Пон-Пет: 9:00 - 18:00 CET'
-      },
-      legalNotice: {
-        title: 'Правна забелешка',
-        paragraph1: 'CarMarket365 е посветена на обезбедување точни и актуелни информации. Сепак, не можеме да гарантираме целосност или точност на сите содржини.',
-        paragraph2: 'Оваа платформа служи како пазар што поврзува купувачи и продавачи на возила. CarMarket365 не е одговорна за точноста на огласите или однесувањето на корисниците.',
-        paragraph3: 'За спорови или жалби, контактирајте нѐ користејќи ги информациите обезбедени погоре. Се стремиме да ги решиме сите прашања навремено и правично.'
-      },
-      questionsTitle: 'Правни прашања?',
-      questionsText: 'За правни прашања или за пријавување на грижи, контактирајте го нашиот правен оддел на legal@carmarket365.com',
-      returnToPlatform: 'Врати се на платформата',
-      contactLegal: 'Контактирај го правниот тим'
-    }
   },
   dealerProfile: {
     dealerNotFound: 'Дилерот не е пронајден',
