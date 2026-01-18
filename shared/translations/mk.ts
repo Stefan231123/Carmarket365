@@ -1141,7 +1141,6 @@ export const mkTranslations: TranslationStrings = {
     privacyPolicy: 'Политика на приватност',
     termsOfService: 'Услови за користење',
     cookiePolicy: 'Политика за колачиња',
-    imprint: 'Импресум',
     accessibility: 'Пристапност',
     dashboard: 'Контролна табла',
     adminPanel: 'Администраторски панел',
@@ -2247,12 +2246,9 @@ export const mkTranslations: TranslationStrings = {
       businessAddress: {
         title: 'Деловна адреса',
         registeredAddress: 'Регистрирана адреса',
-        addressLine1: 'Адресна линија 1',
-        addressLine2: 'Адресна линија 2',
-        addressLine3: 'Адресна линија 3',
-        street: 'Unter den Linden 1',
-        city: '10117 Berlin',
-        country: 'Германија'
+        addressLine1: 'Potsdamer Platz 1',
+        addressLine2: '10785 Berlin',
+        addressLine3: 'Германија'
       },
       management: {
         title: 'Управување',
