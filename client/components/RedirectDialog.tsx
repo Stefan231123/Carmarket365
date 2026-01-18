@@ -32,7 +32,7 @@ export function RedirectDialog({
           <DialogTitle className="text-center">
             <div className="flex flex-col items-center space-y-3">
               <div className="text-6xl">{targetCountry.flag}</div>
-              <div>Welcome to CarMarket365!</div>
+              <div>{t('redirect.welcomeMessage')}</div>
             </div>
           </DialogTitle>
         </DialogHeader>
@@ -40,24 +40,23 @@ export function RedirectDialog({
         <div className="space-y-6">
           <div className="text-center">
             <p className="text-muted-foreground mb-4">
-              We detected you're visiting from <strong>{targetCountry.name}</strong>. 
-              You'll be redirected to our {targetCountry.name} site for the best local experience, or you can choose a different country.
+              {t('redirect.detectionMessage', { country: targetCountry.name })}
             </p>
             
             {/* Country Benefits */}
             <div className="bg-muted/30 rounded-2xl p-4 mb-4">
               <h4 className="font-semibold text-sm mb-3 flex items-center justify-center gap-2">
                 <MapPin className="h-4 w-4" />
-                Local Benefits for {targetCountry.name}
+                {t('redirect.localBenefits', { country: targetCountry.name })}
               </h4>
               <ul className="text-xs text-muted-foreground space-y-1">
-                <li>• Local currency and pricing</li>
+                <li>• {t('redirect.benefits.currency')}</li>
                 <li>• {targetCountry.hasMultipleLanguages 
                   ? `Multiple languages: ${targetCountry.languages.map(l => l.name).join(', ')}` 
                   : `Native language: ${targetCountry.languages[0]?.name}`}
                 </li>
-                <li>• Local dealers and inventory</li>
-                <li>• Region-specific features</li>
+                <li>• {t('redirect.benefits.dealers')}</li>
+                <li>• {t('redirect.benefits.features')}</li>
               </ul>
             </div>
           </div>
@@ -65,7 +64,7 @@ export function RedirectDialog({
           <div className="space-y-3">
             <Button onClick={onAccept} className="w-full bg-black text-white hover:bg-black/90 rounded-full h-12">
               <ExternalLink className="h-4 w-4 mr-2" />
-              Continue to {targetCountry.name} site
+              {t('redirect.continueButton', { country: targetCountry.name })}
             </Button>
             
             <Button 
@@ -74,7 +73,7 @@ export function RedirectDialog({
               className="w-full border-zinc-300 rounded-full h-12"
             >
               <Globe className="h-4 w-4 mr-2" />
-              Choose a different country
+              {t('redirect.chooseCountryButton')}
             </Button>
           </div>
           
@@ -89,9 +88,9 @@ export function RedirectDialog({
             
             {showDetails && (
               <div className="text-xs text-muted-foreground bg-muted/30 rounded-xl p-3 space-y-2">
-                <p>We use your IP address to suggest the most relevant local site.</p>
-                <p>Target domain: <code className="bg-white px-1 rounded">{targetCountry.domain}</code></p>
-                <p>You can change this preference anytime from the header.</p>
+                <p>{t('redirect.details.ipDetection')}</p>
+                <p>{t('redirect.details.targetDomain')}: <code className="bg-white px-1 rounded">{targetCountry.domain}</code></p>
+                <p>{t('redirect.details.changePreference')}</p>
               </div>
             )}
           </div>

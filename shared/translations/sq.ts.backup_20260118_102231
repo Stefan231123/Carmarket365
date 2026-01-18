@@ -1,14 +1,6 @@
 import { TranslationStrings } from '../translations';
 
 export const sqTranslations: TranslationStrings = {
-  brand: {
-    name: 'CarMarket365'
-  },
-  contact: {
-    phone: '+49 (0) 30 12345678',
-    email: 'info@carmarket365.com',
-    address: 'Berlin, Gjermania'
-  },
   common: {
     loading: 'Po ngarkohet...',
     error: 'Gabim',
@@ -826,24 +818,6 @@ export const sqTranslations: TranslationStrings = {
   },
 
   redirect: {
-    welcomeMessage: 'Mirë se vini në CarMarket365!',
-    detectionMessage: 'Zbuluam se po vizitoni nga {country}. Do të ridrejtoheni në faqen tonë të {country} për përvojën më të mirë lokale, ose mund të zgjidhni një vend tjetër.',
-    localBenefits: 'Përfitimet lokale për {country}',
-    continueButton: 'Vazhdo në faqen e {country}',
-    chooseCountryButton: 'Zgjidh një vend tjetër',
-    hideDetails: 'Fshih detajet',
-    showDetails: 'Si e zbuluam këtë?',
-    benefits: {
-      currency: 'Monedha dhe çmimet lokale',
-      dealers: 'Dilerët dhe inventari lokal',
-      features: 'Veçoritë specifike të rajonit'
-    },
-    details: {
-      ipDetection: 'Ne përdorim adresën tuaj IP për të sugjeruar faqen më të përshtatshme lokale.',
-      targetDomain: 'Domeni i synuar',
-      changePreference: 'Mund ta ndryshoni këtë preferencë në çdo kohë nga kreu.'
-    },
-    // Legacy keys for backwards compatibility
     welcome: 'Mirë se vini në CarMarket365!',
     detectedFrom: 'Zbuluam se po vizitoni nga',
     redirectMessage: 'Do të ridrejtoheni në faqen tonë të {country} për përvojën më të mirë lokale, ose mund të zgjidhni një vend tjetër.',
@@ -851,6 +825,7 @@ export const sqTranslations: TranslationStrings = {
     chooseDifferent: 'Zgjidh një vend tjetër',
     localBenefitsTitle: 'Përfitimet lokale për {country}',
     howDetected: 'Si e zbuluam këtë?',
+    hideDetails: 'Fshih detajet',
     changeAnytime: 'Mund ta ndryshoni preferencën tuaj të vendit në çdo kohë nga kreu.',
     countrySpecificExperience: 'Çdo faqe vendi ofron përmbajtje të lokalizuar, çmime dhe opsione gjuhësore për përvojën më të mirë.',
     adminTestingMode: 'Modaliteti i administratorit/testimit',

@@ -46,7 +46,7 @@ export function Footer({ onAdvancedSearchClick, onSellClick, onContactUsClick, o
           <div>
             <div className="flex items-center justify-center space-x-2 mb-4">
               <Car className="h-6 w-6" />
-              <span className="text-lg font-bold">CarMarket365</span>
+              <span className="text-lg font-bold">{t('brand.name')}</span>
             </div>
             <p className="text-white/80 mb-4">
               {t('footer.aboutUs')}
@@ -54,15 +54,15 @@ export function Footer({ onAdvancedSearchClick, onSellClick, onContactUsClick, o
             <div className="space-y-2 text-sm">
               <div className="flex items-center justify-center text-white/80">
                 <Phone className="h-4 w-4 mr-2" />
-                +49 (0) 30 12345678
+                {t('contact.phone')}
               </div>
               <div className="flex items-center justify-center text-white/80">
                 <Mail className="h-4 w-4 mr-2" />
-                info@carmarket365.com
+                {t('contact.email')}
               </div>
               <div className="flex items-center justify-center text-white/80">
                 <MapPin className="h-4 w-4 mr-2" />
-                Berlin, Germany
+                {t('contact.address')}
               </div>
             </div>
           </div>
@@ -224,7 +224,7 @@ export function Footer({ onAdvancedSearchClick, onSellClick, onContactUsClick, o
           </div>
 
           <div className="border-t border-white/10 mt-10 pt-6 text-center text-sm text-white/60">
-            <p>&copy; {currentYear} CarMarket365. {t('footer.allRightsReserved')}</p>
+            <p>&copy; {currentYear} {t('brand.name')}. {t('footer.allRightsReserved')}</p>
           </div>
         </div>
       </div>

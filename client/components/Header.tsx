@@ -104,7 +104,7 @@ export function Header({
           <div className="flex items-center space-x-4 sm:space-x-6">
             <div className="flex items-center space-x-2 cursor-pointer hover:shadow-md hover:shadow-white/10 rounded-lg px-2 py-1 transition-all duration-200" onClick={onHomeClick}>
               <Car className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
-              <span className="text-lg sm:text-xl font-bold text-white">CarMarket365</span>
+              <span className="text-lg sm:text-xl font-bold text-white">{t('brand.name')}</span>
             </div>
             
             {/* Prominent Sell Link */}
@@ -201,10 +201,10 @@ export function Header({
             
             <Button size="sm" onClick={onExpressSellClick} className="bg-white text-black hover:bg-white/90 hover:shadow-lg hover:shadow-white/25 transition-all duration-200 rounded-full px-4">
               <span className="hidden lg:inline">
-                {currentLanguage === 'mk' ? 'Експресна продажба' : currentLanguage === 'sq' ? 'Shitje ekspres' : t('sell.expressTitle')}
+                {t('sell.expressTitle')}
               </span>
               <span className="lg:hidden">
-                {currentLanguage === 'mk' ? 'Експресна продажба' : currentLanguage === 'sq' ? 'Shitje ekspres' : t('sell.expressTitle')}
+                {t('sell.expressTitle')}
               </span>
             </Button>
           </div>
@@ -252,7 +252,7 @@ export function Header({
                     onClick={() => handleNavClick(onExpressSellClick)}
                   >
                     <Car className="h-5 w-5 mr-3" />
-                    {currentLanguage === 'mk' ? 'Експресна продажба' : currentLanguage === 'sq' ? 'Shitje ekspres' : t('sell.expressTitle')}
+                    {t('sell.expressTitle')}
                   </Button>
                   {isAuthenticated && user ? (
                     <>

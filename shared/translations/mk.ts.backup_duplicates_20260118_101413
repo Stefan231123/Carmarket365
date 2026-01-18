@@ -1,14 +1,6 @@
 import { TranslationStrings } from '../translations';
 
 export const mkTranslations: TranslationStrings = {
-  brand: {
-    name: 'CarMarket365'
-  },
-  contact: {
-    phone: '+49 (0) 30 12345678',
-    email: 'info@carmarket365.com',
-    address: 'Берлин, Германија'
-  },
   common: {
     loading: 'Се вчитува...',
     error: 'Грешка',
@@ -1094,24 +1086,6 @@ export const mkTranslations: TranslationStrings = {
   },
 
   redirect: {
-    welcomeMessage: 'Добредојдовте во CarMarket365!',
-    detectionMessage: 'Детектиравме дека посетувате од {country}. Ќе бидете пренасочени на нашата страница за {country} за најдобро локално искуство, или можете да изберете друга земја.',
-    localBenefits: 'Локални погодности за {country}',
-    continueButton: 'Продолжи на страницата за {country}',
-    chooseCountryButton: 'Избери друга земја',
-    hideDetails: 'Сокриј детали',
-    showDetails: 'Како го детектиравме ова?',
-    benefits: {
-      currency: 'Локална валута и цени',
-      dealers: 'Локални дилери и залихи',
-      features: 'Регионално специфични функции'
-    },
-    details: {
-      ipDetection: 'Ја користиме вашата IP адреса за да предложиме најрелевантна локална страница.',
-      targetDomain: 'Целна страница',
-      changePreference: 'Можете да ја промените оваа преференца во секое време од заглавието.'
-    },
-    // Legacy keys for backwards compatibility
     welcome: 'Добредојдовте во CarMarket365!',
     detectedFrom: 'Детектиравме дека посетувате од',
     redirectMessage: 'Ќе бидете пренасочени на нашата страница за {country} за најдобро локално искуство, или можете да изберете друга земја.',
@@ -1119,6 +1093,7 @@ export const mkTranslations: TranslationStrings = {
     chooseDifferent: 'Избери друга земја',
     localBenefitsTitle: 'Локални погодности за {country}',
     howDetected: 'Како го детектиравме ова?',
+    hideDetails: 'Сокриј детали',
     changeAnytime: 'Можете да ја промените вашата земја во секое време од заглавието.',
     countrySpecificExperience: 'Секоја земјина страница нуди локализирана содржина, цени и јазични опции за најдобро искуство.',
     adminTestingMode: 'Администраторски/тестирачки режим',

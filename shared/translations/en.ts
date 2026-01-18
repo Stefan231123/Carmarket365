@@ -1,6 +1,14 @@
 import { TranslationStrings } from '../translations';
 
 export const enTranslations: TranslationStrings = {
+  brand: {
+    name: 'CarMarket365'
+  },
+  contact: {
+    phone: '+49 (0) 30 12345678',
+    email: 'info@carmarket365.com',
+    address: 'Berlin, Germany'
+  },
   common: {
     loading: 'Loading...',
     error: 'Error',
@@ -947,6 +955,24 @@ export const enTranslations: TranslationStrings = {
   },
 
   redirect: {
+    welcomeMessage: 'Welcome to CarMarket365!',
+    detectionMessage: 'We detected you\'re visiting from {country}. You\'ll be redirected to our {country} site for the best local experience, or you can choose a different country.',
+    localBenefits: 'Local Benefits for {country}',
+    continueButton: 'Continue to {country} site',
+    chooseCountryButton: 'Choose a different country',
+    hideDetails: 'Hide details',
+    showDetails: 'How did we detect this?',
+    benefits: {
+      currency: 'Local currency and pricing',
+      dealers: 'Local dealers and inventory',
+      features: 'Region-specific features'
+    },
+    details: {
+      ipDetection: 'We use your IP address to suggest the most relevant local site.',
+      targetDomain: 'Target domain',
+      changePreference: 'You can change this preference anytime from the header.'
+    },
+    // Legacy keys for backwards compatibility
     welcome: 'Welcome to CarMarket365!',
     detectedFrom: 'We detected that you are visiting from',
     redirectMessage: 'You will be redirected to our {country} site for a better local experience, or you can choose another country.',
@@ -954,8 +980,6 @@ export const enTranslations: TranslationStrings = {
     chooseDifferent: 'Choose another country',
     localBenefitsTitle: 'Local Benefits for {country}',
     howDetected: 'How did we detect this?',
-    hideDetails: 'Hide details',
-    showDetails: 'How did we detect this?',
     changeAnytime: 'You can change country preference at any time in header.',
     countrySpecificExperience: 'Each country site offers localized content, pricing and language options for a better experience.',
     adminTestingMode: 'Administrator/Testing Mode',
