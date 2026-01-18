@@ -2120,6 +2120,24 @@ export const mkTranslations: TranslationStrings = {
     countries: 'Земји',
     colors: 'Бои',
     emissions: 'Емисии',
+
+    cookiePolicy: {
+      title: 'Политика за колачиња',
+      subtitle: 'Дознајте како користиме колачиња и слични технологии за да го подобриме вашето искуство.',
+      backToHome: 'Назад на почетна'
+    },
+
+    accessibility: {
+      title: 'Пристапност',
+      subtitle: 'Нашата обврска за прави CarMarket365 пристапен за секого.',
+      backToHome: 'Назад на почетна'
+    },
+
+    imprint: {
+      title: 'Импресум',
+      subtitle: 'Правни информации и детали за компанијата за CarMarket365.',
+      backToHome: 'Назад на почетна'
+    }
   },
   dealerProfile: {
     dealerNotFound: 'Дилерот не е пронајден',

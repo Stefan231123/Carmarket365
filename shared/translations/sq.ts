@@ -864,9 +864,24 @@ export const sqTranslations: TranslationStrings = {
     safetyTips: 'Këshilla sigurie',
     dealerSupport: 'Mbështetja e dilerëve',
     contactUs: 'Na kontaktoni',
-    cookiePolicy: 'Politika e cookies',
-    imprint: 'Impresumi',
-    accessibility: 'Aksesueshmëria',
+    
+    cookiePolicy: {
+      title: 'Politika e Cookies',
+      subtitle: 'Mësoni se si përdorim cookies dhe teknologji të ngjashme për të përmirësuar përvojën tuaj.',
+      backToHome: 'Kthehu në fillore'
+    },
+    
+    imprint: {
+      title: 'Impresumi',
+      subtitle: 'Informacione ligjore dhe detaje të kompanisë për CarMarket365.',
+      backToHome: 'Kthehu në fillore'
+    },
+    
+    accessibility: {
+      title: 'Aksesueshmëria',
+      subtitle: 'Angazhimi ynë për të bërë CarMarket365 të aksesueshem për të gjithë.',
+      backToHome: 'Kthehu në fillore'
+    },
     signUp: 'Regjistrohu',
     signIn: 'Kyçu',
     dashboard: 'Paneli',
