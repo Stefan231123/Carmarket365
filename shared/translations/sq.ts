@@ -986,7 +986,40 @@ export const sqTranslations: TranslationStrings = {
     accessibility: {
       title: 'Aksesueshmëria',
       subtitle: 'Angazhimi ynë për të bërë CarMarket365 të aksesueshem për të gjithë.',
-      backToHome: 'Kthehu në fillore'
+      backToHome: 'Kthehu në fillore',
+      commitmentTitle: 'Angazhimi ynë për Aksesueshmërinë',
+      commitmentDescription: 'CarMarket365 është i dedikuar për të ofruar një përvojë gjithëpërfshirëse.',
+      commitmentText: 'Ne besojmë se të gjithë duhet të kenë akses të barabartë në platformën tonë, pavarësisht nga aftësitë e tyre.',
+      visual: {
+        title: 'Aksesueshmëria Vizuale',
+        features: ['Kontrast i lartë për lexueshmëri më të mirë', 'Madhësi e rregullueshme e shkronjave', 'Navigim i qartë dhe i strukturuar', 'Përshkrimet alternative për imazhet']
+      },
+      motor: {
+        title: 'Aksesueshmëria Motorike',
+        features: ['Navigim i plotë me tastierë', 'Zona të mëdha të klikueshme', 'Kontrolle të lehta për përdorim', 'Mbështetje për komanda zanore']
+      },
+      audio: {
+        title: 'Aksesueshmëria Audio',
+        features: ['Titra për përmbajtje audio', 'Indikatorë vizualë për tinguj', 'Kontrolle të qarta për audion', 'Mbështetje për aparate dëgjimi']
+      },
+      cognitive: {
+        title: 'Aksesueshmëria Kognitive',
+        features: ['Navigim i thjeshtë dhe i qartë', 'Instruksione të qarta', 'Kohë e mjaftueshme për lexim', 'Organizim logjik i përmbajtjes']
+      },
+      standards: {
+        title: 'Standardet që Ndjekim',
+        description: 'Platforma jonë është ndërtuar në përputhje me standardet ndërkombëtare.',
+        wcagGuidelines: 'Udhëzimet WCAG',
+        wcagDescription: 'Ne synojmë përputhshmëri me udhëzimet WCAG 2.1 AA për aksesueshmëri në web.',
+        platformCompatibility: 'Kompatibiliteti i Platformës',
+        platformCompatibilityDescription: 'Platforma jonë është testuar me lexuesit e ekranit dhe teknologji të tjera ndihmëse.'
+      },
+      feedback: {
+        title: 'Komente mbi Aksesueshmërinë?',
+        message: 'Nëse hasni probleme me aksesueshmërinë ose keni sugjerime për përmirësim, na kontaktoni në accessibility@carmarket365.com',
+        returnToPlatform: 'Kthehu te Platforma',
+        contactTeam: 'Kontakto Ekipin për Aksesueshmërinë'
+      }
     },
     signUp: 'Regjistrohu',
     signIn: 'Kyçu',
@@ -2515,64 +2548,6 @@ export const sqTranslations: TranslationStrings = {
   },
 
   // Faqet ligjore
-  legal: {
-    accessibility: {
-      title: 'Aksesueshmëria',
-      subtitle: 'Angazhimi ynë për të bërë CarMarket365 të aksesueshem për të gjithë.',
-      backToHome: 'Kthehu te faqja kryesore',
-      commitmentTitle: 'Angazhimi ynë për Aksesueshmërinë',
-      commitmentDescription: 'CarMarket365 është i dedikuar për të ofruar një përvojë gjithëpërfshirëse.',
-      commitmentText: 'Ne besojmë se të gjithë duhet të kenë akses të barabartë në platformën tonë, pavarësisht nga aftësitë e tyre.',
-      
-      visual: {
-        title: 'Mbështetja Vizuale',
-        features: [
-          'Kontrast i lartë për lexueshmëri më të mirë',
-          'Madhësi e rregullueshme e shkronjave',
-          'Navigim i qartë dhe i strukturuar',
-          'Përshkrimet alternative për imazhet'
-        ]
-      },
-      motor: {
-        title: 'Mbështetja Motorike',
-        features: [
-          'Navigim i plotë me klaviatë',
-          'Zona të mëdha për klikim',
-          'Kohë e mjaftueshme për veprime',
-          'Kontrolle të thjeshtë dhe të qarta'
-        ]
-      },
-      audio: {
-        title: 'Mbështetja Audio',
-        features: [
-          'Transkriptime për përmbajtjen audio',
-          'Titra për videot',
-          'Alternatë tekstuale për tingujt',
-          'Kompatibilitet me lexuesit e ekranit'
-        ]
-      },
-      cognitive: {
-        title: 'Mbështetja Kognitive',
-        features: [
-          'Gjuhë e thjeshtë dhe e qartë',
-          'Instruksione hap pas hapi',
-          'Mesazhe gabimi të dobishme',
-          'Organizim logjik i përmbajtjes'
-        ]
-      },
-      
-      standardsTitle: 'Standardet e Aksesueshmërisë',
-      standardsDescription: 'Platforma jonë është ndërtuar në përputhje me standardet ndërkombëtare.',
-      wcagTitle: 'Përputhshmëria WCAG 2.1',
-      wcagDescription: 'Ne synojmë përputhshmëri me udhëzimet WCAG 2.1 AA për aksesueshmëri në web.',
-      compatibilityTitle: 'Kompatibiliteti me Teknologjitë Ndihmëse',
-      compatibilityDescription: 'Platforma jonë është testuar me lexuesit e ekranit dhe teknologji të tjera ndihmëse.',
-      
-      feedbackTitle: 'Komente mbi Aksesueshmërinë?',
-      feedbackText: 'Nëse hasni probleme me aksesueshmërinë ose keni sugjerime për përmirësim, na kontaktoni në accessibility@carmarket365.com',
-      returnToPlatform: 'Kthehu te Platforma',
-      contactTeam: 'Kontakto Ekipin'
-    },
 
     cookies: {
       title: 'Politika e Cookies',
@@ -4096,43 +4071,6 @@ export const sqTranslations: TranslationStrings = {
       },
     },
 
-    // Faqja Accessibility - tekste të koduara
-    accessibility: {
-      standardsWeFollow: 'Standardet që Ndjekim',
-      standardsDescription: 'Ne përpiqemi të përmbushim standardet dhe udhëzimet e vendosura të aksesueshmërisë.',
-      wcagGuidelines: 'Udhëzimet WCAG',
-      wcagDescription: 'Ne synojmë të përmbushim standardet e Udhëzimeve të Aksesueshmërisë së Përmbajtjes Web (WCAG) 2.1 Niveli AA.',
-      platformCompatibility: 'Pajtueshmëria e Platformës',
-      platformCompatibilityDescription: 'Platforma jonë është krijuar për të punuar me teknologjitë ndihmëse dhe mjetet e aksesueshmërisë.',
-      weValueYourFeedback: 'Ne Vlerësojmë Mendimin Tuaj',
-      feedbackMessage: 'Nëse hasni ndonjë pengesë aksesueshmërie ose keni sugjerime për përmirësim, mos hezitoni të na kontaktoni në accessibility@carmarket365.com',
-      returnToPlatform: 'Kthehu në Platformë',
-      contactAccessibilityTeam: 'Kontakto Ekipin e Aksesueshmërisë',
-      visualFeatures: [
-        'Dizajn me kontrast të lartë',
-        'Teksti dhe elementet e ndërfaqes të shkallëzueshme',
-        'Teksti alternativ për imazhet',
-        'Pajtueshmëria me lexuesin e ekranit'
-      ],
-      motorFeatures: [
-        'Mbështetja për navigimin me tastierë',
-        'Zona të mëdha të klikueshme',
-        'Opsionet e lëvizjes së reduktuar',
-        'Pajtueshmëria me kontrollin zanor'
-      ],
-      audioFeatures: [
-        'Treguesit vizualë për përmbajtjen audio',
-        'Alternativat tekstuale për informacionin audio',
-        'Titrat për përmbajtjen video',
-        'Cilësimet e rregullueshme audio'
-      ],
-      cognitiveFeatures: [
-        'Gjuhë e qartë dhe e thjeshtë',
-        'Modelet e qëndrueshme të navigimit',
-        'Parandalimi i gabimeve dhe reagimi i qartë',
-        'Opsionet e personalizueshme të ndërfaqes'
-      ],
-    },
 
 
     // Faqja SafetyTips - tekste të koduara
