@@ -868,7 +868,66 @@ export const sqTranslations: TranslationStrings = {
     cookiePolicy: {
       title: 'Politika e Cookies',
       subtitle: 'Mësoni se si përdorim cookies dhe teknologji të ngjashme për të përmirësuar përvojën tuaj.',
-      backToHome: 'Kthehu në fillore'
+      backToHome: 'Kthehu në fillore',
+      policyTitle: 'Politika jonë e Cookies',
+      policyDescription: 'Ne përdorim cookies me përgjegjësi për të përmirësuar përvojën tuaj të shfletimit dhe për të ofruar shërbime të personalizuara.',
+      policyText: 'Kjo politikë e cookies shpjegon se si CarMarket365 përdor cookies dhe teknologji të ngjashme në faqen tonë të internetit. Ne besojmë në transparencë rreth të dhënave që mbledhim dhe se si i përdorim ato për të përmirësuar përvojën tuaj.',
+      essential: {
+        title: 'Cookies Thelbësore',
+        items: [
+          'Kyçja dhe autentifikimi',
+          'Funksionaliteti i shportës së blerjeve',
+          'Siguria dhe parandalimi i mashtrimit',
+          'Operacionet bazë të faqes'
+        ]
+      },
+      functional: {
+        title: 'Cookies Funksionale',
+        items: [
+          'Mbaj mend preferencat tuaja',
+          'Përzgjedhja e gjuhës',
+          'Përvojë e personalizuar e përdoruesit',
+          'Shërbimet e bazuara në vendndodhje'
+        ]
+      },
+      analytics: {
+        title: 'Cookies Analitike',
+        items: [
+          'Statistikat e përdorimit të faqes',
+          'Optimizimi i performancës',
+          'Raportimi dhe ndreqja e gabimeve',
+          'Njohuri të sjelljes së përdoruesit'
+        ]
+      },
+      marketing: {
+        title: 'Cookies të Marketingut',
+        items: [
+          'Reklama të personalizuara',
+          'Gjurmo efektivitetin e fushatave reklamuese',
+          'Integrimi me mediat sociale',
+          'Rimarketingut dhe risynimit'
+        ]
+      },
+      managingPreferences: 'Menaxhimi i Preferencave tuaja të Cookies',
+      managingPreferencesDescription: 'Ju keni kontroll mbi cookies që përdorim në pajisjen tuaj.',
+      browserSettings: 'Cilësimet e Shfletuesit',
+      browserSettingsItems: [
+        'Blloko ose lejo cookies',
+        'Fshi cookies ekzistuese',
+        'Vendos skadimin e cookies',
+        'Menaxho cookies të palëve të treta'
+      ],
+      platformControls: 'Kontrollet e Platformës',
+      platformControlsItems: [
+        'Qendra e preferencave të cookies',
+        'Opsionet e refuzimit të disponueshme',
+        'Cilësimet e kontrollit të detajuar',
+        'Përditësimet e rregullta të preferencave'
+      ],
+      questionsAboutCookies: 'Pyetje Rreth Cookies?',
+      questionsMessage: 'Nëse keni pyetje rreth politikës sonë të cookies ose keni nevojë për ndihmë në menaxhimin e preferencave tuaja, na kontaktoni në cookies@carmarket365.com',
+      returnToPlatform: 'Kthehu në Platformë',
+      cookieSupport: 'Mbështetja për Cookies'
     },
     
     imprint: {
@@ -4087,53 +4146,6 @@ export const sqTranslations: TranslationStrings = {
       ],
     },
 
-    // Faqja CookiePolicy - tekste të koduara
-    cookiePolicy: {
-      managingPreferences: 'Menaxhimi i Preferencave tuaja të Cookies',
-      managingPreferencesDescription: 'Ju keni kontroll mbi cookies që përdorim në pajisjen tuaj.',
-      browserSettings: 'Cilësimet e Shfletuesit',
-      platformControls: 'Kontrollet e Platformës',
-      questionsAboutCookies: 'Pyetje Rreth Cookies?',
-      questionsMessage: 'Nëse keni pyetje rreth politikës sonë të cookies ose keni nevojë për ndihmë në menaxhimin e preferencave tuaja, na kontaktoni në cookies@carmarket365.com',
-      returnToPlatform: 'Kthehu në Platformë',
-      cookieSupport: 'Mbështetja për Cookies',
-      browserSettingsItems: [
-        'Blloko ose lejo cookies',
-        'Fshi cookies ekzistuese',
-        'Vendos skadimin e cookies',
-        'Menaxho cookies të palëve të treta'
-      ],
-      platformControlsItems: [
-        'Qendra e preferencave të cookies',
-        'Opsionet e refuzimit të disponueshme',
-        'Cilësimet e kontrollit të detajuar',
-        'Përditësimet e rregullta të preferencave'
-      ],
-      essentialFeatures: [
-        'Kyçja dhe autentifikimi',
-        'Funksionaliteti i shportës së blerjeve',
-        'Siguria dhe parandalimi i mashtrimit',
-        'Operacionet bazë të faqes'
-      ],
-      functionalFeatures: [
-        'Mbaj mend preferencat tuaja',
-        'Përzgjedhja e gjuhës',
-        'Përvojë e personalizuar e përdoruesit',
-        'Shërbimet e bazuara në vendndodhje'
-      ],
-      analyticsFeatures: [
-        'Statistikat e përdorimit të faqes',
-        'Optimizimi i performancës',
-        'Raportimi dhe ndreqja e gabimeve',
-        'Njohuri të sjelljes së përdoruesit'
-      ],
-      marketingFeatures: [
-        'Reklama të personalizuara',
-        'Gjurmo efektivitetin e fushatave reklamuese',
-        'Integrimi me mediat sociale',
-        'Rimarketingut dhe risynimit'
-      ],
-    },
 
     // Faqja SafetyTips - tekste të koduara
     safetyTips: {
