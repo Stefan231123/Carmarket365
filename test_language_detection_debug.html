@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Language Detection Debug</title>
+</head>
+<body>
+    <h1>Language Detection Debug Test</h1>
+    <div id="results"></div>
+    
+    <script type="module">
+        // Simulate the URL parameters we're testing
+        const testUrl = 'http://localhost:8082/saved?country=mk&lang=mk';
+        const testUrl2 = 'http://localhost:8082/express-sell?lang=mk';
+        
+        console.log('🔧 DEBUG: Testing URL parameter extraction...');
+        
+        // Test URL parameter extraction
+        function testUrlParams(url) {
+            const urlObj = new URL(url);
+            const params = new URLSearchParams(urlObj.search);
+            const countryParam = params.get('country');
+            const langParam = params.get('lang');
+            
+            console.log('🔧 URL:', url);
+            console.log('🔧 Country parameter:', countryParam);
+            console.log('🔧 Language parameter:', langParam);
+            
+            return { countryParam, langParam };
+        }
+        
+        // Test both URLs
+        console.log('\n=== Testing saved page URL ===');
+        const result1 = testUrlParams(testUrl);
+        
+        console.log('\n=== Testing express-sell page URL ===');
+        const result2 = testUrlParams(testUrl2);
+        
+        // Test current window location
+        console.log('\n=== Current window location ===');
+        const currentParams = new URLSearchParams(window.location.search);
+        console.log('🔧 Current URL:', window.location.href);
+        console.log('🔧 Current country param:', currentParams.get('country'));
+        console.log('🔧 Current lang param:', currentParams.get('lang'));
+        
+        // Test localStorage
+        console.log('\n=== LocalStorage check ===');
+        const storedLang = localStorage.getItem('selectedLanguage_mk');
+        const storedCountry = localStorage.getItem('dev_selectedCountry');
+        console.log('🔧 Stored language for MK:', storedLang);
+        console.log('🔧 Stored dev country:', storedCountry);
+        
+        // Display results in HTML
+        document.getElementById('results').innerHTML = `
+            <h2>Test Results:</h2>
+            <p><strong>Saved page URL test:</strong> country=${result1.countryParam}, lang=${result1.langParam}</p>
+            <p><strong>Express-sell page URL test:</strong> country=${result2.countryParam}, lang=${result2.langParam}</p>
+            <p><strong>Current URL:</strong> ${window.location.href}</p>
+            <p><strong>Current params:</strong> country=${currentParams.get('country')}, lang=${currentParams.get('lang')}</p>
+            <p><strong>LocalStorage:</strong> lang_mk=${storedLang}, dev_country=${storedCountry}</p>
+        `;
+        
+        // Test hostname detection
+        console.log('\n=== Hostname detection ===');
+        const hostname = window.location.hostname;
+        const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1' || hostname.startsWith('localhost:');
+        const isVercel = hostname.includes('vercel.app');
+        
+        console.log('🔧 Hostname:', hostname);
+        console.log('🔧 Is localhost:', isLocalhost);
+        console.log('🔧 Is Vercel:', isVercel);
+        
+        // Simulate the language detection logic
+        console.log('\n=== Language detection simulation ===');
+        
+        // Countries configuration (simplified)
+        const COUNTRIES = {
+            mk: {
+                code: 'mk',
+                name: 'Macedonia',
+                languages: [{code: 'mk', name: 'Македонски'}, {code: 'sq', name: 'Shqip'}],
+                defaultLanguage: 'mk'
+            }
+        };
+        
+        function simulateLanguageDetection() {
+            let detectedCountry = null;
+            let detectedLanguage = 'mk';
+            
+            // Step 1: Determine country
+            if (isLocalhost || isVercel) {
+                const countryParam = currentParams.get('country');
+                if (countryParam && COUNTRIES[countryParam]) {
+                    detectedCountry = COUNTRIES[countryParam];
+                } else {
+                    detectedCountry = COUNTRIES.mk; // Default to Macedonia
+                }
+            }
+            
+            // Step 2: Determine language
+            if (detectedCountry) {
+                const langParam = currentParams.get('lang');
+                const validLanguages = detectedCountry.languages.map(l => l.code);
+                
+                console.log('🔧 Valid languages for country:', validLanguages);
+                console.log('🔧 URL lang parameter:', langParam);
+                
+                if (langParam && validLanguages.includes(langParam)) {
+                    detectedLanguage = langParam;
+                    console.log('🔧 Using URL language parameter:', langParam);
+                } else {
+                    // Check localStorage
+                    const storedLang = localStorage.getItem(`selectedLanguage_${detectedCountry.code}`);
+                    if (storedLang && validLanguages.includes(storedLang)) {
+                        detectedLanguage = storedLang;
+                        console.log('🔧 Using stored language:', storedLang);
+                    } else {
+                        detectedLanguage = detectedCountry.defaultLanguage;
+                        console.log('🔧 Using default language:', detectedLanguage);
+                    }
+                }
+            }
+            
+            return { detectedCountry, detectedLanguage };
+        }
+        
+        const { detectedCountry, detectedLanguage } = simulateLanguageDetection();
+        console.log('🔧 Final detected country:', detectedCountry);
+        console.log('🔧 Final detected language:', detectedLanguage);
+        
+        // Add to HTML results
+        document.getElementById('results').innerHTML += `
+            <h3>Language Detection Simulation:</h3>
+            <p><strong>Detected country:</strong> ${detectedCountry ? detectedCountry.name : 'None'}</p>
+            <p><strong>Detected language:</strong> ${detectedLanguage}</p>
+            <p><strong>Expected for URL ?country=mk&lang=mk:</strong> Macedonia, mk (Macedonian)</p>
+            <p><strong>Status:</strong> ${detectedLanguage === 'mk' ? '✅ CORRECT' : '❌ INCORRECT - Should be mk'}</p>
+        `;
+    </script>
+</body>
+</html>

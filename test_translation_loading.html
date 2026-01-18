@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation Test</title>
+</head>
+<body>
+    <h1>Language Detection and Translation Test</h1>
+    <div id="instructions">
+        <p><strong>Instructions:</strong></p>
+        <ol>
+            <li>Open browser console (F12)</li>
+            <li>Navigate to: <a href="http://localhost:8082/saved?country=mk&lang=mk" target="_blank">http://localhost:8082/saved?country=mk&lang=mk</a></li>
+            <li>Look for CountryContext console messages</li>
+            <li>Check if page title shows "Зачувани возила" (Macedonian)</li>
+            <li>Test Albanian by changing URL to: <a href="http://localhost:8082/saved?country=mk&lang=sq" target="_blank">http://localhost:8082/saved?country=mk&lang=sq</a></li>
+            <li>Check if page title shows "Makina të ruajtura" (Albanian)</li>
+        </ol>
+    </div>
+
+    <div id="test-results">
+        <h2>Expected Results:</h2>
+        <ul>
+            <li><strong>Macedonian (?lang=mk):</strong> "Зачувани возила" in page title</li>
+            <li><strong>Albanian (?lang=sq):</strong> "Makina të ruajtura" in page title</li>
+            <li><strong>Back button Macedonian:</strong> "Назад"</li>
+            <li><strong>Back button Albanian:</strong> "Kthehu"</li>
+        </ul>
+    </div>
+
+    <div id="debug-console">
+        <h2>Debug Console Commands:</h2>
+        <pre>
+// Check current language detection
+function checkLanguageDetection() {
+  const url = window.location.href;
+  const title = document.querySelector('h1')?.textContent;
+  const langParam = new URLSearchParams(window.location.search).get('lang');
+  
+  console.log('=== LANGUAGE DETECTION TEST ===');
+  console.log('URL:', url);
+  console.log('Lang param:', langParam);
+  console.log('Page title:', title);
+  
+  // Detect actual language
+  if (title?.includes('Зачувани')) {
+    console.log('✅ MACEDONIAN detected');
+    return 'MACEDONIAN';
+  } else if (title?.includes('Makina') || title?.includes('ruajtura')) {
+    console.log('✅ ALBANIAN detected');
+    return 'ALBANIAN';
+  } else {
+    console.log('❌ UNKNOWN language or title not found');
+    return 'UNKNOWN';
+  }
+}
+
+// Auto-run check if on saved page
+if (window.location.pathname === '/saved') {
+  setTimeout(checkLanguageDetection, 2000);
+}
+        </pre>
+    </div>
+
+    <script>
+        // Auto-copy debug function to clipboard if supported
+        if (navigator.clipboard) {
+            const debugCode = document.querySelector('#debug-console pre').textContent;
+            navigator.clipboard.writeText(debugCode).then(() => {
+                console.log('Debug code copied to clipboard!');
+            });
+        }
+    </script>
+</body>
+</html>

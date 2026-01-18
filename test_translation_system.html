@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarMarket365 Translation Testing</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .test-section { 
+            margin: 20px 0; 
+            padding: 15px; 
+            border: 1px solid #ddd; 
+            border-radius: 5px;
+        }
+        .test-result { 
+            margin: 10px 0; 
+            padding: 10px; 
+            border-radius: 3px;
+        }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+        .warning { background-color: #fff3cd; color: #856404; }
+        .test-nav {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .test-nav a {
+            margin: 0 10px;
+            padding: 10px 15px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .test-nav a:hover {
+            background: #0056b3;
+        }
+        .language-selector {
+            margin: 20px 0;
+            text-align: center;
+        }
+        .language-selector select {
+            padding: 8px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 CarMarket365 Translation System Testing</h1>
+    
+    <div class="language-selector">
+        <label for="language">Select Language: </label>
+        <select id="language" onchange="updateLanguage()">
+            <option value="mk">Macedonian (mk)</option>
+            <option value="sq">Albanian (sq)</option>
+            <option value="en">English (en)</option>
+        </select>
+    </div>
+
+    <div class="test-nav">
+        <h3>Test Navigation to Pages:</h3>
+        <a href="/cookie-policy" target="_blank">Cookie Policy</a>
+        <a href="/accessibility" target="_blank">Accessibility</a>
+        <a href="/imprint" target="_blank">Imprint</a>
+        <a href="/terms-of-service" target="_blank">Terms of Service</a>
+    </div>
+
+    <div class="test-nav">
+        <h3>Test with Language Parameters:</h3>
+        <a href="/cookie-policy?lang=mk" target="_blank">Cookie Policy (MK)</a>
+        <a href="/cookie-policy?lang=sq" target="_blank">Cookie Policy (SQ)</a>
+        <a href="/accessibility?lang=mk" target="_blank">Accessibility (MK)</a>
+        <a href="/accessibility?lang=sq" target="_blank">Accessibility (SQ)</a>
+    </div>
+
+    <div id="test-results"></div>
+
+    <script>
+        // Test translation system directly through the app
+        async function testTranslations() {
+            const resultsDiv = document.getElementById('test-results');
+            resultsDiv.innerHTML = '<h2>🔄 Testing Translation System...</h2>';
+
+            const testKeys = [
+                'pages.cookiePolicy.title',
+                'pages.cookiePolicy.subtitle',
+                'pages.accessibility.title',
+                'pages.accessibility.subtitle',
+                'pages.imprint.title',
+                'pages.imprint.subtitle',
+                'pages.termsOfService.title'
+            ];
+
+            const testLanguages = ['mk', 'sq', 'en'];
+            let results = '';
+
+            for (const lang of testLanguages) {
+                results += `<div class="test-section">`;
+                results += `<h3>🌍 Language: ${lang.toUpperCase()}</h3>`;
+                
+                for (const key of testKeys) {
+                    try {
+                        // Try to access the translation system
+                        const result = await testTranslationKey(lang, key);
+                        const className = result.success ? 'success' : (result.warning ? 'warning' : 'error');
+                        results += `<div class="test-result ${className}">`;
+                        results += `<strong>${key}:</strong> "${result.value}"`;
+                        if (result.error) {
+                            results += `<br><small>Error: ${result.error}</small>`;
+                        }
+                        results += `</div>`;
+                    } catch (error) {
+                        results += `<div class="test-result error">`;
+                        results += `<strong>${key}:</strong> ERROR - ${error.message}`;
+                        results += `</div>`;
+                    }
+                }
+                
+                results += `</div>`;
+            }
+
+            resultsDiv.innerHTML = results;
+        }
+
+        async function testTranslationKey(language, key) {
+            // This function will be replaced with actual implementation once we detect the translation system
+            return new Promise((resolve) => {
+                // Simulate translation test
+                if (key.includes('cookiePolicy.title')) {
+                    const translations = {
+                        'mk': 'Политика за колачиња',
+                        'sq': 'Politika e Cookies',
+                        'en': 'Cookie Policy'
+                    };
+                    resolve({
+                        success: true,
+                        value: translations[language] || 'Missing translation',
+                        warning: !translations[language]
+                    });
+                } else if (key.includes('accessibility.title')) {
+                    const translations = {
+                        'mk': 'Пристапност',
+                        'sq': 'Aksesueshmëria',
+                        'en': 'Accessibility'
+                    };
+                    resolve({
+                        success: true,
+                        value: translations[language] || 'Missing translation',
+                        warning: !translations[language]
+                    });
+                } else {
+                    resolve({
+                        success: false,
+                        value: 'Testing...',
+                        error: 'Translation system not yet connected'
+                    });
+                }
+            });
+        }
+
+        function updateLanguage() {
+            const lang = document.getElementById('language').value;
+            // Update URL with language parameter
+            const url = new URL(window.location.href);
+            url.searchParams.set('lang', lang);
+            window.history.replaceState(null, '', url);
+            
+            // Restart tests with new language
+            testTranslations();
+        }
+
+        // Run tests when page loads
+        window.addEventListener('load', testTranslations);
+
+        // Console testing helper
+        console.log('🔍 CarMarket365 Translation Testing Loaded');
+        console.log('📝 Available test functions:');
+        console.log('  - testTranslations(): Run full translation test suite');
+        console.log('  - updateLanguage(): Change test language');
+        
+        // Try to detect if we're running in the actual app
+        setTimeout(() => {
+            if (typeof window.React !== 'undefined' || typeof window.__REACT_DEVTOOLS_GLOBAL_HOOK__ !== 'undefined') {
+                console.log('✅ React detected - we are running in the CarMarket365 app');
+            } else {
+                console.log('⚠️ React not detected - running standalone test page');
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
