@@ -2147,7 +2147,19 @@ export const sqTranslations: TranslationStrings = {
     // Success/Error Messages
     profileUpdatedSuccessfully: 'Profili u përditësua me sukses!',
     carRemovedFromSaved: 'Automjeti u hoq nga lista e ruajturave!',
-    listingDeletedSuccessfully: 'Lista u fshi me sukses!'
+    listingDeletedSuccessfully: 'Lista u fshi me sukses!',
+    welcomeBackMessage: 'Mirë se erdhe përsëri {name} - menaxho përvojën tende në tregun e automjeteve',
+    // Status translations
+    statusActive: 'Aktiv',
+    statusUnderReview: 'Në shqyrtim',
+    statusSold: 'E shitur',
+    statusExpired: 'E skaduar',
+    // Fuel type translations
+    fuelDiesel: 'Dizeli',
+    fuelPetrol: 'Benzinë',
+    fuelHybrid: 'Hibrid',
+    fuelElectric: 'Elektrik',
+    fuelGas: 'Gaz'
   },
 
   // Automjetet e ruajtura

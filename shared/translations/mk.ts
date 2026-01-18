@@ -2620,7 +2620,19 @@ export const mkTranslations: TranslationStrings = {
     deleteAccount: 'Избришете ја сметката',
     profileUpdatedSuccessfully: 'Профилот е успешно ажуриран!',
     carRemovedFromSaved: 'Возилото е отстрането од зачуваните!',
-    listingDeletedSuccessfully: 'Огласот е успешно избришан!'
+    listingDeletedSuccessfully: 'Огласот е успешно избришан!',
+    welcomeBackMessage: 'Добредојдовте назад {name} - управувајте со вашето искуство на пазарот за возила',
+    // Status translations
+    statusActive: 'Активен',
+    statusUnderReview: 'Во разгледување',
+    statusSold: 'Продадено',
+    statusExpired: 'Истечено',
+    // Fuel type translations
+    fuelDiesel: 'Дизел',
+    fuelPetrol: 'Бензин',
+    fuelHybrid: 'Хибрид',
+    fuelElectric: 'Електричен',
+    fuelGas: 'Гас'
   },
   savedCars: {
     title: 'Зачувани возила',

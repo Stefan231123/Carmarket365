@@ -42,6 +42,29 @@ export default function PrivateDashboard() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("saved");
+  
+  // Helper function to translate status values
+  const translateStatus = (status: string) => {
+    switch (status) {
+      case 'Active': return t('privateDashboard.statusActive');
+      case 'Under Review': return t('privateDashboard.statusUnderReview');
+      case 'Sold': return t('privateDashboard.statusSold');
+      case 'Expired': return t('privateDashboard.statusExpired');
+      default: return status;
+    }
+  };
+  
+  // Helper function to translate fuel types
+  const translateFuelType = (fuelType: string) => {
+    switch (fuelType) {
+      case 'Diesel': return t('privateDashboard.fuelDiesel');
+      case 'Petrol': return t('privateDashboard.fuelPetrol');
+      case 'Hybrid': return t('privateDashboard.fuelHybrid');
+      case 'Electric': return t('privateDashboard.fuelElectric');
+      case 'Gas': return t('privateDashboard.fuelGas');
+      default: return fuelType;
+    }
+  };
   const [userProfile, setUserProfile] = useState({
     firstName: "John",
     lastName: "Doe",
@@ -259,7 +282,7 @@ export default function PrivateDashboard() {
                               </div>
                               <div className="flex items-center gap-2 text-sm text-muted-foreground bg-zinc-50 px-3 py-2 rounded-lg">
                                 <Fuel className="h-4 w-4 text-green-600" />
-                                <span>{car.fuel}</span>
+                                <span>{translateFuelType(car.fuel)}</span>
                               </div>
                               <div className="flex items-center gap-2 text-sm text-muted-foreground bg-zinc-50 px-3 py-2 rounded-lg">
                                 <MapPin className="h-4 w-4 text-red-600" />
@@ -386,7 +409,7 @@ export default function PrivateDashboard() {
                           <div className="flex-1">
                             <div className="flex flex-wrap items-center gap-2 mb-2">
                               <h3 className="text-lg font-medium">{listing.year} {listing.make} {listing.model}</h3>
-                              <Badge variant="secondary" className="rounded-full">{listing.status}</Badge>
+                              <Badge variant="secondary" className="rounded-full">{translateStatus(listing.status)}</Badge>
                             </div>
                             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
                               <span className="flex items-center">
@@ -395,7 +418,7 @@ export default function PrivateDashboard() {
                               </span>
                               <span className="flex items-center">
                                 <Fuel className="h-3 w-3 mr-1" />
-                                {listing.fuel}
+                                {translateFuelType(listing.fuel)}
                               </span>
                               <span className="flex items-center">
                                 <MapPin className="h-3 w-3 mr-1" />
@@ -470,7 +493,7 @@ export default function PrivateDashboard() {
                         <div className="flex flex-wrap items-center gap-2 mb-2">
                           <h3 className="text-lg font-medium">{listing.year} {listing.make} {listing.model}</h3>
                           <Badge variant={listing.status === "Under Review" ? "secondary" : "default"} className="rounded-full">
-                            {listing.status}
+                            {translateStatus(listing.status)}
                           </Badge>
                         </div>
                         <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
@@ -480,7 +503,7 @@ export default function PrivateDashboard() {
                           </span>
                           <span className="flex items-center">
                             <Fuel className="h-3 w-3 mr-1" />
-                            {listing.fuel}
+                            {translateFuelType(listing.fuel)}
                           </span>
                           <span className="flex items-center">
                             <Camera className="h-3 w-3 mr-1" />
@@ -716,7 +739,7 @@ export default function PrivateDashboard() {
         </Card>
 
         <p className="text-center text-muted-foreground mt-8">
-          Welcome back <span className="font-semibold">{userProfile.firstName}</span> - manage your car market experience
+          {t('privateDashboard.welcomeBackMessage').replace('{name}', userProfile.firstName)}
         </p>
       </div>
     </section>
