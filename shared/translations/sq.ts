@@ -932,8 +932,58 @@ export const sqTranslations: TranslationStrings = {
     
     imprint: {
       title: 'Impresumi',
-      subtitle: 'Informacione ligjore dhe detaje të kompanisë për CarMarket365.',
-      backToHome: 'Kthehu në fillore'
+      subtitle: 'Informacione ligjore dhe detaje të kompanisë siç kërkohet nga ligji.',
+      backToHome: 'Kthehu te faqja kryesore',
+      legalInfoTitle: 'Informacione Ligjore (Impressum)',
+      legalInfoDescription: 'Informacione të kompanisë dhe detaje ligjore siç kërkohet nga ligji.',
+      legalInfoText: 'Kjo faqe përmban informacionet e kërkuara ligjërisht për CarMarket365 siç urdhërohet nga ligjet dhe rregulloret në fuqi. Të gjitha informacionet e dhëna janë aktuale dhe të sakta.',
+      companyDetails: {
+        title: 'Detajet e Kompanisë',
+        companyName: 'Emri i Kompanisë',
+        companyNameValue: 'CarMarket365 GmbH',
+        registrationNumber: 'Numri i Regjistrimit',
+        registrationNumberValue: 'HRB 123456 B',
+        vatId: 'ID e TVSH-së',
+        vatIdValue: 'DE123456789',
+        commercialRegister: 'Regjistri Tregtar',
+        commercialRegisterValue: 'Amtsgericht Berlin'
+      },
+      businessAddress: {
+        title: 'Adresa e Biznesit',
+        registeredAddress: 'Adresa e Regjistruar',
+        addressLine1: 'Linja e Adresës 1',
+        addressLine2: 'Linja e Adresës 2', 
+        addressLine3: 'Linja e Adresës 3',
+        street: 'Unter den Linden 1',
+        city: '10117 Berlin',
+        country: 'Gjermani'
+      },
+      management: {
+        title: 'Drejtimi',
+        managingDirector: 'Drejtor Ekzekutiv',
+        managingDirectorValue: 'Max Mustermann',
+        authorizedRepresentative: 'Përfaqësues i Autorizuar',
+        authorizedRepresentativeValue: 'Anna Schmidt'
+      },
+      contactInfo: {
+        title: 'Informacione Kontakti',
+        phone: 'Telefon',
+        phoneValue: '+49 (0) 30 12345678',
+        email: 'Email',
+        emailValue: 'info@carmarket365.com',
+        businessHours: 'Orari i Biznesit',
+        businessHoursValue: 'Hën-Pre: 9:00 - 18:00 CET'
+      },
+      legalNotice: {
+        title: 'Njoftim Ligjor',
+        paragraph1: 'CarMarket365 është i angazhuar për të ofruar informacione të sakta dhe të azhurnuara. Megjithatë, ne nuk mund të garantojmë plotësinë ose saktësinë e të gjithë përmbajtjes.',
+        paragraph2: 'Kjo platformë shërben si një treg që lidh blerësit dhe shitësit e automjeteve. CarMarket365 nuk është përgjegjës për saktësinë e listave ose sjelljes së përdoruesve.',
+        paragraph3: 'Për mosmarrëveshje ose ankesa, ju lutemi na kontaktoni duke përdorur informacionet e dhëna më lart. Ne përpiqemi të zgjidhim të gjitha çështjet në mënyrë të shpejtë dhe të drejtë.'
+      },
+      questionsTitle: 'Pyetje Ligjore?',
+      questionsText: 'Për pyetje ligjore ose për të raportuar shqetësime, ju lutemi kontaktoni departamentin tonë ligjor në legal@carmarket365.com',
+      returnToPlatform: 'Kthehu te Platforma',
+      contactLegal: 'Kontakto Ekipin Ligjor'
     },
     
     accessibility: {
@@ -1469,7 +1519,6 @@ export const sqTranslations: TranslationStrings = {
     privacyPolicy: 'Politika e privatësisë',
     termsOfService: 'Kushtet e shërbimit',
     cookiePolicy: 'Politika e cookies',
-    imprint: 'Impresumi',
     accessibility: 'Aksesueshmëria',
     allRightsReserved: 'Të gjitha të drejtat e rezervuara',
     trustedMarketplace: 'Treg i besuar',
@@ -1494,7 +1543,6 @@ export const sqTranslations: TranslationStrings = {
     privacyPolicy: 'Politika e privatësisë',
     termsOfService: 'Kushtet e shërbimit',
     cookiePolicy: 'Politika e cookies',
-    imprint: 'Impresumi',
     accessibility: 'Aksesueshmëria',
     dashboard: 'Paneli',
     adminPanel: 'Paneli i administratorit',
@@ -2598,64 +2646,6 @@ export const sqTranslations: TranslationStrings = {
       cookieSupport: 'Mbështetja për Cookies'
     },
 
-    imprint: {
-      title: 'Impresumi',
-      subtitle: 'Informacione ligjore dhe detaje të kompanisë siç kërkohet nga ligji.',
-      backToHome: 'Kthehu te faqja kryesore',
-      legalInfoTitle: 'Informacione Ligjore (Impressum)',
-      legalInfoDescription: 'Informacione të kompanisë dhe detaje ligjore siç kërkohet nga ligji.',
-      legalInfoText: 'Kjo faqe përmban informacionet e kërkuara ligjërisht për CarMarket365 siç urdhërohet nga ligjet dhe rregulloret në fuqi. Të gjitha informacionet e dhëna janë aktuale dhe të sakta.',
-      
-      companyDetails: {
-        title: 'Detajet e Kompanisë',
-        companyName: 'Emri i Kompanisë',
-        companyNameValue: 'CarMarket365 GmbH',
-        registrationNumber: 'Numri i Regjistrimit',
-        registrationNumberValue: 'HRB 123456 B',
-        vatId: 'ID e TVSH-së',
-        vatIdValue: 'DE123456789',
-        commercialRegister: 'Regjistri Tregtar',
-        commercialRegisterValue: 'Amtsgericht Berlin'
-      },
-      
-      businessAddress: {
-        title: 'Adresa e Biznesit',
-        registeredAddress: 'Adresa e Regjistruar',
-        street: 'Unter den Linden 1',
-        city: '10117 Berlin',
-        country: 'Gjermani'
-      },
-      
-      management: {
-        title: 'Drejtimi',
-        managingDirector: 'Drejtor Ekzekutiv',
-        managingDirectorValue: 'Max Mustermann',
-        authorizedRepresentative: 'Përfaqësues i Autorizuar',
-        authorizedRepresentativeValue: 'Anna Schmidt'
-      },
-      
-      contactInfo: {
-        title: 'Informacione Kontakti',
-        phone: 'Telefon',
-        phoneValue: '+49 (0) 30 12345678',
-        email: 'Email',
-        emailValue: 'info@carmarket365.com',
-        businessHours: 'Orari i Biznesit',
-        businessHoursValue: 'Hën-Pre: 9:00 - 18:00 CET'
-      },
-      
-      legalNotice: {
-        title: 'Njoftim Ligjor',
-        paragraph1: 'CarMarket365 është i angazhuar për të ofruar informacione të sakta dhe të azhurnuara. Megjithatë, ne nuk mund të garantojmë plotësinë ose saktësinë e të gjithë përmbajtjes.',
-        paragraph2: 'Kjo platformë shërben si një treg që lidh blerësit dhe shitësit e automjeteve. CarMarket365 nuk është përgjegjës për saktësinë e listave ose sjelljes së përdoruesve.',
-        paragraph3: 'Për mosmarrëveshje ose ankesa, ju lutemi na kontaktoni duke përdorur informacionet e dhëna më lart. Ne përpiqemi të zgjidhim të gjitha çështjet në mënyrë të shpejtë dhe të drejtë.'
-      },
-      
-      questionsTitle: 'Pyetje Ligjore?',
-      questionsText: 'Për pyetje ligjore ose për të raportuar shqetësime, ju lutemi kontaktoni departamentin tonë ligjor në legal@carmarket365.com',
-      returnToPlatform: 'Kthehu te Platforma',
-      contactLegal: 'Kontakto Ekipin Ligjor'
-    },
   },
 
   // Paneli i Shitësit
