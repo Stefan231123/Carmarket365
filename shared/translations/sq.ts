@@ -1540,6 +1540,7 @@ export const sqTranslations: TranslationStrings = {
     privacyPolicy: 'Politika e privatësisë',
     termsOfService: 'Kushtet e shërbimit',
     cookiePolicy: 'Politika e cookies',
+    imprint: 'Impresumi',
     accessibility: 'Aksesueshmëria',
     dashboard: 'Paneli',
     adminPanel: 'Paneli i administratorit',

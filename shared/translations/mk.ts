@@ -1141,6 +1141,7 @@ export const mkTranslations: TranslationStrings = {
     privacyPolicy: 'Политика на приватност',
     termsOfService: 'Услови за користење',
     cookiePolicy: 'Политика за колачиња',
+    imprint: 'Импресум',
     accessibility: 'Пристапност',
     dashboard: 'Контролна табла',
     adminPanel: 'Администраторски панел',
