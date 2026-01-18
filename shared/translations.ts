@@ -791,9 +791,119 @@ export interface TranslationStrings {
     safetyTips: string;
     dealerSupport: string;
     contactUs: string;
-    cookiePolicy: string;
-    imprint: string;
-    accessibility: string;
+    cookiePolicy: {
+      title: string;
+      subtitle: string;
+      backToHome: string;
+      policyTitle?: string;
+      policyDescription?: string;
+      policyText?: string;
+      essential?: {
+        title: string;
+        items: string[];
+      };
+      functional?: {
+        title: string;
+        items: string[];
+      };
+      analytics?: {
+        title: string;
+        items: string[];
+      };
+      marketing?: {
+        title: string;
+        items: string[];
+      };
+      managingPreferences?: string;
+      managingPreferencesDescription?: string;
+      browserSettings?: string;
+      platformControls?: string;
+      browserSettingsItems?: string[];
+      platformControlsItems?: string[];
+      questionsAboutCookies?: string;
+      questionsMessage?: string;
+      returnToPlatform?: string;
+      cookieSupport?: string;
+    };
+    imprint: {
+      title: string;
+      subtitle: string;
+      backToHome: string;
+      legalInfoTitle?: string;
+      legalInfoDescription?: string;
+      legalInfoText?: string;
+      companyDetails?: {
+        title: string;
+        companyName: string;
+        companyNameValue: string;
+        registrationNumber: string;
+        registrationNumberValue: string;
+        vatId: string;
+        vatIdValue: string;
+        businessAddress: string;
+        businessAddressValue: string;
+      };
+      contactInformation?: {
+        title: string;
+        managingDirector: string;
+        managingDirectorValue: string;
+        phone: string;
+        phoneValue: string;
+        email: string;
+        emailValue: string;
+        responsibleForContent: string;
+        responsibleForContentValue: string;
+      };
+      regulatoryInformation?: {
+        title: string;
+        supervisoryAuthority: string;
+        supervisoryAuthorityValue: string;
+        professionalRegulations: string;
+        professionalRegulationsValue: string;
+        disputeResolution: string;
+        disputeResolutionValue: string;
+      };
+      questionsAboutLegal?: string;
+      legalQuestionsText?: string;
+      returnToPlatform?: string;
+      contactLegalDepartment?: string;
+    };
+    accessibility: {
+      title: string;
+      subtitle: string;
+      backToHome: string;
+      commitmentTitle?: string;
+      commitmentDescription?: string;
+      commitmentText?: string;
+      visual?: {
+        title: string;
+        features: string[];
+      };
+      motor?: {
+        title: string;
+        features: string[];
+      };
+      audio?: {
+        title: string;
+        features: string[];
+      };
+      cognitive?: {
+        title: string;
+        features: string[];
+      };
+      standardsWeFollow?: string;
+      standardsDescription?: string;
+      wcagCompliance?: string;
+      wcagDescription?: string;
+      testing?: string;
+      testingDescription?: string;
+      feedback?: string;
+      feedbackDescription?: string;
+      questionsAboutAccessibility?: string;
+      accessibilityQuestionsText?: string;
+      returnToPlatform?: string;
+      contactAccessibilityTeam?: string;
+    };
     signUp: string;
     signIn: string;
     dashboard: string;
