@@ -94,7 +94,7 @@ export function CountryProvider({ children }: CountryProviderProps) {
         console.log('🌍 CountryContext: Valid languages:', validLanguages);
         console.log('🌍 CountryContext: Default language:', domainCountry.defaultLanguage);
         
-        // Priority: URL parameter > localStorage > FORCE default to mk
+        // Priority: URL parameter > localStorage > default language
         if (langParam && validLanguages.includes(langParam)) {
           console.log('🌍 CountryContext: Using URL language parameter:', langParam);
           setCurrentLanguage(langParam);
@@ -104,8 +104,8 @@ export function CountryProvider({ children }: CountryProviderProps) {
           console.log('🌍 CountryContext: Using stored language:', storedLanguage);
           setCurrentLanguage(storedLanguage);
         } else {
-          console.log('🌍 CountryContext: FORCING default language to Macedonian instead of:', domainCountry.defaultLanguage);
-          setCurrentLanguage('mk'); // FORCE Macedonian
+          console.log('🌍 CountryContext: Using default language:', domainCountry.defaultLanguage);
+          setCurrentLanguage(domainCountry.defaultLanguage);
         }
       } else {
         // No domain country detected - try geolocation
@@ -142,8 +142,8 @@ export function CountryProvider({ children }: CountryProviderProps) {
               console.log('🌍 CountryContext (localhost): Using URL language:', langParam);
               setCurrentLanguage(langParam);
             } else {
-              console.log('🌍 CountryContext (localhost): FORCING default language to Macedonian instead of:', defaultCountry.defaultLanguage);
-              setCurrentLanguage('mk'); // FORCE Macedonian
+              console.log('🌍 CountryContext (localhost): Using default language:', defaultCountry.defaultLanguage);
+              setCurrentLanguage(defaultCountry.defaultLanguage);
             }
             setIsValidCountry(true);
             
@@ -165,13 +165,13 @@ export function CountryProvider({ children }: CountryProviderProps) {
             console.log('🌍 CountryContext (production): URL lang param:', langParam);
             console.log('🌍 CountryContext (production): Default language:', defaultCountry.defaultLanguage);
             
-            // Set language based on URL parameter or FORCE default to Macedonian
+            // Set language based on URL parameter or default language
             if (langParam && defaultCountry.languages.some(lang => lang.code === langParam)) {
               console.log('🌍 CountryContext (production): Using URL language:', langParam);
               setCurrentLanguage(langParam);
             } else {
-              console.log('🌍 CountryContext (production): FORCING default language:', defaultCountry.defaultLanguage);
-              setCurrentLanguage('mk'); // FORCE Macedonian instead of relying on defaultCountry.defaultLanguage
+              console.log('🌍 CountryContext (production): Using default language:', defaultCountry.defaultLanguage);
+              setCurrentLanguage(defaultCountry.defaultLanguage);
             }
             setIsValidCountry(true);
           }

@@ -951,12 +951,9 @@ export const sqTranslations: TranslationStrings = {
       businessAddress: {
         title: 'Adresa e Biznesit',
         registeredAddress: 'Adresa e Regjistruar',
-        addressLine1: 'Linja e Adresës 1',
-        addressLine2: 'Linja e Adresës 2', 
-        addressLine3: 'Linja e Adresës 3',
-        street: 'Unter den Linden 1',
-        city: '10117 Berlin',
-        country: 'Gjermani'
+        addressLine1: 'Potsdamer Platz 1',
+        addressLine2: '10785 Berlin',
+        addressLine3: 'Gjermani'
       },
       management: {
         title: 'Drejtimi',
