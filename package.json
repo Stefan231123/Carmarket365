@@ -18,7 +18,10 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "typecheck:frontend": "tsc --noEmit --project ./client",
-    "typecheck:backend": "tsc --project server/tsconfig.json --noEmit"
+    "typecheck:backend": "tsc --project server/tsconfig.json --noEmit",
+    "translation:validate": "node scripts/validate-translations.cjs",
+    "translation:fix-duplicates": "node scripts/fix-duplicate-objects.cjs",
+    "translation:check": "npm run translation:validate"
   },
   "dependencies": {
     "@apollo/client": "^4.0.0",
