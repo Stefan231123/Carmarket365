@@ -9,12 +9,9 @@ export default defineConfig(() => ({
     rollupOptions: {
       output: {
         manualChunks: {
-          // Split vendor libraries for better caching
+          // Simplified chunk splitting for deployment fix
           'react-vendor': ['react', 'react-dom'],
-          'router': ['react-router-dom'],
-          'ui-vendor': ['lucide-react', 'clsx', 'tailwind-merge'],
-          'apollo': ['@apollo/client', 'graphql'],
-          'translations': ['/shared/translations'],
+          'apollo': ['@apollo/client'],
           'radix-vendor': [
             '@radix-ui/react-accordion',
             '@radix-ui/react-alert-dialog',
@@ -43,11 +40,7 @@ export default defineConfig(() => ({
             '@radix-ui/react-toggle',
             '@radix-ui/react-toggle-group',
             '@radix-ui/react-tooltip'
-          ],
-          // Split by route/feature
-          'admin': [/client\/pages\/admin/],
-          'listing': [/client\/pages.*Detail/, /client\/pages.*Listing/],
-          'auth': [/client\/pages.*Auth/, /client\/contexts.*Auth/]
+          ]
         },
         // Optimize chunk size and enable compression
         chunkFileNames: 'js/[name]-[hash].js',

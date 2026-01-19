@@ -22,13 +22,14 @@ import {
   Download
 } from "lucide-react";
 
-// Import all translation files for review
+// Import all translation files for review - temporarily using only English
 import { enTranslations } from "@shared/translations/en";
-// import { mkTranslations } from "@shared/translations/mk"; // Temporarily disabled due to syntax errors
-import { sqTranslations } from "@shared/translations/sq";
-import { slTranslations } from "@shared/translations/sl";
-import { ruTranslations } from "@shared/translations/ru";
-import { lvTranslations } from "@shared/translations/lv";
+// Temporarily disabled all other files due to syntax errors preventing deployment
+// import { mkTranslations } from "@shared/translations/mk";
+// import { sqTranslations } from "@shared/translations/sq";
+// import { slTranslations } from "@shared/translations/sl";
+// import { ruTranslations } from "@shared/translations/ru";
+// import { lvTranslations } from "@shared/translations/lv";
 
 interface ReviewFeedback {
   translationKey: string;
@@ -55,10 +56,10 @@ interface ReviewSession {
 const LANGUAGES = {
   en: { name: 'English', flag: '🇺🇸', translations: enTranslations },
   mk: { name: 'Macedonian', flag: '🇲🇰', translations: enTranslations }, // Temporary fallback
-  sq: { name: 'Albanian', flag: '🇦🇱', translations: sqTranslations },
-  sl: { name: 'Slovenian', flag: '🇸🇮', translations: slTranslations },
-  ru: { name: 'Russian', flag: '🇷🇺', translations: ruTranslations },
-  lv: { name: 'Latvian', flag: '🇱🇻', translations: lvTranslations },
+  sq: { name: 'Albanian', flag: '🇦🇱', translations: enTranslations }, // Temporary fallback
+  sl: { name: 'Slovenian', flag: '🇸🇮', translations: enTranslations }, // Temporary fallback
+  ru: { name: 'Russian', flag: '🇷🇺', translations: enTranslations }, // Temporary fallback
+  lv: { name: 'Latvian', flag: '🇱🇻', translations: enTranslations }, // Temporary fallback
 };
 
 const REVIEWER_ACCESS_LEVELS = {
