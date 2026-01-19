@@ -3809,17 +3809,18 @@ export interface TranslationStrings {
 
 // Import all translations
 import { enTranslations } from './translations/en';
-import { mkTranslations } from './translations/mk';
+// Temporarily excluding mk.ts due to syntax errors preventing deployment
+// import { mkTranslations } from './translations/mk'; 
 import { sqTranslations } from './translations/sq';
 import { slTranslations } from './translations/sl';
 import { lvTranslations } from './translations/lv';
 import { ruTranslations } from './translations/ru';
 
-// Translation storage
+// Translation storage - temporarily using English fallback for mk
 export const translations: Record<SupportedLanguage, TranslationStrings> = {
   en: enTranslations,
-  mk: mkTranslations,
-  sq: sqTranslations, // Albanian translations restored
+  mk: enTranslations, // Temporary fallback to fix deployment
+  sq: sqTranslations,
   sl: slTranslations,
   lv: lvTranslations,
   ru: ruTranslations,
@@ -3830,6 +3831,7 @@ export function getTranslation(language: SupportedLanguage): TranslationStrings 
   return translations[language] || translations['en'];
 }
 
+// Translation utility functions
 export function translate(language: SupportedLanguage, key: string): string {
   const keys = key.split('.');
   let value: any = getTranslation(language);
