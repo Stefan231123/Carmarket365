@@ -1,5 +1,4 @@
 import { TranslationStrings } from '../translations';
-
 export const sqTranslations: TranslationStrings = {
   brand: {
     name: 'CarMarket365'
@@ -60,7 +59,6 @@ export const sqTranslations: TranslationStrings = {
     large: 'I madh',
     option: 'Opsioni',
   },
-
   // Forms - validation, labels, placeholders, actions
   forms: {
     validation: {
@@ -134,7 +132,6 @@ export const sqTranslations: TranslationStrings = {
       sendMessage: 'Dërgo mesazhin',
     },
   },
-
   // Modals - titles, descriptions, success messages
   modals: {
     contactCar: {
@@ -304,7 +301,6 @@ export const sqTranslations: TranslationStrings = {
       },
     },
   },
-
   header: {
     welcome: 'Mirë se vini në CarMarket365',
     signIn: 'Kyçu',
@@ -322,7 +318,6 @@ export const sqTranslations: TranslationStrings = {
     help: 'Ndihmë',
     advancedSearch: 'Kërkimi i avancuar',
   },
-
   hero: {
     title: 'Gjeni Makinën Tuaj të Përsosur',
     subtitle: 'Kërkoni nëpër mijëra makina cilësore të përdorura nga dilerë të verifikuar dhe shitës privatë',
@@ -355,7 +350,6 @@ export const sqTranslations: TranslationStrings = {
     },
     availableCars: 'Mbi 50,000 makina të disponueshme në mbarë vendin',
   },
-
   // Last Search Section
   lastSearch: {
     title: 'Kërkimi i fundit',
@@ -363,7 +357,6 @@ export const sqTranslations: TranslationStrings = {
     viewMore: 'Shiko më shumë',
     matchPercentage: '% përputhje',
   },
-
   // Interesting Suggestions Section
   suggestions: {
     title: 'Kjo mund t\'ju interesojë',
@@ -371,14 +364,12 @@ export const sqTranslations: TranslationStrings = {
     seeMore: 'Shiko më shumë sugjerime',
     daysAgo: 'd më parë',
   },
-
   // Popular Brands Section
   brands: {
     title: 'Blej sipas markës',
     description: 'Shfletoni makina nga prodhuesit më popullor',
     carsCount: 'makina',
   },
-
   cars: {
     title: 'Makina për shitje',
     searchPlaceholder: 'Marka, modeli ose fjalë kyçe',
@@ -412,7 +403,6 @@ export const sqTranslations: TranslationStrings = {
     luxury: 'Luksoze',
     viewAllCars: 'Shiko të gjitha makinat',
   },
-
   filters: {
     title: 'Filtrat e kërkimit',
     anyMake: 'Çdo markë',
@@ -433,7 +423,6 @@ export const sqTranslations: TranslationStrings = {
     applyFilters: 'Apliko filtrat',
     clearFilters: 'Pastro filtrat',
   },
-
   auth: {
     signIn: 'Kyçu',
     signUp: 'Regjistrohu',
@@ -454,7 +443,6 @@ export const sqTranslations: TranslationStrings = {
     privatePerson: 'Person privat',
     dealerAccount: 'Llogari dileri',
     userType: 'Unë jam',
-    
     // SignIn page specific
     backToHome: 'Back to Home',
     signInToAccount: 'Sign in to your account',
@@ -477,7 +465,6 @@ export const sqTranslations: TranslationStrings = {
     customerTracking: '• Customer inquiry tracking',
     enhancedVisibility: '• Enhanced listing visibility',
     analyticsInsights: '• Analytics and insights',
-    
     // UserSignUp page specific
     createYourAccount: 'Create Your Account',
     joinThousands: 'Join thousands of car enthusiasts',
@@ -497,13 +484,11 @@ export const sqTranslations: TranslationStrings = {
     wantSellAsDealer: 'Want to sell cars as a dealer?',
     createDealerAccount: 'Create Dealer Account',
     joinCommunityText: 'By creating an account, you join our community of car enthusiasts and agree to our platform guidelines.',
-    
     // Error messages for signup
     pleaseAgreeTerms: 'Please agree to the terms and conditions',
     passwordsNotMatch: 'Passwords do not match',
     passwordMinLength: 'Password must be at least 8 characters long',
     registrationFailed: 'Registration failed',
-    
     // DealerSignUp page specific
     backToSignIn: 'Back to Sign In',
     dealerRegistration: 'Dealer Registration',
@@ -564,7 +549,6 @@ export const sqTranslations: TranslationStrings = {
     receiveMarketingCommunications: 'I would like to receive marketing communications',
     getUpdatesFeatures: 'Get updates about new features and business opportunities.',
     alreadyHaveAccountSignIn: 'Already have an account? Sign In',
-    
     // Validation error messages for dealer signup
     businessNameRequired: 'Business name is required',
     businessTypeRequired: 'Business type is required',
@@ -584,7 +568,6 @@ export const sqTranslations: TranslationStrings = {
     acceptTermsRequired: 'You must accept the terms and conditions',
     acceptPrivacyRequired: 'You must accept the privacy policy',
   },
-
   sell: {
     title: 'Shit makinën tuaj',
     expressTitle: 'Shitje ekspres',
@@ -603,7 +586,6 @@ export const sqTranslations: TranslationStrings = {
     mainPhoto: 'Foto kryesore',
     additionalInfo: 'Informacione shtesë',
     sellerNotes: 'Shënimet e shitësit',
-    
     // Step titles
     steps: {
       vehicleType: 'Lloji i automjetit',
@@ -611,7 +593,6 @@ export const sqTranslations: TranslationStrings = {
       details: 'Detaje',
       photosAndContact: 'Foto dhe kontakti',
     },
-    
     // Vehicle type selection
     vehicleTypes: {
       car: {
@@ -627,7 +608,6 @@ export const sqTranslations: TranslationStrings = {
         description: 'Motocikleta, skuter, ATV',
       },
     },
-    
     // Headers and descriptions
     headers: {
       vehicleTypeQuestion: 'Ç\'lloj automjeti po shitni?',
@@ -642,7 +622,6 @@ export const sqTranslations: TranslationStrings = {
       uploadVehiclePhotos: 'Ngarko fotot e automjetit',
       addUpToTenPhotos: 'Shtoni deri në 10 foto'
     },
-    
     // Form fields and labels
     fields: {
       make: 'Marka',
@@ -663,7 +642,6 @@ export const sqTranslations: TranslationStrings = {
       emailAddress: 'Adresa e email-it',
       location: 'Vendndodhja',
     },
-    
     // Placeholders
     placeholders: {
       selectMake: 'Zgjidh markën',
@@ -691,14 +669,12 @@ export const sqTranslations: TranslationStrings = {
       selectTransmissionType: 'Zgjidhni llojin e transmetimit',
       choosePhotos: 'Zgjidhni Fotot',
     },
-    
     // Button labels
     buttons: {
       nextStep: 'Hapi tjetër',
       previous: 'I mëparshëm',
       createListing: 'Krijo shpalljen',
     },
-    
     // Preview section
     preview: {
       title: 'Parapamje',
@@ -709,7 +685,6 @@ export const sqTranslations: TranslationStrings = {
       photo: '',
       photos: '',
     },
-    
     // Photo upload
     photos: {
       instruction: 'Shtoni deri në 10 foto me cilësi të lartë të automjetit tuaj. Foto e parë do të jetë imazhi kryesor që shfaqet në rezultatet e kërkimit.',
@@ -717,10 +692,8 @@ export const sqTranslations: TranslationStrings = {
       photo: '',
       photos: '',
     },
-    
     // Vehicle makes (can be expanded)
     makes: ['Toyota', 'Honda', 'Ford', 'Chevrolet', 'BMW', 'Mercedes-Benz', 'Audi', 'Volkswagen', 'Nissan', 'Hyundai'],
-    
     // Fuel types
     fuelTypes: {
       gasoline: 'Benzinë',
@@ -732,14 +705,12 @@ export const sqTranslations: TranslationStrings = {
       cng: 'CNG',
       lpg: 'LPG',
     },
-    
     // Transmissions
     transmissions: {
       automatic: 'Automatik',
       manual: 'Manuali',
       cvt: 'CVT',
     },
-
     // Body Types
     bodyTypes: {
       sedan: 'Sedan',
@@ -752,7 +723,6 @@ export const sqTranslations: TranslationStrings = {
       van: 'Furgon',
       crossover: 'Crossover',
     },
-
     // Drivetrains
     drivetrains: {
       fwd: 'Tërheqje përpara',
@@ -760,7 +730,6 @@ export const sqTranslations: TranslationStrings = {
       awd: 'Tërheqje të gjitha rrotat',
       fourwd: 'Katër rrota lëvizëse',
     },
-
     // Colors
     colors: {
       black: 'E zezë',
@@ -776,7 +745,6 @@ export const sqTranslations: TranslationStrings = {
       purple: 'Vjollcë',
       yellow: 'E verdhë',
     },
-    
     // Conditions
     conditions: {
       new: 'E re',
@@ -787,7 +755,6 @@ export const sqTranslations: TranslationStrings = {
       fair: 'Të pranueshme',
       poor: 'Të dobëta',
     },
-    
     // Features list
     features: {
       airConditioning: 'Kondicionimi i ajrit',
@@ -806,7 +773,6 @@ export const sqTranslations: TranslationStrings = {
       blindSpotMonitoring: 'Monitorimi i pikës së verbër',
     },
   },
-
   countries: {
     northMacedonia: 'Maqedonia e Veriut',
     albania: 'Shqipëria',
@@ -824,7 +790,6 @@ export const sqTranslations: TranslationStrings = {
     localDealers: 'Dilerët dhe inventari lokal',
     regionalFeatures: 'Karakteristikat rajonale',
   },
-
   redirect: {
     welcomeMessage: 'Mirë se vini në CarMarket365!',
     detectionMessage: 'Zbuluam se po vizitoni nga {country}. Do të ridrejtoheni në faqen tonë të {country} për përvojën më të mirë lokale, ose mund të zgjidhni një vend tjetër.',
@@ -857,14 +822,12 @@ export const sqTranslations: TranslationStrings = {
     adminNotAvailable: 'Modaliteti i administratorit/testimit - nuk është i disponueshëm për klientët',
     selectCountryToContinue: 'Ju lutemi zgjidhni vendin tuaj për të vazhduar. Kjo do të përcaktojë faqen tuaj lokale, gjuhën dhe monedhën.',
   },
-
   pages: {
     about: 'Rreth nesh',
     carReviews: 'Recensionet e makinave',
     safetyTips: 'Këshilla sigurie',
     dealerSupport: 'Mbështetja e dilerëve',
     contactUs: 'Na kontaktoni',
-    
     cookiePolicy: {
       title: 'Politika e Cookies',
       subtitle: 'Mësoni se si përdorim cookies dhe teknologji të ngjashme për të përmirësuar përvojën tuaj.',
@@ -929,7 +892,6 @@ export const sqTranslations: TranslationStrings = {
       returnToPlatform: 'Kthehu në Platformë',
       cookieSupport: 'Mbështetja për Cookies'
     },
-    
     imprint: {
       title: 'Impresumi',
       subtitle: 'Informacione ligjore dhe detaje të kompanisë siç kërkohet nga ligji.',
@@ -982,7 +944,6 @@ export const sqTranslations: TranslationStrings = {
       returnToPlatform: 'Kthehu te Platforma',
       contactLegal: 'Kontakto Ekipin Ligjor'
     },
-    
     accessibility: {
       title: 'Aksesueshmëria',
       subtitle: 'Angazhimi ynë për të bërë CarMarket365 të aksesueshem për të gjithë.',
@@ -1043,7 +1004,6 @@ export const sqTranslations: TranslationStrings = {
     underConstruction: 'Në ndërtim',
     underConstructionMessage: 'Kjo faqe është aktualisht në ndërtim. Po punojmë fort për t\'ju sjellë karakteristika të mahnitshme. Ju lutemi kontrolloni përsëri së shpejti ose vazhdoni të eksploroni faqen tonë kryesore.',
     backToHome: 'Kthehu në fillore',
-
     // Kushtet e Shërbimit
     termsOfService: {
       title: 'Kushtet e Shërbimit',
@@ -1101,7 +1061,6 @@ export const sqTranslations: TranslationStrings = {
       returnToPlatform: 'Kthehu në Platformë',
       contactLegalTeam: 'Kontakto Ekipin Ligjor'
     },
-
     // Politika e Privatësisë
     privacyPolicy: {
       title: 'Politika e Privatësisë',
@@ -1159,7 +1118,6 @@ export const sqTranslations: TranslationStrings = {
       returnToPlatform: 'Kthehu në Platformë',
       contactPrivacyTeam: 'Kontakto Ekipin e Privatësisë'
     },
-
     // Faqja Vendmbajtëse
     placeholder: {
       underConstruction: 'Në ndërtim',
@@ -1167,7 +1125,6 @@ export const sqTranslations: TranslationStrings = {
       backToHome: 'Kthehu në fillore',
       contactUs: 'Na kontaktoni'
     },
-
     // Faqja e Pyetjeve të Shpeshta
     faq: {
       title: 'Pyetje të Shpeshta',
@@ -1185,7 +1142,6 @@ export const sqTranslations: TranslationStrings = {
       noResultsText: 'Provoni të kërkoni me fjalë kyçe të ndryshme ose shfletoni sipas kategorisë.',
       clearSearch: 'Pastro Kërkimin',
       commonQuestionsAbout: 'Pyetje të zakonshme rreth',
-      
       categories: {
         buying: 'Blerja e Makinave',
         selling: 'Shitja e Makinave',
@@ -1193,7 +1149,6 @@ export const sqTranslations: TranslationStrings = {
         safety: 'Siguria dhe Mbrojtja',
         account: 'Llogaria dhe Mbështetja'
       },
-
       buyingFaqs: [
         {
           question: 'Si kërkoi makina në CarMarket365?',
@@ -1216,7 +1171,6 @@ export const sqTranslations: TranslationStrings = {
           answer: 'Ne ofrojmë vlerësime të vlerës së tregut për të gjitha automjetet. Gjithashtu mund të krahasoni automjete të ngjashme, të kontrolloni raportin e historisë së automjetit dhe të përdorni mjetet tona të analizës së çmimit.'
         },
       ],
-
       sellingFaqs: [
         {
           question: 'Si shpall makinën time për shitje?',
@@ -1239,7 +1193,6 @@ export const sqTranslations: TranslationStrings = {
           answer: 'Përdorni mjeti ynë falas të vlerësimit të automjetit, kërkoni shpallje të ngjashme, konsideroni gjendjen e makinës suaj, kilometrazhin dhe çdo riparim apo përmirësim të fundit.'
         },
       ],
-
       financingFaqs: [
         {
           question: 'A mund të marr financim përmes CarMarket365?',
@@ -1262,7 +1215,6 @@ export const sqTranslations: TranslationStrings = {
           answer: 'Shumë nga partnerët tanë dilerë pranojnë këmbime. Merrni një vlerësim këmbimi duke përdorur mjeti ynë të vlerësimit, pastaj diskutoni opsionet me dilerin gjatë blerjes.'
         },
       ],
-
       safetyFaqs: [
         {
           question: 'Si qëndroj i sigurt kur blej një makinë?',
@@ -1285,7 +1237,6 @@ export const sqTranslations: TranslationStrings = {
           answer: 'Po, ne ofrojmë raporte gjithëpërfshirëse historie automjeti nga burime të besuara. Këto përfshijnë historinë e aksidenteve, regjistrimet e mirëmbajtjes dhe informacionet e titullit.'
         },
       ],
-
       accountFaqs: [
         {
           question: 'Si krioi një llogari?',
@@ -1310,7 +1261,6 @@ export const sqTranslations: TranslationStrings = {
       ],
     },
   },
-
   forms: {
     placeholders: {
       selectMake: 'Zgjidhni markën',
@@ -1416,7 +1366,6 @@ export const sqTranslations: TranslationStrings = {
       showLess: 'Trego më pak',
     },
   },
-
   carSpecs: {
     conditions: {
       new: 'I ri',
@@ -1511,7 +1460,6 @@ export const sqTranslations: TranslationStrings = {
       amFmRadio: 'Radio AM/FM',
     },
   },
-
   dashboard: {
     overview: 'Përmbledhje',
     listings: 'Shpalljet',
@@ -1532,7 +1480,6 @@ export const sqTranslations: TranslationStrings = {
     myDashboard: 'Paneli im',
     signInToAccessDashboard: 'Kyçuni për të aksesuar panelin',
   },
-
   business: {
     quickLinks: 'Lidhje të shpejta',
     support: 'Mbështetja',
@@ -1556,7 +1503,6 @@ export const sqTranslations: TranslationStrings = {
     perfectVehicle: 'Automjeti i përsosur',
     thousandsOfListings: 'Mijëra shpallje',
   },
-
   footer: {
     aboutUs: 'Tregu juaj i besuar për makina cilësore të përdorura. Gjeni automjetin tuaj të përsosur nga mijëra shpallje.',
     quickLinks: 'Lidhje të shpejta',
@@ -1588,7 +1534,6 @@ export const sqTranslations: TranslationStrings = {
     copyright: 'E drejta e autorit',
     allRightsReserved: 'Të gjitha të drejtat e rezervuara',
   },
-
   errors: {
     generic: 'Diçka shkoi keq. Ju lutemi provoni përsëri.',
     network: 'Gabim në rrjet. Ju lutemi kontrolloni lidhjen tuaj.',
@@ -1614,7 +1559,6 @@ export const sqTranslations: TranslationStrings = {
       tryAgain: 'Provo përsëri',
     },
   },
-
   success: {
     saved: 'U ruajt me sukses!',
     updated: 'U përditësua me sukses!',
@@ -1630,7 +1574,6 @@ export const sqTranslations: TranslationStrings = {
     favoriteAdded: 'U shtua në të preferuarat!',
     favoriteRemoved: 'U hoq nga të preferuarat!',
   },
-
   // Browse Cars Page
   browseCars: {
     title: 'për shitje',
@@ -1732,7 +1675,6 @@ export const sqTranslations: TranslationStrings = {
       contactSupport: 'Kontaktoni mbështetjen',
     },
   },
-
   // Advanced Search
   advancedSearch: {
     title: 'Kërkimi i përparuar i automjeteve',
@@ -1753,7 +1695,6 @@ export const sqTranslations: TranslationStrings = {
     active: 'aktiv',
     filters: 'filtra',
     filter: 'filtër',
-    
     sections: {
       basicInformation: {
         title: 'Informacioni bazë',
@@ -1782,7 +1723,6 @@ export const sqTranslations: TranslationStrings = {
         description: 'Zgjidhni veçoritë që janë të rëndësishme për ju',
       },
     },
-    
     fields: {
       make: 'Marka',
       model: 'Modeli',
@@ -1807,7 +1747,6 @@ export const sqTranslations: TranslationStrings = {
       maxMileage: 'Kilometrazhi maksimal',
       additionalProperties: 'Vetitë shtesë',
     },
-    
     placeholders: {
       selectMake: 'Zgjidhni markën',
       enterModel: 'Shkruani modelin',
@@ -1834,13 +1773,11 @@ export const sqTranslations: TranslationStrings = {
       allSellers: 'Të gjithë shitësit',
       any: 'Çfarëdo',
     },
-    
     ranges: {
       priceRange: 'Spektri i çmimeve',
       yearRange: 'Spektri i viteve',
       mileageRange: 'Spektri i kilometrazhit (km)',
     },
-    
     distances: {
       25: 'Brenda 25 km',
       50: 'Brenda 50 km',
@@ -1850,7 +1787,6 @@ export const sqTranslations: TranslationStrings = {
       500: 'Brenda 500 km',
       nationwide: 'Në të gjithë vendin',
     },
-    
     mileage: {
       under10k: 'Nën 10.000 km',
       under25k: 'Nën 25.000 km',
@@ -1859,20 +1795,17 @@ export const sqTranslations: TranslationStrings = {
       under100k: 'Nën 100.000 km',
       under150k: 'Nën 150.000 km',
     },
-    
     sellerTypes: {
       dealersOnly: 'Vetëm tregtarët',
       privateOnly: 'Vetëm shitësit privatë',
       certifiedOnly: 'Vetëm tregtarët e çertifikuar',
     },
-    
     doors: {
       '2': '2 dyer',
       '3': '3 dyer',
       '4': '4 dyer',
       '5': '5 dyer',
     },
-    
     seats: {
       2: '2 ulëse',
       4: '4 ulëse',
@@ -1880,7 +1813,6 @@ export const sqTranslations: TranslationStrings = {
       7: '7 ulëse',
       '8+': '8+ ulëse',
     },
-    
     // Të dhëna statike të automjeteve për Kërkim të Avancuar
     staticVehicleData: {
       makes: [
@@ -1938,7 +1870,6 @@ export const sqTranslations: TranslationStrings = {
         'Regjistrime shërbimi të disponueshme', 'Mirëmbajtje e përditësuar'
       ]
     },
-    
     // Missing keys from AdvancedSearch component
     description: 'Përdorni filtrat tanë gjithëpërfshirës të kërkimit për të zbuluar automjetin e saktë që po kërkoni',
     searchingRealTime: 'Duke kërkuar në kohë reale...',
@@ -1956,7 +1887,6 @@ export const sqTranslations: TranslationStrings = {
     colors: 'Ngjyrat',
     emissions: 'Emetimet',
   },
-
   // Contact Us Page
   contact: {
     hero: {
@@ -2055,7 +1985,6 @@ export const sqTranslations: TranslationStrings = {
       },
     },
   },
-
   dealerProfile: {
     dealerNotFound: 'Shitësi nuk u gjet',
     dealerNotFoundMessage: 'Profili i shitësit që kërkoni nuk ekziston.',
@@ -2104,7 +2033,6 @@ export const sqTranslations: TranslationStrings = {
     interactiveMapPlaceholder: 'Harta interaktive do të ishte këtu',
     openInGoogleMaps: 'Hap në Google Maps',
   },
-
   dealerSupport: {
     backToHome: 'Kthehu në shtëpi',
     title: 'Mbështetja e shitësve',
@@ -2147,7 +2075,6 @@ export const sqTranslations: TranslationStrings = {
     paymentBilling: 'Pagesa dhe faturimi',
     paymentBillingDesc: 'Pyetje rreth faturimit dhe probleme me pagesat',
   },
-
   expressSell: {
     title: 'Shit makinën tënde shpejt',
     subtitle: 'Vendos makinën tënde në shitje për minuta me procesin tonë të shpejtë të shitjes',
@@ -2227,12 +2154,10 @@ export const sqTranslations: TranslationStrings = {
     successMessage: 'Makina jote është listuar me sukses!',
     requiredField: 'Kjo fushë është e detyrueshme',
   },
-
   admin: {
     panel: 'Paneli i administratorit',
     dashboard: 'Paneli i administratorit',
   },
-
   // Paneli privat
   privateDashboard: {
     title: 'Paneli im',
@@ -2339,7 +2264,6 @@ export const sqTranslations: TranslationStrings = {
     fuelElectric: 'Elektrik',
     fuelGas: 'Gaz'
   },
-
   // Automjetet e ruajtura
   savedCars: {
     title: 'Automjetet e ruajtura',
@@ -2365,7 +2289,6 @@ export const sqTranslations: TranslationStrings = {
     clearSelection: 'Pastro përzgjedhjen',
     clearAll: 'Pastro të gjitha'
   },
-
   // Shis automjetin
   sellVehicle: {
     title: 'Shis automjetin tënd',
@@ -2376,7 +2299,6 @@ export const sqTranslations: TranslationStrings = {
     photosUpload: 'Ngarkimi i fotove',
     pricing: 'Çmimi',
     review: 'Shqyrto dhe publiko',
-    
     // Informacioni bazë
     make: 'Marka',
     model: 'Modeli',
@@ -2404,7 +2326,6 @@ export const sqTranslations: TranslationStrings = {
       semiautomatic: 'Gjysmëautomatik'
     },
     bodyType: 'Lloji i karoseries',
-    
     // Detajet e automjetit
     engineSize: 'Madhësia e motorit',
     horsepower: 'Fuqia në kuaj',
@@ -2415,7 +2336,6 @@ export const sqTranslations: TranslationStrings = {
     safetyFeatures: 'Karakteristikat e sigurisë',
     description: 'Përshkrimi',
     descriptionPlaceholder: 'Përshkruaj automjetin tënd, historinë, gjendjen...',
-    
     // Fotot
     uploadPhotos: 'Ngarko fotot',
     dragDropPhotos: 'Tërhiq dhe lësho fotot këtu, ose kliko për të përzgjedhur',
@@ -2429,7 +2349,6 @@ export const sqTranslations: TranslationStrings = {
       'Foto nga brendësia',
       'Foto nga motori dhe kilometrat'
     ],
-    
     // Çmimi
     askingPrice: 'Çmimi i kërkuar',
     marketValue: 'Vlera e tregut',
@@ -2442,14 +2361,12 @@ export const sqTranslations: TranslationStrings = {
     allowPhoneCalls: 'Lejo thirrjet telefonike',
     allowMessages: 'Lejo mesazhet',
     allowEmails: 'Lejo email-et',
-    
     // Shqyrtimi
     reviewListing: 'Shqyrto listimin',
     publishListing: 'Publiko listimin',
     saveDraft: 'Ruaj draft',
     termsAndConditions: 'Kushtet e përdorimit',
     agreeToTerms: 'Pajtohem me kushtet e përdorimit',
-    
     // Mesazhet
     listingPublished: 'Listimi u publikua me sukses!',
     draftSaved: 'Drafti u ruajt',
@@ -2458,7 +2375,6 @@ export const sqTranslations: TranslationStrings = {
     previous: 'Mëparshmi',
     next: 'Tjetri'
   },
-
   // Faqja kryesore
   indexPage: {
     hero: {
@@ -2534,7 +2450,6 @@ export const sqTranslations: TranslationStrings = {
       },
     },
   },
-
   // Faqet e gabimeve
   errors: {
     notFound: {
@@ -2546,9 +2461,7 @@ export const sqTranslations: TranslationStrings = {
       supportMessage: 'Nëse besoni se kjo është gabim, ju lutemi kontaktoni ekipin tonë të mbështetjes.'
     },
   },
-
   // Faqet ligjore
-
     cookies: {
       title: 'Politika e Cookies',
       subtitle: 'Si i përdorim cookies për të përmirësuar përvojën tuaj.',
@@ -2556,7 +2469,6 @@ export const sqTranslations: TranslationStrings = {
       policyTitle: 'Politika jonë e Cookies',
       policyDescription: 'Ne përdorim cookies për të ofruar shërbimin më të mirë të mundshëm.',
       policyText: 'Cookies janë skedarë të vegjël teksti që ruhen në pajisjen tuaj kur vizitoni faqen tonë. Ato na ndihmojnë të ofrojmë një përvojë të personalizuar.',
-      
       essential: {
         title: 'Cookies Thelbësorë',
         features: [
@@ -2593,10 +2505,8 @@ export const sqTranslations: TranslationStrings = {
           'Ndjekja e konvertimeve'
         ]
       },
-      
       managementTitle: 'Menaxhimi i Preferencave të Cookies',
       managementDescription: 'Ju keni kontroll të plotë mbi cookies që përdorim në pajisjen tuaj.',
-      
       browserTitle: 'Cilësimet e Shfletuesit',
       browserFeatures: [
         'Bllokoni ose lejoni cookies',
@@ -2604,7 +2514,6 @@ export const sqTranslations: TranslationStrings = {
         'Vendosni kohëzgjatjen e cookies',
         'Menaxhoni cookies e palëve të treta'
       ],
-      
       platformTitle: 'Kontrollet e Platformës',
       platformFeatures: [
         'Qendra e preferencave të cookies',
@@ -2612,20 +2521,16 @@ export const sqTranslations: TranslationStrings = {
         'Cilësimet e detajuara të kontrollit',
         'Përditësimet e rregullta të preferencave'
       ],
-      
       questionsTitle: 'Pyetje mbi Cookies?',
       questionsText: 'Nëse keni pyetje mbi politikën tonë të cookies ose keni nevojë për ndihmë në menaxhimin e preferencave, na kontaktoni në cookies@carmarket365.com',
       returnToPlatform: 'Kthehu te Platforma',
       cookieSupport: 'Mbështetja për Cookies'
     },
-
   },
-
   // Paneli i Shitësit
   dealerDashboard: {
     title: 'Paneli i Shitësit',
     subtitle: 'Menaxhoni shpaljet tuaja të automjeteve, ndiqni performancën dhe zhvilloni biznesin',
-    
     // Navigimi i skedave
     tabs: {
       overview: 'Përmbledhje',
@@ -2633,7 +2538,6 @@ export const sqTranslations: TranslationStrings = {
       inquiries: 'Pyetjet',
       analytics: 'Analitika',
     },
-    
     // Skeda e përmbledhjes
     overview: {
       // Kartat e statistikave
@@ -2659,7 +2563,6 @@ export const sqTranslations: TranslationStrings = {
           fromLastMonth: 'nga muaji i kaluar',
         },
       },
-      
       // Seksioni i performancës
       performance: {
         title: 'Performanca Mujore',
@@ -2671,7 +2574,6 @@ export const sqTranslations: TranslationStrings = {
           sold: 'të shitura',
         },
       },
-      
       // Pyetjet e fundit
       recentInquiries: {
         title: 'Pyetjet e Fundit',
@@ -2685,18 +2587,15 @@ export const sqTranslations: TranslationStrings = {
           hoursAgo: 'orë më parë',
         },
       },
-      
       // Butonat e veprimeve
       actions: {
         addNewListing: 'Shto Shpallje të Re',
         viewAnalytics: 'Shiko analizat',
       },
     },
-    
     // Skeda Shpaljet e Mia
     myListings: {
       title: 'Shpaljet e Mia',
-      
       // Kërkimi dhe filtrat
       searchPlaceholder: 'Kërko shpallje...',
       filterByStatus: 'Filtro sipas gjendjes',
@@ -2708,7 +2607,6 @@ export const sqTranslations: TranslationStrings = {
       },
       exportReport: 'Eksporto Raport',
       export: 'Eksporto',
-      
       // Kokat e tabelës
       tableHeaders: {
         car: 'Makinë',
@@ -2719,57 +2617,48 @@ export const sqTranslations: TranslationStrings = {
         listed: 'E Shpallur',
         actions: 'Veprimet',
       },
-      
       // Etiketat e gjendjes
       statusBadges: {
         active: 'Aktive',
         sold: 'E Shitur',
         pending: 'Në Pritje',
       },
-      
       // Veprimet
       actions: {
         viewListing: 'Shiko Shpalljen',
         editListing: 'Ndrysho Shpalljen',
         deleteListing: 'Fshi Shpalljen',
       },
-      
       // Pamja mobile
       mobileView: {
         views: 'shikimet',
         inquiries: 'pyetjet',
       },
     },
-    
     // Skeda Pyetjeve
     inquiries: {
       title: 'Pyetjet e Klientëve',
       description: 'Menaxhoni dhe përgjigjuni pyetjeve të klientëve',
-      
       // Llojet e pyetjeve
       inquiryTypes: {
         testDriveRequest: 'Kërkesë për Test Ngasje',
         priceInquiry: 'Pyetje për Çmimin',
       },
-      
       // Gjendja
       status: {
         new: 'e re',
         responded: 'u përgjigj',
       },
-      
       // Veprimet
       actions: {
         respond: 'Përgjigju',
       },
-      
       // Treguesit e kohës
       time: {
         hoursAgo: 'orë më parë',
         dayAgo: 'ditë më parë',
       },
     },
-    
     // Skeda Analitika
     analytics: {
       // Shpaljet popullore
@@ -2779,7 +2668,6 @@ export const sqTranslations: TranslationStrings = {
         views: 'shikimet',
         inquiries: 'pyetjet',
       },
-      
       // Metrikat e performancës
       performanceMetrics: {
         title: 'Metrikat e Performancës',
@@ -2796,17 +2684,14 @@ export const sqTranslations: TranslationStrings = {
         },
       },
     },
-    
     // Mesazhi i fundit
     footerMessage: 'Mjetet profesionale të shitësit - ',
     activeListingsCount: 'shpallje aktive',
   },
-
   // Paneli i Administratorit
   adminDashboard: {
     title: 'Paneli i Administratorit',
     subtitle: 'Menaxhimi i platformës, mbikëqyrja dhe qendra gjithëpërfshirëse e kontrollit',
-    
     // Navigimi i skedave
     tabs: {
       overview: 'Përmbledhje',
@@ -2814,7 +2699,6 @@ export const sqTranslations: TranslationStrings = {
       userManagement: 'Menaxhimi i Përdoruesve',
       reports: 'Raportet',
     },
-    
     // Skeda e përmbledhjes
     overview: {
       // Kartat e statistikave
@@ -2840,7 +2724,6 @@ export const sqTranslations: TranslationStrings = {
           fromLastMonth: 'nga muaji i kaluar',
         },
       },
-      
       // Aktiviteti i fundit
       recentActivity: {
         title: 'Aktiviteti i Fundit',
@@ -2855,7 +2738,6 @@ export const sqTranslations: TranslationStrings = {
           hoursAgo: 'orë më parë',
         },
       },
-      
       // Shëndeti i sistemit
       systemHealth: {
         title: 'Shëndeti i Sistemit',
@@ -2867,18 +2749,15 @@ export const sqTranslations: TranslationStrings = {
           errorRate: 'Shkalla e Gabimeve',
         },
       },
-      
       // Butonat e veprimeve
       actions: {
         manageUsers: 'Menaxho Përdoruesit',
         viewReports: 'Shiko raportet',
       },
     },
-    
     // Skeda Të Gjitha Shpaljet
     allListings: {
       title: 'Të Gjitha Shpaljet',
-      
       // Kërkimi dhe filtrat
       searchPlaceholder: 'Kërko shpallje...',
       filterByStatus: 'Filtro sipas gjendjes',
@@ -2889,7 +2768,6 @@ export const sqTranslations: TranslationStrings = {
         pending: 'Në Pritje',
         flagged: 'E Sinjalizuar',
       },
-      
       // Kokat e tabelës
       tableHeaders: {
         image: 'Imazhi',
@@ -2901,7 +2779,6 @@ export const sqTranslations: TranslationStrings = {
         created: 'E Krijuar',
         actions: 'Veprimet',
       },
-      
       // Etiketat e gjendjes
       statusBadges: {
         active: 'Aktive',
@@ -2909,7 +2786,6 @@ export const sqTranslations: TranslationStrings = {
         pending: 'Në Pritje',
         flagged: 'E Sinjalizuar',
       },
-      
       // Veprimet
       actions: {
         viewListing: 'Shiko Shpalljen',
@@ -2917,12 +2793,10 @@ export const sqTranslations: TranslationStrings = {
         deleteListing: 'Fshi Shpalljen',
       },
     },
-    
     // Skeda Menaxhimit të Përdoruesve
     userManagement: {
       title: 'Menaxhimi i Përdoruesve',
       description: 'Shikoni dhe menaxhoni të gjithë përdoruesit e platformës',
-      
       // Kërkimi dhe filtrat
       searchPlaceholder: 'Kërko sipas email-it ose emrit...',
       roleFilter: {
@@ -2934,7 +2808,6 @@ export const sqTranslations: TranslationStrings = {
           admin: 'Administratori',
         },
       },
-      
       // Kokat e tabelës
       tableHeaders: {
         user: 'Përdoruesi',
@@ -2944,28 +2817,24 @@ export const sqTranslations: TranslationStrings = {
         lastLogin: 'Hyrja e Fundit',
         actions: 'Veprimet',
       },
-      
       // Etiketat e roleve
       roleBadges: {
         admin: 'Administratori',
         dealer: 'Shitësi',
         customer: 'Klienti',
       },
-      
       // Etiketat e gjendjes
       statusBadges: {
         active: 'Aktiv',
         suspended: 'I Pezulluar',
         pending: 'Në Pritje',
       },
-      
       // Mesazhet shtesë të statusit
       statusMessages: {
         joinedOn: 'U bashkua më',
         lastLoginOn: 'Hyrja e fundit më',
         neverLoggedIn: 'Kurrë nuk ka hyrë',
       },
-      
       // Veprimet
       actions: {
         viewProfile: 'Shiko Profilin',
@@ -2974,7 +2843,6 @@ export const sqTranslations: TranslationStrings = {
         activateUser: 'Aktivo Përdoruesin',
       },
     },
-    
     // Skeda Raporteve
     reports: {
       // Statistikat e platformës
@@ -2988,7 +2856,6 @@ export const sqTranslations: TranslationStrings = {
           averageListingPrice: 'Çmimi Mesatar i Shpalljeve',
         },
       },
-      
       // Moderimi i përmbajtjeve
       contentModeration: {
         title: 'Moderimi i Përmbajtjeve',
@@ -3001,12 +2868,10 @@ export const sqTranslations: TranslationStrings = {
         },
       },
     },
-    
     // Mesazhi i fundit
     footerMessage: 'Kontrolli administrativ - ',
     systemStatus: 'Statusi i Sistemit: Online',
   },
-
   // Testi i Vendit
   countryTest: {
     title: 'Testi i Ndarjes së Vendit',
@@ -3044,7 +2909,6 @@ export const sqTranslations: TranslationStrings = {
     listingSubmission: 'Parashtrimi i Shpalljes',
     listingSubmissionDescription: 'Kur përdoruesit parashtruan shpallje të reja automjetesh, kodi i vendit vendoset automatikisht bazuar në nëndomenin e tyre aktual, duke siguruar që shpaljet janë të dukshme vetëm në vendin e duhur.',
   },
-
   // Formularët dhe Hyrjet
   forms: {
     placeholders: {
@@ -3163,7 +3027,6 @@ export const sqTranslations: TranslationStrings = {
       messageMinLength: 'Mesazhi duhet të jetë të paktën 10 karaktere',
     },
   },
-
   // Static content for About page
   about: {
     stats: {
@@ -3291,17 +3154,14 @@ export const sqTranslations: TranslationStrings = {
       connect: 'Lidhu'
     },
   },
-
   carReviews: {
     title: 'Recensionet e Makinave',
     subtitle: 'Recensione eksperte dhe komente prej përdoruesve për t\'ju ndihmuar të merrni vendime të informuara për blerjen e makinës tuaj të ardhshme.',
     backToHome: 'Kthehu te Faqja Kryesore',
-    
     // Main content
     overviewTitle: 'Recensione dhe Vlerësime të Makinave',
     overviewDescription: 'Recensione gjithëpërfshirëse për t\'ju ndihmuar të merrni vendime të informuara për blerjen e automjeteve.',
     overviewText: 'Seksioni ynë i recensioneve të makinave ofron analiza të detajuara nga ekspertë të automobilizmit dhe përvojat e vërteta të pronëve për t\'ju ndihmuar të kuptoni çdo aspekt të automjeteve që po shqyrtoni.',
-    
     // Review types
     expertReviews: {
       title: 'Recensione Eksperte',
@@ -3339,7 +3199,6 @@ export const sqTranslations: TranslationStrings = {
         'Udhëzues për blerje sezionale'
       ]
     },
-    
     // Categories
     categoriesTitle: 'Kategoritë e Recensioneve',
     categoriesDescription: 'Recensionet tona mbulojnë të gjitha aspektet e pronësisë dhe performancës së automjeteve.',
@@ -3370,14 +3229,12 @@ export const sqTranslations: TranslationStrings = {
         'Historiku i thirrjeve për kthim'
       ]
     },
-    
     // Coming soon
     comingSoonTitle: 'Recensionet Vijnë Së Shpejti!',
     comingSoonText: 'Aktualisht po ndërtojmë bazën tonë gjithëpërfshirëse të recensioneve. Recensionet eksperte dhe komentet e pronëve do të jenë të disponueshme së shpejti për t\'ju ndihmuar të udhëzoni vendimet tuaja të blerjes së makinave.',
     browseCars: 'Shfleto Makinat e Disponueshme',
     exploreInventory: 'Eksploro Inventarin'
   },
-
   // Static vehicle data for AdvancedSearch
   advancedSearch: {
     staticVehicleData: {
@@ -3437,17 +3294,14 @@ export const sqTranslations: TranslationStrings = {
       ]
     },
   },
-
   safetyTips: {
     title: 'Këshillat e Sigurisë',
     subtitle: 'Udhëzime thelbësore sigurie për blerjen, shitjen dhe mirëmbajtjen e mjetit tuaj në mënyrë të sigurt.',
     backToHome: 'Kthehu në Kryefaqe',
-    
     // Main content
     mainTitle: 'Udhëzimet e Sigurisë së Mjeteve',
     mainDescription: 'Këshilla të hollësishme sigurie për blerje dhe shitje të sigurt të automobilave.',
     safetyOverview: 'Pavarësisht nëse po blini automobilin tuaj të parë ose po shisni atë aktual, ndjekja e udhëzimeve të duhura të sigurisë ju mbron nga mashtrimet, siguron transaksione të ndershme dhe ndihmon për të ruajtur sigurinë tuaj personale gjatë gjithë procesit.',
-    
     // Safety categories
     meetingSafety: {
       title: 'Siguria e Takimit',
@@ -3493,7 +3347,6 @@ export const sqTranslations: TranslationStrings = {
         'Shitësi nuk mund të ofrojë provë të qartë pronësie'
       ]
     },
-    
     // Documentation
     documentation: {
       title: 'Dokumentacion Thelbësor',
@@ -3517,7 +3370,6 @@ export const sqTranslations: TranslationStrings = {
         'Formular lirimi nga përgjegjësia'
       ]
     },
-    
     // Emergency contact
     emergency: {
       title: 'Keni Nevojë për Ndihmë ose Keni Shqetësime?',
@@ -3526,7 +3378,6 @@ export const sqTranslations: TranslationStrings = {
       reportConcern: 'Raporto Shqetësim'
     },
   },
-
   faq: {
     title: 'Pyetje të Shpeshta',
     subtitle: 'Gjeni përgjigje për pyetjet e zakonshme rreth blerjes, shitjes, financimit dhe përdorimit të CarMarket365.',
@@ -3680,7 +3531,6 @@ export const sqTranslations: TranslationStrings = {
       ],
     },
   },
-
   // Përkthime shtesë për tekstin e koduar
   hardcodedFixes: {
     // Specifikisht për CountryTestPage
@@ -3698,7 +3548,6 @@ export const sqTranslations: TranslationStrings = {
       carIdAndCountry: 'ID: {id} | Vendi: {country}',
       developmentNote: '<strong>Shënim:</strong> Në prodhim, vendet zbulohen automatikisht nga nëndomena (p.sh., mk.carmarket365.com, al.carmarket365.com). Ky ndërrues funksionon vetëm në modalitetin e zhvillimit.',
     },
-
     // AdminDashboard - shenja statusi dhe të dhëna të simuluara
     adminDashboard: {
       statusBadges: {
@@ -3712,25 +3561,20 @@ export const sqTranslations: TranslationStrings = {
         annaCustomerEmail: 'ana@klienti.com',
         bobAdmin: 'Bob Administratori',
         bobAdminEmail: 'bob@admin.com',
-        
         // Titujt e listimeve
         bmw3Series2022: '2022 BMW 3 Seritë',
         audiA42021: '2021 Audi A4',
         mercedesCClass2020: '2020 Mercedes C-Klasa',
-        
         // Kategoritë
         sedan: 'Sedan',
         luxury: 'Luksi',
-        
         // Emrat e kompanive
         premiumMotors: 'Premium Motors',
         eliteCars: 'Elite Cars',
-        
         // Përdoruesit e aktiviteteve
         premiumMotorsGmbH: 'Premium Motors GmbH',
         suspiciousUser: 'Përdorues i dyshimtë',
         autoHausBerlin: 'AutoHaus Berlin',
-        
         // Treguesit e kohës
         twoHoursAgo: '2 orë më parë',
         fourHoursAgo: '4 orë më parë',
@@ -3738,7 +3582,6 @@ export const sqTranslations: TranslationStrings = {
         eightHoursAgo: '8 orë më parë',
       },
     },
-
     // DealerDashboard të dhëna të simuluara
     dealerDashboard: {
       mockData: {
@@ -3746,14 +3589,12 @@ export const sqTranslations: TranslationStrings = {
         bmw3Series320i2022: '2022 BMW 3 Seritë 320i',
         audiA4Avant2021: '2021 Audi A4 Avant',
         mercedesCClass2020: '2020 Mercedes C-Klasa',
-        
         // Vlerat e kilometrave
         mileage25k: '25,000 km',
         mileage18k: '18,000 km',
         mileage32k: '32,000 km',
       },
     },
-
     // Financimi tekste të koduara
     financing: {
       features: {
@@ -3793,17 +3634,14 @@ export const sqTranslations: TranslationStrings = {
         leaseOptions: 'Opsionet e qirasë',
       },
     },
-
     contact: {
       title: 'Na kontaktoni',
       subtitle: 'Lidhuni me ekipin tonë për mbështetje, pyetje ose ndihmë me blerjen apo shitjen e makinës tuaj.',
       backToHome: 'Kthehu në shtëpi',
-      
       // Main content
       mainTitle: 'Lidhuni me ne',
       mainDescription: 'Mënyra të shumta për të kontaktuar ekipin tonë të mbështetjes për ndihmë.',
       contactOverview: 'Nëse keni pyetje për blerjen e një makine, keni nevojë për ndihmë për të shitur automjetin tuaj, ose keni nevojë për mbështetje teknike, ekipi ynë i përkushtuar është këtu për t\'ju ndihmuar. Zgjidhni metodën e kontaktit që ju përshtatet më së miri.',
-      
       // Contact methods
       phoneSupport: {
         title: 'Mbështetja telefonike',
@@ -3837,7 +3675,6 @@ export const sqTranslations: TranslationStrings = {
         },
         getDirections: 'Merr udhëzimet'
       },
-      
       // Contact form
       form: {
         title: 'Dërgona një mesazh',
@@ -3872,13 +3709,11 @@ export const sqTranslations: TranslationStrings = {
         submitButton: 'Dërgo mesazhin',
         disclaimer: 'Ne përgjigjem zakonisht brenda 24 orëve gjatë ditëve të punës.'
       },
-      
       // Success message
       success: {
         title: 'Mesazhi u dërgua!',
         message: 'Faleminderit që na kontaktuat. E kemi marrë mesazhin tuaj dhe do të përgjigjemi brenda 24 orëve.'
       },
-      
       // Quick help
       quickHelp: {
         title: 'Ndihmë e shpejtë',
@@ -3902,7 +3737,6 @@ export const sqTranslations: TranslationStrings = {
           },
         },
       },
-      
       // Urgent support
       urgentSupport: {
         title: 'Keni nevojë për ndihmë të menjëhershme?',
@@ -3911,7 +3745,6 @@ export const sqTranslations: TranslationStrings = {
         callNow: 'Telefono tani'
       },
     },
-
     // Faqja Dealers - tekste të koduara
     dealers: {
       searchLabel: 'Kërko Dilerët',
@@ -3936,7 +3769,6 @@ export const sqTranslations: TranslationStrings = {
       reviews: 'recensione',
       hoursLabel: 'Orët',
     },
-
     registeredDealers: {
       title: 'Dilerë të Regjistruar',
       subtitle: 'Shfletoni rrjetin tonë të dilerëve të verifikuar automobilistikë',
@@ -3961,7 +3793,6 @@ export const sqTranslations: TranslationStrings = {
       allLocations: 'Të Gjitha Vendndodhjet',
       sortBy: 'Rendit sipas',
       years: 'vjet',
-      
       // Dealer specialties
       specialties: {
         luxuryCars: 'Makina Luksoze',
@@ -3981,7 +3812,6 @@ export const sqTranslations: TranslationStrings = {
         leasing: 'Lejzing',
         ecoFriendly: 'Miqësore me Mjedisin',
       },
-
       // Dealer descriptions  
       descriptions: {
         autoMaxDescription: 'Diler kryesor i makinave luksoze në Berlin me mbi 15 vjet përvojë. Specializuar në markat premium gjermane.',
@@ -3992,7 +3822,6 @@ export const sqTranslations: TranslationStrings = {
         nordFahrzeugeDescription: 'Specialist për automjete korporative që shërben qarkun e biznesit në Frankfurt. Ekspert në zgjidhje flotash dhe lejzing.',
       },
     },
-
     // Faqja DealerSupport - tekste të koduara
     dealerSupport: {
       supportCenterText: 'Ekipi ynë i përkushtuar i mbështetjes së dilerëve është këtu për t\'ju ndihmojë të maksimizoni suksesin tuaj në CarMarket365. Merrni ndihmë me menaxhimin e inventarit, pyetjet e klientëve dhe funksionet e platformës.',
@@ -4070,9 +3899,6 @@ export const sqTranslations: TranslationStrings = {
         goToDealerDashboard: 'Shko në Panelin e Dilerit',
       },
     },
-
-
-
     // Faqja SafetyTips - tekste të koduara
     safetyTips: {
       mainTitle: 'Siguria e Blerjes dhe Shitjes së Makinave',
@@ -4140,7 +3966,6 @@ export const sqTranslations: TranslationStrings = {
       },
     },
   },
-
   // UI Demo Page
   uiDemo: {
     title: 'Demo e Komponentëve UI të Përmirësuara',
@@ -4150,7 +3975,6 @@ export const sqTranslations: TranslationStrings = {
     buttons: 'Butonat',
     cards: 'Kartat',
   },
-
   // Final fixes section
   finalFixes: {
     // ExpressSell page - Car brands, models, and placeholders
@@ -4198,13 +4022,11 @@ export const sqTranslations: TranslationStrings = {
       title: 'Express Sale',
       phonePlaceholder: 'Numri juaj i telefonit',
     },
-    
     // Faqja DealerSignUp - Placeholder-ët e formës
     dealerSignUp: {
       firstNamePlaceholder: 'Agron',
       lastNamePlaceholder: 'Krasniqi',
     },
-    
     // Faqja SavedCars - Placeholder i filtrit
     savedCars: {
       filterPlaceholder: 'Filtro sipas',
@@ -4227,7 +4049,6 @@ export const sqTranslations: TranslationStrings = {
       contact: 'Kontakt',
       view: 'Shiko',
     },
-    
     // Faqja UIDemo - Placeholder-ët demo
     uiDemo: {
       namePlaceholder: 'Shkruani emrin tuaj',
@@ -4266,18 +4087,15 @@ export const sqTranslations: TranslationStrings = {
       brokenImageFallback: 'Imazh i Thyer (tregon rezervën)',
     },
   },
-
   // CarDetail section with mockData
   carDetail: {
     backToSearch: 'Kthehu në kërkim',
-    
     // Vehicle Title and Info
     vehicleTitle: 'Titulli i Automjetit',
     locationLabel: 'Vendndodhja',
     priceLabel: 'Çmimi',
     originalPrice: 'Çmimi Origjinal',
     savingsAmount: 'Zbritje',
-    
     // Status Badges
     certified: 'I Certifikuar',
     featured: 'I Promovuar',
@@ -4285,13 +4103,11 @@ export const sqTranslations: TranslationStrings = {
     priceReduced: 'Çmim i Ulur',
     greatDeal: 'Ofertë e Shkëlqyer',
     verified: 'I Verifikuar',
-    
     // Image Gallery
     mainImage: 'Imazh Kryesor',
     imageGallery: 'Galeria e Imazheve',
     viewFullscreen: 'Shiko në Ekran të Plotë',
     imageCounter: 'nga',
-    
     // Tabs and Content
     tabs: {
       overview: 'Përmbledhje',
@@ -4299,7 +4115,6 @@ export const sqTranslations: TranslationStrings = {
       inspection: 'Inspektimi',
       history: 'Historia',
     },
-    
     // Overview Tab
     overview: {
       vehicleDetails: 'Detajet e Automjetit',
@@ -4315,13 +4130,11 @@ export const sqTranslations: TranslationStrings = {
       description: 'Përshkrimi',
       miles: 'milje',
     },
-    
     // Features Tab
     features: {
       title: 'Karakteristikat',
       featuresAndOptions: 'Karakteristikat dhe Opsionet',
     },
-    
     // Inspection Tab
     inspection: {
       title: 'Raporti i Inspektimit',
@@ -4331,7 +4144,6 @@ export const sqTranslations: TranslationStrings = {
       inspectionCompleted: 'inspektimi përfunduar',
       inspectionScore: 'Rezultati i Inspektimit',
     },
-    
     // History Tab
     history: {
       title: 'Historia e Automjetit',
@@ -4341,7 +4153,6 @@ export const sqTranslations: TranslationStrings = {
       lastService: 'Servisi i Fundit',
       regularMaintenance: 'Mirëmbajtja e programuar përfundoi',
     },
-    
     // Action Buttons
     actions: {
       callDealer: 'Telefono Dilerin',
@@ -4355,7 +4166,6 @@ export const sqTranslations: TranslationStrings = {
       saveToFavorites: 'Ruaj në të Preferuara',
       removeFromFavorites: 'Hiq nga të Preferuarat',
     },
-    
     // Seller Information
     seller: {
       title: 'Shitësi',
@@ -4366,7 +4176,6 @@ export const sqTranslations: TranslationStrings = {
       phone: 'Telefoni',
       email: 'Email',
     },
-    
     // Financing Section
     financing: {
       title: 'Opsionet e Financimit',
@@ -4379,7 +4188,6 @@ export const sqTranslations: TranslationStrings = {
       getPreApproved: 'Merr Paraprovim',
       calculatePayment: 'Llogarit Pagesën',
     },
-    
     // Error States
     errors: {
       carNotFound: 'Makina nuk u gjet',
@@ -4388,13 +4196,11 @@ export const sqTranslations: TranslationStrings = {
       hasBeenRemoved: 'Është hequr',
       backToCars: 'Kthehu te Makinat',
     },
-    
     // Loading States
     loading: {
       loadingVehicle: 'Po ngarkon automjetin...',
       loadingDetails: 'Po ngarkon detajet...',
     },
-    
     // Contact and Communication
     contact: {
       contactDealer: 'Kontakto Dilerin',
@@ -4406,7 +4212,6 @@ export const sqTranslations: TranslationStrings = {
       emailDealer: 'Dërgo Email Dilerit',
       scheduleViewing: 'Programo Shikimin',
     },
-    
     // Test Drive
     testDrive: {
       scheduleTestDrive: 'Programo Test Drive',
@@ -4416,7 +4221,6 @@ export const sqTranslations: TranslationStrings = {
       additionalNotes: 'Shënime shtesë',
       submitRequest: 'Dërgo Kërkesën',
     },
-    
     // Mock Data Values
     mockData: {
       unknownMake: 'Markë e Panjohur',
@@ -4493,7 +4297,6 @@ export const sqTranslations: TranslationStrings = {
       },
     },
   },
-
   // Karakteristikat e Avancuara
   advancedFeatures: {
     // Kërkimi i Avancuar
@@ -4503,14 +4306,12 @@ export const sqTranslations: TranslationStrings = {
       filters: 'Filtrat',
       clearAll: 'Pastro të Gjitha',
       searchCars: 'Kërko Makina',
-      
       // Seksionet
       sections: {
         vehicleDetails: 'Detajet e Makinës',
         priceLocation: 'Çmimi dhe Lokacioni',
         featuresOptions: 'Karakteristikat dhe Opsionet',
       },
-      
       // Fushat e Detajeve të Makinës
       fields: {
         make: 'Marka',
@@ -4535,7 +4336,6 @@ export const sqTranslations: TranslationStrings = {
         priceMax: 'Çmimi Maks.',
         mileageMax: 'Kilometrazhi Maks.',
       },
-      
       // Placeholder-at
       placeholders: {
         anyMake: 'Çdo Markë',
@@ -4556,7 +4356,6 @@ export const sqTranslations: TranslationStrings = {
         anyDrivetrain: 'Çdo Sistem Lëvizje',
         anyRadius: 'Çdo Distancë',
       },
-      
       // Opsionet
       options: {
         mileage: {
@@ -4583,7 +4382,6 @@ export const sqTranslations: TranslationStrings = {
           certifiedOnly: 'Vetëm Dilerët e Certifikuar',
         },
       },
-      
       // Karakteristikat
       features: {
         airConditioning: 'Kondicionimi i Ajrit',
@@ -4615,14 +4413,12 @@ export const sqTranslations: TranslationStrings = {
         massagingSeats: 'Ulëset Masazhuese',
       },
     },
-    
     // Krahasimi
     comparison: {
       title: 'Krahasimi i Makinave',
       clearAll: 'Pastro të Gjitha',
       compareCars: 'Krahaso Makinat',
       compareNow: 'Krahaso Tani',
-      
       // Fushat e krahasimit
       fields: {
         price: 'Çmimi',
@@ -4642,7 +4438,6 @@ export const sqTranslations: TranslationStrings = {
         features: 'Karakteristikat Kryesore',
         dealerInfo: 'Informacioni i Shitësit',
       },
-      
       // Shiriti i krahasimit
       bar: {
         compareCars: 'Krahaso Makinat',
@@ -4651,15 +4446,12 @@ export const sqTranslations: TranslationStrings = {
         compare: 'Krahaso',
         clear: 'Pastro',
       },
-      
       // E padisponueshme
       notAvailable: 'N/D',
     },
-    
     // Kalkulatori i Financimit
     financingCalculator: {
       title: 'Kalkulatori i Financimit',
-      
       // Seksionet
       sections: {
         vehicleDetails: 'Detajet e Makinës',
@@ -4669,7 +4461,6 @@ export const sqTranslations: TranslationStrings = {
         loanSummary: 'Përmbledhje e Kredisë',
         downPayment: 'Pagesë Fillestare',
       },
-      
       // Fushat
       fields: {
         vehiclePrice: 'Çmimi i Makinës',
@@ -4682,7 +4473,6 @@ export const sqTranslations: TranslationStrings = {
         interestRate: 'Shkalla e Interesit (APR)',
         monthlyPayment: 'Pagesë e Vlerësuar Mujore',
       },
-      
       // Etiketat
       labels: {
         months: 'muaj',
@@ -4699,7 +4489,6 @@ export const sqTranslations: TranslationStrings = {
         years: 'vite',
         percent: 'përqindje',
       },
-      
       // Butonat
       buttons: {
         calculate: 'Llogarit Pagesën',
@@ -4707,7 +4496,6 @@ export const sqTranslations: TranslationStrings = {
         getPreApproved: 'Merr Para-miratime',
         findFinancing: 'Gjej Opsione Financimi',
       },
-      
       // Shënimet
       notes: {
         title: 'Njoftim i rëndësishëm',
@@ -4718,8 +4506,6 @@ export const sqTranslations: TranslationStrings = {
         disclaimer: 'Ky kalkulator jep një vlerësim bazuar në informacionin e dhënë. Kushtet aktuale të financimit mund të ndryshojnë bazuar në historikun e kredisë, të ardhurat dhe faktorë të tjerë.',
       },
     },
-  },
-
   financing: {
     title: 'Financimi i Automjeteve',
     subtitle: 'Gjeni opsionet më të mira të financimit për blerjen e makinës suaj të ardhshme.',
@@ -4733,7 +4519,6 @@ export const sqTranslations: TranslationStrings = {
     years: 'vite',
     calculate: 'Llogarit',
   },
-
   dealers: {
     title: 'Gjej Dilerë të Verifikuar',
     subtitle: 'Lidhuni me dilerë të verifikuar në rajonin tuaj. Makina cilësore, shërbim profesional dhe çmime konkurruese.',
@@ -4748,186 +4533,5 @@ export const sqTranslations: TranslationStrings = {
     verifiedDealers: 'Dilerë të Verifikuar',
     carsAvailable: 'Makina të Disponueshme',
     averageRating: 'Vlerësimi Mesatar',
-  },
-
-  registeredDealers: {
-    title: 'Dilerë të Regjistruar',
-    subtitle: 'Shfletoni rrjetin tonë të dilerëve të verifikuar të makinave',
-    viewProfile: 'Shiko Profilin',
-    viewInventory: 'Shiko Inventarin',
-    contactDealer: 'Kontakto Dilerin',
-    backToHome: 'Kthehu në Fillim',
-    allDealersVerified: 'Të gjithë dilerët e verifikuar',
-    customerRated: 'Vlerësuar nga klientët',
-    supportAvailable: 'Mbështetje 24/7',
-    browseNetwork: 'Shfletoni rrjetin tonë të {count} dilerëve të verifikuar në të gjithë vendin',
-    reviews: 'vlerësime',
-    verifiedSince: 'I verifikuar që nga {year}',
-    experience: 'Eksperience:',
-    totalSales: 'Shitjet totale:',
-    viewDealerProfile: 'Shiko Profilin e Dilerit',
-    years: 'vite',
-    
-    // Specializimet e dilerit
-    specialties: {
-      luxuryCars: 'Makina Luksoze',
-      suvs: 'SUV',
-      electricVehicles: 'Automjete Elektrike',
-      familyCars: 'Makina Familjare',
-      compactCars: 'Makina Kompakte',
-      hybrids: 'Automjete Hibride',
-      sportsCars: 'Makina Sportive',
-      convertibles: 'Makina të Çkupta',
-      performance: 'Performance të Lartë',
-      mercedesBenz: 'Mercedes-Benz',
-      porsche: 'Porsche',
-      luxury: 'Markat e Luksit',
-      businessCars: 'Makina Biznesi',
-      fleetSales: 'Shitje Flote',
-    },
-  },
-
-  uiDemo: {
-    title: 'Demonstrimi i Komponentëve UI',
-    subtitle: 'Eksploroni sistemin tonë të dizajnit dhe komponentët UI',
-    components: 'Komponentë',
-    forms: 'Forma',
-    buttons: 'Butonat',
-    cards: 'Kartat',
-  },
-
-  finalFixes: {
-    dealerSignUp: {
-      firstNamePlaceholder: 'Imer',
-      lastNamePlaceholder: 'Hoxha',
-    },
-    
-    savedCars: {
-      title: 'Makina të ruajtura',
-      back: 'Kthehu',
-      noSavedCars: 'Ende nuk ka makina të ruajtura',
-      startBrowsing: 'Filloni të shfletoni inventarin tonë për të ruajtur automjetet tuaja të preferuara për më vonë.',
-      browseVehicles: 'Shfletoni automjetet',
-      carsSaved: 'makina të ruajtura',
-      clearAll: 'Pastro të gjitha',
-      sortBy: 'Rendit sipas',
-      recentlySaved: 'Ruajtura së fundmi',
-      priceLowToHigh: 'Çmimi: Nga i ulti në të lartë',
-      priceHighToLow: 'Çmimi: Nga i larti në të ulët',
-      yearNewestFirst: 'Viti: Më të rejat së pari',
-      yearOldestFirst: 'Viti: Më të vjetrat së pari',
-      filterPlaceholder: 'Filtro',
-      allCars: 'Të gjitha makinat',
-      savedThisWeek: 'Ruajtura këtë javë',
-      savedDate: 'Ruajtur',
-      contact: 'Kontakt',
-      view: 'Detajet'
-    },
-
-    errors: {
-      generic: 'Diçka shkoi keq. Ju lutemi provoni përsëri.',
-      network: 'Gabim në rrjet. Ju lutemi kontrolloni lidhjen tuaj.',
-      notFound: 'Artikulli i kërkuar nuk u gjet.',
-      unauthorized: 'Nuk keni leje për të aksesuar këtë burim.',
-      forbidden: 'Aksesi në këtë burim është i ndaluar.',
-      serverError: 'Gabim në server. Ju lutemi provoni përsëri më vonë.',
-      validation: 'Ju lutemi kontrolloni të dhënat tuaja dhe provoni përsëri.',
-      required: 'Kjo fushë është e detyrueshme.',
-      invalidEmail: 'Ju lutemi vendosni një adresë email-i të vlefshme.',
-      invalidPhone: 'Ju lutemi vendosni një numër telefoni të vlefshëm.',
-      passwordTooShort: 'Fjalëkalimi duhet të ketë së paku 8 karaktere.',
-      passwordMismatch: 'Fjalëkalimet nuk përputhen.',
-      fileTooBig: 'Madhësia e skedarit është shumë e madhe.',
-      invalidFileType: 'Lloj skedari i pavlefshëm.',
-      noInternetConnection: 'Nuk ka lidhje interneti.',
-      sessionExpired: 'Seanci juaj ka skaduar. Ju lutemi hyni përsëri.',
-    },
-
-    // Error pages
-    errorPages: {
-      notFound: {
-        title: 'Faqja nuk u gjet',
-        heading: '404 - Faqja nuk u gjet',
-        message: 'Faqja që po kërkoni nuk ekziston ose është lëvizur.',
-        goHome: 'Kthehu në faqen kryesore',
-        goBack: 'Kthehu prapa',
-        supportMessage: 'Nëse mendoni se kjo është një gabim, ju lutemi na kontaktoni.',
-      },
-    },
-  },
-
-  // Navigimi
-  navigation: {
-    backToHome: 'Kthehu tek faqja kryesore',
-  },
-
-
-  // Final fixes section for ExpressSell component
-  finalFixes: {
-    savedCars: {
-      title: 'Makina të ruajtura',
-      back: 'Kthehu',
-      noSavedCars: 'Ende nuk ka makina të ruajtura',
-      startBrowsing: 'Filloni të shfletoni inventarin tonë për të ruajtur automjetet tuaja të preferuara për më vonë.',
-      browseVehicles: 'Shfletoni automjetet',
-      carsSaved: 'makina të ruajtura',
-      clearAll: 'Pastro të gjitha',
-      sortBy: 'Rendit sipas',
-      recentlySaved: 'Ruajtura së fundmi',
-      priceLowToHigh: 'Çmimi: Nga i ulti në të lartë',
-      priceHighToLow: 'Çmimi: Nga i larti në të ulët',
-      yearNewestFirst: 'Viti: Më të rejat së pari',
-      yearOldestFirst: 'Viti: Më të vjetrat së pari',
-      filterPlaceholder: 'Filtro',
-      allCars: 'Të gjitha makinat',
-      savedThisWeek: 'Ruajtura këtë javë',
-      savedDate: 'Ruajtur',
-      contact: 'Kontakt',
-      view: 'Detajet'
-    },
-    expressSell: {
-      title: 'Shitje ekspres',
-      listMyCarQuickly: 'Vendos automjetin për shitje shpejt dhe lehtë',
-      backToHome: 'Kthehu në fillore',
-      carDetailsStep: 'Detajet e automjetit',
-      photosStep: 'Fotot',
-      priceDescriptionStep: 'Çmimi dhe përshkrimi',
-      contactInfoStep: 'Informacionet e kontaktit',
-      carBrands: ['Audi', 'BMW', 'Mercedes-Benz', 'Volkswagen', 'Toyota', 'Ford', 'Opel', 'Peugeot', 'Renault'],
-      carModels: ['3 Series', '5 Series', 'X3', 'X5', 'A4', 'A6', 'Golf', 'Passat'],
-      conditionLabel: 'Gjendja e automjetit',
-      conditionPlaceholder: 'Zgjidhni gjendjen',
-      uploadPhotos: 'Ngarko fotot',
-      uploadPhotosDescription: 'Shtoni foto për ta bërë shpalljen më tërheqëse',
-      uploadCarPhotos: 'Ngarko fotot e automjetit',
-      addUpToTenPhotos: 'Shtoni deri në 10 foto',
-      choosePhotos: 'Zgjidhni fotot',
-      mainPhoto: 'Fotoja kryesore',
-      priceAndDescription: 'Çmimi dhe përshkrimi',
-      setPriceAndDescription: 'Caktoni çmimin dhe përshkruani automjetin',
-      askingPriceEuros: 'Çmimi i kërkuar (€)',
-      priceExample: 'p.sh. 25.000',
-      descriptionPlaceholder: 'Përshkruani automjetin, gjendjen, historikun...',
-      contactInformation: 'Informacionet e kontaktit',
-      howShouldBuyersContact: 'Si duhet t\'ju kontaktojnë blerësit?',
-      fullNameRequired: 'Emri i plotë *',
-      phoneNumberRequired: 'Numri i telefonit *',
-      emailAddressRequired: 'Adresa e emailit *',
-      locationRequired: 'Vendndodhja *',
-      namePlaceholder: 'Emri juaj i plotë',
-      phonePlaceholder: '070 123 456',
-      yourEmail: 'email.juaj@shembull.com',
-      locationPlaceholder: 'Shkup, Maqedoni',
-      previous: 'I mëparshëm',
-      next: 'Tjetër',
-      listMyCar: 'Publiko shpalljen'
-    }
-  },
-
-  // Forms section for placeholders
-  forms: {
-    placeholders: {
-      egFiftyThousand: 'p.sh. 50.000 km'
-    }
   },
 };
