@@ -841,7 +841,44 @@ export const sqTranslations: TranslationStrings = {
     contactUs: 'Na kontaktoni',
     cookiePolicy: 'Politika e cookies',
     imprint: 'Impresumi',
-    accessibility: 'Aksesueshmëria',
+    accessibility: {
+      title: 'Aksesueshmëria',
+      subtitle: 'Angazhimi ynë për të bërë CarMarket365 të aksesueshem për të gjithë.',
+      backToHome: 'Kthehu te faqja kryesore',
+      commitmentTitle: 'Angazhimi ynë për Aksesueshmërinë',
+      commitmentDescription: 'CarMarket365 është i dedikuar për të ofruar një përvojë gjithëpërfshirëse.',
+      commitmentText: 'Ne besojmë se të gjithë duhet të kenë akses të barabartë në platformën tonë, pavarësisht nga aftësitë e tyre.',
+      visual: {
+        title: 'Aksesueshmëria Vizuale',
+        features: ['Kontrast i lartë për lexueshmëri më të mirë', 'Madhësi e rregullueshme e shkronjave', 'Navigim i qartë dhe i strukturuar', 'Përshkrimet alternative për imazhet']
+      },
+      motor: {
+        title: 'Aksesueshmëria Motorike',
+        features: ['Navigim i plotë me klaviatë', 'Zona të mëdha për klikim', 'Kohë e mjaftueshme për veprime', 'Kontrolle të thjeshtë dhe të qarta']
+      },
+      audio: {
+        title: 'Aksesueshmëria Audio',
+        features: ['Transkriptime për përmbajtjen audio', 'Titra për videot', 'Alternatë tekstuale për tingujt', 'Kompatibilitet me lexuesit e ekranit']
+      },
+      cognitive: {
+        title: 'Aksesueshmëria Kognitive',
+        features: ['Gjuhë e thjeshtë dhe e qartë', 'Instruksione hap pas hapi', 'Mesazhe gabimi të dobishme', 'Organizim logjik i përmbajtjes']
+      },
+      standards: {
+        title: 'Standardet e Aksesueshmërisë',
+        description: 'Platforma jonë është ndërtuar në përputhje me standardet ndërkombëtare.',
+        wcagGuidelines: 'Përputhshmëria WCAG 2.1',
+        wcagDescription: 'Ne synojmë përputhshmëri me udhëzimet WCAG 2.1 AA për aksesueshmëri në web.',
+        platformCompatibility: 'Kompatibiliteti me Teknologjitë Ndihmëse',
+        platformCompatibilityDescription: 'Platforma jonë është testuar me lexuesit e ekranit dhe teknologji të tjera ndihmëse.'
+      },
+      feedback: {
+        title: 'Komente mbi Aksesueshmërinë?',
+        message: 'Nëse hasni probleme me aksesueshmërinë ose keni sugjerime për përmirësim, na kontaktoni në accessibility@carmarket365.com',
+        returnToPlatform: 'Kthehu te Platforma',
+        contactTeam: 'Kontakto Ekipin për Aksesueshmërinë'
+      }
+    },
     signUp: 'Regjistrohu',
     signIn: 'Kyçu',
     dashboard: 'Paneli',
