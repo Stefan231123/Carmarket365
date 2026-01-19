@@ -583,7 +583,7 @@ export interface User {
 export interface FilterCarsInput {
   makeId?: string;
   modelId?: string;
-  bodyType?: BodyType;
+  bodyType?: string; // Allow string to support 'any' option
   fuelTypes?: FuelType[];
   transmissionType?: TransmissionType;
   yearMin?: number;
@@ -596,5 +596,62 @@ export interface FilterCarsInput {
   location?: string;
   exteriorColor?: string;
   features?: string[];
-  fullServiceHistory?: boolean;
+  fullServiceHistory?: string | boolean; // Allow string to support 'any' option
+  
+  // Additional properties used by FilterChips component
+  additionalProperties?: string[];
+  firstRegistrationFrom?: number;
+  firstRegistrationTo?: number;
+  powerMinKW?: number;
+  powerMaxKW?: number;
+  countries?: string[];
+  cityZipCode?: string;
+  radiusKm?: string | number;
+  gear?: string;
+  numberOfSeats?: string | number;
+  seller?: string;
+  vehicleCondition?: string;
+  optionalEquipment?: string[];
+  bodyColor?: string;
+  paintWork?: string;
+  interiorColor?: string;
+  upholstery?: string;
+  previousOwners?: string | number;
+  hadAccident?: string;
+  guarantee?: string;
+  nonSmokingVehicle?: string;
+  euroEmissionClass?: string;
+  searchTerm?: string;
+  onlyWithImages?: boolean;
+}
+
+// Additional interfaces used by components
+export interface SearchResult {
+  cars: Car[]; // Array of car results
+  // Pagination properties
+  hasNextPage?: boolean;
+  totalCount?: number;
+  totalPages?: number;
+  currentPage?: number;
+}
+
+export interface SortOptionsInput {
+  field?: string; // Used by SearchResults component
+  direction?: 'ASC' | 'DESC';
+  sortBy?: string; // Alias for field
+  sortDirection?: 'ASC' | 'DESC'; // Alias for direction
+}
+
+export interface AdvancedSearchFiltersInput extends FilterCarsInput {
+  // Inherits all FilterCarsInput properties
+  make?: string; // Used by useAdvancedSearch hook
+  model?: string; // Used by useAdvancedSearch hook
+  fuelType?: string; // Used by useAdvancedSearch hook (single value)
+  bodyType?: string; // Override to allow string values
+}
+
+export interface PaginationInput {
+  page?: number;
+  limit?: number;
+  offset?: number;
 }

@@ -30,9 +30,10 @@ interface CarCardProps {
     isNew?: boolean;
     isCertified?: boolean;
   };
+  layout?: "grid" | "list"; // Used by SearchResults component
 }
 
-export function CarCard({ car }: CarCardProps) {
+export function CarCard({ car, layout }: CarCardProps) {
   const { isFavorite, toggleFavorite } = useFavorites();
   const { t } = useTranslation();
   const vehicleTranslator = useVehicleSpecTranslator(t);

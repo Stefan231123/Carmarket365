@@ -5,9 +5,10 @@ import { redirectService } from '@shared/redirect-service';
 
 interface CountrySwitcherProps {
   className?: string;
+  variant?: string; // Used by LanguageSelector component
 }
 
-export function CountrySwitcher({ className }: CountrySwitcherProps) {
+export function CountrySwitcher({ className, variant }: CountrySwitcherProps) {
   const { country, currentLanguage, setLanguage } = useCountry();
   
   const handleLanguageChange = (languageCode: string) => {

@@ -275,9 +275,12 @@ export function FilterChips({ filters, onRemoveFilter, onClearAll, className = '
     }
 
     if (filters.fullServiceHistory && filters.fullServiceHistory !== 'any') {
+      const historyValue = typeof filters.fullServiceHistory === 'boolean' 
+        ? filters.fullServiceHistory.toString() 
+        : filters.fullServiceHistory;
       chips.push({
         key: 'fullServiceHistory',
-        label: `${t('advancedSearch.fullServiceHistory')}: ${t(`common.${filters.fullServiceHistory.toLowerCase()}`, filters.fullServiceHistory)}`,
+        label: `${t('advancedSearch.fullServiceHistory')}: ${t(`common.${historyValue.toLowerCase()}`, historyValue)}`,
         removable: true
       });
     }

@@ -4565,9 +4565,18 @@ export const sqTranslations: TranslationStrings = {
       
       // Seksionet
       sections: {
-        vehicleDetails: 'Detajet e Makinës',
-        priceLocation: 'Çmimi dhe Lokacioni',
-        featuresOptions: 'Karakteristikat dhe Opsionet',
+        basicInformation: {
+          title: 'Informacion Bazë',
+          description: 'Vendos kriteret bazë të kërkimit',
+        },
+        technicalSpecs: {
+          title: 'Specifikimet Teknike',
+          description: 'Detajet e motorit, transmetimit dhe performancës',
+        },
+        featuresEquipment: {
+          title: 'Karakteristikat dhe Pajisjet',
+          description: 'Përzgjidh karakteristikat dhe pajisjet e dëshiruara',
+        },
       },
       
       // Fushat e Detajeve të Makinës
@@ -4616,31 +4625,32 @@ export const sqTranslations: TranslationStrings = {
         anyRadius: 'Çdo Distancë',
       },
       
-      // Opsionet
-      options: {
-        mileage: {
-          under10k: 'Nën 10,000 kilometra',
-          under25k: 'Nën 25,000 kilometra',
-          under50k: 'Nën 50,000 kilometra',
-          under75k: 'Nën 75,000 kilometra',
-          under100k: 'Nën 100,000 kilometra',
-          under150k: 'Nën 150,000 kilometra',
-          over100k: 'Mbi 100,000 kilometra',
-        },
-        radius: {
-          miles25: '25 km',
-          miles50: '50 km',
-          miles100: '100 km',
-          miles200: '200 km',
-          miles250: '250 milje',
-          miles500: '500 milje',
-          nationwide: 'Në Mbarë Vendin',
-        },
-        sellerTypes: {
-          dealersOnly: 'Vetëm Dilerët',
-          privateOnly: 'Vetëm Shitësit Privatë',
-          certifiedOnly: 'Vetëm Dilerët e Certifikuar',
-        },
+      // Distance options  
+      distances: {
+        25: 'Brenda 25 km',
+        50: 'Brenda 50 km',
+        100: 'Brenda 100 km',
+        200: 'Brenda 200 km',
+        250: 'Brenda 250 km',
+        500: 'Brenda 500 km',
+        nationwide: 'Në Mbarë Vendin',
+      },
+      
+      // Mileage options
+      mileage: {
+        under10k: 'Nën 10,000 kilometra',
+        under25k: 'Nën 25,000 kilometra',
+        under50k: 'Nën 50,000 kilometra',
+        under75k: 'Nën 75,000 kilometra',
+        under100k: 'Nën 100,000 kilometra',
+        under150k: 'Nën 150,000 kilometra',
+      },
+      
+      // Seller types
+      sellerTypes: {
+        dealersOnly: 'Vetëm Dilerët',
+        privateOnly: 'Vetëm Shitësit Privatë',
+        certifiedOnly: 'Vetëm Dilerët e Certifikuar',
       },
       
       // Karakteristikat

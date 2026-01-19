@@ -11,11 +11,39 @@ export function useTranslation() {
   
   const { currentLanguage } = context;
   
-  const t = (key: string, options?: { returnObjects?: boolean }): string | any => {
-    if (options?.returnObjects) {
+  const t = (key: string, fallbackOrOptions?: string | { returnObjects?: boolean; [key: string]: any }, options?: { returnObjects?: boolean }): string | any => {
+    // Handle overloaded function signature
+    let actualOptions: { returnObjects?: boolean; [key: string]: any } | undefined;
+    let fallback: string | undefined;
+    
+    if (typeof fallbackOrOptions === 'string') {
+      fallback = fallbackOrOptions;
+      actualOptions = options || {};
+    } else {
+      actualOptions = fallbackOrOptions || {};
+    }
+    
+    if (actualOptions?.returnObjects) {
       return translateWithObjects(currentLanguage as SupportedLanguage, key);
     }
-    return translate(currentLanguage as SupportedLanguage, key);
+    
+    let translated = translate(currentLanguage as SupportedLanguage, key);
+    
+    // Handle template variables (simple replacement for now)
+    if (actualOptions && typeof translated === 'string') {
+      Object.entries(actualOptions).forEach(([varKey, value]) => {
+        if (varKey !== 'returnObjects' && typeof value === 'string') {
+          translated = translated.replace(`{${varKey}}`, value);
+        }
+      });
+    }
+    
+    // If translation failed and we have a fallback, use it
+    if (translated === key && fallback) {
+      return fallback;
+    }
+    
+    return translated;
   };
 
   return { t, currentLanguage };
