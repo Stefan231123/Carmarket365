@@ -66,6 +66,9 @@ const ChartContainer = React.forwardRef<
 ChartContainer.displayName = "Chart";
 
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
+  // Sanitize id to prevent injection attacks - only allow alphanumeric, dash, underscore
+  const safeId = id.replace(/[^a-zA-Z0-9\-_]/g, '');
+  
   const colorConfig = Object.entries(config).filter(
     ([_, config]) => config.theme || config.color,
   );
@@ -80,7 +83,7 @@ const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
         __html: Object.entries(THEMES)
           .map(
             ([theme, prefix]) => `
-${prefix} [data-chart=${id}] {
+${prefix} [data-chart=${safeId}] {
 ${colorConfig
   .map(([key, itemConfig]) => {
     const color =

@@ -13,7 +13,8 @@ export default defineConfig(() => ({
           'react-vendor': ['react', 'react-dom'],
           'router': ['react-router-dom'],
           'ui-vendor': ['lucide-react', 'clsx', 'tailwind-merge'],
-          'apollo': ['@apollo/client'],
+          'apollo': ['@apollo/client', 'graphql'],
+          'translations': ['/shared/translations'],
           'radix-vendor': [
             '@radix-ui/react-accordion',
             '@radix-ui/react-alert-dialog',
@@ -42,11 +43,28 @@ export default defineConfig(() => ({
             '@radix-ui/react-toggle',
             '@radix-ui/react-toggle-group',
             '@radix-ui/react-tooltip'
-          ]
+          ],
+          // Split by route/feature
+          'admin': [/client\/pages\/admin/],
+          'listing': [/client\/pages.*Detail/, /client\/pages.*Listing/],
+          'auth': [/client\/pages.*Auth/, /client\/contexts.*Auth/]
+        },
+        // Optimize chunk size and enable compression
+        chunkFileNames: 'js/[name]-[hash].js',
+        entryFileNames: 'js/[name]-[hash].js',
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+            return 'css/[name]-[hash].[ext]';
+          }
+          return 'assets/[name]-[hash].[ext]';
         }
       }
     },
-    chunkSizeWarningLimit: 600
+    chunkSizeWarningLimit: 400, // Lower warning limit to catch large chunks
+    minify: 'esbuild', // Use esbuild for faster minification
+    target: 'es2020', // Modern target for better tree-shaking
+    cssCodeSplit: true, // Split CSS for better caching
+    sourcemap: false // Disable source maps in production for size
   },
   plugins: [react()],
   resolve: {

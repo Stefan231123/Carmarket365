@@ -74,7 +74,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const token = localStorage.getItem('auth_token');
+        const token = localStorage.getItem('authToken');
         if (!token) {
           // No token, just set as not authenticated without making API calls
           dispatch({ type: 'AUTH_FAILURE', payload: 'No token found' });

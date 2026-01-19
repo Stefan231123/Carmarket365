@@ -85,7 +85,7 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
   // Removed automatic auth check on mount that was causing issues
   // Check for existing token but don't make API calls immediately
   useEffect(() => {
-    const token = localStorage.getItem('auth_token');
+    const token = localStorage.getItem('authToken');
     if (token) {
       // Just log that we found a token, don't validate it immediately
       console.log('Found existing auth token, ready for API calls');
@@ -171,7 +171,7 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
   const logout = async () => {
     try {
       // Clear token from localStorage
-      localStorage.removeItem('auth_token');
+      localStorage.removeItem('authToken');
       dispatch({ type: 'AUTH_LOGOUT' });
     } catch (error) {
       console.error('Logout error:', error);

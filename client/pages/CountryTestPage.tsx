@@ -117,9 +117,9 @@ export default function CountryTestPage() {
                     </div>
                   </div>
                   
-                  <div className="text-xs text-muted-foreground bg-muted/50 p-3 rounded" dangerouslySetInnerHTML={{
-                    __html: t('hardcodedFixes.countryTestPage.developmentNote')
-                  }} />
+                  <div className="text-xs text-muted-foreground bg-muted/50 p-3 rounded">
+                    {t('hardcodedFixes.countryTestPage.developmentNote')}
+                  </div>
                 </div>
               </CardContent>
             </Card>
@@ -130,11 +130,12 @@ export default function CountryTestPage() {
             <CardHeader>
               <CardTitle>🚗 {t('hardcodedFixes.countryTestPage.carListingsFor')} {country?.name}</CardTitle>
               <CardDescription>
-                <span dangerouslySetInnerHTML={{
-                  __html: t('hardcodedFixes.countryTestPage.onlyListedDescription')
-                    .replace('{country}', country?.name || '')
-                    .replace('{code}', country?.code || '')
-                }} />
+                <span>
+                  {t('hardcodedFixes.countryTestPage.onlyListedDescription', {
+                    country: country?.name || '',
+                    code: country?.code || ''
+                  })}
+                </span>
               </CardDescription>
             </CardHeader>
             <CardContent>
