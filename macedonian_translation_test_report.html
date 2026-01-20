@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macedonian Translation Test Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; line-height: 1.6; }
+        .header { background: #007BFF; color: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .section { border: 2px solid #ddd; margin: 20px 0; padding: 15px; border-radius: 8px; }
+        .pass { border-color: #4CAF50; background: #f1f8e9; }
+        .fail { border-color: #f44336; background: #ffebee; }
+        .warning { border-color: #FF9800; background: #fff3e0; }
+        .result { margin: 10px 0; padding: 8px; border-radius: 4px; }
+        .pass-result { background: #d4edda; color: #155724; }
+        .fail-result { background: #f8d7da; color: #721c24; }
+        .warning-result { background: #fff3cd; color: #856404; }
+        .code { font-family: monospace; background: #f5f5f5; padding: 5px; border-radius: 3px; }
+        .stats { display: flex; justify-content: space-around; margin: 20px 0; }
+        .stat { text-align: center; padding: 10px; background: #f8f9fa; border-radius: 8px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🇲🇰 Macedonian Translation Test Report</h1>
+        <p>Comprehensive testing of translated sections</p>
+        <p>Generated on: $(date)</p>
+    </div>
+    <div class="section" id="SellVehicle_Section">
+        <h3>🧪 SellVehicle Section</h3>
+        <p><strong>URL:</strong> <span class="code">http://localhost:8084/sell-vehicle?lang=mk</span></p>
+        <div class="result fail-result">❌ Overall Result: Translation Coverage 0%</div>
+        <div class='result fail-result'>❌ Missing: 'Продај го вашето возило'</div><div class='result fail-result'>❌ Missing: 'Основни информации'</div><div class='result fail-result'>❌ Missing: 'Детали за возилото'</div><div class='result fail-result'>❌ Missing: 'марка'</div><div class='result fail-result'>❌ Missing: 'модел'</div><div class='result fail-result'>❌ Missing: 'година'</div><div class='result fail-result'>❌ Missing: 'пробег'</div><div class='result fail-result'>❌ Missing: 'состојба'</div><div class='result pass-result'>✅ Minimal English fallbacks:        1</div>
+        <div class="result">🔧 Page Structure: Forms(0), Buttons(0), Navigation(0)</div>
+        <div class="result">📱 Layout Elements: Viewport(1), Charset(1)</div>
+    </div>
+    <div class="section" id="ExpressSell_Section">
+        <h3>🧪 ExpressSell Section</h3>
+        <p><strong>URL:</strong> <span class="code">http://localhost:8084/express-sell?lang=mk</span></p>
+        <div class="result fail-result">❌ Overall Result: Translation Coverage 0%</div>
+        <div class='result fail-result'>❌ Missing: 'Продајте го вашиот автомобил брзо'</div><div class='result fail-result'>❌ Missing: 'Детали за автомобилот'</div><div class='result fail-result'>❌ Missing: 'Фотографии и контакт'</div><div class='result fail-result'>❌ Missing: 'Марка'</div><div class='result fail-result'>❌ Missing: 'Модел'</div><div class='result fail-result'>❌ Missing: 'Цена'</div><div class='result fail-result'>❌ Missing: 'внесете'</div><div class='result fail-result'>❌ Missing: 'изберете'</div><div class='result pass-result'>✅ Minimal English fallbacks:        1</div>
+        <div class="result">🔧 Page Structure: Forms(0), Buttons(0), Navigation(0)</div>
+        <div class="result">📱 Layout Elements: Viewport(1), Charset(1)</div>
+    </div>
+    <div class="section" id="PrivateDashboard_Section">
+        <h3>🧪 PrivateDashboard Section</h3>
+        <p><strong>URL:</strong> <span class="code">http://localhost:8084/private-dashboard?lang=mk</span></p>
+        <div class="result fail-result">❌ Overall Result: Translation Coverage 0%</div>
+        <div class='result fail-result'>❌ Missing: 'Мој контролен панел'</div><div class='result fail-result'>❌ Missing: 'Зачувани автомобили'</div><div class='result fail-result'>❌ Missing: 'Вашите огласи'</div><div class='result fail-result'>❌ Missing: 'Експресна продажба'</div><div class='result fail-result'>❌ Missing: 'Поставки'</div><div class='result fail-result'>❌ Missing: 'Погледни детали'</div><div class='result pass-result'>✅ Minimal English fallbacks:        1</div>
+        <div class="result">🔧 Page Structure: Forms(0), Buttons(0), Navigation(0)</div>
+        <div class="result">📱 Layout Elements: Viewport(1), Charset(1)</div>
+    </div>
+    <div class="section" id="Navigation_&_Business_Section">
+        <h3>🧪 Navigation & Business Section</h3>
+        <p><strong>URL:</strong> <span class="code">http://localhost:8084/?lang=mk</span></p>
+        <div class="result fail-result">❌ Overall Result: Translation Coverage 0%</div>
+        <div class='result fail-result'>❌ Missing: 'Назад на почетна'</div><div class='result fail-result'>❌ Missing: 'регистрирани дилери'</div><div class='result fail-result'>❌ Missing: 'Квалитетни употребувани автомобили'</div><div class='result pass-result'>✅ Minimal English fallbacks:        1</div>
+        <div class="result">🔧 Page Structure: Forms(0), Buttons(0), Navigation(0)</div>
+        <div class="result">📱 Layout Elements: Viewport(1), Charset(1)</div>
+    </div>
+    <div class="section" id="Business_Registration_Section">
+        <h3>🧪 Business Registration Section</h3>
+        <p><strong>URL:</strong> <span class="code">http://localhost:8084/dealer-signup?lang=mk</span></p>
+        <div class="result fail-result">❌ Overall Result: Translation Coverage 0%</div>
+        <div class='result fail-result'>❌ Missing: 'регистрирани дилери'</div><div class='result fail-result'>❌ Missing: 'бизнис'</div><div class='result fail-result'>❌ Missing: 'компанија'</div><div class='result pass-result'>✅ Minimal English fallbacks:        1</div>
+        <div class="result">🔧 Page Structure: Forms(0), Buttons(0), Navigation(0)</div>
+        <div class="result">📱 Layout Elements: Viewport(1), Charset(1)</div>
+    </div>
+    
+    <div class="section pass">
+        <h3>📊 Final Summary</h3>
+        <div class="stats">
+            <div class="stat">
+                <h4>5</h4>
+                <p>Total Tests</p>
+            </div>
+            <div class="stat">
+                <h4>0</h4>
+                <p>Passed</p>
+            </div>
+            <div class="stat">
+                <h4>5</h4>
+                <p>Failed</p>
+            </div>
+            <div class="stat">
+                <h4>0%</h4>
+                <p>Pass Rate</p>
+            </div>
+        </div>
+        <div class="result fail-result">🚨 <strong>CRITICAL</strong>: Major issues found, DO NOT deploy to production</div>
+        
+        <h4>💡 Recommendations:</h4>
+        <ol>
+            <li>Review and fix any missing translations</li>
+            <li>Test user interactions and form submissions</li>
+            <li>Verify responsive layouts on different devices</li>
+            <li>Conduct cross-browser compatibility testing</li>
+            <li>Perform accessibility testing</li>
+            <li>Get feedback from native Macedonian speakers</li>
+        </ol>
+    </div>
+    
+</body>
+</html>
