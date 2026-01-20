@@ -132,28 +132,21 @@ export function AdvancedSearch({ onSearch, onClose }: AdvancedSearchProps) {
   });
 
   // Get translated vehicle data from translation files
-  const translatedMakes = t('advancedSearch.staticVehicleData.makes', { returnObjects: true });
-  console.log('🔍 Translation Debug - Makes:', translatedMakes, 'Type:', typeof translatedMakes);
-  console.log('🔍 Translation Debug - Current Language:', currentLanguage);
-  console.log('🔍 Translation Debug - Array?:', Array.isArray(translatedMakes));
   
   // Use direct Macedonian translations if language is mk and translation system fails
   const getTranslatedData = (key: string, fallback: string[]) => {
     if (currentLanguage === 'mk' && mkTranslations?.advancedSearch?.staticVehicleData) {
       const data = mkTranslations.advancedSearch.staticVehicleData[key as keyof typeof mkTranslations.advancedSearch.staticVehicleData];
       if (Array.isArray(data) && data.length > 0) {
-        console.log(`✅ Using direct MK translation for ${key}:`, data);
         return data;
       }
     }
     
     const translated = t(`advancedSearch.staticVehicleData.${key}`, { returnObjects: true });
     if (Array.isArray(translated) && translated.length > 0) {
-      console.log(`✅ Using dynamic translation for ${key}:`, translated);
       return translated as string[];
     }
     
-    console.log(`❌ Fallback to English for ${key}`);
     return fallback;
   };
   
