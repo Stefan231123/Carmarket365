@@ -1,6 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
+import * as cookieParser from 'cookie-parser';
+import * as session from 'express-session';
 import 'reflect-metadata';
 
 async function bootstrap() {
@@ -22,8 +24,23 @@ async function bootstrap() {
     origin: corsOrigins,
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'Accept'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-CSRF-Token'],
   });
+
+  // Add cookie parser middleware
+  app.use(cookieParser());
+
+  // Add session middleware for CSRF protection
+  app.use(session({
+    secret: process.env.SESSION_SECRET || 'carmarket365-session-secret',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: process.env.NODE_ENV === 'production',
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    },
+  }));
 
   // Global validation pipe
   app.useGlobalPipes(new ValidationPipe({

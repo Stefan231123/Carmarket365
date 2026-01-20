@@ -25,6 +25,7 @@ export interface TranslationStrings {
     contact: string;
     phone: string;
     email: string;
+    address: string;
     location: string;
     price: string;
     currency: string;
@@ -3807,23 +3808,22 @@ export interface TranslationStrings {
   };
 }
 
-// Import all translations - temporarily using only English for deployment fix
+// Import all translations - now using clean, rebuilt translation files
 import { enTranslations } from './translations/en';
-// Temporarily excluding all problematic files due to syntax errors preventing deployment
-// import { mkTranslations } from './translations/mk'; 
-// import { sqTranslations } from './translations/sq';
-// import { slTranslations } from './translations/sl';
-// import { lvTranslations } from './translations/lv';
-// import { ruTranslations } from './translations/ru';
+import { mkTranslations } from './translations/mk';
+import { sqTranslations } from './translations/sq';
+import { slTranslations } from './translations/sl';
+import { lvTranslations } from './translations/lv';
+import { ruTranslations } from './translations/ru';
 
-// Translation storage - temporarily using English fallback for ALL languages to fix deployment
+// Translation storage - now using proper multilingual support with clean files
 export const translations: Record<SupportedLanguage, TranslationStrings> = {
   en: enTranslations,
-  mk: enTranslations, // Temporary fallback to fix deployment
-  sq: enTranslations, // Temporary fallback to fix deployment
-  sl: enTranslations, // Temporary fallback to fix deployment
-  lv: enTranslations, // Temporary fallback to fix deployment
-  ru: enTranslations, // Temporary fallback to fix deployment
+  mk: mkTranslations,
+  sq: sqTranslations,
+  sl: slTranslations,
+  lv: lvTranslations,
+  ru: ruTranslations,
 };
 
 // Translation utility functions

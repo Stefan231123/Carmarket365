@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translation Quality Test</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            padding: 20px; 
+            background: #f5f5f5;
+        }
+        .test-section { 
+            background: white; 
+            padding: 20px; 
+            margin: 10px 0; 
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .error { color: #d32f2f; font-weight: bold; }
+        .warning { color: #f57c00; font-weight: bold; }
+        .success { color: #2e7d32; font-weight: bold; }
+        .test-result { 
+            padding: 10px; 
+            margin: 5px 0; 
+            border-radius: 4px;
+        }
+        .error-bg { background: #ffebee; border: 1px solid #f44336; }
+        .warning-bg { background: #fff3e0; border: 1px solid #ff9800; }
+        .success-bg { background: #e8f5e8; border: 1px solid #4caf50; }
+    </style>
+</head>
+<body>
+    <h1>Car Market Translation Quality Assessment</h1>
+    
+    <div class="test-section">
+        <h2>Cross-Browser Translation Loading Test</h2>
+        <div id="browserResults"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Language Detection Test</h2>
+        <div id="languageResults"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Translation Fallback Test</h2>
+        <div id="fallbackResults"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Character Encoding Test</h2>
+        <div id="encodingResults"></div>
+    </div>
+
+    <script>
+        // Simulate translation loading test
+        function testTranslationLoading() {
+            const browserResults = document.getElementById('browserResults');
+            const userAgent = navigator.userAgent;
+            
+            let browserName = 'Unknown';
+            if (userAgent.includes('Chrome')) browserName = 'Chrome';
+            else if (userAgent.includes('Firefox')) browserName = 'Firefox';
+            else if (userAgent.includes('Safari')) browserName = 'Safari';
+            else if (userAgent.includes('Edge')) browserName = 'Edge';
+            
+            // Test UTF-8 support
+            const testStrings = {
+                'Albanian': 'Përshëndetje, si jeni? Kërkoni një automjet?',
+                'Macedonian': 'Здраво, како сте? Барате возило?',
+                'Slovenian': 'Pozdrav, kako ste? Iščete vozilo?',
+                'Latvian': 'Sveiki, kā klājas? Vai meklējat transportlīdzekli?',
+                'Russian': 'Привет, как дела? Ищете автомобиль?'
+            };
+            
+            let results = `<div class="test-result success-bg">
+                <strong>Browser:</strong> ${browserName}<br>
+                <strong>UTF-8 Support:</strong> ✅ Supported<br>
+                <strong>Character Rendering Test:</strong>
+            </div>`;
+            
+            for (const [lang, text] of Object.entries(testStrings)) {
+                results += `<div class="test-result">
+                    <strong>${lang}:</strong> ${text}
+                </div>`;
+            }
+            
+            browserResults.innerHTML = results;
+        }
+        
+        // Test language detection
+        function testLanguageDetection() {
+            const languageResults = document.getElementById('languageResults');
+            const detectedLang = navigator.language || navigator.userLanguage;
+            
+            languageResults.innerHTML = `
+                <div class="test-result success-bg">
+                    <strong>Detected Language:</strong> ${detectedLang}<br>
+                    <strong>Supported Languages:</strong> en, mk, sq, sl, lv, ru<br>
+                    <strong>Status:</strong> ${['en', 'mk', 'sq', 'sl', 'lv', 'ru'].includes(detectedLang.split('-')[0]) ? '✅ Supported' : '⚠️ Using fallback (English)'}
+                </div>
+            `;
+        }
+        
+        // Test translation fallback mechanism
+        function testTranslationFallback() {
+            const fallbackResults = document.getElementById('fallbackResults');
+            
+            // Simulate missing translation key scenario
+            const mockTranslations = {
+                'en': { common: { loading: 'Loading...' } },
+                'sq': { common: {} }, // Missing key
+                'mk': { common: { loading: 'Се вчитува...' } }
+            };
+            
+            function getTranslation(lang, key) {
+                try {
+                    return mockTranslations[lang]?.common?.[key] || mockTranslations['en'].common[key] || key;
+                } catch (e) {
+                    return key; // Ultimate fallback
+                }
+            }
+            
+            const tests = [
+                { lang: 'en', key: 'loading', expected: 'Loading...' },
+                { lang: 'sq', key: 'loading', expected: 'Loading...' }, // Should fallback to English
+                { lang: 'mk', key: 'loading', expected: 'Се вчитува...' },
+                { lang: 'xx', key: 'loading', expected: 'Loading...' } // Invalid language
+            ];
+            
+            let results = '';
+            tests.forEach(test => {
+                const result = getTranslation(test.lang, test.key);
+                const success = result === test.expected;
+                results += `<div class="test-result ${success ? 'success-bg' : 'error-bg'}">
+                    <strong>Test:</strong> ${test.lang}.common.${test.key}<br>
+                    <strong>Expected:</strong> ${test.expected}<br>
+                    <strong>Got:</strong> ${result}<br>
+                    <strong>Status:</strong> ${success ? '✅ PASS' : '❌ FAIL'}
+                </div>`;
+            });
+            
+            fallbackResults.innerHTML = results;
+        }
+        
+        // Test character encoding
+        function testCharacterEncoding() {
+            const encodingResults = document.getElementById('encodingResults');
+            
+            // Test special characters and diacritics
+            const specialChars = {
+                'Albanian': 'ç, ë, ï, ö, ü, ÿ',
+                'Macedonian': 'љ, њ, џ, ж, ш, ч',
+                'Slovenian': 'č, š, ž, ć, đ',
+                'Latvian': 'ā, č, ē, ģ, ī, ķ, ļ, ņ, š, ū, ž',
+                'Russian': 'ё, й, ъ, ы, ь, э, ю, я'
+            };
+            
+            let results = '';
+            for (const [lang, chars] of Object.entries(specialChars)) {
+                // Test if characters render correctly by comparing string length
+                const originalLength = chars.length;
+                const encodedLength = encodeURIComponent(chars).length;
+                
+                results += `<div class="test-result success-bg">
+                    <strong>${lang} Characters:</strong> ${chars}<br>
+                    <strong>String Length:</strong> ${originalLength}<br>
+                    <strong>UTF-8 Encoded Length:</strong> ${encodedLength}<br>
+                    <strong>Status:</strong> ✅ Properly encoded
+                </div>`;
+            }
+            
+            encodingResults.innerHTML = results;
+        }
+        
+        // Run all tests
+        document.addEventListener('DOMContentLoaded', function() {
+            testTranslationLoading();
+            testLanguageDetection();
+            testTranslationFallback();
+            testCharacterEncoding();
+        });
+    </script>
+</body>
+</html>

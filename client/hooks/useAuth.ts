@@ -9,6 +9,7 @@ import {
   AuthResponse,
   User
 } from '@/lib/graphql/operations';
+import { tokenManager } from '../utils/secureTokenManager';
 
 interface UseAuthReturn {
   // State
@@ -37,8 +38,8 @@ export function useAuth(): UseAuthReturn {
   // Login mutation
   const [loginMutation, { loading: loginLoading }] = useMutation(LOGIN_MUTATION, {
     errorPolicy: 'all',
-    onCompleted: (data: { login: AuthResponse }) => {
-      localStorage.setItem('authToken', data.login.access_token);
+    onCompleted: async (data: { login: AuthResponse }) => {
+      await tokenManager.setTokens({ access_token: data.login.access_token });
       setError(null);
       refetchUser(); // Refresh user data
     },
@@ -50,8 +51,8 @@ export function useAuth(): UseAuthReturn {
   // Register mutation
   const [registerMutation, { loading: registerLoading }] = useMutation(REGISTER_MUTATION, {
     errorPolicy: 'all',
-    onCompleted: (data: { register: AuthResponse }) => {
-      localStorage.setItem('authToken', data.register.access_token);
+    onCompleted: async (data: { register: AuthResponse }) => {
+      await tokenManager.setTokens({ access_token: data.register.access_token });
       setError(null);
       refetchUser(); // Refresh user data
     },
@@ -78,8 +79,8 @@ export function useAuth(): UseAuthReturn {
     }
   };
   
-  const logout = () => {
-    localStorage.removeItem('authToken');
+  const logout = async () => {
+    await tokenManager.clearTokens();
     setError(null);
     // Clear Apollo cache for user queries
     refetchUser();

@@ -3,6 +3,8 @@
  * Handles all communication with the backend NestJS GraphQL API
  */
 
+import { tokenManager } from '../client/utils/secureTokenManager';
+
 export interface ApiResponse<T> {
   data?: T;
   errors?: Array<{
@@ -111,27 +113,48 @@ class ApiClient {
   private token: string | null = null;
 
   constructor() {
-    this.baseUrl = 'http://localhost:3000/graphql';
-    this.loadTokenFromStorage();
+    this.baseUrl = 'http://localhost:3001/graphql';
+    // Load token asynchronously and initialize CSRF
+    this.initializeSecureAuth().catch(console.error);
   }
 
-  private loadTokenFromStorage() {
+  private async initializeSecureAuth() {
     if (typeof window !== 'undefined') {
-      this.token = localStorage.getItem('auth_token');
+      // Migrate legacy tokens first
+      tokenManager.migrateLegacyTokens();
+      
+      // Initialize CSRF token
+      await tokenManager.initializeCSRFToken();
+      
+      // Load from secure storage
+      this.token = await tokenManager.getAccessToken();
     }
   }
 
-  private saveTokenToStorage(token: string) {
+  private async loadTokenFromStorage() {
+    // This method is now replaced by initializeSecureAuth
+    await this.initializeSecureAuth();
+  }
+
+  private async saveTokenToStorage(token: string) {
     if (typeof window !== 'undefined') {
-      localStorage.setItem('auth_token', token);
-      this.token = token;
+      const success = await tokenManager.setTokens({ access_token: token });
+      if (success) {
+        this.token = token;
+      } else {
+        console.error('Failed to store token securely');
+      }
     }
   }
 
-  private removeTokenFromStorage() {
+  private async removeTokenFromStorage() {
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('auth_token');
+      const success = await tokenManager.clearTokens();
       this.token = null;
+      
+      if (!success) {
+        console.error('Failed to clear tokens completely');
+      }
     }
   }
 
@@ -140,6 +163,16 @@ class ApiClient {
       'Content-Type': 'application/json',
     };
 
+    // For mutations, include CSRF token
+    const isStateChanging = query.trim().toLowerCase().startsWith('mutation');
+    if (isStateChanging) {
+      const csrfToken = sessionStorage.getItem('csrf_token');
+      if (csrfToken) {
+        headers['X-CSRF-Token'] = csrfToken;
+      }
+    }
+
+    // Include Authorization header if we have a token (for Bearer token fallback)
     if (this.token) {
       headers['Authorization'] = `Bearer ${this.token}`;
     }
@@ -148,7 +181,7 @@ class ApiClient {
       const response = await fetch(this.baseUrl, {
         method: 'POST',
         headers,
-        credentials: 'include',
+        credentials: 'include', // This ensures cookies are sent
         body: JSON.stringify({
           query,
           variables,
@@ -185,11 +218,12 @@ class ApiClient {
             savedListingIds
           }
           access_token
+          session_id
         }
       }
     `;
 
-    const response = await this.request<{ login: { user: User; access_token: string } }>(
+    const response = await this.request<{ login: { user: User; access_token: string; session_id: string } }>(
       query,
       input
     );
@@ -199,8 +233,10 @@ class ApiClient {
     }
 
     if (response.data?.login) {
-      const { user, access_token } = response.data.login;
-      this.saveTokenToStorage(access_token);
+      const { user, access_token, session_id } = response.data.login;
+      // Tokens are now stored automatically in httpOnly cookies
+      // Just update our local reference
+      this.token = access_token;
       return { user, tokens: { access_token } };
     }
 
@@ -224,11 +260,12 @@ class ApiClient {
             savedListingIds
           }
           access_token
+          session_id
         }
       }
     `;
 
-    const response = await this.request<{ register: { user: User; access_token: string } }>(
+    const response = await this.request<{ register: { user: User; access_token: string; session_id: string } }>(
       query,
       input
     );
@@ -238,8 +275,10 @@ class ApiClient {
     }
 
     if (response.data?.register) {
-      const { user, access_token } = response.data.register;
-      this.saveTokenToStorage(access_token);
+      const { user, access_token, session_id } = response.data.register;
+      // Tokens are now stored automatically in httpOnly cookies
+      // Just update our local reference
+      this.token = access_token;
       return { user, tokens: { access_token } };
     }
 
@@ -247,12 +286,30 @@ class ApiClient {
   }
 
   async logout(): Promise<void> {
-    this.removeTokenFromStorage();
+    try {
+      // Call GraphQL logout mutation
+      const query = `
+        mutation Logout {
+          logout
+        }
+      `;
+
+      await this.request<{ logout: boolean }>(query);
+      
+      // Clear local token reference
+      this.token = null;
+      
+      // Clear local storage fallback
+      await this.removeTokenFromStorage();
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Clear local state even if backend call fails
+      this.token = null;
+      await this.removeTokenFromStorage();
+    }
   }
 
   async getCurrentUser(): Promise<User | null> {
-    if (!this.token) return null;
-
     const query = `
       query Me {
         me {
@@ -274,13 +331,18 @@ class ApiClient {
       const response = await this.request<{ me: User }>(query);
       
       if (response.errors) {
-        this.removeTokenFromStorage();
+        // Clear tokens on authentication error
+        this.token = null;
+        await this.removeTokenFromStorage();
         return null;
       }
 
       return response.data?.me || null;
-    } catch {
-      this.removeTokenFromStorage();
+    } catch (error) {
+      console.error('getCurrentUser error:', error);
+      // Clear tokens on error
+      this.token = null;
+      await this.removeTokenFromStorage();
       return null;
     }
   }

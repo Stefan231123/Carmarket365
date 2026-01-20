@@ -2,6 +2,7 @@ import { TranslationStrings } from '../translations';
 
 export const enTranslations: TranslationStrings = {
   common: {
+    loading: 'Loading...',
     error: 'Error',
     retry: 'Retry',
     close: 'Close',
@@ -9,6 +10,7 @@ export const enTranslations: TranslationStrings = {
     confirm: 'Confirm',
     continue: 'Continue',
     back: 'Back',
+    next: 'Next',
     previous: 'Previous',
     search: 'Search',
     filter: 'Filter',
@@ -17,17 +19,31 @@ export const enTranslations: TranslationStrings = {
     edit: 'Edit',
     delete: 'Delete',
     add: 'Add',
+    view: 'View',
+    contact: 'Contact',
+    phone: 'Phone',
+    email: 'Email',
     location: 'Location',
     price: 'Price',
     currency: 'USD',
     ar: 'Year',
     make: 'Make',
     model: 'Model',
+    mileage: 'Mileage',
+    condition: 'Condition',
+    features: 'Features',
+    description: 'Description',
     images: 'Images',
+    seller: 'Seller',
+    dealer: 'Dealer',
+    private: 'Private',
     yes: 'Yes',
     no: 'No',
     menu: 'Menu',
+    new: 'New',
+    certified: 'Certified',
     vehicle: 'Vehicle',
+    message: 'Message',
     default: 'Default',
     secondary: 'Secondary',
     outline: 'Outline',
@@ -39,6 +55,7 @@ export const enTranslations: TranslationStrings = {
     option: 'Option',
     sending: 'Sending...',
     processing: 'Processing...',
+    loading: 'Loading...',
     errorLoadingImage: 'Error loading image',
   },
 
@@ -56,27 +73,43 @@ export const enTranslations: TranslationStrings = {
       employmentStatusRequired: 'Employment status is required',
       arsAtJobRequired: 'Current job tenure is required',
       monthlyExpensesRequired: 'Monthly expenses are required',
+      makeRequired: 'Make is required',
+      modelRequired: 'Model is required',
+      arRequired: 'Year required',
       arInvalid: 'Invalid year',
+      mileageRequired: 'Mileage required',
       mileageNegative: 'Mileage cannot be negative',
+      dateRequired: 'Please select a date',
+      timeRequired: 'Please select a time',
     },
     labels: {
       fullName: 'Full Name',
+      email: 'Email',
+      phone: 'Phone number',
+      message: 'Message',
     },
     placeholders: {
+      enterFullName: 'Enter your full name',
+      enterEmail: 'Enter your email',
       enterPhone: 'Enter your phone number',
       contactMessage: 'Hello, I am interested in the {ar} {make} {model}. Please contact me for more details.',
     },
     actions: {
+      sendMessage: 'Send Message',
     },
   },
 
   // Modals - titles, descriptions, success messages
   modals: {
     contactCar: {
+      title: 'Contact Seller',
+      description: 'Send message about this car',
       successTitle: 'Message sent successfully!',
       successDescription: 'Your message has been sent to the seller. They will contact you soon.',
     },
     financing: {
+      title: 'Get Pre-Approval for Financing',
+      description: 'Get pre-approved for auto financing in minutes',
       badges: {
         financingAvailable: 'Financing Available',
       },
@@ -85,6 +118,10 @@ export const enTranslations: TranslationStrings = {
         student: 'Student',
         unemplod: 'Unemployed',
       },
+      placeholders: {
+        enterFullName: 'Enter your full name',
+        enterPhone: 'Enter your phone number',
+        enterEmail: 'Enter your email address',
         enterLoanAmount: 'Enter loan amount',
         enterAnnualIncome: 'Enter annual income',
         enterMonthlyExpenses: 'Enter monthly expenses',
@@ -92,31 +129,69 @@ export const enTranslations: TranslationStrings = {
         selectStatus: 'Select status',
         selectDuration: 'Select duration',
       },
+      validation: {
+        validEmail: 'Please enter a valid email',
+        monthlyExpensesRequired: 'Monthly expenses are required',
       },
     },
     scheduleTestDrive: {
+      title: 'Schedule Test Drive',
+      description: 'Book an appointment to test drive this vehicle',
       badge: 'Test Drive Available',
+      labels: {
+        fullName: 'Full Name',
+        email: 'Email',
+        phone: 'Phone number',
+        preferredDate: 'Preferred Date',
+        preferredTime: 'Preferred Time',
         specialRequests: 'Special Requests',
       },
+      placeholders: {
+        enterFullName: 'Enter your full name',
+        enterEmail: 'Enter your email address',
+        enterPhone: 'Enter your phone number',
         selectDate: 'Select preferred date',
         selectTime: 'Select preferred time',
         enterRequests: 'Any special requests or questions?',
       },
+      validation: {
+        emailInvalid: 'Please enter a valid email',
         dateRequired: 'Please select a preferred date',
         timeRequired: 'Please select a preferred time',
       },
       success: {
+        title: 'Test Drive Scheduled!',
+        description: 'Your test drive request has been sent to the seller. They will contact you to confirm the appointment.',
       },
+      actions: {
+        cancel: 'Cancel',
         schedule: 'Schedule Test Drive',
         scheduling: 'Scheduling...',
       },
     },
     tradeIn: {
+      title: 'Trade-In Estimator',
+      description: 'Get an instant estimate of your current vehicle trade-in value',
       tabs: {
         vehicleInfo: 'Vehicle Information',
+        condition: 'Condition',
+        results: 'Results'
       },
       form: {
+        labels: {
+          make: 'Make',
+          model: 'Model',
+          ar: 'Year',
+          mileage: 'Mileage (km)',
+          condition: 'Overall Condition',
+          accident: 'Accident History',
+          serviceHistory: 'Service History',
+          modifications: 'Modifications'
         },
+        placeholders: {
+          selectMake: 'Select make',
+          selectModel: 'Select model',
+          selectYear: 'Select year',
           enterMileage: 'Enter mileage in kilometers',
           selectCondition: 'Select overall condition',
           selectAccidentHistory: 'Select accident history',
@@ -126,8 +201,14 @@ export const enTranslations: TranslationStrings = {
         options: {
           condition: {
             excellent: 'Excellent',
+            good: 'Good',
+            fair: 'Fair',
+            poor: 'Poor'
           },
           accident: {
+            none: 'No accidents',
+            minor: 'Minor accident',
+            major: 'Major accident',
             multiple: 'Multiple accidents'
           },
           serviceHistory: {
@@ -136,11 +217,13 @@ export const enTranslations: TranslationStrings = {
             none: 'No service history'
           },
           modifications: {
+            none: 'No modifications',
             minor: 'Minor modifications',
             major: 'Major modifications'
           }
         }
       },
+      validation: {
         makeRequired: 'Please select a make',
         modelRequired: 'Please select a model',
         arRequired: 'Please select a year',
@@ -152,6 +235,7 @@ export const enTranslations: TranslationStrings = {
         modificationsRequired: 'Please select modifications'
       },
       results: {
+        title: 'Your Trade-In Estimate',
         estimatedValue: 'Estimated Trade-In Value',
         range: 'Range',
         confidence: 'Confidence Level',
@@ -161,116 +245,214 @@ export const enTranslations: TranslationStrings = {
           low: 'Low'
         },
         factors: {
+          title: 'Factors affecting your estimate',
           positive: 'Positive factors',
           negative: 'Negative factors',
           neutral: 'Neutral factors'
         },
         recommendations: {
+          title: 'Recommendations',
           maintenance: 'Consider addressing maintenance issues before trading',
+          documentation: 'Gather all service records and documentation',
+          inspection: 'Get a professional inspection for accurate assessment',
           timing: 'Consider market timing for your specific make and model'
         },
         disclaimer: {
+          title: 'Important Notice',
           text: 'This is an estimated cost based on the provided information. Actual trade-in values may vary depending on dealer policies, current market conditions, and physical inspection of the vehicle. We recommend obtaining quotes from multiple dealers for the most accurate assessment.'
         }
       },
+      actions: {
         calculate: 'Calculate Estimate',
         recalculate: 'Recalculate',
         getQuotes: 'Get Dealer Quotes',
         startOver: 'Start Over',
+        close: 'Close',
+        next: 'Next',
+        previous: 'Back'
       },
       loading: {
         calculating: 'Calculating your estimate...',
         fetchingData: 'Fetching market data...'
       }
     },
+    badges: {
+      new: 'New',
+      certified: 'Certified',
     },
   },
 
   hero: {
+    title: 'Find Your Ideal Car',
+    subtitle: 'Browse thousands of quality pre-owned vehicles',
     searchButton: 'Find Cars',
+    advancedSearch: 'Advanced Search',
     vehicleTypes: {
+      cars: 'Cars',
       motorbikes: 'Motorbikes',
+      trucks: 'Trucks',
     },
     searchForm: {
+      make: 'Make',
+      model: 'Model',
       priceFrom: 'Price From',
       priceTo: 'Price To',
       arFrom: 'Year From',
+      mileage: 'Mileage (km)',
+      location: 'Location',
+      anyMake: 'Any Make',
+      anyModel: 'Any Model',
+      minPrice: 'Min Price',
+      maxPrice: 'Max Price',
       minYear: 'Min Year',
+      anyYear: 'Any Year',
+      anyMileage: 'Any Mileage',
+      maxMileage: 'Max Mileage',
+      noMin: 'No Min',
+      noMax: 'No Max',
+      enterLocation: 'Enter city or postal code',
     },
     availableCars: 'Over 50,000 cars available nationwide',
   },
 
   // Features Section
   features: {
+    title: 'Why Choose CarFinder?',
+    subtitle: 'We make car buying simple, safe, and transparent with our comprehensive platform',
     items: {
       verifiedListings: {
+        title: 'Verified Listings',
+        description: 'All cars are inspected and verified by our team of experts to ensure quality and authenticity.',
       },
       advancedSearch: {
+        title: 'Advanced Search',
+        description: 'Find exactly what you\'re looking for with our powerful search filters and smart recommendations.',
       },
       bestPrices: {
+        title: 'Best Prices',
+        description: 'Competitive pricing with no hidden fees. Get the best value for your money every time.',
       },
       freeDelivery: {
+        title: 'Free Delivery',
+        description: 'Get your car delivered to your doorstep within 50 miles. Safe and secure transportation.',
       },
       quickProcess: {
+        title: 'Quick Process',
+        description: 'Complete your purchase in minutes with our streamlined buying process and digital paperwork.',
       },
       expertSupport: {
+        title: 'Expert Support',
+        description: 'Our dedicated team is here to help you every step of the way, from search to purchase.',
       },
     },
   },
 
   // Last Search Section
   lastSearch: {
+    title: 'Last Search',
+    description: 'BMW cars from €20,000 - €35,000, years 2019-2022 • Found 247 results',
     viewMore: 'Show more',
     matchPercentage: '% match',
   },
 
   // Interesting Suggestions Section
   suggestions: {
+    title: 'This might interest you',
+    description: 'Fresh BMW listings matching your criteria • Recently added to the platform',
     seeMore: 'Show more suggestions',
     daysAgo: 'd ago',
   },
 
   // Popular Brands Section
   brands: {
+    title: 'Shop by Brands',
+    description: 'Browse cars from the most popular manufacturers',
     carsCount: 'cars',
   },
 
   header: {
+    welcome: 'Welcome to CarMarket365',
     signIn: 'Sign In',
     signOut: 'Sign Out',
     myAccount: 'My Account',
+    dashboard: 'Dashboard',
     home: 'Home',
+    browseCars: 'Browse Cars',
     sellCar: 'Sell Car',
+    savedCars: 'Saved Cars',
+    financing: 'Financing',
+    about: 'About Us',
+    contact: 'Contact',
+    faq: 'Frequently Asked Questions',
     help: 'Help',
   },
 
   cars: {
+    title: 'Cars for Sale',
+    searchPlaceholder: 'Make, model or keyword',
     noResults: 'No cars found matching your criteria',
     resultsCount: 'Found {count} vehicles',
+    viewDetails: 'View Details',
     contactSeller: 'Contact Seller',
+    saveToFavorites: 'Save to Favorites',
     removeFromFavorites: 'Remove from Favorites',
+    carDetails: 'Car Details',
     specifications: 'Specifications',
+    fuelType: 'Fuel type',
+    transmission: 'Transmission',
+    bodyType: 'Body Type',
     exteriorColor: 'Exterior Color',
+    interiorColor: 'Interior color',
+    drivetrain: 'Drive type',
     vin: 'VIN Number',
+    inspection: 'Inspection',
+    history: 'History',
+    financing: 'Financing',
+    testDrive: 'Test Drive',
     makeOffer: 'Make Offer',
     featured: 'Featured Listings',
     handpicked: 'Handpicked Cars for You',
     discover: 'Discover our carefully selected premium vehicles',
+    allCars: 'All Cars',
     newCars: 'New Cars',
     certifiedPreOwned: 'Certified Pre-Owned',
+    electric: 'Electric',
+    luxury: 'Luxury',
+    viewAllCars: 'View All Cars',
   },
 
   filters: {
+    title: 'Search Filters',
+    anyMake: 'Any Make',
+    anyModel: 'Any Model',
+    anyYear: 'Any Year',
+    priceRange: 'Price Range',
+    priceMin: 'Min Price',
+    priceMax: 'Max Price',
+    arRange: 'Year Range',
     arMin: 'Min Year',
     arMax: 'Max Year',
+    mileageMax: 'Max Mileage',
+    location: 'Location',
+    fuelTypes: 'Fuel Type',
+    transmissionTypes: 'Transmission',
+    bodyTypes: 'Body Type',
+    condition: 'Condition',
+    applyFilters: 'Apply Filters',
+    clearFilters: 'Clear Filters',
   },
 
   auth: {
+    signIn: 'Sign In',
     signUp: 'Sign Up',
+    signOut: 'Sign Out',
+    email: 'Email',
     password: 'Password',
     confirmPassword: 'Confirm Password',
     firstName: 'First Name',
     lastName: 'Last Name',
+    phoneNumber: 'Phone Number',
+    rememberMe: 'Remember Me',
     forgotPassword: 'Forgot Password?',
     createAccount: 'Create Account',
     alreadyHaveAccount: 'Already have an account?',
@@ -282,7 +464,9 @@ export const enTranslations: TranslationStrings = {
     userType: 'I am',
     
     // SignIn page specific
+    backToHome: 'Back to Home',
     signInToAccount: 'Sign in to your account',
+    welcomeBack: 'Welcome back',
     enterCredentials: 'Enter your credentials to access your account',
     privatePersonDescription: 'Buy or sell your car',
     dealerDescription: 'Professional seller',
@@ -291,10 +475,13 @@ export const enTranslations: TranslationStrings = {
     enterYourPassword: 'Enter your password',
     signingIn: 'Logging in...',
     orContinueWith: 'Or continue with',
+    google: 'Google',
+    facebook: 'Facebook',
     createPrivateAccount: 'Create Private Account',
     registerAsDealer: 'Register as Dealer',
     dealerBenefits: 'Dealer Benefits',
     professionalDashboard: '• Professional dealer dashboard',
+    inventoryManagement: '• Advanced inventory management',
     customerTracking: '• Customer inquiry tracking',
     enhancedVisibility: '• Enhanced listing visibility',
     analyticsInsights: '• Analytics and insights',
@@ -304,10 +491,16 @@ export const enTranslations: TranslationStrings = {
     joinThousands: 'Join thousands of car enthusiasts',
     privateAccount: 'Private Account',
     buyAndSellCars: 'Buy and sell cars, save favorites and manage listings',
+    fullName: 'Full Name',
+    enterFullName: 'Enter your full name',
+    emailAddress: 'Email Address',
     createStrongPassword: 'Create a strong password',
     confirmYourPassword: 'Confirm your password',
     mustBeCharacters: 'Must be at least 8 characters',
+    agreeToTerms: 'I agree to the',
+    termsOfService: 'Terms of Service',
     and: 'and',
+    privacyPolicy: 'Privacy Policy',
     creatingAccount: 'Creating account...',
     wantSellAsDealer: 'Want to sell cars as a dealer?',
     createDealerAccount: 'Create Dealer Account',
@@ -321,11 +514,14 @@ export const enTranslations: TranslationStrings = {
     
     // Password strength indicator
     passwordStrength: {
+      label: 'Password strength',
       levels: {
         weak: 'Weak',
+        medium: 'Medium',
         strong: 'Strong',
       },
       requirements: {
+        label: 'Requirements:',
         length: 'At least 8 characters',
         uppercase: 'One uppercase letter',
         lowercase: 'One lowercase letter',
@@ -336,14 +532,18 @@ export const enTranslations: TranslationStrings = {
     
     // Social login
     socialLogin: {
+      signingIn: 'Signing in...',
       google: {
+        description: 'Use your Google account to quickly sign in or create a new account.',
       },
       facebook: {
+        description: 'Connect with Facebook to access your CarMarket365 account.',
       },
     },
     
     // Access control
     accessDenied: {
+      title: 'Access Denied',
       signInRequired: 'Please sign in to access this page.',
       insufficientPermissions: 'You don\'t have permission to access this page.',
       redirectingToDashboard: 'Redirecting to your dashboard...',
@@ -355,6 +555,7 @@ export const enTranslations: TranslationStrings = {
     joinCarMarketDealer: 'Join CarMarket365 as a professional dealer',
     businessInformation: 'Business Information',
     tellUsAboutBusiness: 'Tell us about your dealership or business',
+    businessName: 'Business Name',
     businessNamePlaceholder: 'Your Company Name LLC',
     businessType: 'Business Type',
     selectBusinessType: 'Select business type',
@@ -367,6 +568,7 @@ export const enTranslations: TranslationStrings = {
     vatNumber: 'VAT Number',
     vatNumberPlaceholder: 'US123456789',
     taxId: 'Tax ID',
+    optional: 'Optional',
     arEstablished: 'Year Established',
     selectYear: 'Vyberite god',
     businessDescription: 'Description biznesa',
@@ -377,9 +579,11 @@ export const enTranslations: TranslationStrings = {
     positionPlaceholder: 'e.g., Owner, Sales Manager',
     businessEmail: 'Korporativ email',
     businessEmailPlaceholder: 'business@example.com',
+    businessAddress: 'Adres biznesa',
     dealershipLocation: 'Physical location of your dealership',
     streetAddress: 'Ulich adres',
     streetAddressPlaceholder: 'Business Center St., 123',
+    city: 'English',
     cityPlaceholder: 'Moscow',
     stateRegion: 'Region/Oblast',
     stateRegionPlaceholder: 'Moskovsk oblast',
@@ -395,6 +599,7 @@ export const enTranslations: TranslationStrings = {
     france: 'English',
     italy: 'English',
     spain: 'English',
+    accountSetup: 'Nastroyka akkaunta',
     createSecureDealerAccount: 'Create your secure dealer account',
     termsAndAgreements: 'Usloviya i soglasheniya',
     acceptTermsConditions: 'Ya prinimayu Usloviya i polozheniya',
@@ -411,6 +616,8 @@ export const enTranslations: TranslationStrings = {
     vatNumberRequired: 'NDS nomer required',
     firstNameRequired: 'Name is required',
     lastNameRequired: 'Familiya required',
+    emailRequired: 'Email is required',
+    phoneRequired: 'Phone number is required',
     streetRequired: 'Ulich adres required',
     cityRequired: 'Gorod required',
     postalCodeRequired: 'Pochtovyy indeks required',
@@ -424,11 +631,16 @@ export const enTranslations: TranslationStrings = {
   },
 
   sell: {
+    title: 'Sell Your Car',
     sellYourCar: 'Sell Your Vehicle',
     carInformation: 'Car Information',
+    uploadPhotos: 'Upload Photos',
     setPrice: 'Set Price',
+    contactInformation: 'Contact Information',
     publish: 'Publish',
     draft: 'Sokhranit kak chernovik',
+    preview: 'Predvaritel prosmotr',
+    required: 'English',
     optional: 'Optsionalno',
     addPhotos: 'Dobavit fotografii',
     removePhoto: 'Udalit fotografiyu',
@@ -440,42 +652,70 @@ export const enTranslations: TranslationStrings = {
     steps: {
       vehicleType: 'Tip transporta',
       basicInfo: 'Osnovn informatsiya',
+      details: 'Detali',
+      photosAndContact: 'Foto i kontakty',
     },
     
     // Vehicle type selection
+    vehicleTypes: {
       car: {
+        name: 'Car',
+        description: 'Sedany, krossovery, kupe, khetchbeki',
       },
       truck: {
+        name: 'Gruzovik',
+        description: 'Pikapy, kommercheskiy transport',
       },
       motorbike: {
+        name: 'Mototsikl',
+        description: 'Mototsikly, skutery, kvadrotsikly',
       },
     },
     
     // Headers and descriptions
     headers: {
       vehicleTypeQuestion: 'Kakoy tip transporta vy prodaete?',
+      basicInformation: 'Osnovn informatsiya',
       basicInfoDescription: 'Tell us about your {vehicleType}',
       additionalDetails: 'Dopolniteln detali',
       additionalDetailsDescription: 'Add more details about your {vehicleType}',
       photosAndContact: 'Fotografii i kontaktn informatsiya',
+      photosAndContactDescription: 'Dobavte fotografii i kontaktn dann',
     },
     
     // Form fields and labels
     fields: {
+      make: 'Make',
+      model: 'Model',
+      ar: 'Year',
+      mileage: 'Mileage',
+      condition: 'Condition',
+      fuelType: 'Fuel type',
+      transmission: 'Transmission',
+      exteriorColor: 'Vneshniy tsvet',
       interiorColor: 'Vnutrenniy tsvet',
       askingPrice: 'Zaprashivaem tsena',
       featuresAndOptions: 'Specifications i optsii',
+      description: 'Description',
       vehiclePhotos: 'Fotografii transporta',
       contactName: 'Imya dlya svyazi',
+      phoneNumber: 'Phone number',
       emailAddress: 'Adres elektronnoy pochty',
+      location: 'Location',
     },
     
     // Placeholders
+    placeholders: {
       selectMake: 'Vyberite marku',
+      enterModel: 'Vvedite model',
+      selectYear: 'Vyberite god',
+      selectCondition: 'Vyberite sostoyanie',
+      enterMileage: 'Vvedite probeg',
       selectFuelType: 'Vyberite tip topliva',
       selectTransmission: 'Vyberite korobku peredach',
       exteriorColorExample: 'e.g., white, black, silver',
       interiorColorExample: 'e.g., black, beige, gray',
+      priceExample: '25.000',
       descriptionExample: 'Opishite sostoyanie vashego transporta, istoriyu i dopolniteln detali...',
       yourFullName: 'Vashe poln imya',
       phoneExample: '(8) 123-456-78',
@@ -483,6 +723,7 @@ export const enTranslations: TranslationStrings = {
       cityState: 'Gorod, Oblast',
       yourName: 'Vashe imya',
       yourPhoneNumber: 'Vash nomer telefona',
+      yourEmail: 'Vash email',
       cityCountry: 'Gorod, Strana',
       enterAskingPrice: 'Vvedite zhelaemuyu tsenu',
       describeYourVehicle: 'Opishite vash avtomobil...',
@@ -492,29 +733,44 @@ export const enTranslations: TranslationStrings = {
     },
     
     // Headers
+    headers: {
+      vehicleTypeQuestion: 'Kakoy tip transporta vy prodaete?',
+      basicInformation: 'Osnovn informatsiya',
+      basicInfoDescription: 'Tell us about your {vehicleType}',
+      additionalDetails: 'Dopolniteln detali',
+      additionalDetailsDescription: 'Add more details about your {vehicleType}',
+      photosAndContact: 'Fotografii i kontaktn informatsiya',
+      photosAndContactDescription: 'Dobavte fotografii i vashi kontaktn dann',
+      vehicleDetails: 'Detali avtomobilya',
       photosAndContactInfo: 'Fotografii i kontaktn informatsiya',
       uploadVehiclePhotos: 'Zagruzit fotografii avtomobilya',
+      addUpToTenPhotos: 'Dobavit do 10 fotografiy',
     },
     
     // Button labels
     buttons: {
       nextStep: 'Sleduyushchiy shag',
+      previous: 'Previous',
       createListing: 'Sozdat obyavlenie',
     },
     
     // Preview section
     preview: {
+      title: 'Predvaritel prosmotr',
       yourVehicle: 'Vash transport',
       milesLabel: 'kilometers',
       priceLabel: 'Price',
       photosCount: '{count} fotografi{plural}',
       photo: 'ya',
+      photos: 'y',
     },
     
     // Photo upload
     photos: {
       instruction: 'Dobavte do 10 vysokokachestvenn fotografiy vashego transporta. Perv fotografiya budet osnovnym izobrazheniem v rezultatakh poiska.',
       selected: '{count} photo{plural} selected',
+      photo: 'ya',
+      photos: 'y',
     },
     
     // Vehicle makes (can be expanded)
@@ -523,6 +779,7 @@ export const enTranslations: TranslationStrings = {
     // Fuel types
     fuelTypes: {
       gasoline: 'Gasoline',
+      electric: 'Electric',
       hybrid: 'Gibrid',
       diesel: 'Diesel',
       pluginHybrid: 'Podklyuchaemyy gibrid',
@@ -542,6 +799,7 @@ export const enTranslations: TranslationStrings = {
     bodyTypes: {
       sedan: 'Sedan',
       suv: 'SUV',
+      truck: 'Gruzovik',
       coupe: 'Coupe',
       hatchback: 'Hatchback',
       convertible: 'Convertible',
@@ -576,7 +834,9 @@ export const enTranslations: TranslationStrings = {
     
     // Conditions
     conditions: {
+      new: 'New',
       likeNew: 'Kak novyy',
+      excellent: 'Otlichn',
       veryGood: 'Ochen khoroshee',
       good: 'Khoroshee',
       fair: 'Udovletvoriteln',
@@ -584,6 +844,7 @@ export const enTranslations: TranslationStrings = {
     },
     
     // Features list
+    features: {
       airConditioning: 'Konditsioner',
       leatherSeats: 'Kozhan sideniya',
       heatedSeats: 'Podogrev sideniy',
@@ -592,7 +853,9 @@ export const enTranslations: TranslationStrings = {
       backupCamera: 'Kamera zadnego vida',
       bluetooth: 'Bluetooth',
       usbPorts: 'USB porty',
+      premiumSound: 'Premium audio',
       keylessEntry: 'Besklyuchevoy dostup',
+      remoteStart: 'Udalen zapusk',
       cruiseControl: 'Kruiz-kontrol',
       parkingSensors: 'Parktronik',
       blindSpotMonitoring: 'Kontrol slep zon',
@@ -634,26 +897,66 @@ export const enTranslations: TranslationStrings = {
     selectCountryToContinue: 'Pozhaluysta, vyberite svoyu stranu, chtoby prodolzhit. Eto opredelit vash mest sayt, yazyk i valyutu.',
   },
 
+  modals: {
+    close: 'Close',
+    confirm: 'Confirm',
+    cancel: 'Cancel',
+    save: 'Save',
+    delete: 'Delete',
+    contactSeller: 'Contact Seller',
+    scheduleTestDrive: 'Schedule Test Drive',
+    requestFinancing: 'Request Financing',
+    reportListing: 'Report Listing',
     shareListng: 'Share Listing',
+    sendMessage: 'Send Message',
+    yourName: 'Your Name',
+    yourEmail: 'Your Email',
     yourPhone: 'Your Phone',
+    message: 'Message',
     interestedIn: 'I am interested in',
+    preferredTime: 'Preferred Time',
+    additionalNotes: 'Additional Notes',
     share: {
+      title: 'Share This Car',
+      description: 'Share this vehicle with friends and family',
       copyLink: 'Copy Link',
       linkCopied: 'Link Copied!',
+      linkCopiedToClipboard: 'Link copied to clipboard',
       shareViaEmail: 'Share via Email',
       shareOnWhatsApp: 'Share on WhatsApp',
+      facebook: 'Facebook',
       twitter: 'Twitter',
+      close: 'Close'
     },
   },
 
   footer: {
     aboutUs: 'Your trusted market for quality used cars. Find your ideal car among thousands of listings.',
     quickLinks: 'Quick Links',
+    searchCars: 'Search Cars',
+    sellYourCar: 'Sell Your Car',
+    registeredDealers: 'Registered Dealers',
+    carReviews: 'Car Reviews',
+    support: 'Support',
+    contactUs: 'Contact Us',
+    safetyTips: 'Safety Tips',
+    dealerSupport: 'Dealer Support',
+    faq: 'Frequently Asked Questions',
+    legal: 'Legal Information',
+    privacyPolicy: 'Privacy Policy',
+    termsOfService: 'Terms of Service',
+    cookiePolicy: 'Cookie Policy',
+    imprint: 'Legal Notice',
+    accessibility: 'Accessibility',
+    dashboard: 'Dashboard',
     adminPanel: 'Admin Panel',
+    dealerDashboard: 'Dealer Dashboard',
     myDashboard: 'My Dashboard',
     signInToAccess: 'Sign in to access dashboard',
     followUs: 'Follow Us',
+    newsletter: 'Newsletter',
     subscribeNewsletter: 'Subscribe to Newsletter',
+    emailAddress: 'Email Address',
     subscribe: 'Subscribe',
     copyright: 'Copyright',
     allRightsReserved: 'All Rights Reserved',
@@ -662,9 +965,11 @@ export const enTranslations: TranslationStrings = {
   errors: {
     generic: 'Something went wrong. Please try again.',
     network: 'Network error. Please check your connection.',
+    notFound: 'The requested item was not found.',
     unauthorized: 'You do not have permission to access this resource.',
     forbidden: 'Access to this resource is forbidden.',
     serverError: 'Server error. Please try again later.',
+    validation: 'Please check your data and try again.',
     required: 'This field is required.',
     invalidEmail: 'Please enter a valid email address.',
     invalidPhone: 'Please enter a valid phone number.',
@@ -675,12 +980,15 @@ export const enTranslations: TranslationStrings = {
     noInternetConnection: 'No internet connection.',
     sessionExpired: 'Your session has expired. Please log in again.',
     errorBoundary: {
+      message: 'Something went wrong. Please try refreshing the page.',
       details: 'Error Details',
       stackTrace: 'Stack trace:',
       refreshPage: 'Refresh Page',
+      tryAgain: 'Try Again',
     },
   },
 
+  success: {
     saved: 'Uspeshno sokhraneno!',
     updated: 'Uspeshno obnovleno!',
     deleted: 'Uspeshno udaleno!',
@@ -704,6 +1012,7 @@ export const enTranslations: TranslationStrings = {
   pages: {
     helpCenter: 'Tsentr podderzhki',
     feedback: 'Obratn svyaz',
+    disclaimer: 'Otkaz ot otvetstvennosti',
     carInsurance: 'Avtostrakhovanie',
     underConstruction: 'V razrabotke',
     underConstructionMessage: 'Dann stranitsa nakhoditsya v razrabotke. My userdno rabotaem nad sozdaniem potryasayushchikh funktsiy. Pozhaluysta, zaydite pozzhe ili prodolzhite izuchat nashu glavnuyu stranitsu.',
@@ -712,8 +1021,12 @@ export const enTranslations: TranslationStrings = {
     
     // Usloviya obsluzhivaniya
     termsOfService: {
+      title: 'Usloviya obsluzhivaniya',
+      subtitle: 'Pravov usloviya ispolzovaniya nashey platformy avtomobiln rynka.',
+      backToHome: 'Vernutsya na glavnuyu',
       termsAndConditions: 'Usloviya i polozheniya',
       termsDescription: 'Pozhaluysta, vnimatelno oznakomtes s etimi usloviyami pered ispolzovaniem nashey platformy.',
+      overviewText: 'Dann Usloviya obsluzhivaniya reguliruyut ispolzovanie vami platformy CarMarket365 i opredelyayut prava i obyazannosti vsekh polzovateley. Poluch dostup k nashey platforme, vy soglashaetes soblyudat eti usloviya.',
       userResponsibilities: 'Obyazannosti polzovatelya',
       userResponsibilitiesList: [
         'Predostavlyat tochnuyu informatsiyu',
@@ -766,6 +1079,9 @@ export const enTranslations: TranslationStrings = {
 
     // Politika konfidentsialnosti
     privacyPolicy: {
+      title: 'Politika konfidentsialnosti',
+      subtitle: 'Vasha konfidentsialnost vazhna dlya nas. Uznayte, kak my sobiraem, ispolzuem i zashchishchaem vashu lichnuyu informatsiyu.',
+      backToHome: 'Vernutsya na glavnuyu',
       ourPrivacyCommitment: 'Nashi obyazatelstva po konfidentsialnosti',
       commitmentDescription: 'V CarMarket365 my priverzheny zashchite vashey konfidentsialnosti i obespecheniyu bezopasnosti vashey lichnoy informatsii.',
       overviewText: 'Dann politika konfidentsialnosti obyasnyaet, kak my sobiraem, ispolzuem, raskryvaem i zashchishchaem vashu informatsiyu pri ispolzovanii nashey platformy avtomobiln rynka. My priverzheny podderzhaniyu vysochayshikh standartov zashchity konfidentsialnosti i bezopasnosti dann.',
@@ -815,15 +1131,23 @@ export const enTranslations: TranslationStrings = {
       ],
       questionsAboutPrivacy: 'Voprosy o konfidentsialnosti?',
       privacyQuestionsText: 'Esli u vas est voprosy ob etoy politike konfidentsialnosti ili nashikh praktikakh obrabotki dann, please, obratites k nashey komande po konfidentsialnosti po adresu privacy@carmarket365.com',
+      returnToPlatform: 'Vernutsya na platformu',
       contactPrivacyTeam: 'Svyazatsya s komandoy po konfidentsialnosti'
     },
 
     // Page-zaglushka
     placeholder: {
+      underConstruction: 'V razrabotke',
+      underConstructionMessage: 'Dann stranitsa nakhoditsya v razrabotke. My userdno rabotaem nad sozdaniem potryasayushchikh funktsiy. Pozhaluysta, zaydite pozzhe ili prodolzhite izuchat nashu glavnuyu stranitsu.',
+      backToHome: 'Vernutsya na glavnuyu',
+      contactUs: 'Svyazhites s nami'
     },
 
     // Chasto zadavaem voprosy
     faq: {
+      title: 'Chasto zadavaem voprosy',
+      subtitle: 'Naydite otvety na rasprostranenn voprosy o pokupke, prodazhe, finansirovanii i ispolzovanii CarMarket365.',
+      searchPlaceholder: 'Search v FAQ...',
       browseByCategory: 'Search po kategoriyam',
       allQuestions: 'Vse voprosy',
       stillNeedHelp: 'Nuzhna dopolniteln pomoshch?',
@@ -833,77 +1157,130 @@ export const enTranslations: TranslationStrings = {
       liveChat: 'Zhivoy chat',
       available247: 'Dostupno 24/7',
       noResultsFound: 'Resulty ne naydeny',
+      noResultsText: 'Poprobuyte poisk s drugimi klyuchev slovami ili prosmotrite po kategoriyam.',
       clearSearch: 'Ochistit poisk',
       commonQuestionsAbout: 'Chasto zadavaem voprosy o',
       
       categories: {
         buying: 'Pokupka avtomobiley',
         selling: 'Prodazha avtomobiley',
+        financing: 'Finansirovanie i platezhi',
+        safety: 'Bezopasnost i zashchita',
+        account: 'Account i podderzhka'
       },
 
       buyingFaqs: [
         {
+          question: 'Kak nayti avtomobili na CarMarket365?',
+          answer: 'Vy mozhete iskat avtomobili s pomoshchyu formy poiska na glavnoy stranitse ili na stranitse "Prosmotr avtomobiley". Filteruyte po marke, modeli, godu, tsenov diapazonu, mestopolozheniyu i mnmu drug. Ispolzuyte rasshiren poisk dlya detalnoy filtratsii.'
         },
         {
+          question: 'Vse li obyavleniya provereny?',
+          answer: 'Da, vse obyavleniya na CarMarket365 provereny. My provodim proverku biograficheskikh dann vsekh dilerov i chastn prodavtsov, a takzhe proveryaem informatsiyu o transportn sredstvakh na tochnost pered razmeshcheniem.'
         },
         {
+          question: 'Mogu li ya zapisatsya na test-drayv?',
+          answer: 'Konechno! Vy mozhete zapisatsya na test-drayv pryamo cherez stranitsu s detalyami avtomobilya. Svyazhites s prodavtsom, chtoby dvoritsya o podkhodyashchem vremeni i meste dlya test-drayva.'
         },
         {
+          question: 'Chto mne vzyat s soboy dlya prosmotra avtomobilya?',
+          answer: 'Vozmite deystvuyushchie voditelskie prava, podtverzhdenie strakhovaniya i lyub pisma o predvaritelnom odobrenii finansirovaniya. Esli planiruete pokupat, vozmite bankovskiy chek ili dokumenty o finansirovanii.'
         },
         {
+          question: 'Kak uznat, spravedliva li tsena avtomobilya?',
+          answer: 'My predostavlyaem otsenki rynochnoy stoimosti dlya vsekh transportn sredstv. Vy takzhe mozhete sravnit pokhozhie avtomobili, proverit otchet ob istorii transportn sredstva i ispolzovat nashi instrumenty analiza tsen.'
         }
       ],
 
       sellingFaqs: [
         {
+          question: 'Kak razmestit obyavlenie o prodazhe mgo avtomobilya?',
+          answer: 'Ispolzuyte formu "Prodat avtomobil" dlya sozdaniya obyavleniya. Vam ponadobyatsya detali transportn sredstva, fotografii, informatsiya o sostoyanii i kontaktn dann. Protsess zanimaet okolo 10-15 minut.'
         },
         {
+          question: 'Est li plata za razmeshchenie obyavleniya?',
+          answer: 'Bazov obyavleniya besplatny dlya chastn prodavtsov. My predlagaem premium varianty obyavleniy s povyshennoy vidimostyu za nebolshuyu platu. U dilerov razn struktury tsenoobrazovaniya.'
         },
         {
+          question: 'Skolko vremeni trebuetsya dlya prodazhi avtomobilya?',
+          answer: 'V srednem avtomobili s pravilnoy tsenoy i khoroshimi fotografiyami prodayutsya v techenie 2-4 nedel. Faktory vklyuchayut tsenoobrazovanie, sostoyanie, rynoch spros i kachestvo obyavleniya.'
         },
         {
+          question: 'Kakie dokumenty mne nuzhny dlya prodazhi avtomobilya?',
+          answer: 'Vam ponadobitsya svidetelstvo o prave sobstvennosti, registratsiya, zapisi ob obsluzhivanii i deystvuyushchiy pasport. V nekotor regionakh trebuyutsya dopolniteln dokumenty - my predostavlyaem regionaln rekomendatsii.'
         },
         {
+          question: 'Kak ustanovit konkurentnuyu tsenu na moy avtomobil?',
+          answer: 'Ispolzuyte nash besplat instrument otsenki transportn sredstv, izuchite pokhozhie obyavleniya, uchtite sostoyanie vashego avtomobilya, probeg i lyuboy nedavniy remont ili uluchsheniya.'
         }
       ],
 
       financingFaqs: [
         {
+          question: 'Mogu li ya poluchit finansirovanie cherez CarMarket365?',
+          answer: 'Da, my sotrudnichaem s neskolkimi kreditorami, chtoby predlozhit konkurentn varianty finansirovaniya. Vy mozhete poluchit predvariteln odobrenie onlayn za neskolko minut bez vliyaniya na vash kredit reyting.'
         },
         {
+          question: 'Kakoy kredit reyting mne nuzhen dlya avtokreditovaniya?',
+          answer: 'My rabotaem s kreditorami, kotor prinimayut razlichn kreditn reytingi, ot otlichn do plokhikh. Trebovaniya razlichayutsya po kreditoram, no my pomogaem nayti varianty dlya bolshinstva situatsiy.'
         },
         {
+          question: 'Kak rabotaet protsess podachi zvki na kredit?',
+          answer: 'Zapolnite nashu onlayn-zvku, poluchite mgnovenn predvariteln odobrenie, vyberite vashe transportn sredstvo i zavershite oformlenie kredita. Ves protsess mozhno zavershit onlayn ili po telefonu.'
         },
         {
           question: 'V chem raznitsa mezhdu predvaritelnoy kvalifikatsiey i predvaritelnym odobreniem?',
+          answer: 'Predvariteln kvalifikatsiya daet vam otsenku na osnove bazovoy informatsii. Predvariteln odobrenie vklyuchaet proverku kreditnoy istorii i predostavlyaet tverd kreditn predlozhenie s konkretn usloviyami.'
         },
         {
+          question: 'Mogu li ya obmenyat moy tekushchiy avtomobil?',
+          answer: 'Mnogie iz nashikh partnerov-dilerov prinimayut avtomobili v zachet. Poluchite otsenku obmena s pomoshchyu nashego instrumenta otsenki, zatem obsudite varianty s dilerom pri pokupke.'
         }
       ],
 
       safetyFaqs: [
         {
+          question: 'Kak ostavatsya v bezopasnosti pri pokupke avtomobilya?',
+          answer: 'Vstrechaytes v obshchestvenn mestakh, berite s soboy druga, proveryayte lichnost prodavtsa, tshchatelno osmatrivayte transportn sredstvo i ispolzuyte bezopasn sposoby oplaty. Nikogda ne perevodite dengi i ne platite do osmotra avtomobilya.'
         },
         {
+          question: 'Kakie sposoby oplaty sam bezopasn?',
+          answer: 'Ispolzuyte bankovskie cheki, bankovskie perevody ili finansirovanie cherez proverenn kreditorov. Izbegayte bankovskikh perevodov, lichn chekov ili nalichn dlya bolshikh summ.'
         },
         {
+          question: 'Kak proverit, chto prodavets zakon?',
+          answer: 'Proverte ikh profil na CarMarket365, prochtite otzyvy, podtverdite ikh kontaktnuyu informatsiyu i vstrettes lichno. Vse nashi dilery predvaritelno provereny i proshli proverku biograficheskikh dann.'
         },
         {
+          question: 'Chto delat, esli ya podozrevayu moshennichestvo?',
+          answer: 'Nemedlenno soobshchite o podozritelnoy aktivnosti cherez nashu platformu ili obratites k nashey komande podderzhki. My serezno otnosimsya k moshennichestvu i operativno rassleduem vse soobshcheniya.'
         },
         {
+          question: 'Nadezhny li otchety ob istorii transportn sredstva?',
+          answer: 'Da, my predostavlyaem kompleksn otchety ob istorii transportn sredstv iz nadezhn istochnikov. Oni vklyuchayut istoriyu avariy, zapisi ob obsluzhivanii i informatsiyu o pravakh sobstvennosti.'
         }
       ],
 
       accountFaqs: [
         {
+          question: 'Kak sozdat akkaunt?',
+          answer: 'Nazhmite "Registration" na lyuboy stranitse i predostavte vash elektron adres, nomer telefona i osnovnuyu informatsiyu. Vy takzhe mozhete zaregistrirovatsya cherez Google ili Facebook dlya bolee bystroy registratsii.'
         },
         {
+          question: 'Ya zabyl parol. Kak ego sbrosit?',
+          answer: 'Nazhmite "Zabyli parol?" na stranitse vkhoda, enter vash elektron adres i sleduyte instruktsiyam po sbrosu, kotor my vam otpravim. Ssylka dlya sbrosa valida v techenie 24 chasov.'
         },
         {
+          question: 'Kak obnovit informatsiyu v mm profile?',
+          answer: 'Voydite v vash akkaunt i pereydite v "Settings akkaunta", gde vy mozhete obnovit lichnuyu informatsiyu, kontaktn dann i predpochteniya.'
         },
         {
+          question: 'Mogu li ya sokhranit avtomobili dlya prosmotra pozzhe?',
+          answer: 'Da! Nazhmite znachok serdtsa na lyubom obyavlenii avtomobilya, chtoby sokhranit ego v izbrann. Poluchite dostup k sokhranennym avtomobilyam v lyub vremya iz paneli upravleniya vashego akkaunta.'
         },
         {
+          question: 'Kak svyazatsya s sluzhboy podderzhki?',
+          answer: 'Ispolzuyte stranitsu "Svyazhites s nami", zvonite (555) 123-HELP, otpravlyayte pismo na support@carmarket365.com ili ispolzuyte funktsiyu chata v pravom nizhnem uglu lyuboy stranitsy.'
         }
       ]
     }
@@ -911,6 +1288,8 @@ export const enTranslations: TranslationStrings = {
 
   // Browse Cars Page
   browseCars: {
+    title: 'na prodazhu',
+    searchPlaceholder: 'Marka, model ili klyuchev slovo',
     filtersButton: 'Pokazat filtry',
     sortBy: 'Sortirovat po',
     sortOptions: {
@@ -927,36 +1306,63 @@ export const enTranslations: TranslationStrings = {
       grid: 'Setka',
       list: 'Spisok',
     },
+    filters: {
+      title: 'Filtery poiska',
+      clearAll: 'Clear All',
       apply: 'Primenit',
       makeModel: 'Marka i model',
       priceRange: 'Tsenovoy diapazon',
       from: 'ot',
       to: 'do',
+      arRange: 'God ot',
+      mileageRange: 'Maksimal probeg',
+      location: 'Location',
       withinRadius: 'v radiuse',
+      fuelType: 'Fuel type',
+      transmission: 'Transmission',
       bodyType: 'Tip kuzova',
+      condition: 'Condition',
+      features: 'Osobennosti',
       color: 'Color',
+      drivetrain: 'Drive type',
       minPrice: 'Minimaln tsena',
       maxPrice: 'Maksimaln tsena',
       noMin: 'Bez min.',
       noMax: 'Bez maks.',
       anyLocation: 'Vvedite gorod ili pochtovyy indeks',
+      kilometers: 'km',
       miles: 'mili',
       any: 'English',
     },
+    results: {
       showing: 'sootvetstvuyushchikh vashim kriteriyam',
       of: 'iz',
+      results: 'avtomobiley naydeno',
+      noResults: 'Cari ne naydeny',
       noResultsMessage: 'Poprobuyte izmenit usloviya poiska',
       tryDifferentFilters: 'Poprobuyte drugie filtry',
+      loadMore: 'Load More',
       endOfResults: 'Konets rezultatov',
     },
     carCard: {
       viewDetails: 'Posmotret detali',
+      contactSeller: 'Contact',
       saveToFavorites: 'Sokhranit v izbrann',
+      saved: 'Saved',
+      featured: 'Rekomenduem',
       certified: 'Sertifitsirovann',
       newArrival: 'Nov postuplenie',
       priceReduced: 'Tsena snizhena',
+      greatDeal: 'Otlichn sdelka',
       kmAbbrev: 'km',
       miAbbrev: 'mi',
+      ar: 'god',
+      automatic: 'Avtomatichesk',
+      manual: 'Mekhanichesk',
+      gasoline: 'Gasoline',
+      diesel: 'Diesel',
+      electric: 'English',
+      hybrid: 'Gibrid',
       showPhone: 'Pokazat telefon',
       hidePhone: 'Skryt telefon',
       callNow: 'Pozvonit seychas',
@@ -966,6 +1372,7 @@ export const enTranslations: TranslationStrings = {
       shareListing: 'Podelitsya obyavleniem',
     },
     searchSuggestions: {
+      title: 'Predlozheniya poiska',
       recentSearches: 'Nedavnie poiski',
       clearRecent: 'Ochistit nedavnie',
       popularSearches: 'Populyarn poiski',
@@ -974,6 +1381,7 @@ export const enTranslations: TranslationStrings = {
       noRecentSearches: 'Net nedavnikh poiskov',
     },
     errorStates: {
+      failedToLoad: 'Ne udalos zagruzit',
       networkError: 'Oshibka seti',
       tryAgain: 'Poprobovat snova',
       contactSupport: 'Svyazatsya s podderzhkoy',
@@ -981,41 +1389,82 @@ export const enTranslations: TranslationStrings = {
   },
 
   // Advanced Search
+  advancedSearch: {
+    title: 'Rasshiren Search Carey',
+    subtitle: 'Naydite svoy ideal avtomobil s podrobn filtrami poiska i predpochteniyami',
+    backToHome: 'Vernutsya na Glavnuyu',
+    searchCars: 'Search Carey',
     saveSearch: 'Sokhranit Search',
+    clearAll: 'Clear All',
+    active: 'active',
+    filters: 'filters',
+    filter: 'filtr',
     
     // Page sections
     sections: {
       basicInformation: {
+        title: 'Osnovn Information',
+        description: 'Ustanovite osnovn kriterii poiska',
       },
       technicalSpecs: {
+        title: 'Tekhnicheskie Specifications',
+        description: 'Dvigatel, korobka peredach i detali proizvoditelnosti',
       },
       featuresEquipment: {
+        title: 'Funktsii i Oborudovanie',
+        description: 'Vyberite zhelaem funktsii i oborudovanie',
       },
       preferencesAndCertifications: {
+        title: 'Predpochteniya i Sertifikatsii',
+        description: 'Dopolniteln predpochteniya i sertifikatsii',
       },
       vehicleDetails: {
+        title: 'Detali Carya',
       },
       priceLocation: {
+        title: 'Tsena i Mestopolozhenie',
       },
       featuresOptions: {
+        title: 'Funktsii i Optsii',
+        description: 'Vyberite funktsii, kotor vazhny dlya vas',
       },
     },
     
     // Form fields
+    fields: {
+      make: 'Make',
+      model: 'Model',
+      bodyType: 'Tip Kuzova',
+      condition: 'Condition',
       fuelType: 'Tip Topliva',
+      transmission: 'Korobka Peredach',
+      drivetrain: 'Drive type',
+      doors: 'Dveri',
+      seats: 'Mesta',
+      exteriorColor: 'Vneshniy Tsvet',
+      interiorColor: 'Tsvet Salona',
       colorPreference: 'Tsvetov Predpochteniya',
       certifications: 'Sertifikatsii',
+      location: 'Location',
+      radius: 'Radius',
       searchRadius: 'Radius poiska',
+      sellerType: 'Tip Prodavtsa',
+      minYear: 'Min. God',
       maxYear: 'Maks. God',
       maxMileage: 'Maksimal Probeg',
     },
     
     // Placeholders
+    placeholders: {
+      selectMake: 'Vyberite marku',
       enterModel: 'Vvedite nazvanie modeli',
       anyMake: 'Lyub Marka',
       anyModel: 'Lyub Model',
       anyType: 'Lyuboy Tip',
       selectBodyType: 'Vyberite tip kuzova',
+      selectCondition: 'Vyberite sostoyanie',
+      selectFuelType: 'Vyberite tip topliva',
+      selectTransmission: 'Vyberite korobku peredach',
       selectDrivetrain: 'Vyberite privod',
       numberOfDoors: 'Number of doors',
       numberOfSeats: 'Number of seats',
@@ -1027,10 +1476,12 @@ export const enTranslations: TranslationStrings = {
       anyCondition: 'Lyub Sostoyanie',
       anyDistance: 'Lyub Rasstoyanie',
       allSellers: 'Vse Prodavtsy',
+      any: 'English',
     },
     
     // Range labels
     ranges: {
+      priceRange: 'Diapazon Tsen',
       arRange: 'Diapazon Let',
       mileageRange: 'Diapazon Probega (km)',
     },
@@ -1082,33 +1533,41 @@ export const enTranslations: TranslationStrings = {
     
     // Staticheskie dann avtomobiley dlya rasshirenn poiska
     staticVehicleData: {
+      makes: [
         'Audi', 'BMW', 'Mercedes-Benz', 'Volkswagen', 'English', 'Honda', 'Ford', 'Peugeot', 
         'Renault', 'Opel', 'Fiat', 'Citrn', 'Nissan', 'English', 'Kia', 'Mazda', 
         'Subaru', 'Volvo', 'SEAT', 'Skoda', 'Alfa Romeo', 'Mini', 'Jaguar', 'Land Rover',
         'Porsche', 'Lexus', 'Infiniti', 'Acura', 'Cadillac', 'Lincoln', 'Buick', 'GMC',
         'EUR', 'English', 'Dodge', 'Jeep', 'Ram', 'Tesla', 'Lucid', 'Rivian'
       ],
+      bodyTypes: [
         'Sedan', 'SUV', 'Hatchback', 'Coupe', 'Convertible', 'Wagon', 'Pickup', 'Furgon',
         'Minivan', 'Crossover', 'Kompakt', 'Subkompakt', 'Srednerazmer', 'Polnorazmer',
         'Sportiv avtomobil', 'English', 'English', 'Gibrid'
       ],
+      fuelTypes: [
         'Gasoline', 'Diesel', 'Gibrid', 'English', 'Podklyuchaemyy gibrid', 'Prirod gaz', 'Propan',
         'Gibk toplivo', 'Vodorod', 'Biodizel', 'Etanol E85'
       ],
+      transmissions: [
         'Mekhanichesk', 'Avtomatichesk', 'CVT', 'Poluavtomatichesk', 'Dvoyn stseplenie', '6-stupenchat mekhanichesk',
         '7-stupenchat avtomatichesk', '8-stupenchat avtomatichesk', '9-stupenchat avtomatichesk', '10-stupenchat avtomatichesk'
       ],
+      drivetrains: [
         'Peredniy privod', 'Zadniy privod', 'Pol privod', '4WD', 
         'Podklyuchaemyy 4WD', 'Postoyan 4WD', 'Elektron pol privod', 'Mekhanicheskiy pol privod'
       ],
+      colors: [
         'Cher', 'English', 'English', 'English', 'English', 'English', 'Kras', 'Zele', 'English', 
         'English', 'English', 'English', 'English', 'English', 'Korichnevo-zheltyy', 'English', 'Med',
         'Zhemchuzhno-belyy', 'Metallik serebrya', 'Temno-siniy', 'Gonoch kras', 'Lesnoy zele',
         'Ugol', 'English', 'English'
       ],
+      conditions: [
         'New', 'Kak novyy', 'Otlichn', 'Ochen khoroshee', 'Khoroshee', 'Udovletvoriteln', 'Poderzhan', 
         'Sertifitsirovan poderzhan', 'Vosstanovlen', 'Otrestavrirovan', 'English', 'Vintazh'
       ],
+      features: [
         'Konditsioner', 'Kozhan sidenya', 'Navigatsionn sistema', 'Bluetooth', 'USB port',
         'Kamera zadnego vida', 'Parkovochn datchiki', 'Podogrev sideniy', 'English', 'Lit diski',
         'Kruiz-kontrol', 'ABS', 'Sistema stabilizatsii', 'Podushki bezopasnosti',
@@ -1121,6 +1580,7 @@ export const enTranslations: TranslationStrings = {
         'Elektroregulirovka sideniy', 'Tretiy ryad sideniy', 'Skladn zadnie sidenya', 
         'Shtorka bagazhnika', 'Bagazhnik na kryshe', 'Buksirovoch paket', 'Podnozhki', 'Bokov stupenki'
       ],
+      certifications: [
         'Sertifitsirovan poderzhan', 'Garantiya proizvoditelya', 'Rasshirenn garantiya', 
         'Tekhpomoshch na doroge', 'Otchet ob istorii avtomobilya', 'Mntochechn proverka',
         'Proverka vybrosov', 'Proverka bezopasnosti', 'Sertifitsirovano dilerom', 'Sertifitsirovano tretey storonoy',
@@ -1132,47 +1592,98 @@ export const enTranslations: TranslationStrings = {
 
   // Contact Us Page
   contact: {
+    hero: {
+      title: 'Svyazhites s nami',
+      subtitle: 'Svyazhites s nashey komandoy. My zdes, chtoby pomoch vam nayti ideal avtomobil ili otvetit na lyub voprosy.',
     },
     departments: {
+      phoneSupport: 'Telefonn podderzhka',
       emailAddresses: 'Adresa elektronnoy pochty',
+      businessHours: 'Chasy raboty',
       mainOffice: 'Glav ofis',
     },
     departmentTypes: {
       salesDepartment: 'Otdel prodazh',
+      customerService: 'Sluzhba podderzhki',
       financingDepartment: 'Otdel finansirovaniya',
       generalInquiries: 'Obshchie voprosy',
       salesQuestions: 'Voprosy po prodazham',
+      support: 'Support',
     },
     hours: {
+      mondayFriday: 'Ponedelnik - Pyatnitsa',
+      saturday: 'Saturday',
+      sunday: 'Voskresene',
       timeRange: {
+        mondayFriday: '8:00 - 20:00',
         saturday: '9:00 - 18:00',
         sunday: '10:00 - 16:00',
       },
     },
     office: {
       address: {
+        street: 'Avto Plaza 123',
+        city: 'Moskva 101000',
+        country: 'Russia',
       },
       getDirections: 'Poluchit napravleniya',
     },
+    form: {
+      title: 'Otpravte nam soobshchenie',
+      subtitle: 'Zapolnite formu nizhe, i my otvetim v techenie 24 chasov.',
       inquiryType: {
         label: 'Chem my mozhem pomoch?',
+        placeholder: 'Vyberite tip zaprosa',
+        options: {
+          buying: 'Pokupka avtomobilya',
+          selling: 'Prodazha avtomobilya',
+          financing: 'Voprosy po finansirovaniyu',
           dealer: 'Partnerstvo dilerov',
           support: 'Tekhnichesk podderzhka',
+          other: 'Drug',
         },
       },
+      fields: {
+        fullName: 'Poln imya',
         email: 'Adres elektronnoy pochty',
+        phone: 'Phone number',
+        subject: 'Tema',
+        message: 'Message',
       },
+      placeholders: {
+        name: 'Vashe poln imya',
+        email: 'vasha.pochta@primer.ru',
+        phone: '+7 912 345 67 89',
+        subject: 'Kratk opisanie temy',
+        message: 'Pozhaluysta, predostavte detali vashego zaprosa...',
       },
+      required: '*',
       submitButton: 'Otpravit soobshchenie',
+      disclaimer: 'Otpravly etu formu, vy soglashaetes s nashimi Usloviyami obsluzhivaniya i Politikoy konfidentsialnosti.',
     },
+    success: {
+      title: 'Soobshchenie otpravleno uspeshno!',
+      message: 'Spasibo, chto svyazalis s nami. My otvetim v techenie 24 chasov.',
     },
     quickHelp: {
+      title: 'Bystr pomoshch',
+      subtitle: 'Ishchete nemedlenn otvety? Proverte eti resursy.',
+      options: {
         buyingGuide: {
+          title: 'Guide po pokupke',
+          description: 'Uznayte, kak kupit avtomobil',
         },
         sellingGuide: {
+          title: 'Guide po prodazhe',
+          description: 'Sovety po prodazhe vashego avtomobilya',
         },
+        faq: {
+          title: 'FAQ',
+          description: 'Chasto zadavaem voprosy',
         },
         safetyTips: {
+          title: 'Sovety po bezopasnosti',
+          description: 'Bezopasn pokupka i prodazha',
         },
       },
     },
@@ -1182,6 +1693,7 @@ export const enTranslations: TranslationStrings = {
     dealerNotFound: 'Diler ne nayden',
     dealerNotFoundMessage: 'Profile dilera, kotoryy vy ishchete, ne sushchestvuet.',
     viewAllDealers: 'Posmotret vsekh dilerov',
+    browseCars: 'Prosmatrivat avtomobili',
     backToDealers: 'Vernutsya k dileram',
     showroom: 'dealership',
     verifiedDealer: 'Proveren diler',
@@ -1189,8 +1701,11 @@ export const enTranslations: TranslationStrings = {
     callDealer: 'Pozvonit dileru',
     viewInventory: 'Prosmotr inventarya',
     visitWebsite: 'Posetit veb-sayt',
+    overview: 'Obzor',
     inventory: 'Inventar',
     reviews: 'English',
+    contact: 'Contact',
+    about: 'About Us',
     servicesOffered: 'Predlagaem uslugi',
     certificationsAwards: 'Sertifikaty i nagrady',
     quickStats: 'Bystr statistika',
@@ -1201,6 +1716,10 @@ export const enTranslations: TranslationStrings = {
     thisMonth: 'v etom mesyatse',
     customerSatisfaction: 'Udovletvorennost klientov',
     responseTime: 'Vremya otveta',
+    businessHours: 'Rabochie chasy',
+    mondayFriday: 'Ponedelnik - Pyatnitsa:',
+    saturday: 'Subbota:',
+    sunday: 'Voskresene:',
     currentInventory: 'Tekushchiy inventar',
     hasVehiclesAvailable: 'avtomobiley v nalichii',
     viewFullInventory: 'Posmotret pol inventar',
@@ -1211,17 +1730,22 @@ export const enTranslations: TranslationStrings = {
     verifiedPurchase: 'Proverenn pokupka',
     contactInformation: 'Kontaktn informatsiya',
     primaryPhone: 'Osnovnoy telefon',
+    emailAddress: 'Adres elektronnoy pochty',
     website: 'Veb-sayt',
     physicalAddress: 'Fizicheskiy adres',
+    getDirections: 'Poluchit napravleniya',
     interactiveMapPlaceholder: 'Interaktivn karta byla by zdes',
     openInGoogleMaps: 'Otkryt v Google Maps',
   },
 
   dealerSupport: {
+    backToHome: 'Vernutsya domoy',
+    title: 'Support dilerov',
     subtitle: 'Spetsialn podderzhka dlya zaregistrirovann dilerov. Poluchite pomoshch s vashimi obyavleniyami, upravleniem akkauntom i funktsiyami platformy.',
     supportCenter: 'Tsentr podderzhki dilerov',
     supportCenterDescription: 'Kompleksn podderzhka dlya nashikh zaregistrirovann dilerskikh partnerov.',
     quickActions: 'Bystr deystviya',
+    accountManagement: 'Upravlenie akkauntom',
     accountManagementDesc: 'Upravlyayte nastroykami i predpochteniyami vashego dilersk akkaunta',
     manageAccount: 'Upravlyat akkauntom',
     listingHelp: 'Help s obyavleniyami',
@@ -1230,11 +1754,18 @@ export const enTranslations: TranslationStrings = {
     analyticsReports: 'Analitika i otchety',
     analyticsReportsDesc: 'Prosmatrivayte metriki proizvoditelnosti i generiruyte otchety',
     viewAnalytics: 'Posmotret analitiku',
+    contactSupport: 'Svyazatsya s podderzhkoy',
     contactSupportDesc: 'Svyazhites s nashey komandoy podderzhki',
+    contactUs: 'Svyazhites s nami',
     supportChannels: 'Kanaly podderzhki',
     supportChannelsDesc: 'Neskolko sposobov poluchit pomoshch, kogda ona vam nuzhna',
+    phone: 'Phone',
     phoneNumber: '1-800-555-0199',
+    email: 'Email',
+    emailAddress: 'dealers@carmarket365.com',
+    liveChat: 'Zhivoy chat',
     startChat: 'Nachat chat',
+    businessHours: 'Rabochie chasy',
     mondayFriday: 'Ponedelnik - Pyatnitsa: 8:00 - 20:00 EST',
     weekendHours: 'Subbota: 9:00 - 17:00 EST',
     phoneHours: 'Telefonn podderzhka dostupna v rabochie chasy',
@@ -1242,6 +1773,7 @@ export const enTranslations: TranslationStrings = {
     chatHours: 'Zhivoy chat dostupen v rabochie chasy',
     commonTopics: 'Obshchie temy',
     commonTopicsDesc: 'Chasto zaprashivaem temy podderzhki',
+    gettingStarted: 'Nachalo raboty',
     gettingStartedDesc: 'Vvedenie nov dilerov i nastroyka akkaunta',
     listingOptimization: 'Optimizatsiya obyavleniy',
     listingOptimizationDesc: 'Sovety po uluchsheniyu vidimosti vashikh obyavleniy',
@@ -1249,14 +1781,26 @@ export const enTranslations: TranslationStrings = {
     paymentBillingDesc: 'Voprosy po billingu i problemy s platezhami',
   },
 
+  admin: {
+    panel: 'Panel administratora',
+    dashboard: 'Panel administratora',
   },
 
   // Lichn panel
   privateDashboard: {
+    title: 'Moya panel',
+    subtitle: 'Upravlyayte svoimi obyavleniyami o transporte i akkauntom',
+    welcome: 'Dobro pozhalovat obratno',
+    savedCars: 'Saved Cars',
+    lastSearch: 'Posledniy poisk',
+    search: 'Search',
     yourListings: 'Vashi obyavleniya',
     expressSale: 'Express Sale',
     express: 'Express Sale',
+    contact: 'Contact',
     settings: 'Settings',
+    saved: 'Saved',
+    viewDetails: 'Posmotret detali',
     remove: 'Delete',
     startNewSearch: 'Nachat novyy poisk',
     viewMyListings: 'Posmotret moi obyavleniya',
@@ -1271,23 +1815,39 @@ export const enTranslations: TranslationStrings = {
     searchedOn: 'Iskali',
     searchAgain: 'Iskat snova',
     viewResults: 'Posmotret rezultaty',
+    results: 'English',
     // User Listings Tab
+    myListings: 'Moi obyavleniya',
     carsListedForSale: 'Cari, kotor vy vystavili na prodazhu',
     createNewListing: 'Sozdat nov obyavlenie',
     newListing: 'Nov obyavlenie',
+    views: 'views',
+    inquiries: 'requests',
     listed: 'Razmeshcheno',
+    edit: 'Edit',
+    view: 'View',
+    delete: 'Delete',
     // Express Sale Tab
     expressSaleListings: 'Express Sale Listings',
     quickSaleRequests: 'Zaprosy bystroy prodazhi, otpravlenn dileram',
     newExpressSale: 'New Express Sale',
     newExpress: 'Novyy ekspress',
     underReview: 'Na rassmotrenii',
+    photos: 'fotografii',
+    estimatedValue: 'Otsenochn stoimost:',
     submittedOn: 'Otpravleno',
     // Contact Details Tab
     contactDetails: 'Kontaktn dann',
     manageContactInfo: 'Upravlyayte svy kontaktnoy informatsiey i profilem',
+    personalInformation: 'Lichn informatsiya',
     updateProfileeDetails: 'Obnovit dann profilya',
     changePhoto: 'Izmenit fotografiyu',
+    firstName: 'Name',
+    lastName: 'English',
+    emailAddress: 'Adres elektronnoy pochty',
+    phoneNumber: 'Phone number',
+    city: 'English',
+    country: 'Country',
     saveChanges: 'Sokhranit izmeneniya',
     // Account Settings Tab
     accountSettings: 'Settings akkaunta',
@@ -1310,6 +1870,7 @@ export const enTranslations: TranslationStrings = {
     displayContactOnListings: 'Otobrazhat vashu kontaktnuyu informatsiyu v obyavleniyakh',
     dataAnalytics: 'Analitika dann',
     helpImproveService: 'Pomogite uluchshit nash servis s pomoshchyu analitiki ispolzovaniya',
+    accountManagement: 'Upravlenie akkauntom',
     manageAccountAndData: 'Upravlyayte svoim akkauntom i dann',
     downloadMyData: 'Skachat moi dann',
     changePassword: 'Izmenit parol',
@@ -1322,38 +1883,79 @@ export const enTranslations: TranslationStrings = {
 
   // Saved cars
   savedCars: {
+    title: 'Saved Cars',
+    subtitle: 'Upravlyayte svoimi lyubim transportn sredstvami i spiskom zhelaniy',
     filterBySavedDate: 'Filterovat po date sokhraneniya',
     filterByPriceRange: 'Filterovat po tsenov diapazonu',
+    sortBy: 'Sortirovat po',
     newest: 'English',
     oldest: 'English',
+    priceLowToHigh: 'Tsena: Ot nizkoy k vysokoy',
+    priceHighToLow: 'Tsena: Ot vysokoy k nizkoy',
+    noSavedCars: 'No saved cars',
+    startBrowsing: 'Nachnite prosmatrivat transportn sredstva, chtoby sokhranit izbrann',
     browseVehicles: 'Prosmotret transportn sredstva',
+    savedOn: 'Saved',
     removeFromSaved: 'Remove from saved',
+    viewDetails: 'Posmotret detali',
+    contactDealer: 'Contact',
+    scheduleViewing: 'Zaplanirovat osmotr',
     compareVehicles: 'Sravnit transportn sredstva',
     selectToCompare: 'Vyberite transportn sredstva dlya sravneniya',
     compare: 'Sravnit',
     clearSelection: 'Ochistit vybor',
+    clearAll: 'Clear All'
   },
 
   // Prodat transportn sredstvo
   sellVehicle: {
+    title: 'Sell Your Vehicle',
+    subtitle: 'Sozdayte podrobn obyavlenie dlya vashego transportn sredstva',
     stepIndicator: 'Shag {current} iz {total}',
+    basicInfo: 'Osnovn informatsiya',
+    vehicleDetails: 'Detali transportn sredstva',
     photosUpload: 'Zagruzka fotografiy',
     pricing: 'Tsenoobrazovanie',
     review: 'Obzor i publikatsiya',
     
     // Osnovn informatsiya
+    make: 'Make',
+    model: 'Model',
+    ar: 'Year',
+    mileage: 'Mileage',
     km: 'km',
+    condition: 'Condition',
     conditionOptions: {
+      excellent: 'Otlichn',
+      good: 'Khoroshee',
+      fair: 'Udovletvoriteln',
+      poor: 'Plokh'
     },
+    fuelType: 'Fuel type',
+    fuelTypes: {
+      gasoline: 'Gasoline',
+      diesel: 'Diesel',
+      electric: 'English',
+      hybrid: 'Gibrid'
     },
+    transmission: 'Transmission',
     transmissionTypes: {
+      manual: 'Mekhanichesk',
+      automatic: 'Avtomatichesk',
       semiautomatic: 'Poluavtomatichesk'
     },
+    bodyType: 'Tip kuzova',
     
     // Detali transportn sredstva
     engineSize: 'Engine Size',
     horsepower: 'Loshadin sily',
+    color: 'Color',
+    numberOfDoors: 'Number of doors',
+    numberOfSeats: 'Number of seats',
+    features: 'Specifications',
     safetyFeatures: 'Funktsii bezopasnosti',
+    description: 'Description',
+    descriptionPlaceholder: 'Opishite vashe transportn sredstvo, ego istoriyu, sostoyanie...',
     
     // Fotografii
     uploadPhotos: 'Zagruzit fotografii',
@@ -1370,6 +1972,7 @@ export const enTranslations: TranslationStrings = {
     ],
     
     // Tsenoobrazovanie
+    askingPrice: 'Zaprashivaem tsena',
     marketValue: 'Rynochn stoimost',
     priceAnalysis: 'Analiz tseny',
     competitive: 'Konkurentosposobn',
@@ -1384,60 +1987,101 @@ export const enTranslations: TranslationStrings = {
     // Obzor
     reviewListing: 'Prosmotret obyavlenie',
     publishListing: 'Opublikovat obyavlenie',
+    saveDraft: 'Sokhranit chernovik',
+    termsAndConditions: 'Usloviya ispolzovaniya',
     agreeToTerms: 'Soglasen s usloviyami ispolzovaniya',
     
     // Soobshcheniya
     listingPublished: 'Obyavlenie uspeshno opublikovano!',
     draftSaved: 'Draft saved',
     errorSaving: 'Oshibka pri sokhranenii',
+    continue: 'Continue',
+    previous: 'Previous',
     next: 'English'
   },
 
   // Home stranitsa
   indexPage: {
+    hero: {
+      title: 'Find Your Ideal Vehicle',
+      subtitle: 'Browse thousands of verified vehicles from trusted dealers and private sellers',
       searchPlaceholder: 'Search po marke, modeli ili mestopolozheniyu...',
+      search: 'Search',
+      advancedSearch: 'Rasshiren poisk'
     },
     quickFilters: {
+      title: 'Bystr filtry',
       allVehicles: 'Vse transportn sredstva',
+      cars: 'Cari',
       trucks: 'Gruzoviki',
       motorcycles: 'English',
       electric: 'Elektricheskie',
+      luxury: 'English'
     },
     stats: {
+      title: 'Pochemu CarMarket365?',
       vehiclesAvailable: 'Dostupn transportn sredstva',
       verifiedDealers: 'Proverenn dilery',
+      happyCustomers: 'Dovoln klienty',
       arsExperience: 'Let opyta'
     },
     featuredListings: {
+      title: 'Rekomenduem obyavleniya',
+      subtitle: 'Selected vehicles from our partners',
       viewAll: 'Posmotret vse'
     },
     howItWorks: {
+      title: 'Kak eto rabotaet',
+      subtitle: 'Find your ideal vehicle in three simple steps',
+      steps: [
         {
+          title: 'Naydite transportn sredstva',
+          description: 'Prosmatrivayte nashu obshirnuyu bazu proverenn transportn sredstv'
         },
         {
+          title: 'Sravnite varianty',
+          description: 'Sravnivayte tseny, kharakteristiki i otzyvy'
         },
         {
+          title: 'Pokupayte s uverennostyu',
+          description: 'Buy from trusted dealers with warranties'
         }
       ]
     },
     popularBrands: {
+      title: 'Populyarn marki',
+      subtitle: 'Issleduyte transportn sredstva ot vedushchikh avtoproizvoditeley'
     },
     testimonials: {
+      title: 'Chto govoryat nashi klienty',
+      subtitle: 'Prochitayte realn otzyvy ot nashikh dovoln pokupateley'
     },
     newsletter: {
+      title: 'Ostavaytes v kurse',
+      subtitle: 'Poluchayte poslednie obyavleniya i eksklyuzivn predlozheniya pryamo na vashu elektronnuyu pochtu',
+      emailPlaceholder: 'Vvedite vash email',
+      subscribe: 'English'
     },
     cta: {
       bur: {
+        title: 'Gotovy kupit?',
+        subtitle: 'Find your ideal vehicle today',
         button: 'Prosmotret transportn sredstva'
       },
       seller: {
+        title: 'Khotite prodat?',
+        subtitle: 'List your vehicle for sale in minutes',
+        button: 'Prodat transportn sredstvo'
       }
     }
   },
 
   // Stranitsy oshibok
+  errors: {
     notFound: {
+      title: '404',
       heading: 'Page ne naydena',
+      message: 'Page, kotoruyu vy ishchete, ne sushchestvuet ili byla peremeshchena.',
       goHome: 'Pereyti na glavnuyu',
       goBack: 'Vernutsya nazad',
       supportMessage: 'Esli vy schitaete, chto eto oshibka, please, svyazhites s nashey komandoy podderzhki.'
@@ -1447,10 +2091,16 @@ export const enTranslations: TranslationStrings = {
   // Yuridicheskie stranitsy
   legal: {
     accessibility: {
+      title: 'Dostupnost',
+      subtitle: 'Nasha priverzhennost delat CarMarket365 dostupnym dlya vsekh.',
+      backToHome: 'Vernutsya na glavnuyu',
       commitmentTitle: 'Nasha priverzhennost dostupnosti',
+      commitmentDescription: 'CarMarket365 stremitsya obespechit inklyuziv opyt.',
       commitmentText: 'My schitaem, chto u vsekh dolzhen byt rav dostup k nashey platforme, nezavisimo ot ikh sposobnostey.',
       
       visual: {
+        title: 'Vizualn podderzhka',
+        features: [
           'Vysokiy kontrast dlya luchshey chitaemosti',
           'Reguliruemyy razmer teksta',
           'Clear and structured navigation',
@@ -1458,6 +2108,8 @@ export const enTranslations: TranslationStrings = {
         ]
       },
       motor: {
+        title: 'Dvigateln podderzhka',
+        features: [
           'Poln navigatsiya s klaviatury',
           'Bolshie oblasti dlya klika',
           'Dostatochno vremeni dlya deystviy',
@@ -1465,6 +2117,8 @@ export const enTranslations: TranslationStrings = {
         ]
       },
       audio: {
+        title: 'Audiopodderzhka',
+        features: [
           'Transkriptsii dlya audiokontenta',
           'Subtitry dlya video',
           'Tekstov alternativy zvukam',
@@ -1472,6 +2126,8 @@ export const enTranslations: TranslationStrings = {
         ]
       },
       cognitive: {
+        title: 'Kognitivn podderzhka',
+        features: [
           'Prostoy i ponyat yazyk',
           'Poshagov instruktsii',
           'Polezn soobshcheniya ob oshibkakh',
@@ -1480,21 +2136,29 @@ export const enTranslations: TranslationStrings = {
       },
       
       standardsTitle: 'Standarty dostupnosti',
+      standardsDescription: 'Nasha platforma postrna v sootvetstvii s mezhdunarodn standartami.',
       wcagTitle: 'Sootvetstvie WCAG 2.1',
+      wcagDescription: 'My stremimsya sootvetstvovat rekomendatsiyam WCAG 2.1 AA dlya veb-dostupnosti.',
       compatibilityTitle: 'Sovmestimost s vspomogateln tekhnologiyami',
       compatibilityDescription: 'Nasha platforma protestirovana s programmami chteniya s ekrana i drugimi vspomogateln tekhnologiyami.',
       
       feedbackTitle: 'Otzyvy o dostupnosti?',
       feedbackText: 'Esli u vas voznikli problemy s dostupnostyu ili est predlozheniya po uluchsheniyu, svyazhites s nami po adresu accessibility@carmarket365.com',
+      returnToPlatform: 'Vernutsya na platformu',
       contactTeam: 'Svyazatsya s komandoy'
     },
 
     cookies: {
+      title: 'Politika cookies',
+      subtitle: 'Kak my ispolzuem cookies dlya uluchsheniya vashego opyta.',
+      backToHome: 'Vernutsya na glavnuyu',
       policyTitle: 'Nasha politika cookies',
       policyDescription: 'My ispolzuem cookies dlya predostavleniya nailuchshego vozmozhn servisa.',
       policyText: 'Cookies — eto nebolshie tekstov fayly, sokhranyaem na vashem ustroystve pri poseshchenii nashego sayta. Oni pomogayut nam obespechit personalizirovan opyt.',
       
       essential: {
+        title: 'Osnovn cookies',
+        features: [
           'Support polzovatelskikh sessiy',
           'Sokhranenie nastrk bezopasnosti',
           'Bazov funktsionalnost platformy',
@@ -1502,6 +2166,8 @@ export const enTranslations: TranslationStrings = {
         ]
       },
       functional: {
+        title: 'Funktsionaln cookies',
+        features: [
           'Zapominanie vashikh nastrk',
           'Sokhranenie yazykov nastrk',
           'Personalizatsiya otobrazheniya',
@@ -1509,6 +2175,8 @@ export const enTranslations: TranslationStrings = {
         ]
       },
       analytics: {
+        title: 'Analiticheskie cookies',
+        features: [
           'Ponimanie ispolzovaniya sayta',
           'Uluchshenie proizvoditelnosti',
           'Vyyavlenie tekhnicheskikh problem',
@@ -1516,6 +2184,8 @@ export const enTranslations: TranslationStrings = {
         ]
       },
       marketing: {
+        title: 'Marketingov cookies',
+        features: [
           'Relevantn reklama',
           'Izmerenie effektivnosti reklamy',
           'Personalizatsiya kontenta',
@@ -1542,14 +2212,22 @@ export const enTranslations: TranslationStrings = {
         'Regulyarn obnovleniya nastrk'
       ],
       
+      questionsTitle: 'Voprosy o cookies?',
+      questionsText: 'Esli u vas est voprosy o nashey politike cookies ili nuzhna pomoshch v upravlenii nastroykami, svyazhites s nami po adresu cookies@carmarket365.com',
+      returnToPlatform: 'Vernutsya na platformu',
+      cookieSupport: 'Support cookies'
     },
 
     imprint: {
+      title: 'Impressum',
+      subtitle: 'Yuridichesk informatsiya i dann kompanii v sootvetstvii s trebovaniyami zakona.',
+      backToHome: 'Vernutsya na glavnuyu',
       legalInfoTitle: 'Yuridichesk informatsiya (Impressum)',
       legalInfoDescription: 'Information o kompanii i yuridicheskie dann v sootvetstvii s trebovaniyami zakona.',
       legalInfoText: 'Eta stranitsa soderzhit yuridicheski neobkhodimuyu informatsiyu o CarMarket365 v sootvetstvii s deystvuyushchimi zakonami i normativn aktami. Vsya predostavlenn informatsiya aktualna i tochna.',
       
       companyDetails: {
+        title: 'Dann kompanii',
         companyName: 'Nazvanie kompanii',
         companyNameValue: 'CarMarket365 GmbH',
         registrationNumber: 'Registratsion nomer',
@@ -1561,11 +2239,15 @@ export const enTranslations: TranslationStrings = {
       },
       
       businessAddress: {
+        title: 'Delovoy adres',
         registeredAddress: 'Zaregistrirovan adres',
         street: 'Unter den Linden 1',
+        city: '10117 Berlin',
+        country: 'English'
       },
       
       management: {
+        title: 'Guide',
         managingDirector: 'Upravlyayushchiy direktor',
         managingDirectorValue: 'Max Mustermann',
         authorizedRepresentative: 'Upolnomochen predstavitel',
@@ -1573,45 +2255,72 @@ export const enTranslations: TranslationStrings = {
       },
       
       contactInfo: {
+        title: 'Kontaktn informatsiya',
+        phone: 'Phone',
         phoneValue: '+49 (0) 30 12345678',
+        email: 'Email',
         emailValue: 'info@carmarket365.com',
+        businessHours: 'Rabochie chasy',
         businessHoursValue: 'Pn-Pt: 9:00 - 18:00 CET'
       },
       
       legalNotice: {
+        title: 'Yuridichesk uvedomlenie',
         paragraph1: 'CarMarket365 stremitsya predostavlyat tochnuyu i aktualnuyu informatsiyu. Odnako my ne mozhem garantirovat polnotu ili tochnost vsego kontenta.',
         paragraph2: 'This platform serves as a marketplace connecting car buyers and sellers. CarMarket365 is not responsible for the accuracy of listings or user behavior.',
         paragraph3: 'Po sporam ili zhalobam, please, svyazhites s nami, ispolzuya informatsiyu, ukazannuyu vyshe. My stremimsya reshit vse voprosy svvremenno i spravedlivo.'
       },
       
       questionsTitle: 'Yuridicheskie voprosy?',
+      questionsText: 'Po yuridicheskim voprosam ili dlya soobshcheniya o problemakh, please, svyazhites s nashim yuridicheskim otdelom po adresu legal@carmarket365.com',
+      returnToPlatform: 'Vernutsya na platformu',
       contactLegal: 'Svyazatsya s yuridicheskoy komandoy'
     }
   },
 
   // Dealer Dashboard
   dealerDashboard: {
+    title: 'Panel dilera',
+    subtitle: 'Upravlyayte svoimi obyavleniyami, otslezhivayte proizvoditelnost i razvivayte biznes',
     
     // Tab navigation
+    tabs: {
+      overview: 'Obzor',
+      myListings: 'Moi obyavleniya',
+      inquiries: 'English',
+      analytics: 'Analitika',
     },
     
     // Overview tab
     overview: {
       // Stats cards
+      stats: {
         activeListings: {
+          title: 'Aktivn obyavleniya',
+          description: '+2 s proshl mesyatsa',
           fromLastMonth: 's proshl mesyatsa',
         },
         totalViews: {
+          title: 'Vsego prosmotrov',
+          description: '+15% s proshl mesyatsa',
+          fromLastMonth: 's proshl mesyatsa',
         },
         inquiries: {
+          title: 'English',
+          description: '+7 so vchera',
           fromYesterday: 'so vchera',
         },
         revenue: {
+          title: 'English',
+          description: '+12% s proshl mesyatsa',
+          fromLastMonth: 's proshl mesyatsa',
         },
       },
       
       // Performance section
       performance: {
+        title: 'Mesyachn proizvoditelnost',
+        description: 'Kolichestvo prodann avtomobiley po mesyatsam v etom godu',
         monthlyData: {
           january: 'Yanvar',
           december: 'Dekabr',
@@ -1622,25 +2331,36 @@ export const enTranslations: TranslationStrings = {
       
       // Recent inquiries
       recentInquiries: {
+        title: 'Poslednie zaprosy',
+        description: 'Noveyshie klientskie zaprosy',
         inquiryTypes: {
           viewing: 'osmotr',
+          price: 'tsena',
+          financing: 'Process',
         },
         timeAgo: {
+          hoursAgo: 'ch nazad',
         },
       },
       
       // Action buttons
+      actions: {
         addNewListing: 'Dobavit nov obyavlenie',
+        viewAnalytics: 'Posmotret analitiku',
       },
     },
     
     // My Listings tab
     myListings: {
+      title: 'Moi obyavleniya',
       
       // Search and filters
+      searchPlaceholder: 'Search obyavleniy...',
       filterByStatus: 'Filter po statusu',
       statusOptions: {
         allStatus: 'Vse statusy',
+        active: 'Aktivn',
+        sold: 'Sold',
         pending: 'Ozhidaet',
       },
       exportReport: 'Export Report',
@@ -1648,26 +2368,43 @@ export const enTranslations: TranslationStrings = {
       
       // Table headers
       tableHeaders: {
+        car: 'Car',
+        price: 'Price',
+        status: 'Status',
         views: 'English',
+        inquiries: 'English',
+        listed: 'Razmeshcheno',
+        actions: 'English',
       },
       
       // Status badges
       statusBadges: {
+        active: 'Aktivn',
+        sold: 'Sold',
+        pending: 'Ozhidaet',
       },
       
       // Actions
+      actions: {
+        viewListing: 'Posmotret obyavlenie',
         editListing: 'Redaktirovat obyavlenie',
         deleteListing: 'Udalit obyavlenie',
       },
       
       // Mobile view
       mobileView: {
+        views: 'views',
+        inquiries: 'requests',
       },
     },
     
     // Inquiries tab
+    inquiries: {
+      title: 'Klientskie zaprosy',
+      description: 'Upravlyayte i otvechayte na klientskie zaprosy',
       
       // Inquiry types
+      inquiryTypes: {
         testDriveRequest: 'Zapros na test-drayv',
         priceInquiry: 'Zapros o tsene',
       },
@@ -1679,6 +2416,7 @@ export const enTranslations: TranslationStrings = {
       },
       
       // Actions
+      actions: {
         respond: 'Otvetit',
       },
       
@@ -1690,19 +2428,28 @@ export const enTranslations: TranslationStrings = {
     },
     
     // Analytics tab
+    analytics: {
       // Popular listings
       popularListings: {
+        title: 'Populyarn obyavleniya',
+        description: 'Naibolee prosmatrivaem obyavleniya v etom mesyatse',
+        views: 'views',
+        inquiries: 'requests',
       },
       
       // Performance metrics
       performanceMetrics: {
+        title: 'Pokazateli proizvoditelnosti',
+        description: 'Klyuchev pokazateli effektivnosti',
         metrics: {
           averageTimeToSell: 'Srednee vremya prodazhi',
           conversionRate: 'English',
           averageListingViews: 'Srednie prosmotry obyavleniya',
+          responseTime: 'Vremya otveta',
         },
         values: {
           days: 'days',
+          hours: 'hours',
         },
       },
     },
@@ -1714,37 +2461,63 @@ export const enTranslations: TranslationStrings = {
 
   // Admin Dashboard
   adminDashboard: {
+    title: 'Panel administratora',
+    subtitle: 'Upravlenie platformoy, nadzor i vseobemlyushchiy tsentr kontrolya',
     
     // Tab navigation
+    tabs: {
+      overview: 'Obzor',
+      allListings: 'Vse obyavleniya',
+      userManagement: 'Upravlenie polzovatelyami',
+      reports: 'Reports',
     },
     
     // Overview tab
+    overview: {
       // Stats cards
+      stats: {
         totalUsers: {
+          title: 'Vsego polzovateley',
+          description: '+15% s proshl mesyatsa',
+          fromLastMonth: 's proshl mesyatsa',
         },
         activeDealers: {
+          title: 'Aktivn dilery',
+          description: '+8 nov v etom mesyatse',
           newThisMonth: 'nov v etom mesyatse',
         },
         totalListings: {
+          title: 'Vsego obyavleniy',
+          description: '+23 segodnya',
           today: 'segodnya',
         },
         platformRevenue: {
+          title: 'Dokhod platformy',
+          description: '+12% s proshl mesyatsa',
+          fromLastMonth: 's proshl mesyatsa',
         },
       },
       
       // Recent activity
       recentActivity: {
+        title: 'Posledny aktivnost',
+        description: 'Noveyshie deystviya na platforme',
         activities: {
           newDealerRegistration: 'Registration nov dilera',
           listingFlaggedForReview: 'Obyavlenie otmecheno dlya proverki',
           userAccountSuspended: 'Account polzovatelya zablokirovan',
           paymentProcessed: 'Payment Processed',
         },
+        timeAgo: {
+          hoursAgo: 'ch nazad',
         },
       },
       
       // System health
       systemHealth: {
+        title: 'Sostoyanie sistemy',
+        description: 'Pokazateli proizvoditelnosti platformy',
+        metrics: {
           serverUptime: 'Vremya raboty servera',
           averageResponseTime: 'Srednee vremya otklika',
           activeSessions: 'Aktivn sessii',
@@ -1753,6 +2526,7 @@ export const enTranslations: TranslationStrings = {
       },
       
       // Action buttons
+      actions: {
         manageUsers: 'Upravlyat polzovatelyami',
         viewReports: 'View Reports',
       },
@@ -1760,43 +2534,86 @@ export const enTranslations: TranslationStrings = {
     
     // All Listings tab
     allListings: {
+      title: 'Vse obyavleniya',
       
       // Search and filters
+      searchPlaceholder: 'Search obyavleniy...',
+      filterByStatus: 'Filter po statusu',
+      statusOptions: {
+        allStatus: 'Vse statusy',
+        active: 'Aktivn',
+        sold: 'Sold',
+        pending: 'Ozhidaet',
         flagged: 'Otmecheno',
       },
       
       // Table headers
+      tableHeaders: {
+        image: 'Izobrazhenie',
+        title: 'Zagolovok',
+        category: 'English',
+        seller: 'Seller',
+        price: 'Price',
+        status: 'Status',
         created: 'Sozdano',
+        actions: 'English',
       },
       
       // Status badges
+      statusBadges: {
+        active: 'Aktivn',
+        sold: 'Sold',
+        pending: 'Ozhidaet',
+        flagged: 'Otmecheno',
       },
       
       // Actions
+      actions: {
+        viewListing: 'Posmotret obyavlenie',
+        editListing: 'Redaktirovat obyavlenie',
+        deleteListing: 'Udalit obyavlenie',
       },
     },
     
     // User Management tab
     userManagement: {
+      title: 'Upravlenie polzovatelyami',
+      description: 'Prosmatrivayte i upravlyayte vsemi polzovatelyami platformy',
       
       // Search and filters
+      searchPlaceholder: 'Search po email ili imeni...',
       roleFilter: {
+        placeholder: 'Rol',
+        options: {
           allRoles: 'Vse roli',
           customer: 'Klient',
+          dealer: 'Dealer',
+          admin: 'Administrator',
         },
       },
       
       // Table headers
+      tableHeaders: {
         user: 'Polzovatel',
+        role: 'Rol',
+        status: 'Status',
         joinDate: 'Data prisdineniya',
         lastLogin: 'Posledniy vkhod',
+        actions: 'English',
       },
       
       // Role badges
       roleBadges: {
+        admin: 'Administrator',
+        dealer: 'Dealer',
+        customer: 'Klient',
       },
       
       // Status badges
+      statusBadges: {
+        active: 'Aktiven',
+        suspended: 'Zablokirovan',
+        pending: 'Ozhidaet',
       },
       
       // Dopolniteln soobshcheniya statusa
@@ -1807,6 +2624,7 @@ export const enTranslations: TranslationStrings = {
       },
       
       // Actions
+      actions: {
         viewProfilee: 'Posmotret profil',
         editUser: 'Redaktirovat polzovatelya',
         suspendUser: 'Zablokirovat polzovatelya',
@@ -1818,6 +2636,9 @@ export const enTranslations: TranslationStrings = {
     reports: {
       // Platform statistics
       platformStatistics: {
+        title: 'Statistika platformy',
+        description: 'Klyuchev pokazateli platformy',
+        metrics: {
           totalRevenue: 'Obshchiy dokhod (v etom mesyatse)',
           newUserRegistrations: 'Registratsii nov polzovateley',
           successfulTransactions: 'Uspeshn tranzaktsii',
@@ -1827,6 +2648,9 @@ export const enTranslations: TranslationStrings = {
       
       // Content moderation
       contentModeration: {
+        title: 'Moderatsiya kontenta',
+        description: 'Kontent, trebuyushchiy proverki',
+        items: {
           flaggedListings: 'Otmechenn obyavleniya',
           pendingDealerApplications: 'Zvki dilerov v ozhidanii',
           reportedUsers: 'Polzovateli s zhalobami',
@@ -1836,16 +2660,23 @@ export const enTranslations: TranslationStrings = {
     },
     
     // Footer message
+    footerMessage: 'Administrativ kontrol - ',
     systemStatus: 'Status sistemy: Onlayn',
   },
 
   uiDemo: {
+    title: 'Demonstratsiya UI-komponentov',
+    subtitle: 'Izuchite nashu dizayn-sistemu i UI-komponenty',
     components: 'English',
+    forms: 'English',
+    buttons: 'Knopki',
     cards: 'Kartochki',
   },
 
   // Test strany
   countryTest: {
+    title: 'Test razdeleniya po stranam',
+    subtitle: 'Proverte, kak obyavleniya avtomobiley filtruyutsya po strane/poddomenu',
     currentCountryConfiguration: 'Tekushch konfiguratsiya strany',
     currentCountryDescription: 'Eto pokazyvaet tekushchuyu opredelennuyu stranu i ee nastroyki',
     detectedCountry: 'Opredelenn strana',
@@ -1866,9 +2697,11 @@ export const enTranslations: TranslationStrings = {
     carListingsDescription: 'dolzhny poyavitsya nizhe',
     loadingCars: 'Zagruzka avtomobiley...',
     foundCars: 'Naydeno {count} avtomobilya(ey) v {country}',
+    countryFilteredResults: 'Resulty, otfiltrovann po strane',
     noCarsFound: 'Cari ne naydeny',
     noCarsFoundDescription: 'V nastoyashchee vremya v {country} net opublikovann avtomobiley.',
     tryDifferentCountry: 'Poprobuyte pereklyuchitsya na druguyu stranu s pomoshchyu pereklyuchatelya vyshe.',
+    howItWorks: 'Kak eto rabotaet',
     automaticCountryDetection: 'Avtomatichesk opredelenie strany',
     automaticDetectionDescription: 'Sistema avtomaticheski opredelyaet stranu iz poddomena (naprimer, mk.carmarket365.com dlya Makedonii, al.carmarket365.com dlya Albanii).',
     countrySpecificListings: 'Obyavleniya, spetsifichn dlya strany',
@@ -1880,48 +2713,118 @@ export const enTranslations: TranslationStrings = {
   },
 
   // Formy i polya vvoda
+  forms: {
+    placeholders: {
+      selectMake: 'Vyberite marku',
       selectModel: 'Vyberite model',
+      selectYear: 'Vyberite god',
+      selectCondition: 'Vyberite sostoyanie',
+      selectFuelType: 'Vyberite tip topliva',
+      selectTransmission: 'Vyberite transmissiyu',
+      selectBodyType: 'Vyberite tip kuzova',
+      selectDrivetrain: 'Vyberite privod',
       enterName: 'Vvedite imya',
+      enterEmail: 'Vvedite email',
       enterPassword: 'Vvedite parol',
+      enterPhone: 'Vvedite telefon',
+      enterModel: 'Vvedite model',
+      enterMileage: 'Vvedite probeg',
+      enterPrice: 'Vvedite tsenu',
+      enterLocation: 'Vvedite mestopolozhenie',
       enterCity: 'Vvedite gorod',
       enterDescription: 'Vvedite opisanie',
       searchCars: 'Iskat avtomobili',
       searchListings: 'Iskat obyavleniya',
       searchFAQs: 'Iskat v FAQ',
+      anyMake: 'Lyub marka',
+      anyModel: 'Lyub model',
       anyYear: 'Lyuboy god',
+      anyMileage: 'Lyuboy probeg',
+      minPrice: 'Min. tsena',
+      maxPrice: 'Maks. tsena',
+      role: 'Rol',
+      sortBy: 'Sortirovat po',
       filterBy: 'Filterovat po',
       dealerNameOrCity: 'Nazvanie dilera ili gorod',
       allStates: 'Vse regiony',
+      allSpecialties: 'Vse spetsialnosti',
       egFiftyThousand: 'naprimer, 50,000',
+      successMessage: 'Vashe obyavlenie uspeshno sozdano!',
       requiredFieldMessage: 'Eto pole required dlya zapolneniya',
       enterMessage: 'Vvedite vashe soobshchenie',
     },
+    labels: {
       businessName: 'Nazvanie biznesa',
+      businessType: 'Tip biznesa',
+      vatNumber: 'NDS nomer',
+      firstName: 'Name',
+      lastName: 'English',
+      email: 'Email',
+      password: 'Password',
+      confirmPassword: 'Confirm Password',
+      phoneNumber: 'Phone number',
+      street: 'Ulitsa',
+      city: 'English',
       state: 'Region',
+      postalCode: 'Pochtovyy indeks',
+      country: 'Country',
+      make: 'Make',
+      model: 'Model',
+      ar: 'Year',
+      mileage: 'Mileage',
+      condition: 'Condition',
+      fuelType: 'Fuel type',
+      transmission: 'English',
+      bodyType: 'Tip kuzova',
+      exteriorColor: 'Body color',
+      interiorColor: 'Interior color',
+      price: 'Price',
+      description: 'Description',
+      contactName: 'Kontaktn litso',
       contactPhone: 'Kontakt telefon',
       contactEmail: 'Kontakt email',
+      location: 'Location',
       rememberMe: 'Zapomnit menya',
       termsAccepted: 'Usloviya prinyaty',
       privacyAccepted: 'Politika prinyata',
     },
+    buttons: {
       submit: 'Send',
       register: 'English',
+      signIn: 'English',
+      signUp: 'English',
+      signOut: 'English',
+      backToSignIn: 'Nazad k vkhodu',
+      backToHome: 'Nazad na glavnuyu',
+      createAccount: 'Sozdat akkaunt',
+      forgotPassword: 'Zabyli parol',
       resetPassword: 'Sbrosit parol',
       updateProfilee: 'Obnovit profil',
+      uploadPhotos: 'Zagruzit foto',
+      removePhoto: 'Udalit foto',
+      publishListing: 'Opublikovat obyavlenie',
       saveDraft: 'Sokhranit kak chernovik',
       previewListing: 'Predvaritel prosmotr',
+      editListing: 'Redaktirovat obyavlenie',
+      deleteListing: 'Udalit obyavlenie',
       viewListing: 'Prosmotret obyavlenie',
+      viewDetails: 'Posmotret detali',
       contactDealer: 'Svyazatsya s dilerom',
+      scheduleTestDrive: 'Zapisatsya na test-drayv',
       requestFinancing: 'Zaprosit finansirovanie',
       shareVehicle: 'Podelitsya avtomobilem',
+      saveToFavorites: 'Dobavit v izbrann',
+      removeFromFavorites: 'Ubrat iz izbrann',
       applyFilters: 'Primenit filtry',
       clearFilters: 'Ochistit filtry',
+      clearSearch: 'Ochistit poisk',
       searchVehicles: 'Iskat avtomobili',
       viewAllCars: 'Posmotret vse avtomobili',
       loadMore: 'Zagruzit eshche',
       showMore: 'Pokazat bolshe',
       showLess: 'Pokazat menshe',
     },
+    validation: {
       nameMinLength: 'Imya dolzhno soderzhat ne menee 2 simvolov',
       validEmail: 'Pozhaluysta, enter validyy adres elektronnoy pochty',
       messageMinLength: 'Soobshchenie dolzhno soderzhat ne menee 10 simvolov',
@@ -1930,11 +2833,13 @@ export const enTranslations: TranslationStrings = {
 
   // Static content for About page
   about: {
+    stats: {
       carsSold: 'Prodano Carey',
       happyCustomers: 'Dovoln Klientov',
       dealerPartners: 'Dealer Partners',
       arsInBusiness: 'Let v Biznese',
     },
+    values: {
       trustTransparency: 'Doverie i Prozrachnost',
       trustTransparencyDesc: 'We believe in honest pricing, clear communication, and building long-term relationships with our clients.',
       customerFirst: 'Klient Prezhde Vsego',
@@ -1947,40 +2852,84 @@ export const enTranslations: TranslationStrings = {
     staticContent: {
       team: [
         {
+          name: 'Aleksey Petrov',
+          role: 'General direktor i osnovatel',
+          bio: '15+ let v avtomobilnoy industrii. Ranee vitse-prezident v AutoNation.',
+          image: 'https://images.pexels.com/photos/3764984/pexels-photo-3764984.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
           linkedin: '#'
         },
         {
+          name: 'Mikhail Sokolov',
+          role: 'Tekhnicheskiy direktor',
+          bio: 'Byvshiy inzhener Tesla s ekspertizoy v avtomobiln tekhnologiyakh.',
+          image: 'https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+          linkedin: '#'
         },
         {
+          name: 'Elena Volkova',
           role: 'Rukovoditel otdela klientsk servisa',
           bio: '10+ let v oblasti prevoskhodn obsluzhivaniya klientov i rukovodstva komandoy.',
           image: 'https://images.pexels.com/photos/33419739/pexels-photo-33419739.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+          linkedin: '#'
         },
         {
+          name: 'Dmitriy Kuznetsov',
+          role: 'Vitse-prezident po operatsiyam',
+          bio: 'Ekspert po tsepochke postavok s opytom v avtomobilnoy logistike.',
+          image: 'https://images.pexels.com/photos/3764984/pexels-photo-3764984.jpeg?auto=compress&cs=tinysrgb&w=300&h=300&fit=crop',
+          linkedin: '#'
         }
       ],
       milestones: [
         {
+          ar: '2009',
+          title: 'Osnovanie kompanii',
           description: 'Nachali kak nebolsh torgov ploshchadka poderzhann avtomobiley v Moskve s videniem revolyutsionizirovat pokupku avtomobiley.'
         },
         {
+          ar: '2012',
+          title: 'Zapusk tsifrovoy platformy',
+          description: 'Zapustili nashu pervuyu onlayn-ploshchadku, sdelav pokupku avtomobiley bolee dostupnoy.'
         },
         {
+          ar: '2015',
+          title: '500th Partner Dealer',
+          description: 'Reached an important milestone by partnering with our 500th verified dealer.'
         },
         {
+          ar: '2018',
+          title: 'Natsionaln ekspansiya',
+          description: 'Rasshirili operatsii dlya obsluzhivaniya klientov po vsey Rossii i stranam SNG.'
         },
         {
+          ar: '2020',
+          title: 'Zapusk mobiln prilozheniya',
+          description: 'Launched our mobile app, making car shopping even more convenient.'
         },
         {
+          ar: '2023',
+          title: '50,000 prodann avtomobiley',
+          description: 'Otprazdnovali pomoshch bolee chem 45,000 klientam v poiske ikh idealn avtomobilya.'
         }
       ],
       awards: [
         {
+          title: 'Luchsh avtomobiln ploshchadka 2023',
+          organization: 'Premiya vybora potrebiteley',
+          ar: '2023',
+          description: 'Priznana za vydayushcheesya obsluzhivanie klientov i innovatsii platformy'
         },
         {
+          title: 'Samyy bystrorastushchiy startap',
           organization: 'Premiya tekhnologicheskikh innovatsiy',
+          ar: '2022',
+          description: 'Otmechena za bystryy rost i rasshirenie rynka'
         },
         {
+          title: 'Prevoskhodstvo v obsluzhivanii klientov',
+          organization: 'Premii avtomobilnoy industrii',
+          ar: '2023',
+          description: 'Nagrazhdena za isklyuchiteln udovletvorenie klientov i podderzhku'
         }
       ]
     },
@@ -2004,18 +2953,26 @@ export const enTranslations: TranslationStrings = {
       ctaTitle: 'Gotovy prisdinitsya k nashemu puti?',
       ctaDescription: 'Esli vy ishchete svoy sleduyushchiy avtomobil ili khotite stat chastyu nashey komandy, my khoteli by uslyshat ot vas.',
       joinTeam: 'Prisdinitsya k nashey komande',
+      contactUs: 'Svyazatsya s nami',
+      browseCars: 'Prosmotret avtomobili',
       connect: 'English'
     }
   },
 
   carReviews: {
+    title: 'Obzory avtomobiley',
+    subtitle: 'Ekspertn obzory i otzyvy polzovateley, kotor pomogut vam prinimat obosnovann resheniya pri pokupke sleduyushchego avtomobilya.',
+    backToHome: 'Nazad na glavnuyu',
     
     // Main content
     overviewTitle: 'Obzory i reytingi avtomobiley',
     overviewDescription: 'Kompleksn obzory, kotor pomogut vam prinimat obosnovann resheniya pri pokupke transportn sredstv.',
+    overviewText: 'Nash razdel obzorov avtomobiley predostavlyaet detal analiz ot avtomobiln ekspertov i real opyt vladeltsev, chtoby pomoch vam ponyat vse aspekty rassmatrivaem transportn sredstv.',
     
     // Review types
     expertReviews: {
+      title: 'Ekspertn obzory',
+      features: [
         'Professionaln avtomobiln zhurnalistika',
         'Detal analiz proizvoditelnosti',
         'Safety and reliability ratings',
@@ -2023,6 +2980,8 @@ export const enTranslations: TranslationStrings = {
       ]
     },
     ownerReviews: {
+      title: 'Otzyvy vladeltsev',
+      features: [
         'Real opyt vladeniya',
         'Long-term reliability reviews',
         'Ponimanie zatrat na obsluzhivanie',
@@ -2030,6 +2989,8 @@ export const enTranslations: TranslationStrings = {
       ]
     },
     ratingSystem: {
+      title: 'Sistema reytinga',
+      features: [
         '5-star rating system',
         'Otsenki po konkretnym kategoriyam',
         'Obshchie rekomendatsii',
@@ -2037,6 +2998,8 @@ export const enTranslations: TranslationStrings = {
       ]
     },
     marketInsights: {
+      title: 'Rynochn analitiki',
+      features: [
         'Analiz pereprodazhnoy stoimosti',
         'Market trend reports',
         'Rekomendatsii luchshey tsennosti',
@@ -2047,6 +3010,9 @@ export const enTranslations: TranslationStrings = {
     // Categories
     categoriesTitle: 'Categories obzorov',
     categoriesDescription: 'Nashi obzory okhvatyvayut vse aspekty vladeniya i proizvoditelnosti transportn sredstv.',
+    performance: {
+      title: 'Proizvoditelnost',
+      items: [
         'Proizvoditelnost dvigatelya',
         'Upravlenie i dinamika vozhdeniya',
         'Effektivnost topliva',
@@ -2054,6 +3020,8 @@ export const enTranslations: TranslationStrings = {
       ]
     },
     comfort: {
+      title: 'Komfort i interer',
+      items: [
         'Komfort sideniy',
         'Vnutrennee prostranstvo i khranenie',
         'Tekhnologicheskie funktsii',
@@ -2061,6 +3029,8 @@ export const enTranslations: TranslationStrings = {
       ]
     },
     safety: {
+      title: 'Safety and Reliability',
+      items: [
         'Reytingi i funktsii bezopasnosti',
         'Reliability and Service',
         'Garantiyn pokrytie',
@@ -2071,37 +3041,48 @@ export const enTranslations: TranslationStrings = {
     // Coming soon
     comingSoonTitle: 'Obzory skoro poyavyatsya!',
     comingSoonText: 'V nastoyashchee vremya my stroim nashu kompleksnuyu bazu dann obzorov. Ekspertn obzory i otzyvy vladeltsev skoro budut dostupny, chtoby pomoch napravit vashi resheniya o pokupke avtomobiley.',
+    browseCars: 'Prosmotret dostupn avtomobili',
     exploreInventory: 'Izuchit inventar'
   },
 
   // Static vehicle data for AdvancedSearch
+  advancedSearch: {
+    staticVehicleData: {
+      makes: [
         'Audi', 'BMW', 'Mercedes-Benz', 'Volkswagen', 'English', 'Honda', 'Ford', 'Peugeot', 
         'Renault', 'Opel', 'Fiat', 'Citrn', 'Nissan', 'English', 'Kia', 'Mazda', 
         'Subaru', 'Volvo', 'SEAT', 'Skoda', 'Alfa Romeo', 'Mini', 'Jaguar', 'Land Rover',
         'Porsche', 'Lexus', 'Infiniti', 'Acura', 'Cadillac', 'Lincoln', 'Buick', 'GMC',
         'EUR', 'English', 'Dodge', 'Jeep', 'Ram', 'Tesla', 'Lucid', 'Rivian'
       ],
+      bodyTypes: [
         'Sedan', 'SUV', 'Hatchback', 'Coupe', 'Convertible', 'Wagon', 'Pickup', 'Furgon',
         'Minivan', 'Crossover', 'Kompakt', 'Subkompakt', 'Sredniy razmer', 'Pol razmer',
         'Sportiv avtomobil', 'English', 'English', 'Gibrid'
       ],
+      fuelTypes: [
         'Gasoline', 'Diesel', 'Gibrid', 'English', 'Podklyuchaemyy gibrid', 'CNG', 'LPG',
         'Flex Fuel', 'Vodorod', 'Biodizel', 'E85 Etanol'
       ],
+      transmissions: [
         'Mekhanichesk', 'Avtomatichesk', 'CVT', 'Poluavtomatichesk', 'Dvoyn stseplenie', '6-stupenchat mekhanichesk',
         '7-stupenchat avtomatichesk', '8-stupenchat avtomatichesk', '9-stupenchat avtomatichesk', '10-stupenchat avtomatichesk'
       ],
+      drivetrains: [
         'Peredniy privod', 'Zadniy privod', 'Pol privod', '4WD', 
         'Chastich 4WD', 'Postoyan 4WD', 'Elektron pol privod', 'Mekhanicheskiy pol privod'
       ],
+      colors: [
         'Black', 'White', 'Silver', 'Gray', 'Blue', 'Red', 'Green', 'Brown', 
         'Gold', 'Yellow', 'Orange', 'Purple', 'Beige', 'Tan', 'Pink', 'Burgundy',
         'Pearl White', 'Metallic Silver', 'Deep Blue', 'Racing Red', 'Forest Green',
         'Ugol', 'English', 'English'
       ],
+      conditions: [
         'New', 'Kak novyy', 'Otlichn', 'Ochen khoroshee', 'Khoroshee', 'Spravedliv', 'Poderzhan', 
         'Sertifitsirovan b/u', 'Vosstanovlen', 'Otrestavrirovan', 'English', 'Vintazh'
       ],
+      features: [
         'Konditsioner', 'Kozhan sidenya', 'Navigatsionn sistema', 'Bluetooth', 'USB port',
         'Kamera zadnego vida', 'Parkovochn sensory', 'Obogrev sideniy', 'English', 'Lit diski',
         'Kruiz-kontrol', 'ABS', 'Sistema kursovoy ustoychivosti', 'Podushki bezopasnosti',
@@ -2114,6 +3095,7 @@ export const enTranslations: TranslationStrings = {
         'Elektroregulirovka sideniy', 'Sidenya tretego ryada', 'Skladyvayushchiesya zadnie sidenya', 
         'Shtorka bagazhnika', 'Bagazhnik na kryshe', 'Pritsepn ustroystvo', 'Bokov podnozhki', 'Bokov stupeni'
       ],
+      certifications: [
         'Sertifitsirovan b/u', 'Garantiya proizvoditelya', 'Rasshirenn garantiya', 
         'Roadside Assistance', 'Vehicle History Report', 'Multi-point Inspection',
         'Proverka vybrosov', 'Proverka bezopasnosti', 'Sertifikatsiya dilera', 'Sertifikatsiya tretey storony',
@@ -2123,12 +3105,20 @@ export const enTranslations: TranslationStrings = {
     }
   },
 
+  safetyTips: {
+    title: 'Sovety po bezopasnosti',
+    subtitle: 'Osnovn rekomendatsii po bezopasnosti dlya pokupki, prodazhi i obsluzhivaniya vashego avtomobilya.',
+    backToHome: 'Nazad na glavnuyu',
     
     // Main content
+    mainTitle: 'Rekomendatsii po bezopasnosti avtomobiley',
+    mainDescription: 'Kompleksn sovety po bezopasnosti dlya bezopasnoy pokupki i prodazhi avtomobiley.',
     safetyOverview: 'Whether you\'re buying your first car or selling your current one, following appropriate safety recommendations protects you from fraud, ensures fair deals, and helps maintain your personal safety throughout the process.',
     
     // Safety categories
     meetingSafety: {
+      title: 'Bezopasnost vstrech',
+      items: [
         'Always meet in a public, well-lit place',
         'Bring a trusted friend or family member',
         'Soobshchite k-libo o vashikh planakh vstrechi',
@@ -2138,6 +3128,8 @@ export const enTranslations: TranslationStrings = {
       ]
     },
     paymentSecurity: {
+      title: 'Bezopasnost platezhey',
+      items: [
         'Nikogda ne otpravlyayte dengi ili depozity do osmotra avtomobilya',
         'Ispolzuyte bezopasn sposoby oplaty (bankovskiy perevod, zaveren chek)',
         'Izbegayte nalichn operatsiy na krupn summy',
@@ -2147,6 +3139,8 @@ export const enTranslations: TranslationStrings = {
       ]
     },
     vehicleInspection: {
+      title: 'Osmotr avtomobilya',
+      items: [
         'Vsegda osmatrivayte avtomobil lichno',
         'Vozmite s soboy znayushchego mekhanika ili opytn druga',
         'Protestiruyte avtomobil v razlichn usloviyakh',
@@ -2156,6 +3150,8 @@ export const enTranslations: TranslationStrings = {
       ]
     },
     redFlags: {
+      title: 'Trevozhn signaly',
+      items: [
         'Prodavets otkazyvaetsya vstretitsya lichno',
         'Trebovanie oplaty do osmotra avtomobilya',
         'Tsena znachitelno nizhe rynochnoy stoimosti',
@@ -2167,6 +3163,8 @@ export const enTranslations: TranslationStrings = {
     
     // Documentation
     documentation: {
+      title: 'Neobkhodim dokumenty',
+      description: 'Vazhn dokumenty dlya proverki i polucheniya pri sdelkakh s avtomobilyami.',
       forBurs: 'Dlya pokupateley',
       burItems: [
         'Svidetelstvo o registratsii avtomobilya',
@@ -2189,112 +3187,294 @@ export const enTranslations: TranslationStrings = {
     
     // Emergency contact
     emergency: {
+      title: 'Nuzhna pomoshch ili est opaseniya?',
+      message: 'Esli vy stolknulis s podozritelnoy deyatelnostyu ili nuzhdaetes v pomoshchi, ne stesnyaytes obratitsya k mestnym vlastyam ili soobshchit o probleme nashey sluzhbe podderzhki.',
+      browseCars: 'Prosmotret bezopasn obyavleniya',
+      reportConcern: 'Soobshchit o probleme'
     }
   },
 
   expressSell: {
+    title: 'Prodayte svoy avtomobil bystro',
+    subtitle: 'Razmestite vash avtomobil za minuty s pomoshchyu nashego ekspress-protsessa prodazhi',
+    backToHome: 'Nazad na glavnuyu',
     step: 'Shag',
+    of: 'iz',
     carDetails: 'Detali avtomobilya',
     carDetailsDescription: 'Rasskazhite nam o vashem avtomobile, chtoby sozdat privlekateln obyavlenie',
+    make: 'Make',
+    makeRequired: 'Marka *',
+    selectMake: 'Vyberite marku',
+    model: 'Model',
+    modelRequired: 'Model *',
+    selectModel: 'Vyberite model',
+    ar: 'Year',
+    arRequired: 'God *',
+    selectYear: 'Vyberite god',
+    mileage: 'Mileage',
+    mileageRequired: 'Probeg *',
+    enterMileage: 'Vvedite probeg',
     kilometers: 'kilometers',
+    fuelType: 'Fuel type',
     fuelTypeRequired: 'Fuel type *',
+    selectFuelType: 'Vyberite tip topliva',
+    gasoline: 'Gasoline',
+    diesel: 'Diesel',
+    electric: 'Electric',
+    hybrid: 'Gibrid',
+    transmission: 'Transmission',
     transmissionRequired: 'Transmission *',
+    selectTransmission: 'Vyberite korobku peredach',
+    manual: 'Mekhanichesk',
+    automatic: 'Avtomatichesk',
+    condition: 'Condition',
+    conditionRequired: 'Sostoyanie *',
+    selectCondition: 'Vyberite sostoyanie',
+    excellent: 'Otlichn',
+    veryGood: 'Ochen khoroshee',
+    good: 'Khoroshee',
+    fair: 'Udovletvoriteln',
+    price: 'Price',
     priceRequired: 'Tsena *',
     enterPrice: 'Vvedite zaprashivaemuyu tsenu',
     euros: 'EUR',
+    description: 'Description',
     descriptionOptional: 'Description (Optsionalno)',
+    enterDescription: 'Vvedite opisanie',
     descriptionPlaceholder: 'Opishite osobennosti, sostoyanie i istoriyu vashego avtomobilya...',
+    photosAndContact: 'Foto i kontakty',
     photosAndContactDescription: 'Dobavte fotografii i vashu kontaktnuyu informatsiyu',
     carPhotos: 'Fotografii avtomobilya',
     carPhotosRequired: 'Fotografii avtomobilya *',
+    uploadPhotos: 'Zagruzit fotografii',
     photosUploaded: 'fotografiy zagruzheno',
+    contactInformation: 'Kontaktn informatsiya',
+    fullName: 'Poln imya',
     fullNameRequired: 'Poln imya *',
     enterFullName: 'Vvedite vashe poln imya',
+    phoneNumber: 'Phone number',
+    phoneRequired: 'Telefon *',
+    enterPhone: 'Vvedite nomer telefona',
+    emailAddress: 'Adres elektronnoy pochty',
+    emailRequired: 'Email *',
     enterEmail: 'Vvedite adres elektronnoy pochty',
+    location: 'Location',
     locationRequired: 'Mestopolozhenie *',
     enterLocation: 'Vvedite vashe mestopolozhenie',
+    preview: 'Predvaritel prosmotr',
     previewDescription: 'Prosmotrite vashe obyavlenie pered publikatsiey',
     yourListing: 'Vashe obyavlenie',
     listingPreview: 'Predvaritel prosmotr obyavleniya',
+    photos: 'Fotografii',
+    contactDetails: 'Kontaktn dann',
+    previous: 'Previous',
+    next: 'Next',
+    publishListing: 'Opublikovat obyavlenie',
     successMessage: 'Your vehicle has been successfully listed!',
     requiredField: 'Eto pole required',
   },
 
+  financing: {
+    title: 'Avtokreditovanie',
+    subtitle: 'Naydite luchshie varianty finansirovaniya dlya pokupki vashego sleduyushchego avtomobilya.',
     loanCalculator: 'Kalkulyator kredita',
+    monthlyPayment: 'Monthly Payment',
     totalInterest: 'Obshch summa protsentov',
     totalPayment: 'Obshch summa vyplat',
     loanAmount: 'Summa kredita',
+    interestRate: 'Protsentn stavka',
     loanTerm: 'Srok kredita',
     ars: 'let',
+    calculate: 'Rasschitat',
   },
 
+  faq: {
+    title: 'Chasto zadavaem voprosy',
+    subtitle: 'Naydite otvety na rasprostranenn voprosy o pokupke, prodazhe, finansirovanii i ispolzovanii CarMarket365.',
+    searchPlaceholder: 'Search v FAQ...',
+    browseByCategory: 'Search po kategoriyam',
+    allQuestions: 'Vse voprosy',
+    stillNeedHelp: 'Nuzhna dopolniteln pomoshch?',
+    stillNeedHelpDescription: 'Ne mozhete nayti to, chto ishchete? Nasha komanda podderzhki gotova pomoch.',
+    callSupport: 'Pozvonit v sluzhbu podderzhki',
+    emailUs: 'Napisat nam',
+    liveChat: 'Zhivoy chat',
+    available247: 'Dostupno 24/7',
+    noResultsFound: 'Resulty ne naydeny',
     noResultsText: 'Poprobuyte poiskat s drugimi klyuchev slovami ili prosmotrite po kategoriyam.',
+    clearSearch: 'Ochistit poisk',
+    staticContent: {
+      categories: {
+        buying: 'Pokupka avtomobiley',
+        selling: 'Prodazha avtomobiley',
+        financing: 'Finansirovanie i platezhi',
+        safety: 'Bezopasnost i zashchita',
         account: 'Account i ispolzovanie'
       },
       questions: [
         {
+          id: 'buy-1',
+          category: 'buying',
+          question: 'Kak ya mogu kupit svoy pervyy avtomobil na CarMarket365?',
+          answer: 'To buy a car, start by searching for vehicles using our detailed filters. When you find a car you like, contact the seller directly through our platform. We always recommend inspecting the car before purchase and verifying documentation.'
         },
         {
+          id: 'buy-2',
+          category: 'buying',
+          question: 'Provereny li prodavtsy na platforme?',
+          answer: 'Da, vse professionaln prodavtsy provereny nashey komandoy. Chastn prodavtsy takzhe prokhodyat bazovyy protsess verifikatsii. Ishchite znak verifikatsii v profilyakh prodavtsov dlya polnoy prozrachnosti.'
         },
         {
+          id: 'buy-3',
+          category: 'buying',
+          question: 'Mogu li ya protestirovat avtomobil pered pokupkoy?',
+          answer: 'Konechno! Bolshinstvo prodavtsov razreshayut test-drayvy. Svyazhites s prodavtsom, chtoby naznachit vstrechu dlya test-drayva. Vsegda berite deystvuyushchie voditelskie prava i ubedites, chto u avtomobilya est deystvuyushch strakhovka.'
         },
         {
+          id: 'buy-4',
+          category: 'buying',
+          question: 'Chto ya dolzhen proverit pered pokupkoy avtomobilya?',
+          answer: 'Proverte: istoriyu avtomobilya, pravov dokumenty, fizichesk sostoyanie, osnovn sistemy (dvigatel, tormoza, transmissiya) i sovershite test-drayv. My takzhe rekomenduem osmotr u doverenn mekhanika.'
         },
         {
+          id: 'buy-5',
+          category: 'buying',
+          question: 'Predostavlyaet li CarMarket365 garantii na avtomobili?',
+          answer: 'CarMarket365 - eto platforma, kotor sdinyaet pokupateley s prodavtsami. Garantii predostavlyayutsya individualn prodavtsami. Bolshinstvo professionaln prodavtsov predlagayut ogranichenn garantii. Proverte detali garantii s prodavtsom pered pokupkoy.'
         },
         {
+          id: 'sell-1',
+          category: 'selling',
+          question: 'Skolko stoit prodat avtomobil na CarMarket365?',
+          answer: 'Bazov razmeshchenie besplatno dlya chastn prodavtsov. My takzhe predlagaem premium optsii s dopolniteln funktsiyami, takimi kak luchsh ekspozitsiya i professionaln fotografiya. U professionaln prodavtsov est mesyachn plany s rasshirenn funktsiyami.'
         },
         {
+          id: 'sell-2',
+          category: 'selling',
+          question: 'Skolko vremeni zanimaet prodazha avtomobilya?',
           answer: 'Vremya prodazhi zavisit ot neskolkikh faktorov: tseny, sostoyaniya avtomobilya, sprosa na rynke i kachestva obyavleniya. V srednem avtomobili prodayutsya v techenie 2-8 nedel. Obyavleniya s konkurentn tsenami i kachestvenn fotografiyami prodayutsya bystree.'
         },
         {
+          id: 'sell-3',
+          category: 'selling',
+          question: 'Kak ya mogu uvelichit shansy prodazhi mgo avtomobilya?',
+          answer: 'Ispolzuyte professionaln fotografii, pishite detaln opisaniya, ustanavlivayte konkurentn tseny, budte chestny o sostoyanii avtomobilya i bystro otvechayte na voprosy. Takzhe rassmotrite nash servis professionalnoy fotografii.'
         },
         {
+          id: 'sell-4',
+          category: 'selling',
+          question: 'Kakie dokumenty mne nuzhny dlya prodazhi avtomobilya?',
+          answer: 'Vam ponadobyatsya: svidetelstvo o registratsii, dokument udostoveryayushchiy lichnost, tekhosmotr i spravka o tekushchey strakhovke. Dlya avtomobiley starshe 4 let takzhe nuzhen sertifikat tekhosmotra.'
         },
         {
+          id: 'sell-5',
+          category: 'selling',
+          question: 'Mogu li ya izmenit tsenu mgo obyavleniya?',
+          answer: 'Da, vy mozhete izmenit tsenu v lyub vremya iz vashey paneli upravleniya. My rekomenduem monitorit rynok i korrektirovat tseny po neobkhodimosti dlya maksimizatsii interesa pokupateley.'
         },
         {
           id: 'financing-1',
           category: 'financing',
+          question: 'Predlagaet li CarMarket365 varianty finansirovaniya?',
+          answer: 'We partner with several financial institutions to offer credit options. You can apply for pre-approval through our platform. Interest rates and terms depend on your financial profile and chosen vehicle.'
         },
         {
+          id: 'financing-2',
+          category: 'financing',
+          question: 'Kak informatsiya nuzhna dlya zvki na kredit?',
+          answer: 'Zvka trebuet: personalnuyu informatsiyu, mesyachn dokhody, informatsiyu o trudoustroystve, kreditnuyu istoriyu i detali ob avtomobile, kotoryy vy khotite kupit. Protsess predvariteln odobreniya obychno zanimaet 10-15 minut.'
         },
         {
+          id: 'financing-3',
+          category: 'financing',
+          question: 'Kak sam nizk protsentn stavka, kotoruyu ya mogu poluchit?',
+          answer: 'Protsentn stavki nachinayutsya ot 3.9% godov dlya kvalifitsirovann zviteley. Aktualn stavka zavisit ot vashego kreditn reytinga, dokhodov, sroka kredita i tipa avtomobilya. Ispolzuyte nash kredit kalkulyator dlya predvaritelnoy otsenki.'
         },
         {
+          id: 'safety-1',
+          category: 'safety',
+          question: 'Kak byt v bezopasnosti pri pokupke u chastn prodavtsa?',
+          answer: 'Vsegda vstrechaytes v obshchestvenn mestakh, berite s soboy druga, osmatrivayte avtomobil pri dnevnom svete, proveryayte lichnost prodavtsa i ne nosite bolshie summy nalichn. Ispolzuyte nashi rekomenduem sposoby oplaty dlya bezopasn sdelok.'
         },
         {
+          id: 'safety-2',
+          category: 'safety',
+          question: 'Chto mne delat, esli prodavets kazhetsya podozritelnym?',
+          answer: 'Doveryayte svoim instinktam. Esli chto-to kazhetsya podozritelnym, ne prodolzhayte sdelku. Soobshchite o podozritelnoy aktivnosti nashey komande bezopasnosti na safety@carmarket365.com. My rassleduem i primem sootvetstvuyushchie mery.'
         },
         {
+          id: 'safety-3',
+          category: 'safety',
+          question: 'Kak ya mogu proverit, ukraden li avtomobil?',
+          answer: 'Check the vehicle VIN in our databases and request a vehicle history report. Make sure the VIN on the car matches the documents. If you have doubts, contact local authorities before purchase.'
         },
         {
+          id: 'account-1',
+          category: 'account',
+          question: 'Kak sozdat akkaunt na CarMarket365?',
+          answer: 'Nazhmite "Zaregistrirovatsya" vverkhu stranitsy. Vy mozhete vybrat mezhdu chastnym akkauntom (dlya pokupateley i chastn prodavtsov) ili professionalnym akkauntom (dlya prodavtsov i dilerov). Protsess besplat i zanimaet vsego neskolko minut.'
         },
         {
+          id: 'account-2',
+          category: 'account',
+          question: 'Mogu li ya izmenit tip mgo akkaunta pozzhe?',
+          answer: 'Da, vy mozhete v lyub vremya obnovitsya s chastn do professionaln akkaunta. Svyazhites s nashey podderzhkoy klientov dlya pomoshchi s perenosom. Obratite vnimanie, chto nekotor funktsii mogut byt ne perenosimy.'
         },
         {
+          id: 'account-3',
+          category: 'account',
+          question: 'Kak sbrosit moy parol?',
+          answer: 'Nazhmite "Zabyli parol?" na stranitse vkhoda. Vvedite vash email adres, i my otpravim vam ssylku dlya sbrosa. Ssylka valida 24 chasa po soobrazheniyam bezopasnosti.'
         },
         {
+          id: 'account-4',
+          category: 'account',
+          question: 'Kak udalit moy akkaunt?',
+          answer: 'Vy mozhete udalit vash akkaunt iz nastrk akkaunta ili svyazavshis s nami napryamuyu. Obratite vnimanie, chto udalenie postoyanno, i vy poteryaete vse vashi dann i obyavleniya.'
         },
         {
+          id: 'account-5',
+          category: 'account',
+          question: 'Mogu li ya imet neskolko akkauntov?',
+          answer: 'Kazhdyy chelovek mozhet imet tolko odin aktiv akkaunt. Neskolko akkauntov mogut privesti k priostanovke akkaunta. Esli vam nuzhno izmenit tip akkaunta, svyazhites s nashey podderzhkoy dlya pomoshchi.'
         }
       ]
     }
   },
 
   dealers: {
+    title: 'Nayti proverenn dilerov',
+    subtitle: 'Svyazhites s proverenn avtosalonami v vashem regione. Kachestvenn avtomobili, professionaln obsluzhivanie i konkurentn tseny.',
     searchDealers: 'Search dilerov',
+    dealerNameOrCity: 'Nazvanie dilera ili gorod',
+    allStates: 'Vse regiony',
     allSpecialties: 'Vse spetsializatsii',
+    sortBy: 'Sortirovat po',
+    sortByDistance: 'English',
+    sortByRating: 'English',
+    sortByInventory: 'Nalichie',
+    verifiedDealers: 'Proverenn dilery',
     carsAvailable: 'Dostupn avtomobili',
     averageRating: 'Sredniy reyting',
   },
 
   registeredDealers: {
+    title: 'Zaregistrirovann dilery',
+    subtitle: 'Prosmotrite nashu set proverenn avtomobiln dilerov',
+    viewProfilee: 'Posmotret profil',
+    viewInventory: 'Posmotret inventar',
+    contactDealer: 'Svyazatsya s dilerom',
+    backToHome: 'Nazad na glavnuyu',
     allDealersVerified: 'Vse dilery provereny',
+    customerRated: 'Otsenka klientov',
     supportAvailable: 'Support 24/7',
     browseNetwork: 'Prosmotrite nashu set iz {count} proverenn dilerov po vsey Germanii',
+    reviews: 'otzyvov',
     verifiedSince: 'Proveren s {ar}',
     experience: 'Opyt:',
     totalSales: 'Obshchie prodazhi:',
+    viewDealerProfilee: 'Posmotret profil dilera',
+    ars: 'let',
     
     // Dealer specialties
     specialties: {
@@ -2306,6 +3486,7 @@ export const enTranslations: TranslationStrings = {
       hybrids: 'English',
       sportsCars: 'Sportivn avtomobili',
       convertibles: 'English',
+      performance: 'Proizvoditelnost',
       mercedesBenz: 'Mercedes-Benz',
       porsche: 'Porsche',
       luxury: 'English',
@@ -2318,6 +3499,11 @@ export const enTranslations: TranslationStrings = {
     // Dealer descriptions
     descriptions: {
       autoMaxDescription: 'Vedushchiy diler lyuksov avtomobiley v Berline s bolee chem 15-letnim opytom. Spetsializatsiya na premialn nemetskikh brendakh.',
+      cityMotorsDescription: 'Semey avtosalon, obsluzhivayushchiy Myunkhen i okrestnosti. Izvesten otlichnym obsluzhivaniem klientov i spravedliv tsenami.',
+      ecoWheelsDescription: 'Vedushchiy spetsialist po elektricheskim i gibridnym avtomobilyam v Gamburge. Priverzhen resheniyam ustoychiv transporta.',
+      rheinAutoDescription: 'Spetsialisty po sportivnym avtomobilyam v Reynskoy oblasti. Obshirn kollektsiya vysokoproizvoditeln avtomobiley.',
+      stuttgartLuxuryDescription: 'Avtorizovan diler Mercedes-Benz i Porsche v Shtutgarte. Dom luchshey nemetskoy inzhenerii.',
+      nordFahrzeugeDescription: 'Spetsialist po korporativnym avtomobilyam, obsluzhivayushchiy delovoy rayon Frankfurta. Ekspert po resheniyam avtoparkov i lizingu.',
     },
   },
 
@@ -2326,10 +3512,13 @@ export const enTranslations: TranslationStrings = {
     // Spetsifichno dlya CountryTestPage
     countryTestPage: {
       codeLabel: 'Kod:',
+      loadingCars: 'Zagruzka avtomobiley...',
       errorPrefix: 'Oshibka:',
+      carListingsFor: 'Spiski avtomobiley dlya',
       onlyListedDescription: 'Tolko avtomobili, perechislenn v <strong>{country} ({code})</strong>, dolzhny poyavitsya nizhe',
       foundCarsIn: 'Naydeno {count} avtomobiley v {country}',
       countryFilteredResults: '🔒 Resulty, otfiltrovann po strane',
+      noCarsFound: 'Cari ne naydeny',
       noCarsInCountry: 'V nastoyashchee vremya net avtomobiley, perechislenn v {country}.',
       trySwitchingCountry: 'Poprobuyte pereklyuchit stranu s pomoshchyu pereklyuchatelya vyshe.',
       carIdAndCountry: 'ID: {id} | Strana: {country}',
@@ -2337,6 +3526,8 @@ export const enTranslations: TranslationStrings = {
     },
 
     // AdminDashboard - znachki statusa i mok-dann
+    adminDashboard: {
+      statusBadges: {
         suspended: 'Priostanovlen',
       },
       mockData: {
@@ -2354,6 +3545,8 @@ export const enTranslations: TranslationStrings = {
         mercedesCClass2020: '2020 Mercedes C-klass',
         
         // Categories
+        sedan: 'Sedan',
+        luxury: 'English',
         
         // Nazvaniya kompaniy
         premiumMotors: 'Premium Motors',
@@ -2373,9 +3566,12 @@ export const enTranslations: TranslationStrings = {
     },
 
     // DealerDashboard mok-dann
+    dealerDashboard: {
+      mockData: {
         // Zagolovki avtomobiley
         bmw3Series320i2022: '2022 BMW 3 seriya 320i',
         audiA4Avant2021: '2021 Audi A4 Avant',
+        mercedesCClass2020: '2020 Mercedes C-klass',
         
         // Znacheniya probega
         mileage25k: '25 000 km',
@@ -2385,19 +3581,37 @@ export const enTranslations: TranslationStrings = {
     },
 
     // Hardcoded financing text
+    financing: {
+      features: {
         quickApproval: {
+          title: 'Bystr odobrenie',
+          description: 'Poluchite odobrenie za minuty',
         },
         lowRates: {
+          title: 'Nizkie stavki',
+          description: 'Konkurentn protsentn stavki',
         },
         noCreditImpact: {
+          title: 'Bez vliyaniya na kredit',
+          description: 'Tolko myagk kreditn proverka',
         },
+        expertSupport: {
+          title: 'Ekspertn podderzhka',
+          description: 'Predann spetsialisty po kreditam',
         },
       },
+      form: {
         creditScoreRange: 'Diapazon kreditn reytinga',
+        loanTerm: 'Srok kredita',
       },
       summary: {
         loanSummary: 'Svodka po kreditu',
+        loanAmount: 'Summa kredita',
+        monthlyPayment: 'Monthly Payment',
+        totalInterest: 'Obshchie protsenty',
+        totalPayment: 'Total Payment',
       },
+      options: {
         financingOptions: 'Varianty finansirovaniya',
         chooseOption: 'Vyberite variant, kotoryy luchshe vsego podkhodit vam',
         traditionalAutoLoan: 'Traditsion avtokredit',
@@ -2406,52 +3620,126 @@ export const enTranslations: TranslationStrings = {
       },
     },
 
+    contact: {
+      title: 'Svyazatsya s nami',
+      subtitle: 'Svyazhites s nashey komandoy dlya podderzhki, voprosov ili pomoshchi v pokupke ili prodazhe avtomobilya.',
+      backToHome: 'Vernutsya na glavnuyu',
       
       // Main content
+      mainTitle: 'Svyazhites s nami',
       mainDescription: 'Neskolko sposobov svyazatsya s nashey sluzhboy podderzhki dlya polucheniya pomoshchi.',
       contactOverview: 'Esli u vas est voprosy o pokupke avtomobilya, vam nuzhna pomoshch v prodazhe vashego transportn sredstva ili trebuetsya tekhnichesk podderzhka, nasha predann komanda gotova vam pomoch. Vyberite naibolee udob dlya vas sposob svyazi.',
       
       // Contact methods
       phoneSupport: {
+        title: 'Telefonn podderzhka',
+        salesDepartment: 'Otdel prodazh',
         customerService: 'Sluzhba podderzhki klientov',
+        financingDepartment: 'Finansovyy otdel'
       },
       emailSupport: {
+        title: 'Support po email',
+        generalInquiries: 'Obshchie voprosy',
+        salesQuestions: 'Voprosy po prodazham',
+        support: 'Tekhnichesk podderzhka'
       },
       businessHours: {
+        title: 'Chasy raboty',
+        mondayFriday: 'Ponedelnik - Pyatnitsa',
+        saturday: 'Saturday',
+        sunday: 'Voskresene',
+        timeRange: {
+          mondayFriday: '8:00 - 20:00',
+          saturday: '9:00 - 18:00',
+          sunday: '10:00 - 16:00'
         }
       },
       officeLocation: {
+        title: 'Mestopolozhenie ofisa',
+        address: {
+          street: 'Potsdamer Platz 1',
           city: '10785 Berlin, Germaniya',
+          country: 'English'
         },
+        getDirections: 'Postroit marshrut'
       },
       
       // Contact form
+      form: {
+        title: 'Otpravit nam soobshchenie',
+        subtitle: 'Zapolnite formu nizhe, i my svyazhemsya s vami kak mozhno skoree.',
+        required: '*',
+        inquiryType: {
+          label: 'Tip zaprosa',
+          placeholder: 'Vyberite tip zaprosa',
+          options: {
+            buying: 'Pokupka avtomobilya',
+            selling: 'Prodazha avtomobilya',
+            financing: 'Finansirovanie',
+            dealer: 'Uslugi dlya dilerov',
+            support: 'Tekhnichesk podderzhka',
+            other: 'Drug'
           }
         },
+        fields: {
+          fullName: 'Poln imya',
+          email: 'Email adres',
+          phone: 'Phone number',
+          subject: 'Tema',
+          message: 'Message'
         },
+        placeholders: {
           name: 'Vvedite vashe poln imya',
+          email: 'Vvedite vash email adres',
           phone: 'Vvedite vash nomer telefona',
           subject: 'Vvedite temu soobshcheniya',
+          message: 'Rasskazhite, kak my mozhem vam pomoch...'
         },
+        submitButton: 'Otpravit soobshchenie',
+        disclaimer: 'My obychno otvechaem v techenie 24 chasov v rabochie dni.'
       },
       
       // Success message
+      success: {
+        title: 'Soobshchenie otpravleno!',
+        message: 'Spasibo za obrashchenie k nam. My poluchili vashe soobshchenie i otvetim v techenie 24 chasov.'
       },
       
       // Quick help
+      quickHelp: {
+        title: 'Bystr pomoshch',
+        subtitle: 'Naydite otvety na chasto zadavaem voprosy ili poluchite nemedlennuyu pomoshch.',
+        options: {
+          buyingGuide: {
+            title: 'Guide po pokupke avtomobilya',
+            description: 'Uznayte o nashem protsesse pokupki avtomobiley'
           },
+          sellingGuide: {
+            title: 'Guide po prodazhe avtomobilya', 
+            description: 'Poluchite pomoshch v prodazhe vashego transportn sredstva'
           },
+          faq: {
+            title: 'Chasto zadavaem voprosy',
+            description: 'Prosmotrite chasto zadavaem voprosy'
           },
+          safetyTips: {
+            title: 'Sovety po bezopasnosti',
+            description: 'Vazhn rekomendatsii po bezopasnosti'
           }
         }
       },
       
       // Urgent support
       urgentSupport: {
+        title: 'Nuzhna nemedlenn pomoshch?',
+        message: 'Dlya srochn voprosov ili nemedlennoy pomoshchi zvonite na nashu liniyu podderzhki ili prosmatrivayte nashi dostupn avtomobili.',
+        browseCars: 'Prosmotret avtomobili',
+        callNow: 'Pozvonit seychas'
       }
     },
 
     // Dealer page - hardcoded strings
+    dealers: {
       searchLabel: 'Search dilerov',
       stateLabel: 'Region',
       specialtyLabel: 'English',
@@ -2466,18 +3754,63 @@ export const enTranslations: TranslationStrings = {
       certificationsHeader: 'English',
       noDealersFound: 'Dilery ne naydeny',
       tryAdjustingFilters: 'Poprobuyte izmenit kriterii poiska',
+      viewProfilee: 'Posmotret profil',
+      contact: 'Contacts',
+      clearFilters: 'Ochistit filtry',
+      milesAway: 'km',
+      cars: 'cars',
+      reviews: 'otzyvov',
       hoursLabel: 'Chasy raboty',
     },
 
+    registeredDealers: {
+      title: 'Zaregistrirovann dilery',
+      subtitle: 'Prosmotrite nashu set proverenn avtomobiln dilerov',
+      viewProfilee: 'Posmotret profil',
+      viewInventory: 'Posmotret inventar',
+      contactDealer: 'Svyazatsya s dilerom',
+      backToHome: 'Vernutsya domoy',
+      allDealersVerified: 'Vse dilery provereny',
       customerRated: 'Otseneno klientami',
+      supportAvailable: 'Support 24/7',
+      browseNetwork: 'Prosmotrite nashu set iz {count} proverenn dilerov po vsey Germanii',
+      reviews: 'otzyvov',
+      verifiedSince: 'Proveren s {ar}',
+      experience: 'Opyt:',
+      totalSales: 'Obshchie prodazhi:',
+      viewDealerProfilee: 'Posmotret profil dilera',
+      verifiedDealers: 'Proverenn dilery',
       totalDealers: 'Vsego dilerov',
+      averageRating: 'Sredniy reyting',
       totalInventory: 'Obshchiy inventar',
+      searchDealers: 'Search dilerov',
       allLocations: 'Vse mestopolozheniya',
+      sortBy: 'Sortirovat po',
+      ars: 'let',
       
       // Dealer specialties
+      specialties: {
+        luxuryCars: 'Lyuksov avtomobili',
+        suvs: 'Vnedorozhniki',  
+        electricVehicles: 'Elektromobili',
+        familyCars: 'Semeyn avtomobili',
+        compactCars: 'Kompaktn avtomobili',
+        hybrids: 'English',
+        sportsCars: 'Sportivn avtomobili',
+        convertibles: 'English',
+        performance: 'Proizvoditelnost',
+        mercedesBenz: 'Mercedes-Benz',
+        porsche: 'Porsche',
+        luxury: 'English',
+        businessCars: 'Biznes avtomobili',
+        fleetSales: 'Prodazha avtoparkov',
+        leasing: 'Lizing',
+        ecoFriendly: 'Ekologichn',
       },
 
       // Dealer descriptions  
+      descriptions: {
+        autoMaxDescription: 'Vedushchiy diler lyuksov avtomobiley v Berline s opytom bolee 15 let. Spetsializiruetsya na premialn nemetskikh brendakh.',
         cityMotorsDescription: 'Semey dilerskiy tsentr, obsluzhivayushchiy Myunkhen i prilegayushchie rayony. Izvesten otlichnym obsluzhivaniem klientov i chestn tsenami.',
         ecoWheelsDescription: 'Vedushchiy spetsialist po elektricheskim i gibridnym avtomobilyam v Gamburge. Priverzhen ekologichnym transportnym resheniyam.',
         rheinAutoDescription: 'Spetsialisty po proizvoditelnym i sportivnym avtomobilyam v Reynlande. Obshirn kollektsiya vysokoproizvoditeln avtomobiley.',
@@ -2487,8 +3820,11 @@ export const enTranslations: TranslationStrings = {
     },
 
     // Dealer support page - hardcoded strings
+    dealerSupport: {
       supportCenterText: 'Our specialized dealer support team will help you maximize success on CarMarket365. Get help with inventory management, customer inquiries, and platform features.',
       dashboardSupport: {
+        title: 'Support paneli upravleniya',
+        items: [
           'Help with inventory management',
           'Optimizatsiya obyavleniy',
           'Interpretatsiya analitiki',
@@ -2496,6 +3832,8 @@ export const enTranslations: TranslationStrings = {
         ],
       },
       customerRelations: {
+        title: 'Otnosheniya s klientami',
+        items: [
           'Guide po upravleniyu lidami',
           'Luchshie praktiki kommunikatsii',
           'Obrabotka zaprosov klientov',
@@ -2503,6 +3841,8 @@ export const enTranslations: TranslationStrings = {
         ],
       },
       performanceOptimization: {
+        title: 'Optimizatsiya proizvoditelnosti',
+        items: [
           'Uluchshenie vidimosti obyavleniy',
           'Sovety po tsenovoy strategii',
           'Rekomendatsii po kachestvu foto',
@@ -2510,6 +3850,8 @@ export const enTranslations: TranslationStrings = {
         ],
       },
       technicalSupport: {
+        title: 'Tekhnichesk podderzhka',
+        items: [
           'Problemy funktsionalnosti platformy',
           'Help s mobilnym prilozheniem',
           'Ustranenie nepoladok integratsii',
@@ -2517,7 +3859,11 @@ export const enTranslations: TranslationStrings = {
         ],
       },
       gettingStarted: {
+        title: 'Nachalo raboty v kachestve dilera',
+        description: 'Step-by-step guide to setting up your dealer account and maximizing success.',
         accountSetup: {
+          title: 'Nastroyka akkaunta',
+          items: [
             'Proydite verifikatsiyu dilera',
             'Zagruzite delovuyu dokumentatsiyu',
             'Nastroyte obrabotku platezhey',
@@ -2525,6 +3871,8 @@ export const enTranslations: TranslationStrings = {
           ],
         },
         inventoryManagement: {
+          title: 'Inventory Management',
+          items: [
             'Dobavte perv obyavlenie o avtomobile',
             'Zagruzite kachestvenn fotografii',
             'Napishite ubediteln opisaniya',
@@ -2532,6 +3880,8 @@ export const enTranslations: TranslationStrings = {
           ],
         },
         performanceTracking: {
+          title: 'Otslezhivanie proizvoditelnosti',
+          items: [
             'Monitoring proizvoditelnosti obyavleniy',
             'Otslezhivanie zaprosov klientov',
             'Analiz rynochn trendov',
@@ -2540,11 +3890,15 @@ export const enTranslations: TranslationStrings = {
         },
       },
       helpSection: {
+        title: 'Nuzhna pomoshch? My zdes dlya vas!',
+        message: 'Nasha komanda podderzhki dilerov gotova pomoch vam dobitsya uspekha. Svyazhites s nami po adresu dealers@carmarket365.com ili cherez panel dilera.',
+        returnToPlatform: 'Vernutsya na platformu',
         goToDealerDashboard: 'Pereyti na panel dilera',
       },
     },
 
     // Accessibility page - hardcoded strings
+    accessibility: {
       standardsWeFollow: 'Standarty, kotorym my sleduem',
       standardsDescription: 'My stremimsya sootvetstvovat ustanovlennym standartam i rekomendatsiyam dostupnosti.',
       wcagGuidelines: 'Rekomendatsii WCAG',
@@ -2553,6 +3907,7 @@ export const enTranslations: TranslationStrings = {
       platformCompatibilityDescription: 'Nasha platforma razrabotana dlya raboty s assistivn tekhnologiyami i instrumentami dostupnosti.',
       weValueYourFeedback: 'My tsenim vashi otzyvy',
       feedbackMessage: 'Esli vy stolknulis s prepyatstviyami dostupnosti ili u vas est predlozheniya po uluchsheniyu, ne stesnyaytes obrashchatsya k nam po adresu accessibility@carmarket365.com',
+      returnToPlatform: 'Vernutsya na platformu',
       contactAccessibilityTeam: 'Svyazatsya s komandoy dostupnosti',
       visualFeatures: [
         'Dizayn s vysokim kontrastom',
@@ -2588,6 +3943,7 @@ export const enTranslations: TranslationStrings = {
       platformControls: 'Upravlenie platformoy',
       questionsAboutCookies: 'Voprosy o cookies?',
       questionsMessage: 'Esli u vas est voprosy o nashey politike cookies ili nuzhna pomoshch v upravlenii nastroykami, svyazhites s nami po adresu cookies@carmarket365.com',
+      returnToPlatform: 'Vernutsya na platformu',
       cookieSupport: 'Support cookies',
       browserSettingsItems: [
         'Blokirovka ili razreshenie cookies',
@@ -2628,44 +3984,68 @@ export const enTranslations: TranslationStrings = {
     },
 
     // Safety tips page - hardcoded strings
+    safetyTips: {
       mainTitle: 'Bezopasnost pokupki i prodazhi avtomobiley',
+      mainDescription: 'Osnovn rekomendatsii po bezopasnosti dlya zashchity vo vremya avtomobiln sdelok.',
+      safetyOverview: 'Vasha bezopasnost - nash glav prioritet. Sleduyte etim rekomendatsiyam dlya obespecheniya bezopasn i uspeshn opyta pokupki i prodazhi avtomobiley na nashey platforme.',
+      meetingSafety: {
+        title: 'Bezopasnost vstrech',
+        items: [
           'Meet in public, well-lit places',
           'Drive typeite druga ili chlena semi',
           'Vstrechaytes v dnevn vremya',
           'Doveryayte svoim instinktam'
         ],
       },
+      paymentSecurity: {
+        title: 'Bezopasnost platezhey',
+        items: [
           'Ispolzuyte bezopasn metody oplaty',
           'Izbegayte nalichn dlya bolshikh summ',
           'Proveryayte oplatu pered peredachey',
           'Poluchayte kvitantsiyu za vse tranzaktsii'
         ],
       },
+      vehicleInspection: {
+        title: 'Osmotr avtomobilya',
+        items: [
           'Rekomenduetsya professional osmotr',
           'Proverte vse mekhanicheskie sistemy',
           'Proverte VIN i registratsiyu',
           'Tshchatelno protestiruyte vozhdenie'
         ],
       },
+      redFlags: {
+        title: 'Trevozhn signaly',
+        items: [
           'Davlenie prinyat reshenie bystro',
           'Zaprosy lichnoy informatsii zaranee',
           'Sdelki, kotor kazhutsya too khoroshimi',
           'Nezhelanie vstrechatsya lichno'
         ],
       },
+      documentation: {
+        title: 'Neobkhodim dokumentatsiya',
+        description: 'Vazhn dokumenty dlya proverki i polucheniya vo vremya vashey sdelki.',
+        forBurs: 'Dlya pokupateley',
+        forSellers: 'Dlya prodavtsov',
+        burItems: [
           'Nazvanie avtomobilya ili registratsiya',
           'Zapisi o tekhnicheskom obsluzhivanii',
           'Vehicle history report',
           'Bill of sale with all details'
         ],
+        sellerItems: [
           'Proverka valid ID pokupatelya',
           'Podtverzhdenie strakhovki (pri test-drayve)',
           'Pismenn soglashenie o pokupke',
           'Podtverzhdenie oplaty'
         ],
       },
+      emergency: {
         title: 'Ostavaytes v bezopasnosti i soobshchayte o problemakh',
         message: 'Esli vy stolknulis s podozritelnoy aktivnostyu ili chuvstvuete sebya nebezopasno, dovertes instinktam i nemedlenno ukhodite. Soobshchayte o lyub problemakh nashey komande bezopasnosti po adresu safety@carmarket365.com',
+        browseCars: 'Bezopasno prosmatrivayte avtomobili',
         reportConcern: 'Soobshchit o probleme bezopasnosti',
       },
     },
@@ -2674,6 +4054,7 @@ export const enTranslations: TranslationStrings = {
   // Okonchateln ispravleniya dlya ostavshegosya zhestko kodirovann angliysk teksta
   finalFixes: {
     // Page ExpressSell - Marki avtomobiley, modeli i zapolniteli
+    expressSell: {
       carBrands: [
         'Audi', 'BMW', 'Mercedes-Benz', 'Volkswagen', 'Toyota', 
         'Ford', 'Opel', 'Peugeot', 'Renault'
@@ -2683,24 +4064,38 @@ export const enTranslations: TranslationStrings = {
       ],
       conditionLabel: 'Condition *',
       conditionPlaceholder: 'Select condition',
+      descriptionPlaceholder: 'Describe your car features, history and why it is a great buy...',
+      namePlaceholder: 'Your full name',
       locationPlaceholder: 'City, State',
+      uploadPhotos: 'Upload Photos',
       uploadPhotosDescription: 'Add photos to make your listing more attractive',
       uploadCarPhotos: 'Upload Car Photos',
       addUpToTenPhotos: 'Add up to 10 photos. First photo will be the main image.',
+      choosePhotos: 'Choose Photos',
+      mainPhoto: 'Main Photo',
       priceAndDescription: 'Price & Description',
       setPriceAndDescription: 'Set your desired price and describe your vehicle',
       askingPriceEuros: 'Asking Price (€) *',
       priceExample: 'e.g. 25,000',
+      contactInformation: 'Contact Information',
       howShouldBuyersContact: 'How should buyers contact you?',
+      fullNameRequired: 'Full Name *',
+      yourFullName: 'Your full name',
       phoneNumberRequired: 'Phone Number *',
       phonePlaceholder: 'Your phone number',
       emailAddressRequired: 'Email Address *',
       yourEmail: 'your.email@example.com',
+      locationRequired: 'Location *',
+      cityState: 'City, State',
       carDetailsStep: 'Car Details',
       photosStep: 'Photos',
       priceDescriptionStep: 'Price & Description',
       contactInfoStep: 'Contact Info',
+      backToHome: 'Back to Home',
+      title: 'Express Sale',
       listMyCarQuickly: 'List your car quickly and easily',
+      previous: 'Previous',
+      next: 'Next',
       listMyCar: 'List My Car',
     },
     
@@ -2711,17 +4106,30 @@ export const enTranslations: TranslationStrings = {
     },
     
     // Page SavedCars - Zapolnitel filtra
+    savedCars: {
       filterPlaceholder: 'Filterovat po',
+      sortBy: 'Sortirovat po',
       recentlySaved: 'Nedavno sokhranenn',
+      priceLowToHigh: 'Tsena: Ot nizkoy k vysokoy',
+      priceHighToLow: 'Tsena: Ot vysokoy k nizkoy',
+      arNewestFirst: 'God: Nov snachala',
+      arOldestFirst: 'God: Star snachala',
       allCars: 'Vse avtomobili',
       savedThisWeek: 'Sokhraneno na etoy nedele',
+      back: 'Back',
+      noSavedCars: 'Net sokhranenn avtomobiley',
       startBrowsing: 'Nachnite prosmatrivat nash obshir inventar transportn sredstv i sokhranyayte izbrann zdes.',
+      browseVehicles: 'Prosmotr transportn sredstv',
+      title: 'Sokhranenn avtomobili',
       clearAll: 'Ochistit vse',
       carsSaved: 'avtomobiley sokhraneno',
       savedDate: 'Saved',
+      contact: 'Contact',
+      view: 'View',
     },
     
     // Page UIDemo - Demo zapolniteli
+    uiDemo: {
       namePlaceholder: 'Vvedite vashe imya',
       emailPlaceholder: 'Vvedite vashu elektronnuyu pochtu',
       optionPlaceholder: 'Vyberite optsiyu',
@@ -2766,10 +4174,15 @@ export const enTranslations: TranslationStrings = {
     // Vehicle Title and Info
     vehicleTitle: 'Zagolovok avtomobilya',
     locationLabel: 'Location',
+    priceLabel: 'Price',
     originalPrice: 'Pervonachaln tsena',
     savingsAmount: 'Discount',
     
     // Status Badges
+    certified: 'Sertifitsirovan',
+    featured: 'English',
+    newArrival: 'Nov postuplenie',
+    priceReduced: 'Tsena snizhena',
     greatDeal: 'Vygodn predlozhenie',
     verified: 'Proveren',
     
@@ -2780,16 +4193,38 @@ export const enTranslations: TranslationStrings = {
     imageCounter: 'iz',
     
     // Tabs and Content
+    tabs: {
+      overview: 'Obzor',
+      features: 'Osobennosti',
+      inspection: 'English',
+      history: 'English',
     },
     
     // Overview Tab
+    overview: {
+      vehicleDetails: 'Detali avtomobilya',
+      mileage: 'Mileage',
+      fuelType: 'Fuel type',
+      transmission: 'Transmission',
+      ar: 'Year',
+      exteriorColor: 'Vneshniy tsvet',
+      interiorColor: 'Vnutrenniy tsvet',
+      bodyType: 'Tip kuzova',
+      drivetrain: 'Drive type',
+      vin: 'VIN',
+      description: 'Description',
+      miles: 'km',
     },
     
     // Features Tab
+    features: {
+      title: 'Osobennosti',
+      featuresAndOptions: 'Osobennosti i optsii',
     },
     
     // Inspection Tab
     inspection: {
+      title: 'Inspection Report',
       lastUpdated: 'Poslednee obnovlenie:',
       excellentCondition: 'Otlichn sostoyanie',
       pointInspection: 'Zavershena 150-tochechn inspektsiya',
@@ -2799,6 +4234,7 @@ export const enTranslations: TranslationStrings = {
     
     // History Tab
     history: {
+      title: 'Istoriya avtomobilya',
       vehicleHistory: 'Istoriya avtomobilya',
       listedForSale: 'Vystavlen na prodazhu',
       vehicleAdded: 'Car dobavlen na ploshchadku',
@@ -2807,33 +4243,60 @@ export const enTranslations: TranslationStrings = {
     },
     
     // Action Buttons
+    actions: {
+      callDealer: 'Pozvonit dileru',
+      sendMessage: 'Otpravit soobshchenie',
+      scheduleTestDrive: 'Zapisatsya na test-drayv',
       getPreApproved: 'Poluchit predvariteln odobrenie',
       calculatePayment: 'Calculate Payment',
       viewDealerProfilee: 'Prosmotret profil dilera',
       viewAllDealerCars: 'Posmotret vse avtomobili dilera',
+      shareVehicle: 'Podelitsya avtomobilem',
+      saveToFavorites: 'Sokhranit v izbrann',
+      removeFromFavorites: 'Udalit iz izbrann',
     },
     
     // Seller Information
+    seller: {
+      title: 'Seller',
       sellerInformation: 'Information o prodavtse',
       dealerRating: 'English',
+      reviews: 'otzyvov',
+      verified: 'Proveren',
+      phone: 'Phone',
+      email: 'Email',
     },
     
     // Financing Section
+    financing: {
+      title: 'Varianty finansirovaniya',
+      financingOptions: 'Varianty finansirovaniya',
       estimatedPayment: 'Estimated Monthly Payment',
+      monthlyPayment: '/mesyats',
       basedOnTerms: 'Na osnove',
       aprForMonths: 'godov na',
       withDown: 'mesyatsev s pervonachalnym vznosom',
+      getPreApproved: 'Poluchit predvariteln odobrenie',
+      calculatePayment: 'Calculate Payment',
     },
     
     // Mock Data Values
+    mockData: {
       unknownMake: 'Neizvestn marka',
       unknownModel: 'Neizvestn model',
+      excellent: 'Otlichn',
+      gasoline: 'Gasoline',
+      automatic: 'Avtomatichesk',
       unknown: 'Neizvestno',
+      black: 'Black',
+      sedan: 'Sedan',
       frontWheelDrive: 'Peredniy privod',
       wellMaintained: 'Khorosho obsluzhivaem transportn sredstvo v otlichnom sostoyanii.',
       inspectionReport: 'Car byl proveren i sootvetstvuet nashim standartam kachestva.',
       locationNotSpecified: 'Mestopolozhenie ne ukazano',
       privateSeller: 'Chast prodavets',
+      features: {
+        airConditioning: 'Konditsioner',
         powerSteering: 'Usilitel rulya',
         electricWindows: 'Electric Windows',
         centralLocking: 'Tsentral zamok',
@@ -2842,7 +4305,10 @@ export const enTranslations: TranslationStrings = {
         powerBrakes: 'Usilitel tormozov',
         amfmRadio: 'AM/FM radio',
       },
+      condition: 'Otlichn',
+      interiorColor: 'Black',
       drivetrain: 'Peredniy privod',
+      description: 'Khorosho obsluzhivaem transportn sredstvo v otlichnom sostoyanii.',
       historyEvents: [
         'Kuplen novym v 2020 godu',
         'Regulyarn obsluzhivanie kazhd 10 000 km',
@@ -2863,6 +4329,7 @@ export const enTranslations: TranslationStrings = {
         'Düsseldorf, Germany': 'Dyusseldorf, Germaniya'
       },
       // Dealers
+      dealers: {
         'Premium Motors': 'Premium Motors',
         'BMW Center': 'BMW Tsentr',
         'Auto House': 'Avto Khaus',
@@ -2890,6 +4357,7 @@ export const enTranslations: TranslationStrings = {
     },
     
     // Error States
+    errors: {
       carNotFound: 'Car ne nayden',
       failedToLoad: 'Ne udalos zagruzit detali avtomobilya.',
       dsntExist: 'The car you are looking for does not exist or has been removed.',
@@ -2898,28 +4366,39 @@ export const enTranslations: TranslationStrings = {
     },
     
     // Loading States
+    loading: {
       loadingVehicle: 'Zagruzka avtomobilya...',
       loadingDetails: 'Zagruzka detaley...',
     },
     
     // Contact and Communication
+    contact: {
+      contactDealer: 'Svyazatsya s dilerom',
+      interestedIn: 'Menya interesuet',
       preferredContactMethod: 'Predpochtitel sposob svyazi',
       additionalMessage: 'Dopolniteln soobshchenie',
       sendInquiry: 'Otpravit zapros',
+      callNow: 'Pozvonit seychas',
       emailDealer: 'Napisat dileru',
       scheduleViewing: 'Zapisatsya na prosmotr',
     },
     
     // Test Drive
     testDrive: {
+      scheduleTestDrive: 'Zapisatsya na test-drayv',
       preferredDate: 'Predpochtiteln data',
       preferredTime: 'Predpochtiteln vremya',
+      contactInfo: 'Kontaktn informatsiya',
       additionalNotes: 'Dopolniteln zametki',
       submitRequest: 'Otpravit zapros',
     },
     
     // Share Feature
+    share: {
+      shareVehicle: 'Share Vehicle',
       shareOnSocial: 'Share on Social Networks',
+      copyLink: 'Copy Link',
+      linkCopied: 'Link Copied!',
       linkCopiedToClipboard: 'Link copied to clipboard!',
       emailToFriend: 'Email to Friend',
       generateQR: 'Generate QR Code',
@@ -2929,30 +4408,66 @@ export const enTranslations: TranslationStrings = {
   // Rasshirenn funktsii
   advancedFeatures: {
     // Rasshiren poisk
+    advancedSearch: {
+      title: 'Rasshiren poisk',
       active: 'Rasshiren poisk aktiven',
+      filters: 'English',
+      clearAll: 'Ochistit vse',
+      searchCars: 'Iskat avtomobili',
       
       // Razdely
+      sections: {
+        vehicleDetails: 'Detali avtomobilya',
+        priceLocation: 'Tsena i mestopolozhenie',
+        featuresOptions: 'Funktsii i optsii',
       },
       
       // Polya detaley avtomobilya
+      fields: {
+        make: 'Make',
+        model: 'Model',
+        arFrom: 'God ot',
         arTo: 'God do',
         priceMin: 'Min. tsena',
         priceMax: 'Maks. tsena',
         mileageMax: 'Maks. probeg',
+        fuelType: 'Fuel type',
+        transmission: 'Transmission',
+        bodyType: 'Tip kuzova',
+        drivetrain: 'Drive type',
+        exteriorColor: 'Vneshniy tsvet',
+        interiorColor: 'Vnutrenniy tsvet',
+        location: 'Location',
+        radius: 'Radius poiska',
+        sellerType: 'Tip prodavtsa',
       },
       
       // Zapolniteli
+      placeholders: {
+        anyMake: 'Lyub marka',
+        anyModel: 'Lyub model',
+        anyYear: 'Lyuboy god',
         anyPrice: 'Lyub tsena',
+        anyMileage: 'Lyuboy probeg',
         anyFuel: 'Lyub toplivo',
         anyTransmission: 'Lyub korobka',
         anyBodyType: 'Lyuboy kuzov',
         anyDrivetrain: 'Lyuboy privod',
+        anyColor: 'Lyuboy tsvet',
         cityStateZip: 'Gorod, oblast ili indeks',
         anyRadius: 'Lyub rasstoyanie',
         anySeller: 'Lyuboy prodavets',
       },
       
       // Optsii
+      options: {
+        mileage: {
+          under10k: 'Do 10 000 km',
+          under25k: 'Do 25 000 km',
+          under50k: 'Do 50 000 km',
+          under75k: 'Do 75 000 km',
+          under100k: 'Do 100 000 km',
+          under150k: 'Do 150 000 km',
           over100k: 'Svyshe 100 000 km',
         },
         radius: {
@@ -2960,27 +4475,38 @@ export const enTranslations: TranslationStrings = {
           miles50: '50 km',
           miles100: '100 km',
           miles200: '200 km',
+          nationwide: 'Po vsey strane',
         },
         sellerType: {
+          dealer: 'Dealer',
           private: 'Chast prodavets',
           both: 'Oba',
         },
       },
       
       // Specifications
+      features: {
+        airConditioning: 'Konditsioner',
         allWheelDrive: 'Pol privod',
+        backupCamera: 'Kamera zadnego vida',
+        blindSpotMonitoring: 'Kontrol slep zon',
         bluetoothConnectivity: 'Bluetooth-svyaz',
+        cruiseControl: 'Kruiz-kontrol',
+        heatedSeats: 'Podogrev sideniy',
+        leatherSeats: 'Kozhan sidenya',
         navigationSystem: 'Navigatsionn sistema',
         parkingAssist: 'Help pri parkovke',
         powerWindows: 'Elektrosteklopodemniki',
         pushButtonStart: 'Zapusk knopkoy',
         remoteStart: 'Distantsion zapusk',
+        sunroof: 'English',
         thirdRowSeating: 'Tretiy ryad sideniy',
         towingPackage: 'Pritsepn ustroystvo',
         premiumSound: 'Premium audiosistema',
         adaptiveCruiseControl: 'Adaptiv kruiz-kontrol',
         laneKeepAssist: 'Help uderzhaniya v polose',
         automaticEmergencyBraking: 'Avtomatichesk ekstrenn tormozhenie',
+        keylessEntry: 'Besklyuchevoy dostup',
         ventilatedSeats: 'Ventilyatsiya sideniy',
         wirelessCharging: 'Besprovodn zaryadka',
         panoramicSunroof: 'Panoram lyuk',
@@ -2993,21 +4519,40 @@ export const enTranslations: TranslationStrings = {
     
     // Sravnenie
     comparison: {
+      title: 'Sravnenie avtomobiley',
+      clearAll: 'Ochistit vse',
       compareCars: 'Sravnit avtomobili',
       compareNow: 'Sravnit seychas',
       
       // Polya sravneniya
+      fields: {
+        price: 'Price',
+        ar: 'Year',
+        mileage: 'Mileage',
+        fuelType: 'Fuel type',
+        transmission: 'Transmission',
+        drivetrain: 'Drive type',
+        bodyType: 'Tip kuzova',
+        exteriorColor: 'Vneshniy tsvet',
+        interiorColor: 'Vnutrenniy tsvet',
         engine: 'Engine',
+        horsepower: 'Loshadin sily',
         torque: 'Krutyashchiy moment',
         fuelEconomy: 'Fuel consumption',
         seatingCapacity: 'Vmestimost',
+        features: 'Osnovn kharakteristiki',
+        safety: 'Sistemy bezopasnosti',
         warranty: 'English',
         dealerInfo: 'Information o dilere',
       },
       
       // Panel sravneniya
       bar: {
+        compareCars: 'Sravnit avtomobili',
+        selected: 'vybrano',
         max: 'maks.',
+        compare: 'Sravnit',
+        clear: 'Clear',
       },
       
       // Nedostupno
@@ -3016,47 +4561,82 @@ export const enTranslations: TranslationStrings = {
     
     // Kalkulyator finansirovaniya
     financingCalculator: {
+      title: 'Kalkulyator finansirovaniya',
       
       // Razdely
+      sections: {
+        vehicleDetails: 'Detali avtomobilya',
         downPayment: 'Pervonachal vznos',
         loanTerms: 'Usloviya kredita',
+        monthlyPayment: 'Ezhemesyach platezh',
+        loanSummary: 'Svodka po kreditu',
       },
       
       // Polya
+      fields: {
         vehiclePrice: 'Tsena avtomobilya',
         salesTax: 'Nalog s prodazh',
         dealerFees: 'Komissii dilera',
         tradeInValue: 'Stoimost obmena',
+        downPayment: 'Pervonachal vznos',
         downPaymentPercent: 'Protsent pervonachaln vznosa',
+        loanTerm: 'Srok kredita',
         interestRate: 'Protsentn stavka (GPS)',
         monthlyPayment: 'Raschet ezhemesyach platezh',
         totalLoanAmount: 'Obshch summa kredita',
+        totalInterest: 'Obshchie protsenty',
         totalCost: 'Obshch stoimost',
       },
       
       // Metki
+      labels: {
         months: 'mesyatsev',
+        ars: 'let',
         percent: '%',
         perMonth: '/mesyats',
+        loanAmount: 'Summa kredita',
         interestPaid: 'Vyplachenn protsenty',
         totalPaid: 'Obshch vyplata',
       },
       
       // Knopki
+      buttons: {
+        calculate: 'Rasschitat platezh',
         reset: 'Sbrosit kalkulyator',
+        getPreApproved: 'Poluchit predvariteln odobrenie',
         findFinancing: 'Nayti varianty finansirovaniya',
       },
       
       // Primechaniya
       notes: {
         estimate: 'Eto priblizitel raschet. Fakticheskie usloviya mogut otlichatsya.',
+        disclaimer: 'Raschety platezhey yavlyayutsya pribliziteln i mogut ne otrazhat fakticheskie usloviya kredita.',
         taxesVary: 'Nalv stavki razlichayutsya v zavisimosti ot mestopolozheniya.',
         additionalFees: 'Mogut primenyatsya dopolniteln sbory.',
       },
     },
   },
 
+  finalFixes: {
+    savedCars: {
+      title: 'Sokhranenn avtomobili',
+      back: 'Back',
       noSavedCars: 'Poka net sokhranenn avtomobiley',
+      startBrowsing: 'Nachnite prosmatrivat nash inventar, chtoby sokhranit ponravivshiesya avtomobili na potom.',
+      browseVehicles: 'Prosmotret avtomobili',
+      carsSaved: 'avtomobiley sokhraneno',
+      clearAll: 'Ochistit vse',
+      sortBy: 'Sortirovat po',
+      recentlySaved: 'Nedavno sokhranenn',
+      priceLowToHigh: 'Tsena: po vozrastaniyu',
+      priceHighToLow: 'Tsena: po ubyvaniyu',
+      arNewestFirst: 'God: snachala nov',
+      arOldestFirst: 'God: snachala star',
+      filterPlaceholder: 'Filter',
+      allCars: 'Vse avtomobili',
+      savedThisWeek: 'Sokhranenn na etoy nedele',
+      savedDate: 'Saved',
+      contact: 'English',
       view: 'Details'
     }
   }

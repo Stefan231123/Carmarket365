@@ -39,5 +39,11 @@
     "vite.config.ts",
     "vite.config.server.ts"
   ],
-  "exclude": ["node_modules", "dist"]
+  "exclude": [
+    "node_modules", 
+    "dist",
+    "shared/translations/backups/**/*",
+    "shared/translations/*_backup*",
+    "shared/translations/*backup*"
+  ]
 }
