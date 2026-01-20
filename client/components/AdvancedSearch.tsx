@@ -14,6 +14,7 @@ import {
   Car
 } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
+import { mkTranslations } from "../../shared/translations/mk";
 
 interface AdvancedSearchProps {
   onSearch: (filters: SearchFilters) => void;
@@ -75,7 +76,7 @@ interface SearchFilters {
 }
 
 export function AdvancedSearch({ onSearch, onClose }: AdvancedSearchProps) {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const [filters, setFilters] = useState<SearchFilters>({
     // Basic Specifications
     make: "",
@@ -131,51 +132,76 @@ export function AdvancedSearch({ onSearch, onClose }: AdvancedSearchProps) {
   });
 
   // Get translated vehicle data from translation files
-  const carMakes = t('advancedSearch.staticVehicleData.makes', { returnObjects: true }) as string[] || [
+  const translatedMakes = t('advancedSearch.staticVehicleData.makes', { returnObjects: true });
+  console.log('🔍 Translation Debug - Makes:', translatedMakes, 'Type:', typeof translatedMakes);
+  console.log('🔍 Translation Debug - Current Language:', currentLanguage);
+  console.log('🔍 Translation Debug - Array?:', Array.isArray(translatedMakes));
+  
+  // Use direct Macedonian translations if language is mk and translation system fails
+  const getTranslatedData = (key: string, fallback: string[]) => {
+    if (currentLanguage === 'mk' && mkTranslations?.advancedSearch?.staticVehicleData) {
+      const data = mkTranslations.advancedSearch.staticVehicleData[key as keyof typeof mkTranslations.advancedSearch.staticVehicleData];
+      if (Array.isArray(data) && data.length > 0) {
+        console.log(`✅ Using direct MK translation for ${key}:`, data);
+        return data;
+      }
+    }
+    
+    const translated = t(`advancedSearch.staticVehicleData.${key}`, { returnObjects: true });
+    if (Array.isArray(translated) && translated.length > 0) {
+      console.log(`✅ Using dynamic translation for ${key}:`, translated);
+      return translated as string[];
+    }
+    
+    console.log(`❌ Fallback to English for ${key}`);
+    return fallback;
+  };
+  
+  const carMakes = getTranslatedData('makes', [
     "Audi", "BMW", "Mercedes-Benz", "Volkswagen", "Opel", "Ford", "Renault", 
     "Peugeot", "Fiat", "Citroen", "Skoda", "SEAT", "Toyota", "Nissan", 
     "Honda", "Mazda", "Hyundai", "Kia", "Volvo", "Jaguar", "Land Rover", 
     "Porsche", "Ferrari", "Lamborghini", "Maserati", "Bentley", "Rolls-Royce",
     "Tesla", "Lexus", "Infiniti", "Acura", "Genesis", "Alfa Romeo", "Lancia",
     "Subaru", "Mitsubishi", "Suzuki", "Dacia", "Mini", "Smart", "Jeep"
-  ];
+  ]);
 
-  const bodyTypes = t('advancedSearch.staticVehicleData.bodyTypes', { returnObjects: true }) as string[] || [
+  const bodyTypes = getTranslatedData('bodyTypes', [
     "Compact", "Convertible", "Coupe", "SUV/Off-Road/Pick-up", 
     "Station wagon", "Sedans", "Van", "Transporter", "Other"
-  ];
+  ]);
 
-  const fuelTypes = t('advancedSearch.staticVehicleData.fuelTypes', { returnObjects: true }) as string[] || [
+  const fuelTypes = getTranslatedData('fuelTypes', [
     "Hybrid (Electric/Gasoline)", "Hybrid (Electric/Diesel)", 
     "Gasoline", "CNG", "Diesel", "Electric", "Hydrogen", "LPG", "Ethanol", "Others"
-  ];
+  ]);
 
-  const transmissions = t('advancedSearch.staticVehicleData.transmissions', { returnObjects: true }) as string[] || ["Automatic", "Manual", "Semi-automatic"];
+  const transmissions = getTranslatedData('transmissions', ["Automatic", "Manual", "Semi-automatic"]);
 
-  const drivetrains = t('advancedSearch.staticVehicleData.drivetrains', { returnObjects: true }) as string[] || ["Front-wheel drive", "Rear-wheel drive", "All-wheel drive", "4WD"];
+  const drivetrains = getTranslatedData('drivetrains', ["Front-wheel drive", "Rear-wheel drive", "All-wheel drive", "4WD"]);
 
-  const sellerTypes = t('advancedSearch.staticVehicleData.sellerTypes', { returnObjects: true }) as string[] || ["Dealer", "Private"];
+  const sellerTypes = getTranslatedData('sellerTypes', ["Dealer", "Private"]);
 
-  const conditions = t('advancedSearch.staticVehicleData.conditions', { returnObjects: true }) as string[] || ["New", "Used", "Employee's car", "Antique/Classic", "Demonstration", "Pre-registered"];
+  const conditions = getTranslatedData('conditions', ["New", "Used", "Employee's car", "Antique/Classic", "Demonstration", "Pre-registered"]);
 
-  const exteriorColors = t('advancedSearch.staticVehicleData.colors', { returnObjects: true }) as string[] || [
+  const exteriorColors = getTranslatedData('colors', [
     "Black", "White", "Silver", "Gray", "Red", "Blue", "Green", "Brown", 
     "Gold", "Orange", "Purple", "Yellow", "Beige", "Bronze"
-  ];
+  ]);
 
-  const paintworkTypes = t('advancedSearch.staticVehicleData.paintworkTypes', { returnObjects: true }) as string[] || ["Metallic", "Pearl", "Matt", "Other"];
+  const paintworkTypes = getTranslatedData('paintworkTypes', ["Metallic", "Pearl", "Matt", "Other"]);
 
-  const interiorColors = t('advancedSearch.staticVehicleData.interiorColors', { returnObjects: true }) as string[] || ["Black", "Gray", "Beige", "Brown", "Red", "Blue", "White", "Other"];
+  const interiorColors = getTranslatedData('interiorColors', ["Black", "Gray", "Beige", "Brown", "Red", "Blue", "White", "Other"]);
 
-  const upholsteryTypes = t('advancedSearch.staticVehicleData.upholsteryTypes', { returnObjects: true }) as string[] || ["Fabric", "Full leather", "Part leather", "Alcantara", "Other"];
+  const upholsteryTypes = getTranslatedData('upholsteryTypes', ["Fabric", "Full leather", "Part leather", "Alcantara", "Other"]);
 
-  const countries = t('advancedSearch.staticVehicleData.countries', { returnObjects: true }) as string[] || ["Germany", "Austria", "Italy", "Belgium", "Netherlands", "Spain", "Luxembourg", "France"];
+  const countries = getTranslatedData('countries', ["Germany", "Austria", "Italy", "Belgium", "Netherlands", "Spain", "Luxembourg", "France"]);
 
-  const emissionClasses = t('advancedSearch.staticVehicleData.emissionClasses', { returnObjects: true }) as string[] || ["Euro 6", "Euro 5", "Euro 4", "Euro 3", "Euro 2", "Euro 1"];
+  const emissionClasses = getTranslatedData('emissionClasses', ["Euro 6", "Euro 5", "Euro 4", "Euro 3", "Euro 2", "Euro 1"]);
 
-  const emissionLabels = t('advancedSearch.staticVehicleData.emissionLabels', { returnObjects: true }) as string[] || ["Green (4)", "Yellow (3)", "Orange (2)", "Red (1)", "No badge"];
+  const emissionLabels = getTranslatedData('emissionLabels', ["Green (4)", "Yellow (3)", "Orange (2)", "Red (1)", "No badge"]);
 
-  const guaranteeOptions = t('advancedSearch.staticVehicleData.guaranteeOptions', { returnObjects: true }) as string[] || ["Manufacturer guarantee", "Dealer guarantee", "No guarantee"];
+  const guaranteeOptions = getTranslatedData('guaranteeOptions', ["Manufacturer guarantee", "Dealer guarantee", "No guarantee"]);
 
   // Feature handling functions
   const handleFeatureChange = (feature: string, checked: boolean) => {
@@ -203,7 +229,7 @@ export function AdvancedSearch({ onSearch, onClose }: AdvancedSearchProps) {
   };
   
   // Get features from translation data
-  const features = t('advancedSearch.staticVehicleData.features', { returnObjects: true }) as string[] || [
+  const features = getTranslatedData('features', [
     // Drivetrain & Performance
     "4WD", "All-wheel drive", "Sport suspension", "Adaptive suspension", 
     
@@ -228,7 +254,7 @@ export function AdvancedSearch({ onSearch, onClose }: AdvancedSearchProps) {
     "Alloy wheels", "Xenon headlights", "LED headlights", "LED daytime running lights",
     "Adaptive headlights", "Fog lights", "Tinted windows", "Electric tailgate",
     "Roof rails", "Tow bar", "Metallic paint", "Sport package"
-  ];
+  ]);
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 30 }, (_, i) => (currentYear - i).toString());
