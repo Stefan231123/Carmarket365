@@ -1,6 +1,9 @@
 import { TranslationStrings } from '../translations';
 
 export const mkTranslations: TranslationStrings = {
+  brand: {
+    name: 'CarMarket365'
+  },
   common: {
     loading: 'Вчитување...',
     error: 'Грешка',
@@ -1943,6 +1946,59 @@ export const mkTranslations: TranslationStrings = {
     profileUpdatedSuccessfully: 'Профилот е успешно ажуриран!',
     carRemovedFromSaved: 'Автомобилот е отстранет од зачувани!',
     listingDeletedSuccessfully: 'Огласот е успешно избришан!'
+  },
+
+  sell: {
+    title: 'Продај го твојот автомобил',
+    expressTitle: 'Експресна продажба',
+    sellYourCar: 'Продај го твоето возило',
+    carInformation: 'Информации за автомобилот',
+    uploadPhotos: 'Прикачи фотографии',
+    setPrice: 'Постави цена',
+    contactInformation: 'Контакт информации',
+    publish: 'Објави',
+    draft: 'Зачувај како нацрт',
+    preview: 'Преглед',
+    required: 'Задолжително',
+    optional: 'Опционално',
+    addPhotos: 'Додај фотографии',
+    removePhoto: 'Отстрани фотографија',
+    mainPhoto: 'Главна фотографија',
+    additionalInfo: 'Дополнителни информации',
+    sellerNotes: 'Забелешки од продавачот',
+    
+    // Step titles
+    steps: {
+      vehicleType: 'Тип на возило',
+      basicInfo: 'Основни информации',
+      details: 'Детали',
+      photosAndContact: 'Фотографии и контакт',
+    },
+    
+    // Vehicle type selection
+    vehicleTypes: {
+      car: {
+        name: 'Автомобил',
+        description: 'Седани, кроссовери, купеа, хечбекови',
+      },
+      truck: {
+        name: 'Камион',
+        description: 'Пикапи, комерцијални возила',
+      },
+      motorbike: {
+        name: 'Мотор',
+        description: 'Мотоцикли, скутери, АТВ',
+      },
+    },
+    
+    // Headers and descriptions
+    headers: {
+      vehicleTypeQuestion: 'Каков тип на возило го продавате?',
+      basicInformation: 'Основни информации',
+      basicInfoDescription: 'Кажете ни за вашиот {vehicleType}',
+      additionalDetails: 'Дополнителни детали',
+      additionalDetailsDescription: 'Додајте повеќе детали за вашиот {vehicleType}',
+    }
   },
 
   sellVehicle: {

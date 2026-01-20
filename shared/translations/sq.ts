@@ -1,6 +1,9 @@
 import { TranslationStrings } from '../translations';
 
 export const sqTranslations: TranslationStrings = {
+  brand: {
+    name: 'CarMarket365'
+  },
   common: {
     loading: 'Po ngarkohet...',
     error: 'Gabim',
@@ -1974,6 +1977,59 @@ export const sqTranslations: TranslationStrings = {
     listingOptimizationDesc: 'Këshilla për të përmirësuar dukshmërinë e listimeve tuaja',
     paymentBilling: 'Pagesa dhe faturimi',
     paymentBillingDesc: 'Pyetje rreth faturimit dhe probleme me pagesat',
+  },
+
+  sell: {
+    title: 'Shit automjetin tënd',
+    expressTitle: 'Shitje ekspres', 
+    sellYourCar: 'Shit automjetin tënd',
+    carInformation: 'Informacione për automjetin',
+    uploadPhotos: 'Ngarko fotot',
+    setPrice: 'Cakto çmimin',
+    contactInformation: 'Informacione kontakti',
+    publish: 'Publiko',
+    draft: 'Ruaj si draft',
+    preview: 'Paraparje',
+    required: 'Të detyrueshme',
+    optional: 'Opsionale',
+    addPhotos: 'Shto foto',
+    removePhoto: 'Hiq foton',
+    mainPhoto: 'Foto kryesore',
+    additionalInfo: 'Informacione shtesë',
+    sellerNotes: 'Shënime të shitësit',
+    
+    // Step titles
+    steps: {
+      vehicleType: 'Lloji i automjetit',
+      basicInfo: 'Informacione bazë',
+      details: 'Detaje',
+      photosAndContact: 'Foto dhe kontakt',
+    },
+    
+    // Vehicle type selection
+    vehicleTypes: {
+      car: {
+        name: 'Automobil',
+        description: 'Sedan, crossover, coupe, hatchback',
+      },
+      truck: {
+        name: 'Kamion',
+        description: 'Pickup, mjete komerciale',
+      },
+      motorbike: {
+        name: 'Motoçikletë',
+        description: 'Motoçikleta, skuter, ATV',
+      },
+    },
+    
+    // Headers and descriptions
+    headers: {
+      vehicleTypeQuestion: 'Çfarë lloj automjeti po shit?',
+      basicInformation: 'Informacione bazë',
+      basicInfoDescription: 'Na trego për {vehicleType}',
+      additionalDetails: 'Detaje shtesë',
+      additionalDetailsDescription: 'Shto më shumë detaje për {vehicleType}',
+    }
   },
 
   expressSell: {
