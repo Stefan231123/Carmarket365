@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Search Macedonian Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .problem {
+            background-color: #ffe6e6;
+            border-color: #ff9999;
+        }
+        .working {
+            background-color: #e6ffe6;
+            border-color: #99ff99;
+        }
+        .mixed {
+            background-color: #fff3e0;
+            border-color: #ffcc02;
+        }
+        h1 { color: #333; }
+        h2 { color: #666; }
+        .lang-test {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Advanced Search Macedonian Translation Test</h1>
+    
+    <div class="section">
+        <h2>Test Plan</h2>
+        <p>This test will open the advanced search page and document what appears in English vs Macedonian</p>
+        <p><strong>Test URL:</strong> <a href="http://localhost:5173/advanced-search?lang=mk" target="_blank">http://localhost:5173/advanced-search?lang=mk</a></p>
+    </div>
+
+    <div class="section">
+        <h2>Expected Macedonian Translations</h2>
+        <div class="lang-test">
+            <strong>Page Title:</strong> "Напреден пребарај на автомобили" (instead of "Advanced Search")
+        </div>
+        <div class="lang-test">
+            <strong>Search Button:</strong> "Пребарај автомобили" (instead of "Search Cars")
+        </div>
+        <div class="lang-test">
+            <strong>Clear All:</strong> "Исчисти сè" (instead of "Clear All")
+        </div>
+        <div class="lang-test">
+            <strong>Make Field:</strong> "Марка" (instead of "Make")
+        </div>
+        <div class="lang-test">
+            <strong>Model Field:</strong> "Модел" (instead of "Model")
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Fields to Check for Mixed Language Issues</h2>
+        <ul>
+            <li>Page title and subtitle</li>
+            <li>Form field labels (Make, Model, Year, etc.)</li>
+            <li>Placeholder text in dropdowns</li>
+            <li>Button text</li>
+            <li>Section headers (Vehicle Details, Price & Location)</li>
+            <li>Filter options and checkboxes</li>
+            <li>Distance options</li>
+            <li>Mileage options</li>
+        </ul>
+    </div>
+
+    <div class="section mixed">
+        <h2>What to Document</h2>
+        <p>For each English text found on the page, note:</p>
+        <ol>
+            <li>The exact English text</li>
+            <li>Where it appears (section, field label, placeholder, etc.)</li>
+            <li>What it should say in Macedonian</li>
+            <li>Priority level (High/Medium/Low)</li>
+        </ol>
+    </div>
+
+    <script>
+        // Auto-open the test URL
+        setTimeout(() => {
+            console.log('Opening Advanced Search page with Macedonian language...');
+            window.open('http://localhost:5173/advanced-search?lang=mk', '_blank');
+        }, 2000);
+        
+        // Instructions for manual testing
+        console.log('='.repeat(60));
+        console.log('MANUAL TEST INSTRUCTIONS:');
+        console.log('1. Check if the advanced search page opened in Macedonian');
+        console.log('2. Look for any English text that should be in Macedonian');
+        console.log('3. Document mixed language issues');
+        console.log('4. Pay special attention to:');
+        console.log('   - Form field labels');
+        console.log('   - Dropdown placeholders');
+        console.log('   - Button text');
+        console.log('   - Section headers');
+        console.log('='.repeat(60));
+    </script>
+</body>
+</html>
