@@ -327,31 +327,15 @@ export default function AdvancedSearch() {
     }, obj);
   };
 
-  // Translation helper function with Macedonian and Albanian fallback
+  // Translation helper function with primary dynamic system
   const getAdvancedSearchText = (key: string, fallback: string) => {
-    // Try Macedonian first
-    if (currentLanguage === 'mk' && mkTranslations?.advancedSearch) {
-      const value = getNestedValue(mkTranslations.advancedSearch, key);
-      if (value && typeof value === 'string') {
-        return value;
-      }
-    }
-    
-    // Try Albanian second
-    if (currentLanguage === 'sq' && sqTranslations?.advancedSearch) {
-      const value = getNestedValue(sqTranslations.advancedSearch, key);
-      if (value && typeof value === 'string') {
-        return value;
-      }
-    }
-    
-    // Try dynamic translation system third
+    // Use the main translation system first
     const translated = t(`advancedSearch.${key}`);
     if (translated && translated !== `advancedSearch.${key}`) {
       return translated;
     }
     
-    // Return English fallback last
+    // Return English fallback if no translation found
     return fallback;
   };
 
@@ -1109,7 +1093,7 @@ export default function AdvancedSearch() {
                       <SelectContent>
                         {mileageRanges.map(mileage => (
                           <SelectItem key={mileage} value={mileage.toString()}>
-                            {mileage === 400000 ? '300,000+ km' : `${mileage.toLocaleString()} {getAdvancedSearchText('labels.km', 'km')}`}
+                            {mileage === 400000 ? getAdvancedSearchText('labels.mileage300kPlus', '300,000+ km') : `${mileage.toLocaleString()} ${getAdvancedSearchText('labels.km', 'km')}`}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -1140,9 +1124,9 @@ export default function AdvancedSearch() {
                         <SelectValue placeholder={getAdvancedSearchText('placeholders.from', 'From')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="0">0 kW (0 PS)</SelectItem>
+                        <SelectItem value="0">{getAdvancedSearchText('labels.zeroPower', '0 kW (0 PS)')}</SelectItem>
                         {powerRanges.slice(1).map(power => (
-                          <SelectItem key={power} value={power.toString()}>{power} kW ({Math.round(power * 1.36)} PS)</SelectItem>
+                          <SelectItem key={power} value={power.toString()}>{power} {getAdvancedSearchText('labels.kw', 'kW')} ({Math.round(power * 1.36)} {getAdvancedSearchText('labels.ps', 'PS')})</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -1170,7 +1154,7 @@ export default function AdvancedSearch() {
                       </SelectTrigger>
                       <SelectContent>
                         {powerRanges.map(power => (
-                          <SelectItem key={power} value={power.toString()}>{power} kW ({Math.round(power * 1.36)} PS)</SelectItem>
+                          <SelectItem key={power} value={power.toString()}>{power} {getAdvancedSearchText('labels.kw', 'kW')} ({Math.round(power * 1.36)} {getAdvancedSearchText('labels.ps', 'PS')})</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>

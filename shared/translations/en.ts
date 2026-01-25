@@ -1717,6 +1717,15 @@ export const enTranslations: TranslationStrings = {
       anyEmissionClass: 'Any Emission Class',
     },
     
+    // Labels for units and formats
+    labels: {
+      km: 'km',
+      kw: 'kW',
+      ps: 'PS',
+      mileage300kPlus: '300,000+ km',
+      zeroPower: '0 kW (0 PS)',
+    },
+    
     // Additional properties options
     additionalProperties: {
       certifiedPreOwned: 'Certified Pre-Owned',

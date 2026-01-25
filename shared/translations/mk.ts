@@ -1938,6 +1938,15 @@ export const mkTranslations: TranslationStrings = {
       anyRange: 'Било кой опсег',
       anyEmissionClass: 'Било која класа на емисии'
     },
+    
+    // Labels for units and formats
+    labels: {
+      km: 'км',
+      kw: 'kW',
+      ps: 'КС',
+      mileage300kPlus: '300.000+ км',
+      zeroPower: '0 kW (0 КС)',
+    },
 
     ranges: {
       any: 'Било која',

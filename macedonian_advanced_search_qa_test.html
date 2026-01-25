@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="mk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macedonian Advanced Search QA Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-header {
+            background: #2563eb;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status.pass { background: #22c55e; color: white; }
+        .status.fail { background: #ef4444; color: white; }
+        .status.testing { background: #f59e0b; color: white; }
+        .iframe-container {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin: 20px 0;
+            height: 800px;
+        }
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 6px;
+        }
+        .test-results {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .test-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .test-item:last-child {
+            border-bottom: none;
+        }
+        .controls {
+            margin: 20px 0;
+            display: flex;
+            gap: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .btn-primary { background: #2563eb; color: white; }
+        .btn-secondary { background: #6b7280; color: white; }
+        .btn-success { background: #22c55e; color: white; }
+        .btn-danger { background: #ef4444; color: white; }
+        .error-log {
+            background: #fee2e2;
+            border: 1px solid #fecaca;
+            border-radius: 4px;
+            padding: 10px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .success-log {
+            background: #d1fae5;
+            border: 1px solid #a7f3d0;
+            border-radius: 4px;
+            padding: 10px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-header">
+        <h1>🇲🇰 Macedonian Advanced Search QA Testing Suite</h1>
+        <p>Comprehensive validation of Macedonian translation implementation - Final Phase Validation</p>
+        <p><strong>Target URL:</strong> <code>http://localhost:8081/advanced-search?lang=mk</code></p>
+    </div>
+
+    <div class="test-container">
+        <h2>🎯 Critical Test Objectives</h2>
+        <ul>
+            <li><strong>Zero English Text:</strong> NO English words should appear anywhere on the page</li>
+            <li><strong>Complete Macedonian Interface:</strong> All UI elements, buttons, labels in Macedonian</li>
+            <li><strong>Dropdown Content:</strong> All dropdown options in Macedonian</li>
+            <li><strong>Translation System Integrity:</strong> Proper loading and fallback handling</li>
+        </ul>
+    </div>
+
+    <div class="controls">
+        <button class="btn-primary" onclick="runComprehensiveTest()">🔍 Run Comprehensive Test</button>
+        <button class="btn-secondary" onclick="reloadPage()">🔄 Reload Page</button>
+        <button class="btn-success" onclick="downloadReport()">📄 Download Report</button>
+        <button class="btn-danger" onclick="clearResults()">🗑️ Clear Results</button>
+    </div>
+
+    <div class="test-container">
+        <h3>Live Advanced Search Page Testing</h3>
+        <div class="iframe-container">
+            <iframe id="testFrame" src="http://localhost:8081/advanced-search?lang=mk"></iframe>
+        </div>
+    </div>
+
+    <div class="test-container">
+        <h3>🧪 Test Results</h3>
+        <div id="testResults" class="test-results">
+            <p>Click "Run Comprehensive Test" to start validation...</p>
+        </div>
+    </div>
+
+    <script>
+        let testResults = [];
+        let startTime = null;
+
+        function addTestResult(category, test, status, details = '') {
+            testResults.push({
+                category,
+                test,
+                status,
+                details,
+                timestamp: new Date().toISOString()
+            });
+            updateTestDisplay();
+        }
+
+        function updateTestDisplay() {
+            const resultsDiv = document.getElementById('testResults');
+            let html = '';
+            
+            const categories = [...new Set(testResults.map(r => r.category))];
+            const overallScore = calculateOverallScore();
+            
+            html += `<div class="test-item"><strong>Overall Quality Score: ${overallScore.toFixed(1)}%</strong> <span class="status ${overallScore > 90 ? 'pass' : overallScore > 70 ? 'testing' : 'fail'}">${overallScore > 90 ? 'EXCELLENT' : overallScore > 70 ? 'GOOD' : 'NEEDS IMPROVEMENT'}</span></div>`;
+            
+            categories.forEach(category => {
+                const categoryResults = testResults.filter(r => r.category === category);
+                const passedTests = categoryResults.filter(r => r.status === 'pass').length;
+                const totalTests = categoryResults.length;
+                const categoryScore = totalTests > 0 ? (passedTests / totalTests) * 100 : 0;
+                
+                html += `<h4>${category} (${passedTests}/${totalTests} - ${categoryScore.toFixed(1)}%)</h4>`;
+                
+                categoryResults.forEach(result => {
+                    html += `
+                        <div class="test-item">
+                            <span>${result.test}</span>
+                            <span class="status ${result.status}">${result.status.toUpperCase()}</span>
+                        </div>
+                        ${result.details ? `<div class="${result.status === 'pass' ? 'success-log' : 'error-log'}">${result.details}</div>` : ''}
+                    `;
+                });
+            });
+            
+            resultsDiv.innerHTML = html;
+        }
+
+        function calculateOverallScore() {
+            if (testResults.length === 0) return 0;
+            const passedTests = testResults.filter(r => r.status === 'pass').length;
+            return (passedTests / testResults.length) * 100;
+        }
+
+        async function runComprehensiveTest() {
+            startTime = Date.now();
+            testResults = [];
+            addTestResult('System', 'Test Suite Started', 'testing', 'Initializing comprehensive Macedonian validation...');
+            
+            // Wait for iframe to load
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            try {
+                const iframe = document.getElementById('testFrame');
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                
+                if (!iframeDoc) {
+                    addTestResult('Critical', 'Page Loading', 'fail', 'Cannot access iframe content. CORS or loading issue.');
+                    return;
+                }
+
+                // Test 1: Page Load and Basic Structure
+                await testPageLoad(iframeDoc);
+                
+                // Test 2: Language Detection
+                await testLanguageDetection(iframeDoc);
+                
+                // Test 3: UI Text Validation
+                await testUITextValidation(iframeDoc);
+                
+                // Test 4: Dropdown Content Validation
+                await testDropdownValidation(iframeDoc);
+                
+                // Test 5: Translation System Integrity
+                await testTranslationSystemIntegrity(iframeDoc);
+                
+                // Test 6: Functionality Testing
+                await testFunctionalityIntegrity(iframeDoc);
+                
+                // Test 7: Performance and Accessibility
+                await testPerformanceAccessibility(iframeDoc);
+                
+                const endTime = Date.now();
+                const duration = (endTime - startTime) / 1000;
+                addTestResult('System', 'Test Suite Completed', 'pass', `Total execution time: ${duration.toFixed(2)} seconds`);
+                
+            } catch (error) {
+                addTestResult('Critical', 'Test Execution Error', 'fail', error.message);
+            }
+        }
+
+        async function testPageLoad(doc) {
+            // Test if advanced search page loaded
+            const title = doc.title;
+            if (title) {
+                addTestResult('Page Load', 'Page Title Present', 'pass', `Title: "${title}"`);
+            } else {
+                addTestResult('Page Load', 'Page Title Missing', 'fail', 'No page title found');
+            }
+            
+            // Test for main container
+            const mainContainer = doc.querySelector('[class*="space-y"], .advanced-search, main') || doc.querySelector('div');
+            if (mainContainer) {
+                addTestResult('Page Load', 'Main Container Found', 'pass', 'Advanced search layout detected');
+            } else {
+                addTestResult('Page Load', 'Main Container Missing', 'fail', 'Could not find main container');
+            }
+        }
+
+        async function testLanguageDetection(doc) {
+            // Check HTML lang attribute
+            const htmlLang = doc.documentElement.lang;
+            if (htmlLang === 'mk' || htmlLang.includes('mk')) {
+                addTestResult('Language Detection', 'HTML Lang Attribute', 'pass', `Lang: "${htmlLang}"`);
+            } else {
+                addTestResult('Language Detection', 'HTML Lang Attribute', 'fail', `Expected "mk", got "${htmlLang}"`);
+            }
+            
+            // Check for Macedonian text patterns
+            const bodyText = doc.body.textContent || '';
+            const macedonianWords = ['Напреден', 'пребарај', 'автомобили', 'Марка', 'Модел', 'филтри'];
+            const foundMacedonianWords = macedonianWords.filter(word => bodyText.includes(word));
+            
+            if (foundMacedonianWords.length >= 3) {
+                addTestResult('Language Detection', 'Macedonian Text Pattern', 'pass', `Found: ${foundMacedonianWords.join(', ')}`);
+            } else {
+                addTestResult('Language Detection', 'Macedonian Text Pattern', 'fail', `Only found: ${foundMacedonianWords.join(', ')}`);
+            }
+        }
+
+        async function testUITextValidation(doc) {
+            const criticalTexts = [
+                { key: 'title', expected: 'Напреден пребарај', description: 'Main Title' },
+                { key: 'search-button', expected: 'Пребарај автомобили', description: 'Search Button' },
+                { key: 'clear-button', expected: 'Исчисти', description: 'Clear Button' },
+                { key: 'make-label', expected: 'Марка', description: 'Make Label' },
+                { key: 'model-label', expected: 'Модел', description: 'Model Label' }
+            ];
+            
+            const bodyText = doc.body.textContent || '';
+            
+            criticalTexts.forEach(({ expected, description }) => {
+                if (bodyText.includes(expected)) {
+                    addTestResult('UI Text Validation', `${description} Text`, 'pass', `Found: "${expected}"`);
+                } else {
+                    addTestResult('UI Text Validation', `${description} Text`, 'fail', `Missing: "${expected}"`);
+                }
+            });
+            
+            // Check for English fallbacks
+            const englishWords = ['Search', 'Clear', 'Make', 'Model', 'Year', 'Price', 'Gasoline', 'Diesel', 'Manual', 'Automatic'];
+            const foundEnglishWords = englishWords.filter(word => bodyText.includes(word));
+            
+            if (foundEnglishWords.length === 0) {
+                addTestResult('UI Text Validation', 'No English Fallbacks', 'pass', 'No English words detected');
+            } else {
+                addTestResult('UI Text Validation', 'English Fallbacks Detected', 'fail', `Found English words: ${foundEnglishWords.join(', ')}`);
+            }
+        }
+
+        async function testDropdownValidation(doc) {
+            // Test for dropdown presence and content
+            const selectElements = doc.querySelectorAll('select, [role="combobox"], [class*="select"]');
+            
+            if (selectElements.length > 0) {
+                addTestResult('Dropdown Content', 'Dropdown Elements Found', 'pass', `Found ${selectElements.length} dropdown elements`);
+                
+                // Check for expected Macedonian dropdown options
+                const expectedOptions = ['Бензин', 'Дизел', 'Електричен', 'Мануелна', 'Автоматска', 'Седан', 'SUV'];
+                let foundOptions = 0;
+                
+                expectedOptions.forEach(option => {
+                    if (doc.body.textContent.includes(option)) {
+                        foundOptions++;
+                        addTestResult('Dropdown Content', `Dropdown Option: ${option}`, 'pass', 'Macedonian option found');
+                    }
+                });
+                
+                if (foundOptions >= 4) {
+                    addTestResult('Dropdown Content', 'Macedonian Options Coverage', 'pass', `Found ${foundOptions}/${expectedOptions.length} expected options`);
+                } else {
+                    addTestResult('Dropdown Content', 'Macedonian Options Coverage', 'fail', `Only found ${foundOptions}/${expectedOptions.length} expected options`);
+                }
+            } else {
+                addTestResult('Dropdown Content', 'Dropdown Elements Found', 'fail', 'No dropdown elements detected');
+            }
+        }
+
+        async function testTranslationSystemIntegrity(doc) {
+            // Check for translation loading errors in console
+            try {
+                const iframe = document.getElementById('testFrame');
+                const iframeWindow = iframe.contentWindow;
+                
+                // Test if translation function is available
+                if (iframeWindow.console) {
+                    addTestResult('Translation System', 'Console Access', 'pass', 'Can access iframe console');
+                } else {
+                    addTestResult('Translation System', 'Console Access', 'fail', 'Cannot access iframe console');
+                }
+                
+                // Check for React/Vue presence (translation framework)
+                if (doc.querySelector('[data-reactroot], [data-react-checksum], #root, #app')) {
+                    addTestResult('Translation System', 'Framework Detection', 'pass', 'React/Vue framework detected');
+                } else {
+                    addTestResult('Translation System', 'Framework Detection', 'testing', 'Framework not clearly detected');
+                }
+                
+            } catch (error) {
+                addTestResult('Translation System', 'System Integrity Check', 'fail', error.message);
+            }
+        }
+
+        async function testFunctionalityIntegrity(doc) {
+            // Test form elements functionality
+            const inputElements = doc.querySelectorAll('input, select, button');
+            
+            if (inputElements.length > 0) {
+                addTestResult('Functionality', 'Interactive Elements', 'pass', `Found ${inputElements.length} interactive elements`);
+                
+                // Test for disabled elements (shouldn't be disabled on load)
+                const disabledElements = Array.from(inputElements).filter(el => el.disabled);
+                if (disabledElements.length === 0) {
+                    addTestResult('Functionality', 'No Disabled Elements', 'pass', 'All elements are interactive');
+                } else {
+                    addTestResult('Functionality', 'Disabled Elements Found', 'testing', `${disabledElements.length} disabled elements found`);
+                }
+            } else {
+                addTestResult('Functionality', 'Interactive Elements', 'fail', 'No interactive elements found');
+            }
+            
+            // Check for search functionality
+            const searchButton = Array.from(doc.querySelectorAll('button')).find(btn => 
+                btn.textContent && btn.textContent.includes('Пребарај')
+            );
+            
+            if (searchButton) {
+                addTestResult('Functionality', 'Search Button Present', 'pass', 'Macedonian search button found');
+            } else {
+                addTestResult('Functionality', 'Search Button Present', 'fail', 'Search button not found or not in Macedonian');
+            }
+        }
+
+        async function testPerformanceAccessibility(doc) {
+            // Basic accessibility checks
+            const images = doc.querySelectorAll('img');
+            const imagesWithAlt = Array.from(images).filter(img => img.hasAttribute('alt'));
+            
+            if (images.length === 0 || imagesWithAlt.length === images.length) {
+                addTestResult('Accessibility', 'Image Alt Attributes', 'pass', 'All images have alt attributes');
+            } else {
+                addTestResult('Accessibility', 'Image Alt Attributes', 'fail', `${images.length - imagesWithAlt.length} images missing alt attributes`);
+            }
+            
+            // Check for proper heading structure
+            const headings = doc.querySelectorAll('h1, h2, h3, h4, h5, h6');
+            if (headings.length > 0) {
+                addTestResult('Accessibility', 'Heading Structure', 'pass', `Found ${headings.length} heading elements`);
+            } else {
+                addTestResult('Accessibility', 'Heading Structure', 'testing', 'No heading elements found');
+            }
+            
+            // Performance check - measure load time
+            const loadTime = Date.now() - startTime;
+            if (loadTime < 5000) {
+                addTestResult('Performance', 'Page Load Time', 'pass', `Loaded in ${(loadTime/1000).toFixed(2)}s`);
+            } else {
+                addTestResult('Performance', 'Page Load Time', 'testing', `Slow load: ${(loadTime/1000).toFixed(2)}s`);
+            }
+        }
+
+        function reloadPage() {
+            const iframe = document.getElementById('testFrame');
+            iframe.src = iframe.src;
+        }
+
+        function clearResults() {
+            testResults = [];
+            updateTestDisplay();
+        }
+
+        function downloadReport() {
+            const timestamp = new Date().toISOString().slice(0, 19).replace(/[:-]/g, '');
+            const overallScore = calculateOverallScore();
+            
+            let report = `MACEDONIAN ADVANCED SEARCH QA TEST REPORT
+Generated: ${new Date().toLocaleString()}
+Test Duration: ${startTime ? ((Date.now() - startTime) / 1000).toFixed(2) : 'N/A'}s
+Overall Score: ${overallScore.toFixed(1)}%
+Target URL: http://localhost:8081/advanced-search?lang=mk
+
+CRITICAL SUCCESS CRITERIA:
+✅ Zero English Text: ${testResults.some(r => r.test.includes('English Fallbacks') && r.status === 'pass') ? 'PASSED' : 'FAILED'}
+✅ Complete Macedonian Interface: ${testResults.some(r => r.test.includes('Macedonian Text Pattern') && r.status === 'pass') ? 'PASSED' : 'FAILED'}
+✅ Dropdown Content: ${testResults.some(r => r.test.includes('Macedonian Options Coverage') && r.status === 'pass') ? 'PASSED' : 'FAILED'}
+
+DETAILED RESULTS:
+================
+`;
+
+            const categories = [...new Set(testResults.map(r => r.category))];
+            
+            categories.forEach(category => {
+                const categoryResults = testResults.filter(r => r.category === category);
+                const passedTests = categoryResults.filter(r => r.status === 'pass').length;
+                const totalTests = categoryResults.length;
+                
+                report += `\n${category.toUpperCase()}: ${passedTests}/${totalTests} passed\n`;
+                report += '-'.repeat(50) + '\n';
+                
+                categoryResults.forEach(result => {
+                    report += `[${result.status.toUpperCase()}] ${result.test}\n`;
+                    if (result.details) {
+                        report += `    Details: ${result.details}\n`;
+                    }
+                });
+            });
+
+            report += `\nRECOMMENDATIONS:
+================
+`;
+
+            if (overallScore < 70) {
+                report += `- CRITICAL: Overall score below 70%. Review failed tests immediately.\n`;
+            }
+            if (!testResults.some(r => r.test.includes('English Fallbacks') && r.status === 'pass')) {
+                report += `- HIGH: English text detected. Review translation implementation.\n`;
+            }
+            if (!testResults.some(r => r.test.includes('Macedonian Options Coverage') && r.status === 'pass')) {
+                report += `- HIGH: Missing Macedonian dropdown options. Check staticVehicleData.\n`;
+            }
+            if (overallScore >= 90) {
+                report += `- EXCELLENT: Advanced search page meets quality standards for deployment.\n`;
+            }
+
+            const blob = new Blob([report], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `macedonian-advanced-search-qa-report-${timestamp}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Auto-run test when page loads
+        window.onload = function() {
+            setTimeout(() => {
+                addTestResult('System', 'QA Test Suite Loaded', 'pass', 'Ready to test Macedonian advanced search page');
+                updateTestDisplay();
+            }, 1000);
+        };
+    </script>
+</body>
+</html>

@@ -5128,6 +5128,15 @@ export const sqTranslations: TranslationStrings = {
         anyEmissionClass: 'Çdo klasë emisionesh',
       },
       
+      // Labels for units and formats
+      labels: {
+        km: 'km',
+        kw: 'kW',
+        ps: 'PS',
+        mileage300kPlus: '300.000+ km',
+        zeroPower: '0 kW (0 PS)',
+      },
+      
       distances: {
         25: 'Në radius prej 25 km',
         50: 'Në radius prej 50 km', 
