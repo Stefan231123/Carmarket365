@@ -1634,6 +1634,22 @@ export const sqTranslations: TranslationStrings = {
       sellerCondition: {
         title: 'Shitësi dhe gjendja e automjetit',
         description: 'Lloji i shitësit dhe gjendja e automjetit'
+      },
+      appearance: {
+        title: 'Ngjyra e karocerisë dhe puna e bojës',
+        description: 'Pamja e jashtme dhe ngjyra'
+      },
+      interior: {
+        title: 'Ngjyra e brendshme dhe veshja',
+        description: 'Materialet dhe ngjyrat e brendshme'
+      },
+      history: {
+        title: 'Pronarët e mëparshëm dhe historia',
+        description: 'Historia e automjetit dhe pronarët'
+      },
+      financing: {
+        title: 'Financimi dhe sigurimi',
+        description: 'Opsionet e financimit dhe sigurimit'
       }
     },
     
@@ -1667,7 +1683,17 @@ export const sqTranslations: TranslationStrings = {
       seller: 'Shitësi',
       vehicleCondition: 'Gjendja e automjetit',
       mileageMin: 'Kilometrazhi nga (km)',
-      mileageMax: 'Kilometrazhi deri (km)'
+      mileageMax: 'Kilometrazhi deri (km)',
+      additionalProperties: 'Vetitë shtesë',
+      bodyColor: 'Ngjyra e karocerisë',
+      paintWork: 'Puna e bojës',
+      interiorColor: 'Ngjyra e brendshme',
+      upholstery: 'Veshja',
+      previousOwners: 'Pronarët e mëparshëm',
+      hadAccident: 'Ka pasur aksident',
+      guarantee: 'Garancia',
+      fullServiceHistory: 'Me historinë e plotë të shërbimit',
+      nonSmoking: 'Automjet për jo-duhanpirës'
     },
     
     placeholders: {
@@ -1703,6 +1729,20 @@ export const sqTranslations: TranslationStrings = {
       priceRange: 'Spektri i çmimeve',
       yearRange: 'Spektri i viteve',
       mileageRange: 'Spektri i kilometrazhit (km)',
+    },
+    
+    // Additional properties options
+    additionalProperties: {
+      certifiedPreOwned: 'I certifikuar dhe i përdorur më parë',
+      singleOwner: 'Një pronar',
+      accidentFree: 'Pa aksidente',
+      serviceRecordsAvailable: 'Evidencat e shërbimit të disponueshme',
+      underWarranty: 'Nën garanci',
+      recentlyServiced: 'I riparuar kohët e fundit',
+      lowMileage: 'Kilometrazh i ulët',
+      garageKept: 'Mbajtur në garazh',
+      winterPackage: 'Paketa dimërore',
+      sportPackage: 'Paketa sportive'
     },
     
     distances: {

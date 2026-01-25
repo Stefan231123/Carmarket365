@@ -1621,6 +1621,22 @@ export const enTranslations: TranslationStrings = {
         title: 'Features & Options',
         description: 'Select features that are important to you',
       },
+      appearance: {
+        title: 'Body Color & Paint Work',
+        description: 'Exterior appearance and color'
+      },
+      interior: {
+        title: 'Interior Color & Upholstery',
+        description: 'Interior materials and colors'
+      },
+      history: {
+        title: 'Previous Owners & History',
+        description: 'Vehicle history and ownership'
+      },
+      financing: {
+        title: 'Financing & Insurance',
+        description: 'Financing and insurance options'
+      }
     },
     
     // Ranges
@@ -1654,6 +1670,15 @@ export const enTranslations: TranslationStrings = {
       maxYear: 'Max Year',
       maxMileage: 'Max Mileage',
       additionalProperties: 'Additional Properties',
+      bodyColor: 'Body Color',
+      paintWork: 'Paint Work',
+      interiorColor: 'Interior Color',
+      upholstery: 'Upholstery',
+      previousOwners: 'Previous Owners',
+      hadAccident: 'Had Accident',
+      guarantee: 'Guarantee',
+      fullServiceHistory: 'Full Service History',
+      nonSmoking: 'Non-Smoking',
     },
     
     // Placeholders
@@ -1682,6 +1707,28 @@ export const enTranslations: TranslationStrings = {
       anyDistance: 'Any Distance',
       allSellers: 'All Sellers',
       any: 'Any',
+      anyPaintType: 'Any Paint Type',
+      anyMaterial: 'Any Material',
+      anyTransmission: 'Any Transmission',
+      anySeller: 'Any Seller',
+      anyRating: 'Any Rating',
+      anyBadge: 'Any Badge',
+      anyRange: 'Any Range',
+      anyEmissionClass: 'Any Emission Class',
+    },
+    
+    // Additional properties options
+    additionalProperties: {
+      certifiedPreOwned: 'Certified Pre-Owned',
+      singleOwner: 'Single Owner',
+      accidentFree: 'Accident-Free',
+      serviceRecordsAvailable: 'Service Records Available',
+      underWarranty: 'Under Warranty',
+      recentlyServiced: 'Recently Serviced',
+      lowMileage: 'Low Mileage',
+      garageKept: 'Garage Kept',
+      winterPackage: 'Winter Package',
+      sportPackage: 'Sport Package'
     },
     
     // Distance options

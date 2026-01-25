@@ -1838,6 +1838,22 @@ export const mkTranslations: TranslationStrings = {
       sellerCondition: {
         title: 'Продавач и состојба на возилото',
         description: 'Тип на продавач и состојба на возилото'
+      },
+      appearance: {
+        title: 'Боја на каросерија и бојадисување',
+        description: 'Надворешен изглед и боја'
+      },
+      interior: {
+        title: 'Внатрешна боја и тапацирање',
+        description: 'Внатрешни материјали и боји'
+      },
+      history: {
+        title: 'Претходни сопственици и историја',
+        description: 'Историја на возилото и сопственици'
+      },
+      financing: {
+        title: 'Финансирање и осигурување',
+        description: 'Опции за финансирање и осигурување'
       }
     },
 
@@ -1874,7 +1890,17 @@ export const mkTranslations: TranslationStrings = {
       seller: 'Продавач',
       vehicleCondition: 'Состојба на возилото',
       mileageMin: 'Пробег од (km)',
-      mileageMax: 'Пробег до (km)'
+      mileageMax: 'Пробег до (km)',
+      additionalProperties: 'Дополнителни својства',
+      bodyColor: 'Боја на каросерија',
+      paintWork: 'Бојадисување',
+      interiorColor: 'Внатрешна боја',
+      upholstery: 'Тапацирање',
+      previousOwners: 'Претходни сопственици',
+      hadAccident: 'Имал несреќа',
+      guarantee: 'Гаранција',
+      fullServiceHistory: 'Со целосна историја на сервис',
+      nonSmoking: 'Возило за непушачи'
     },
 
     // Placeholders
@@ -1904,7 +1930,13 @@ export const mkTranslations: TranslationStrings = {
       allSellers: 'Сите продавачи',
       any: 'Било кој',
       anySeller: 'Било кој продавач',
-      anyTransmission: 'Било кој менувач'
+      anyTransmission: 'Било кој менувач',
+      anyPaintType: 'Било кој тип на боење',
+      anyMaterial: 'Било кој материјал',
+      anyRating: 'Било кой рејтинг',
+      anyBadge: 'Било која значка',
+      anyRange: 'Било кой опсег',
+      anyEmissionClass: 'Било која класа на емисии'
     },
 
     ranges: {
@@ -1913,6 +1945,20 @@ export const mkTranslations: TranslationStrings = {
       '25000to50000': '€25,000 - €50,000',
       '50000to75000': '€50,000 - €75,000',
       over75000: 'Над €75,000'
+    },
+
+    // Additional properties options
+    additionalProperties: {
+      certifiedPreOwned: 'Сертифициран претходно користен',
+      singleOwner: 'Еден сопственик',
+      accidentFree: 'Без несреќи',
+      serviceRecordsAvailable: 'Достапни записи за сервис',
+      underWarranty: 'Под гаранција',
+      recentlyServiced: 'Неодамна сервисиран',
+      lowMileage: 'Мал пробег',
+      garageKept: 'Чуван во гаража',
+      winterPackage: 'Зимски пакет',
+      sportPackage: 'Спортски пакет'
     },
 
     // Distance options
