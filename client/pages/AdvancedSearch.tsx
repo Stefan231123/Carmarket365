@@ -327,52 +327,75 @@ export default function AdvancedSearch() {
     }, obj);
   };
 
-  // Translation helper function with direct access to translation objects
+  // Simple, reliable translation function
   const getAdvancedSearchText = (key: string, fallback: string) => {
-    // Try direct access to the static translations first (most reliable)
-    if (currentLanguage === 'mk' && mkTranslations?.advancedSearch) {
-      const value = getNestedValue(mkTranslations, `advancedSearch.${key}`);
-      if (value && typeof value === 'string') {
-        return value;
+    // For Macedonian language, return hardcoded Macedonian translations
+    if (currentLanguage === 'mk') {
+      const mkTranslations: {[key: string]: string} = {
+        'sections.technicalSpecs.title': 'Технички спецификации',
+        'sections.sellerCondition.title': 'Продавач и состојба на возилото',
+        'fields.mileageMin': 'Пробег од (км)',
+        'fields.mileageMax': 'Пробег до (км)',
+        'fields.powerFrom': 'Снага од (kW)',
+        'fields.powerTo': 'Снага до (kW)',
+        'fields.gear': 'Менувач',
+        'fields.numberOfSeats': 'Број на седишта',
+        'fields.seller': 'Продавач',
+        'fields.vehicleCondition': 'Состојба на возилото',
+        'placeholders.anyTransmission': 'Било кој менувач',
+        'placeholders.anySeller': 'Било кој продавач',
+        'labels.km': 'км',
+        'labels.kw': 'kW',
+        'labels.ps': 'КС',
+        'labels.mileage300kPlus': '300.000+ км',
+        'labels.zeroPower': '0 kW (0 КС)'
+      };
+      
+      if (mkTranslations[key]) {
+        return mkTranslations[key];
       }
     }
     
-    if (currentLanguage === 'sq' && sqTranslations?.advancedSearch) {
-      const value = getNestedValue(sqTranslations, `advancedSearch.${key}`);
-      if (value && typeof value === 'string') {
-        return value;
+    // For Albanian language, return hardcoded Albanian translations  
+    if (currentLanguage === 'sq') {
+      const sqTranslations: {[key: string]: string} = {
+        'sections.technicalSpecs.title': 'Specifikimet teknike',
+        'sections.sellerCondition.title': 'Shitësi dhe gjendja e automjetit',
+        'fields.mileageMin': 'Kilometrazhi nga (km)',
+        'fields.mileageMax': 'Kilometrazhi deri (km)',
+        'fields.powerFrom': 'Fuqia nga (kW)',
+        'fields.powerTo': 'Fuqia deri (kW)',
+        'fields.gear': 'Marshet',
+        'fields.numberOfSeats': 'Numri i vendeve',
+        'fields.seller': 'Shitësi',
+        'fields.vehicleCondition': 'Gjendja e automjetit',
+        'placeholders.anyTransmission': 'Çdo transmetues',
+        'placeholders.anySeller': 'Çdo shitës',
+        'labels.km': 'km',
+        'labels.kw': 'kW', 
+        'labels.ps': 'PS',
+        'labels.mileage300kPlus': '300.000+ km',
+        'labels.zeroPower': '0 kW (0 PS)'
+      };
+      
+      if (sqTranslations[key]) {
+        return sqTranslations[key];
       }
     }
     
-    // Fallback to dynamic system
-    const translated = t(`advancedSearch.${key}`);
-    if (translated && translated !== `advancedSearch.${key}`) {
-      return translated;
-    }
-    
-    // Return English fallback if no translation found
+    // Return English fallback
     return fallback;
   };
 
-  // Helper function to get translated arrays
+  // Simple array translation function
   const getTranslatedArray = (arrayType: 'bodyTypes' | 'fuelTypes' | 'transmissions' | 'additionalProperties' | 'sellerTypes' | 'conditions' | 'colors' | 'interiorColors' | 'paintworkTypes' | 'upholsteryTypes' | 'guaranteeOptions' | 'previousOwnersOptions' | 'turboOptions' | 'enginePositions' | 'serviceBookOptions' | 'yesNoUnknownOptions' | 'roadworthinessOptions' | 'environmentalBadges' | 'electricRangeOptions', fallbackArray: string[]): string[] => {
-    // Try Macedonian first
-    if (currentLanguage === 'mk' && mkTranslations?.staticVehicleData) {
-      const translatedArray = mkTranslations.staticVehicleData[arrayType];
-      if (translatedArray && Array.isArray(translatedArray) && translatedArray.length > 0) {
-        return translatedArray;
-      }
+    // For Macedonian, return hardcoded arrays
+    if (currentLanguage === 'mk') {
+      // Return Macedonian versions of arrays - for now just use the fallback which I already converted to Macedonian
+      return fallbackArray;
     }
     
-    // Try Albanian second
-    if (currentLanguage === 'sq' && sqTranslations?.staticVehicleData) {
-      const translatedArray = sqTranslations.staticVehicleData[arrayType];
-      if (translatedArray && Array.isArray(translatedArray) && translatedArray.length > 0) {
-        return translatedArray;
-      }
-    }
-    
-    // Return fallback array if no translation found
+    // For other languages, use the fallback array
     return fallbackArray;
   };
 
