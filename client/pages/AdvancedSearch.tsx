@@ -145,13 +145,13 @@ const fallbackBodyTypes = ['Small Car', 'Estate', 'SUV/Off-road/Pickup', 'Coupe'
 
 const fallbackFuelTypes = ['Gasoline', 'Diesel', 'Electric', 'Hybrid (Gasoline/Electric)', 'Hybrid (Diesel/Electric)', 'Natural Gas (CNG)', 'Liquefied Gas (LPG)', 'Ethanol', 'Hydrogen'];
 
-const fallbackGearTypes = ['Manual', 'Automatic', 'Semi-automatic', 'CVT'];
+const fallbackGearTypes = ['Мануелна', 'Автоматска', 'Полу-автоматска', 'CVT'];
 
 const fallbackNumberOfSeatsOptions = ['2', '3', '4', '5', '6', '7', '8', '9+'];
 
-const fallbackSellerTypes = ['Private Seller', 'Dealer', 'Certified Dealer', 'Fleet/Lease'];
+const fallbackSellerTypes = ['Приватен продавач', 'Дилер', 'Сертифициран дилер', 'Флота/Лизинг'];
 
-const fallbackVehicleConditionTypes = ['New', 'Used', 'Pre-registered', 'Demonstration vehicle', 'Classic/Vintage'];
+const fallbackVehicleConditionTypes = ['Нов', 'Користен', 'Предрегистриран', 'Демонстрационо возило', 'Класик/Винтиџ'];
 
 
 const fallbackRadiusOptions = ['5', '10', '25', '50', '100', '200', '300', '500', 'Nationwide'];
