@@ -269,7 +269,11 @@ export const enTranslations: TranslationStrings = {
           maintenance: 'Consider addressing maintenance issues before trading',
           documentation: 'Gather all of service records and documentation',
           inspection: 'Get a professional inspection for accurate assessment',
-          timing: 'Consider maket timing for your specific make and model'
+          timing: 'Consider maket timing for your specific make and model',
+          marketConditions: 'Consider current market conditions when timing your trade-in',
+          multipleAppraisals: 'Get multiple appraisals to ensure fair value',
+          maintenanceRecords: 'Keep maintenance records to demonstrate vehicle care',
+          cleanVehicle: 'Clean your vehicle thoroughly before appraisal'
         },
         disclaimer: {
           title: 'Important Notice',

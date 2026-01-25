@@ -350,7 +350,11 @@ export const mkTranslations: TranslationStrings = {
           maintenance: 'Размислете за решавање на проблемите со одржување пред заменката',
           documentation: 'Соберете ги сите записи за сервисирање и документација',
           inspection: 'Направете професионален преглед за точна оценка',
-          timing: 'Размислете за времето на пазарот за вашата марка и модел'
+          timing: 'Размислете за времето на пазарот за вашата марка и модел',
+          marketConditions: 'Размислете за тековните пазарни услови при планирање на заменката',
+          multipleAppraisals: 'Направете повеќе проценки за да осигурате фер вредност',
+          maintenanceRecords: 'Чувајте записи за одржување за да покажете грижа за возилото',
+          cleanVehicle: 'Исчистете го возилото темелно пред проценката'
         },
         disclaimer: {
           title: 'Важна забелешка',
@@ -1830,6 +1834,10 @@ export const mkTranslations: TranslationStrings = {
       featuresOptions: {
         title: 'Карактеристики и опции',
         description: 'Специфични карактеристики и опреми'
+      },
+      sellerCondition: {
+        title: 'Продавач и состојба на возилото',
+        description: 'Тип на продавач и состојба на возилото'
       }
     },
 
@@ -1858,7 +1866,15 @@ export const mkTranslations: TranslationStrings = {
       radius: 'Радиус',
       minYear: 'Минимална година',
       maxYear: 'Максимална година',
-      maxMileage: 'Максимален пробег'
+      maxMileage: 'Максимален пробег',
+      powerFrom: 'Снага од (kW)',
+      powerTo: 'Снага до (kW)', 
+      gear: 'Менувач',
+      numberOfSeats: 'Број на седишта',
+      seller: 'Продавач',
+      vehicleCondition: 'Состојба на возилото',
+      mileageMin: 'Пробег од (km)',
+      mileageMax: 'Пробег до (km)'
     },
 
     // Placeholders
@@ -1886,7 +1902,9 @@ export const mkTranslations: TranslationStrings = {
       anyCondition: 'Било која состојба',
       anyDistance: 'Било кое растојание',
       allSellers: 'Сите продавачи',
-      any: 'Било кој'
+      any: 'Било кој',
+      anySeller: 'Било кој продавач',
+      anyTransmission: 'Било кој менувач'
     },
 
     ranges: {
@@ -2092,6 +2110,15 @@ export const mkTranslations: TranslationStrings = {
           title: 'Совети за безбедност',
           description: 'Останете безбедни при купување и продажба'
         }
+      }
+    },
+    
+    registeredDealers: {
+      dealers: {
+        automaxpremium: 'АвтоМакс Премиум',
+        citymotorsgmbh: 'Сити Моторс ГмбХ',
+        ecowheelshamburg: 'ЕкоВилс Хамбург',
+        rheinautosolutions: 'Рајн Авто Решенија'
       }
     }
   },

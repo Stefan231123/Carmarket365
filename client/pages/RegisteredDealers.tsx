@@ -118,7 +118,22 @@ const registeredDealers: Dealer[] = [
 
 export default function RegisteredDealers() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
+  
+  // Helper function to get translated dealer name for MK and SQ only
+  const getDealerName = (originalName: string) => {
+    // Only translate for Macedonian and Albanian languages as requested
+    if (currentLanguage === 'mk' || currentLanguage === 'sq') {
+      const dealerKey = originalName.replace(/[^a-zA-Z]/g, '').toLowerCase();
+      const translatedName = t(`pages.registeredDealers.dealers.${dealerKey}`);
+      // If translation exists and is not the key itself, use it
+      if (translatedName && translatedName !== `pages.registeredDealers.dealers.${dealerKey}`) {
+        return translatedName;
+      }
+    }
+    // For all other languages (EN, SL, RU, LV) or if translation not found, return original name
+    return originalName;
+  };
 
   const handleDealerClick = (dealerId: string) => {
     navigate(`/dealer/${dealerId}`);
@@ -188,7 +203,7 @@ export default function RegisteredDealers() {
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-lg font-semibold truncate">{dealer.name}</h3>
+                    <h3 className="text-lg font-semibold truncate">{getDealerName(dealer.name)}</h3>
                     <div className="flex items-center space-x-1 text-sm text-muted-foreground">
                       <MapPin className="h-4 w-4" />
                       <span>{dealer.location}</span>

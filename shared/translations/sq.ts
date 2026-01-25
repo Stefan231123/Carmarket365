@@ -288,7 +288,17 @@ export const sqTranslations: TranslationStrings = {
         market: 'Kushtet e Tregut',
         positiveFactors: 'Faktorë Pozitivë',
         negativeFactors: 'Faktorë Negativë',
-        recommendations: 'Konsideroni zgjidhjen e çështjeve të mirëmbajtjes, mblidhni dokumentet e shërbimit dhe bëni një inspektim profesional.',
+        recommendations: {
+          title: 'Rekomandimet',
+          maintenance: 'Konsideroni zgjidhjen e çështjeve të mirëmbajtjes para këmbimit',
+          documentation: 'Mblidhni të gjitha dokumentet e shërbimit dhe dokumentacionin',
+          inspection: 'Bëni një inspektim profesional për vlerësim të saktë',
+          timing: 'Konsideroni kohëzgjatjen e tregut për markën dhe modelin tuaj',
+          marketConditions: 'Konsideroni kushtet aktuale të tregut kur planifikoni këmbimin',
+          multipleAppraisals: 'Merrni vlerësime të shumta për të siguruar vlerë të drejtë',
+          maintenanceRecords: 'Ruani evidencat e mirëmbajtjes për të dëshmuar kujdesin për automjetin',
+          cleanVehicle: 'Pastroni automjetin plotësisht para vlerësimit'
+        },
         disclaimer: 'Kjo është një vlerë e vlerësuar bazuar në informacionin e dhënë. Vlerat aktuale të këmbimit mund të ndryshojnë në varësi të politikave të shitësve, kushteve aktuale të tregut dhe inspektimit fizik të automjetit.',
         disclaimerText: 'Vlerësimi është bazuar në informacionin e dhënë dhe kushtet aktuale të tregut.',
       },
@@ -1139,6 +1149,15 @@ export const sqTranslations: TranslationStrings = {
         },
       ],
     },
+    
+    registeredDealers: {
+      dealers: {
+        automaxpremium: 'AutoMaks Premium',
+        citymotorsgmbh: 'City Motors GmbH',
+        ecowheelshamburg: 'EkoRrota Hamburg',
+        rheinautosolutions: 'Rein Auto Zgjidhjet'
+      }
+    }
   },
 
   forms: {
@@ -1612,6 +1631,10 @@ export const sqTranslations: TranslationStrings = {
         title: 'Veçoritë dhe opsionet',
         description: 'Zgjidhni veçoritë që janë të rëndësishme për ju',
       },
+      sellerCondition: {
+        title: 'Shitësi dhe gjendja e automjetit',
+        description: 'Lloji i shitësit dhe gjendja e automjetit'
+      }
     },
     
     fields: {
@@ -1637,6 +1660,14 @@ export const sqTranslations: TranslationStrings = {
       maxYear: 'Viti maksimal',
       maxMileage: 'Kilometrazhi maksimal',
       additionalProperties: 'Vetitë shtesë',
+      powerFrom: 'Fuqia nga (kW)',
+      powerTo: 'Fuqia deri (kW)',
+      gear: 'Transmisioni',
+      numberOfSeats: 'Numri i ulëseve',
+      seller: 'Shitësi',
+      vehicleCondition: 'Gjendja e automjetit',
+      mileageMin: 'Kilometrazhi nga (km)',
+      mileageMax: 'Kilometrazhi deri (km)'
     },
     
     placeholders: {
@@ -1664,6 +1695,8 @@ export const sqTranslations: TranslationStrings = {
       anyDistance: 'Çfarëdo distance',
       allSellers: 'Të gjithë shitësit',
       any: 'Çfarëdo',
+      anySeller: 'Çfarëdo shitës',
+      anyTransmission: 'Çfarëdo transmision'
     },
     
     ranges: {

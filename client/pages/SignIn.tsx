@@ -81,7 +81,7 @@ export default function SignIn() {
         <div className="text-center mb-6">
           <div className="flex items-center justify-center space-x-2 mb-2">
             <Car className="h-6 w-6 text-primary" />
-            <span className="text-xl font-bold text-primary">CarMarket365</span>
+            <span className="text-xl font-bold text-primary">{t('brand.name')}</span>
           </div>
           <p className="text-muted-foreground text-sm">{t('auth.signInToAccount')}</p>
         </div>

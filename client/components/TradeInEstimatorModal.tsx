@@ -196,10 +196,10 @@ export function TradeInEstimatorModal({
     const confidence = data.additionalInfo.length > 50 ? "high" : "medium";
     
     const recommendations = [
-      "Consider current market conditions when timing your trade-in",
-      "Get multiple appraisals to ensure fair value",
-      "Keep maintenance records to demonstrate vehicle care", 
-      "Clean your vehicle thoroughly before appraisal"
+      t('modals.tradeIn.results.recommendations.marketConditions'),
+      t('modals.tradeIn.results.recommendations.multipleAppraisals'),
+      t('modals.tradeIn.results.recommendations.maintenanceRecords'),
+      t('modals.tradeIn.results.recommendations.cleanVehicle')
     ];
     
     return {
