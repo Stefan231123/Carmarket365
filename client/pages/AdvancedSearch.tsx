@@ -220,7 +220,7 @@ const emergencyCallOptions = ['eCall Available', 'Private Emergency Service', 'N
 
 // Environmental Extended
 const fallbackEnvironmentalBadges = ['Green Badge', 'Yellow Badge', 'Red Badge', 'Blue Badge', 'No Badge'];
-const fallbackElectricRangeOptions = ['0-50 {getAdvancedSearchText('labels.km', 'km')}', '51-100 {getAdvancedSearchText('labels.km', 'km')}', '101-200 {getAdvancedSearchText('labels.km', 'km')}', '201-300 {getAdvancedSearchText('labels.km', 'km')}', '300+ km', 'Not Applicable'];
+const fallbackElectricRangeOptions = ['0-50 km', '51-100 km', '101-200 km', '201-300 km', '300+ km', 'Not Applicable'];
 
 
 // Create years array: individual years from current year down to 1990, then decades from 1980s down to 1950s
