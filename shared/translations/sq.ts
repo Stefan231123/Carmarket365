@@ -4966,6 +4966,131 @@ export const sqTranslations: TranslationStrings = {
       view: 'Detajet'
     },
 
+    advancedSearch: {
+      title: 'Kërkim i përparuar',
+      searchCars: 'Kërko makina',
+      saveSearch: 'Ruaj kërkimin',
+      clearAll: 'Pastro të gjitha',
+      active: 'aktive',
+      
+      sections: {
+        basicInformation: {
+          title: 'Informacioni themelor',
+          description: 'Vendosni kriteret themelore të kërkimit',
+        },
+        technicalSpecs: {
+          title: 'Specifikime teknike',
+          description: 'Detaje për motorin, transmetuesen dhe performancën',
+        },
+        vehicleDetails: {
+          title: 'Detajet e automjetit',
+        },
+        priceLocation: {
+          title: 'Çmimi dhe lokacioni',
+        },
+        optionalEquipment: {
+          title: 'Pajisje opsionale',
+          description: 'Karakteristika dhe pajisje shtesë',
+        },
+        sellerCondition: {
+          description: 'Lloji i shitësit dhe gjendja e automjetit',
+        },
+        exteriorAppearance: {
+          description: 'Pamja e jashtme e automjetit',
+        },
+        interiorAppearance: {
+          description: 'Pamja e brendshme dhe materialet',
+        },
+        ownershipHistory: {
+          description: 'Pronësia e automjetit dhe detajet historike',
+        },
+        engineTechnical: {
+          title: 'Specifikimet teknike të motorit',
+          description: 'Specifikime të përparuara të motorit dhe detaje teknike',
+        },
+        advancedHistory: {
+          title: 'Historia e avancuar e automjetit',
+          description: 'Historia e detajuar e automjetit dhe dokumentacioni',
+        },
+        financing: {
+          description: 'Opsionet e financimit dhe detajet e sigurimeve',
+        },
+        advancedSafety: {
+          title: 'Karakteristikat e avancuara të sigurisë',
+          description: 'Vlerësimet e sigurisë dhe sisteme të përparuara të ndihmës për drejtuesit',
+        },
+        environmentalExtended: {
+          title: 'Mjedisor i zgjeruar',
+          description: 'Ndikimi mjedisor i detajuar dhe metrikat e efikasitetit',
+        },
+      },
+      
+      placeholders: {
+        selectMake: 'Zgjidh markën',
+        enterModel: 'Shkruaj emrin e modelit',
+        anyMake: 'Çdo markë',
+        allMakes: 'Të gjitha markat',
+        anyModel: 'Çdo model',
+        anyType: 'Çdo lloj',
+        anyBodyType: 'Çdo lloj karrocerie',
+        anyFuelType: 'Çdo lloj karburanti',
+        selectBodyType: 'Zgjidh llojin e karrocerisë',
+        selectCondition: 'Zgjidh gjendjen',
+        selectFuelType: 'Zgjidh llojin e karburantit',
+        selectTransmission: 'Zgjidh transmetuesen',
+        anyColor: 'Çdo ngjyrë',
+        cityOrPostalCode: 'Qyteti ose kodi poştal',
+        cityStateOrZip: 'Qyteti, shteti ose ZIP',
+        anyCondition: 'Çdo gjendje',
+        any: 'Çdo',
+        from: 'Nga',
+        to: 'Deri',
+        anyTransmission: 'Çdo transmetues',
+        anySeller: 'Çdo shitës',
+        anyPaintType: 'Çdo lloj ngjyre',
+        anyMaterial: 'Çdo material',
+        anyRating: 'Çdo vlerësim',
+        anyBadge: 'Çdo shenjë',
+        anyRange: 'Çdo rang',
+        anyEmissionClass: 'Çdo klasë emisionesh',
+      },
+      
+      distances: {
+        25: 'Në radius prej 25 km',
+        50: 'Në radius prej 50 km', 
+        100: 'Në radius prej 100 km',
+        200: 'Në radius prej 200 km',
+        500: 'Në radius prej 500 km',
+        nationwide: 'Në të gjithë vendin',
+      },
+      
+      // Labels
+      labels: {
+        seats: 'ndenja',
+        owner: 'pronar',
+        ownerPlural: 'ë',
+        engine: 'Motor',
+        km: 'km',
+        gkm: 'g/km',
+        l100km: 'l/100km',
+        liter: 'L',
+      },
+      
+      // Field labels  
+      fields: {
+        engineDisplacementFrom: 'Zhvendosje e motorit nga (L)',
+        engineDisplacementTo: 'Zhvendosje e motorit deri (L)', 
+        enginePosition: 'Pozicioni i motorit',
+        co2EmissionsFrom: 'Emisionet e CO2 nga (g/km)',
+        co2EmissionsTo: 'Emisionet e CO2 deri (g/km)',
+        fuelConsumptionFrom: 'Konsumi i karburantit nga (l/100km)',
+        fuelConsumptionTo: 'Konsumi i karburantit deri (l/100km)',
+        mileageMin: 'Kilometrazhi nga (km)',
+        mileageMax: 'Kilometrazhi deri (km)',
+        radius: 'Rreza (km)',
+      },
+    },
+
     errors: {
       generic: 'Diçka shkoi keq. Ju lutemi provoni përsëri.',
       network: 'Gabim në rrjet. Ju lutemi kontrolloni lidhjen tuaj.',

@@ -774,6 +774,41 @@ export const mkTranslations: TranslationStrings = {
         title: 'Карактеристики и опции',
         description: 'Избери карактеристики кои се важни за тебе',
       },
+      optionalEquipment: {
+        title: 'Опционална опрема',
+        description: 'Дополнителни карактеристики и опрема',
+      },
+      sellerCondition: {
+        description: 'Тип на продавач и состојба на возилото',
+      },
+      exteriorAppearance: {
+        description: 'Надворешен изглед на возилото',
+      },
+      interiorAppearance: {
+        description: 'Внатрешен изглед и материјали',
+      },
+      ownershipHistory: {
+        description: 'Сопственост на возилото и историски детали',
+      },
+      engineTechnical: {
+        title: 'Технички спецификации на мотор',
+        description: 'Напредни спецификации на мотор и технички детали',
+      },
+      advancedHistory: {
+        title: 'Напредна историја на возилото',
+        description: 'Детална историја на возилото и документација',
+      },
+      financing: {
+        description: 'Опции за финансирање и детали за осигурување',
+      },
+      advancedSafety: {
+        title: 'Напредни безбедносни карактеристики',
+        description: 'Безбедносни оценки и напредни системи за помош при возење',
+      },
+      environmentalExtended: {
+        title: 'Проширено еколошко',
+        description: 'Детално еколошко влијание и метрики за ефикасност',
+      },
     },
     
     // Ranges
@@ -835,6 +870,16 @@ export const mkTranslations: TranslationStrings = {
       anyDistance: 'Било кое растојание',
       allSellers: 'Сите продавачи',
       any: 'Било кој',
+      from: 'Од',
+      to: 'До',
+      anyTransmission: 'Било која трансмисија',
+      anySeller: 'Било кој продавач',
+      anyPaintType: 'Било кој тип боја',
+      anyMaterial: 'Било кој материјал',
+      anyRating: 'Било која оценка',
+      anyBadge: 'Било која ознака',
+      anyRange: 'Било кој опсег',
+      anyEmissionClass: 'Било која емисиона класа',
     },
     
     // Distance options
@@ -846,6 +891,32 @@ export const mkTranslations: TranslationStrings = {
       250: 'Во радиус од 250 км',
       500: 'Во радиус од 500 км',
       nationwide: 'Низ цела земја',
+    },
+    
+    // Labels
+    labels: {
+      seats: 'седишта',
+      owner: 'сопственик',
+      ownerPlural: 'и',
+      engine: 'Мотор',
+      km: 'км',
+      gkm: 'г/км',
+      l100km: 'л/100км',
+      liter: 'Л',
+    },
+    
+    // Field labels  
+    fields: {
+      engineDisplacementFrom: 'Зафатнина на мотор од (Л)',
+      engineDisplacementTo: 'Зафатнина на мотор до (Л)', 
+      enginePosition: 'Позиција на мотор',
+      co2EmissionsFrom: 'CO2 емисии од (г/км)',
+      co2EmissionsTo: 'CO2 емисии до (г/км)',
+      fuelConsumptionFrom: 'Потрошувачка на гориво од (л/100км)',
+      fuelConsumptionTo: 'Потрошувачка на гориво до (л/100км)',
+      mileageMin: 'Пробег од (км)',
+      mileageMax: 'Пробег до (км)',
+      radius: 'Радиус (км)',
     },
     
     // Door options

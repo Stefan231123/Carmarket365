@@ -220,7 +220,7 @@ const emergencyCallOptions = ['eCall Available', 'Private Emergency Service', 'N
 
 // Environmental Extended
 const fallbackEnvironmentalBadges = ['Green Badge', 'Yellow Badge', 'Red Badge', 'Blue Badge', 'No Badge'];
-const fallbackElectricRangeOptions = ['0-50 km', '51-100 km', '101-200 km', '201-300 km', '300+ km', 'Not Applicable'];
+const fallbackElectricRangeOptions = ['0-50 {getAdvancedSearchText('labels.km', 'km')}', '51-100 {getAdvancedSearchText('labels.km', 'km')}', '101-200 {getAdvancedSearchText('labels.km', 'km')}', '201-300 {getAdvancedSearchText('labels.km', 'km')}', '300+ km', 'Not Applicable'];
 
 
 // Create years array: individual years from current year down to 1990, then decades from 1980s down to 1950s
@@ -905,10 +905,10 @@ export default function AdvancedSearch() {
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="From" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.from', 'From')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="any">Any</SelectItem>
+                        <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
                         {years.map(year => (
                           <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
                         ))}
@@ -952,10 +952,10 @@ export default function AdvancedSearch() {
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="To" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.to', 'To')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="any">Any</SelectItem>
+                        <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
                         {years.map(year => (
                           <SelectItem key={year} value={year.toString()}>{year}</SelectItem>
                         ))}
@@ -980,7 +980,7 @@ export default function AdvancedSearch() {
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="From" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.from', 'From')} />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="0">€0</SelectItem>
@@ -1005,7 +1005,7 @@ export default function AdvancedSearch() {
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="To" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.to', 'To')} />
                       </SelectTrigger>
                       <SelectContent>
                         {priceRanges.map(price => (
@@ -1046,7 +1046,7 @@ export default function AdvancedSearch() {
                       <SelectContent>
                         <SelectItem value="nationwide">{getAdvancedSearchText('distances.nationwide', 'Nationwide')}</SelectItem>
                         {radiusOptions.map(radius => (
-                          <SelectItem key={radius} value={radius}>{radius} km</SelectItem>
+                          <SelectItem key={radius} value={radius}>{radius} {getAdvancedSearchText('labels.km', 'km')}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -1079,12 +1079,12 @@ export default function AdvancedSearch() {
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="From" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.from', 'From')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="0">0 km</SelectItem>
+                        <SelectItem value="0">0 {getAdvancedSearchText('labels.km', 'km')}</SelectItem>
                         {mileageRanges.slice(1).map(mileage => (
-                          <SelectItem key={mileage} value={mileage.toString()}>{mileage.toLocaleString()} km</SelectItem>
+                          <SelectItem key={mileage} value={mileage.toString()}>{mileage.toLocaleString()} {getAdvancedSearchText('labels.km', 'km')}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -1104,12 +1104,12 @@ export default function AdvancedSearch() {
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="To" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.to', 'To')} />
                       </SelectTrigger>
                       <SelectContent>
                         {mileageRanges.map(mileage => (
                           <SelectItem key={mileage} value={mileage.toString()}>
-                            {mileage === 400000 ? '300,000+ km' : `${mileage.toLocaleString()} km`}
+                            {mileage === 400000 ? '300,000+ km' : `${mileage.toLocaleString()} {getAdvancedSearchText('labels.km', 'km')}`}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -1137,7 +1137,7 @@ export default function AdvancedSearch() {
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="From" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.from', 'From')} />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="0">0 kW (0 PS)</SelectItem>
@@ -1166,7 +1166,7 @@ export default function AdvancedSearch() {
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="To" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.to', 'To')} />
                       </SelectTrigger>
                       <SelectContent>
                         {powerRanges.map(power => (
@@ -1182,7 +1182,7 @@ export default function AdvancedSearch() {
                     <label className="block text-sm mb-2 text-muted-foreground">Gear</label>
                     <Select value={localFilters.gear} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, gear: value }))}>
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="Any Transmission" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.anyTransmission', 'Any Transmission')} />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="any">Any Transmission</SelectItem>
@@ -1197,12 +1197,12 @@ export default function AdvancedSearch() {
                     <label className="block text-sm mb-2 text-muted-foreground">Nr. of Seats</label>
                     <Select value={localFilters.numberOfSeats} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, numberOfSeats: value }))}>
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="Any" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="any">Any</SelectItem>
+                        <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
                         {numberOfSeatsOptions.map(seats => (
-                          <SelectItem key={seats} value={seats}>{seats} seats</SelectItem>
+                          <SelectItem key={seats} value={seats}>{seats} {getAdvancedSearchText('labels.seats', 'seats')}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -1216,14 +1216,14 @@ export default function AdvancedSearch() {
               title="Seller & Vehicle Condition" 
               sectionKey="seller-condition"
               icon={<Shield className="h-5 w-5 text-red-600" />}
-              description="Seller type and vehicle condition"
+              description={getAdvancedSearchText('sections.sellerCondition.description', 'Seller type and vehicle condition')}
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm mb-2 text-muted-foreground">Seller</label>
                   <Select value={localFilters.seller} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, seller: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Any Seller" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.anySeller', 'Any Seller')} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="any">Any Seller</SelectItem>
@@ -1238,7 +1238,7 @@ export default function AdvancedSearch() {
                   <label className="block text-sm mb-2 text-muted-foreground">Vehicle Condition</label>
                   <Select value={localFilters.vehicleCondition} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, vehicleCondition: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Any Condition" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.anyCondition', 'Any Condition')} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="any">Any Condition</SelectItem>
@@ -1253,10 +1253,10 @@ export default function AdvancedSearch() {
 
             {/* Optional Equipment */}
             <FilterSection 
-              title="Optional Equipment" 
+              title={getAdvancedSearchText('sections.optionalEquipment.title', 'Optional Equipment')} 
               sectionKey="equipment"
               icon={<Star className="h-5 w-5 text-amber-600" />}
-              description="Additional features and equipment"
+              description={getAdvancedSearchText('sections.optionalEquipment.description', 'Additional features and equipment')}
             >
               <CheckboxGroup
                 options={optionalEquipment}
@@ -1271,14 +1271,14 @@ export default function AdvancedSearch() {
               title="Body Color & Paint Work" 
               sectionKey="appearance"
               icon={<Palette className="h-5 w-5 text-pink-600" />}
-              description="Vehicle exterior appearance"
+              description={getAdvancedSearchText('sections.exteriorAppearance.description', 'Vehicle exterior appearance')}
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm mb-2 text-muted-foreground">Body Color</label>
                   <Select value={localFilters.bodyColor} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, bodyColor: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Any Color" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.anyColor', 'Any Color')} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="any">Any Color</SelectItem>
@@ -1293,7 +1293,7 @@ export default function AdvancedSearch() {
                   <label className="block text-sm mb-2 text-muted-foreground">Paint Work</label>
                   <Select value={localFilters.paintWork} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, paintWork: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Any Paint Type" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.anyPaintType', 'Any Paint Type')} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="any">Any Paint Type</SelectItem>
@@ -1311,14 +1311,14 @@ export default function AdvancedSearch() {
               title="Interior Color & Upholstery" 
               sectionKey="interior"
               icon={<Zap className="h-5 w-5 text-indigo-600" />}
-              description="Interior appearance and materials"
+              description={getAdvancedSearchText('sections.interiorAppearance.description', 'Interior appearance and materials')}
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm mb-2 text-muted-foreground">Interior Color</label>
                   <Select value={localFilters.interiorColor} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, interiorColor: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Any Color" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.anyColor', 'Any Color')} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="any">Any Color</SelectItem>
@@ -1333,7 +1333,7 @@ export default function AdvancedSearch() {
                   <label className="block text-sm mb-2 text-muted-foreground">Upholstery</label>
                   <Select value={localFilters.upholstery} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, upholstery: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Any Material" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.anyMaterial', 'Any Material')} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="any">Any Material</SelectItem>
@@ -1351,19 +1351,19 @@ export default function AdvancedSearch() {
               title="Previous Owners & History" 
               sectionKey="history"
               icon={<Filter className="h-5 w-5 text-emerald-600" />}
-              description="Vehicle ownership and history details"
+              description={getAdvancedSearchText('sections.ownershipHistory.description', 'Vehicle ownership and history details')}
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm mb-2 text-muted-foreground">Previous Owners</label>
                   <Select value={localFilters.previousOwners} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, previousOwners: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Any" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">Any</SelectItem>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
                       {previousOwnersOptions.map(owners => (
-                        <SelectItem key={owners} value={owners}>{owners} owner{owners !== '1' ? 's' : ''}</SelectItem>
+                        <SelectItem key={owners} value={owners}>{owners} {getAdvancedSearchText('labels.owner', 'owner')}{owners !== '1' ? getAdvancedSearchText('labels.ownerPlural', 's') : ''}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
@@ -1373,10 +1373,10 @@ export default function AdvancedSearch() {
                   <label className="block text-sm mb-2 text-muted-foreground">Had Accident</label>
                   <Select value={localFilters.hadAccident} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, hadAccident: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Any" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">Any</SelectItem>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
                       {yesNoOptions.map(option => (
                         <SelectItem key={option} value={option}>{option}</SelectItem>
                       ))}
@@ -1388,10 +1388,10 @@ export default function AdvancedSearch() {
                   <label className="block text-sm mb-2 text-muted-foreground">Guarantee</label>
                   <Select value={localFilters.guarantee} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, guarantee: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Any" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">Any</SelectItem>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
                       {guaranteeOptions.map(guarantee => (
                         <SelectItem key={guarantee} value={guarantee}>{guarantee}</SelectItem>
                       ))}
@@ -1403,10 +1403,10 @@ export default function AdvancedSearch() {
                   <label className="block text-sm mb-2 text-muted-foreground">With Full Service History</label>
                   <Select value={localFilters.fullServiceHistory} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, fullServiceHistory: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Any" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">Any</SelectItem>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
                       {yesNoOptions.map(option => (
                         <SelectItem key={option} value={option}>{option}</SelectItem>
                       ))}
@@ -1418,10 +1418,10 @@ export default function AdvancedSearch() {
                   <label className="block text-sm mb-2 text-muted-foreground">Non-smoking Vehicle</label>
                   <Select value={localFilters.nonSmokingVehicle} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, nonSmokingVehicle: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Any" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">Any</SelectItem>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
                       {yesNoOptions.map(option => (
                         <SelectItem key={option} value={option}>{option}</SelectItem>
                       ))}
@@ -1433,15 +1433,15 @@ export default function AdvancedSearch() {
 
             {/* Engine Technical Specifications */}
             <FilterSection 
-              title="Engine Technical Specifications" 
+              title={getAdvancedSearchText('sections.engineTechnical.title', 'Engine Technical Specifications')} 
               sectionKey="engine-tech"
               icon={<Zap className="h-5 w-5 text-orange-600" />}
-              description="Advanced engine specifications and technical details"
+              description={getAdvancedSearchText('sections.engineTechnical.description', 'Advanced engine specifications and technical details')}
             >
               <div className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Engine Displacement From (L)</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.engineDisplacementFrom', 'Engine Displacement From (L)')}</label>
                     <Select 
                       value={localFilters.engineDisplacementMin?.toString() || '0.5'} 
                       onValueChange={(value) => {
@@ -1455,7 +1455,7 @@ export default function AdvancedSearch() {
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="From" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.from', 'From')} />
                       </SelectTrigger>
                       <SelectContent>
                         {engineDisplacementRanges.map(displacement => (
@@ -1465,7 +1465,7 @@ export default function AdvancedSearch() {
                     </Select>
                   </div>
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Engine Displacement To (L)</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.engineDisplacementTo', 'Engine Displacement To (L)')}</label>
                     <Select 
                       value={localFilters.engineDisplacementMax?.toString() || '8.0'} 
                       onValueChange={(value) => {
@@ -1479,7 +1479,7 @@ export default function AdvancedSearch() {
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="To" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.to', 'To')} />
                       </SelectTrigger>
                       <SelectContent>
                         {engineDisplacementRanges.map(displacement => (
@@ -1495,10 +1495,10 @@ export default function AdvancedSearch() {
                     <label className="block text-sm mb-2 text-muted-foreground">Turbo/Supercharging</label>
                     <Select value={localFilters.turboSupercharging} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, turboSupercharging: value }))}>
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="Any" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="any">Any</SelectItem>
+                        <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
                         {turboOptions.map(turbo => (
                           <SelectItem key={turbo} value={turbo}>{turbo}</SelectItem>
                         ))}
@@ -1507,15 +1507,15 @@ export default function AdvancedSearch() {
                   </div>
 
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Engine Position</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.enginePosition', 'Engine Position')}</label>
                     <Select value={localFilters.enginePosition} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, enginePosition: value }))}>
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="Any" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="any">Any</SelectItem>
+                        <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
                         {enginePositions.map(position => (
-                          <SelectItem key={position} value={position}>{position} Engine</SelectItem>
+                          <SelectItem key={position} value={position}>{position} {getAdvancedSearchText('labels.engine', 'Engine')}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -1526,20 +1526,20 @@ export default function AdvancedSearch() {
 
             {/* Advanced Vehicle History */}
             <FilterSection 
-              title="Advanced Vehicle History" 
+              title={getAdvancedSearchText('sections.advancedHistory.title', 'Advanced Vehicle History')} 
               sectionKey="advanced-history"
               icon={<Shield className="h-5 w-5 text-blue-600" />}
-              description="Detailed vehicle history and documentation"
+              description={getAdvancedSearchText('sections.advancedHistory.description', 'Detailed vehicle history and documentation')}
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm mb-2 text-muted-foreground">Service Book Available</label>
                   <Select value={localFilters.serviceBookAvailable} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, serviceBookAvailable: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Any" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">Any</SelectItem>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
                       {serviceBookOptions.map(option => (
                         <SelectItem key={option} value={option}>{option}</SelectItem>
                       ))}
@@ -1551,10 +1551,10 @@ export default function AdvancedSearch() {
                   <label className="block text-sm mb-2 text-muted-foreground">Accident Damage Repaired</label>
                   <Select value={localFilters.accidentDamageRepaired} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, accidentDamageRepaired: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Any" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">Any</SelectItem>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
                       {yesNoUnknownOptions.map(option => (
                         <SelectItem key={option} value={option}>{option}</SelectItem>
                       ))}
@@ -1566,10 +1566,10 @@ export default function AdvancedSearch() {
                   <label className="block text-sm mb-2 text-muted-foreground">Import Vehicle</label>
                   <Select value={localFilters.importVehicle} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, importVehicle: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Any" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">Any</SelectItem>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
                       {yesNoUnknownOptions.map(option => (
                         <SelectItem key={option} value={option}>{option}</SelectItem>
                       ))}
@@ -1581,10 +1581,10 @@ export default function AdvancedSearch() {
                   <label className="block text-sm mb-2 text-muted-foreground">Taxi/Rental History</label>
                   <Select value={localFilters.taxiRentalHistory} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, taxiRentalHistory: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Any" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">Any</SelectItem>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
                       {yesNoUnknownOptions.map(option => (
                         <SelectItem key={option} value={option}>{option}</SelectItem>
                       ))}
@@ -1596,10 +1596,10 @@ export default function AdvancedSearch() {
                   <label className="block text-sm mb-2 text-muted-foreground">Roadworthiness Test</label>
                   <Select value={localFilters.roadworthinessTest} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, roadworthinessTest: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Any" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">Any</SelectItem>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
                       {roadworthinessOptions.map(option => (
                         <SelectItem key={option} value={option}>{option}</SelectItem>
                       ))}
@@ -1614,17 +1614,17 @@ export default function AdvancedSearch() {
               title="Financing & Insurance" 
               sectionKey="financing"
               icon={<Star className="h-5 w-5 text-green-600" />}
-              description="Financing options and insurance details"
+              description={getAdvancedSearchText('sections.financing.description', 'Financing options and insurance details')}
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm mb-2 text-muted-foreground">Financing Available</label>
                   <Select value={localFilters.financingAvailable} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, financingAvailable: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Any" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">Any</SelectItem>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
                       {yesNoOptions.map(option => (
                         <SelectItem key={option} value={option}>{option}</SelectItem>
                       ))}
@@ -1636,10 +1636,10 @@ export default function AdvancedSearch() {
                   <label className="block text-sm mb-2 text-muted-foreground">Leasing Available</label>
                   <Select value={localFilters.leasingAvailable} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, leasingAvailable: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Any" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">Any</SelectItem>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
                       {yesNoOptions.map(option => (
                         <SelectItem key={option} value={option}>{option}</SelectItem>
                       ))}
@@ -1651,10 +1651,10 @@ export default function AdvancedSearch() {
                   <label className="block text-sm mb-2 text-muted-foreground">Insurance Category</label>
                   <Select value={localFilters.insuranceCategory} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, insuranceCategory: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Any" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">Any</SelectItem>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
                       {insuranceCategories.map(category => (
                         <SelectItem key={category} value={category}>Category {category}</SelectItem>
                       ))}
@@ -1666,10 +1666,10 @@ export default function AdvancedSearch() {
                   <label className="block text-sm mb-2 text-muted-foreground">VAT Deductible</label>
                   <Select value={localFilters.vatDeductible} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, vatDeductible: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Any" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">Any</SelectItem>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
                       {yesNoOptions.map(option => (
                         <SelectItem key={option} value={option}>{option}</SelectItem>
                       ))}
@@ -1681,10 +1681,10 @@ export default function AdvancedSearch() {
 
             {/* Advanced Safety Features */}
             <FilterSection 
-              title="Advanced Safety Features" 
+              title={getAdvancedSearchText('sections.advancedSafety.title', 'Advanced Safety Features')} 
               sectionKey="safety"
               icon={<Shield className="h-5 w-5 text-red-600" />}
-              description="Safety ratings and advanced driver assistance systems"
+              description={getAdvancedSearchText('sections.advancedSafety.description', 'Safety ratings and advanced driver assistance systems')}
             >
               <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1692,7 +1692,7 @@ export default function AdvancedSearch() {
                     <label className="block text-sm mb-2 text-muted-foreground">Safety Rating</label>
                     <Select value={localFilters.safetyRating} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, safetyRating: value }))}>
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="Any Rating" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.anyRating', 'Any Rating')} />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="any">Any Rating</SelectItem>
@@ -1707,10 +1707,10 @@ export default function AdvancedSearch() {
                     <label className="block text-sm mb-2 text-muted-foreground">Collision Avoidance</label>
                     <Select value={localFilters.collisionAvoidance} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, collisionAvoidance: value }))}>
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="Any" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="any">Any</SelectItem>
+                        <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
                         {yesNoOptions.map(option => (
                           <SelectItem key={option} value={option}>{option}</SelectItem>
                         ))}
@@ -1722,10 +1722,10 @@ export default function AdvancedSearch() {
                     <label className="block text-sm mb-2 text-muted-foreground">Emergency Call System</label>
                     <Select value={localFilters.emergencyCallSystem} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, emergencyCallSystem: value }))}>
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="Any" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="any">Any</SelectItem>
+                        <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
                         {emergencyCallOptions.map(option => (
                           <SelectItem key={option} value={option}>{option}</SelectItem>
                         ))}
@@ -1749,15 +1749,15 @@ export default function AdvancedSearch() {
 
             {/* Environmental Extended */}
             <FilterSection 
-              title="Environmental Extended" 
+              title={getAdvancedSearchText('sections.environmentalExtended.title', 'Environmental Extended')} 
               sectionKey="environmental-extended"
               icon={<Filter className="h-5 w-5 text-emerald-600" />}
-              description="Detailed environmental impact and efficiency metrics"
+              description={getAdvancedSearchText('sections.environmentalExtended.description', 'Detailed environmental impact and efficiency metrics')}
             >
               <div className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">CO2 Emissions From (g/km)</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.co2EmissionsFrom', 'CO2 Emissions From (g/km)')}</label>
                     <Select 
                       value={localFilters.co2EmissionsMin?.toString() || '0'} 
                       onValueChange={(value) => {
@@ -1771,18 +1771,18 @@ export default function AdvancedSearch() {
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="From" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.from', 'From')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="0">0 g/km</SelectItem>
+                        <SelectItem value="0">0 {getAdvancedSearchText('labels.gkm', 'g/km')}</SelectItem>
                         {co2EmissionsRanges.slice(1).map(co2 => (
-                          <SelectItem key={co2} value={co2.toString()}>{co2} g/km</SelectItem>
+                          <SelectItem key={co2} value={co2.toString()}>{co2} {getAdvancedSearchText('labels.gkm', 'g/km')}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                   </div>
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">CO2 Emissions To (g/km)</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.co2EmissionsTo', 'CO2 Emissions To (g/km)')}</label>
                     <Select 
                       value={localFilters.co2EmissionsMax?.toString() || '400'} 
                       onValueChange={(value) => {
@@ -1796,11 +1796,11 @@ export default function AdvancedSearch() {
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="To" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.to', 'To')} />
                       </SelectTrigger>
                       <SelectContent>
                         {co2EmissionsRanges.map(co2 => (
-                          <SelectItem key={co2} value={co2.toString()}>{co2} g/km</SelectItem>
+                          <SelectItem key={co2} value={co2.toString()}>{co2} {getAdvancedSearchText('labels.gkm', 'g/km')}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -1809,7 +1809,7 @@ export default function AdvancedSearch() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Fuel Consumption From (l/100km)</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.fuelConsumptionFrom', 'Fuel Consumption From (l/100km)')}</label>
                     <Select 
                       value={localFilters.fuelConsumptionMin?.toString() || '0'} 
                       onValueChange={(value) => {
@@ -1823,18 +1823,18 @@ export default function AdvancedSearch() {
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="From" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.from', 'From')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="0">0 l/100km</SelectItem>
+                        <SelectItem value="0">0 {getAdvancedSearchText('labels.l100km', 'l/100km')}</SelectItem>
                         {fuelConsumptionRanges.slice(1).map(fuel => (
-                          <SelectItem key={fuel} value={fuel.toString()}>{fuel} l/100km</SelectItem>
+                          <SelectItem key={fuel} value={fuel.toString()}>{fuel} {getAdvancedSearchText('labels.l100km', 'l/100km')}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                   </div>
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Fuel Consumption To (l/100km)</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.fuelConsumptionTo', 'Fuel Consumption To (l/100km)')}</label>
                     <Select 
                       value={localFilters.fuelConsumptionMax?.toString() || '20'} 
                       onValueChange={(value) => {
@@ -1848,11 +1848,11 @@ export default function AdvancedSearch() {
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="To" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.to', 'To')} />
                       </SelectTrigger>
                       <SelectContent>
                         {fuelConsumptionRanges.map(fuel => (
-                          <SelectItem key={fuel} value={fuel.toString()}>{fuel} l/100km</SelectItem>
+                          <SelectItem key={fuel} value={fuel.toString()}>{fuel} {getAdvancedSearchText('labels.l100km', 'l/100km')}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -1864,7 +1864,7 @@ export default function AdvancedSearch() {
                     <label className="block text-sm mb-2 text-muted-foreground">Environmental Badge</label>
                     <Select value={localFilters.environmentalBadge} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, environmentalBadge: value }))}>
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="Any Badge" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.anyBadge', 'Any Badge')} />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="any">Any Badge</SelectItem>
@@ -1879,7 +1879,7 @@ export default function AdvancedSearch() {
                     <label className="block text-sm mb-2 text-muted-foreground">Electric Range</label>
                     <Select value={localFilters.electricRange} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, electricRange: value }))}>
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="Any Range" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.anyRange', 'Any Range')} />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="any">Any Range</SelectItem>
@@ -1895,7 +1895,7 @@ export default function AdvancedSearch() {
                   <label className="block text-sm mb-2 text-muted-foreground">Euro Emission Class</label>
                   <Select value={localFilters.euroEmissionClass} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, euroEmissionClass: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Any Emission Class" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.anyEmissionClass', 'Any Emission Class')} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="any">Any Emission Class</SelectItem>
