@@ -1734,6 +1734,9 @@ export const sqTranslations: TranslationStrings = {
         'Manual', 'Automatik', 'CVT', 'Gjysmë-automatik', 'Çift këmbe', 'Manual 6-shpejtësi',
         'Automatik 7-shpejtësi', 'Automatik 8-shpejtësi', 'Automatik 9-shpejtësi', 'Automatik 10-shpejtësi'
       ],
+      
+      additionalProperties: ['Makina e Certifikuar', 'Një Pronar', 'Pa Aksident', 'Rekorde Shërbimi Disponueshme', 'Nën Garanci', 'Shërbim i Fundit', 'Kilometrazh i Ulët', 'Ruajtur në Garazh', 'Paketa Dimërore', 'Paketa Sportive'],
+      
       drivetrains: [
         'Rrota të përparmë', 'Rrota të pasme', 'Të gjitha rrotat', '4WD', 
         'Kohë të pjesshme 4WD', 'Kohë të plotë 4WD', 'AWD elektronik', 'AWD mekanik'
@@ -1748,6 +1751,32 @@ export const sqTranslations: TranslationStrings = {
         'E re', 'Si e re', 'E shkëlqyer', 'Shumë e mirë', 'E mirë', 'E kënaqshme', 'E përdorur', 
         'E certifikuar e përdorur', 'E rinovuar', 'E restauruar', 'Klasike', 'Vintage'
       ],
+      
+      sellerTypes: ['Shitës Privat', 'Diler', 'Diler i Certifikuar', 'Flota/Qira'],
+      
+      interiorColors: ['E zezë', 'Gri', 'Bezhë', 'Kafe', 'Tan', 'E bardhë', 'E kuqe', 'Blu', 'Tjetër'],
+      
+      paintworkTypes: ['Metalik', 'Perlë', 'Mat', 'Shkëlqyese', 'Tjetër'],
+      
+      upholsteryTypes: ['Pëlhurë', 'Lëkurë e plotë', 'Lëkurë pjesore', 'Alcantara', 'Lëkurë artificiale', 'Tjetër'],
+      
+      guaranteeOptions: ['Garanci prodhuesi', 'Garanci dileri', 'Garanci e zgjeruar', 'Pa garanci'],
+      
+      previousOwnersOptions: ['1', '2', '3', '4', '5+'],
+      
+      turboOptions: ['Natyror Aspiruar', 'Turbo', 'Supercharger', 'Twin Turbo', 'Bi-Turbo'],
+      
+      enginePositions: ['Përpara', 'Mesme', 'Prapa'],
+      
+      serviceBookOptions: ['Po', 'Jo', 'Dixhital', 'Pjesore'],
+      
+      yesNoUnknownOptions: ['Po', 'Jo', 'E panjohur'],
+      
+      roadworthinessOptions: ['Valide', 'Skaduar', 'E re', 'Nuk kërkohet'],
+      
+      environmentalBadges: ['Shenja e Gjelbër', 'Shenja e Verdhë', 'Shenja e Kuqe', 'Shenja e Blu', 'Pa Shenjë'],
+      
+      electricRangeOptions: ['0-50 km', '51-100 km', '101-200 km', '201-300 km', '300+ km', 'Nuk aplikohet'],
       features: [
         'Kondicionim ajri', 'Ulëse lëkure', 'Sistem navigimi', 'Bluetooth', 'Port USB',
         'Kamerë për prapa', 'Sensorë parkimi', 'Ulëse të ngrohura', 'Çati dielli', 'Rrotat aliazh',
@@ -3401,6 +3430,9 @@ export const sqTranslations: TranslationStrings = {
         'Manuale', 'Automatike', 'CVT', 'Gjysmë-automatike', 'Dual Clutch', '6-Shpejtësi Manuale',
         '7-Shpejtësi Automatike', '8-Shpejtësi Automatike', '9-Shpejtësi Automatike', '10-Shpejtësi Automatike'
       ],
+      
+      additionalProperties: ['Makina e Certifikuar', 'Një Pronar', 'Pa Aksident', 'Regjistrat e Shërbimit Disponueshëm', 'Nën Garanci', 'Riparim i Rishtas', 'Kilometrazh i Ulët', 'Ruajtur në Garazh', 'Paketa Dimërore', 'Paketa Sportive'],
+      
       drivetrains: [
         'Dridhje e Përparme', 'Dridhje e Pasme', 'Dridhje në të Gjitha Rrotat', '4WD', 
         'Part-Time 4WD', 'Full-Time 4WD', 'AWD Elektronike', 'AWD Mekanike'
@@ -3415,6 +3447,32 @@ export const sqTranslations: TranslationStrings = {
         'E re', 'Si e re', 'E shkëlqyer', 'Shumë e mirë', 'E mirë', 'E drejtë', 'E përdorur', 
         'E certifikuar para-zotërimit', 'E rinovuar', 'E restauruar', 'Klasike', 'Vintage'
       ],
+      
+      sellerTypes: ['Shitës Privat', 'Diler', 'Diler i Certifikuar', 'Flota/Qira'],
+      
+      interiorColors: ['E zezë', 'Gri', 'Bezhë', 'Kafe', 'Tan', 'E bardhë', 'E kuqe', 'Blu', 'Tjetër'],
+      
+      paintworkTypes: ['Metalik', 'Perlë', 'Mat', 'Shkëlqyes', 'Tjetër'],
+      
+      upholsteryTypes: ['Pëlhurë', 'Lëkurë e plotë', 'Lëkurë pjesore', 'Alcantara', 'Lëkurë artificiale', 'Tjetër'],
+      
+      guaranteeOptions: ['Garanci prodhuesi', 'Garanci dileri', 'Garanci e zgjeruar', 'Pa garanci'],
+      
+      previousOwnersOptions: ['1', '2', '3', '4', '5+'],
+      
+      turboOptions: ['Natyror Aspiruar', 'Turbo', 'Supercharger', 'Twin Turbo', 'Bi-Turbo'],
+      
+      enginePositions: ['Përpara', 'Mesme', 'Prapa'],
+      
+      serviceBookOptions: ['Po', 'Jo', 'Dixhital', 'Pjesore'],
+      
+      yesNoUnknownOptions: ['Po', 'Jo', 'E panjohur'],
+      
+      roadworthinessOptions: ['Valide', 'Skaduar', 'E re', 'Nuk kërkohet'],
+      
+      environmentalBadges: ['Shenja e Gjelbër', 'Shenja e Verdhë', 'Shenja e Kuqe', 'Shenja e Blu', 'Pa Shenjë'],
+      
+      electricRangeOptions: ['0-50 km', '51-100 km', '101-200 km', '201-300 km', '300+ km', 'Nuk aplikohet'],
       features: [
         'Kondicionim ajri', 'Sedilje lëkure', 'Sistem navigimi', 'Bluetooth', 'Portë USB',
         'Kamera e kthimit', 'Sensorë parkimi', 'Sedilje të ngrohura', 'Sunroof', 'Rrota aliazhi',

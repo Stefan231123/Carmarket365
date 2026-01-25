@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useFavorites } from "@/hooks/useFavorites";
 import { ContactCarModal } from "@/components/ContactCarModal";
 import { useTranslation } from '../hooks/useTranslation';
+import { mkTranslations } from '../../shared/translations/mk';
 
 // Use the same interface as FavoritesContext
 interface SavedCar {
@@ -25,12 +26,29 @@ interface SavedCar {
 
 export default function SavedCars() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
   const { favorites, removeFromFavorites, clearFavorites } = useFavorites();
   const [sortBy, setSortBy] = useState<string>("saved-date");
   const [filterBy, setFilterBy] = useState<string>("all");
   const [contactCar, setContactCar] = useState(null);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
+  // Translation helper function with Macedonian fallback
+  const getSavedCarsText = (key: string, fallback: string) => {
+    if (currentLanguage === 'mk' && mkTranslations?.savedCars) {
+      const value = mkTranslations.savedCars[key as keyof typeof mkTranslations.savedCars];
+      if (value) {
+        return value;
+      }
+    }
+    
+    const translated = t(`savedCars.${key}`);
+    if (translated && translated !== `savedCars.${key}`) {
+      return translated;
+    }
+    
+    return fallback;
+  };
 
   const handleRemoveCar = (carId: string) => {
     removeFromFavorites(carId);
@@ -82,9 +100,9 @@ export default function SavedCars() {
             <div className="flex items-center gap-4">
               <Button variant="ghost" size="sm" onClick={() => navigate('/')} className="rounded-full px-4">
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                {t('finalFixes.savedCars.back')}
+                {getSavedCarsText('back', 'Back')}
               </Button>
-              <h1 className="text-2xl">{t('finalFixes.savedCars.title')}</h1>
+              <h1 className="text-2xl">{getSavedCarsText('title', 'Saved Cars')}</h1>
             </div>
           </div>
         </div>
@@ -92,12 +110,12 @@ export default function SavedCars() {
         <div className="container mx-auto px-4 py-16">
           <div className="text-center max-w-md mx-auto">
             <Heart className="h-16 w-16 mx-auto mb-6 text-muted-foreground" />
-            <h2 className="text-2xl mb-4">{t('finalFixes.savedCars.noSavedCars')}</h2>
+            <h2 className="text-2xl mb-4">{getSavedCarsText('noSavedCars', 'No saved cars yet')}</h2>
             <p className="text-muted-foreground mb-6">
-              {t('finalFixes.savedCars.startBrowsing')}
+              {getSavedCarsText('startBrowsing', 'Start browsing to save your favorite vehicles')}
             </p>
             <Button onClick={() => navigate('/cars')} className="bg-black text-white hover:bg-black/90 rounded-full px-6 h-12">
-              {t('finalFixes.savedCars.browseVehicles')}
+              {getSavedCarsText('browseVehicles', 'Browse Vehicles')}
             </Button>
           </div>
         </div>
@@ -114,15 +132,15 @@ export default function SavedCars() {
             <div className="flex items-center gap-4">
               <Button variant="ghost" size="sm" onClick={() => navigate('/')} className="rounded-full px-4">
                 <ArrowLeft className="h-4 w-4 mr-2" />
-                {t('finalFixes.savedCars.back')}
+                {getSavedCarsText('back', 'Back')}
               </Button>
               <div>
-                <h1 className="text-2xl">{t('finalFixes.savedCars.title')}</h1>
-                <p className="text-muted-foreground">{favorites.length} {t('finalFixes.savedCars.carsSaved')}</p>
+                <h1 className="text-2xl">{getSavedCarsText('title', 'Saved Cars')}</h1>
+                <p className="text-muted-foreground">{favorites.length} {getSavedCarsText('carsSaved', 'cars saved')}</p>
               </div>
             </div>
             <Button variant="outline" onClick={handleClearAll} className="border-zinc-100 rounded-full px-6 h-12">
-              {t('finalFixes.savedCars.clearAll')}
+              {getSavedCarsText('clearAll', 'Clear All')}
             </Button>
           </div>
         </div>
@@ -134,25 +152,25 @@ export default function SavedCars() {
           <Select value={sortBy} onValueChange={setSortBy}>
             <SelectTrigger className="w-48 h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
               <SortAsc className="h-4 w-4 mr-2" />
-              <SelectValue placeholder={t('finalFixes.savedCars.sortBy')} />
+              <SelectValue placeholder={getSavedCarsText('sortBy', 'Sort by')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="saved-date">{t('finalFixes.savedCars.recentlySaved')}</SelectItem>
-              <SelectItem value="price-low">{t('finalFixes.savedCars.priceLowToHigh')}</SelectItem>
-              <SelectItem value="price-high">{t('finalFixes.savedCars.priceHighToLow')}</SelectItem>
-              <SelectItem value="year-new">{t('finalFixes.savedCars.yearNewestFirst')}</SelectItem>
-              <SelectItem value="year-old">{t('finalFixes.savedCars.yearOldestFirst')}</SelectItem>
+              <SelectItem value="saved-date">{getSavedCarsText('recentlySaved', 'Recently Saved')}</SelectItem>
+              <SelectItem value="price-low">{getSavedCarsText('priceLowToHigh', 'Price: Low to High')}</SelectItem>
+              <SelectItem value="price-high">{getSavedCarsText('priceHighToLow', 'Price: High to Low')}</SelectItem>
+              <SelectItem value="year-new">{getSavedCarsText('yearNewestFirst', 'Year: Newest First')}</SelectItem>
+              <SelectItem value="year-old">{getSavedCarsText('yearOldestFirst', 'Year: Oldest First')}</SelectItem>
             </SelectContent>
           </Select>
 
           <Select value={filterBy} onValueChange={setFilterBy}>
             <SelectTrigger className="w-48 h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
               <Filter className="h-4 w-4 mr-2" />
-              <SelectValue placeholder={t('finalFixes.savedCars.filterPlaceholder')} />
+              <SelectValue placeholder={getSavedCarsText('filterPlaceholder', 'Filter by')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">{t('finalFixes.savedCars.allCars')}</SelectItem>
-              <SelectItem value="recent">{t('finalFixes.savedCars.savedThisWeek')}</SelectItem>
+              <SelectItem value="all">{getSavedCarsText('allCars', 'All Cars')}</SelectItem>
+              <SelectItem value="recent">{getSavedCarsText('savedThisWeek', 'Saved This Week')}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -193,7 +211,7 @@ export default function SavedCars() {
 
                 <div className="flex justify-between items-center text-sm mb-3">
                   <span className="text-muted-foreground">
-                    {t('finalFixes.savedCars.savedDate')} {new Date(car.dateAdded).toLocaleDateString()}
+                    {getSavedCarsText('savedDate', 'Saved on')} {new Date(car.dateAdded).toLocaleDateString()}
                   </span>
                 </div>
 
@@ -205,7 +223,7 @@ export default function SavedCars() {
                     onClick={() => handleContactClick(car)}
                   >
                     <Phone className="h-4 w-4 mr-2" />
-                    {t('finalFixes.savedCars.contact')}
+                    {getSavedCarsText('contact', 'Contact')}
                   </Button>
                   <Button 
                     className="flex-1 bg-black text-white hover:bg-black/90 rounded-full"
@@ -213,7 +231,7 @@ export default function SavedCars() {
                     onClick={() => navigate(`/cars/${car.id}`)}
                   >
                     <Eye className="h-4 w-4 mr-2" />
-                    {t('finalFixes.savedCars.view')}
+                    {getSavedCarsText('view', 'View')}
                   </Button>
                 </div>
               </CardContent>

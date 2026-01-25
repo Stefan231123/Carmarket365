@@ -11,6 +11,8 @@ import { useAdvancedSearch, useSearchAnalytics } from '../hooks/useAdvancedSearc
 import { FilterChips } from '../components/FilterChips';
 import { SearchResults } from '../components/SearchResults';
 import { useTranslation } from '../hooks/useTranslation';
+import { mkTranslations } from '../../shared/translations/mk';
+import { sqTranslations } from '../../shared/translations/sq';
 import { AdvancedSearchFiltersInput } from '../lib/graphql/operations';
 
 // Filter interfaces
@@ -136,22 +138,23 @@ const carModelsByMake: Record<string, string[]> = {
   'Lancia': ['Ypsilon']
 };
 
-const additionalProperties = ['Certified Pre-Owned', 'Single Owner', 'Accident-Free', 'Service Records Available', 'Under Warranty', 'Recently Serviced', 'Low Mileage', 'Garage Kept', 'Winter Package', 'Sport Package'];
+// Fallback English arrays
+const fallbackAdditionalProperties = ['Certified Pre-Owned', 'Single Owner', 'Accident-Free', 'Service Records Available', 'Under Warranty', 'Recently Serviced', 'Low Mileage', 'Garage Kept', 'Winter Package', 'Sport Package'];
 
-const bodyTypes = ['Small Car', 'Estate', 'SUV/Off-road/Pickup', 'Coupe', 'Convertible', 'Sedan', 'Hatchback', 'Station Wagon', 'Minivan', 'Pickup Truck', 'Other'];
+const fallbackBodyTypes = ['Small Car', 'Estate', 'SUV/Off-road/Pickup', 'Coupe', 'Convertible', 'Sedan', 'Hatchback', 'Station Wagon', 'Minivan', 'Pickup Truck', 'Other'];
 
-const fuelTypes = ['Gasoline', 'Diesel', 'Electric', 'Hybrid (Gasoline/Electric)', 'Hybrid (Diesel/Electric)', 'Natural Gas (CNG)', 'Liquefied Gas (LPG)', 'Ethanol', 'Hydrogen'];
+const fallbackFuelTypes = ['Gasoline', 'Diesel', 'Electric', 'Hybrid (Gasoline/Electric)', 'Hybrid (Diesel/Electric)', 'Natural Gas (CNG)', 'Liquefied Gas (LPG)', 'Ethanol', 'Hydrogen'];
 
-const gearTypes = ['Manual', 'Automatic', 'Semi-automatic', 'CVT'];
+const fallbackGearTypes = ['Manual', 'Automatic', 'Semi-automatic', 'CVT'];
 
-const numberOfSeatsOptions = ['2', '3', '4', '5', '6', '7', '8', '9+'];
+const fallbackNumberOfSeatsOptions = ['2', '3', '4', '5', '6', '7', '8', '9+'];
 
-const sellerTypes = ['Private Seller', 'Dealer', 'Certified Dealer', 'Fleet/Lease'];
+const fallbackSellerTypes = ['Private Seller', 'Dealer', 'Certified Dealer', 'Fleet/Lease'];
 
-const vehicleConditionTypes = ['New', 'Used', 'Pre-registered', 'Demonstration vehicle', 'Classic/Vintage'];
+const fallbackVehicleConditionTypes = ['New', 'Used', 'Pre-registered', 'Demonstration vehicle', 'Classic/Vintage'];
 
 
-const radiusOptions = ['5', '10', '25', '50', '100', '200', '300', '500', 'Nationwide'];
+const fallbackRadiusOptions = ['5', '10', '25', '50', '100', '200', '300', '500', 'Nationwide'];
 
 // Optional Equipment (comprehensive list)
 const optionalEquipment = [
@@ -177,30 +180,30 @@ const optionalEquipment = [
   'Towing Package', 'Spoiler', 'Sport Package', 'Chrome Package'
 ];
 
-const bodyColors = ['Black', 'White', 'Silver', 'Gray', 'Blue', 'Red', 'Green', 'Brown', 'Yellow', 'Orange', 'Beige', 'Gold', 'Violet', 'Bronze', 'Other'];
+const fallbackBodyColors = ['Black', 'White', 'Silver', 'Gray', 'Blue', 'Red', 'Green', 'Brown', 'Yellow', 'Orange', 'Beige', 'Gold', 'Violet', 'Bronze', 'Other'];
 
-const paintWorkTypes = ['Solid', 'Metallic', 'Pearl', 'Matte', 'Two-tone', 'Custom'];
+const fallbackPaintWorkTypes = ['Solid', 'Metallic', 'Pearl', 'Matte', 'Two-tone', 'Custom'];
 
-const interiorColors = ['Black', 'Gray', 'Beige', 'Brown', 'Tan', 'White', 'Red', 'Blue', 'Other'];
+const fallbackInteriorColors = ['Black', 'Gray', 'Beige', 'Brown', 'Tan', 'White', 'Red', 'Blue', 'Other'];
 
-const upholsteryTypes = ['Fabric', 'Leather', 'Leatherette', 'Alcantara', 'Vinyl', 'Combination'];
+const fallbackUpholsteryTypes = ['Fabric', 'Leather', 'Leatherette', 'Alcantara', 'Vinyl', 'Combination'];
 
-const previousOwnersOptions = ['1', '2', '3', '4', '5+'];
+const fallbackPreviousOwnersOptions = ['1', '2', '3', '4', '5+'];
 
-const yesNoOptions = ['Yes', 'No', 'Unknown'];
+const fallbackYesNoOptions = ['Yes', 'No', 'Unknown'];
 
-const guaranteeOptions = ['No Guarantee', 'Dealer Guarantee', 'Manufacturer Guarantee', 'Extended Guarantee'];
+const fallbackGuaranteeOptions = ['No Guarantee', 'Dealer Guarantee', 'Manufacturer Guarantee', 'Extended Guarantee'];
 
-const euroEmissionClasses = ['Euro 1', 'Euro 2', 'Euro 3', 'Euro 4', 'Euro 5', 'Euro 6', 'Euro 6c', 'Euro 6d-TEMP', 'Euro 6d'];
+const fallbackEuroEmissionClasses = ['Euro 1', 'Euro 2', 'Euro 3', 'Euro 4', 'Euro 5', 'Euro 6', 'Euro 6c', 'Euro 6d-TEMP', 'Euro 6d'];
 
 // Engine Technical Specifications
-const turboOptions = ['Naturally Aspirated', 'Turbocharged', 'Supercharged', 'Twin Turbo', 'Bi-Turbo'];
-const enginePositions = ['Front', 'Mid', 'Rear'];
+const fallbackTurboOptions = ['Naturally Aspirated', 'Turbocharged', 'Supercharged', 'Twin Turbo', 'Bi-Turbo'];
+const fallbackEnginePositions = ['Front', 'Mid', 'Rear'];
 
 // Advanced Vehicle History
-const serviceBookOptions = ['Yes', 'No', 'Digital', 'Partial'];
-const yesNoUnknownOptions = ['Yes', 'No', 'Unknown'];
-const roadworthinessOptions = ['Valid', 'Expired', 'New', 'Not Required'];
+const fallbackServiceBookOptions = ['Yes', 'No', 'Digital', 'Partial'];
+const fallbackYesNoUnknownOptions = ['Yes', 'No', 'Unknown'];
+const fallbackRoadworthinessOptions = ['Valid', 'Expired', 'New', 'Not Required'];
 
 // Financing & Insurance
 const insuranceCategories = Array.from({ length: 25 }, (_, i) => (i + 1).toString());
@@ -216,8 +219,8 @@ const advancedSafetyFeatures = [
 const emergencyCallOptions = ['eCall Available', 'Private Emergency Service', 'Not Available'];
 
 // Environmental Extended
-const environmentalBadges = ['Green Badge', 'Yellow Badge', 'Red Badge', 'Blue Badge', 'No Badge'];
-const electricRangeOptions = ['0-50 km', '51-100 km', '101-200 km', '201-300 km', '300+ km', 'Not Applicable'];
+const fallbackEnvironmentalBadges = ['Green Badge', 'Yellow Badge', 'Red Badge', 'Blue Badge', 'No Badge'];
+const fallbackElectricRangeOptions = ['0-50 km', '51-100 km', '101-200 km', '201-300 km', '300+ km', 'Not Applicable'];
 
 
 // Create years array: individual years from current year down to 1990, then decades from 1980s down to 1950s
@@ -315,7 +318,96 @@ function FilterSection({ title, children, sectionKey, icon, description }: Filte
 
 export default function AdvancedSearch() {
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
+
+  // Helper function to get nested value from object using dot notation
+  const getNestedValue = (obj: any, key: string): string | undefined => {
+    return key.split('.').reduce((currentObj, keyPart) => {
+      return currentObj && currentObj[keyPart];
+    }, obj);
+  };
+
+  // Translation helper function with Macedonian and Albanian fallback
+  const getAdvancedSearchText = (key: string, fallback: string) => {
+    // Try Macedonian first
+    if (currentLanguage === 'mk' && mkTranslations?.advancedSearch) {
+      const value = getNestedValue(mkTranslations.advancedSearch, key);
+      if (value && typeof value === 'string') {
+        return value;
+      }
+    }
+    
+    // Try Albanian second
+    if (currentLanguage === 'sq' && sqTranslations?.advancedSearch) {
+      const value = getNestedValue(sqTranslations.advancedSearch, key);
+      if (value && typeof value === 'string') {
+        return value;
+      }
+    }
+    
+    // Try dynamic translation system third
+    const translated = t(`advancedSearch.${key}`);
+    if (translated && translated !== `advancedSearch.${key}`) {
+      return translated;
+    }
+    
+    // Return English fallback last
+    return fallback;
+  };
+
+  // Helper function to get translated arrays
+  const getTranslatedArray = (arrayType: 'bodyTypes' | 'fuelTypes' | 'transmissions' | 'additionalProperties' | 'sellerTypes' | 'conditions' | 'colors' | 'interiorColors' | 'paintworkTypes' | 'upholsteryTypes' | 'guaranteeOptions' | 'previousOwnersOptions' | 'turboOptions' | 'enginePositions' | 'serviceBookOptions' | 'yesNoUnknownOptions' | 'roadworthinessOptions' | 'environmentalBadges' | 'electricRangeOptions', fallbackArray: string[]): string[] => {
+    // Try Macedonian first
+    if (currentLanguage === 'mk' && mkTranslations?.staticVehicleData) {
+      const translatedArray = mkTranslations.staticVehicleData[arrayType];
+      if (translatedArray && Array.isArray(translatedArray) && translatedArray.length > 0) {
+        return translatedArray;
+      }
+    }
+    
+    // Try Albanian second
+    if (currentLanguage === 'sq' && sqTranslations?.staticVehicleData) {
+      const translatedArray = sqTranslations.staticVehicleData[arrayType];
+      if (translatedArray && Array.isArray(translatedArray) && translatedArray.length > 0) {
+        return translatedArray;
+      }
+    }
+    
+    // Return fallback array if no translation found
+    return fallbackArray;
+  };
+
+  // Get translated filter arrays
+  const additionalProperties = getTranslatedArray('additionalProperties', fallbackAdditionalProperties);
+  const bodyTypes = getTranslatedArray('bodyTypes', fallbackBodyTypes);
+  const fuelTypes = getTranslatedArray('fuelTypes', fallbackFuelTypes);
+  const gearTypes = getTranslatedArray('transmissions', fallbackGearTypes);
+  
+  // Get translated options arrays
+  const sellerTypes = getTranslatedArray('sellerTypes', fallbackSellerTypes);
+  const vehicleConditionTypes = getTranslatedArray('conditions', fallbackVehicleConditionTypes);
+  const bodyColors = getTranslatedArray('colors', fallbackBodyColors);
+  const interiorColors = getTranslatedArray('interiorColors', fallbackInteriorColors);
+  const paintWorkTypes = getTranslatedArray('paintworkTypes', fallbackPaintWorkTypes);
+  const upholsteryTypes = getTranslatedArray('upholsteryTypes', fallbackUpholsteryTypes);
+  const guaranteeOptions = getTranslatedArray('guaranteeOptions', fallbackGuaranteeOptions);
+  
+  // Get translated advanced options arrays
+  const previousOwnersOptions = getTranslatedArray('previousOwnersOptions', fallbackPreviousOwnersOptions);
+  const turboOptions = getTranslatedArray('turboOptions', fallbackTurboOptions);
+  const enginePositions = getTranslatedArray('enginePositions', fallbackEnginePositions);
+  const serviceBookOptions = getTranslatedArray('serviceBookOptions', fallbackServiceBookOptions);
+  const yesNoUnknownOptions = getTranslatedArray('yesNoUnknownOptions', fallbackYesNoUnknownOptions);
+  const roadworthinessOptions = getTranslatedArray('roadworthinessOptions', fallbackRoadworthinessOptions);
+  const environmentalBadges = getTranslatedArray('environmentalBadges', fallbackEnvironmentalBadges);
+  const electricRangeOptions = getTranslatedArray('electricRangeOptions', fallbackElectricRangeOptions);
+  
+  // Arrays that don't have translations yet (keep as fallback)
+  const numberOfSeatsOptions = fallbackNumberOfSeatsOptions;
+  const radiusOptions = fallbackRadiusOptions;
+  const yesNoOptions = fallbackYesNoOptions;
+  const euroEmissionClasses = fallbackEuroEmissionClasses;
+
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [showResults, setShowResults] = useState(false);
   
@@ -653,17 +745,17 @@ export default function AdvancedSearch() {
           </div>
           
           <h1 className="text-4xl md:text-5xl mb-4 text-foreground">
-            {t('advancedSearch.title', 'Advanced Car Search')}
+            {getAdvancedSearchText('title', 'Advanced Car Search')}
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-            {t('advancedSearch.description', 'Use our comprehensive search filters to discover the exact vehicle you\'re looking for')}
+            {getAdvancedSearchText('subtitle', 'Use our comprehensive search filters to discover the exact vehicle you\'re looking for')}
           </p>
           
           {/* Real-time search status */}
           {isSearching && (
             <div className="flex items-center justify-center gap-2 mt-4 text-blue-600">
               <Loader2 className="h-4 w-4 animate-spin" />
-              <span className="text-sm">{t('advancedSearch.searchingRealTime', 'Searching in real-time...')}</span>
+              <span className="text-sm">{getAdvancedSearchText('searchingRealTime', 'Searching in real-time...')}</span>
             </div>
           )}
         </div>
@@ -683,20 +775,20 @@ export default function AdvancedSearch() {
             
             {/* Basic Information */}
             <FilterSection 
-              title="Basic Information" 
+              title={getAdvancedSearchText('sections.vehicleDetails.title', 'Basic Information')} 
               sectionKey="basic"
               icon={<Car className="h-5 w-5 text-blue-600" />}
-              description="Vehicle make, model, and basic properties"
+              description={getAdvancedSearchText('sections.vehicleDetails.description', 'Vehicle make, model, and basic properties')}
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">{t('advancedSearch.make', 'Make')}</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.make', 'Make')}</label>
                   <Select value={localFilters.make} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, make: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder={t('advancedSearch.anyMake', 'Any Make')} />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.anyMake', 'Any Make')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">{t('advancedSearch.allMakes', 'All Makes')}</SelectItem>
+                      <SelectItem value="all">{getAdvancedSearchText('placeholders.anyMake', 'All Makes')}</SelectItem>
                       {carMakes.map(make => (
                         <SelectItem key={make} value={make}>{make}</SelectItem>
                       ))}
@@ -705,16 +797,16 @@ export default function AdvancedSearch() {
                 </div>
 
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">{t('advancedSearch.model', 'Model')}</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.model', 'Model')}</label>
                   <Select 
                     value={localFilters.model} 
                     onValueChange={(value) => setLocalFilters(prev => ({ ...prev, model: value }))}
                   >
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder={t('advancedSearch.anyModel', 'Any Model')} />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.anyModel', 'Any Model')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">{t('advancedSearch.allModels', 'All Models')}</SelectItem>
+                      <SelectItem value="all">{getAdvancedSearchText('placeholders.anyModel', 'All Models')}</SelectItem>
                       {(localFilters.make && localFilters.make !== 'all' && carModelsByMake[localFilters.make] || []).map(model => (
                         <SelectItem key={model} value={model}>{model}</SelectItem>
                       ))}
@@ -723,7 +815,7 @@ export default function AdvancedSearch() {
                 </div>
 
                 <div className="md:col-span-2">
-                  <label className="block text-sm mb-2 text-muted-foreground">{t('advancedSearch.additionalProperties', 'Additional Properties')}</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.additionalProperties', 'Additional Properties')}</label>
                   <CheckboxGroup
                     options={additionalProperties}
                     selectedValues={localFilters.additionalProperties}
@@ -734,13 +826,13 @@ export default function AdvancedSearch() {
                 </div>
 
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">{t('advancedSearch.bodyType', 'Body Type')}</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.bodyType', 'Body Type')}</label>
                   <Select value={localFilters.bodyType} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, bodyType: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder={t('advancedSearch.anyBodyType', 'Any Body Type')} />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.anyType', 'Any Body Type')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">{t('advancedSearch.anyBodyType', 'Any Body Type')}</SelectItem>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.anyType', 'Any Body Type')}</SelectItem>
                       {bodyTypes.map(type => (
                         <SelectItem key={type} value={type}>{type}</SelectItem>
                       ))}
@@ -749,13 +841,13 @@ export default function AdvancedSearch() {
                 </div>
 
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">{t('advancedSearch.fuelType', 'Fuel Type')}</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.fuelType', 'Fuel Type')}</label>
                   <Select value={localFilters.fuelType} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, fuelType: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder={t('advancedSearch.anyFuelType', 'Any Fuel Type')} />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any Fuel Type')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">{t('advancedSearch.anyFuelType', 'Any Fuel Type')}</SelectItem>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any Fuel Type')}</SelectItem>
                       {fuelTypes.map(fuel => (
                         <SelectItem key={fuel} value={fuel}>{fuel}</SelectItem>
                       ))}
@@ -767,15 +859,15 @@ export default function AdvancedSearch() {
 
             {/* First Registration & Price */}
             <FilterSection 
-              title="First Registration & Price" 
+              title={getAdvancedSearchText('sections.priceLocation.title', 'First Registration & Price')} 
               sectionKey="registration-price"
               icon={<Star className="h-5 w-5 text-green-600" />}
-              description="Registration date and price range"
+              description={getAdvancedSearchText('sections.priceLocation.description', 'Registration date and price range')}
             >
               <div className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">First Registration From</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.yearFrom', 'First Registration From')}</label>
                     <Select 
                       value={(() => {
                         const year = localFilters.firstRegistrationFrom;
@@ -825,7 +917,7 @@ export default function AdvancedSearch() {
                   </div>
 
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">First Registration To</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.yearTo', 'First Registration To')}</label>
                     <Select 
                       value={(() => {
                         const year = localFilters.firstRegistrationTo;
@@ -874,7 +966,7 @@ export default function AdvancedSearch() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Price From (€)</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.priceMin', 'Price From (€)')}</label>
                     <Select 
                       value={localFilters.priceMin?.toString() || '0'} 
                       onValueChange={(value) => {
@@ -899,7 +991,7 @@ export default function AdvancedSearch() {
                     </Select>
                   </div>
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Price To (€)</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.priceMax', 'Price To (€)')}</label>
                     <Select 
                       value={localFilters.priceMax?.toString() || '200000'} 
                       onValueChange={(value) => {
@@ -928,17 +1020,17 @@ export default function AdvancedSearch() {
 
             {/* Location */}
             <FilterSection 
-              title="Location" 
+              title={getAdvancedSearchText('sections.priceLocation.title', 'Location')} 
               sectionKey="location"
               icon={<Car className="h-5 w-5 text-blue-600" />}
-              description="Search area and location preferences"
+              description={getAdvancedSearchText('sections.priceLocation.description', 'Search area and location preferences')}
             >
               <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">City/Zip Code</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.location', 'City/Zip Code')}</label>
                     <Input
-                      placeholder="Enter city or postal code"
+                      placeholder={getAdvancedSearchText('placeholders.cityStateOrZip', 'Enter city or postal code')}
                       value={localFilters.cityZipCode}
                       onChange={(e) => setLocalFilters(prev => ({ ...prev, cityZipCode: e.target.value }))}
                       className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0"
@@ -946,13 +1038,13 @@ export default function AdvancedSearch() {
                   </div>
 
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Radius (km)</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.radius', 'Radius (km)')}</label>
                     <Select value={localFilters.radiusKm} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, radiusKm: value }))}>
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="Nationwide" />
+                        <SelectValue placeholder={getAdvancedSearchText('distances.nationwide', 'Nationwide')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="nationwide">Nationwide</SelectItem>
+                        <SelectItem value="nationwide">{getAdvancedSearchText('distances.nationwide', 'Nationwide')}</SelectItem>
                         {radiusOptions.map(radius => (
                           <SelectItem key={radius} value={radius}>{radius} km</SelectItem>
                         ))}
@@ -965,15 +1057,15 @@ export default function AdvancedSearch() {
 
             {/* Technical Specifications */}
             <FilterSection 
-              title="Mileage & Power" 
+              title={getAdvancedSearchText('sections.technicalSpecs.title', 'Mileage & Power')} 
               sectionKey="technical"
               icon={<Settings className="h-5 w-5 text-purple-600" />}
-              description="Vehicle performance and usage specifications"
+              description={getAdvancedSearchText('sections.technicalSpecs.description', 'Vehicle performance and usage specifications')}
             >
               <div className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Mileage From (km)</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.mileageMin', 'Mileage From (km)')}</label>
                     <Select 
                       value={localFilters.mileageMin?.toString() || '0'} 
                       onValueChange={(value) => {
@@ -998,7 +1090,7 @@ export default function AdvancedSearch() {
                     </Select>
                   </div>
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Mileage To (km)</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.mileageMax', 'Mileage To (km)')}</label>
                     <Select 
                       value={localFilters.mileageMax?.toString() || '400000'} 
                       onValueChange={(value) => {
@@ -1826,10 +1918,10 @@ export default function AdvancedSearch() {
                 <CardHeader className="text-center pb-4">
                   <CardTitle className="text-xl font-bold text-foreground flex items-center justify-center gap-2">
                     <Search className="h-5 w-5" />
-                    {t('advancedSearch.searchControls', 'Search Controls')}
+                    {getAdvancedSearchText('searchControls', 'Search Controls')}
                   </CardTitle>
                   <p className="text-sm text-muted-foreground">
-                    {t('advancedSearch.refineSearchCriteria', 'Refine your search criteria')}
+                    {getAdvancedSearchText('refineSearchCriteria', 'Refine your search criteria')}
                   </p>
                 </CardHeader>
                 <CardContent className="space-y-4">
@@ -1842,12 +1934,12 @@ export default function AdvancedSearch() {
                     {isSearching ? (
                       <>
                         <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                        {t('advancedSearch.searching', 'Searching...')}
+                        {getAdvancedSearchText('searching', 'Searching...')}
                       </>
                     ) : (
                       <>
                         <Search className="h-4 w-4 mr-2" />
-                        {t('advancedSearch.searchCars', 'Search Cars')}
+                        {getAdvancedSearchText('searchCars', 'Search Cars')}
                       </>
                     )}
                   </Button>
@@ -1859,7 +1951,7 @@ export default function AdvancedSearch() {
                     disabled={getActiveFilterCount() === 0}
                   >
                     <X className="h-4 w-4 mr-2" />
-                    {t('advancedSearch.clearAllFilters', 'Clear All Filters')}
+                    {getAdvancedSearchText('clearAll', 'Clear All Filters')}
                   </Button>
                   
                   <div className="bg-muted/30 rounded-2xl p-4 mt-4">
@@ -1868,10 +1960,10 @@ export default function AdvancedSearch() {
                         {getActiveFilterCount()}
                       </div>
                       <div className="text-sm text-foreground font-medium">
-                        {t('advancedSearch.activeFilters', 'Active Filters')}
+                        {getAdvancedSearchText('activeFilters', 'Active Filters')}
                       </div>
                       <div className="text-xs text-muted-foreground mt-1">
-                        {t('advancedSearch.realTimeSearch', 'Real-time search results')}
+                        {getAdvancedSearchText('realTimeSearch', 'Real-time search results')}
                       </div>
                     </div>
                   </div>
@@ -1883,10 +1975,10 @@ export default function AdvancedSearch() {
                           {searchResults.totalCount.toLocaleString()}
                         </div>
                         <div className="text-sm text-blue-600 font-medium">
-                          {t('advancedSearch.carsFound', 'Cars Found')}
+                          {getAdvancedSearchText('carsFound', 'Cars Found')}
                         </div>
                         <div className="text-xs text-blue-500 mt-1">
-                          {searchResults.hasNextPage ? t('advancedSearch.hasMore', 'More available') : t('advancedSearch.allShown', 'All shown')}
+                          {searchResults.hasNextPage ? getAdvancedSearchText('hasMore', 'More available') : getAdvancedSearchText('allShown', 'All shown')}
                         </div>
                       </div>
                     </div>
@@ -1895,15 +1987,15 @@ export default function AdvancedSearch() {
                   <div className="grid grid-cols-2 gap-2 mt-4 text-xs text-muted-foreground">
                     <div className="text-center">
                       <div className="font-semibold text-foreground">{optionalEquipment.length}</div>
-                      <div>{t('advancedSearch.equipment', 'Equipment')}</div>
+                      <div>{getAdvancedSearchText('equipment', 'Equipment')}</div>
                     </div>
                     <div className="text-center">
                       <div className="font-semibold text-foreground">{bodyColors.length}</div>
-                      <div>{t('advancedSearch.colors', 'Colors')}</div>
+                      <div>{getAdvancedSearchText('colors', 'Colors')}</div>
                     </div>
                     <div className="text-center">
                       <div className="font-semibold text-foreground">{euroEmissionClasses.length}</div>
-                      <div>{t('advancedSearch.emissions', 'Emissions')}</div>
+                      <div>{getAdvancedSearchText('emissions', 'Emissions')}</div>
                     </div>
                   </div>
                 </CardContent>
