@@ -327,9 +327,24 @@ export default function AdvancedSearch() {
     }, obj);
   };
 
-  // Translation helper function with primary dynamic system
+  // Translation helper function with direct access to translation objects
   const getAdvancedSearchText = (key: string, fallback: string) => {
-    // Use the main translation system first
+    // Try direct access to the static translations first (most reliable)
+    if (currentLanguage === 'mk' && mkTranslations?.advancedSearch) {
+      const value = getNestedValue(mkTranslations, `advancedSearch.${key}`);
+      if (value && typeof value === 'string') {
+        return value;
+      }
+    }
+    
+    if (currentLanguage === 'sq' && sqTranslations?.advancedSearch) {
+      const value = getNestedValue(sqTranslations, `advancedSearch.${key}`);
+      if (value && typeof value === 'string') {
+        return value;
+      }
+    }
+    
+    // Fallback to dynamic system
     const translated = t(`advancedSearch.${key}`);
     if (translated && translated !== `advancedSearch.${key}`) {
       return translated;
