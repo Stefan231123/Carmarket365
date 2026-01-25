@@ -131,70 +131,99 @@ export function AdvancedSearch({ onSearch, onClose }: AdvancedSearchProps) {
     sortBy: "standard"
   });
 
-  // Get translated vehicle data from translation files
-  
-  // Use direct Macedonian translations if language is mk and translation system fails
-  const getTranslatedData = (key: string, fallback: string[]) => {
+  // Enhanced translation function with comprehensive debug logging and proper fallback
+  const getTranslatedData = (key: string): string[] => {
+    // Debug logging to understand translation behavior
+    console.log(`[AdvancedSearch] Getting translated data for key: ${key}`);
+    console.log(`[AdvancedSearch] Current language: ${currentLanguage}`);
+    
+    // Always try the dynamic translation system first
+    try {
+      const translationKey = `advancedSearch.staticVehicleData.${key}`;
+      const translated = t(translationKey, { returnObjects: true });
+      
+      console.log(`[AdvancedSearch] Translation result for ${translationKey}:`, translated);
+      
+      if (Array.isArray(translated) && translated.length > 0) {
+        console.log(`[AdvancedSearch] Successfully using dynamic translation for ${key}:`, translated);
+        return translated as string[];
+      }
+    } catch (error) {
+      console.warn(`[AdvancedSearch] Dynamic translation failed for ${key}:`, error);
+    }
+    
+    // If dynamic system fails and language is Macedonian, try direct import
     if (currentLanguage === 'mk' && mkTranslations?.advancedSearch?.staticVehicleData) {
-      const data = mkTranslations.advancedSearch.staticVehicleData[key as keyof typeof mkTranslations.advancedSearch.staticVehicleData];
-      if (Array.isArray(data) && data.length > 0) {
-        return data;
+      try {
+        const staticData = mkTranslations.advancedSearch.staticVehicleData;
+        console.log(`[AdvancedSearch] Available static data keys:`, Object.keys(staticData));
+        
+        const data = staticData[key as keyof typeof staticData];
+        console.log(`[AdvancedSearch] Direct import result for ${key}:`, data);
+        
+        if (Array.isArray(data) && data.length > 0) {
+          console.log(`[AdvancedSearch] Successfully using direct import for ${key}:`, data);
+          return data as string[];
+        }
+      } catch (error) {
+        console.warn(`[AdvancedSearch] Direct import failed for ${key}:`, error);
       }
     }
     
-    const translated = t(`advancedSearch.staticVehicleData.${key}`, { returnObjects: true });
-    if (Array.isArray(translated) && translated.length > 0) {
-      return translated as string[];
-    }
+    // Smart fallback based on key - return minimal essential options instead of empty array
+    const getMinimalFallback = (dataKey: string): string[] => {
+      switch(dataKey) {
+        case 'makes':
+          return currentLanguage === 'mk' ? ['Audi', 'BMW', 'Toyota', 'Volkswagen'] : ['Audi', 'BMW', 'Toyota', 'Volkswagen'];
+        case 'bodyTypes':
+          return currentLanguage === 'mk' ? ['Седан', 'SUV', 'Хечбек'] : ['Sedan', 'SUV', 'Hatchback'];
+        case 'fuelTypes':
+          return currentLanguage === 'mk' ? ['Бензин', 'Дизел', 'Електричен'] : ['Gasoline', 'Diesel', 'Electric'];
+        case 'transmissions':
+          return currentLanguage === 'mk' ? ['Мануелна', 'Автоматска'] : ['Manual', 'Automatic'];
+        case 'conditions':
+          return currentLanguage === 'mk' ? ['Нов', 'Користен'] : ['New', 'Used'];
+        case 'colors':
+          return currentLanguage === 'mk' ? ['Црна', 'Бела', 'Сива'] : ['Black', 'White', 'Gray'];
+        default:
+          return [];
+      }
+    };
     
-    return fallback;
+    const fallbackData = getMinimalFallback(key);
+    console.warn(`[AdvancedSearch] Using minimal fallback for ${key}:`, fallbackData);
+    return fallbackData;
   };
   
-  const carMakes = getTranslatedData('makes', [
-    "Audi", "BMW", "Mercedes-Benz", "Volkswagen", "Opel", "Ford", "Renault", 
-    "Peugeot", "Fiat", "Citroen", "Skoda", "SEAT", "Toyota", "Nissan", 
-    "Honda", "Mazda", "Hyundai", "Kia", "Volvo", "Jaguar", "Land Rover", 
-    "Porsche", "Ferrari", "Lamborghini", "Maserati", "Bentley", "Rolls-Royce",
-    "Tesla", "Lexus", "Infiniti", "Acura", "Genesis", "Alfa Romeo", "Lancia",
-    "Subaru", "Mitsubishi", "Suzuki", "Dacia", "Mini", "Smart", "Jeep"
-  ]);
+  const carMakes = getTranslatedData('makes');
 
-  const bodyTypes = getTranslatedData('bodyTypes', [
-    "Compact", "Convertible", "Coupe", "SUV/Off-Road/Pick-up", 
-    "Station wagon", "Sedans", "Van", "Transporter", "Other"
-  ]);
+  const bodyTypes = getTranslatedData('bodyTypes');
 
-  const fuelTypes = getTranslatedData('fuelTypes', [
-    "Hybrid (Electric/Gasoline)", "Hybrid (Electric/Diesel)", 
-    "Gasoline", "CNG", "Diesel", "Electric", "Hydrogen", "LPG", "Ethanol", "Others"
-  ]);
+  const fuelTypes = getTranslatedData('fuelTypes');
 
-  const transmissions = getTranslatedData('transmissions', ["Automatic", "Manual", "Semi-automatic"]);
+  const transmissions = getTranslatedData('transmissions');
 
-  const drivetrains = getTranslatedData('drivetrains', ["Front-wheel drive", "Rear-wheel drive", "All-wheel drive", "4WD"]);
+  const drivetrains = getTranslatedData('drivetrains');
 
-  const sellerTypes = getTranslatedData('sellerTypes', ["Dealer", "Private"]);
+  const sellerTypes = getTranslatedData('sellerTypes');
 
-  const conditions = getTranslatedData('conditions', ["New", "Used", "Employee's car", "Antique/Classic", "Demonstration", "Pre-registered"]);
+  const conditions = getTranslatedData('conditions');
 
-  const exteriorColors = getTranslatedData('colors', [
-    "Black", "White", "Silver", "Gray", "Red", "Blue", "Green", "Brown", 
-    "Gold", "Orange", "Purple", "Yellow", "Beige", "Bronze"
-  ]);
+  const exteriorColors = getTranslatedData('colors');
 
-  const paintworkTypes = getTranslatedData('paintworkTypes', ["Metallic", "Pearl", "Matt", "Other"]);
+  const paintworkTypes = getTranslatedData('paintworkTypes');
 
-  const interiorColors = getTranslatedData('interiorColors', ["Black", "Gray", "Beige", "Brown", "Red", "Blue", "White", "Other"]);
+  const interiorColors = getTranslatedData('interiorColors');
 
-  const upholsteryTypes = getTranslatedData('upholsteryTypes', ["Fabric", "Full leather", "Part leather", "Alcantara", "Other"]);
+  const upholsteryTypes = getTranslatedData('upholsteryTypes');
 
-  const countries = getTranslatedData('countries', ["Germany", "Austria", "Italy", "Belgium", "Netherlands", "Spain", "Luxembourg", "France"]);
+  const countries = getTranslatedData('countries');
 
-  const emissionClasses = getTranslatedData('emissionClasses', ["Euro 6", "Euro 5", "Euro 4", "Euro 3", "Euro 2", "Euro 1"]);
+  const emissionClasses = getTranslatedData('emissionClasses');
 
-  const emissionLabels = getTranslatedData('emissionLabels', ["Green (4)", "Yellow (3)", "Orange (2)", "Red (1)", "No badge"]);
+  const emissionLabels = getTranslatedData('emissionLabels');
 
-  const guaranteeOptions = getTranslatedData('guaranteeOptions', ["Manufacturer guarantee", "Dealer guarantee", "No guarantee"]);
+  const guaranteeOptions = getTranslatedData('guaranteeOptions');
 
   // Feature handling functions
   const handleFeatureChange = (feature: string, checked: boolean) => {
@@ -222,35 +251,24 @@ export function AdvancedSearch({ onSearch, onClose }: AdvancedSearchProps) {
   };
   
   // Get features from translation data
-  const features = getTranslatedData('features', [
-    // Drivetrain & Performance
-    "4WD", "All-wheel drive", "Sport suspension", "Adaptive suspension", 
-    
-    // Safety & Driver Assistance
-    "ABS", "ESP", "Adaptive Cruise Control", "Parking sensors", "Parking assist", 
-    "Blind spot monitoring", "Lane departure warning", "Emergency brake assist",
-    "Traffic sign recognition", "360° camera", "Head-up display", "Night vision",
-    
-    // Comfort & Convenience
-    "Air conditioning", "Automatic climate control", "Multi-zone climate control",
-    "Heated seats", "Ventilated seats", "Massage seats", "Electric seats", 
-    "Seat memory", "Heated steering wheel", "Keyless entry", "Keyless start",
-    "Remote engine start", "Cruise control", "Power windows", "Electric mirrors",
-    
-    // Interior & Technology
-    "Navigation system", "Bluetooth", "Apple CarPlay", "Android Auto", 
-    "Wireless charging", "USB ports", "Premium audio system", "Sound system",
-    "Digital cockpit", "Ambient lighting", "Panoramic roof", "Sunroof",
-    "Leather upholstery", "Alcantara upholstery", "Sports seats",
-    
-    // Exterior
-    "Alloy wheels", "Xenon headlights", "LED headlights", "LED daytime running lights",
-    "Adaptive headlights", "Fog lights", "Tinted windows", "Electric tailgate",
-    "Roof rails", "Tow bar", "Metallic paint", "Sport package"
-  ]);
+  const features = getTranslatedData('features');
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: 30 }, (_, i) => (currentYear - i).toString());
+
+  // Debug logging to see what we got from translations
+  console.log('[AdvancedSearch] All translated data loaded:', {
+    carMakes: carMakes.length,
+    bodyTypes: bodyTypes.length,
+    fuelTypes: fuelTypes.length,
+    transmissions: transmissions.length,
+    drivetrains: drivetrains.length,
+    sellerTypes: sellerTypes.length,
+    conditions: conditions.length,
+    exteriorColors: exteriorColors.length,
+    features: features.length,
+    currentLanguage
+  });
 
   // Handler functions for multi-select filters
   const handleMultiSelectChange = (
@@ -365,9 +383,11 @@ export function AdvancedSearch({ onSearch, onClose }: AdvancedSearchProps) {
                   </SelectTrigger>
                   <SelectContent>
 <SelectItem value="any-make">{t('advancedSearch.placeholders.anyMake')}</SelectItem>
-                    {carMakes.map((make) => (
+                    {carMakes.length > 0 ? carMakes.map((make) => (
                       <SelectItem key={make} value={make}>{make}</SelectItem>
-                    ))}
+                    )) : (
+                      <SelectItem value="" disabled>No makes available</SelectItem>
+                    )}
                   </SelectContent>
                 </Select>
               </div>
