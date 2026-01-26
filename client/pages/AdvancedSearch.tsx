@@ -1984,17 +1984,17 @@ export default function AdvancedSearch() {
               </div>
             </FilterSection>
 
-            {/* Environmental Extended */}
+            {/* Environmental Extended - PURE HARDCODED MACEDONIAN */}
             <FilterSection 
-              title={getAdvancedSearchText('sections.environmentalExtended.title', 'Environmental Extended')} 
+              title="Еколошки проширени" 
               sectionKey="environmental-extended"
               icon={<Filter className="h-5 w-5 text-emerald-600" />}
-              description={getAdvancedSearchText('sections.environmentalExtended.description', 'Detailed environmental impact and efficiency metrics')}
+              description="Детални еколошки влијанија и ефикасност"
             >
               <div className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.co2EmissionsFrom', 'CO2 Emissions From (g/km)')}</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">CO2 емисии од (g/km)</label>
                     <Select 
                       value={localFilters.co2EmissionsMin?.toString() || '0'} 
                       onValueChange={(value) => {
@@ -2008,18 +2008,18 @@ export default function AdvancedSearch() {
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder={getAdvancedSearchText('placeholders.from', 'From')} />
+                        <SelectValue placeholder="Од" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="0">0 {getAdvancedSearchText('labels.gkm', 'g/km')}</SelectItem>
+                        <SelectItem value="0">0 g/km</SelectItem>
                         {co2EmissionsRanges.slice(1).map(co2 => (
-                          <SelectItem key={co2} value={co2.toString()}>{co2} {getAdvancedSearchText('labels.gkm', 'g/km')}</SelectItem>
+                          <SelectItem key={co2} value={co2.toString()}>{co2} g/km</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                   </div>
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.co2EmissionsTo', 'CO2 Emissions To (g/km)')}</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">CO2 емисии до (g/km)</label>
                     <Select 
                       value={localFilters.co2EmissionsMax?.toString() || '400'} 
                       onValueChange={(value) => {
@@ -2033,11 +2033,11 @@ export default function AdvancedSearch() {
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder={getAdvancedSearchText('placeholders.to', 'To')} />
+                        <SelectValue placeholder="До" />
                       </SelectTrigger>
                       <SelectContent>
                         {co2EmissionsRanges.map(co2 => (
-                          <SelectItem key={co2} value={co2.toString()}>{co2} {getAdvancedSearchText('labels.gkm', 'g/km')}</SelectItem>
+                          <SelectItem key={co2} value={co2.toString()}>{co2} g/km</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -2046,7 +2046,7 @@ export default function AdvancedSearch() {
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.fuelConsumptionFrom', 'Fuel Consumption From (l/100km)')}</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">Потрошувачка на гориво од (l/100km)</label>
                     <Select 
                       value={localFilters.fuelConsumptionMin?.toString() || '0'} 
                       onValueChange={(value) => {
@@ -2060,18 +2060,18 @@ export default function AdvancedSearch() {
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder={getAdvancedSearchText('placeholders.from', 'From')} />
+                        <SelectValue placeholder="Од" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="0">0 {getAdvancedSearchText('labels.l100km', 'l/100km')}</SelectItem>
+                        <SelectItem value="0">0 l/100km</SelectItem>
                         {fuelConsumptionRanges.slice(1).map(fuel => (
-                          <SelectItem key={fuel} value={fuel.toString()}>{fuel} {getAdvancedSearchText('labels.l100km', 'l/100km')}</SelectItem>
+                          <SelectItem key={fuel} value={fuel.toString()}>{fuel} l/100km</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                   </div>
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.fuelConsumptionTo', 'Fuel Consumption To (l/100km)')}</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">Потрошувачка на гориво до (l/100km)</label>
                     <Select 
                       value={localFilters.fuelConsumptionMax?.toString() || '20'} 
                       onValueChange={(value) => {
@@ -2085,11 +2085,11 @@ export default function AdvancedSearch() {
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder={getAdvancedSearchText('placeholders.to', 'To')} />
+                        <SelectValue placeholder="До" />
                       </SelectTrigger>
                       <SelectContent>
                         {fuelConsumptionRanges.map(fuel => (
-                          <SelectItem key={fuel} value={fuel.toString()}>{fuel} {getAdvancedSearchText('labels.l100km', 'l/100km')}</SelectItem>
+                          <SelectItem key={fuel} value={fuel.toString()}>{fuel} l/100km</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -2098,13 +2098,13 @@ export default function AdvancedSearch() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Environmental Badge</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">Еколошка значка</label>
                     <Select value={localFilters.environmentalBadge} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, environmentalBadge: value }))}>
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder={getAdvancedSearchText('placeholders.anyBadge', 'Any Badge')} />
+                        <SelectValue placeholder="Било која значка" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="any">{getAdvancedSearchText('placeholders.anyBadge', 'Any Badge')}</SelectItem>
+                        <SelectItem value="any">Било која значка</SelectItem>
                         {environmentalBadges.map(badge => (
                           <SelectItem key={badge} value={badge}>{badge}</SelectItem>
                         ))}
@@ -2113,13 +2113,13 @@ export default function AdvancedSearch() {
                   </div>
 
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Electric Range</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">Електричен домет</label>
                     <Select value={localFilters.electricRange} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, electricRange: value }))}>
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder={getAdvancedSearchText('placeholders.anyRange', 'Any Range')} />
+                        <SelectValue placeholder="Било кој домет" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="any">{getAdvancedSearchText('placeholders.anyRange', 'Any Range')}</SelectItem>
+                        <SelectItem value="any">Било кој домет</SelectItem>
                         {electricRangeOptions.map(range => (
                           <SelectItem key={range} value={range}>{range}</SelectItem>
                         ))}
