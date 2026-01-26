@@ -1576,5 +1576,21 @@ export const mkTranslations: TranslationStrings = {
 
   navigation: {
     backToHome: 'Назад на почетна'
+  },
+
+  // Advanced Search specific translations  
+  fields: {
+    previousOwners: 'Претходни сопственици',
+    hadAccident: 'Имал несреќа',
+    interiorColor: 'Боја на ентериер',
+    upholstery: 'Тапацирање'
+  },
+  labels: {
+    owner: 'сопственик',
+    ownerPlural: 'и'
+  },
+  placeholders: {
+    anyMaterial: 'Било кој материјал',
+    anyColor: 'Било која боја'
   }
 };

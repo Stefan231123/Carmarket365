@@ -1258,14 +1258,38 @@ export const sqTranslations: TranslationStrings = {
         description: 'Pamja e jashtme dhe ngjyra'
       },
       interior: {
-        title: 'Ngjyra e brendshme dhe veshja',
-        description: 'Materialet dhe ngjyrat e brendshme'
+        title: 'Ngjyra e brendshme dhe tapiceria',
+        description: 'Pamja e brendshme dhe materialet'
+      },
+      interiorAppearance: {
+        description: 'Pamja e brendshme dhe materialet'
       },
       history: {
         title: 'Pronarët e mëparshëm dhe historia',
-        description: 'Historia e automjetit dhe pronarët'
+        description: 'Detajet e pronësisë dhe historisë së automjetit'
+      },
+      ownershipHistory: {
+        description: 'Detajet e pronësisë dhe historisë së automjetit'
       },
     },
+
+  },
+
+  // Advanced Search specific translations
+  fields: {
+    previousOwners: 'Pronarët e mëparshëm',
+    hadAccident: 'Ka pasur aksident',
+    interiorColor: 'Ngjyra e brendshme',
+    upholstery: 'Tapiceria'
+  },
+  labels: {
+    owner: 'pronar',
+    ownerPlural: 'ë'
+  },
+  placeholders: {
+    anyMaterial: 'Çdo material',
+    anyColor: 'Çdo ngjyrë'
+  },
     
     
     
@@ -2785,18 +2809,8 @@ export const sqTranslations: TranslationStrings = {
     },
   },
 
-
-
-
-
-
   // Navigimi
   navigation: {
     backToHome: 'Kthehu tek faqja kryesore',
-  },
-
-
-  // Final fixes section for ExpressSell component
-
-  // Forms section for placeholders
+  }
 };

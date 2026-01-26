@@ -184,13 +184,13 @@ const fallbackBodyColors = ['Црна', 'Бела', 'Сребрена', 'Сив�
 
 const fallbackPaintWorkTypes = ['Солидна', 'Металик', 'Перла', 'Мат', 'Двобојна', 'Приспособена'];
 
-const fallbackInteriorColors = ['Black', 'Gray', 'Beige', 'Brown', 'Tan', 'White', 'Red', 'Blue', 'Other'];
+const fallbackInteriorColors = ['Црна', 'Сива', 'Бежова', 'Кафена', 'Кафеава', 'Бела', 'Црвена', 'Сина', 'Друго'];
 
-const fallbackUpholsteryTypes = ['Fabric', 'Leather', 'Leatherette', 'Alcantara', 'Vinyl', 'Combination'];
+const fallbackUpholsteryTypes = ['Ткаенина', 'Кожа', 'Вештачка кожа', 'Алкантара', 'Винил', 'Комбинација'];
 
 const fallbackPreviousOwnersOptions = ['1', '2', '3', '4', '5+'];
 
-const fallbackYesNoOptions = ['Yes', 'No', 'Unknown'];
+const fallbackYesNoOptions = ['Да', 'Не', 'Непознато'];
 
 const fallbackGuaranteeOptions = ['No Guarantee', 'Dealer Guarantee', 'Manufacturer Guarantee', 'Extended Guarantee'];
 
@@ -202,7 +202,7 @@ const fallbackEnginePositions = ['Front', 'Mid', 'Rear'];
 
 // Advanced Vehicle History
 const fallbackServiceBookOptions = ['Yes', 'No', 'Digital', 'Partial'];
-const fallbackYesNoUnknownOptions = ['Yes', 'No', 'Unknown'];
+const fallbackYesNoUnknownOptions = ['Да', 'Не', 'Непознато'];
 const fallbackRoadworthinessOptions = ['Valid', 'Expired', 'New', 'Not Required'];
 
 // Financing & Insurance
@@ -403,7 +403,15 @@ export default function AdvancedSearch() {
         
         // Appearance section
         'sections.appearance.title': 'Боја на каросерија и работа на бојата',
-        'sections.exteriorAppearance.description': 'Надворешен изглед на возилото'
+        'sections.exteriorAppearance.description': 'Надворешен изглед на возилото',
+        
+        // Interior section
+        'sections.interior.title': 'Боја на ентериер и тапацирање',
+        'sections.interiorAppearance.description': 'Изглед на ентериерот и материјали',
+        
+        // History section
+        'sections.history.title': 'Претходни сопственици и историја',
+        'sections.ownershipHistory.description': 'Детали за сопственоста и историјата на возилото'
       };
       
       if (mkTranslations[key]) {
@@ -536,6 +544,18 @@ export default function AdvancedSearch() {
       if (arrayType === 'paintworkTypes') {
         return ['Solide', 'Metalike', 'Perlë', 'Mat', 'Dy-ngjyrë', 'E personalizuar'];
       }
+      if (arrayType === 'interiorColors') {
+        return ['E zezë', 'Gri', 'Bezhë', 'Kafe', 'Kafë', 'E bardhë', 'E kuqe', 'Blu', 'Tjetër'];
+      }
+      if (arrayType === 'upholsteryTypes') {
+        return ['Pëlhurë', 'Lëkurë', 'Lëkurë artificiale', 'Alcantara', 'Vinyl', 'Kombinim'];
+      }
+      if (arrayType === 'previousOwnersOptions') {
+        return ['1', '2', '3', '4', '5+'];
+      }
+      if (arrayType === 'yesNoUnknownOptions') {
+        return ['Po', 'Jo', 'E panjohur'];
+      }
     }
     
     // For other languages or untranslated arrays, use English
@@ -547,6 +567,18 @@ export default function AdvancedSearch() {
     }
     if (arrayType === 'paintworkTypes') {
       return ['Solid', 'Metallic', 'Pearl', 'Matte', 'Two-tone', 'Custom'];
+    }
+    if (arrayType === 'interiorColors') {
+      return ['Black', 'Gray', 'Beige', 'Brown', 'Tan', 'White', 'Red', 'Blue', 'Other'];
+    }
+    if (arrayType === 'upholsteryTypes') {
+      return ['Fabric', 'Leather', 'Leatherette', 'Alcantara', 'Vinyl', 'Combination'];
+    }
+    if (arrayType === 'previousOwnersOptions') {
+      return ['1', '2', '3', '4', '5+'];
+    }
+    if (arrayType === 'yesNoUnknownOptions') {
+      return ['Yes', 'No', 'Unknown'];
     }
     
     return fallbackArray;
