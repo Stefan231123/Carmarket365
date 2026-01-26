@@ -24,6 +24,12 @@ interface HeroSectionProps {
 
 export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSectionProps) {
   const { t } = useTranslation();
+  
+  // Debug: Log translation values
+  console.log('🔍 HeroSection Debug:');
+  console.log('- hero.title:', t('hero.title'));
+  console.log('- hero.searchForm.make:', t('hero.searchForm.make'));
+  console.log('- hero.searchForm.anyMake:', t('hero.searchForm.anyMake'));
   const [searchForm, setSearchForm] = useState<SearchFormData>({
     vehicleType: 'cars',
     make: '',
@@ -92,10 +98,10 @@ export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSe
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
             <div>
-              <label className="block text-sm mb-2 text-muted-foreground">{t('hero.searchForm.make')}</label>
+              <label className="block text-sm mb-2 text-muted-foreground">{t('hero.searchForm.make') || 'Марка'}</label>
               <Select value={searchForm.make} onValueChange={(value) => handleFormChange('make', value)}>
                 <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                  <SelectValue placeholder={t('hero.searchForm.anyMake')} />
+                  <SelectValue placeholder={t('hero.searchForm.anyMake') || 'Која било марка'} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="any-make">{t('hero.searchForm.anyMake')}</SelectItem>
@@ -110,10 +116,10 @@ export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSe
             </div>
 
             <div>
-              <label className="block text-sm mb-2 text-muted-foreground">{t('hero.searchForm.model')}</label>
+              <label className="block text-sm mb-2 text-muted-foreground">{t('hero.searchForm.model') || 'Модел'}</label>
               <Select value={searchForm.model} onValueChange={(value) => handleFormChange('model', value)}>
                 <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                  <SelectValue placeholder={t('hero.searchForm.anyModel')} />
+                  <SelectValue placeholder={t('hero.searchForm.anyModel') || 'Кој било модел'} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="any-model">{t('hero.searchForm.anyModel')}</SelectItem>
@@ -122,10 +128,10 @@ export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSe
             </div>
 
             <div>
-              <label className="block text-sm mb-2 text-muted-foreground">{t('hero.searchForm.priceFrom')}</label>
+              <label className="block text-sm mb-2 text-muted-foreground">{t('hero.searchForm.priceFrom') || 'Цена од'}</label>
               <Select value={searchForm.priceFrom} onValueChange={(value) => handleFormChange('priceFrom', value)}>
                 <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                  <SelectValue placeholder={t('hero.searchForm.minPrice')} />
+                  <SelectValue placeholder={t('hero.searchForm.minPrice') || 'Мин цена'} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="no-min">{t('hero.searchForm.noMin')}</SelectItem>
@@ -139,10 +145,10 @@ export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSe
             </div>
 
             <div>
-              <label className="block text-sm mb-2 text-muted-foreground">{t('hero.searchForm.priceTo')}</label>
+              <label className="block text-sm mb-2 text-muted-foreground">{t('hero.searchForm.priceTo') || 'Цена до'}</label>
               <Select value={searchForm.priceTo} onValueChange={(value) => handleFormChange('priceTo', value)}>
                 <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                  <SelectValue placeholder={t('hero.searchForm.maxPrice')} />
+                  <SelectValue placeholder={t('hero.searchForm.maxPrice') || 'Макс цена'} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="no-max">{t('hero.searchForm.noMax')}</SelectItem>
