@@ -156,28 +156,28 @@ const fallbackVehicleConditionTypes = ['Нов', 'Користен', 'Предр
 
 const fallbackRadiusOptions = ['5', '10', '25', '50', '100', '200', '300', '500', 'Nationwide'];
 
-// Optional Equipment (comprehensive list)
-const optionalEquipment = [
-  // Safety & Assistance
-  'ABS', 'ESP', 'Airbag - Driver', 'Airbag - Passenger', 'Airbag - Side', 'Airbag - Head',
-  'Lane Departure Warning', 'Lane Keep Assist', 'Adaptive Cruise Control', 'Emergency Braking Assistant',
-  'Blind Spot Monitor', 'Parking Sensors Front', 'Parking Sensors Rear', 'Parking Camera', '360° Camera',
-  'Night Vision', 'Traffic Sign Recognition', 'Tire Pressure Monitoring',
+// Optional Equipment fallback (will be translated by getTranslatedArray)
+const fallbackOptionalEquipment = [
+  // Safety & Assistance - Macedonian
+  'ABS', 'ESP', 'Воздушна перничка - возач', 'Воздушна перничка - патник', 'Странични воздушни пернички', 'Воздушни пернички за глава',
+  'Предупредување за напуштање лента', 'Помош за задржување лента', 'Адаптивен круиз контрол', 'Асистент за итно сопирање',
+  'Мониторинг на слепи агол', 'Сензори за паркирање напред', 'Сензори за паркирање назад', 'Камера за паркирање', '360° камера',
+  'Ноќно видување', 'Препознавање на сообраќајни знаци', 'Следење на притисок во гуми',
   
-  // Comfort & Convenience
-  'Air Conditioning', 'Automatic Climate Control', 'Multi-zone Climate Control', 'Heated Seats',
-  'Cooled/Ventilated Seats', 'Electric Seats', 'Memory Seats', 'Massage Seats', 'Leather Seats',
-  'Heated Steering Wheel', 'Keyless Entry', 'Keyless Start', 'Remote Start', 'Cruise Control',
-  'Speed Limiter', 'Power Windows', 'Electric Mirrors', 'Auto-dimming Mirrors', 'Rain Sensor',
-  'Light Sensor', 'Automatic Lights', 'Sunroof', 'Panoramic Roof', 'Electric Tailgate',
+  // Comfort & Convenience - Macedonian
+  'Клима уред', 'Автоматска клима', 'Мултизонска клима', 'Греани седишта',
+  'Ладени/вентилирани седишта', 'Електрични седишта', 'Седишта со меморија', 'Седишта со масажа', 'Кожни седишта',
+  'Греан волан', 'Безклучен влез', 'Безклучно стартување', 'Далечинско стартување', 'Круиз контрол',
+  'Ограничувач на брзина', 'Електрични прозорци', 'Електрични огледала', 'Самозатемнувачки огледала', 'Сензор за дожд',
+  'Светлосен сензор', 'Автоматски светла', 'Отворен кров', 'Панорамски кров', 'Електричен багажник',
   
-  // Entertainment & Technology
-  'Navigation System', 'Touchscreen', 'Apple CarPlay', 'Android Auto', 'Bluetooth', 'WiFi Hotspot',
-  'Premium Sound System', 'Head-up Display', 'Digital Cockpit', 'Voice Control', 'USB Connection',
+  // Entertainment & Technology - Macedonian
+  'Навигациски систем', 'Екран на допир', 'Apple CarPlay', 'Android Auto', 'Bluetooth', 'WiFi точка',
+  'Премиум аудио систем', 'Head-up дисплеј', 'Дигитален кокпит', 'Гласовна контрола', 'USB врска',
   
-  // Exterior & Wheels
-  'Alloy Wheels', 'Sport Wheels', 'Winter Tires', 'Metallic Paint', 'Pearl Paint', 'Roof Rails',
-  'Towing Package', 'Spoiler', 'Sport Package', 'Chrome Package'
+  // Exterior & Wheels - Macedonian
+  'Алуминиумски тркала', 'Спортски тркала', 'Зимски гуми', 'Металик боја', 'Перла боја', 'Кров носачи',
+  'Пакет за влечење', 'Спојлер', 'Спортски пакет', 'Хром пакет'
 ];
 
 const fallbackBodyColors = ['Black', 'White', 'Silver', 'Gray', 'Blue', 'Red', 'Green', 'Brown', 'Yellow', 'Orange', 'Beige', 'Gold', 'Violet', 'Bronze', 'Other'];
@@ -395,7 +395,11 @@ export default function AdvancedSearch() {
         'labels.seats': 'седишта',
         'labels.mileage300kPlus': '300.000+ км',
         'labels.zeroPower': '0 kW (0 КС)',
-        'distances.nationwide': 'Низ цела земја'
+        'distances.nationwide': 'Низ цела земја',
+        
+        // Optional Equipment section
+        'sections.optionalEquipment.title': 'Опциска опрема',
+        'sections.optionalEquipment.description': 'Дополнителни карактеристики и опрема'
       };
       
       if (mkTranslations[key]) {
@@ -461,7 +465,11 @@ export default function AdvancedSearch() {
         'labels.seats': 'vende',
         'labels.mileage300kPlus': '300.000+ km',
         'labels.zeroPower': '0 kW (0 PS)',
-        'distances.nationwide': 'Në të gjithë vendin'
+        'distances.nationwide': 'Në të gjithë vendin',
+        
+        // Optional Equipment section
+        'sections.optionalEquipment.title': 'Pajisje të zgjedhshme',
+        'sections.optionalEquipment.description': 'Veçori dhe pajisje shtesë'
       };
       
       if (sqTranslations[key]) {
@@ -474,7 +482,7 @@ export default function AdvancedSearch() {
   };
 
   // Simple array translation function
-  const getTranslatedArray = (arrayType: 'bodyTypes' | 'fuelTypes' | 'transmissions' | 'additionalProperties' | 'sellerTypes' | 'conditions' | 'colors' | 'interiorColors' | 'paintworkTypes' | 'upholsteryTypes' | 'guaranteeOptions' | 'previousOwnersOptions' | 'turboOptions' | 'enginePositions' | 'serviceBookOptions' | 'yesNoUnknownOptions' | 'roadworthinessOptions' | 'environmentalBadges' | 'electricRangeOptions', fallbackArray: string[]): string[] => {
+  const getTranslatedArray = (arrayType: 'bodyTypes' | 'fuelTypes' | 'transmissions' | 'additionalProperties' | 'optionalEquipment' | 'sellerTypes' | 'conditions' | 'colors' | 'interiorColors' | 'paintworkTypes' | 'upholsteryTypes' | 'guaranteeOptions' | 'previousOwnersOptions' | 'turboOptions' | 'enginePositions' | 'serviceBookOptions' | 'yesNoUnknownOptions' | 'roadworthinessOptions' | 'environmentalBadges' | 'electricRangeOptions', fallbackArray: string[]): string[] => {
     const effectiveLanguage = new URLSearchParams(window.location.search).get('lang') || currentLanguage;
     
     // For Macedonian, return hardcoded Macedonian arrays
@@ -493,6 +501,27 @@ export default function AdvancedSearch() {
       if (arrayType === 'fuelTypes') {
         return ['Benzinë', 'Dizel', 'Elektrik', 'Hibrid (Benzinë/Elektrik)', 'Hibrid (Dizel/Elektrik)', 'Gaz natyror (CNG)', 'Gaz i lëngshëm (LPG)', 'Etanol', 'Hidrogjen'];
       }
+      if (arrayType === 'optionalEquipment') {
+        return [
+          // Safety & Assistance - Albanian
+          'ABS', 'ESP', 'Airbag - shofer', 'Airbag - pasagjer', 'Airbag anësor', 'Airbag koke',
+          'Paralajmërim ndryshimi korsi', 'Ndihmë mbajtje korsi', 'Kontroll kroçje adaptiv', 'Asistent frenimi emergjent',
+          'Monitor pika të verbër', 'Sensorë parkimi përpara', 'Sensorë parkimi prapa', 'Kamerë parkimi', 'Kamerë 360°',
+          'Shikim natë', 'Njohja e shenjave', 'Monitorim presion gomash',
+          // Comfort & Convenience - Albanian
+          'Ajër kondicionuar', 'Klimë automatike', 'Klimë multi-zonë', 'Ulëse të ngrohta',
+          'Ulëse të ftohta/të ajrosura', 'Ulëse elektrike', 'Ulëse me kujtesë', 'Ulëse masazhimi', 'Ulëse lëkure',
+          'Timon i ngrohtë', 'Hyrje pa çelës', 'Nisje pa çelës', 'Nisje me distancë', 'Kontroll kroçjeje',
+          'Kufizues shpejtësie', 'Dritare elektrike', 'Pasqyra elektrike', 'Pasqyra vetë-errësuese', 'Sensor shiu',
+          'Sensor drite', 'Dritat automatike', 'Çati e hapur', 'Çati panoramike', 'Bagazh elektrik',
+          // Technology - Albanian
+          'Sistem navigimi', 'Ekran prekjeje', 'Apple CarPlay', 'Android Auto', 'Bluetooth', 'WiFi hotspot',
+          'Sistem audio premium', 'Head-up display', 'Kokpit digjital', 'Kontroll zëri', 'Lidhje USB',
+          // Exterior - Albanian
+          'Rrotat alumin', 'Rrotat sportive', 'Goma dimri', 'Bojë metalike', 'Bojë perlë', 'Mbështetës çatie',
+          'Paketa tërheqje', 'Spoiler', 'Paketa sportive', 'Paketa krom'
+        ];
+      }
     }
     
     // For other languages or untranslated arrays, use English
@@ -508,6 +537,7 @@ export default function AdvancedSearch() {
   const bodyTypes = getTranslatedArray('bodyTypes', fallbackBodyTypes);
   const fuelTypes = getTranslatedArray('fuelTypes', fallbackFuelTypes);
   const gearTypes = getTranslatedArray('transmissions', fallbackGearTypes);
+  const optionalEquipment = getTranslatedArray('optionalEquipment', fallbackOptionalEquipment);
   
   // Get translated options arrays
   const sellerTypes = getTranslatedArray('sellerTypes', fallbackSellerTypes);
