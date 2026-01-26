@@ -180,9 +180,9 @@ const fallbackOptionalEquipment = [
   'Пакет за влечење', 'Спојлер', 'Спортски пакет', 'Хром пакет'
 ];
 
-const fallbackBodyColors = ['Black', 'White', 'Silver', 'Gray', 'Blue', 'Red', 'Green', 'Brown', 'Yellow', 'Orange', 'Beige', 'Gold', 'Violet', 'Bronze', 'Other'];
+const fallbackBodyColors = ['Црна', 'Бела', 'Сребрена', 'Сива', 'Сина', 'Црвена', 'Зелена', 'Кафена', 'Жолта', 'Портокалова', 'Бежова', 'Златна', 'Виолетова', 'Бронзена', 'Друго'];
 
-const fallbackPaintWorkTypes = ['Solid', 'Metallic', 'Pearl', 'Matte', 'Two-tone', 'Custom'];
+const fallbackPaintWorkTypes = ['Солидна', 'Металик', 'Перла', 'Мат', 'Двобојна', 'Приспособена'];
 
 const fallbackInteriorColors = ['Black', 'Gray', 'Beige', 'Brown', 'Tan', 'White', 'Red', 'Blue', 'Other'];
 
@@ -399,7 +399,11 @@ export default function AdvancedSearch() {
         
         // Optional Equipment section
         'sections.optionalEquipment.title': 'Опциска опрема',
-        'sections.optionalEquipment.description': 'Дополнителни карактеристики и опрема'
+        'sections.optionalEquipment.description': 'Дополнителни карактеристики и опрема',
+        
+        // Appearance section
+        'sections.appearance.title': 'Боја на каросерија и работа на бојата',
+        'sections.exteriorAppearance.description': 'Надворешен изглед на возилото'
       };
       
       if (mkTranslations[key]) {
@@ -469,7 +473,11 @@ export default function AdvancedSearch() {
         
         // Optional Equipment section
         'sections.optionalEquipment.title': 'Pajisje të zgjedhshme',
-        'sections.optionalEquipment.description': 'Veçori dhe pajisje shtesë'
+        'sections.optionalEquipment.description': 'Veçori dhe pajisje shtesë',
+        
+        // Appearance section  
+        'sections.appearance.title': 'Ngjyra e karocerisë dhe puna e bojës',
+        'sections.exteriorAppearance.description': 'Pamja e jashtme e automjetit'
       };
       
       if (sqTranslations[key]) {
@@ -522,11 +530,23 @@ export default function AdvancedSearch() {
           'Paketa tërheqje', 'Spoiler', 'Paketa sportive', 'Paketa krom'
         ];
       }
+      if (arrayType === 'colors') {
+        return ['E zezë', 'E bardhë', 'Argjend', 'Gri', 'Blu', 'E kuqe', 'E gjelbër', 'Kafe', 'E verdhë', 'Portokalli', 'Bezhë', 'Ari', 'Vjollcë', 'Bronz', 'Tjetër'];
+      }
+      if (arrayType === 'paintworkTypes') {
+        return ['Solide', 'Metalike', 'Perlë', 'Mat', 'Dy-ngjyrë', 'E personalizuar'];
+      }
     }
     
     // For other languages or untranslated arrays, use English
     if (arrayType === 'additionalProperties') {
       return ['Certified Pre-Owned', 'Single Owner', 'Accident-Free', 'Service Records Available', 'Under Warranty', 'Recently Serviced', 'Low Mileage', 'Garage Kept', 'Winter Package', 'Sport Package'];
+    }
+    if (arrayType === 'colors') {
+      return ['Black', 'White', 'Silver', 'Gray', 'Blue', 'Red', 'Green', 'Brown', 'Yellow', 'Orange', 'Beige', 'Gold', 'Violet', 'Bronze', 'Other'];
+    }
+    if (arrayType === 'paintworkTypes') {
+      return ['Solid', 'Metallic', 'Pearl', 'Matte', 'Two-tone', 'Custom'];
     }
     
     return fallbackArray;
