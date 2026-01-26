@@ -375,6 +375,8 @@ export default function AdvancedSearch() {
         'fields.numberOfSeats': 'Број на седишта',
         'fields.seller': 'Продавач',
         'fields.vehicleCondition': 'Состојба на возилото',
+        'fields.interiorColor': 'Боја на ентериер',
+        'fields.upholstery': 'Тапацирање',
         
         // Placeholders
         'placeholders.anyMake': 'Било која марка',
@@ -387,6 +389,8 @@ export default function AdvancedSearch() {
         'placeholders.anySeller': 'Било кој продавач',
         'placeholders.anyCondition': 'Било која состојба',
         'placeholders.cityStateOrZip': 'Внесете град или поштенски код',
+        'placeholders.anyColor': 'Било која боја',
+        'placeholders.anyMaterial': 'Било кој материјал',
         
         // Labels and units
         'labels.km': 'км',
@@ -437,6 +441,10 @@ export default function AdvancedSearch() {
         'sections.sellerCondition.title': 'Shitësi dhe gjendja e automjetit',
         'sections.sellerCondition.description': 'Lloji i shitësit dhe gjendja e automjetit',
         
+        // Interior section
+        'sections.interior.title': 'Ngjyra e brendshme dhe tapiceria',
+        'sections.interiorAppearance.description': 'Pamja e brendshme dhe materialet',
+        
         // Field labels
         'fields.make': 'Marka',
         'fields.model': 'Modeli',
@@ -457,6 +465,8 @@ export default function AdvancedSearch() {
         'fields.numberOfSeats': 'Numri i vendeve',
         'fields.seller': 'Shitësi',
         'fields.vehicleCondition': 'Gjendja e automjetit',
+        'fields.interiorColor': 'Ngjyra e brendshme',
+        'fields.upholstery': 'Tapiceria',
         
         // Placeholders
         'placeholders.anyMake': 'Çdo markë',
@@ -469,6 +479,8 @@ export default function AdvancedSearch() {
         'placeholders.anySeller': 'Çdo shitës',
         'placeholders.anyCondition': 'Çdo gjendje',
         'placeholders.cityStateOrZip': 'Futni qytetin ose kodin postar',
+        'placeholders.anyColor': 'Çdo ngjyrë',
+        'placeholders.anyMaterial': 'Çdo material',
         
         // Labels and units
         'labels.km': 'km',
