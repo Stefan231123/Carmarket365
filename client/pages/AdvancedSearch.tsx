@@ -1846,22 +1846,22 @@ export default function AdvancedSearch() {
               </div>
             </FilterSection>
 
-            {/* Financing & Insurance */}
+            {/* Financing & Insurance - PURE HARDCODED MACEDONIAN */}
             <FilterSection 
-              title={getAdvancedSearchText('sections.financing.title', 'Financing & Insurance')} 
+              title="Финансирање и осигурување" 
               sectionKey="financing"
               icon={<Star className="h-5 w-5 text-green-600" />}
-              description={getAdvancedSearchText('sections.financing.description', 'Financing options and insurance details')}
+              description="Опции за финансирање и детали за осигурување"
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">Financing Available</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">Достапно финансирање</label>
                   <Select value={localFilters.financingAvailable} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, financingAvailable: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
+                      <SelectValue placeholder="Било кое" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
+                      <SelectItem value="any">Било кое</SelectItem>
                       {yesNoOptions.map(option => (
                         <SelectItem key={option} value={option}>{option}</SelectItem>
                       ))}
@@ -1870,13 +1870,13 @@ export default function AdvancedSearch() {
                 </div>
 
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">Leasing Available</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">Достапно лизинг</label>
                   <Select value={localFilters.leasingAvailable} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, leasingAvailable: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
+                      <SelectValue placeholder="Било кое" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
+                      <SelectItem value="any">Било кое</SelectItem>
                       {yesNoOptions.map(option => (
                         <SelectItem key={option} value={option}>{option}</SelectItem>
                       ))}
@@ -1885,28 +1885,28 @@ export default function AdvancedSearch() {
                 </div>
 
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">Insurance Category</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">Категорија на осигурување</label>
                   <Select value={localFilters.insuranceCategory} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, insuranceCategory: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
+                      <SelectValue placeholder="Било кое" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
+                      <SelectItem value="any">Било кое</SelectItem>
                       {insuranceCategories.map(category => (
-                        <SelectItem key={category} value={category}>Category {category}</SelectItem>
+                        <SelectItem key={category} value={category}>Категорија {category}</SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">VAT Deductible</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">Одбиток од ДДВ</label>
                   <Select value={localFilters.vatDeductible} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, vatDeductible: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
+                      <SelectValue placeholder="Било кое" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
+                      <SelectItem value="any">Било кое</SelectItem>
                       {yesNoOptions.map(option => (
                         <SelectItem key={option} value={option}>{option}</SelectItem>
                       ))}
@@ -1916,23 +1916,23 @@ export default function AdvancedSearch() {
               </div>
             </FilterSection>
 
-            {/* Advanced Safety Features */}
+            {/* Advanced Safety Features - PURE HARDCODED MACEDONIAN */}
             <FilterSection 
-              title={getAdvancedSearchText('sections.advancedSafety.title', 'Advanced Safety Features')} 
+              title="Напредни безбедносни карактеристики" 
               sectionKey="safety"
               icon={<Shield className="h-5 w-5 text-red-600" />}
-              description={getAdvancedSearchText('sections.advancedSafety.description', 'Safety ratings and advanced driver assistance systems')}
+              description="Безбедносни рангирања и напредни системи за помош на возачот"
             >
               <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Safety Rating</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">Безбедносно рангирање</label>
                     <Select value={localFilters.safetyRating} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, safetyRating: value }))}>
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder={getAdvancedSearchText('placeholders.anyRating', 'Any Rating')} />
+                        <SelectValue placeholder="Било какво рангирање" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="any">{getAdvancedSearchText('placeholders.anyRating', 'Any Rating')}</SelectItem>
+                        <SelectItem value="any">Било какво рангирање</SelectItem>
                         {safetyRatings.map(rating => (
                           <SelectItem key={rating} value={rating}>{rating}</SelectItem>
                         ))}
@@ -1941,13 +1941,13 @@ export default function AdvancedSearch() {
                   </div>
 
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Collision Avoidance</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">Избегнување на судир</label>
                     <Select value={localFilters.collisionAvoidance} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, collisionAvoidance: value }))}>
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
+                        <SelectValue placeholder="Било кое" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
+                        <SelectItem value="any">Било кое</SelectItem>
                         {yesNoOptions.map(option => (
                           <SelectItem key={option} value={option}>{option}</SelectItem>
                         ))}
@@ -1956,13 +1956,13 @@ export default function AdvancedSearch() {
                   </div>
 
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Emergency Call System</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">Систем за спешни повици</label>
                     <Select value={localFilters.emergencyCallSystem} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, emergencyCallSystem: value }))}>
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
+                        <SelectValue placeholder="Било кое" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
+                        <SelectItem value="any">Било кое</SelectItem>
                         {emergencyCallOptions.map(option => (
                           <SelectItem key={option} value={option}>{option}</SelectItem>
                         ))}
