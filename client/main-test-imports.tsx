@@ -17,7 +17,7 @@ try {
 
   // Test 3: Translation hook
   console.log('3. Testing translation hook...');
-  const { useTranslation } = await import("../hooks/useTranslation");
+  const { useTranslation } = await import("./hooks/useTranslation");
   console.log('✅ Translation hook OK');
 
   // Test 4: Components one by one

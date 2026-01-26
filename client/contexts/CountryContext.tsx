@@ -34,7 +34,17 @@ interface CountryProviderProps {
 
 export function CountryProvider({ children }: CountryProviderProps) {
   const [country, setCountryState] = useState<CountryConfig | null>(null);
-  const [currentLanguage, setCurrentLanguage] = useState<string>('mk');
+  const [currentLanguage, setCurrentLanguage] = useState<string>(() => {
+    // Initialize with URL parameter if available, otherwise default to 'mk'
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search);
+      const langParam = urlParams.get('lang');
+      if (langParam && ['mk', 'sq'].includes(langParam)) {
+        return langParam;
+      }
+    }
+    return 'mk';
+  });
   const [isValidCountry, setIsValidCountry] = useState(false);
   const [detectedCountry, setDetectedCountry] = useState<CountryConfig | null>(null);
   const [isGeolocationLoading, setIsGeolocationLoading] = useState(false);

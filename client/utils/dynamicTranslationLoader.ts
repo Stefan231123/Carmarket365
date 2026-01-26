@@ -187,7 +187,7 @@ class DynamicTranslationLoader {
       }
       
       // If English also fails, return minimal fallback
-      return this.getFallbackTranslations();
+      return this.getFallbackTranslations() as TranslationStrings;
     }
   }
 
@@ -293,7 +293,7 @@ class DynamicTranslationLoader {
           requestFinancing: 'Request Financing'
         }
       }
-    } as TranslationStrings;
+    } as any;
   }
 }
 

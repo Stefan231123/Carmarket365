@@ -319,6 +319,7 @@ function FilterSection({ title, children, sectionKey, icon, description }: Filte
 export default function AdvancedSearch() {
   const navigate = useNavigate();
   const { t, currentLanguage } = useTranslation();
+  
 
   // Helper function to get nested value from object using dot notation
   const getNestedValue = (obj: any, key: string): string | undefined => {
@@ -327,13 +328,45 @@ export default function AdvancedSearch() {
     }, obj);
   };
 
-  // Simple, reliable translation function
+  // Reliable translation function with URL parameter fallback
   const getAdvancedSearchText = (key: string, fallback: string) => {
+    // Check URL parameter directly as fallback for language detection issues
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlLang = urlParams.get('lang');
+    const effectiveLanguage = urlLang || currentLanguage;
+    
+    console.log(`🔍 Translation Debug - Key: ${key}, UrlLang: ${urlLang}, CurrentLang: ${currentLanguage}, Effective: ${effectiveLanguage}`);
+    
     // For Macedonian language, return hardcoded Macedonian translations
-    if (currentLanguage === 'mk') {
+    if (effectiveLanguage === 'mk' || currentLanguage === 'mk') {
       const mkTranslations: {[key: string]: string} = {
-        'sections.technicalSpecs.title': 'Технички спецификации',
+        // Page titles
+        'title': 'Напредно пребарување на автомобили',
+        'subtitle': 'Користете ги нашите сеопфатни филтери за пребарување за да го откриете точно возилото што го барате',
+        'searchingRealTime': 'Пребаруваме во реално време...',
+        
+        // Section titles and descriptions
+        'sections.vehicleDetails.title': 'Основни информации',
+        'sections.vehicleDetails.description': 'Марка на возилото, модел и основни својства',
+        'sections.priceLocation.title': 'Прва регистрација и цена',
+        'sections.priceLocation.description': 'Датум на регистрација и ценовен опсег',
+        'sections.technicalSpecs.title': 'Пробег и снага',
+        'sections.technicalSpecs.description': 'Спецификации за изведување и употреба на возилото',
         'sections.sellerCondition.title': 'Продавач и состојба на возилото',
+        'sections.sellerCondition.description': 'Тип на продавач и состојба на возилото',
+        
+        // Field labels
+        'fields.make': 'Марка',
+        'fields.model': 'Модел',
+        'fields.additionalProperties': 'Дополнителни својства',
+        'fields.bodyType': 'Тип на каросерија',
+        'fields.fuelType': 'Тип на гориво',
+        'fields.yearFrom': 'Прва регистрација од',
+        'fields.yearTo': 'Прва регистрација до',
+        'fields.priceMin': 'Цена од (€)',
+        'fields.priceMax': 'Цена до (€)',
+        'fields.location': 'Град/Поштенски код',
+        'fields.radius': 'Радиус (км)',
         'fields.mileageMin': 'Пробег од (км)',
         'fields.mileageMax': 'Пробег до (км)',
         'fields.powerFrom': 'Снага од (kW)',
@@ -342,13 +375,27 @@ export default function AdvancedSearch() {
         'fields.numberOfSeats': 'Број на седишта',
         'fields.seller': 'Продавач',
         'fields.vehicleCondition': 'Состојба на возилото',
+        
+        // Placeholders
+        'placeholders.anyMake': 'Било која марка',
+        'placeholders.anyModel': 'Било кој модел',
+        'placeholders.anyType': 'Било кој тип на каросерија',
+        'placeholders.any': 'Било кое',
+        'placeholders.from': 'Од',
+        'placeholders.to': 'До',
         'placeholders.anyTransmission': 'Било кој менувач',
         'placeholders.anySeller': 'Било кој продавач',
+        'placeholders.anyCondition': 'Било која состојба',
+        'placeholders.cityStateOrZip': 'Внесете град или поштенски код',
+        
+        // Labels and units
         'labels.km': 'км',
         'labels.kw': 'kW',
         'labels.ps': 'КС',
+        'labels.seats': 'седишта',
         'labels.mileage300kPlus': '300.000+ км',
-        'labels.zeroPower': '0 kW (0 КС)'
+        'labels.zeroPower': '0 kW (0 КС)',
+        'distances.nationwide': 'Низ цела земја'
       };
       
       if (mkTranslations[key]) {
@@ -357,10 +404,35 @@ export default function AdvancedSearch() {
     }
     
     // For Albanian language, return hardcoded Albanian translations  
-    if (currentLanguage === 'sq') {
+    if (effectiveLanguage === 'sq' || currentLanguage === 'sq') {
       const sqTranslations: {[key: string]: string} = {
-        'sections.technicalSpecs.title': 'Specifikimet teknike',
+        // Page titles
+        'title': 'Kërkim i avancuar i automjeteve',
+        'subtitle': 'Përdorni filtrat tanë të gjithëpërfshirës të kërkimit për të zbuluar automjetin e saktë që po kërkoni',
+        'searchingRealTime': 'Duke kërkuar në kohë reale...',
+        
+        // Section titles and descriptions
+        'sections.vehicleDetails.title': 'Informacioni bazë',
+        'sections.vehicleDetails.description': 'Marka e automjetit, modeli dhe vetitë bazë',
+        'sections.priceLocation.title': 'Regjistrimi i parë dhe çmimi',
+        'sections.priceLocation.description': 'Data e regjistrimit dhe diapazoni i çmimit',
+        'sections.technicalSpecs.title': 'Kilometrazhi dhe fuqia',
+        'sections.technicalSpecs.description': 'Specifikimet e performancës dhe përdorimit të automjetit',
         'sections.sellerCondition.title': 'Shitësi dhe gjendja e automjetit',
+        'sections.sellerCondition.description': 'Lloji i shitësit dhe gjendja e automjetit',
+        
+        // Field labels
+        'fields.make': 'Marka',
+        'fields.model': 'Modeli',
+        'fields.additionalProperties': 'Vetitë shtesë',
+        'fields.bodyType': 'Lloji i karocerisë',
+        'fields.fuelType': 'Lloji i karburantit',
+        'fields.yearFrom': 'Regjistrimi i parë nga',
+        'fields.yearTo': 'Regjistrimi i parë deri',
+        'fields.priceMin': 'Çmimi nga (€)',
+        'fields.priceMax': 'Çmimi deri (€)',
+        'fields.location': 'Qyteti/Kodi postar',
+        'fields.radius': 'Radiusi (km)',
         'fields.mileageMin': 'Kilometrazhi nga (km)',
         'fields.mileageMax': 'Kilometrazhi deri (km)',
         'fields.powerFrom': 'Fuqia nga (kW)',
@@ -369,13 +441,27 @@ export default function AdvancedSearch() {
         'fields.numberOfSeats': 'Numri i vendeve',
         'fields.seller': 'Shitësi',
         'fields.vehicleCondition': 'Gjendja e automjetit',
+        
+        // Placeholders
+        'placeholders.anyMake': 'Çdo markë',
+        'placeholders.anyModel': 'Çdo model',
+        'placeholders.anyType': 'Çdo lloj karocerie',
+        'placeholders.any': 'Çdo',
+        'placeholders.from': 'Nga',
+        'placeholders.to': 'Deri',
         'placeholders.anyTransmission': 'Çdo transmetues',
         'placeholders.anySeller': 'Çdo shitës',
+        'placeholders.anyCondition': 'Çdo gjendje',
+        'placeholders.cityStateOrZip': 'Futni qytetin ose kodin postar',
+        
+        // Labels and units
         'labels.km': 'km',
-        'labels.kw': 'kW', 
+        'labels.kw': 'kW',
         'labels.ps': 'PS',
+        'labels.seats': 'vende',
         'labels.mileage300kPlus': '300.000+ km',
-        'labels.zeroPower': '0 kW (0 PS)'
+        'labels.zeroPower': '0 kW (0 PS)',
+        'distances.nationwide': 'Në të gjithë vendin'
       };
       
       if (sqTranslations[key]) {
@@ -567,10 +653,7 @@ export default function AdvancedSearch() {
       radiusKm: localFilters.radiusKm || undefined,
       mileageMin: localFilters.mileageMin > 0 ? localFilters.mileageMin : undefined,
       mileageMax: localFilters.mileageMax < 400000 ? localFilters.mileageMax : undefined,
-      powerMinKW: localFilters.powerMinKW > 0 ? localFilters.powerMinKW : undefined,
-      powerMaxKW: localFilters.powerMaxKW < 500 ? localFilters.powerMaxKW : undefined,
-      powerMinPS: localFilters.powerMinPS > 0 ? localFilters.powerMinPS : undefined,
-      powerMaxPS: localFilters.powerMaxPS < 680 ? localFilters.powerMaxPS : undefined,
+      powerKwMin: localFilters.powerMinKW > 0 ? localFilters.powerMinKW : undefined,
       gear: localFilters.gear || undefined,
       numberOfSeats: localFilters.numberOfSeats || undefined,
       seller: localFilters.seller || undefined,

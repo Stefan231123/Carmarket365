@@ -211,17 +211,58 @@ export const mkTranslations: TranslationStrings = {
         student: 'Студент',
         unemployed: 'Невработен'
       },
+      placeholders: {
+        enterFullName: 'Внесете го вашето целосно име',
+        enterPhone: 'Внесете го вашиот телефон',
+        enterEmail: 'Внесете ја вашата е-пошта',
+        enterLoanAmount: 'Внесете го износот на кредитот',
+        enterAnnualIncome: 'Внесете ја годишната заработка',
+        enterMonthlyExpenses: 'Внесете ги месечните трошоци',
+        selectRange: 'Изберете опсег',
+        selectStatus: 'Изберете статус',
+        selectDuration: 'Изберете времетраење'
+      },
+      validation: {
+        validEmail: 'Ве молиме внесете валидна е-пошта',
+        monthlyExpensesRequired: 'Месечните трошоци се задолжителни'
+      }
     },
     scheduleTestDrive: {
       title: 'Закажи тест возење',
       description: 'Закажи средба за тест возење на ова возило',
       badge: 'Тест возење достапно',
+      labels: {
+        fullName: 'Целосно име',
+        email: 'Е-пошта',
+        phone: 'Телефонски број',
+        preferredDate: 'Преферирана дата',
+        preferredTime: 'Преферирано време',
+        specialRequests: 'Специјални барања'
+      },
+      placeholders: {
+        enterFullName: 'Внесете го вашето целосно име',
+        enterEmail: 'Внесете ја вашата е-пошта',
+        enterPhone: 'Внесете го вашиот телефон',
+        selectDate: 'Изберете преферирана дата',
+        selectTime: 'Изберете преферирано време',
+        enterRequests: 'Некои специјални барања или прашања?'
+      },
+      validation: {
+        emailInvalid: 'Ве молиме внесете валидна е-пошта',
+        dateRequired: 'Ве молиме изберете преферирана дата',
+        timeRequired: 'Ве молиме изберете преферирано време'
+      },
       success: {
         title: 'Тест возењето е закажано!',
         description: 'Вашето барање за тест возење е испратено до продавачот. Тие ќе ве контактираат за потврда на терминот.',
         schedule: 'Закажи',
         scheduling: 'Закажување'
       },
+      actions: {
+        cancel: 'Откажи',
+        schedule: 'Закажи тест возење',
+        scheduling: 'Закажување...'
+      }
     },
     tradeIn: {
       title: 'Проценувач на замена',
@@ -232,6 +273,26 @@ export const mkTranslations: TranslationStrings = {
         results: 'Резултати'
       },
       form: {
+        labels: {
+          make: 'Марка',
+          model: 'Модел',
+          year: 'Година',
+          mileage: 'Пробег (км)',
+          condition: 'Општа состојба',
+          accident: 'Историја на несреќи',
+          serviceHistory: 'Историја на сервисирање',
+          modifications: 'Модификации'
+        },
+        placeholders: {
+          selectMake: 'Изберете марка',
+          selectModel: 'Изберете модел',
+          selectYear: 'Изберете година',
+          enterMileage: 'Внесете пробег во километри',
+          selectCondition: 'Изберете општа состојба',
+          selectAccidentHistory: 'Изберете историја на несреќи',
+          selectServiceHistory: 'Изберете историја на сервисирање',
+          selectModifications: 'Изберете модификации'
+        },
         options: {
           condition: {
             excellent: 'Одлична',
@@ -256,6 +317,17 @@ export const mkTranslations: TranslationStrings = {
             major: 'Големи модификации'
           }
         }
+      },
+      validation: {
+        makeRequired: 'Ве молиме изберете марка',
+        modelRequired: 'Ве молиме изберете модел',
+        yearRequired: 'Ве молиме изберете година',
+        mileageRequired: 'Ве молиме внесете пробег',
+        mileageInvalid: 'Ве молиме внесете валиден пробег',
+        conditionRequired: 'Ве молиме изберете општа состојба',
+        accidentRequired: 'Ве молиме изберете историја на несреќи',
+        serviceRequired: 'Ве молиме изберете историја на сервисирање',
+        modificationsRequired: 'Ве молиме изберете модификации'
       },
       results: {
         title: 'Вашата процена на замена',
@@ -289,11 +361,24 @@ export const mkTranslations: TranslationStrings = {
           text: 'Ова е проценета цена врз основа на дадените информации. Вистинските вредности на замена може да варираат во зависност од политиките на дилерот, тековните пазарни услови и физичкиот преглед на возилото. Препорачуваме добивање понуди од повеќе дилери за најточна оценка.'
         }
       },
+      actions: {
+        calculate: 'Пресметај процена',
+        recalculate: 'Препресметај',
+        getQuotes: 'Добиј понуди од дилери',
+        startOver: 'Започни одново',
+        close: 'Затвори',
+        next: 'Следно',
+        previous: 'Назад'
+      },
       loading: {
         calculating: 'Пресметување на вашата процена...',
         fetchingData: 'Преземање на пазарни податоци...'
       }
     },
+    badges: {
+      new: 'Нов',
+      certified: 'Сертифициран'
+    }
   },
 
   hero: {
@@ -645,6 +730,329 @@ export const mkTranslations: TranslationStrings = {
   },
 
   // Advanced Search
+  advancedSearch: {
+    title: 'Напреден пребарај',
+    subtitle: 'Најди го идеалниот автомобил со детални филтри за пребарување и преференции',
+    backToHome: 'Назад на почетна',
+    make: 'Марка',
+    model: 'Модел',
+    allModels: 'Сите модели',
+    bodyType: 'Тип на каросерија',
+    fuelType: 'Тип на гориво',
+    anyMake: 'Било која марка',
+    anyBodyType: 'Било кој тип каросерија',
+    anyFuelType: 'Било кој тип гориво',
+    additionalProperties: 'Дополнителни својства',
+    searchCars: 'Пребарај автомобили',
+    saveSearch: 'Зачувај пребарување',
+    clearAll: 'Исчисти сè',
+    active: 'активен',
+    filters: 'филтри',
+    filter: 'филтер',
+    
+    // Page sections
+    sections: {
+      basicInformation: {
+        title: 'Основни информации',
+        description: 'Постави основни критериуми за пребарување',
+      },
+      technicalSpecs: {
+        title: 'Технички спецификации',
+        description: 'Мотор, трансмисија и перформанси детали',
+      },
+      featuresEquipment: {
+        title: 'Карактеристики и опрема',
+        description: 'Избери сакани карактеристики и опрема',
+      },
+      preferencesAndCertifications: {
+        title: 'Преференции и сертификати',
+        description: 'Дополнителни преференции и сертификати',
+      },
+      vehicleDetails: {
+        title: 'Детали за возилото',
+      },
+      priceLocation: {
+        title: 'Цена и локација',
+      },
+      featuresOptions: {
+        title: 'Карактеристики и опции',
+        description: 'Избери карактеристики кои се важни за тебе',
+      },
+      optionalEquipment: {
+        title: 'Опционална опрема',
+        description: 'Дополнителни карактеристики и опрема',
+      },
+      sellerCondition: {
+        description: 'Тип на продавач и состојба на возилото',
+      },
+      exteriorAppearance: {
+        description: 'Надворешен изглед на возилото',
+      },
+      interiorAppearance: {
+        description: 'Внатрешен изглед и материјали',
+      },
+      ownershipHistory: {
+        description: 'Сопственост на возилото и историски детали',
+      },
+      engineTechnical: {
+        title: 'Технички спецификации на мотор',
+        description: 'Напредни спецификации на мотор и технички детали',
+      },
+      advancedHistory: {
+        title: 'Напредна историја на возилото',
+        description: 'Детална историја на возилото и документација',
+      },
+      financing: {
+        description: 'Опции за финансирање и детали за осигурување',
+      },
+      advancedSafety: {
+        title: 'Напредни безбедносни карактеристики',
+        description: 'Безбедносни оценки и напредни системи за помош при возење',
+      },
+      environmentalExtended: {
+        title: 'Проширено еколошко',
+        description: 'Детално еколошко влијание и метрики за ефикасност',
+      },
+    },
+    
+    // Ranges
+    ranges: {
+      priceRange: 'Опсег на цени',
+      yearRange: 'Опсег на години', 
+      mileageRange: 'Опсег на пробег',
+    },
+    
+    // Form fields
+    fields: {
+      make: 'Марка',
+      model: 'Модел',
+      bodyType: 'Тип каросерија',
+      condition: 'Состојба',
+      fuelType: 'Тип гориво',
+      transmission: 'Трансмисија',
+      drivetrain: 'Тип на погон',
+      doors: 'Врати',
+      seats: 'Седишта',
+      exteriorColor: 'Надворешна боја',
+      interiorColor: 'Внатрешна боја',
+      colorPreference: 'Преференца за боја',
+      certifications: 'Сертификати',
+      location: 'Локација',
+      radius: 'Радиус',
+      searchRadius: 'Радиус на пребарување',
+      sellerType: 'Тип на продавач',
+      priceFrom: 'Цена од',
+      minYear: 'Мин година',
+      maxYear: 'Макс година',
+      maxMileage: 'Макс пробег',
+      additionalProperties: 'Дополнителни својства',
+    },
+    
+    // Placeholders
+    placeholders: {
+      selectMake: 'Избери марка',
+      enterModel: 'Внеси име на модел',
+      anyMake: 'Било која марка',
+      allMakes: 'Сите марки',
+      anyModel: 'Било кој модел',
+      anyType: 'Било кој тип',
+      anyBodyType: 'Било кој тип каросерија',
+      anyFuelType: 'Било кој тип гориво',
+      selectBodyType: 'Избери тип каросерија',
+      selectCondition: 'Избери состојба',
+      selectFuelType: 'Избери тип гориво',
+      selectTransmission: 'Избери трансмисија',
+      selectDrivetrain: 'Избери тип погон',
+      numberOfDoors: 'Број на врати',
+      numberOfSeats: 'Број на седишта',
+      anyColor: 'Било која боја',
+      selectPreferredColor: 'Избери преферирана боја',
+      cityOrPostalCode: 'Град или поштенски код',
+      cityStateOrZip: 'Град, држава или ZIP',
+      anyMileage: 'Било кој пробег',
+      anyCondition: 'Било која состојба',
+      anyDistance: 'Било кое растојание',
+      allSellers: 'Сите продавачи',
+      any: 'Било кој',
+      from: 'Од',
+      to: 'До',
+      anyTransmission: 'Било која трансмисија',
+      anySeller: 'Било кој продавач',
+      anyPaintType: 'Било кој тип боја',
+      anyMaterial: 'Било кој материјал',
+      anyRating: 'Било која оценка',
+      anyBadge: 'Било која ознака',
+      anyRange: 'Било кој опсег',
+      anyEmissionClass: 'Било која емисиона класа',
+    },
+    
+    // Distance options
+    distances: {
+      25: 'Во радиус од 25 км',
+      50: 'Во радиус од 50 км', 
+      100: 'Во радиус од 100 км',
+      200: 'Во радиус од 200 км',
+      250: 'Во радиус од 250 км',
+      500: 'Во радиус од 500 км',
+      nationwide: 'Низ цела земја',
+    },
+    
+    // Labels
+    labels: {
+      seats: 'седишта',
+      owner: 'сопственик',
+      ownerPlural: 'и',
+      engine: 'Мотор',
+      km: 'км',
+      gkm: 'г/км',
+      l100km: 'л/100км',
+      liter: 'Л',
+    },
+    
+    // Field labels  
+    fields: {
+      engineDisplacementFrom: 'Зафатнина на мотор од (Л)',
+      engineDisplacementTo: 'Зафатнина на мотор до (Л)', 
+      enginePosition: 'Позиција на мотор',
+      co2EmissionsFrom: 'CO2 емисии од (г/км)',
+      co2EmissionsTo: 'CO2 емисии до (г/км)',
+      fuelConsumptionFrom: 'Потрошувачка на гориво од (л/100км)',
+      fuelConsumptionTo: 'Потрошувачка на гориво до (л/100км)',
+      mileageMin: 'Пробег од (км)',
+      mileageMax: 'Пробег до (км)',
+      radius: 'Радиус (км)',
+    },
+    
+    // Door options
+    doors: {
+      2: '2 врати',
+      3: '3 врати',
+      4: '4 врати', 
+      5: '5+ врати',
+    },
+    
+    // Seat options
+    seats: {
+      2: '2 седишта',
+      4: '4 седишта',
+      5: '5 седишта',
+      7: '7 седишта',
+      '8+': '8+ седишта',
+    },
+    
+    // Mileage options
+    mileage: {
+      under10k: 'Под 10.000 км',
+      under25k: 'Под 25.000 км',
+      under50k: 'Под 50.000 км',
+      under75k: 'Под 75.000 км',
+      under100k: 'Под 100.000 км',
+      under150k: 'Под 150.000 км',
+    },
+    
+    // Seller types
+    sellerTypes: {
+      dealersOnly: 'Само дилери',
+      privateOnly: 'Само приватни продавачи',
+      certifiedOnly: 'Само сертифицирани дилери',
+    },
+    
+    // Last Search Tab
+    lastSearches: 'Последни пребарувања',
+    
+    // Additional missing translations for advanced search
+    description: 'Користи ги нашите сеопфатни филтри за пребарување да го откриеш точното возило што го бараш',
+    searchControls: 'Контроли за пребарување',
+    refineSearchCriteria: 'Прецизирај ги критериумите за пребарување',
+    clearAllFilters: 'Исчисти ги сите филтри',
+    activeFilters: 'Активни филтри',
+    realTimeSearch: 'Пребарување во реално време',
+    searchingRealTime: 'Се пребарува во реално време...',
+    
+    // Static vehicle data sections
+    staticVehicleData: {
+      makes: [
+        'Audi', 'BMW', 'Mercedes-Benz', 'Volkswagen', 'Toyota', 'Honda', 'Ford', 'Peugeot', 
+        'Renault', 'Opel', 'Fiat', 'Citroën', 'Nissan', 'Hyundai', 'Kia', 'Mazda', 
+        'Subaru', 'Volvo', 'SEAT', 'Skoda', 'Alfa Romeo', 'Mini', 'Jaguar', 'Land Rover',
+        'Porsche', 'Lexus', 'Infiniti', 'Acura', 'Cadillac', 'Lincoln', 'Buick', 'GMC',
+        'Chevrolet', 'Chrysler', 'Dodge', 'Jeep', 'Ram', 'Tesla', 'Lucid', 'Rivian'
+      ],
+      bodyTypes: [
+        'Седан', 'SUV', 'Хечбек', 'Купе', 'Кабриолет', 'Караван', 'Пикап', 'Ван',
+        'Мини ван', 'Кросовер', 'Компакт', 'Субкомпакт', 'Средна големина', 'Голема големина',
+        'Спортски автомобил', 'Луксузен', 'Економичен', 'Хибрид'
+      ],
+      fuelTypes: [
+        'Бензин', 'Дизел', 'Хибрид', 'Електричен', 'Плаг-ин хибрид', 'Природен гас', 'Пропан',
+        'Флекс гориво', 'Водород', 'Биодизел', 'E85 Етанол'
+      ],
+      transmissions: [
+        'Мануелна', 'Автоматска', 'CVT', 'Полуавтоматска', 'Двојна спојка', '6-степена мануелна',
+        '7-степена автоматска', '8-степена автоматска', '9-степена автоматска', '10-степена автоматска'
+      ],
+      drivetrains: [
+        'Предни тркала', 'Задни тркала', 'Сите тркала', '4WD', 
+        'Дел-време 4WD', 'Цело-време 4WD', 'Електронски сите тркала', 'Мануелен сите тркала'
+      ],
+      sellerTypes: [
+        'Дилер', 'Приватен продавач', 'Сертифициран дилер', 'Овластен дилер', 'Увозник'
+      ],
+      colors: [
+        'Црна', 'Бела', 'Сребрена', 'Сива', 'Сина', 'Тамноцрвена', 'Црвена', 'Зелена', 'Бургунди', 
+        'Кафена', 'Златна', 'Жолта', 'Портокалова', 'Виолетова', 'Тан', 'Бронзена', 'Бакарна',
+        'Бисерна бела', 'Металик сребрена', 'Темносина', 'Натпреварувачка црвена', 'Шумска зелена',
+        'Јаглерод', 'Поморска', 'Беж'
+      ],
+      interiorColors: [
+        'Црна', 'Сива', 'Беж', 'Кафена', 'Црвена', 'Сина', 'Бела', 'Кремова', 'Друга'
+      ],
+      paintworkTypes: [
+        'Металик', 'Перла', 'Мат', 'Гланцирана', 'Друга'
+      ],
+      upholsteryTypes: [
+        'Ткаенина', 'Полна кожа', 'Делумна кожа', 'Алкантара', 'Вештачка кожа', 'Друга'
+      ],
+      conditions: [
+        'Нов', 'Како нов', 'Одличен', 'Многу добар', 'Добар', 'Задоволителен', 'Користен', 
+        'Сертифициран употребуван', 'Реставриран', 'Обновен', 'Отпаден', 'Винтиџ'
+      ],
+      countries: [
+        'Македонија', 'Германија', 'Австрија', 'Италија', 'Белгија', 'Холандија', 'Шпанија', 
+        'Луксембург', 'Франција', 'Швајцарија', 'Полска', 'Чешка', 'Словачка', 'Словенија', 
+        'Хрватска', 'Србија', 'Бугарија', 'Романија', 'Унгарија', 'Грција'
+      ],
+      emissionClasses: [
+        'Euro 6', 'Euro 5', 'Euro 4', 'Euro 3', 'Euro 2', 'Euro 1', 'Без сертификат'
+      ],
+      emissionLabels: [
+        'Зелена (4)', 'Жолта (3)', 'Портокалова (2)', 'Црвена (1)', 'Без знак'
+      ],
+      guaranteeOptions: [
+        'Фабричка гаранција', 'Дилерска гаранција', 'Проширена гаранција', 'Без гаранција'
+      ],
+      features: [
+        'Климатизер', 'Кожни седишта', 'Навигациски систем', 'Bluetooth', 'USB портови',
+        'Камера за паркирање', 'Сензори за паркирање', 'Грејани седишта', 'Покрив прозорец', 'Алуминиуми бандажи',
+        'Темпомат', 'ABS', 'Контрола на стабилност', 'Воздушни перничиња',
+        'Далечинско палење', 'Безклучно влегување', 'Електрични прозорци', 'Серво управување', 'Тонирани стакла',
+        'Премиум звучен систем', 'Сателитско радио', 'CD плеер', 'MP3 плеер', 'DVD плеер',
+        'Безжично полнење', 'Apple CarPlay', 'Android Auto', 'Предупредување за напуштање лента',
+        'Следење слепа точка', 'Предупредување за судир', 'Автоматско итно запирање',
+        'Адаптивен темпомат', 'Помош за паркирање', 'Камера за заден ход', '360-степена камера',
+        'Греен воланот', 'Ладени седишта', 'Вентилирани седишта', 'Мемориски седишта',
+        'Електрично подесување седишта', 'Трет ред седишта', 'Склопливи задни седишта', 
+        'Покривач за товарен простор', 'Кров носач', 'Пакет за влечење', 'Бочни степеници', 'Странични степеници'
+      ],
+      certifications: [
+        'Сертифициран употребуван', 'Фабричка гаранција', 'Проширена гаранција', 
+        'Помош на патот', 'Извештај за историја на возилото', 'Мулти-поен инспекција',
+        'Тест за емисии', 'Безбедносна инспекција', 'Дилерски сертифициран', 'Трето лице сертифициран',
+        'Carfax верификуван', 'AutoCheck верификуван', 'Без несреќи', 'Еден сопственик',
+        'Достапни сервисни записи', 'Одржувањето е ажурирано'
+      ]
+    },
+  },
 
   sell: {
     title: 'Продадете го вашиот автомобил',
@@ -673,6 +1081,20 @@ export const mkTranslations: TranslationStrings = {
     },
 
     // Vehicle type selection
+    vehicleTypes: {
+      car: {
+        name: 'Автомобил',
+        description: 'Седани, кросовери, купеа, хечбек'
+      },
+      truck: {
+        name: 'Камион',
+        description: 'Пикапи, комерцијални возила'
+      },
+      motorbike: {
+        name: 'Мотоцикл',
+        description: 'Мотоцикли, скутери, квадроцикли'
+      }
+    },
 
     // Headers and descriptions
     headers: {
@@ -690,8 +1112,53 @@ export const mkTranslations: TranslationStrings = {
     },
 
     // Form fields and labels
+    fields: {
+      make: 'Марка',
+      model: 'Модел',
+      year: 'Година',
+      mileage: 'Пробег',
+      condition: 'Состојба',
+      fuelType: 'Тип на гориво',
+      transmission: 'Менувач',
+      exteriorColor: 'Надворешна боја',
+      interiorColor: 'Внатрешна боја',
+      askingPrice: 'Барана цена',
+      featuresAndOptions: 'Спецификации и опции',
+      description: 'Опис',
+      vehiclePhotos: 'Фотографии од возилото',
+      contactName: 'Име за контакт',
+      phoneNumber: 'Телефонски број',
+      emailAddress: 'Е-пошта адреса',
+      location: 'Локација'
+    },
 
     // Placeholders
+    placeholders: {
+      selectMake: 'Изберете марка',
+      enterModel: 'Внесете модел',
+      selectYear: 'Изберете година',
+      selectCondition: 'Изберете состојба',
+      enterMileage: 'Внесете пробег',
+      selectFuelType: 'Изберете тип на гориво',
+      selectTransmission: 'Изберете менувач',
+      exteriorColorExample: 'нпр., бела, црна, сребрена',
+      interiorColorExample: 'нпр., црна, беж, сива',
+      priceExample: '25.000',
+      descriptionExample: 'Опишете ја состојбата на вашето возило, историјата и дополнителни детали...',
+      yourFullName: 'Вашето целосно име',
+      phoneExample: '070 123-456',
+      emailExample: 'vasha.poshta@primer.com',
+      cityState: 'Град, Регион',
+      yourName: 'Вашето име',
+      yourPhoneNumber: 'Вашиот телефонски број',
+      yourEmail: 'Вашата е-пошта',
+      cityCountry: 'Град, Земја',
+      enterAskingPrice: 'Внесете ја бараната цена',
+      describeYourVehicle: 'Опишете го вашиот автомобил...',
+      selectFuel: 'Изберете тип на гориво',
+      selectTransmissionType: 'Изберете тип на менувач',
+      choosePhotos: 'Изберете фотографии'
+    },
 
     // Button labels
     buttons: {
@@ -790,6 +1257,22 @@ export const mkTranslations: TranslationStrings = {
     },
 
     // Features list
+    features: {
+      airConditioning: 'Климатизер',
+      leatherSeats: 'Кожни седишта',
+      heatedSeats: 'Греани седишта',
+      sunroof: 'Сонцебран',
+      gpsNavigation: 'GPS навигација',
+      backupCamera: 'Камера за паркирање',
+      bluetooth: 'Bluetooth',
+      usbPorts: 'USB портови',
+      premiumSound: 'Премиум аудио',
+      keylessEntry: 'Безклучен пристап',
+      remoteStart: 'Далечинско стартување',
+      cruiseControl: 'Круз контрола',
+      parkingSensors: 'Сензори за паркирање',
+      blindSpotMonitoring: 'Контрола на слепи агли'
+    }
   },
 
   countries: {
@@ -830,6 +1313,26 @@ export const mkTranslations: TranslationStrings = {
     selectCountryToContinue: 'Ве молиме изберете ја вашата земја за да продолжите. Ова ќе го определи вашиот локален сајт, јазик и валута.'
   },
 
+  modals: {
+    close: 'Затвори',
+    confirm: 'Потврди',
+    cancel: 'Откажи',
+    save: 'Зачувај',
+    delete: 'Избриши',
+    contactSeller: 'Контактирај продавач',
+    scheduleTestDrive: 'Закажи тест возење',
+    requestFinancing: 'Побарај финансирање',
+    reportListing: 'Пријави оглас',
+    shareListing: 'Сподели оглас',
+    sendMessage: 'Испрати порака',
+    yourName: 'Вашето име',
+    yourEmail: 'Вашата е-пошта',
+    yourPhone: 'Вашиот телефон',
+    message: 'Порака',
+    interestedIn: 'Заинтересиран сум за',
+    preferredTime: 'Преферирано време',
+    additionalNotes: 'Дополнителни забелешки'
+  },
 
   footer: {
     aboutUs: 'Вашиот доверлив пазар за квалитетни половни автомобили. Најдете го вашиот идеален автомобил меѓу илјадници огласи.',
@@ -889,6 +1392,21 @@ export const mkTranslations: TranslationStrings = {
     }
   },
 
+  success: {
+    saved: 'Успешно зачувано!',
+    updated: 'Успешно ажурирано!',
+    deleted: 'Успешно избришано!',
+    sent: 'Успешно испратено!',
+    published: 'Успешно објавено!',
+    registered: 'Успешно регистриран!',
+    loggedIn: 'Успешно најавување!',
+    loggedOut: 'Успешно одјавување!',
+    passwordReset: 'Писмото за ресетирање лозинка е испратено!',
+    subscribed: 'Успешно претплатени!',
+    contactSent: 'Контакт пораката е испратена!',
+    favoriteAdded: 'Додадено во омилени!',
+    favoriteRemoved: 'Отстрането од омилени!'
+  },
 
   admin: {
     panel: 'Администраторска табла',
@@ -1192,6 +1710,44 @@ export const mkTranslations: TranslationStrings = {
       grid: 'Мрежа',
       list: 'Листа'
     },
+    filters: {
+      title: 'Филтри за пребарување',
+      clearAll: 'Исчисти сè',
+      apply: 'Примени',
+      makeModel: 'Марка и модел',
+      priceRange: 'Ценовен опсег',
+      from: 'од',
+      to: 'до',
+      yearRange: 'Опсег на години',
+      mileageRange: 'Максимален пробег',
+      location: 'Локација',
+      withinRadius: 'во радиус од',
+      fuelType: 'Тип на гориво',
+      transmission: 'Менувач',
+      bodyType: 'Тип на каросерија',
+      condition: 'Состојба',
+      features: 'Карактеристики',
+      color: 'Боја',
+      drivetrain: 'Тип на погон',
+      minPrice: 'Минимална цена',
+      maxPrice: 'Максимална цена',
+      noMin: 'Без мин.',
+      noMax: 'Без макс.',
+      anyLocation: 'Внесете град или поштенски код',
+      kilometers: 'км',
+      miles: 'милји',
+      any: 'Било која'
+    },
+    results: {
+      showing: 'Се прикажуваат',
+      of: 'од',
+      results: 'автомобили најдени',
+      noResults: 'Нема најдени автомобили',
+      noResultsMessage: 'Обидете се да ги смените условите за пребарување',
+      tryDifferentFilters: 'Обидете се со различни филтри',
+      loadMore: 'Вчитај повеќе',
+      endOfResults: 'Крај на резултатите'
+    },
     carCard: {
       viewDetails: 'Погледни детали',
       contactSeller: 'Контактирај',
@@ -1237,9 +1793,300 @@ export const mkTranslations: TranslationStrings = {
   },
 
   // Advanced Search
+  advancedSearch: {
+    title: 'Напреден пребарај на автомобили',
+    subtitle: 'Најдете го вашиот идеален автомобил со детални филтри за пребарување и преференции',
+    backToHome: 'Назад на почетна',
+    searchCars: 'Пребарај автомобили',
+    saveSearch: 'Зачувај пребарување',
+    clearAll: 'Исчисти сè',
+    active: 'активни',
+    filters: 'филтри',
+    filter: 'филтер',
+    priceRange: 'Ценовен опсег',
+
+    // Page sections
+    sections: {
+      basicInformation: {
+        title: 'Основни информации',
+        description: 'Поставете основни критериуми за пребарување'
+      },
+      technicalSpecs: {
+        title: 'Технички спецификации',
+        description: 'Мотор, менувач и детали за перформанси'
+      },
+      featuresEquipment: {
+        title: 'Карактеристики и опрема',
+        description: 'Внатрешни и надворешни карактеристики'
+      },
+      preferencesAndCertifications: {
+        title: 'Преференци и сертификации',
+        description: 'Тип на продавач и сертификати'
+      },
+      vehicleDetails: {
+        title: 'Детали за возилото',
+        description: 'Состојба, историја и проверки'
+      },
+      priceLocation: {
+        title: 'Цена и локација',
+        description: 'Буџет и географски преференци'
+      },
+      featuresOptions: {
+        title: 'Карактеристики и опции',
+        description: 'Специфични карактеристики и опреми'
+      },
+      sellerCondition: {
+        title: 'Продавач и состојба на возилото',
+        description: 'Тип на продавач и состојба на возилото'
+      },
+      appearance: {
+        title: 'Боја на каросерија и бојадисување',
+        description: 'Надворешен изглед и боја'
+      },
+      interior: {
+        title: 'Внатрешна боја и тапацирање',
+        description: 'Внатрешни материјали и боји'
+      },
+      history: {
+        title: 'Претходни сопственици и историја',
+        description: 'Историја на возилото и сопственици'
+      },
+      financing: {
+        title: 'Финансирање и осигурување',
+        description: 'Опции за финансирање и осигурување'
+      }
+    },
+
+    fields: {
+      make: 'Марка',
+      model: 'Модел',
+      yearFrom: 'Година од',
+      yearTo: 'до',
+      priceFrom: 'Цена од',
+      priceTo: 'до',
+      mileageFrom: 'Пробег од',
+      mileageTo: 'до',
+      engineSize: 'Зафатнина на мотор',
+      horsepower: 'Коњски сили',
+      fuelType: 'Тип на гориво',
+      transmission: 'Менувач',
+      bodyType: 'Тип на каросерија',
+      drivetrain: 'Тип на погон',
+      doors: 'Врати',
+      seats: 'Седишта',
+      condition: 'Состојба',
+      exteriorColor: 'Надворешна боја',
+      interiorColor: 'Внатрешна боја',
+      sellerType: 'Тип на продавач',
+      location: 'Локација',
+      radius: 'Радиус',
+      minYear: 'Минимална година',
+      maxYear: 'Максимална година',
+      maxMileage: 'Максимален пробег',
+      powerFrom: 'Снага од (kW)',
+      powerTo: 'Снага до (kW)', 
+      gear: 'Менувач',
+      numberOfSeats: 'Број на седишта',
+      seller: 'Продавач',
+      vehicleCondition: 'Состојба на возилото',
+      mileageMin: 'Пробег од (km)',
+      mileageMax: 'Пробег до (km)',
+      additionalProperties: 'Дополнителни својства',
+      bodyColor: 'Боја на каросерија',
+      paintWork: 'Бојадисување',
+      interiorColor: 'Внатрешна боја',
+      upholstery: 'Тапацирање',
+      previousOwners: 'Претходни сопственици',
+      hadAccident: 'Имал несреќа',
+      guarantee: 'Гаранција',
+      fullServiceHistory: 'Со целосна историја на сервис',
+      nonSmoking: 'Возило за непушачи'
+    },
+
+    // Placeholders
+    placeholders: {
+      selectMake: 'Изберете марка',
+      enterModel: 'Внесете име на модел',
+      anyMake: 'Било која марка',
+      allMakes: 'Сите марки',
+      anyModel: 'Било кој модел',
+      anyType: 'Било кој тип',
+      anyBodyType: 'Било кој тип на каросерија',
+      anyFuelType: 'Било кој тип на гориво',
+      selectBodyType: 'Изберете тип на каросерија',
+      selectCondition: 'Изберете состојба',
+      selectFuelType: 'Изберете тип на гориво',
+      selectTransmission: 'Изберете менувач',
+      selectDrivetrain: 'Изберете тип на погон',
+      numberOfDoors: 'Број на врати',
+      numberOfSeats: 'Број на седишта',
+      anyColor: 'Било која боја',
+      selectPreferredColor: 'Изберете преферирана боја',
+      cityOrPostalCode: 'Град или поштенски код',
+      cityStateOrZip: 'Град, држава или поштенски код',
+      anyMileage: 'Било кој пробег',
+      anyCondition: 'Било која состојба',
+      anyDistance: 'Било кое растојание',
+      allSellers: 'Сите продавачи',
+      any: 'Било кој',
+      anySeller: 'Било кој продавач',
+      anyTransmission: 'Било кој менувач',
+      anyPaintType: 'Било кој тип на боење',
+      anyMaterial: 'Било кој материјал',
+      anyRating: 'Било кой рејтинг',
+      anyBadge: 'Било која значка',
+      anyRange: 'Било кой опсег',
+      anyEmissionClass: 'Било која класа на емисии'
+    },
+    
+    // Labels for units and formats
+    labels: {
+      km: 'км',
+      kw: 'kW',
+      ps: 'КС',
+      mileage300kPlus: '300.000+ км',
+      zeroPower: '0 kW (0 КС)',
+    },
+
+    ranges: {
+      any: 'Било која',
+      under25000: 'Под €25,000',
+      '25000to50000': '€25,000 - €50,000',
+      '50000to75000': '€50,000 - €75,000',
+      over75000: 'Над €75,000'
+    },
+
+    // Additional properties options
+    additionalProperties: {
+      certifiedPreOwned: 'Сертифициран претходно користен',
+      singleOwner: 'Еден сопственик',
+      accidentFree: 'Без несреќи',
+      serviceRecordsAvailable: 'Достапни записи за сервис',
+      underWarranty: 'Под гаранција',
+      recentlyServiced: 'Неодамна сервисиран',
+      lowMileage: 'Мал пробег',
+      garageKept: 'Чуван во гаража',
+      winterPackage: 'Зимски пакет',
+      sportPackage: 'Спортски пакет'
+    },
+
+    // Distance options
+    distances: {
+      25: 'Во рамки од 25 км',
+      50: 'Во рамки од 50 км',
+      100: 'Во рамки од 100 км',
+      200: 'Во рамки од 200 км',
+      250: 'Во рамки од 250 км',
+      500: 'Во рамки од 500 км',
+      nationwide: 'На ниво на страната'
+    },
+
+    // Mileage options
+    mileage: {
+      under10k: 'Под 10,000 км',
+      under25k: 'Под 25,000 км',
+      under50k: 'Под 50,000 км',
+      under75k: 'Под 75,000 км',
+      under100k: 'Под 100,000 км',
+      under150k: 'Под 150,000 км'
+    },
+
+    // Seller types
+    sellerTypes: {
+      dealersOnly: 'Само дилери',
+      privateOnly: 'Само приватни продавачи',
+      certifiedOnly: 'Само сертифицирани дилери'
+    },
+
+    // Door options
+    doors: {
+      2: '2 врати',
+      3: '3 врати',
+      4: '4 врати',
+      5: '5+ врати'
+    },
+    
+    // Seat options
+    seats: {
+      2: '2 седишта',
+      4: '4 седишта',
+      5: '5 седишта',
+      7: '7 седишта',
+      '8+': '8+ седишта'
+    },
+    
+    // Last Search Tab
+    lastSearches: 'Последни пребарувања',
+
+    staticVehicleData: {
+      makes: ['Toyota', 'Honda', 'BMW', 'Mercedes-Benz', 'Audi', 'Volkswagen', 'Ford', 'Nissan', 'Hyundai', 'Kia', 'Mazda', 'Subaru', 'Mitsubishi', 'Lexus', 'Porsche', 'Ferrari', 'Lamborghini', 'Maserati', 'Jaguar', 'Land Rover', 'Volvo', 'Peugeot', 'Renault', 'Citroën', 'Fiat', 'Alfa Romeo', 'Škoda', 'SEAT', 'Opel', 'Chevrolet', 'Cadillac', 'Buick', 'Lincoln', 'Acura', 'Infiniti', 'Genesis'],
+      
+      bodyTypes: ['Седан', 'Хечбек', 'Караван', 'SUV', 'Купе', 'Кабриолет', 'Пикап', 'Ван', 'Минибус', 'Лимузина', 'Комби'],
+      
+      fuelTypes: ['Бензин', 'Дизел', 'Електричен', 'Хибрид', 'Приклучен хибрид', 'Водород', 'CNG', 'LPG', 'Етанол', 'Биодизел'],
+      
+      transmissions: ['Рачен', 'Автоматски', 'Полуавтоматски', 'CVT', '6-степен рачен', '7-степен автоматски', '8-степен автоматски', '9-степен автоматски', 'Двосепречен'],
+      
+      additionalProperties: ['Сертифициран стар автомобил', 'Еден сопственик', 'Без несреќи', 'Сервисни записи достапни', 'Под гаранција', 'Неодамна сервисиран', 'Мал километража', 'Чуван во гаража', 'Зимски пакет', 'Спортски пакет'],
+      
+      drivetrains: ['Предно тркало', 'Задно тркало', 'Сите тркала', '4x4', 'AWD', 'RWD', 'FWD'],
+      
+      sellerTypes: ['Дилер', 'Приватен продавач', 'Сертифициран дилер', 'Овластен дилер', 'Увозник'],
+      
+      conditions: ['Нов', 'Користен', 'Службен автомобил', 'Антиквитет/Класик', 'Демонстрационен', 'Предрегистриран', 'Оштетен', 'За резервни делови'],
+      
+      colors: ['Црна', 'Бела', 'Сребрена', 'Сива', 'Црвена', 'Сина', 'Зелена', 'Жолта', 'Оранжева', 'Виолетова', 'Кафена', 'Златна', 'Розова', 'Бургундија', 'Темно сина', 'Темно зелена', 'Бежова', 'Шампањска', 'Друга'],
+      
+      interiorColors: ['Црна', 'Сива', 'Бежова', 'Кафена', 'Црвена', 'Сина', 'Бела', 'Кремова', 'Друга'],
+      
+      paintworkTypes: ['Металик', 'Перла', 'Мат', 'Глосс', 'Друга'],
+      
+      upholsteryTypes: ['Ткаенина', 'Полна кожа', 'Делумна кожа', 'Алкантара', 'Вештачка кожа', 'Друга'],
+      
+      countries: ['Македонија', 'Германија', 'Австрија', 'Италија', 'Белгија', 'Холандија', 'Шпанија', 'Луксембург', 'Франција', 'Швајцарија', 'Полска', 'Чешка', 'Словачка', 'Словенија', 'Хрватска', 'Србија', 'Бугарија', 'Романија', 'Унгарија'],
+      
+      emissionClasses: ['Euro 6', 'Euro 5', 'Euro 4', 'Euro 3', 'Euro 2', 'Euro 1', 'Без сертификат'],
+      
+      emissionLabels: ['Зелена (4)', 'Жолта (3)', 'Оранжева (2)', 'Црвена (1)', 'Без знак'],
+      
+      guaranteeOptions: ['Фабричка гаранција', 'Дилерска гаранција', 'Проширена гаранција', 'Без гаранција'],
+      
+      previousOwnersOptions: ['1', '2', '3', '4', '5+'],
+      
+      turboOptions: ['Природно аспириран', 'Турбо', 'Суперчаржер', 'Твин турбо', 'Би-турбо'],
+      
+      enginePositions: ['Преден', 'Среден', 'Заден'],
+      
+      serviceBookOptions: ['Да', 'Не', 'Дигитален', 'Делумен'],
+      
+      yesNoUnknownOptions: ['Да', 'Не', 'Непознато'],
+      
+      roadworthinessOptions: ['Валиден', 'Истечен', 'Нов', 'Не е потребен'],
+      
+      environmentalBadges: ['Зелена ознака', 'Жолта ознака', 'Црвена ознака', 'Сина ознака', 'Без ознака'],
+      
+      electricRangeOptions: ['0-50 км', '51-100 км', '101-200 км', '201-300 км', '300+ км', 'Не се однесува'],
+      
+      features: [
+        'ABS', 'Клима уред', 'Автоматска клима', 'Навигација', 'Кожни седишта', 'Греачи за седишта',
+        'Електрични прозорци', 'Централно заклучување', 'Аларм', 'Airbag', 'ESP', 'Круиз контрола',
+        'Паркинг сензори', 'Камера за паркирање', 'Bluetooth', 'USB', 'CD плеер', 'MP3',
+        'Радио', 'Сателитско радио', 'Премиум звучен систем', 'Кров прозорец', 'Панорамски кров',
+        'Спортски пакет', 'Аеропакет', 'Легури од лесни метали', 'Зимски гуми', 'Летни гуми',
+        'Резервен тркало', 'Ксенон светла', 'LED светла', 'Магленки', 'Дневни светла',
+        'Електрични огледала', 'Греачи за огледала', 'Тонирани стакла', 'Метална боја',
+        'Start/Stop систем', 'Регенеративни кочници', 'Адаптивна крстарска контрола',
+        'Систем за избегнување судир', 'Монитор за слепа точка', 'Препознавање сообраќајни знаци'
+      ]
+    }
+  },
 
   // Contact page
   contact: {
+    hero: {
+      title: 'Контактирајте не',
+      subtitle: 'Овде сме за да ви помогнеме со сè што ви треба за вашето искуство со автомобили'
+    },
     departments: {
       title: 'Изберете го вашето одделение'
     },
@@ -1267,8 +2114,58 @@ export const mkTranslations: TranslationStrings = {
         country: 'Северна Македонија'
       }
     },
+    form: {
+      title: 'Испратете ни порака',
+      inquiryType: {
+        label: 'Тип на барање',
+        options: {
+          general: 'Општо прашање',
+          buyingHelp: 'Помош за купување',
+          sellingSupport: 'Поддршка за продажба',
+          technicalIssue: 'Технички проблем',
+          dealerInquiry: 'Дилерско барање',
+          feedback: 'Повратни информации'
+        }
+      },
+      fields: {
+        name: 'Целосно име',
+        email: 'Е-пошта',
+        phone: 'Телефонски број',
+        subject: 'Предмет',
+        message: 'Порака'
+      },
+      placeholders: {
+        name: 'Внесете го вашето име',
+        email: 'Внесете ја вашата е-пошта',
+        phone: 'Внесете го вашиот телефон',
+        subject: 'Внесете го предметот',
+        message: 'Опишете го вашето прашање или повратна информација...'
+      }
+    },
+    success: {
+      title: 'Пораката е испратена!',
+      message: 'Ви благодариме што не контактиравте. Ќе ви одговориме наскоро.'
+    },
     quickHelp: {
       title: 'Брза помош',
+      options: {
+        buyingGuide: {
+          title: 'Водич за купување',
+          description: 'Научете како да купувате автомобил на CarMarket365'
+        },
+        sellingGuide: {
+          title: 'Водич за продажба',
+          description: 'Совети за продажба на вашиот автомобил'
+        },
+        faq: {
+          title: 'Често поставувани прашања',
+          description: 'Одговори на честите прашања'
+        },
+        safetyTips: {
+          title: 'Совети за безбедност',
+          description: 'Останете безбедни при купување и продажба'
+        }
+      }
     },
     
     registeredDealers: {
@@ -1298,12 +2195,85 @@ export const mkTranslations: TranslationStrings = {
     twitter: 'Twitter'
   },
 
+  badges: {
+    warrantyIncluded: 'Гаранција вклучена'
+  },
 
+  contactCar: {
+    successTitle: 'Пораката е испратена!'
+  },
 
+  financing: {
+    title: 'Финансирање',
+    description: 'Најди ја најдобрата опција за финансирање',
+    badges: {
+      financingAvailable: 'Финансирање достапно',
+      preApproved: 'Претходно одобрено'
+    },
+    employmentStatus: {
+      retired: 'Пензионер',
+      student: 'Студент',
+      unemployed: 'Невработен'
+    },
+    placeholders: {
+      enterFullName: 'Внесете го вашето целосно име',
+      enterPhone: 'Внесете го вашиот телефон',
+      enterEmail: 'Внесете ја вашата е-пошта',
+      enterLoanAmount: 'Внесете го износот на кредитот',
+      enterAnnualIncome: 'Внесете ја годишната заработка',
+      enterMonthlyExpenses: 'Внесете ги месечните трошоци',
+      selectRange: 'Изберете опсег',
+      selectStatus: 'Изберете статус',
+      selectDuration: 'Изберете времетраење'
+    },
+    validation: {
+      fullNameRequired: 'Името е задолжително',
+      phoneInvalid: 'Невалиден телефон',
+      emailRequired: 'Е-поштата е задолжителна',
+      loanAmountRequired: 'Износот на кредитот е задолжителен',
+      annualIncomeRequired: 'Годишната заработка е задолжителна',
+      employmentStatusRequired: 'Статусот на вработеност е задолжителен',
+      loanTermRequired: 'Времетраењето на кредитот е задолжително'
+    },
+    success: {
+      title: 'Успешно поднесена апликација!',
+      description: 'Ќе ве контактираме наскоро.'
+    },
+    actions: {
+      submit: 'Поднеси апликација',
+      calculate: 'Пресметај'
+    }
+  },
 
+  scheduleTestDrive: {
+    badge: 'Тест возење достапно',
+    title: 'Закажи тест возење',
+    description: 'Закажи тест возење за ова возило',
+    labels: {
+      fullName: 'Целосно име',
+      preferredDate: 'Преферирана дата',
+      preferredTime: 'Преферирано време'
+    },
+    placeholders: {
+      selectDate: 'Изберете дата',
+      selectTime: 'Изберете време',
+      specialRequests: 'Дополнителни барања',
+      enterRequests: 'Внесете барања'
+    },
+    success: {
+      schedule: 'Закажи',
+      scheduling: 'Закажување'
+    }
+  },
 
   // Dashboard sections (simplified versions for now)
   dealerDashboard: {
+    tabs: {
+      overview: 'Преглед',
+      myListings: 'Мои огласи',
+      inquiries: 'Барања',
+      analytics: 'Аналитика'
+    },
     overview: {
       stats: {
         activeListings: {
@@ -1327,10 +2297,41 @@ export const mkTranslations: TranslationStrings = {
   },
 
   adminDashboard: {
+    tabs: {
+      overview: 'Преглед',
+      allListings: 'Сите огласи',
+      userManagement: 'Управување корисници',
+      reports: 'Извештаи'
+    }
   },
 
   // Car detail page sections
   carDetail: {
+    tabs: {
+      overview: 'Преглед',
+      features: 'Карактеристики',
+      inspection: 'Преглед',
+      history: 'Историја'
+    },
+    overview: {
+      specifications: 'Спецификации',
+      description: 'Опис',
+      sellerNotes: 'Забелешки од продавачот'
+    },
+    features: {
+      interior: 'Внатрешност',
+      exterior: 'Надворешност',
+      safety: 'Безбедност',
+      technology: 'Технологија'
+    },
+    actions: {
+      contact: 'Контактирај продавач',
+      testDrive: 'Закажи тест возење',
+      financing: 'Побарај финансирање',
+      favorite: 'Додај во омилени',
+      share: 'Сподели',
+      report: 'Пријави'
+    },
     seller: {
       title: 'Продавач',
       dealer: 'Дилер',
@@ -1461,6 +2462,58 @@ export const mkTranslations: TranslationStrings = {
     clearAll: 'Исчисти сё'
   },
 
+  sell: {
+    title: 'Продај го твојот автомобил',
+    expressTitle: 'Експресна продажба',
+    sellYourCar: 'Продај го твоето возило',
+    carInformation: 'Информации за автомобилот',
+    uploadPhotos: 'Прикачи фотографии',
+    setPrice: 'Постави цена',
+    contactInformation: 'Контакт информации',
+    publish: 'Објави',
+    draft: 'Зачувај како нацрт',
+    preview: 'Преглед',
+    required: 'Задолжително',
+    optional: 'Опционално',
+    addPhotos: 'Додај фотографии',
+    removePhoto: 'Отстрани фотографија',
+    mainPhoto: 'Главна фотографија',
+    additionalInfo: 'Дополнителни информации',
+    sellerNotes: 'Забелешки од продавачот',
+    
+    // Step titles
+    steps: {
+      vehicleType: 'Тип на возило',
+      basicInfo: 'Основни информации',
+      details: 'Детали',
+      photosAndContact: 'Фотографии и контакт',
+    },
+    
+    // Vehicle type selection
+    vehicleTypes: {
+      car: {
+        name: 'Автомобил',
+        description: 'Седани, кроссовери, купеа, хечбекови',
+      },
+      truck: {
+        name: 'Камион',
+        description: 'Пикапи, комерцијални возила',
+      },
+      motorbike: {
+        name: 'Мотор',
+        description: 'Мотоцикли, скутери, АТВ',
+      },
+    },
+    
+    // Headers and descriptions
+    headers: {
+      vehicleTypeQuestion: 'Каков тип на возило го продавате?',
+      basicInformation: 'Основни информации',
+      basicInfoDescription: 'Кажете ни за вашиот {vehicleType}',
+      additionalDetails: 'Дополнителни детали',
+      additionalDetailsDescription: 'Додајте повеќе детали за вашиот {vehicleType}',
+    }
+  },
 
   sellVehicle: {
     title: 'Продај го вашето возило',
@@ -1486,6 +2539,12 @@ export const mkTranslations: TranslationStrings = {
       poor: 'Лоша'
     },
     fuelType: 'Тип на гориво',
+    fuelTypes: {
+      gasoline: 'Бензин',
+      diesel: 'Дизел',
+      electric: 'Електричен',
+      hybrid: 'Хибрид'
+    },
     transmission: 'Трансмисија',
     transmissionTypes: {
       manual: 'Мануелна',
@@ -1550,6 +2609,10 @@ export const mkTranslations: TranslationStrings = {
 
   // Additional sections for complete coverage
   indexPage: {
+    hero: {
+      title: 'Најди го својот идеален автомобил',
+      subtitle: 'Прелистај низ илјадници квалитетни половни возила'
+    },
     quickFilters: {
       title: 'Брзи филтри',
       newCars: 'Нови автомобили',
@@ -1557,8 +2620,22 @@ export const mkTranslations: TranslationStrings = {
       electric: 'Електрични',
       luxury: 'Луксузни'
     },
+    stats: {
+      title: 'Веријте на бројките',
+      availableCars: 'Достапни автомобили',
+      verifiedDealers: 'Верификувани дилери',
+      happyCustomers: 'Задоволни клиенти',
+      citiesCovered: 'Покриени градови'
+    }
   },
 
+  errors: {
+    notFound: {
+      title: 'Страницата не е најдена',
+      message: 'Страницата што ја барате не постои.',
+      backHome: 'Назад на почетна'
+    }
+  },
 
   legal: {
     accessibility: {
