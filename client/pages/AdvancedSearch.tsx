@@ -419,7 +419,10 @@ export default function AdvancedSearch() {
       };
       
       if (mkTranslations[key]) {
+        console.log(`✅ Found MK translation for ${key}: ${mkTranslations[key]}`);
         return mkTranslations[key];
+      } else {
+        console.log(`❌ Missing MK translation for ${key}, using fallback: ${fallback}`);
       }
     }
     
@@ -501,11 +504,15 @@ export default function AdvancedSearch() {
       };
       
       if (sqTranslations[key]) {
+        console.log(`✅ Found SQ translation for ${key}: ${sqTranslations[key]}`);
         return sqTranslations[key];
+      } else {
+        console.log(`❌ Missing SQ translation for ${key}, using fallback: ${fallback}`);
       }
     }
     
     // Return English fallback
+    console.log(`🔄 Using English fallback for ${key}: ${fallback} (Language: ${effectiveLanguage})`);
     return fallback;
   };
 
