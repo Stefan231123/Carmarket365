@@ -138,12 +138,12 @@ const carModelsByMake: Record<string, string[]> = {
   'Lancia': ['Ypsilon']
 };
 
-// Fallback English arrays
-const fallbackAdditionalProperties = ['Certified Pre-Owned', 'Single Owner', 'Accident-Free', 'Service Records Available', 'Under Warranty', 'Recently Serviced', 'Low Mileage', 'Garage Kept', 'Winter Package', 'Sport Package'];
+// Macedonian arrays (will be used by getTranslatedArray for MK language)
+const fallbackAdditionalProperties = ['Сертифициран предпродажен', 'Еден сопственик', 'Без незгоди', 'Достапни сервисни записи', 'Во гаранција', 'Неодамна сервисиран', 'Мал пробег', 'Чуван во гаража', 'Зимски пакет', 'Спортски пакет'];
 
-const fallbackBodyTypes = ['Small Car', 'Estate', 'SUV/Off-road/Pickup', 'Coupe', 'Convertible', 'Sedan', 'Hatchback', 'Station Wagon', 'Minivan', 'Pickup Truck', 'Other'];
+const fallbackBodyTypes = ['Мал автомобил', 'Комби', 'SUV/Теренски/Пикап', 'Купе', 'Кабрио', 'Седан', 'Хечбек', 'Караван', 'Минивен', 'Пикап камион', 'Друго'];
 
-const fallbackFuelTypes = ['Gasoline', 'Diesel', 'Electric', 'Hybrid (Gasoline/Electric)', 'Hybrid (Diesel/Electric)', 'Natural Gas (CNG)', 'Liquefied Gas (LPG)', 'Ethanol', 'Hydrogen'];
+const fallbackFuelTypes = ['Бензин', 'Дизел', 'Електричен', 'Хибрид (Бензин/Електричен)', 'Хибрид (Дизел/Електричен)', 'Природен гас (CNG)', 'Течен гас (LPG)', 'Етанол', 'Водород'];
 
 const fallbackGearTypes = ['Мануелна', 'Автоматска', 'Полу-автоматска', 'CVT'];
 
@@ -475,13 +475,31 @@ export default function AdvancedSearch() {
 
   // Simple array translation function
   const getTranslatedArray = (arrayType: 'bodyTypes' | 'fuelTypes' | 'transmissions' | 'additionalProperties' | 'sellerTypes' | 'conditions' | 'colors' | 'interiorColors' | 'paintworkTypes' | 'upholsteryTypes' | 'guaranteeOptions' | 'previousOwnersOptions' | 'turboOptions' | 'enginePositions' | 'serviceBookOptions' | 'yesNoUnknownOptions' | 'roadworthinessOptions' | 'environmentalBadges' | 'electricRangeOptions', fallbackArray: string[]): string[] => {
-    // For Macedonian, return hardcoded arrays
-    if (currentLanguage === 'mk') {
-      // Return Macedonian versions of arrays - for now just use the fallback which I already converted to Macedonian
-      return fallbackArray;
+    const effectiveLanguage = new URLSearchParams(window.location.search).get('lang') || currentLanguage;
+    
+    // For Macedonian, return hardcoded Macedonian arrays
+    if (effectiveLanguage === 'mk' || currentLanguage === 'mk') {
+      return fallbackArray; // Now contains Macedonian translations
     }
     
-    // For other languages, use the fallback array
+    // For Albanian, return Albanian translations
+    if (effectiveLanguage === 'sq' || currentLanguage === 'sq') {
+      if (arrayType === 'additionalProperties') {
+        return ['E çertifikuar para-shitjes', 'Një pronar', 'Pa aksidente', 'Rekordet e servisit të disponueshme', 'Në garanci', 'Kohët e fundit i servisuar', 'Kilometrazh i ulët', 'Ruajtur në garazh', 'Paketa dimërore', 'Paketa sportive'];
+      }
+      if (arrayType === 'bodyTypes') {
+        return ['Makinë e vogël', 'Karroceri', 'SUV/Terren/Pickup', 'Kupe', 'Kabriolet', 'Sedan', 'Hatchback', 'Karavan', 'Minivan', 'Kamion pickup', 'Tjetër'];
+      }
+      if (arrayType === 'fuelTypes') {
+        return ['Benzinë', 'Dizel', 'Elektrik', 'Hibrid (Benzinë/Elektrik)', 'Hibrid (Dizel/Elektrik)', 'Gaz natyror (CNG)', 'Gaz i lëngshëm (LPG)', 'Etanol', 'Hidrogjen'];
+      }
+    }
+    
+    // For other languages or untranslated arrays, use English
+    if (arrayType === 'additionalProperties') {
+      return ['Certified Pre-Owned', 'Single Owner', 'Accident-Free', 'Service Records Available', 'Under Warranty', 'Recently Serviced', 'Low Mileage', 'Garage Kept', 'Winter Package', 'Sport Package'];
+    }
+    
     return fallbackArray;
   };
 
