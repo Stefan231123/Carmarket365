@@ -1502,10 +1502,10 @@ export default function AdvancedSearch() {
                   <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.bodyColor', 'Body Color')}</label>
                   <Select value={localFilters.bodyColor} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, bodyColor: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder={getAdvancedSearchText('placeholders.anyColor', 'Any Color')} />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.anyColor', 'Било која боја')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">{getAdvancedSearchText('placeholders.anyColor', 'Any Color')}</SelectItem>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.anyColor', 'Било која боја')}</SelectItem>
                       {bodyColors.map(color => (
                         <SelectItem key={color} value={color}>{color}</SelectItem>
                       ))}
@@ -1532,20 +1532,20 @@ export default function AdvancedSearch() {
 
             {/* Interior */}
             <FilterSection 
-              title={getAdvancedSearchText('sections.interior.title', 'Interior Color & Upholstery')} 
+              title={getAdvancedSearchText('sections.interior.title', 'Боја на ентериер и тапацирање')} 
               sectionKey="interior"
               icon={<Zap className="h-5 w-5 text-indigo-600" />}
-              description={getAdvancedSearchText('sections.interiorAppearance.description', 'Interior appearance and materials')}
+              description={getAdvancedSearchText('sections.interiorAppearance.description', 'Изглед на ентериерот и материјали')}
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.interiorColor', 'Interior Color')}</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.interiorColor', 'Боја на ентериер')}</label>
                   <Select value={localFilters.interiorColor} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, interiorColor: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder={getAdvancedSearchText('placeholders.anyColor', 'Any Color')} />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.anyColor', 'Било која боја')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">{getAdvancedSearchText('placeholders.anyColor', 'Any Color')}</SelectItem>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.anyColor', 'Било која боја')}</SelectItem>
                       {interiorColors.map(color => (
                         <SelectItem key={color} value={color}>{color}</SelectItem>
                       ))}
@@ -1554,13 +1554,13 @@ export default function AdvancedSearch() {
                 </div>
 
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.upholstery', 'Upholstery')}</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.upholstery', 'Тапацирање')}</label>
                   <Select value={localFilters.upholstery} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, upholstery: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder={getAdvancedSearchText('placeholders.anyMaterial', 'Any Material')} />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.anyMaterial', 'Било кој материјал')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">{getAdvancedSearchText('placeholders.anyMaterial', 'Any Material')}</SelectItem>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.anyMaterial', 'Било кој материјал')}</SelectItem>
                       {upholsteryTypes.map(material => (
                         <SelectItem key={material} value={material}>{material}</SelectItem>
                       ))}
