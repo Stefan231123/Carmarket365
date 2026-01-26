@@ -1458,7 +1458,18 @@ export const mkTranslations: TranslationStrings = {
     selectToCompare: 'Избери автомобили за споредба',
     compare: 'Спореди',
     clearSelection: 'Исчисти избор',
-    clearAll: 'Исчисти сё'
+    clearAll: 'Исчисти сё',
+    back: 'Назад',
+    carsSaved: 'автомобили зачувани',
+    recentlySaved: 'Неодамна зачувани',
+    yearNewestFirst: 'Година: Нови прво',
+    yearOldestFirst: 'Година: Стари прво',
+    filterPlaceholder: 'Филтрирај по',
+    allCars: 'Сите автомобили',
+    savedThisWeek: 'Зачувани оваа недела',
+    savedDate: 'Зачувано на',
+    contact: 'Контакт',
+    view: 'Погледни'
   },
 
 
