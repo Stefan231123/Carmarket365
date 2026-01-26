@@ -1532,20 +1532,20 @@ export default function AdvancedSearch() {
 
             {/* Interior */}
             <FilterSection 
-              title={getAdvancedSearchText('sections.interior.title', 'Боја на ентериер и тапацирање')} 
+              title="Боја на ентериер и тапацирање" 
               sectionKey="interior"
               icon={<Zap className="h-5 w-5 text-indigo-600" />}
-              description={getAdvancedSearchText('sections.interiorAppearance.description', 'Изглед на ентериерот и материјали')}
+              description="Изглед на ентериерот и материјали"
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.interiorColor', 'Боја на ентериер')}</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">Боја на ентериер</label>
                   <Select value={localFilters.interiorColor} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, interiorColor: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder={getAdvancedSearchText('placeholders.anyColor', 'Било која боја')} />
+                      <SelectValue placeholder="Било која боја" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">{getAdvancedSearchText('placeholders.anyColor', 'Било која боја')}</SelectItem>
+                      <SelectItem value="any">Било која боја</SelectItem>
                       {interiorColors.map(color => (
                         <SelectItem key={color} value={color}>{color}</SelectItem>
                       ))}
@@ -1554,13 +1554,13 @@ export default function AdvancedSearch() {
                 </div>
 
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.upholstery', 'Тапацирање')}</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">Тапацирање</label>
                   <Select value={localFilters.upholstery} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, upholstery: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder={getAdvancedSearchText('placeholders.anyMaterial', 'Било кој материјал')} />
+                      <SelectValue placeholder="Било кој материјал" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">{getAdvancedSearchText('placeholders.anyMaterial', 'Било кој материјал')}</SelectItem>
+                      <SelectItem value="any">Било кој материјал</SelectItem>
                       {upholsteryTypes.map(material => (
                         <SelectItem key={material} value={material}>{material}</SelectItem>
                       ))}
