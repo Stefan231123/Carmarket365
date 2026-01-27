@@ -87,19 +87,19 @@ export default function ExpressSell() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Car className="h-5 w-5" />
-                {t('expressSell.carDetails')}
+                {t('finalFixes.expressSell.carDetails')}
               </CardTitle>
               <p className="text-muted-foreground">
-                {t('expressSell.carDetailsDescription')}
+                {t('finalFixes.expressSell.carDetailsDescription')}
               </p>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">{t('expressSell.makeRequired')}</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">{t('finalFixes.expressSell.makeRequired')}</label>
                   <Select onValueChange={(value) => setCarData({...carData, make: value})}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder={t('expressSell.selectMake')} />
+                      <SelectValue placeholder={t('finalFixes.expressSell.selectMake')} />
                     </SelectTrigger>
                     <SelectContent>
                       {(() => {
@@ -118,10 +118,10 @@ export default function ExpressSell() {
                   </Select>
                 </div>
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">{t('expressSell.modelRequired')}</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">{t('finalFixes.expressSell.modelRequired')}</label>
                   <Select onValueChange={(value) => setCarData({...carData, model: value})}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder={t('expressSell.selectModel')} />
+                      <SelectValue placeholder={t('finalFixes.expressSell.selectModel')} />
                     </SelectTrigger>
                     <SelectContent>
                       {(() => {
@@ -142,10 +142,10 @@ export default function ExpressSell() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">{t('expressSell.yearRequired')}</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">{t('finalFixes.expressSell.yearRequired')}</label>
                   <Select onValueChange={(value) => setCarData({...carData, year: value})}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder={t('expressSell.selectYear')} />
+                      <SelectValue placeholder={t('finalFixes.expressSell.selectYear')} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="2024">2024</SelectItem>
@@ -160,7 +160,7 @@ export default function ExpressSell() {
                   </Select>
                 </div>
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">{t('expressSell.mileageRequired')}</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">{t('finalFixes.expressSell.mileageRequired')}</label>
                   <Input 
                     placeholder={t('forms.placeholders.egFiftyThousand')}
                     value={carData.mileage}
@@ -172,10 +172,10 @@ export default function ExpressSell() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">{t('expressSell.fuelTypeRequired')}</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">{t('finalFixes.expressSell.fuelTypeRequired')}</label>
                   <Select onValueChange={(value) => setCarData({...carData, fuel: value})}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder={t('expressSell.selectFuelType')} />
+                      <SelectValue placeholder={t('finalFixes.expressSell.selectFuelType')} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="petrol">{t('sell.fuelTypes.gasoline')}</SelectItem>
@@ -187,10 +187,10 @@ export default function ExpressSell() {
                   </Select>
                 </div>
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">{t('expressSell.transmissionRequired')}</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">{t('finalFixes.expressSell.transmissionRequired')}</label>
                   <Select onValueChange={(value) => setCarData({...carData, transmission: value})}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder={t('expressSell.selectTransmission')} />
+                      <SelectValue placeholder={t('finalFixes.expressSell.selectTransmission')} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="manual">{t('sell.transmissions.manual')}</SelectItem>
