@@ -1275,7 +1275,7 @@ export const sqTranslations: TranslationStrings = {
       manual: 'Manuale',
       automatic: 'Automatike',
       cvt: 'CVT',
-      semiAutomatic: 'Gjysmë-automatik',
+      semiAutomatic: 'Gjysmëautomatik',
     },
     bodyTypes: {
       sedan: 'Sedan',
@@ -1534,8 +1534,8 @@ export const sqTranslations: TranslationStrings = {
       kmAbbrev: 'km',
       miAbbrev: 'mi',
       year: 'viti',
-      automatic: 'Automatikee',
-      manual: 'Manualee',
+      automatic: 'Automatike',
+      manual: 'Manuale',
       gasoline: 'Benzina',
       diesel: 'Nafta',
       electric: 'Elektrike',
@@ -1732,7 +1732,7 @@ export const sqTranslations: TranslationStrings = {
         'Karburant fleksibël', 'Hidrogjen', 'Bio-naftë', 'Etanol E85'
       ],
       transmissions: [
-        'Manuale', 'Automatike', 'CVT', 'Gjysmë-automatik', 'Çift këmbe', 'Manuale 6-shpejtësi',
+        'Manuale', 'Automatike', 'CVT', 'Gjysmëautomatik', 'Çift këmbe', 'Manuale 6-shpejtësi',
         'Automatike 7-shpejtësi', 'Automatike 8-shpejtësi', 'Automatike 9-shpejtësi', 'Automatike 10-shpejtësi'
       ],
       drivetrains: [
@@ -2013,32 +2013,32 @@ export const sqTranslations: TranslationStrings = {
     carDetailsDescription: 'Na thuaj për makinën tënde për të krijuar një listim tërheqës',
     make: 'Marka',
     makeRequired: 'Marka *',
-    selectMake: 'Përzgjidh markën',
+    selectMake: 'Zgjidhni markën',
     model: 'Modeli',
     modelRequired: 'Modeli *',
-    selectModel: 'Përzgjidh modelin',
+    selectModel: 'Zgjidhni modelin',
     year: 'Viti',
     yearRequired: 'Viti *',
-    selectYear: 'Përzgjidh vitin',
+    selectYear: 'Zgjidhni vitin',
     mileage: 'Kilometrat',
     mileageRequired: 'Kilometrat *',
     enterMileage: 'Shkruaj kilometrat',
     kilometers: 'kilometra',
     fuelType: 'Lloji i karburantit',
     fuelTypeRequired: 'Lloji i karburantit *',
-    selectFuelType: 'Përzgjidh llojin e karburantit',
+    selectFuelType: 'Zgjidhni llojin e karburantit',
     gasoline: 'Benzina',
     diesel: 'Nafta',
     electric: 'Elektrike',
     hybrid: 'Hibride',
     transmission: 'Transmisioni',
     transmissionRequired: 'Transmisioni *',
-    selectTransmission: 'Përzgjidh transmisionin',
+    selectTransmission: 'Zgjidhni transmisionin',
     manual: 'Manuale',
     automatic: 'Automatike',
     condition: 'Gjendja',
     conditionRequired: 'Gjendja *',
-    selectCondition: 'Përzgjidh gjendjen',
+    selectCondition: 'Zgjidhni gjendjen',
     excellent: 'Shkëlqyeshme',
     veryGood: 'Shumë mirë',
     good: 'Mirë',
@@ -2203,7 +2203,7 @@ export const sqTranslations: TranslationStrings = {
     contactDealer: 'Kontakto',
     scheduleViewing: 'Cakto takim për shikim',
     compareVehicles: 'Krahaso automjetet',
-    selectToCompare: 'Përzgjidhni automjetet për krahasim',
+    selectToCompare: 'Zgjidhnini automjetet për krahasim',
     compare: 'Krahaso',
     clearSelection: 'Pastro përzgjedhjen',
     clearAll: 'Pastro të gjitha'
@@ -3014,7 +3014,7 @@ export const sqTranslations: TranslationStrings = {
       selectFuelType: 'Zgjidhni llojin e karburantit',
       selectTransmission: 'Zgjidhni transmetimin',
       selectBodyType: 'Zgjidhni llojin e karoseries',
-      selectDrivetrain: 'Zgjidhni sistemin e nxitjes',
+      selectDrivetrain: 'Zgjidhni sistemin e lëvizjes',
       enterName: 'Shkruani emrin',
       enterEmail: 'Shkruani email-in',
       enterPassword: 'Shkruani fjalëkalimin',
@@ -3357,8 +3357,8 @@ export const sqTranslations: TranslationStrings = {
         'Flex Fuel', 'Hidrogjen', 'Bio-diesel', 'E85 Etanol'
       ],
       transmissions: [
-        'Manualee', 'Automatikee', 'CVT', 'Gjysmë-automatike', 'Dual Clutch', '6-Shpejtësi Manualee',
-        '7-Shpejtësi Automatikee', '8-Shpejtësi Automatikee', '9-Shpejtësi Automatikee', '10-Shpejtësi Automatikee'
+        'Manuale', 'Automatike', 'CVT', 'Gjysmëautomatike', 'Dual Clutch', '6-Shpejtësi Manuale',
+        '7-Shpejtësi Automatike', '8-Shpejtësi Automatike', '9-Shpejtësi Automatike', '10-Shpejtësi Automatike'
       ],
       drivetrains: [
         'Dridhje e Përparme', 'Dridhje e Pasme', 'Dridhje në të Gjitha Rrotat', '4WD', 
@@ -4466,7 +4466,7 @@ export const sqTranslations: TranslationStrings = {
       unknownModel: 'Model i Panjohur',
       excellent: 'E shkëlqyer',
       gasoline: 'Benzina',
-      automatic: 'Automatikee',
+      automatic: 'Automatike',
       unknown: 'E panjohur',
       black: 'E zezë',
       sedan: 'Sedan',
@@ -4523,16 +4523,16 @@ export const sqTranslations: TranslationStrings = {
       },
       // Fuel types
       fuel: {
-        'Diesel': 'Naftal',
+        'Diesel': 'Nafta',
         'Petrol': 'Benzina',
         'Electric': 'Elektrike',
         'Hybrid': 'Hibride'
       },
       // Transmission types
       transmission: {
-        'Automatic': 'Automatikee',
-        'Manuale': 'Manualee',
-        'Semi-Automatic': 'Gjysmë-Automatikee'
+        'Automatic': 'Automatike',
+        'Manuale': 'Manuale',
+        'Semi-Automatic': 'Gjysmë-Automatike'
       },
     },
   },
@@ -4917,8 +4917,8 @@ export const sqTranslations: TranslationStrings = {
       flexFuel: 'Karburant fleks',
     },
     transmissions: {
-      manual: 'Manualee',
-      automatic: 'Automatikee',
+      manual: 'Manuale',
+      automatic: 'Automatike',
       semiAutomatic: 'Gjysëm-automatike',
       cvt: 'CVT'
     },
