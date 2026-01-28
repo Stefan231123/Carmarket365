@@ -15,7 +15,7 @@ export const mkTranslations: TranslationStrings = {
     back: 'Назад',
     next: 'Следно',
     previous: 'Претходно',
-    search: 'Пребарај',
+    search: 'Пребарувај',
     filter: 'Филтер',
     clear: 'Исчисти',
     save: 'Зачувај',
@@ -124,12 +124,12 @@ export const mkTranslations: TranslationStrings = {
     },
     expressSell: {
       title: 'Продајте го вашиот автомобил брзо',
-      subtitle: 'Поставете го вашиот автомобил за минути со нашиот експрес процес на продажба',
+      subtitle: 'Ставете го вашиот автомобил на продажба за минути со нашиот брз процес на продажба',
       backToHome: 'Назад на почетна',
       step: 'Чекор',
       of: 'од',
       carDetails: 'Детали за автомобилот',
-      carDetailsDescription: 'Кажете ни за вашиот автомобил за да создадеме привлечен оглас',
+      carDetailsDescription: 'Кажете ни за вашиот автомобил за да создадеме атрактивен оглас',
       make: 'Марка',
       makeRequired: 'Марка *',
       selectMake: 'Изберете марка',
@@ -141,18 +141,18 @@ export const mkTranslations: TranslationStrings = {
       selectYear: 'Изберете година',
       mileage: 'Пробег',
       mileageRequired: 'Пробег *',
-      enterMileage: 'Внесете пробег',
+      enterMileage: 'Внесете километража',
       kilometers: 'километри',
       fuelType: 'Тип на гориво',
       fuelTypeRequired: 'Тип на гориво *',
       selectFuelType: 'Изберете тип на гориво',
-      gasolinot: 'Бензин',
+      gasoline: 'Бензин',
       diesel: 'Дизел',
-      electric: 'Електрично',
+      electric: 'Електричен',
       hybrid: 'Хибрид',
-      transmission: 'Менувач',
-      transmissionRequired: 'Менувач *',
-      selectTransmission: 'Изберете менувач',
+      transmission: 'Менувач на брзини',
+      transmissionRequired: 'Менувач на брзини *',
+      selectTransmission: 'Изберете менувач на брзини',
       manual: 'Рачен',
       automatic: 'Автоматски',
       condition: 'Состојба',
@@ -198,17 +198,17 @@ export const mkTranslations: TranslationStrings = {
       previous: 'Претходно',
       next: 'Следно',
       publishListing: 'Објави оглас',
-      successMessage: 'Вашето возило е успешно поставено!',
+      successMessage: 'Вашето возило е успешно објавено!',
       requiredField: 'Ова поле е задолжително',
     },
     financing: {
       title: 'Добијте претходно одобрување за финансирање',
-      description: 'Добијте претходно одобрување за автомобилско финансирање во минути',
+      description: 'Добијте претходно одобрување за финансирање на возила во минути',
       badges: {
         financingAvailable: 'Финансирање достапно'
       },
       employmentStatus: {
-        retired: 'Пензионер',
+        retired: 'Пензиониран',
         student: 'Студент',
         unemployed: 'Невработен'
       },
@@ -299,9 +299,9 @@ export const mkTranslations: TranslationStrings = {
 
   hero: {
     title: 'Најди го својот идеален автомобил',
-    subtitle: 'Прелистај низ илјадници квалитетни половни возила',
+    subtitle: 'Прегледај низ илјадници квалитетни половни возила',
     searchButton: 'Најди автомобили',
-    advancedSearch: 'Напреден пребарај',
+    advancedSearch: 'Напредно пребарување',
     vehicleTypes: {
       cars: 'Автомобили',
       motorbikes: 'Мотоцикли',
@@ -321,8 +321,8 @@ export const mkTranslations: TranslationStrings = {
       maxPrice: 'Макс цена',
       minYear: 'Мин година',
       anyYear: 'Која било година',
-      anyMileage: 'Кој било пробег',
-      maxMileage: 'Макс пробег',
+      anyMileage: 'Кој било километража',
+      maxMileage: 'Макс километража',
       noMin: 'Без мин',
       noMax: 'Без макс',
       enterLocation: 'Внесете град или поштенски код'
@@ -340,7 +340,7 @@ export const mkTranslations: TranslationStrings = {
         description: 'Сите автомобили се прегледани и верификувани од нашиот тим експерти за да се обезбеди квалитет и автентичност.'
       },
       advancedSearch: {
-        title: 'Напреден пребарај',
+        title: 'Напредно пребарување',
         description: 'Најдете точно она што го барате со нашите моќни филтри за пребарување и паметни препораки.'
       },
       bestPrices: {
@@ -381,7 +381,7 @@ export const mkTranslations: TranslationStrings = {
   // Popular Brands Section
   brands: {
     title: 'Купувај по марки',
-    description: 'Прелистај автомобили од најпопуларните производители',
+    description: 'Прегледај автомобили од најпопуларните производители',
     carsCount: 'автомобили'
   },
 
@@ -392,7 +392,7 @@ export const mkTranslations: TranslationStrings = {
     myAccount: 'Мојот профил',
     dashboard: 'Контролна табла',
     home: 'Дома',
-    browseCars: 'Прелистај автомобили',
+    browseCars: 'Прегледај автомобили',
     sellCar: 'Продај автомобил',
     savedCars: 'Зачувани автомобили',
     financing: 'Финансирање',
@@ -419,7 +419,7 @@ export const mkTranslations: TranslationStrings = {
     exteriorColor: 'Надворешна боја',
     interiorColor: 'Внатрешна боја',
     drivetrain: 'Тип на погон',
-    vin: 'ВИН број',
+    vin: 'ВИН код',
     inspection: 'Преглед',
     history: 'Историја',
     financing: 'Финансирање',
@@ -447,7 +447,7 @@ export const mkTranslations: TranslationStrings = {
     yearRange: 'Опсег на години',
     yearMin: 'Мин година',
     yearMax: 'Макс година',
-    mileageMax: 'Макс пробег',
+    mileageMax: 'Макс километража',
     location: 'Локација',
     fuelTypes: 'Тип на гориво',
     transmissionTypes: 'Менувач',
@@ -495,7 +495,7 @@ export const mkTranslations: TranslationStrings = {
     createPrivateAccount: 'Создај приватен профил',
     registerAsDealer: 'Регистрирај се како дилер',
     dealerBenefits: 'Дилерски бенефиции',
-    professionalDashboard: '• Професионална дилерска контролна табла',
+    professionalDashboard: '• Професионална дилерска контролен панел',
     inventoryManagement: '• Напредно управување со инвентар',
     customerTracking: '• Следење на клиентски барања',
     enhancedVisibility: '• Подобрена видливост на огласи',
@@ -561,7 +561,7 @@ export const mkTranslations: TranslationStrings = {
       title: 'Пристапот одбиен',
       signInRequired: 'Ве молиме најавете се за да пристапите до оваа страна.',
       insufficientPermissions: 'Немате дозвола за пристап до оваа страна.',
-      redirectingToDashboard: 'Пренасочување кон вашата контролна табла...'
+      redirectingToDashboard: 'Пренасочување кон вашата контролен панел...'
     },
 
     // DealerSignUp page specific
@@ -732,7 +732,7 @@ export const mkTranslations: TranslationStrings = {
       diesel: 'Дизел',
       pluginHybrid: 'Приклучлив хибрид',
       flexFuel: 'Флекс гориво',
-      cng: 'КПГ',
+      cng: 'Природен гас',
       lpg: 'ТНГ'
     },
 
@@ -817,7 +817,7 @@ export const mkTranslations: TranslationStrings = {
       year: 'Година',
       mileage: 'Пробег',
       fuelType: 'Тип на гориво',
-      transmission: 'Менувач',
+      transmission: 'Менувач на брзини',
       condition: 'Состојба',
       askingPrice: 'Бараната цена',
       description: 'Опис',
@@ -830,7 +830,7 @@ export const mkTranslations: TranslationStrings = {
       selectMake: 'Избери марка',
       enterModel: 'Внеси модел',
       selectYear: 'Избери година',
-      enterMileage: 'Внеси пробег',
+      enterMileage: 'Внеси километража',
       selectFuelType: 'Избери тип на гориво',
       selectTransmission: 'Избери менувач',
       selectCondition: 'Избери состојба',
@@ -893,7 +893,7 @@ export const mkTranslations: TranslationStrings = {
   footer: {
     aboutUs: 'Вашиот доверлив пазар за квалитетни половни автомобили. Најдете го вашиот идеален автомобил меѓу илјадници огласи.',
     quickLinks: 'Брзи врски',
-    searchCars: 'Пребарај автомобили',
+    searchCars: 'Пребарувај автомобили',
     sellYourCar: 'Продај го твојот автомобил',
     registeredDealers: 'Регистрирани дилери',
     carReviews: 'Рецензии за автомобили',
@@ -910,8 +910,8 @@ export const mkTranslations: TranslationStrings = {
     accessibility: 'Пристапност',
     dashboard: 'Контролна табла',
     adminPanel: 'Администраторска табла',
-    dealerDashboard: 'Дилерска контролна табла',
-    myDashboard: 'Мојата контролна табла',
+    dealerDashboard: 'Дилерски контролен панел',
+    myDashboard: 'Мојата контролен панел',
     signInToAccess: 'Најавете се за пристап до контролната табла',
     followUs: 'Следете не',
     newsletter: 'Билтен',
@@ -951,7 +951,7 @@ export const mkTranslations: TranslationStrings = {
 
   admin: {
     panel: 'Администраторска табла',
-    dashboard: 'Администраторска контролна табла'
+    dashboard: 'Администраторска контролен панел'
   },
 
   pages: {
@@ -1271,7 +1271,7 @@ export const mkTranslations: TranslationStrings = {
     // FAQ Page
     faq: {
       content: {
-        browseByCategory: 'Прелистај по категории',
+        browseByCategory: 'Прегледај по категории',
         browseDescription: 'Изберете категорија за да најдете релевантни прашања и одговори.',
         allQuestions: 'Сите прашања',
         commonQuestionsAbout: 'Често поставувани прашања за',
@@ -1296,7 +1296,7 @@ export const mkTranslations: TranslationStrings = {
           faqs: [
             {
               question: 'Како да најдам автомобили на CarMarket365?',
-              answer: 'Можете да пребарувате автомобили користејќи го формуларот за пребарување на главната страница или на страницата "Прелистај автомобили". Филтрирајте по марка, модел, година, ценовен опсег, локација и многу повеќе.'
+              answer: 'Можете да пребарувате автомобили користејќи го формуларот за пребарување на главната страница или на страницата "Прегледај автомобили". Филтрирајте по марка, модел, година, ценовен опсег, локација и многу повеќе.'
             },
             {
               question: 'Дали сите огласи се верификувани?',
@@ -1369,7 +1369,7 @@ export const mkTranslations: TranslationStrings = {
       title: 'Често поставувани прашања',
       subtitle: 'Најдете одговори на честите прашања за купување, продажба, финансирање и користење на CarMarket365.',
       searchPlaceholder: 'Пребарај во FAQ...',
-      browseByCategory: 'Прелистај по категории',
+      browseByCategory: 'Прегледај по категории',
       allQuestions: 'Сите прашања',
       stillNeedHelp: 'Треба ви дополнителна помош?',
       stillNeedHelpDescription: 'Не можете да најдете она што го барате? Нашиот тим за поддршка е спремен да помогне.',
@@ -1393,7 +1393,7 @@ export const mkTranslations: TranslationStrings = {
       buyingFaqs: [
         {
           question: 'Како да најдам автомобили на CarMarket365?',
-          answer: 'Можете да пребарувате автомобили користејќи го формуларот за пребарување на главната страница или на страницата "Прелистај автомобили". Филтрирајте по марка, модел, година, ценовен опсег, локација и многу повеќе. Користете го напредниот пребарај за детална филтрација.'
+          answer: 'Можете да пребарувате автомобили користејќи го формуларот за пребарување на главната страница или на страницата "Прегледај автомобили". Филтрирајте по марка, модел, година, ценовен опсег, локација и многу повеќе. Користете го напредното пребарување за детална филтрација.'
         },
         {
           question: 'Дали сите огласи се верификувани?',
@@ -1432,7 +1432,7 @@ export const mkTranslations: TranslationStrings = {
         },
         {
           question: 'Како да поставам конкурентна цена на мојот автомобил?',
-          answer: 'Користете ја нашата бесплатна алатка за процена на возила, истражувајте слични огласи, земете ја предвид состојбата на вашиот автомобил, пробегот и било какви неодамнешни поправки или подобрувања.'
+          answer: 'Користете ја нашата бесплатна алатка за процена на возила, истражувајте слични огласи, земете ја предвид состојбата на вашиот автомобил, километражаот и било какви неодамнешни поправки или подобрувања.'
         }
       ],
 
@@ -1682,7 +1682,7 @@ export const mkTranslations: TranslationStrings = {
     urgentSupport: {
       title: 'Итна поддршка?',
       message: 'За итни прашања, повикајте не директно или продолжете со прелистување на возила.',
-      browseCars: 'Прелистај возила',
+      browseCars: 'Прегледај возила',
       callNow: 'Повикај сега'
     },
     
@@ -1783,7 +1783,7 @@ export const mkTranslations: TranslationStrings = {
     emergency: {
       title: 'Сомневате во измама?',
       message: 'Ако сомневате дека се соочувате со измамничка активност или се чувствувате небезбедно, веднаш контактирајте не или локалните власти.',
-      browseCars: 'Прелистај возила',
+      browseCars: 'Прегледај возила',
       reportConcern: 'Пријави грижа'
     }
   },
@@ -2102,12 +2102,12 @@ export const mkTranslations: TranslationStrings = {
   finalFixes: {
     expressSell: {
       title: 'Експрес продажба',
-      listMyCarQuickly: 'Поставете го вашиот автомобил брзо и лесно',
+      listMyCarQuickly: 'Ставете го вашиот автомобил на продажба брзо и лесно',
       backToHome: 'Назад на почетна',
       
       // Main form fields (duplicated from expressSell section for compatibility)
       carDetails: 'Детали за автомобилот',
-      carDetailsDescription: 'Кажете ни за вашиот автомобил за да создадеме привлечен оглас',
+      carDetailsDescription: 'Кажете ни за вашиот автомобил за да создадеме атрактивен оглас',
       makeRequired: 'Марка *',
       selectMake: 'Изберете марка',
       modelRequired: 'Модел *',
@@ -2117,8 +2117,8 @@ export const mkTranslations: TranslationStrings = {
       mileageRequired: 'Пробег *',
       fuelTypeRequired: 'Тип на гориво *',
       selectFuelType: 'Изберете тип на гориво',
-      transmissionRequired: 'Менувач *',
-      selectTransmission: 'Изберете менувач',
+      transmissionRequired: 'Менувач на брзини *',
+      selectTransmission: 'Изберете менувач на брзини',
       
       // Step titles
       carDetailsStep: 'Детали за автомобилот',
