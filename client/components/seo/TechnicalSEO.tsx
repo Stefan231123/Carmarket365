@@ -620,7 +620,7 @@ Crawl-delay: 1`);
                       </div>
                       <div className="flex items-center gap-2">
                         <CheckCircle className="h-4 w-4 text-green-600" />
-                        <span className="text-sm">File size is optimal (< 500KB)</span>
+                        <span className="text-sm">File size is optimal (&lt; 500KB)</span>
                       </div>
                     </CardContent>
                   </Card>

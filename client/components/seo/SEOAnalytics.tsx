@@ -5,7 +5,7 @@ import {
   Calendar, 
   Download,
   Eye,
-  Click,
+  MousePointerClick,
   Search,
   Users,
   Globe,
@@ -259,7 +259,7 @@ export default function SEOAnalytics() {
                   <span className="text-xs text-green-600">+12.5%</span>
                 </div>
               </div>
-              <Click className="h-8 w-8 text-blue-500" />
+              <MousePointerClick className="h-8 w-8 text-blue-500" />
             </div>
           </CardContent>
         </Card>

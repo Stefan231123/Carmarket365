@@ -63,7 +63,6 @@ export const enTranslations: TranslationStrings = {
     option: 'Option',
     sending: 'Sending...',
     processing: 'Processing...',
-    loading: 'Loading...',
     errorLoadingImage: 'Error loading image',
   
     ascending: 'Ascending',
@@ -700,17 +699,6 @@ export const enTranslations: TranslationStrings = {
       createListing: 'Create Listing',
     },
     
-    // Preview section
-    preview: {
-      title: 'Preview',
-      yourVehicle: 'Your vehicle',
-      milesLabel: 'kilometers',
-      priceLabel: 'Price',
-      photosCount: '{count} photo{plural}',
-      photo: '',
-      photos: 's',
-    },
-    
     // Photo upload
     photos: {
       instruction: 'Add up to 10 high-quality photos of your vehicle. The first photo will be the main image in search results.',
@@ -941,7 +929,6 @@ export const enTranslations: TranslationStrings = {
       contactUs: 'Contact Us',
     },
     helpCenter: 'Support Center',
-    feedback: 'Feedback',
     disclaimer: 'Disclaimer',
     carInsurance: 'Car Insurance',
     underConstruction: 'Under Construction',

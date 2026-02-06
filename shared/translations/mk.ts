@@ -702,17 +702,6 @@ export const mkTranslations: TranslationStrings = {
       createListing: 'Создај оглас'
     },
 
-    // Preview section
-    preview: {
-      title: 'Преглед',
-      yourVehicle: 'Вашето возило',
-      milesLabel: 'километри',
-      priceLabel: 'Цена',
-      photosCount: '{count} фотографи{plural}',
-      photo: 'ја',
-      photos: 'и'
-    },
-
     // Photo upload
     photos: {
       instruction: 'Додајте до 10 високо квалитетни фотографии од вашето возило. Првата фотографија ќе биде главната слика во резултатите од пребарувањето.',
@@ -802,50 +791,6 @@ export const mkTranslations: TranslationStrings = {
       motorbike: {
         name: 'Мотор'
       }
-    },
-    headers: {
-      vehicleTypeQuestion: 'Кој тип возило го продавате?',
-      basicInformation: 'Основни информации',
-      vehicleDetails: 'Детали за возилото',
-      photosAndContactInfo: 'Фотографии и контакт информации',
-      uploadVehiclePhotos: 'Прикачи фотографии од возилото',
-      addUpToTenPhotos: 'Додајте до 10 фотографии'
-    },
-    fields: {
-      make: 'Марка',
-      model: 'Модел',
-      year: 'Година',
-      mileage: 'Пробег',
-      fuelType: 'Тип на гориво',
-      transmission: 'Менувач на брзини',
-      condition: 'Состојба',
-      askingPrice: 'Бараната цена',
-      description: 'Опис',
-      contactName: 'Име за контакт',
-      phoneNumber: 'Телефонски број',
-      emailAddress: 'Е-пошта',
-      location: 'Локација'
-    },
-    placeholders: {
-      selectMake: 'Избери марка',
-      enterModel: 'Внеси модел',
-      selectYear: 'Избери година',
-      enterMileage: 'Внеси километража',
-      selectFuelType: 'Избери тип на гориво',
-      selectTransmission: 'Избери менувач',
-      selectCondition: 'Избери состојба',
-      enterAskingPrice: 'Внеси бараната цена',
-      describeYourVehicle: 'Опишете го вашето возило',
-      choosePhotos: 'Избери фотографии',
-      yourName: 'Вашето име',
-      yourPhoneNumber: 'Ваш телефонски број',
-      yourEmail: 'Ваша е-пошта',
-      cityCountry: 'Град, земја'
-    },
-    buttons: {
-      nextStep: 'Следен чекор',
-      previous: 'Претходно',
-      createListing: 'Создај оглас'
     },
 
     // Features list
