@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import { tokenManager } from '@/utils/secureTokenManager';
 
 // Safe types that don't rely on shared API client
 interface SafeUser {
@@ -82,17 +83,40 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  // Removed automatic auth check on mount that was causing issues
-  // Check for existing token but don't make API calls immediately
+  // Check for existing authentication on mount
   useEffect(() => {
-    const token = localStorage.getItem('authToken');
-    if (token) {
-      // Just log that we found a token, don't validate it immediately
-      console.log('Found existing auth token, ready for API calls');
-    }
+    const initAuth = async () => {
+      dispatch({ type: 'AUTH_START' });
+      
+      try {
+        // First, migrate any legacy tokens
+        tokenManager.migrateLegacyTokens();
+        
+        // Try to get access token from secure storage
+        const token = await tokenManager.getAccessToken();
+        
+        if (token) {
+          // Token exists, try to get user data from localStorage (for mock data)
+          const userData = localStorage.getItem('currentUser');
+          if (userData) {
+            const user = JSON.parse(userData);
+            dispatch({ type: 'AUTH_SUCCESS', payload: user });
+            return;
+          }
+        }
+        
+        // No valid session found
+        dispatch({ type: 'AUTH_FAILURE', payload: 'No valid session' });
+      } catch (error) {
+        console.error('Auth initialization failed:', error);
+        dispatch({ type: 'AUTH_FAILURE', payload: 'Authentication failed' });
+      }
+    };
+
+    initAuth();
   }, []);
 
-  const login = async (credentials: { email: string; password: string }) => {
+  const login = async (credentials: { email: string; password: string; rememberMe?: boolean }) => {
     dispatch({ type: 'AUTH_START' });
     
     try {
@@ -185,6 +209,25 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
         };
       }
       
+      // Generate a mock JWT token for persistence
+      const mockToken = `mock_jwt_${Date.now()}_${mockUser.role}`;
+      
+      // Set expiry based on "Remember Me" option
+      const expiresAt = credentials.rememberMe 
+        ? Date.now() + (30 * 24 * 60 * 60 * 1000) // 30 days if remembered
+        : Date.now() + (24 * 60 * 60 * 1000); // 1 day if not remembered
+      
+      // Store tokens securely for persistent login
+      await tokenManager.setTokens({
+        access_token: mockToken,
+        refresh_token: `refresh_${mockToken}`,
+        expires_at: expiresAt
+      });
+      
+      // Store user data in localStorage for quick access
+      localStorage.setItem('currentUser', JSON.stringify(mockUser));
+      localStorage.setItem('authToken', mockToken); // Keep for backward compatibility
+      
       dispatch({ type: 'AUTH_SUCCESS', payload: mockUser });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Login failed';
@@ -209,6 +252,21 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
         savedListingIds: []
       };
       
+      // Generate a mock JWT token for persistence (default 7 days for new registrations)
+      const mockToken = `mock_jwt_${Date.now()}_${mockUser.role}`;
+      const expiresAt = Date.now() + (7 * 24 * 60 * 60 * 1000); // 7 days
+      
+      // Store tokens securely for persistent login
+      await tokenManager.setTokens({
+        access_token: mockToken,
+        refresh_token: `refresh_${mockToken}`,
+        expires_at: expiresAt
+      });
+      
+      // Store user data in localStorage for quick access
+      localStorage.setItem('currentUser', JSON.stringify(mockUser));
+      localStorage.setItem('authToken', mockToken); // Keep for backward compatibility
+      
       dispatch({ type: 'AUTH_SUCCESS', payload: mockUser });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Registration failed';
@@ -219,12 +277,19 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = async () => {
     try {
-      // Clear token from localStorage
+      // Clear tokens from secure storage
+      await tokenManager.clearTokens();
+      
+      // Clear all local storage data
       localStorage.removeItem('authToken');
+      localStorage.removeItem('currentUser');
+      
       dispatch({ type: 'AUTH_LOGOUT' });
     } catch (error) {
       console.error('Logout error:', error);
       // Even if logout fails, clear local state
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('currentUser');
       dispatch({ type: 'AUTH_LOGOUT' });
     }
   };
@@ -232,6 +297,26 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
   const clearError = () => {
     dispatch({ type: 'CLEAR_ERROR' });
   };
+
+  // Auto-refresh token every 23 hours to keep session alive
+  useEffect(() => {
+    if (!state.isAuthenticated) return;
+
+    const refreshInterval = setInterval(async () => {
+      try {
+        const refreshedToken = await tokenManager.refreshToken();
+        if (!refreshedToken) {
+          // If refresh fails, logout user
+          logout();
+        }
+      } catch (error) {
+        console.error('Token refresh failed:', error);
+        logout();
+      }
+    }, 23 * 60 * 60 * 1000); // 23 hours
+
+    return () => clearInterval(refreshInterval);
+  }, [state.isAuthenticated]);
 
   const contextValue: AuthContextType = {
     ...state,

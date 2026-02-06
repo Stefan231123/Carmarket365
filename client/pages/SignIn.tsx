@@ -36,7 +36,7 @@ export default function SignIn() {
     }
 
     try {
-      await login({ email, password });
+      await login({ email, password, rememberMe });
       
       // Navigate based on the actual user role from backend
       // The auth context will contain the user info after successful login
