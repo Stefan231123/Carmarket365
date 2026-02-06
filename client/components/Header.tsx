@@ -45,11 +45,10 @@ export function Header({
       return;
     }
     
-    // For now, use React Router navigation. In production with subdomains, 
-    // this logic can be updated to handle cross-subdomain navigation
+    // Admin users go to dashboard selector, others go directly to their dashboard
     switch (user.role) {
       case 'ADMIN':
-        navigate('/admin-dashboard');
+        navigate('/dashboard'); // Dashboard selector for admins
         break;
       case 'DEALER':
         navigate('/dealer-dashboard');
@@ -67,7 +66,7 @@ export function Header({
     
     switch (user.role) {
       case 'ADMIN':
-        return t('admin.dashboard');
+        return 'Admin Center'; // Dashboard selector for admins
       case 'DEALER':
         return t('header.dashboard');
       case 'USER':

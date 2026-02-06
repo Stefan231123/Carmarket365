@@ -37,6 +37,7 @@ const DealerSignUp = lazy(() => import("@/pages/DealerSignUp"));
 const UserSignUp = lazy(() => import("@/pages/UserSignUp"));
 const DealerDashboard = lazy(() => import("@/pages/DealerDashboard"));
 const AdminDashboard = lazy(() => import("@/pages/AdminDashboard"));
+const AdminSEODashboard = lazy(() => import("@/pages/AdminSEODashboard"));
 const PrivateDashboard = lazy(() => import("@/pages/PrivateDashboard"));
 const CarReviews = lazy(() => import("@/pages/CarReviews"));
 const SafetyTips = lazy(() => import("@/pages/SafetyTips"));
@@ -48,6 +49,7 @@ const Imprint = lazy(() => import("@/pages/Imprint"));
 const Accessibility = lazy(() => import("@/pages/Accessibility"));
 const CountryTestPage = lazy(() => import("@/pages/CountryTestPage"));
 const TranslationReview = lazy(() => import("@/pages/TranslationReview"));
+const DashboardSelector = lazy(() => import("@/pages/DashboardSelector"));
 
 function AppContent() {
   const navigate = useNavigate();
@@ -111,10 +113,26 @@ function AppContent() {
               } 
             />
             <Route 
+              path="/admin/seo" 
+              element={
+                <ProtectedRoute requiredRole="ADMIN">
+                  <AdminSEODashboard />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
               path="/private-dashboard" 
               element={
                 <ProtectedRoute requiredRole="USER">
                   <PrivateDashboard />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/dashboard" 
+              element={
+                <ProtectedRoute>
+                  <DashboardSelector />
                 </ProtectedRoute>
               } 
             />

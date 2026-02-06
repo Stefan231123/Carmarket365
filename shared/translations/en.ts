@@ -2427,5 +2427,33 @@ export const enTranslations: TranslationStrings = {
   // Navigation
   navigation: {
     backToHome: 'Back to Home',
+  },
+
+  // Mobile App Announcement
+  mobileApp: {
+    announcement: {
+      banner: {
+        text: 'Mobile app coming soon! Get notified when it launches.'
+      },
+      section: {
+        title: 'Mobile App Coming Soon!',
+        description: 'Take CarMarket365 with you everywhere. Get instant notifications for new listings, save favorites, and browse cars on the go.'
+      },
+      emailPlaceholder: 'Enter your email for updates',
+      notifyMe: 'Get Notified',
+      privacy: 'We\'ll only use your email to notify you about the mobile app launch. No spam, ever.',
+      success: {
+        title: 'You\'re on the list!',
+        message: 'We\'ll notify you as soon as the CarMarket365 mobile app is available for download.'
+      }
+    },
+    features: {
+      notifications: 'Push Notifications',
+      notificationsDesc: 'Get alerted instantly when new cars match your criteria',
+      offline: 'Offline Access',
+      offlineDesc: 'Browse saved cars and listings even without internet',
+      seamless: 'Seamless Experience',
+      seamlessDesc: 'All your web favorites and searches synced automatically'
+    }
   }
 };

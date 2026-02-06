@@ -2,6 +2,7 @@ import { HeroSection, SearchFormData } from "@/components/HeroSection";
 import { LastSearch } from "@/components/LastSearch";
 import { InterestingSuggestions } from "@/components/InterestingSuggestions";
 import { PopularBrands } from "@/components/PopularBrands";
+import { MobileAppAnnouncement } from "@/components/MobileAppAnnouncement";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from '@/hooks/useTranslation';
 import { useEffect } from 'react';
@@ -76,6 +77,7 @@ export default function Index({ onAdvancedSearchClick }: IndexProps) {
       />
       <LastSearch onCarClick={handleCarClick} />
       <InterestingSuggestions onCarClick={handleCarClick} />
+      <MobileAppAnnouncement variant="section" />
       <PopularBrands />
     </div>
   );

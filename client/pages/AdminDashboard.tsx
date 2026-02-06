@@ -9,6 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '.
 import { Badge } from '../components/ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../components/ui/dropdown-menu';
+import { AdminBreadcrumb } from '../components/AdminBreadcrumb';
 
 interface User {
   id: string;
@@ -178,7 +179,9 @@ export default function AdminDashboard() {
   ];
 
   return (
-    <section className="py-20 bg-muted/30">
+    <>
+      <AdminBreadcrumb currentPage="Admin Dashboard" />
+      <section className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
           <h1 className="text-4xl md:text-5xl mb-3 text-foreground">
@@ -340,11 +343,17 @@ export default function AdminDashboard() {
               </Card>
             </div>
 
-            <div className="flex flex-col items-center gap-2 mt-6">
-              <Button size="lg" onClick={() => setActiveTab("users")} className="bg-black text-white hover:bg-black/90 px-8 h-12 rounded-full shadow-md">
-                <Users className="h-4 w-4 mr-2" />
-                {t('adminDashboard.overview.actions.manageUsers')}
-              </Button>
+            <div className="flex flex-col items-center gap-3 mt-6">
+              <div className="flex gap-4">
+                <Button size="lg" onClick={() => setActiveTab("users")} className="bg-black text-white hover:bg-black/90 px-8 h-12 rounded-full shadow-md">
+                  <Users className="h-4 w-4 mr-2" />
+                  {t('adminDashboard.overview.actions.manageUsers')}
+                </Button>
+                <Button size="lg" onClick={() => navigate('/admin/seo')} className="bg-blue-600 text-white hover:bg-blue-700 px-8 h-12 rounded-full shadow-md">
+                  <TrendingUp className="h-4 w-4 mr-2" />
+                  SEO Dashboard
+                </Button>
+              </div>
               <button onClick={() => setActiveTab("reports")} className="text-sm text-foreground/70 underline-offset-4 hover:underline">
                 {t('adminDashboard.overview.actions.viewReports')}
               </button>
@@ -661,5 +670,6 @@ export default function AdminDashboard() {
         </p>
       </div>
     </section>
+    </>
   );
 }

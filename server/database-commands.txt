@@ -1,0 +1,66 @@
+# CarMarket365 Database Commands Reference
+
+## Connect to Database
+psql postgresql://postgres:password@localhost:5432/carmarket365
+
+## Essential Commands (run inside psql):
+
+### List all tables
+\dt
+
+### Describe table structure
+\d users
+\d cars
+\d car_images
+
+### View data from tables
+SELECT * FROM users;
+SELECT * FROM cars;
+SELECT * FROM car_images;
+
+### Count records in each table
+SELECT 
+  (SELECT COUNT(*) FROM users) as users,
+  (SELECT COUNT(*) FROM cars) as cars,
+  (SELECT COUNT(*) FROM car_images) as images,
+  (SELECT COUNT(*) FROM saved_cars) as saved,
+  (SELECT COUNT(*) FROM car_views) as views;
+
+### View relationships
+\d+ cars  -- Shows foreign key relationships
+
+### Exit psql
+\q
+
+## Sample Data Modifications:
+
+### Add a new user
+INSERT INTO users (email, password, "firstName", "lastName", role, "isEmailVerified") 
+VALUES ('newuser@test.com', 'hashedpassword', 'New', 'User', 'USER', true);
+
+### Add a new car
+INSERT INTO cars (make, model, year, price, mileage, "vehicleType", "fuelType", transmission, condition, location, "sellerId") 
+VALUES ('Toyota', 'Camry', 2022, 25000, 15000, 'CAR', 'GASOLINE', 'AUTOMATIC', 'USED', 'Skopje', '550e8400-e29b-41d4-a716-446655440002');
+
+### Update car price
+UPDATE cars SET price = 33000 WHERE make = 'BMW';
+
+### Delete a car (be careful!)
+DELETE FROM cars WHERE make = 'Ford' AND model = 'Focus';
+
+### Find cars by price range
+SELECT make, model, year, price FROM cars WHERE price BETWEEN 20000 AND 40000;
+
+### Find cars with images
+SELECT c.make, c.model, COUNT(ci.id) as image_count 
+FROM cars c 
+LEFT JOIN car_images ci ON c.id = ci."carId" 
+GROUP BY c.id, c.make, c.model;
+
+## Backup and Restore:
+
+### Create backup
+pg_dump postgresql://postgres:password@localhost:5432/carmarket365 > backup.sql
+
+### Restore backup
+psql postgresql://postgres:password@localhost:5432/carmarket365 < backup.sql

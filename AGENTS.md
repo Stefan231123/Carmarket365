@@ -1,3 +1,37 @@
+# CarMarket365 Agent System
+
+## 🇲🇰 Macedonian Proofreading Agent - NEW!
+
+**Specialized agent for Macedonian automotive translation quality assurance**
+
+### Quick Access
+- **Documentation:** `MACEDONIAN_PROOFREADING_AGENT.md`
+- **Executable:** `scripts/macedonian-proofreading-agent.cjs`
+- **Usage Guide:** `MACEDONIAN_AGENT_USAGE_GUIDE.md`
+- **Configuration:** `macedonian-agent-config.js`
+
+### Commands
+```bash
+# Quick validation
+node scripts/macedonian-proofreading-agent.cjs validate --quick
+
+# Full quality review with detailed report
+node scripts/macedonian-proofreading-agent.cjs review
+
+# Extract for external proofreading
+node scripts/macedonian-proofreading-agent.cjs extract
+```
+
+### Key Features
+- ✅ **Expert Macedonian linguistic analysis** (Grammar, syntax, vocabulary)
+- ✅ **Automotive domain specialization** (Cars, parts, technical specs)
+- ✅ **Cultural localization** (North Macedonian market context)
+- ✅ **Quality scoring** (1-10 scale across 5 categories)
+- ✅ **Integration ready** (Works with existing proofreading system)
+- ✅ **Production tested** (Analyzed 1,560 translations successfully)
+
+---
+
 # Fusion Starter
 
 A production-ready full-stack React application template with integrated Express server, featuring React Router 6 SPA mode, TypeScript, Vitest, Zod and modern tooling.

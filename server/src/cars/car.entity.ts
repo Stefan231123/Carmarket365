@@ -1,6 +1,60 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, JoinColumn } from 'typeorm';
-import { ObjectType, Field, ID, Int, Float } from '@nestjs/graphql';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn, JoinColumn, OneToMany } from 'typeorm';
+import { ObjectType, Field, ID, Int, Float, registerEnumType } from '@nestjs/graphql';
 import { User } from '../users/user.entity';
+import { CarImage } from './car-image.entity';
+import { CarView } from './car-view.entity';
+import { CarInquiry } from './car-inquiry.entity';
+
+export enum VehicleType {
+  CAR = 'CAR',
+  MOTORCYCLE = 'MOTORCYCLE',
+  TRUCK = 'TRUCK',
+  VAN = 'VAN',
+  SUV = 'SUV',
+  COUPE = 'COUPE',
+  CONVERTIBLE = 'CONVERTIBLE',
+  WAGON = 'WAGON',
+  HATCHBACK = 'HATCHBACK',
+  SEDAN = 'SEDAN',
+}
+
+export enum FuelType {
+  GASOLINE = 'GASOLINE',
+  DIESEL = 'DIESEL',
+  ELECTRIC = 'ELECTRIC',
+  HYBRID = 'HYBRID',
+  PLUGIN_HYBRID = 'PLUGIN_HYBRID',
+  LPG = 'LPG',
+  CNG = 'CNG',
+  HYDROGEN = 'HYDROGEN',
+}
+
+export enum TransmissionType {
+  MANUAL = 'MANUAL',
+  AUTOMATIC = 'AUTOMATIC',
+  SEMI_AUTOMATIC = 'SEMI_AUTOMATIC',
+  CVT = 'CVT',
+}
+
+export enum CarCondition {
+  NEW = 'NEW',
+  USED = 'USED',
+  CERTIFIED = 'CERTIFIED',
+  DAMAGED = 'DAMAGED',
+}
+
+export enum DrivetrainType {
+  FWD = 'FWD', // Front-wheel drive
+  RWD = 'RWD', // Rear-wheel drive
+  AWD = 'AWD', // All-wheel drive
+  FOUR_WD = 'FOUR_WD', // 4-wheel drive
+}
+
+registerEnumType(VehicleType, { name: 'VehicleType' });
+registerEnumType(FuelType, { name: 'FuelType' });
+registerEnumType(TransmissionType, { name: 'TransmissionType' });
+registerEnumType(CarCondition, { name: 'CarCondition' });
+registerEnumType(DrivetrainType, { name: 'DrivetrainType' });
 
 @ObjectType()
 @Entity('cars')
@@ -17,6 +71,10 @@ export class Car {
   @Column()
   model: string;
 
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  variant?: string; // e.g., "Sport", "Luxury", "Base"
+
   @Field(() => Int)
   @Column()
   year: number;
@@ -29,29 +87,87 @@ export class Car {
   @Column()
   mileage: number;
 
-  @Field()
-  @Column()
-  fuelType: string;
+  @Field(() => VehicleType)
+  @Column({
+    type: 'enum',
+    enum: VehicleType,
+    default: VehicleType.CAR,
+  })
+  vehicleType: VehicleType;
 
-  @Field()
-  @Column()
-  transmission: string;
+  @Field(() => FuelType)
+  @Column({
+    type: 'enum',
+    enum: FuelType,
+  })
+  fuelType: FuelType;
 
-  @Field({ nullable: true })
-  @Column({ nullable: true })
-  bodyType?: string;
+  @Field(() => TransmissionType)
+  @Column({
+    type: 'enum',
+    enum: TransmissionType,
+  })
+  transmission: TransmissionType;
+
+  @Field(() => CarCondition)
+  @Column({
+    type: 'enum',
+    enum: CarCondition,
+    default: CarCondition.USED,
+  })
+  condition: CarCondition;
 
   @Field({ nullable: true })
   @Column({ nullable: true })
   color?: string;
 
   @Field({ nullable: true })
+  @Column({ nullable: true })
+  interiorColor?: string;
+
+  @Field({ nullable: true })
   @Column('text', { nullable: true })
   description?: string;
 
+  @Field(() => Int, { nullable: true })
+  @Column({ nullable: true })
+  engineSize?: number; // in CC
+
+  @Field(() => Int, { nullable: true })
+  @Column({ nullable: true })
+  horsePower?: number;
+
+  @Field(() => Int, { nullable: true })
+  @Column({ nullable: true })
+  doors?: number;
+
+  @Field(() => Int, { nullable: true })
+  @Column({ nullable: true })
+  seats?: number;
+
+  @Field(() => DrivetrainType, { nullable: true })
+  @Column({
+    type: 'enum',
+    enum: DrivetrainType,
+    nullable: true,
+  })
+  drivetrain?: DrivetrainType;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  vin?: string; // Vehicle Identification Number
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  licensePlate?: string;
+
   @Field(() => [String])
   @Column('text', { array: true, default: [] })
-  images: string[];
+  features: string[]; // e.g., ["Air Conditioning", "Leather Seats", "Navigation System"]
+
+  @Field(() => [String])
+  @Column('text', { array: true, default: [] })
+  safetyFeatures: string[]; // e.g., ["ABS", "Airbags", "ESP"]
 
   @Field()
   @Column()
@@ -59,7 +175,23 @@ export class Car {
 
   @Field({ nullable: true })
   @Column({ nullable: true })
+  city?: string;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  region?: string;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
   countryCode?: string;
+
+  @Field({ nullable: true })
+  @Column('decimal', { precision: 10, scale: 6, nullable: true })
+  latitude?: number;
+
+  @Field({ nullable: true })
+  @Column('decimal', { precision: 10, scale: 6, nullable: true })
+  longitude?: number;
 
   @Field()
   @Column({ default: true })
@@ -69,6 +201,62 @@ export class Car {
   @Column({ default: false })
   isFeatured: boolean;
 
+  @Field()
+  @Column({ default: false })
+  isCertified: boolean;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  warrantyMonths?: number;
+
+  @Field(() => Float, { nullable: true })
+  @Column('decimal', { precision: 5, scale: 2, nullable: true })
+  fuelConsumption?: number; // L/100km or MPG
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  emissionClass?: string; // e.g., "Euro 6"
+
+  @Field(() => Int)
+  @Column({ default: 0 })
+  viewCount: number;
+
+  @Field(() => Int)
+  @Column({ default: 0 })
+  favoriteCount: number;
+
+  @Field(() => Int)
+  @Column({ default: 0 })
+  inquiryCount: number;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  contactPhone?: string;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  contactEmail?: string;
+
+  @Field()
+  @Column({ default: false })
+  allowTestDrive: boolean;
+
+  @Field()
+  @Column({ default: false })
+  acceptsTradeIn: boolean;
+
+  @Field({ nullable: true })
+  @Column('decimal', { precision: 12, scale: 2, nullable: true })
+  originalPrice?: number; // For tracking price changes
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  priceNegotiable: boolean;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  quickSale: boolean; // For express sell feature
+
   @Column()
   sellerId: string;
 
@@ -77,6 +265,18 @@ export class Car {
   @JoinColumn({ name: 'sellerId' })
   seller: User;
 
+  @Field(() => [CarImage])
+  @OneToMany(() => CarImage, image => image.car, { cascade: true })
+  images: CarImage[];
+
+  @Field(() => [CarView])
+  @OneToMany(() => CarView, view => view.car)
+  views: CarView[];
+
+  @Field(() => [CarInquiry])
+  @OneToMany(() => CarInquiry, inquiry => inquiry.car)
+  inquiries: CarInquiry[];
+
   @Field()
   @CreateDateColumn()
   createdAt: Date;
@@ -84,4 +284,16 @@ export class Car {
   @Field()
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  lastPriceUpdate?: Date;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  featuredUntil?: Date;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  soldAt?: Date;
 }

@@ -37,6 +37,7 @@ import {
 } from "lucide-react";
 import { ImageWithFallback } from '../components/ImageWithFallback';
 import { useTranslation } from '../hooks/useTranslation';
+import { AdminBreadcrumb } from '../components/AdminBreadcrumb';
 
 export default function PrivateDashboard() {
   const navigate = useNavigate();
@@ -193,7 +194,9 @@ export default function PrivateDashboard() {
   ];
 
   return (
-    <section className="py-20 bg-muted/30">
+    <>
+      <AdminBreadcrumb currentPage="Private Dashboard" />
+      <section className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="flex justify-center mb-6">
           <Button variant="ghost" onClick={onBackToHome} className="bg-zinc-100 text-muted-foreground hover:bg-zinc-200 rounded-full px-6 py-2">
@@ -743,5 +746,6 @@ export default function PrivateDashboard() {
         </p>
       </div>
     </section>
+    </>
       );
   }

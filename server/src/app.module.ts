@@ -27,6 +27,7 @@ import { CarsModule } from './cars/cars.module';
       username: process.env.DATABASE_URL ? undefined : (process.env.DB_USERNAME || 'postgres'),
       password: process.env.DATABASE_URL ? undefined : (process.env.DB_PASSWORD || 'password'),
       database: process.env.DATABASE_URL ? undefined : (process.env.DB_NAME || 'carmarket365'),
+      schema: 'public',
       ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
       entities: [join(__dirname, '**', '*.entity.{ts,js}')],
       synchronize: process.env.NODE_ENV !== 'production', // Auto-create tables in development

@@ -11,6 +11,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '.
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../components/ui/dropdown-menu';
 import { ImageWithFallback } from '../components/ImageWithFallback';
 import { CarCard } from '../components/CarCard';
+import { AdminBreadcrumb } from '../components/AdminBreadcrumb';
 
 interface CarListing {
   id: string;
@@ -200,7 +201,9 @@ export default function DealerDashboard() {
   ];
 
   return (
-    <section className="py-20 bg-muted/30">
+    <>
+      <AdminBreadcrumb currentPage="Dealer Dashboard" />
+      <section className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
           <h1 className="text-4xl md:text-5xl mb-3 text-foreground">
@@ -822,5 +825,6 @@ export default function DealerDashboard() {
         </p>
       </div>
     </section>
+    </>
   );
 }

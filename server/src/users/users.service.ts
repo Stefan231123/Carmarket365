@@ -54,20 +54,13 @@ export class UsersService {
   }
 
   async updateSavedListings(userId: string, carId: string, action: 'add' | 'remove'): Promise<User> {
+    // This method will be replaced with SavedCar entity operations
+    // For now, return the user without modification
     const user = await this.findById(userId);
     if (!user) {
       throw new NotFoundException('User not found');
     }
-
-    if (action === 'add') {
-      if (!user.savedListingIds.includes(carId)) {
-        user.savedListingIds.push(carId);
-      }
-    } else {
-      user.savedListingIds = user.savedListingIds.filter(id => id !== carId);
-    }
-
-    return this.userRepository.save(user);
+    return user;
   }
 
   async validatePassword(user: User, password: string): Promise<boolean> {

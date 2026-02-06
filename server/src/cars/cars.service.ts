@@ -145,16 +145,28 @@ export class CarsService {
       query.andWhere('car.mileage <= :maxMileage', { maxMileage: filters.maxMileage });
     }
 
+    if (filters.vehicleType) {
+      query.andWhere('car.vehicleType = :vehicleType', { vehicleType: filters.vehicleType });
+    }
+
     if (filters.fuelType) {
-      query.andWhere('LOWER(car.fuelType) = LOWER(:fuelType)', { fuelType: filters.fuelType });
+      query.andWhere('car.fuelType = :fuelType', { fuelType: filters.fuelType });
     }
 
     if (filters.transmission) {
-      query.andWhere('LOWER(car.transmission) = LOWER(:transmission)', { transmission: filters.transmission });
+      query.andWhere('car.transmission = :transmission', { transmission: filters.transmission });
     }
 
-    if (filters.bodyType) {
-      query.andWhere('LOWER(car.bodyType) = LOWER(:bodyType)', { bodyType: filters.bodyType });
+    if (filters.condition) {
+      query.andWhere('car.condition = :condition', { condition: filters.condition });
+    }
+
+    if (filters.color) {
+      query.andWhere('LOWER(car.color) = LOWER(:color)', { color: filters.color });
+    }
+
+    if (filters.isCertified !== undefined) {
+      query.andWhere('car.isCertified = :isCertified', { isCertified: filters.isCertified });
     }
 
     if (filters.location) {
