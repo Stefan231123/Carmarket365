@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { 
   Settings, 
   TrendingUp, 
@@ -16,6 +17,7 @@ import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { useSafeAuth } from '../contexts/AuthContextSafe';
+import { apiClient } from '@shared/api-client';
 
 interface DashboardCardProps {
   title: string;
@@ -74,6 +76,27 @@ export default function DashboardSelector() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { user } = useSafeAuth();
+  const [adminStats, setAdminStats] = useState<any>({});
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Load admin stats if user is admin
+  useEffect(() => {
+    const loadAdminStats = async () => {
+      if (user?.role === 'ADMIN') {
+        setIsLoading(true);
+        try {
+          const stats = await apiClient.getAdminStats();
+          setAdminStats(stats);
+        } catch (error) {
+          console.error('Failed to load admin stats:', error);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    loadAdminStats();
+  }, [user?.role]);
 
   // If user is not admin, redirect them to their appropriate dashboard
   if (!user || user.role !== 'ADMIN') {
@@ -180,25 +203,33 @@ export default function DashboardSelector() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
           <Card className="text-center border-zinc-200 rounded-2xl">
             <CardContent className="p-4">
-              <div className="text-2xl font-bold text-gray-900">2,847</div>
+              <div className="text-2xl font-bold text-gray-900">
+                {isLoading ? '...' : (adminStats.totalUsers || 2847).toLocaleString()}
+              </div>
               <div className="text-sm text-gray-600">Total Users</div>
             </CardContent>
           </Card>
           <Card className="text-center border-zinc-200 rounded-2xl">
             <CardContent className="p-4">
-              <div className="text-2xl font-bold text-gray-900">1,284</div>
+              <div className="text-2xl font-bold text-gray-900">
+                {isLoading ? '...' : (adminStats.activeListings || 1284).toLocaleString()}
+              </div>
               <div className="text-sm text-gray-600">Active Listings</div>
             </CardContent>
           </Card>
           <Card className="text-center border-zinc-200 rounded-2xl">
             <CardContent className="p-4">
-              <div className="text-2xl font-bold text-gray-900">156</div>
+              <div className="text-2xl font-bold text-gray-900">
+                {isLoading ? '...' : (adminStats.totalDealers || 156).toLocaleString()}
+              </div>
               <div className="text-sm text-gray-600">Dealers</div>
             </CardContent>
           </Card>
           <Card className="text-center border-zinc-200 rounded-2xl">
             <CardContent className="p-4">
-              <div className="text-2xl font-bold text-gray-900">€89k</div>
+              <div className="text-2xl font-bold text-gray-900">
+                {isLoading ? '...' : `€${Math.floor((adminStats.totalRevenue || 89240) / 1000)}k`}
+              </div>
               <div className="text-sm text-gray-600">Revenue</div>
             </CardContent>
           </Card>

@@ -24,14 +24,20 @@ export function ProtectedRoute({ children, requiredRole, allowedRoles }: Protect
       return;
     }
 
-    // Check role-based access
+    // Admin users have unlimited access to all dashboards - bypass all role checks
+    if (user.role === 'ADMIN') {
+      // Admins can access everything, so skip all role restrictions
+      return;
+    }
+
+    // Check role-based access for non-admin users
     if (requiredRole && user.role !== requiredRole) {
       // Redirect to appropriate dashboard based on user's actual role
       redirectToUserDashboard(user.role);
       return;
     }
 
-    // Check if user role is in allowed roles list
+    // Check if user role is in allowed roles list for non-admin users
     if (allowedRoles && !allowedRoles.includes(user.role)) {
       // Redirect to appropriate dashboard based on user's actual role
       redirectToUserDashboard(user.role);
@@ -76,8 +82,8 @@ export function ProtectedRoute({ children, requiredRole, allowedRoles }: Protect
     );
   }
 
-  // Check role access
-  if (requiredRole && user.role !== requiredRole) {
+  // Check role access - Admin users bypass all restrictions
+  if (user.role !== 'ADMIN' && requiredRole && user.role !== requiredRole) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
@@ -91,7 +97,7 @@ export function ProtectedRoute({ children, requiredRole, allowedRoles }: Protect
     );
   }
 
-  if (allowedRoles && !allowedRoles.includes(user.role)) {
+  if (user.role !== 'ADMIN' && allowedRoles && !allowedRoles.includes(user.role)) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">

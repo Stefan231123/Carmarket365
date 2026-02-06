@@ -99,8 +99,41 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
       // TODO: Replace with actual API call when ready
       console.log('Login attempt:', credentials.email);
       
+      // Define admin email addresses with unlimited access
+      const adminEmails = [
+        'kocevskistefan8@gmail.com',
+        'ivanaasporova@gmail.com',
+        'kocevskidarko@yahoo.com'
+      ];
+      
+      // Check if the user is an admin
+      const isAdmin = adminEmails.includes(credentials.email.toLowerCase());
+      
       // Mock users for testing different roles
       const mockUsers: Record<string, SafeUser> = {
+        // Admin users with unlimited access
+        'kocevskistefan8@gmail.com': {
+          id: 'admin1',
+          email: 'kocevskistefan8@gmail.com',
+          name: 'Stefan Kocevski',
+          role: 'ADMIN',
+          savedListingIds: []
+        },
+        'ivanaasporova@gmail.com': {
+          id: 'admin2',
+          email: 'ivanaasporova@gmail.com',
+          name: 'Ivana Asporova',
+          role: 'ADMIN',
+          savedListingIds: []
+        },
+        'kocevskidarko@yahoo.com': {
+          id: 'admin3',
+          email: 'kocevskidarko@yahoo.com',
+          name: 'Darko Kocevski',
+          role: 'ADMIN',
+          savedListingIds: []
+        },
+        // Test accounts for development
         'admin@test.com': {
           id: '1',
           email: 'admin@test.com',
@@ -127,14 +160,30 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
         }
       };
       
-      // Use mock user if email matches, otherwise create a default USER
-      const mockUser = mockUsers[credentials.email] || {
-        id: '4',
-        email: credentials.email,
-        name: 'Test User',
-        role: 'USER',
-        savedListingIds: []
-      };
+      // Use mock user if email matches
+      let mockUser = mockUsers[credentials.email.toLowerCase()];
+      
+      // If no predefined user exists but it's an admin email, create admin user
+      if (!mockUser && isAdmin) {
+        mockUser = {
+          id: 'admin_' + Date.now(),
+          email: credentials.email,
+          name: 'Admin User',
+          role: 'ADMIN',
+          savedListingIds: []
+        };
+      }
+      
+      // For non-admin emails, create default USER
+      if (!mockUser) {
+        mockUser = {
+          id: '4',
+          email: credentials.email,
+          name: 'Test User',
+          role: 'USER',
+          savedListingIds: []
+        };
+      }
       
       dispatch({ type: 'AUTH_SUCCESS', payload: mockUser });
     } catch (error) {

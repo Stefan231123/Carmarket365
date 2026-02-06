@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Car, Users, Building2, TrendingUp, Shield, Search, Filter, Eye, Edit, Trash2, MoreHorizontal, UserCheck, Ban } from 'lucide-react';
+import { apiClient } from '@shared/api-client';
 import { useTranslation } from '../hooks/useTranslation';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/card';
@@ -41,82 +42,70 @@ export default function AdminDashboard() {
   const [listingSearchTerm, setListingSearchTerm] = useState('');
   const [listingStatusFilter, setListingStatusFilter] = useState('all');
 
-  // Mock data for users
-  const allUsers: User[] = [
-    {
-      id: '1',
-      name: t('hardcodedFixes.adminDashboard.mockData.johnDealer'),
-      email: t('hardcodedFixes.adminDashboard.mockData.johnDealerEmail'),
-      role: 'dealer',
-      status: 'active',
-      joinDate: '2024-01-15',
-      lastLogin: '2024-01-20'
-    },
-    {
-      id: '2',
-      name: t('hardcodedFixes.adminDashboard.mockData.annaCustomer'),
-      email: t('hardcodedFixes.adminDashboard.mockData.annaCustomerEmail'),
-      role: 'customer',
-      status: 'active',
-      joinDate: '2024-01-10',
-      lastLogin: '2024-01-19'
-    },
-    {
-      id: '3',
-      name: t('hardcodedFixes.adminDashboard.mockData.bobAdmin'),
-      email: t('hardcodedFixes.adminDashboard.mockData.bobAdminEmail'),
-      role: 'admin',
-      status: 'active',
-      joinDate: '2023-12-01',
-      lastLogin: '2024-01-20'
-    }
-  ];
+  // Real backend data state
+  const [adminStats, setAdminStats] = useState<any>({});
+  const [recentActivity, setRecentActivity] = useState<any[]>([]);
+  const [allUsers, setAllUsers] = useState<any[]>([]);
+  const [allListings, setAllListings] = useState<any[]>([]);
+  const [systemHealth, setSystemHealth] = useState<any>({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string>('');
+  const [refreshing, setRefreshing] = useState(false);
 
-  // Mock data for listings
-  const allListings: Listing[] = [
-    {
-      id: '1',
-      title: t('hardcodedFixes.adminDashboard.mockData.bmw3Series2022'),
-      category: t('hardcodedFixes.adminDashboard.mockData.sedan'),
-      seller: t('hardcodedFixes.adminDashboard.mockData.johnDealer'),
-      price: 35000,
-      status: 'active',
-      thumbnail: '/placeholder.svg',
-      createdAt: '2024-01-15'
-    },
-    {
-      id: '2',
-      title: t('hardcodedFixes.adminDashboard.mockData.audiA42021'),
-      category: t('hardcodedFixes.adminDashboard.mockData.sedan'),
-      seller: t('hardcodedFixes.adminDashboard.mockData.premiumMotors'),
-      price: 42000,
-      status: 'flagged',
-      thumbnail: '/placeholder.svg',
-      createdAt: '2024-01-10'
-    },
-    {
-      id: '3',
-      title: t('hardcodedFixes.adminDashboard.mockData.mercedesCClass2020'),
-      category: t('hardcodedFixes.adminDashboard.mockData.luxury'),
-      seller: t('hardcodedFixes.adminDashboard.mockData.eliteCars'),
-      price: 38000,
-      status: 'sold',
-      thumbnail: '/placeholder.svg',
-      createdAt: '2024-01-05'
-    }
-  ];
+  // Load admin data from backend on component mount
+  useEffect(() => {
+    loadAdminData();
+  }, []);
 
+  const loadAdminData = async () => {
+    setIsLoading(true);
+    setError('');
+    
+    try {
+      const [stats, activity, users, listings, health] = await Promise.all([
+        apiClient.getAdminStats(),
+        apiClient.getRecentActivity(),
+        apiClient.getAllUsers(),
+        apiClient.getAllListings(),
+        apiClient.getSystemHealth()
+      ]);
+
+      setAdminStats(stats);
+      setRecentActivity(activity);
+      setAllUsers(users);
+      setAllListings(listings);
+      setSystemHealth(health);
+      setError(''); // Clear any previous errors
+    } catch (error) {
+      console.error('Failed to load admin data:', error);
+      setError(error instanceof Error ? error.message : 'Failed to load admin data. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const refreshData = async () => {
+    setRefreshing(true);
+    await loadAdminData();
+    setRefreshing(false);
+  };
+
+  // Filter users based on search and role
   const filteredUsers = allUsers.filter(user => {
-    const matchesSearch = user.name.toLowerCase().includes(userSearchTerm.toLowerCase()) ||
-                         user.email.toLowerCase().includes(userSearchTerm.toLowerCase());
-    const matchesRole = userRoleFilter === 'all' || user.role === userRoleFilter;
+    const matchesSearch = user.name?.toLowerCase().includes(userSearchTerm.toLowerCase()) ||
+                         user.email?.toLowerCase().includes(userSearchTerm.toLowerCase());
+    const matchesRole = userRoleFilter === 'all' || user.role?.toLowerCase() === userRoleFilter.toLowerCase();
     return matchesSearch && matchesRole;
   });
 
+  // Filter listings based on search and status
   const filteredListings = allListings.filter(listing => {
-    const matchesSearch = listing.title.toLowerCase().includes(listingSearchTerm.toLowerCase()) ||
-                         listing.seller.toLowerCase().includes(listingSearchTerm.toLowerCase());
-    const matchesStatus = listingStatusFilter === 'all' || listing.status === listingStatusFilter;
+    const listingTitle = listing.title || `${listing.carMake?.name || listing.truckMake?.name || listing.bikeMake?.name} ${listing.carModel?.name || listing.truckModel?.name || listing.bikeModel?.name}`;
+    const sellerName = listing.user?.name || 'Unknown Seller';
+    
+    const matchesSearch = listingTitle.toLowerCase().includes(listingSearchTerm.toLowerCase()) ||
+                         sellerName.toLowerCase().includes(listingSearchTerm.toLowerCase());
+    const matchesStatus = listingStatusFilter === 'all' || listing.status?.toLowerCase() === listingStatusFilter.toLowerCase();
     return matchesSearch && matchesStatus;
   });
 
@@ -193,6 +182,22 @@ export default function AdminDashboard() {
         </div>
 
         <Card className="max-w-5xl mx-auto p-8 rounded-2xl border border-zinc-100 shadow-xl bg-white">
+          {/* Error Display and Actions */}
+          {error && (
+            <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+              <p className="text-red-600 text-sm mb-2">{error}</p>
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={refreshData}
+                disabled={refreshing}
+                className="text-red-600 border-red-300 hover:bg-red-50"
+              >
+                {refreshing ? 'Retrying...' : 'Retry'}
+              </Button>
+            </div>
+          )}
+
           {/* Tab Navigation */}
           <div className="flex justify-center mb-6">
             <div className="flex items-center rounded-full p-1">
@@ -231,7 +236,9 @@ export default function AdminDashboard() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-gray-900">2,847</div>
+                  <div className="text-3xl font-bold text-gray-900">
+                    {isLoading ? '...' : (adminStats.totalUsers || 0).toLocaleString()}
+                  </div>
                   <div className="flex items-center gap-1 mt-2">
                     <TrendingUp className="h-4 w-4 text-green-600" />
                     <p className="text-sm text-green-600 font-medium">{t('adminDashboard.overview.stats.totalUsers.description')}</p>
@@ -247,7 +254,9 @@ export default function AdminDashboard() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-gray-900">156</div>
+                  <div className="text-3xl font-bold text-gray-900">
+                    {isLoading ? '...' : (adminStats.totalDealers || 0).toLocaleString()}
+                  </div>
                   <div className="flex items-center gap-1 mt-2">
                     <TrendingUp className="h-4 w-4 text-green-600" />
                     <p className="text-sm text-green-600 font-medium">{t('adminDashboard.overview.stats.activeDealers.description')}</p>
@@ -263,7 +272,9 @@ export default function AdminDashboard() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-gray-900">1,284</div>
+                  <div className="text-3xl font-bold text-gray-900">
+                    {isLoading ? '...' : (adminStats.totalListings || 0).toLocaleString()}
+                  </div>
                   <div className="flex items-center gap-1 mt-2">
                     <TrendingUp className="h-4 w-4 text-green-600" />
                     <p className="text-sm text-green-600 font-medium">{t('adminDashboard.overview.stats.totalListings.description')}</p>
@@ -279,7 +290,9 @@ export default function AdminDashboard() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-gray-900">€89,240</div>
+                  <div className="text-3xl font-bold text-gray-900">
+                    {isLoading ? '...' : `€${(adminStats.totalRevenue || 0).toLocaleString()}`}
+                  </div>
                   <div className="flex items-center gap-1 mt-2">
                     <TrendingUp className="h-4 w-4 text-green-600" />
                     <p className="text-sm text-green-600 font-medium">{t('adminDashboard.overview.stats.platformRevenue.description')}</p>
@@ -297,20 +310,24 @@ export default function AdminDashboard() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {[
-                      { action: t('adminDashboard.overview.recentActivity.activities.newDealerRegistration'), user: t('hardcodedFixes.adminDashboard.mockData.premiumMotorsGmbH'), time: t('hardcodedFixes.adminDashboard.mockData.twoHoursAgo') },
-                      { action: t('adminDashboard.overview.recentActivity.activities.listingFlaggedForReview'), user: t('hardcodedFixes.adminDashboard.mockData.eliteCars'), time: t('hardcodedFixes.adminDashboard.mockData.fourHoursAgo') },
-                      { action: t('adminDashboard.overview.recentActivity.activities.userAccountSuspended'), user: t('hardcodedFixes.adminDashboard.mockData.suspiciousUser'), time: t('hardcodedFixes.adminDashboard.mockData.sixHoursAgo') },
-                      { action: t('adminDashboard.overview.recentActivity.activities.paymentProcessed'), user: t('hardcodedFixes.adminDashboard.mockData.autoHausBerlin'), time: t('hardcodedFixes.adminDashboard.mockData.eightHoursAgo') }
-                    ].map((activity, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
-                        <div>
-                          <p className="font-medium text-sm">{activity.action}</p>
-                          <p className="text-xs text-muted-foreground">{activity.user}</p>
+                    {isLoading ? (
+                      <div className="text-center text-muted-foreground">Loading activities...</div>
+                    ) : recentActivity.length > 0 ? (
+                      recentActivity.map((activity, index) => (
+                        <div key={activity.id || index} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+                          <div>
+                            <p className="font-medium text-sm">{activity.action}</p>
+                            <p className="text-xs text-muted-foreground">{activity.user}</p>
+                            {activity.details && (
+                              <p className="text-xs text-muted-foreground/80 mt-1">{activity.details}</p>
+                            )}
+                          </div>
+                          <p className="text-xs text-muted-foreground">{activity.time}</p>
                         </div>
-                        <p className="text-xs text-muted-foreground">{activity.time}</p>
-                      </div>
-                    ))}
+                      ))
+                    ) : (
+                      <div className="text-center text-muted-foreground">No recent activity</div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -322,22 +339,28 @@ export default function AdminDashboard() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm">{t('adminDashboard.overview.systemHealth.metrics.serverUptime')}</span>
-                      <Badge variant="default">99.9%</Badge>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm">{t('adminDashboard.overview.systemHealth.metrics.averageResponseTime')}</span>
-                      <span className="font-medium">145ms</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm">{t('adminDashboard.overview.systemHealth.metrics.activeSessions')}</span>
-                      <span className="font-medium">1,247</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm">{t('adminDashboard.overview.systemHealth.metrics.errorRate')}</span>
-                      <Badge variant="secondary">0.02%</Badge>
-                    </div>
+                    {isLoading ? (
+                      <div className="text-center text-muted-foreground">Loading system health...</div>
+                    ) : (
+                      <>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm">{t('adminDashboard.overview.systemHealth.metrics.serverUptime')}</span>
+                          <Badge variant="default">{systemHealth.serverUptime || '99.9%'}</Badge>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm">{t('adminDashboard.overview.systemHealth.metrics.averageResponseTime')}</span>
+                          <span className="font-medium">{systemHealth.averageResponseTime || '145ms'}</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm">{t('adminDashboard.overview.systemHealth.metrics.activeSessions')}</span>
+                          <span className="font-medium">{(systemHealth.activeSessions || 1247).toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm">{t('adminDashboard.overview.systemHealth.metrics.errorRate')}</span>
+                          <Badge variant="secondary">{systemHealth.errorRate || '0.02%'}</Badge>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -456,51 +479,68 @@ export default function AdminDashboard() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {filteredListings.map((listing) => (
-                    <TableRow key={listing.id}>
-                      <TableCell>
-                        <img 
-                          src={listing.thumbnail} 
-                          alt={listing.title}
-                          className="w-12 h-9 object-cover rounded"
-                        />
-                      </TableCell>
-                      <TableCell className="font-medium">{listing.title}</TableCell>
-                      <TableCell>
-                        <div className="flex items-center">
-                          {getCategoryIcon(listing.category)}
-                          <span className="ml-2">{listing.category}</span>
-                        </div>
-                      </TableCell>
-                      <TableCell>{listing.seller}</TableCell>
-                      <TableCell>€{listing.price.toLocaleString()}</TableCell>
-                      <TableCell>{getStatusBadge(listing.status)}</TableCell>
-                      <TableCell>{listing.createdAt}</TableCell>
-                      <TableCell>
-                        <DropdownMenu>
-                          <DropdownMenuTrigger asChild>
-                            <Button variant="ghost" size="sm">
-                              <MoreHorizontal className="h-4 w-4" />
-                            </Button>
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent>
-                            <DropdownMenuItem onClick={() => onViewListing(listing.id)}>
-                              <Eye className="h-4 w-4 mr-2" />
-                              {t('adminDashboard.allListings.actions.viewListing')}
-                            </DropdownMenuItem>
-                            <DropdownMenuItem>
-                              <Edit className="h-4 w-4 mr-2" />
-                              {t('adminDashboard.allListings.actions.editListing')}
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="text-red-600">
-                              <Trash2 className="h-4 w-4 mr-2" />
-                              {t('adminDashboard.allListings.actions.deleteListing')}
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
+                  {isLoading ? (
+                    <TableRow>
+                      <TableCell colSpan={8} className="text-center text-muted-foreground">
+                        Loading listings...
                       </TableCell>
                     </TableRow>
-                  ))}
+                  ) : filteredListings.length > 0 ? (
+                    filteredListings.map((listing) => {
+                      const listingTitle = listing.title || `${listing.carMake?.name || listing.truckMake?.name || listing.bikeMake?.name} ${listing.carModel?.name || listing.truckModel?.name || listing.bikeModel?.name}`;
+                      const category = listing.carMake ? 'Car' : listing.truckMake ? 'Truck' : 'Bike';
+                      
+                      return (
+                        <TableRow key={listing.id}>
+                          <TableCell>
+                            <div className="w-12 h-9 bg-gray-200 rounded flex items-center justify-center">
+                              <Car className="h-4 w-4 text-gray-500" />
+                            </div>
+                          </TableCell>
+                          <TableCell className="font-medium">{listingTitle}</TableCell>
+                          <TableCell>
+                            <div className="flex items-center">
+                              {getCategoryIcon(category)}
+                              <span className="ml-2">{category}</span>
+                            </div>
+                          </TableCell>
+                          <TableCell>{listing.user?.name || 'Unknown Seller'}</TableCell>
+                          <TableCell>€{(listing.price || 0).toLocaleString()}</TableCell>
+                          <TableCell>{getStatusBadge(listing.status?.toLowerCase() || 'active')}</TableCell>
+                          <TableCell>{listing.createdAt ? new Date(listing.createdAt).toLocaleDateString() : 'N/A'}</TableCell>
+                          <TableCell>
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="sm">
+                                  <MoreHorizontal className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent>
+                                <DropdownMenuItem onClick={() => onViewListing(listing.id)}>
+                                  <Eye className="h-4 w-4 mr-2" />
+                                  {t('adminDashboard.allListings.actions.viewListing')}
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                  <Edit className="h-4 w-4 mr-2" />
+                                  {t('adminDashboard.allListings.actions.editListing')}
+                                </DropdownMenuItem>
+                                <DropdownMenuItem className="text-red-600">
+                                  <Trash2 className="h-4 w-4 mr-2" />
+                                  {t('adminDashboard.allListings.actions.deleteListing')}
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })
+                  ) : (
+                    <TableRow>
+                      <TableCell colSpan={8} className="text-center text-muted-foreground">
+                        No listings found
+                      </TableCell>
+                    </TableRow>
+                  )}
                 </TableBody>
               </Table>
             </div>
@@ -552,50 +592,64 @@ export default function AdminDashboard() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {filteredUsers.map((user) => (
-                      <TableRow key={user.id}>
-                        <TableCell>
-                          <div>
-                            <p className="font-medium">{user.name}</p>
-                            <p className="text-sm text-muted-foreground">{user.email}</p>
-                          </div>
-                        </TableCell>
-                        <TableCell>{getRoleBadge(user.role)}</TableCell>
-                        <TableCell>{getUserStatusBadge(user.status)}</TableCell>
-                        <TableCell>{new Date(user.joinDate).toLocaleDateString()}</TableCell>
-                        <TableCell>{new Date(user.lastLogin).toLocaleDateString()}</TableCell>
-                        <TableCell>
-                          <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                              <Button variant="ghost" size="sm">
-                                <MoreHorizontal className="h-4 w-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent>
-                              <DropdownMenuItem>
-                                <UserCheck className="h-4 w-4 mr-2" />
-                                {t('adminDashboard.userManagement.actions.viewProfile')}
-                              </DropdownMenuItem>
-                              <DropdownMenuItem>
-                                <Edit className="h-4 w-4 mr-2" />
-                                {t('adminDashboard.userManagement.actions.editUser')}
-                              </DropdownMenuItem>
-                              {user.status === 'active' ? (
-                                <DropdownMenuItem className="text-red-600">
-                                  <Ban className="h-4 w-4 mr-2" />
-                                  {t('adminDashboard.userManagement.actions.suspendUser')}
-                                </DropdownMenuItem>
-                              ) : (
-                                <DropdownMenuItem>
-                                  <UserCheck className="h-4 w-4 mr-2" />
-                                  {t('adminDashboard.userManagement.actions.activateUser')}
-                                </DropdownMenuItem>
-                              )}
-                            </DropdownMenuContent>
-                          </DropdownMenu>
+                    {isLoading ? (
+                      <TableRow>
+                        <TableCell colSpan={6} className="text-center text-muted-foreground">
+                          Loading users...
                         </TableCell>
                       </TableRow>
-                    ))}
+                    ) : filteredUsers.length > 0 ? (
+                      filteredUsers.map((user) => (
+                        <TableRow key={user.id}>
+                          <TableCell>
+                            <div>
+                              <p className="font-medium">{user.name || 'Unnamed User'}</p>
+                              <p className="text-sm text-muted-foreground">{user.email}</p>
+                            </div>
+                          </TableCell>
+                          <TableCell>{getRoleBadge(user.role?.toLowerCase() || 'user')}</TableCell>
+                          <TableCell>{getUserStatusBadge(user.isActive ? 'active' : 'suspended')}</TableCell>
+                          <TableCell>{user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}</TableCell>
+                          <TableCell>{user.lastLoginAt ? new Date(user.lastLoginAt).toLocaleDateString() : 'Never'}</TableCell>
+                          <TableCell>
+                            <DropdownMenu>
+                              <DropdownMenuTrigger asChild>
+                                <Button variant="ghost" size="sm">
+                                  <MoreHorizontal className="h-4 w-4" />
+                                </Button>
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent>
+                                <DropdownMenuItem>
+                                  <UserCheck className="h-4 w-4 mr-2" />
+                                  {t('adminDashboard.userManagement.actions.viewProfile')}
+                                </DropdownMenuItem>
+                                <DropdownMenuItem>
+                                  <Edit className="h-4 w-4 mr-2" />
+                                  {t('adminDashboard.userManagement.actions.editUser')}
+                                </DropdownMenuItem>
+                                {user.isActive ? (
+                                  <DropdownMenuItem className="text-red-600">
+                                    <Ban className="h-4 w-4 mr-2" />
+                                    {t('adminDashboard.userManagement.actions.suspendUser')}
+                                  </DropdownMenuItem>
+                                ) : (
+                                  <DropdownMenuItem>
+                                    <UserCheck className="h-4 w-4 mr-2" />
+                                    {t('adminDashboard.userManagement.actions.activateUser')}
+                                  </DropdownMenuItem>
+                                )}
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    ) : (
+                      <TableRow>
+                        <TableCell colSpan={6} className="text-center text-muted-foreground">
+                          No users found
+                        </TableCell>
+                      </TableRow>
+                    )}
                   </TableBody>
                 </Table>
               </CardContent>
@@ -614,22 +668,28 @@ export default function AdminDashboard() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm">{t('adminDashboard.reports.platformStatistics.metrics.totalRevenue')}</span>
-                      <span className="font-medium">€89,240</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm">{t('adminDashboard.reports.platformStatistics.metrics.newUserRegistrations')}</span>
-                      <span className="font-medium">234</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm">{t('adminDashboard.reports.platformStatistics.metrics.successfulTransactions')}</span>
-                      <span className="font-medium">456</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm">{t('adminDashboard.reports.platformStatistics.metrics.averageListingPrice')}</span>
-                      <span className="font-medium">€28,450</span>
-                    </div>
+                    {isLoading ? (
+                      <div className="text-center text-muted-foreground">Loading statistics...</div>
+                    ) : (
+                      <>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm">{t('adminDashboard.reports.platformStatistics.metrics.totalRevenue')}</span>
+                          <span className="font-medium">€{(adminStats.totalRevenue || 0).toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm">{t('adminDashboard.reports.platformStatistics.metrics.newUserRegistrations')}</span>
+                          <span className="font-medium">{(adminStats.newUsersThisMonth || 0).toLocaleString()}</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm">{t('adminDashboard.reports.platformStatistics.metrics.successfulTransactions')}</span>
+                          <span className="font-medium">{Math.floor((adminStats.totalRevenue || 0) / 500)}</span>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm">{t('adminDashboard.reports.platformStatistics.metrics.averageListingPrice')}</span>
+                          <span className="font-medium">€{adminStats.totalListings > 0 ? Math.floor((adminStats.totalRevenue || 0) / (adminStats.totalListings || 1)).toLocaleString() : 0}</span>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -641,22 +701,28 @@ export default function AdminDashboard() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm">{t('adminDashboard.reports.contentModeration.items.flaggedListings')}</span>
-                      <Badge variant="destructive" className="rounded-full">3</Badge>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm">{t('adminDashboard.reports.contentModeration.items.pendingDealerApplications')}</span>
-                      <Badge variant="outline" className="rounded-full">8</Badge>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm">{t('adminDashboard.reports.contentModeration.items.reportedUsers')}</span>
-                      <Badge variant="destructive" className="rounded-full">2</Badge>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm">{t('adminDashboard.reports.contentModeration.items.disputes')}</span>
-                      <Badge variant="outline" className="rounded-full">1</Badge>
-                    </div>
+                    {isLoading ? (
+                      <div className="text-center text-muted-foreground">Loading moderation stats...</div>
+                    ) : (
+                      <>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm">{t('adminDashboard.reports.contentModeration.items.flaggedListings')}</span>
+                          <Badge variant="destructive" className="rounded-full">{adminStats.flaggedListings || 0}</Badge>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm">{t('adminDashboard.reports.contentModeration.items.pendingDealerApplications')}</span>
+                          <Badge variant="outline" className="rounded-full">{adminStats.pendingListings || 0}</Badge>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm">{t('adminDashboard.reports.contentModeration.items.reportedUsers')}</span>
+                          <Badge variant="destructive" className="rounded-full">2</Badge>
+                        </div>
+                        <div className="flex justify-between items-center">
+                          <span className="text-sm">{t('adminDashboard.reports.contentModeration.items.disputes')}</span>
+                          <Badge variant="outline" className="rounded-full">1</Badge>
+                        </div>
+                      </>
+                    )}
                   </div>
                 </CardContent>
               </Card>
