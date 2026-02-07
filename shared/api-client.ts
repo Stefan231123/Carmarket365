@@ -113,7 +113,9 @@ class ApiClient {
   private token: string | null = null;
 
   constructor() {
-    this.baseUrl = 'http://localhost:3002/graphql';
+    // Use VITE_GRAPHQL_ENDPOINT from environment, fallback to localhost for development
+    const envEndpoint = typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_GRAPHQL_ENDPOINT;
+    this.baseUrl = envEndpoint && envEndpoint !== '' ? envEndpoint : 'http://localhost:3002/graphql';
     // Load token asynchronously and initialize CSRF
     this.initializeSecureAuth().catch(console.error);
   }
