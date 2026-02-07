@@ -711,6 +711,7 @@ export default function DealerDashboard() {
                   <p className="text-sm text-muted-foreground">{t('dealerDashboard.expressListings.info.description')}</p>
                 </div>
               </div>
+            </div>
             </>
             )}
           </div>
