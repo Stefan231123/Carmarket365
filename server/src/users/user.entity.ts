@@ -195,4 +195,15 @@ export class User {
   @Field({ nullable: true })
   @Column({ nullable: true })
   dealerApprovedAt?: Date;
+
+  // Computed field for full name
+  @Field({ nullable: true })
+  get name(): string {
+    if (this.firstName && this.lastName) {
+      return `${this.firstName} ${this.lastName}`;
+    }
+    if (this.firstName) return this.firstName;
+    if (this.lastName) return this.lastName;
+    return this.dealerName || this.email;
+  }
 }

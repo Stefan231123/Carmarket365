@@ -1,3 +1,26 @@
+/**
+ * DealerDashboard Component - Updated with Real GraphQL Data Integration
+ * 
+ * Features implemented:
+ * 1. Real GraphQL queries for dealer data instead of mock data
+ * 2. Dashboard stats (active listings, views, inquiries, revenue)
+ * 3. Performance metrics (sales, conversion rate, response times)
+ * 4. Real car listings with filtering and search
+ * 5. Live car inquiries from customers
+ * 6. Express sale opportunities from private sellers
+ * 7. Comprehensive loading states and error handling
+ * 8. Real-time data updates using Apollo Client
+ * 
+ * GraphQL Operations Used:
+ * - getDealerStats: Dashboard overview statistics
+ * - getDealerPerformance: Performance metrics
+ * - getDealerListings: Dealer's car listings with filters
+ * - getDealerInquiries: Customer inquiries for dealer's cars
+ * - getExpressSaleOpportunities: Quick sale opportunities from private sellers
+ * - getRecentDealerInquiries: Recent inquiries for overview section
+ * - getDealerPopularListings: Most popular listings for analytics
+ */
+
 import { useState } from 'react';
 import { Car, Users, Euro, TrendingUp, Plus, Search, Filter, Download, Eye, Edit, Trash2, MoreHorizontal, Zap, Heart, MapPin, Fuel, Gauge, Calendar } from 'lucide-react';
 import { useTranslation } from '../hooks/useTranslation';
@@ -12,40 +35,10 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { ImageWithFallback } from '../components/ImageWithFallback';
 import { CarCard } from '../components/CarCard';
 import { AdminBreadcrumb } from '../components/AdminBreadcrumb';
+import { useDealerListings, useDealerDashboardData, useExpressSaleOpportunities, useDealerInquiries } from '../hooks/useDealerDashboard';
+import { LoadingSpinner } from '../components/LoadingSpinner';
 
-interface CarListing {
-  id: string;
-  title: string;
-  image: string;
-  price: number;
-  mileage: string;
-  year: string;
-  status: 'active' | 'sold' | 'pending';
-  views: number;
-  inquiries: number;
-  createdAt: string;
-}
-
-interface ExpressSaleListing {
-  id: string;
-  make: string;
-  model: string;
-  year: number;
-  price: number;
-  mileage: number;
-  fuelType: string;
-  transmission: string;
-  image?: string;
-  images?: string[];
-  location: string;
-  dealer: string;
-  sellerName: string;
-  contactPhone: string;
-  contactEmail: string;
-  submittedAt: string;
-  country: string;
-  status: 'new' | 'contacted' | 'sold' | 'expired';
-}
+// Types are now imported from dealer-operations.ts
 
 export default function DealerDashboard() {
   const { t } = useTranslation();
@@ -53,51 +46,64 @@ export default function DealerDashboard() {
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
 
-  // Mock data for listings
-  const listings: CarListing[] = [
-    {
-      id: '1',
-      title: t('hardcodedFixes.dealerDashboard.mockData.bmw3Series320i2022'),
-      image: '/placeholder.svg',
-      price: 35000,
-      mileage: t('hardcodedFixes.dealerDashboard.mockData.mileage25k'),
-      year: '2022',
-      status: 'active',
-      views: 156,
-      inquiries: 8,
-      createdAt: '2024-01-15'
-    },
-    {
-      id: '2',
-      title: t('hardcodedFixes.dealerDashboard.mockData.audiA4Avant2021'),
-      image: '/placeholder.svg',
-      price: 42000,
-      mileage: t('hardcodedFixes.dealerDashboard.mockData.mileage18k'),
-      year: '2021',
-      status: 'pending',
-      views: 203,
-      inquiries: 12,
-      createdAt: '2024-01-10'
-    },
-    {
-      id: '3',
-      title: t('hardcodedFixes.dealerDashboard.mockData.mercedesCClass2020'),
-      image: '/placeholder.svg',
-      price: 38000,
-      mileage: t('hardcodedFixes.dealerDashboard.mockData.mileage32k'),
-      year: '2020',
-      status: 'sold',
-      views: 89,
-      inquiries: 5,
-      createdAt: '2024-01-05'
-    }
-  ];
+  // GraphQL queries
+  const { stats, performance, recentInquiries, popularListings, loading: dashboardLoading, error: dashboardError } = useDealerDashboardData();
+  const { data: listingsData, loading: listingsLoading, error: listingsError } = useDealerListings(statusFilter !== 'all' ? statusFilter.toUpperCase() : undefined, searchTerm || undefined);
+  const { data: expressData, loading: expressLoading, error: expressError } = useExpressSaleOpportunities();
+  const { data: inquiriesData, loading: inquiriesLoading, error: inquiriesError } = useDealerInquiries();
 
+  // Extract data with fallbacks
+  const listings = listingsData?.getDealerListings || [];
+  const expressListings = expressData?.getExpressSaleOpportunities || [];
+  const allInquiries = inquiriesData?.getDealerInquiries || [];
+
+  // Filter listings based on search term
   const filteredListings = listings.filter(listing => {
-    const matchesSearch = listing.title.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = statusFilter === 'all' || listing.status === statusFilter;
-    return matchesSearch && matchesStatus;
+    if (!searchTerm) return true;
+    return listing.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+           listing.carMake?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+           listing.carModel?.name.toLowerCase().includes(searchTerm.toLowerCase());
   });
+
+  // Loading state for overview tab
+  if (activeTab === 'overview' && dashboardLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    );
+  }
+
+  // Error state handling
+  const hasError = dashboardError || listingsError || expressError || inquiriesError;
+  if (hasError) {
+    console.error('Dashboard error:', hasError);
+    return (
+      <>
+        <AdminBreadcrumb currentPage="Dealer Dashboard" />
+        <section className="py-20 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="text-center">
+              <h1 className="text-4xl md:text-5xl mb-3 text-foreground">
+                {t('dealerDashboard.title')}
+              </h1>
+              <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
+                <div className="text-red-500 text-center">
+                  <h3 className="text-lg font-semibold mb-2">Dashboard Error</h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    We're having trouble loading your dashboard data. Please try refreshing the page.
+                  </p>
+                  <Button onClick={() => window.location.reload()} className="w-full">
+                    Refresh Page
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </>
+    );
+  }
 
   const onViewListing = () => {
     console.log('View listing clicked');
@@ -105,87 +111,28 @@ export default function DealerDashboard() {
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case 'active':
+      case 'ACTIVE':
         return <Badge variant="default" className="rounded-full">{t('dealerDashboard.myListings.statusBadges.active')}</Badge>;
-      case 'sold':
+      case 'SOLD':
         return <Badge variant="secondary" className="rounded-full">{t('dealerDashboard.myListings.statusBadges.sold')}</Badge>;
-      case 'pending':
+      case 'PENDING_APPROVAL':
         return <Badge variant="outline" className="rounded-full">{t('dealerDashboard.myListings.statusBadges.pending')}</Badge>;
+      case 'DRAFT':
+        return <Badge variant="outline" className="rounded-full">Draft</Badge>;
       default:
         return <Badge variant="outline" className="rounded-full">{status}</Badge>;
     }
   };
 
-  // Mock data for Express Sale listings from private users
-  const expressListings: ExpressSaleListing[] = [
-    {
-      id: 'exp-1',
-      make: 'BMW',
-      model: '3 Series',
-      year: 2019,
-      price: 28000,
-      mileage: 45000,
-      fuelType: 'gasoline',
-      transmission: 'automatic',
-      image: '/placeholder.svg',
-      location: 'Skopje, North Macedonia',
-      dealer: 'Private Seller',
-      sellerName: 'Marko Petrovski',
-      contactPhone: '+389 70 123 456',
-      contactEmail: 'marko.petrovski@email.com',
-      submittedAt: '2024-01-20',
-      country: 'North Macedonia',
-      status: 'new'
-    },
-    {
-      id: 'exp-2', 
-      make: 'Audi',
-      model: 'A4',
-      year: 2020,
-      price: 32000,
-      mileage: 38000,
-      fuelType: 'diesel',
-      transmission: 'automatic',
-      image: '/placeholder.svg',
-      location: 'Bitola, North Macedonia',
-      dealer: 'Private Seller',
-      sellerName: 'Ana Nikolovska',
-      contactPhone: '+389 71 234 567',
-      contactEmail: 'ana.nikolovska@email.com',
-      submittedAt: '2024-01-18',
-      country: 'North Macedonia',
-      status: 'contacted'
-    },
-    {
-      id: 'exp-3',
-      make: 'Mercedes-Benz',
-      model: 'C-Class',
-      year: 2018,
-      price: 35000,
-      mileage: 52000,
-      fuelType: 'diesel',
-      transmission: 'automatic', 
-      image: '/placeholder.svg',
-      location: 'Ohrid, North Macedonia',
-      dealer: 'Private Seller',
-      sellerName: 'Stefan Georgiev',
-      contactPhone: '+389 72 345 678',
-      contactEmail: 'stefan.georgiev@email.com',
-      submittedAt: '2024-01-15',
-      country: 'North Macedonia',
-      status: 'new'
-    }
-  ];
+  // Express sale listings are now loaded from GraphQL
 
   const getExpressStatusBadge = (status: string) => {
     switch (status) {
-      case 'new':
+      case 'ACTIVE':
         return <Badge className="bg-green-500 text-white rounded-full">{t('dealerDashboard.expressListings.statusBadges.new')}</Badge>;
-      case 'contacted':
-        return <Badge variant="secondary" className="rounded-full">{t('dealerDashboard.expressListings.statusBadges.contacted')}</Badge>;
-      case 'sold':
+      case 'SOLD':
         return <Badge variant="outline" className="rounded-full">{t('dealerDashboard.expressListings.statusBadges.sold')}</Badge>;
-      case 'expired':
+      case 'CLOSED':
         return <Badge variant="destructive" className="rounded-full">{t('dealerDashboard.expressListings.statusBadges.expired')}</Badge>;
       default:
         return <Badge variant="outline" className="rounded-full">{status}</Badge>;
@@ -253,7 +200,7 @@ export default function DealerDashboard() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-gray-900">24</div>
+                  <div className="text-3xl font-bold text-gray-900">{stats?.activeListings || 0}</div>
                   <div className="flex items-center gap-1 mt-2">
                     <TrendingUp className="h-4 w-4 text-green-600" />
                     <p className="text-sm text-green-600 font-medium">{t('dealerDashboard.overview.stats.activeListings.description')}</p>
@@ -269,7 +216,7 @@ export default function DealerDashboard() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-gray-900">2,847</div>
+                  <div className="text-3xl font-bold text-gray-900">{stats?.totalViews?.toLocaleString() || 0}</div>
                   <div className="flex items-center gap-1 mt-2">
                     <TrendingUp className="h-4 w-4 text-green-600" />
                     <p className="text-sm text-green-600 font-medium">{t('dealerDashboard.overview.stats.totalViews.description')}</p>
@@ -285,7 +232,7 @@ export default function DealerDashboard() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-gray-900">89</div>
+                  <div className="text-3xl font-bold text-gray-900">{stats?.totalInquiries || 0}</div>
                   <div className="flex items-center gap-1 mt-2">
                     <TrendingUp className="h-4 w-4 text-green-600" />
                     <p className="text-sm text-green-600 font-medium">{t('dealerDashboard.overview.stats.inquiries.description')}</p>
@@ -301,7 +248,7 @@ export default function DealerDashboard() {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="text-3xl font-bold text-gray-900">€145,290</div>
+                  <div className="text-3xl font-bold text-gray-900">€{stats?.revenue?.toLocaleString() || 0}</div>
                   <div className="flex items-center gap-1 mt-2">
                     <TrendingUp className="h-4 w-4 text-green-600" />
                     <p className="text-sm text-green-600 font-medium">{t('dealerDashboard.overview.stats.revenue.description')}</p>
@@ -325,22 +272,22 @@ export default function DealerDashboard() {
                     <div className="flex items-center justify-between">
                       <span className="text-sm">{t('dealerDashboard.overview.performance.monthlyData.january')}</span>
                       <div className="flex items-center gap-2">
-                        <Progress value={85} className="w-20" />
-                        <span className="text-sm font-medium">6 {t('dealerDashboard.overview.performance.monthlyData.sold')}</span>
+                        <Progress value={performance?.salesThisMonth ? Math.min((performance.salesThisMonth / 10) * 100, 100) : 0} className="w-20" />
+                        <span className="text-sm font-medium">{performance?.salesThisMonth || 0} {t('dealerDashboard.overview.performance.monthlyData.sold')}</span>
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-sm">{t('dealerDashboard.overview.performance.monthlyData.december')}</span>
                       <div className="flex items-center gap-2">
-                        <Progress value={70} className="w-20" />
-                        <span className="text-sm font-medium">5 {t('dealerDashboard.overview.performance.monthlyData.sold')}</span>
+                        <Progress value={performance?.salesLastMonth ? Math.min((performance.salesLastMonth / 10) * 100, 100) : 0} className="w-20" />
+                        <span className="text-sm font-medium">{performance?.salesLastMonth || 0} {t('dealerDashboard.overview.performance.monthlyData.sold')}</span>
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm">{t('dealerDashboard.overview.performance.monthlyData.november')}</span>
+                      <span className="text-sm">Conversion Rate</span>
                       <div className="flex items-center gap-2">
-                        <Progress value={60} className="w-20" />
-                        <span className="text-sm font-medium">4 {t('dealerDashboard.overview.performance.monthlyData.sold')}</span>
+                        <Progress value={performance?.conversionRate || 0} className="w-20" />
+                        <span className="text-sm font-medium">{performance?.conversionRate?.toFixed(1) || 0}%</span>
                       </div>
                     </div>
                   </div>
@@ -357,24 +304,24 @@ export default function DealerDashboard() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {[
-                      { name: "Anna Mueller", car: "BMW 3 Series", time: "2h ago", type: t('dealerDashboard.overview.recentInquiries.inquiryTypes.viewing') },
-                      { name: "Thomas Koch", car: "Audi A4", time: "4h ago", type: t('dealerDashboard.overview.recentInquiries.inquiryTypes.price') },
-                      { name: "Lisa Frank", car: "Mercedes C-Class", time: "6h ago", type: t('dealerDashboard.overview.recentInquiries.inquiryTypes.financing') }
-                    ].map((inquiry, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
+                    {recentInquiries.length > 0 ? recentInquiries.map((inquiry) => (
+                      <div key={inquiry.id} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
                         <div>
-                          <p className="font-medium">{inquiry.name}</p>
-                          <p className="text-sm text-muted-foreground">{inquiry.car}</p>
+                          <p className="font-medium">{inquiry.customerName || inquiry.customer?.name || 'Anonymous'}</p>
+                          <p className="text-sm text-muted-foreground">{inquiry.car?.carMake?.name} {inquiry.car?.carModel?.name}</p>
                         </div>
                         <div className="text-right">
                           <Badge variant="outline" className="rounded-full mb-1">
-                            {inquiry.type}
+                            {inquiry.type.toLowerCase()}
                           </Badge>
-                          <p className="text-xs text-muted-foreground">{inquiry.time}</p>
+                          <p className="text-xs text-muted-foreground">{new Date(inquiry.createdAt).toLocaleString()}</p>
                         </div>
                       </div>
-                    ))}
+                    )) : (
+                      <div className="text-center py-4 text-muted-foreground">
+                        <p>No recent inquiries</p>
+                      </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -395,7 +342,14 @@ export default function DealerDashboard() {
           {/* My Listings Tab */}
           {activeTab === "listings" && (
           <div className="space-y-4 sm:space-y-6 mt-4 sm:mt-6">
-            {/* Filters and Search */}
+            {listingsLoading && (
+              <div className="text-center py-8">
+                <LoadingSpinner />
+                <p className="text-muted-foreground mt-2">Loading your listings...</p>
+              </div>
+            )}
+            {/* Filters and Search - Only show when not loading */}
+            {!listingsLoading && (
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
                 <div className="relative">
@@ -434,7 +388,7 @@ export default function DealerDashboard() {
                   <CardContent className="p-4">
                     <div className="flex gap-3">
                       <ImageWithFallback
-                        src={listing.image}
+                        src={listing.imageUrls?.[0] || '/placeholder.svg'}
                         alt={listing.title}
                         className="w-20 h-16 object-cover rounded-2xl flex-shrink-0"
                       />
@@ -443,7 +397,7 @@ export default function DealerDashboard() {
                           <div className="min-w-0">
                             <h3 className="font-medium text-sm truncate">{listing.title}</h3>
                             <p className="text-lg font-bold text-primary">€{listing.price.toLocaleString()}</p>
-                            <p className="text-xs text-muted-foreground">{listing.mileage} • {listing.year}</p>
+                            <p className="text-xs text-muted-foreground">{listing.mileage?.toLocaleString()} km • {listing.year}</p>
                           </div>
                           <div className="flex-shrink-0">
                             {getStatusBadge(listing.status)}
@@ -471,8 +425,8 @@ export default function DealerDashboard() {
                           </div>
                         </div>
                         <div className="flex justify-between mt-2 text-xs text-muted-foreground">
-                          <span>{listing.views} {t('dealerDashboard.myListings.mobileView.views')}</span>
-                          <span>{listing.inquiries} {t('dealerDashboard.myListings.mobileView.inquiries')}</span>
+                          <span>Listed: {new Date(listing.createdAt).toLocaleDateString()}</span>
+                          <span>Updated: {new Date(listing.updatedAt).toLocaleDateString()}</span>
                         </div>
                       </div>
                     </div>
@@ -489,9 +443,9 @@ export default function DealerDashboard() {
                     <TableHead>{t('dealerDashboard.myListings.tableHeaders.car')}</TableHead>
                     <TableHead>{t('dealerDashboard.myListings.tableHeaders.price')}</TableHead>
                     <TableHead>{t('dealerDashboard.myListings.tableHeaders.status')}</TableHead>
-                    <TableHead>{t('dealerDashboard.myListings.tableHeaders.views')}</TableHead>
-                    <TableHead>{t('dealerDashboard.myListings.tableHeaders.inquiries')}</TableHead>
+                    <TableHead>Make/Model</TableHead>
                     <TableHead>{t('dealerDashboard.myListings.tableHeaders.listed')}</TableHead>
+                    <TableHead>Last Updated</TableHead>
                     <TableHead>{t('dealerDashboard.myListings.tableHeaders.actions')}</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -501,21 +455,21 @@ export default function DealerDashboard() {
                       <TableCell>
                         <div className="flex items-center gap-3">
                           <ImageWithFallback
-                            src={listing.image}
+                            src={listing.imageUrls?.[0] || '/placeholder.svg'}
                             alt={listing.title}
                             className="w-12 h-9 object-cover rounded"
                           />
                           <div>
                             <p className="font-medium">{listing.title}</p>
-                            <p className="text-sm text-muted-foreground">{listing.mileage} • {listing.year}</p>
+                            <p className="text-sm text-muted-foreground">{listing.mileage?.toLocaleString()} km • {listing.year}</p>
                           </div>
                         </div>
                       </TableCell>
                       <TableCell>€{listing.price.toLocaleString()}</TableCell>
                       <TableCell>{getStatusBadge(listing.status)}</TableCell>
-                      <TableCell>{listing.views}</TableCell>
-                      <TableCell>{listing.inquiries}</TableCell>
+                      <TableCell>{listing.carMake?.name} {listing.carModel?.name}</TableCell>
                       <TableCell>{new Date(listing.createdAt).toLocaleDateString()}</TableCell>
+                      <TableCell>{new Date(listing.updatedAt).toLocaleDateString()}</TableCell>
                       <TableCell>
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>
@@ -544,6 +498,7 @@ export default function DealerDashboard() {
                 </TableBody>
               </Table>
             </div>
+            )}
           </div>
           )}
 
@@ -557,40 +512,27 @@ export default function DealerDashboard() {
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  {[
-                    {
-                      customer: "Anna Mueller",
-                      email: "anna.mueller@email.com",
-                      car: "2022 BMW 3 Series 320i",
-                      type: t('dealerDashboard.inquiries.inquiryTypes.testDriveRequest'),
-                      date: `2 ${t('dealerDashboard.inquiries.time.hoursAgo')}`,
-                      status: t('dealerDashboard.inquiries.status.new')
-                    },
-                    {
-                      customer: "Thomas Koch",
-                      email: "thomas.koch@email.com",
-                      car: "2021 Audi A4 Avant",
-                      type: t('dealerDashboard.inquiries.inquiryTypes.priceInquiry'),
-                      date: `1 ${t('dealerDashboard.inquiries.time.dayAgo')}`,
-                      status: t('dealerDashboard.inquiries.status.responded')
-                    }
-                  ].map((inquiry, index) => (
-                    <div key={index} className="flex items-center justify-between p-4 border border-zinc-100 rounded-2xl">
+                  {inquiriesLoading ? (
+                    <div className="text-center py-8">
+                      <LoadingSpinner />
+                    </div>
+                  ) : allInquiries.length > 0 ? allInquiries.map((inquiry) => (
+                    <div key={inquiry.id} className="flex items-center justify-between p-4 border border-zinc-100 rounded-2xl">
                       <div className="flex-1">
                         <div className="flex items-center gap-4">
                           <div>
-                            <p className="font-medium">{inquiry.customer}</p>
-                            <p className="text-sm text-muted-foreground">{inquiry.email}</p>
+                            <p className="font-medium">{inquiry.customerName || inquiry.customer?.name || 'Anonymous'}</p>
+                            <p className="text-sm text-muted-foreground">{inquiry.customerEmail || inquiry.customer?.email || 'No email'}</p>
                           </div>
                           <div>
-                            <p className="text-sm">{inquiry.car}</p>
-                            <p className="text-xs text-muted-foreground">{inquiry.type}</p>
+                            <p className="text-sm">{inquiry.car?.carMake?.name} {inquiry.car?.carModel?.name}</p>
+                            <p className="text-xs text-muted-foreground">{inquiry.type.toLowerCase()}</p>
                           </div>
                           <div className="text-right">
-                            <Badge variant={inquiry.status === 'new' ? 'default' : 'secondary'} className="rounded-full">
-                              {inquiry.status}
+                            <Badge variant={inquiry.status === 'NEW' ? 'default' : 'secondary'} className="rounded-full">
+                              {inquiry.status.toLowerCase()}
                             </Badge>
-                            <p className="text-xs text-muted-foreground mt-1">{inquiry.date}</p>
+                            <p className="text-xs text-muted-foreground mt-1">{new Date(inquiry.createdAt).toLocaleDateString()}</p>
                           </div>
                         </div>
                       </div>
@@ -598,7 +540,11 @@ export default function DealerDashboard() {
                         {t('dealerDashboard.inquiries.actions.respond')}
                       </Button>
                     </div>
-                  ))}
+                  )) : (
+                    <div className="text-center py-8 text-muted-foreground">
+                      <p>No inquiries yet</p>
+                    </div>
+                  )}
                 </div>
               </CardContent>
             </Card>
@@ -608,7 +554,14 @@ export default function DealerDashboard() {
           {/* Express Sale Listings Tab */}
           {activeTab === "express" && (
           <div className="space-y-4 sm:space-y-6 mt-4 sm:mt-6">
-            {/* Header */}
+            {expressLoading && (
+              <div className="text-center py-8">
+                <LoadingSpinner />
+                <p className="text-muted-foreground mt-2">Loading express sale opportunities...</p>
+              </div>
+            )}
+            {/* Header - Only show when not loading */}
+            {!expressLoading && (
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <h2 className="text-xl sm:text-2xl font-bold">{t('dealerDashboard.expressListings.title')}</h2>
@@ -616,7 +569,7 @@ export default function DealerDashboard() {
               </div>
               <div className="flex items-center gap-2">
                 <Badge variant="outline" className="rounded-full">
-                  {expressListings.filter(l => l.status === 'new').length} {t('dealerDashboard.expressListings.newListings')}
+                  {expressListings.filter(l => l.status === 'ACTIVE').length} {t('dealerDashboard.expressListings.newListings')}
                 </Badge>
               </div>
             </div>
@@ -647,13 +600,17 @@ export default function DealerDashboard() {
 
             {/* Express Sale Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {expressListings.map((listing) => (
+              {expressLoading ? (
+                <div className="col-span-full text-center py-8">
+                  <LoadingSpinner />
+                </div>
+              ) : expressListings.length > 0 ? expressListings.map((listing) => (
                 <div key={listing.id} className="bg-card rounded-xl border border-border shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
                   {/* Image */}
                   <div className="relative">
                     <ImageWithFallback
-                      src={listing.image || '/placeholder.svg'}
-                      alt={`${listing.year} ${listing.make} ${listing.model}`}
+                      src={listing.imageUrls?.[0] || '/placeholder.svg'}
+                      alt={listing.vehicleDescription}
                       className="aspect-[4/3] w-full object-cover"
                     />
                     
@@ -671,13 +628,15 @@ export default function DealerDashboard() {
                     </div>
 
                     {/* Price overlay */}
-                    <div className="absolute bottom-3 left-3">
-                      <div className="bg-white/95 backdrop-blur-sm rounded-lg px-3 py-1">
-                        <span className="text-lg font-bold text-foreground">
-                          €{listing.price.toLocaleString()}
-                        </span>
+                    {listing.askingPrice && (
+                      <div className="absolute bottom-3 left-3">
+                        <div className="bg-white/95 backdrop-blur-sm rounded-lg px-3 py-1">
+                          <span className="text-lg font-bold text-foreground">
+                            €{listing.askingPrice.toLocaleString()}
+                          </span>
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
 
                   {/* Content */}
@@ -685,29 +644,14 @@ export default function DealerDashboard() {
                     {/* Title */}
                     <div>
                       <h3 className="font-semibold text-lg text-foreground leading-tight">
-                        {listing.year} {listing.make} {listing.model}
+                        {listing.vehicleDescription}
                       </h3>
-                      <p className="text-sm text-muted-foreground">{listing.sellerName}</p>
+                      <p className="text-sm text-muted-foreground">{listing.seller?.name || 'Private Seller'}</p>
                     </div>
 
-                    {/* Details */}
-                    <div className="grid grid-cols-2 gap-3 text-sm">
-                      <div className="flex items-center gap-2 text-muted-foreground">
-                        <Gauge className="h-4 w-4" />
-                        <span>{listing.mileage.toLocaleString()} km</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-muted-foreground">
-                        <Fuel className="h-4 w-4" />
-                        <span>{t(`sell.fuelTypes.${listing.fuelType}`)}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-muted-foreground">
-                        <Users className="h-4 w-4" />
-                        <span>{t(`sell.transmissions.${listing.transmission}`)}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-muted-foreground">
-                        <Calendar className="h-4 w-4" />
-                        <span>{listing.year}</span>
-                      </div>
+                    {/* Details - Show full description */}
+                    <div className="text-sm text-muted-foreground">
+                      <p>{listing.details}</p>
                     </div>
 
                     {/* Location */}
@@ -719,17 +663,24 @@ export default function DealerDashboard() {
                     {/* Seller Contact Info */}
                     <div className="bg-muted/30 rounded-lg p-3 space-y-1">
                       <p className="text-xs text-muted-foreground">{t('dealerDashboard.expressListings.sellerContact')}</p>
-                      <p className="text-sm font-medium">{listing.contactPhone}</p>
-                      <p className="text-sm">{listing.contactEmail}</p>
+                      <p className="text-sm font-medium">{listing.seller?.name || 'Anonymous Seller'}</p>
+                      <p className="text-sm">{listing.seller?.email}</p>
                       <p className="text-xs text-muted-foreground">
-                        {t('dealerDashboard.expressListings.submittedOn')} {new Date(listing.submittedAt).toLocaleDateString()}
+                        {t('dealerDashboard.expressListings.submittedOn')} {new Date(listing.createdAt).toLocaleDateString()}
                       </p>
                     </div>
+
+                    {/* Interest indicator */}
+                    {listing.interestedDealers && listing.interestedDealers.length > 0 && (
+                      <div className="text-xs text-muted-foreground">
+                        {listing.interestedDealers.length} dealer(s) interested
+                      </div>
+                    )}
 
                     {/* Actions */}
                     <div className="flex gap-2 pt-2">
                       <Button className="flex-1" size="sm">
-                        {listing.status === 'new' ? t('dealerDashboard.expressListings.actions.contact') : t('dealerDashboard.expressListings.actions.viewContact')}
+                        {listing.status === 'ACTIVE' ? t('dealerDashboard.expressListings.actions.contact') : t('dealerDashboard.expressListings.actions.viewContact')}
                       </Button>
                       <Button variant="outline" size="sm">
                         <Heart className="h-4 w-4" />
@@ -737,17 +688,16 @@ export default function DealerDashboard() {
                     </div>
                   </div>
                 </div>
-              ))}
+              )) : (
+                <div className="col-span-full text-center py-12">
+                  <Zap className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-foreground mb-2">{t('dealerDashboard.expressListings.emptyState.title')}</h3>
+                  <p className="text-muted-foreground">{t('dealerDashboard.expressListings.emptyState.description')}</p>
+                </div>
+              )}
             </div>
 
-            {/* Empty State */}
-            {expressListings.length === 0 && (
-              <div className="text-center py-12">
-                <Zap className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-foreground mb-2">{t('dealerDashboard.expressListings.emptyState.title')}</h3>
-                <p className="text-muted-foreground">{t('dealerDashboard.expressListings.emptyState.description')}</p>
-              </div>
-            )}
+            {/* Empty state is now handled inside the grid */}
 
             {/* Footer Info */}
             <div className="bg-muted/20 rounded-xl p-4">
@@ -758,7 +708,7 @@ export default function DealerDashboard() {
                   <p className="text-sm text-muted-foreground">{t('dealerDashboard.expressListings.info.description')}</p>
                 </div>
               </div>
-            </div>
+            )}
           </div>
           )}
 
@@ -773,18 +723,22 @@ export default function DealerDashboard() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {filteredListings.slice(0, 3).map((listing, index) => (
+                    {popularListings && popularListings.length > 0 ? popularListings.map((listing, index) => (
                       <div key={listing.id} className="flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <span className="text-lg font-bold text-muted-foreground">#{index + 1}</span>
                           <div>
                             <p className="font-medium text-sm">{listing.title}</p>
-                            <p className="text-xs text-muted-foreground">{listing.views} {t('dealerDashboard.analytics.popularListings.views')}</p>
+                            <p className="text-xs text-muted-foreground">{listing.carMake?.name} {listing.carModel?.name}</p>
                           </div>
                         </div>
-                        <Badge variant="outline" className="rounded-full">{listing.inquiries} {t('dealerDashboard.analytics.popularListings.inquiries')}</Badge>
+                        <Badge variant="outline" className="rounded-full">€{listing.price.toLocaleString()}</Badge>
                       </div>
-                    ))}
+                    )) : (
+                      <div className="text-center py-4 text-muted-foreground">
+                        <p>No listings data available</p>
+                      </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -798,19 +752,19 @@ export default function DealerDashboard() {
                   <div className="space-y-4">
                     <div className="flex justify-between items-center">
                       <span className="text-sm">{t('dealerDashboard.analytics.performanceMetrics.metrics.averageTimeToSell')}</span>
-                      <span className="font-medium">23 {t('dealerDashboard.analytics.performanceMetrics.values.days')}</span>
+                      <span className="font-medium">{performance?.averageTimeToSell || 0} {t('dealerDashboard.analytics.performanceMetrics.values.days')}</span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-sm">{t('dealerDashboard.analytics.performanceMetrics.metrics.conversionRate')}</span>
-                      <span className="text-sm">12.5%</span>
+                      <span className="text-sm">{performance?.conversionRate?.toFixed(1) || 0}%</span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-sm">{t('dealerDashboard.analytics.performanceMetrics.metrics.averageListingViews')}</span>
-                      <span className="font-medium">118</span>
+                      <span className="font-medium">{performance?.averageListingViews || 0}</span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-sm">{t('dealerDashboard.analytics.performanceMetrics.metrics.responseTime')}</span>
-                      <span className="font-medium">2.3 {t('dealerDashboard.analytics.performanceMetrics.values.hours')}</span>
+                      <span className="font-medium">{performance?.averageResponseTime || 0} {t('dealerDashboard.analytics.performanceMetrics.values.hours')}</span>
                     </div>
                   </div>
                 </CardContent>
@@ -821,7 +775,7 @@ export default function DealerDashboard() {
         </Card>
 
         <p className="text-center text-muted-foreground mt-8">
-          {t('dealerDashboard.footerMessage')}<span className="font-semibold">24 {t('dealerDashboard.activeListingsCount')}</span> driving your success
+          {t('dealerDashboard.footerMessage')}<span className="font-semibold">{stats?.activeListings || 0} {t('dealerDashboard.activeListingsCount')}</span> driving your success
         </p>
       </div>
     </section>

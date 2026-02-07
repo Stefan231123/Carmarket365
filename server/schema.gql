@@ -2,38 +2,104 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type AdminStats {
+  activeListings: Int!
+  averageListingPrice: Float!
+  flaggedListings: Int!
+  newUsersThisMonth: Int!
+  newUsersThisWeek: Int!
+  pendingListings: Int!
+  totalDealers: Int!
+  totalInquiries: Int!
+  totalListings: Int!
+  totalRevenue: Float!
+  totalUsers: Int!
+  totalViews: Int!
+}
+
+"""The frequency of search alert notifications"""
+enum AlertFrequency {
+  DAILY
+  INSTANT
+  WEEKLY
+}
+
 type AuthResponse {
   access_token: String!
   user: User!
 }
 
 type Car {
-  bodyType: String
+  acceptsTradeIn: Boolean!
+  allowTestDrive: Boolean!
+  city: String
   color: String
+  condition: CarCondition!
+  contactEmail: String
+  contactPhone: String
   countryCode: String
   createdAt: DateTime!
   description: String
-  fuelType: String!
+  doors: Int
+  drivetrain: DrivetrainType
+  emissionClass: String
+  engineSize: Int
+  favoriteCount: Int!
+  featuredUntil: DateTime
+  features: [String!]!
+  fuelConsumption: Float
+  fuelType: FuelType!
+  horsePower: Int
   id: ID!
-  images: [String!]!
+  images: [CarImage!]!
+  inquiries: [CarInquiry!]!
+  inquiryCount: Int!
+  interiorColor: String
   isAvailable: Boolean!
+  isCertified: Boolean!
   isFeatured: Boolean!
+  lastPriceUpdate: DateTime
+  latitude: Float
+  licensePlate: String
   location: String!
+  longitude: Float
   make: String!
   mileage: Int!
   model: String!
+  originalPrice: Float
   price: Float!
+  priceNegotiable: Boolean
+  quickSale: Boolean
+  region: String
+  safetyFeatures: [String!]!
+  seats: Int
   seller: User!
-  transmission: String!
+  soldAt: DateTime
+  transmission: TransmissionType!
   updatedAt: DateTime!
+  variant: String
+  vehicleType: VehicleType!
+  viewCount: Int!
+  views: [CarView!]!
+  vin: String
+  warrantyMonths: Float
   year: Int!
 }
 
+enum CarCondition {
+  CERTIFIED
+  DAMAGED
+  NEW
+  USED
+}
+
 input CarFilterInput {
-  bodyType: String
+  color: String
+  condition: CarCondition
   countryCode: String
-  fuelType: String
+  fuelType: FuelType
   isAvailable: Boolean
+  isCertified: Boolean
   isFeatured: Boolean
   location: String
   make: String
@@ -43,30 +109,192 @@ input CarFilterInput {
   minPrice: Float
   minYear: Int
   model: String
-  transmission: String
+  transmission: TransmissionType
+  vehicleType: VehicleType
+}
+
+type CarImage {
+  altText: String
+  car: Car!
+  createdAt: DateTime!
+  fileSize: Float
+  height: Float
+  id: ID!
+  isInterior: Boolean!
+  isMain: Boolean!
+  mimeType: String
+  originalFileName: String
+  sortOrder: Int!
+  thumbnailUrl: String
+  url: String!
+  width: Float
+}
+
+type CarInquiry {
+  car: Car!
+  createdAt: DateTime!
+  email: String!
+  id: ID!
+  ipAddress: String
+  message: String!
+  name: String!
+  offerPrice: Float
+  phone: String
+  preferredContactMethod: String
+  preferredTestDriveDate: DateTime
+  repliedAt: DateTime
+  sellerResponse: String
+  status: InquiryStatus!
+  tradeInVehicle: String
+  type: InquiryType!
+  updatedAt: DateTime!
+  user: User
+  userAgent: String
+}
+
+type CarView {
+  car: Car!
+  city: String
+  countryCode: String
+  createdAt: DateTime!
+  id: ID!
+  ipAddress: String
+  referrer: String
+  sessionId: String
+  user: User
+  userAgent: String
+}
+
+type CarViewStats {
+  carId: String!
+  totalViews: Int!
+  uniqueViews: Int!
+}
+
+input CreateCarImageInput {
+  caption: String
+  carId: String!
+  fileName: String
+  fileSize: Int
+  isPrimary: Boolean! = false
+  mimeType: String
+  sortOrder: Int! = 0
+  url: String!
 }
 
 input CreateCarInput {
-  bodyType: String
+  acceptsTradeIn: Boolean
+  allowTestDrive: Boolean
+  city: String
   color: String
+  condition: CarCondition
+  contactEmail: String
+  contactPhone: String
   countryCode: String
   description: String
-  fuelType: String!
-  images: [String!]
+  doors: Int
+  drivetrain: DrivetrainType
+  engineSize: Int
+  features: [String!]
+  fuelType: FuelType!
+  horsePower: Int
+  interiorColor: String
   isFeatured: Boolean
   location: String!
   make: String!
   mileage: Int!
   model: String!
   price: Float!
-  transmission: String!
+  priceNegotiable: Boolean
+  quickSale: Boolean
+  safetyFeatures: [String!]
+  seats: Int
+  transmission: TransmissionType!
+  variant: String
+  vehicleType: VehicleType
+  vin: String
   year: Int!
+}
+
+input CreateCarInquiryInput {
+  carId: String!
+  inquirerEmail: String!
+  inquirerName: String!
+  inquirerPhone: String
+  inquiryType: InquiryType!
+  message: String!
+}
+
+input CreateSearchAlertInput {
+  filters: JSON!
+  frequency: AlertFrequency!
+  isActive: Boolean! = true
+  name: String!
 }
 
 """
 A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
 """
 scalar DateTime
+
+enum DealerStatus {
+  APPROVED
+  PENDING
+  REJECTED
+  SUSPENDED
+}
+
+enum DrivetrainType {
+  AWD
+  FOUR_WD
+  FWD
+  RWD
+}
+
+enum FuelType {
+  CNG
+  DIESEL
+  ELECTRIC
+  GASOLINE
+  HYBRID
+  HYDROGEN
+  LPG
+  PLUGIN_HYBRID
+}
+
+input ImageOrderInput {
+  id: String!
+  order: Int!
+}
+
+type InquiryStats {
+  closed: Int!
+  pending: Int!
+  responded: Int!
+  total: Int!
+}
+
+enum InquiryStatus {
+  CLOSED
+  PENDING
+  REPLIED
+  SPAM
+}
+
+enum InquiryType {
+  FINANCING
+  GENERAL
+  INSPECTION
+  PRICE_NEGOTIATION
+  TECHNICAL_DETAILS
+  TEST_DRIVE
+  TRADE_IN
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
 
 input LoginInput {
   email: String!
@@ -75,24 +303,100 @@ input LoginInput {
 
 type Mutation {
   addToSavedListings(carId: String!): User!
+  clearUserSavedCars: Boolean!
   createCar(input: CreateCarInput!): Car!
+  createCarImage(input: CreateCarImageInput!): CarImage!
+  createCarInquiry(input: CreateCarInquiryInput!): CarInquiry!
+  createSearchAlert(input: CreateSearchAlertInput!): SearchAlert!
   deleteCar(id: String!): Boolean!
+  deleteCarImage(id: String!): Boolean!
+  deleteCarInquiry(id: String!): Boolean!
+  deleteSearchAlert(id: String!): Boolean!
+  flagListing(carId: String!, reason: String!): Car!
   login(input: LoginInput!): AuthResponse!
+  recordCarView(input: RecordCarViewInput!): CarView!
   register(input: RegisterInput!): AuthResponse!
   removeFromSavedListings(carId: String!): User!
+  reorderCarImages(carId: String!, imageOrders: [ImageOrderInput!]!): [CarImage!]!
+  saveCar(carId: String!): SavedCar!
+  toggleSearchAlert(id: String!): SearchAlert!
+  unsaveCar(carId: String!): Boolean!
   updateCar(id: String!, input: UpdateCarInput!): Car!
+  updateCarImage(id: String!, input: UpdateCarImageInput!): CarImage!
+  updateCarInquiry(id: String!, input: UpdateCarInquiryInput!): CarInquiry!
+  updateSearchAlert(id: String!, input: UpdateSearchAlertInput!): SearchAlert!
+  updateUserStatus(status: String!, userId: String!): User!
+}
+
+type PopularCar {
+  carId: String!
+  viewCount: Int!
+}
+
+type PopularSavedCar {
+  carId: String!
+  saveCount: Int!
 }
 
 type Query {
+  getActiveSearchAlerts: [SearchAlert!]!
+  getAdminStats: AdminStats!
+  getAlertsByFrequency(frequency: AlertFrequency!): [SearchAlert!]!
+  getAllListings: [Car!]!
+  getAllUsers: [User!]!
   getCarById(id: String!): Car!
+  getCarImageById(id: String!): CarImage!
+  getCarImages(carId: String!): [CarImage!]!
+  getCarInquiries(carId: String!): [CarInquiry!]!
+  getCarInquiryById(id: String!): CarInquiry!
   getCarMakes: [String!]!
   getCarModels(make: String!): [String!]!
+  getCarSaveCount(carId: String!): Int!
+  getCarViewStats(carId: String!): CarViewStats!
+  getCarViews(carId: String!): [CarView!]!
   getCars(filters: CarFilterInput): [Car!]!
   getCarsByMake(make: String!): [Car!]!
   getCurrentUser: User!
   getFeaturedCars(limit: Int! = 10): [Car!]!
+  getInquiryStats(carId: String): InquiryStats!
+  getMostSavedCars(limit: Int! = 10): [PopularSavedCar!]!
+  getPopularCars(limit: Int! = 10): [PopularCar!]!
+  getRecentActivity: [RecentActivity!]!
+  getRecentCarViews(limit: Int! = 50): [CarView!]!
+  getRecentInquiries(limit: Int! = 20): [CarInquiry!]!
+  getSavedCarStats: SavedCarStats!
+  getSearchAlertById(id: String!): SearchAlert!
+  getSearchAlertStats: SearchAlertStats!
+  getSellerInquiries: [CarInquiry!]!
+  getSystemHealth: SystemHealth!
   getUserById(id: String!): User!
+  getUserInquiries: [CarInquiry!]!
+  getUserSavedCars: [SavedCar!]!
+  getUserSearchAlerts: [SearchAlert!]!
+  getUserStats: UserStats!
+  getUserViewHistory(limit: Int! = 20): [CarView!]!
   getUsers: [User!]!
+  isCarSaved(carId: String!): Boolean!
+}
+
+type RecentActivity {
+  action: String!
+  details: String!
+  entityId: String
+  id: String!
+  time: String!
+  type: String!
+  user: String!
+}
+
+input RecordCarViewInput {
+  carId: String!
+  city: String
+  countryCode: String
+  ipAddress: String
+  referrer: String
+  sessionId: String
+  userAgent: String
 }
 
 input RegisterInput {
@@ -106,13 +410,98 @@ input RegisterInput {
   role: UserRole
 }
 
+type SavedCar {
+  car: Car!
+  createdAt: DateTime!
+  id: ID!
+  user: User!
+}
+
+type SavedCarStats {
+  userSavedCount: Int!
+}
+
+type SearchAlert {
+  countryCode: String
+  createdAt: DateTime!
+  emailNotifications: Boolean!
+  features: [String!]!
+  frequency: AlertFrequency!
+  fuelType: FuelType
+  id: ID!
+  isActive: Boolean!
+  lastNotificationSent: DateTime
+  lastTriggered: DateTime
+  location: String
+  make: String
+  matchCount: Int!
+  mileageFrom: Int
+  mileageTo: Int
+  model: String
+  name: String!
+  newMatchCount: Int!
+  priceFrom: Float
+  priceTo: Float
+  radiusKm: Int
+  smsNotifications: Boolean!
+  transmission: TransmissionType
+  updatedAt: DateTime!
+  user: User!
+  vehicleType: VehicleType
+  yearFrom: Int
+  yearTo: Int
+}
+
+type SearchAlertStats {
+  activeAlerts: Int!
+  totalAlerts: Int!
+}
+
+type SystemHealth {
+  activeConnections: Int!
+  cpuUsage: Float!
+  diskUsage: Float!
+  errorRate: Int!
+  lastUpdated: String!
+  memoryUsage: Float!
+  responseTime: Int!
+  status: String!
+}
+
+enum TransmissionType {
+  AUTOMATIC
+  CVT
+  MANUAL
+  SEMI_AUTOMATIC
+}
+
+input UpdateCarImageInput {
+  caption: String
+  fileName: String
+  fileSize: Int
+  isPrimary: Boolean
+  mimeType: String
+  sortOrder: Int
+  url: String
+}
+
 input UpdateCarInput {
-  bodyType: String
+  acceptsTradeIn: Boolean
+  allowTestDrive: Boolean
+  city: String
   color: String
+  condition: CarCondition
+  contactEmail: String
+  contactPhone: String
   countryCode: String
   description: String
-  fuelType: String
-  images: [String!]
+  doors: Int
+  drivetrain: DrivetrainType
+  engineSize: Int
+  features: [String!]
+  fuelType: FuelType
+  horsePower: Int
+  interiorColor: String
   isAvailable: Boolean
   isFeatured: Boolean
   location: String
@@ -120,23 +509,69 @@ input UpdateCarInput {
   mileage: Int
   model: String
   price: Float
-  transmission: String
+  priceNegotiable: Boolean
+  safetyFeatures: [String!]
+  seats: Int
+  transmission: TransmissionType
+  variant: String
+  vehicleType: VehicleType
+  vin: String
   year: Int
 }
 
+input UpdateCarInquiryInput {
+  response: String
+  status: InquiryStatus
+}
+
+input UpdateSearchAlertInput {
+  filters: JSON
+  frequency: AlertFrequency
+  isActive: Boolean
+  name: String
+}
+
 type User {
+  avatarUrl: String
   cars: [Car!]!
+  countryPreference: String
   createdAt: DateTime!
   dealerAddress: String
+  dealerApprovedAt: DateTime
+  dealerBusinessNumber: String
   dealerCity: String
+  dealerCountry: String
+  dealerDescription: String
+  dealerLatitude: Float
+  dealerLicenseNumber: String
   dealerLogoUrl: String
+  dealerLongitude: Float
   dealerName: String
   dealerPhoneNumber: String
+  dealerPostalCode: String
+  dealerRegion: String
+  dealerServices: [String!]!
+  dealerStatus: DealerStatus
+  dealerWebsite: String
+  dealerWorkingHours: [String!]!
   email: String!
+  emailVerificationToken: String
+  firstName: String
   id: ID!
+  isActive: Boolean!
+  isEmailVerified: Boolean!
+  languagePreference: String
+  lastLoginAt: DateTime
+  lastName: String
+  marketingEmailsEnabled: Boolean!
   name: String
+  passwordResetExpires: DateTime
+  passwordResetToken: String
+  phone: String
   role: UserRole!
-  savedListingIds: [String!]!
+  savedCars: [SavedCar!]!
+  searchAlerts: [SearchAlert!]!
+  smsNotificationsEnabled: Boolean!
   updatedAt: DateTime!
 }
 
@@ -144,4 +579,26 @@ enum UserRole {
   ADMIN
   DEALER
   USER
+}
+
+type UserStats {
+  activeUsers: Int!
+  newUsersThisMonth: Int!
+  newUsersThisWeek: Int!
+  newUsersToday: Int!
+  totalUsers: Int!
+  userGrowthRate: Float!
+}
+
+enum VehicleType {
+  CAR
+  CONVERTIBLE
+  COUPE
+  HATCHBACK
+  MOTORCYCLE
+  SEDAN
+  SUV
+  TRUCK
+  VAN
+  WAGON
 }

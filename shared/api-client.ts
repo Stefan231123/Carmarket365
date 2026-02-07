@@ -113,7 +113,7 @@ class ApiClient {
   private token: string | null = null;
 
   constructor() {
-    this.baseUrl = 'http://localhost:3001/graphql';
+    this.baseUrl = 'http://localhost:3002/graphql';
     // Load token asynchronously and initialize CSRF
     this.initializeSecureAuth().catch(console.error);
   }
