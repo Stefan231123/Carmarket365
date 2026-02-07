@@ -13,9 +13,11 @@ async function bootstrap() {
     'http://localhost:8081', // Vite dev server
     'http://localhost:3000', // Next.js dev server (for future migration)
     'http://192.168.0.249:8081', // Mobile access
+    'https://www.carmarket365.com', // Production frontend
+    'https://carmarket365.com', // Production frontend (without www)
   ];
 
-  // Add production frontend URL if available
+  // Add additional production frontend URLs if available
   if (process.env.CORS_ORIGIN) {
     corsOrigins.push(...process.env.CORS_ORIGIN.split(','));
   }

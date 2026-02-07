@@ -12,6 +12,6 @@
   ],
   "env": {
     "VITE_APP_NAME": "CarMarket365",
-    "VITE_API_URL": "https://your-backend-url.railway.app/graphql"
+    "VITE_GRAPHQL_ENDPOINT": "https://carmarket365-production.up.railway.app/graphql"
   }
 }
