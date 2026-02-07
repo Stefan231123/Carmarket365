@@ -1805,73 +1805,159 @@ export const enTranslations: TranslationStrings = {
   adminDashboard: {
     title: 'Administrator Panel',
     subtitle: 'Platform management, monitoring and comprehensive admin control',
-    
+
     // Tab navigation
-    
+    tabs: {
+      overview: 'Overview',
+      allListings: 'All Listings',
+      userManagement: 'User Management',
+      reports: 'Reports',
+    },
+
     // Overview tab
-    
+    overview: {
+      stats: {
+        totalUsers: {
+          title: 'Total Users',
+          description: '+12.5% from last month',
+        },
+        activeDealers: {
+          title: 'Active Dealers',
+          description: '+8.2% from last month',
+        },
+        totalListings: {
+          title: 'Total Listings',
+          description: '+15.3% from last month',
+        },
+        platformRevenue: {
+          title: 'Platform Revenue',
+          description: '+22.1% from last month',
+        },
+      },
+      recentActivity: {
+        title: 'Recent Activity',
+        description: 'Latest platform actions and events',
+      },
+      systemHealth: {
+        title: 'System Health',
+        description: 'Platform performance metrics',
+        metrics: {
+          serverUptime: 'Server Uptime',
+          averageResponseTime: 'Average Response Time',
+          activeSessions: 'Active Sessions',
+          errorRate: 'Error Rate',
+        },
+      },
+      actions: {
+        manageUsers: 'Manage Users',
+        viewReports: 'View detailed reports',
+      },
+    },
+
     // All Listings tab
     allListings: {
       title: 'All Listings',
-      
-      // Search and filters
       searchPlaceholder: 'Search listings...',
       filterByStatus: 'Filter by status',
-      
-      // Table headers
-      
-      // Status badges
-      
-      // Actions
+      statusOptions: {
+        allStatus: 'All Statuses',
+        active: 'Active',
+        sold: 'Sold',
+        pending: 'Pending',
+        flagged: 'Flagged',
+      },
+      tableHeaders: {
+        image: 'Image',
+        title: 'Title',
+        category: 'Category',
+        seller: 'Seller',
+        price: 'Price',
+        status: 'Status',
+        created: 'Created',
+        actions: 'Actions',
+      },
+      statusBadges: {
+        active: 'Active',
+        sold: 'Sold',
+        pending: 'Pending',
+        flagged: 'Flagged',
+      },
+      actions: {
+        viewListing: 'View Listing',
+        editListing: 'Edit Listing',
+        deleteListing: 'Delete Listing',
+      },
     },
-    
+
     // User Management tab
     userManagement: {
       title: 'User Management',
       description: 'View and manage all platform users',
-      
-      // Search and filters
       searchPlaceholder: 'Search by email or name...',
       roleFilter: {
         placeholder: 'Role',
+        options: {
+          allRoles: 'All Roles',
+          customer: 'Customer',
+          dealer: 'Dealer',
+          admin: 'Admin',
+        },
       },
-      
-      // Table headers
-      
-      // Role badges
+      tableHeaders: {
+        user: 'User',
+        role: 'Role',
+        status: 'Status',
+        joinDate: 'Join Date',
+        lastLogin: 'Last Login',
+        actions: 'Actions',
+      },
       roleBadges: {
         admin: 'Administrator',
         dealer: 'Dealer',
         customer: 'Customer',
       },
-      
-      // Status badges
-      
-      // Additional status messages
+      statusBadges: {
+        active: 'Active',
+        suspended: 'Suspended',
+        pending: 'Pending',
+      },
       statusMessages: {
         joinedOn: 'Joined On',
         lastLoginOn: 'Last Login',
         neverLoggedIn: 'Never logged in',
       },
-      
-      // Actions
+      actions: {
+        viewProfile: 'View Profile',
+        editUser: 'Edit User',
+        suspendUser: 'Suspend User',
+        activateUser: 'Activate User',
+      },
     },
-    
+
     // Reports tab
     reports: {
-      // Platform statistics
       platformStatistics: {
         title: 'Platform Statistics',
         description: 'Key platform indicators',
+        metrics: {
+          totalRevenue: 'Total Revenue',
+          newUserRegistrations: 'New User Registrations',
+          successfulTransactions: 'Successful Transactions',
+          averageListingPrice: 'Average Listing Price',
+        },
       },
-      
-      // Content moderation
       contentModeration: {
         title: 'Content Moderation',
         description: 'Content requiring verification',
+        items: {
+          flaggedListings: 'Flagged Listings',
+          pendingDealerApplications: 'Pending Dealer Applications',
+          reportedUsers: 'Reported Users',
+          disputes: 'Disputes',
+        },
       },
     },
-    
+
     // Footer message
     footerMessage: 'Administrative Control - ',
     systemStatus: 'System Status: Online',
@@ -2259,6 +2345,33 @@ export const enTranslations: TranslationStrings = {
     },
 
     // AdminDashboard - status badges and mock data
+    adminDashboard: {
+      statusBadges: {
+        suspended: 'Suspended',
+      },
+      mockData: {
+        johnDealer: 'John Dealer',
+        johnDealerEmail: 'john@example.com',
+        annaCustomer: 'Anna Customer',
+        annaCustomerEmail: 'anna@example.com',
+        bobAdmin: 'Bob Admin',
+        bobAdminEmail: 'bob@example.com',
+        bmw3Series2022: 'BMW 3 Series 2022',
+        sedan: 'Sedan',
+        audiA42021: 'Audi A4 2021',
+        premiumMotors: 'Premium Motors',
+        premiumMotorsGmbH: 'Premium Motors GmbH',
+        mercedesCClass2020: 'Mercedes C-Class 2020',
+        luxury: 'Luxury',
+        eliteCars: 'Elite Cars',
+        suspiciousUser: 'Suspicious User',
+        autoHausBerlin: 'Auto Haus Berlin',
+        twoHoursAgo: '2 hours ago',
+        fourHoursAgo: '4 hours ago',
+        sixHoursAgo: '6 hours ago',
+        eightHoursAgo: '8 hours ago',
+      },
+    },
 
     // DealerDashboard mock data
 

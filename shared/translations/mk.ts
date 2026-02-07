@@ -1781,6 +1781,164 @@ export const mkTranslations: TranslationStrings = {
   },
 
   adminDashboard: {
+    title: 'Администраторски панел',
+    subtitle: 'Управување со платформата, мониторинг и сеопфатна админ контрола',
+
+    // Навигација со табови
+    tabs: {
+      overview: 'Преглед',
+      allListings: 'Сите огласи',
+      userManagement: 'Управување со корисници',
+      reports: 'Извештаи',
+    },
+
+    // Преглед таб
+    overview: {
+      stats: {
+        totalUsers: {
+          title: 'Вкупно корисници',
+          description: '+12.5% од минатиот месец',
+        },
+        activeDealers: {
+          title: 'Активни дилери',
+          description: '+8.2% од минатиот месец',
+        },
+        totalListings: {
+          title: 'Вкупно огласи',
+          description: '+15.3% од минатиот месец',
+        },
+        platformRevenue: {
+          title: 'Приход на платформата',
+          description: '+22.1% од минатиот месец',
+        },
+      },
+      recentActivity: {
+        title: 'Неодамнешна активност',
+        description: 'Последни акции и настани на платформата',
+      },
+      systemHealth: {
+        title: 'Здравје на системот',
+        description: 'Метрики за перформанси на платформата',
+        metrics: {
+          serverUptime: 'Достапност на серверот',
+          averageResponseTime: 'Просечно време на одговор',
+          activeSessions: 'Активни сесии',
+          errorRate: 'Стапка на грешки',
+        },
+      },
+      actions: {
+        manageUsers: 'Управувај со корисници',
+        viewReports: 'Погледни детални извештаи',
+      },
+    },
+
+    // Сите огласи таб
+    allListings: {
+      title: 'Сите огласи',
+      searchPlaceholder: 'Пребарај огласи...',
+      filterByStatus: 'Филтрирај по статус',
+      statusOptions: {
+        allStatus: 'Сите статуси',
+        active: 'Активен',
+        sold: 'Продаден',
+        pending: 'Во чекање',
+        flagged: 'Означен',
+      },
+      tableHeaders: {
+        image: 'Слика',
+        title: 'Наслов',
+        category: 'Категорија',
+        seller: 'Продавач',
+        price: 'Цена',
+        status: 'Статус',
+        created: 'Креиран',
+        actions: 'Акции',
+      },
+      statusBadges: {
+        active: 'Активен',
+        sold: 'Продаден',
+        pending: 'Во чекање',
+        flagged: 'Означен',
+      },
+      actions: {
+        viewListing: 'Погледни оглас',
+        editListing: 'Уреди оглас',
+        deleteListing: 'Избриши оглас',
+      },
+    },
+
+    // Управување со корисници таб
+    userManagement: {
+      title: 'Управување со корисници',
+      description: 'Прегледај и управувај со сите корисници на платформата',
+      searchPlaceholder: 'Пребарај по е-пошта или име...',
+      roleFilter: {
+        placeholder: 'Улога',
+        options: {
+          allRoles: 'Сите улоги',
+          customer: 'Купувач',
+          dealer: 'Дилер',
+          admin: 'Админ',
+        },
+      },
+      tableHeaders: {
+        user: 'Корисник',
+        role: 'Улога',
+        status: 'Статус',
+        joinDate: 'Датум на приклучување',
+        lastLogin: 'Последна најава',
+        actions: 'Акции',
+      },
+      roleBadges: {
+        admin: 'Администратор',
+        dealer: 'Дилер',
+        customer: 'Купувач',
+      },
+      statusBadges: {
+        active: 'Активен',
+        suspended: 'Суспендиран',
+        pending: 'Во чекање',
+      },
+      statusMessages: {
+        joinedOn: 'Приклучен на',
+        lastLoginOn: 'Последна најава',
+        neverLoggedIn: 'Никогаш не се најавил',
+      },
+      actions: {
+        viewProfile: 'Погледни профил',
+        editUser: 'Уреди корисник',
+        suspendUser: 'Суспендирај корисник',
+        activateUser: 'Активирај корисник',
+      },
+    },
+
+    // Извештаи таб
+    reports: {
+      platformStatistics: {
+        title: 'Статистики на платформата',
+        description: 'Клучни индикатори на платформата',
+        metrics: {
+          totalRevenue: 'Вкупен приход',
+          newUserRegistrations: 'Нови регистрации на корисници',
+          successfulTransactions: 'Успешни трансакции',
+          averageListingPrice: 'Просечна цена на оглас',
+        },
+      },
+      contentModeration: {
+        title: 'Модерација на содржина',
+        description: 'Содржина која бара верификација',
+        items: {
+          flaggedListings: 'Означени огласи',
+          pendingDealerApplications: 'Апликации за дилери во чекање',
+          reportedUsers: 'Пријавени корисници',
+          disputes: 'Спорови',
+        },
+      },
+    },
+
+    // Порака во подножјето
+    footerMessage: 'Административна контрола - ',
+    systemStatus: 'Статус на системот: Онлајн',
   },
 
   // Car detail page sections
