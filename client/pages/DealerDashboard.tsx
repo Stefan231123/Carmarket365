@@ -350,6 +350,7 @@ export default function DealerDashboard() {
             )}
             {/* Filters and Search - Only show when not loading */}
             {!listingsLoading && (
+            <>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
                 <div className="relative">
@@ -498,6 +499,7 @@ export default function DealerDashboard() {
                 </TableBody>
               </Table>
             </div>
+            </>
             )}
           </div>
           )}
