@@ -120,7 +120,7 @@ export default function AdminDashboard() {
         return <Badge variant="destructive" className="rounded-full">{t('adminDashboard.userManagement.roleBadges.admin')}</Badge>;
       case 'dealer':
         return <Badge variant="default" className="rounded-full">{t('adminDashboard.userManagement.roleBadges.dealer')}</Badge>;
-      case 'customer':
+      case 'user':
         return <Badge variant="secondary" className="rounded-full">{t('adminDashboard.userManagement.roleBadges.customer')}</Badge>;
       default:
         return <Badge variant="outline" className="rounded-full">{role}</Badge>;
@@ -573,7 +573,7 @@ export default function AdminDashboard() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">{t('adminDashboard.userManagement.roleFilter.options.allRoles')}</SelectItem>
-                      <SelectItem value="customer">{t('adminDashboard.userManagement.roleFilter.options.customer')}</SelectItem>
+                      <SelectItem value="user">{t('adminDashboard.userManagement.roleFilter.options.customer')}</SelectItem>
                       <SelectItem value="dealer">{t('adminDashboard.userManagement.roleFilter.options.dealer')}</SelectItem>
                       <SelectItem value="admin">{t('adminDashboard.userManagement.roleFilter.options.admin')}</SelectItem>
                     </SelectContent>
