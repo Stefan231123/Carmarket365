@@ -11,11 +11,14 @@ export interface TokenData {
   expires_at?: number;
 }
 
+// Derive auth API base URL from GraphQL endpoint
+const AUTH_BASE_URL = (import.meta.env.VITE_GRAPHQL_ENDPOINT || 'http://localhost:3002/graphql').replace('/graphql', '');
+
 class SecureTokenManager {
   private static instance: SecureTokenManager;
   private tokenCache: TokenData | null = null;
   private readonly CSRF_TOKEN_KEY = 'csrf_token';
-  
+
   private constructor() {}
   
   public static getInstance(): SecureTokenManager {
@@ -37,7 +40,7 @@ class SecureTokenManager {
       }
 
       // Send tokens to backend for secure httpOnly cookie storage
-      const response = await fetch('http://localhost:3001/api/auth/store-tokens', {
+      const response = await fetch(`${AUTH_BASE_URL}/api/auth/store-tokens`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,7 +80,7 @@ class SecureTokenManager {
       }
 
       // Fetch from secure cookie via API
-      const response = await fetch('http://localhost:3001/api/auth/get-token', {
+      const response = await fetch(`${AUTH_BASE_URL}/api/auth/get-token`, {
         method: 'GET',
         headers: {
           'X-CSRF-Token': this.getCSRFToken(),
@@ -105,7 +108,7 @@ class SecureTokenManager {
    */
   public async clearTokens(): Promise<boolean> {
     try {
-      const response = await fetch('http://localhost:3001/api/auth/logout', {
+      const response = await fetch(`${AUTH_BASE_URL}/api/auth/logout`, {
         method: 'POST',
         headers: {
           'X-CSRF-Token': this.getCSRFToken(),
@@ -128,7 +131,7 @@ class SecureTokenManager {
    */
   public async refreshToken(): Promise<string | null> {
     try {
-      const response = await fetch('http://localhost:3001/api/auth/refresh', {
+      const response = await fetch(`${AUTH_BASE_URL}/api/auth/refresh`, {
         method: 'POST',
         headers: {
           'X-CSRF-Token': this.getCSRFToken(),
@@ -163,7 +166,7 @@ class SecureTokenManager {
    */
   public async initializeCSRFToken(): Promise<string | null> {
     try {
-      const response = await fetch('http://localhost:3001/api/auth/csrf-token', {
+      const response = await fetch(`${AUTH_BASE_URL}/api/auth/csrf-token`, {
         method: 'GET',
         credentials: 'include',
       });
