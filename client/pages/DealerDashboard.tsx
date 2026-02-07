@@ -564,6 +564,7 @@ export default function DealerDashboard() {
             )}
             {/* Header - Only show when not loading */}
             {!expressLoading && (
+            <>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <h2 className="text-xl sm:text-2xl font-bold">{t('dealerDashboard.expressListings.title')}</h2>
@@ -710,6 +711,7 @@ export default function DealerDashboard() {
                   <p className="text-sm text-muted-foreground">{t('dealerDashboard.expressListings.info.description')}</p>
                 </div>
               </div>
+            </>
             )}
           </div>
           )}
