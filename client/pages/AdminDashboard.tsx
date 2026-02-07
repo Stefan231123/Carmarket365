@@ -100,12 +100,13 @@ export default function AdminDashboard() {
 
   // Filter listings based on search and status
   const filteredListings = allListings.filter(listing => {
-    const listingTitle = listing.title || `${listing.carMake?.name || listing.truckMake?.name || listing.bikeMake?.name} ${listing.carModel?.name || listing.truckModel?.name || listing.bikeModel?.name}`;
-    const sellerName = listing.user?.name || 'Unknown Seller';
-    
+    const listingTitle = listing.title || `${listing.make || ''} ${listing.model || ''}`.trim();
+    const sellerName = listing.seller?.name || listing.user?.name || 'Unknown Seller';
+
     const matchesSearch = listingTitle.toLowerCase().includes(listingSearchTerm.toLowerCase()) ||
                          sellerName.toLowerCase().includes(listingSearchTerm.toLowerCase());
-    const matchesStatus = listingStatusFilter === 'all' || listing.status?.toLowerCase() === listingStatusFilter.toLowerCase();
+    const listingStatus = listing.isAvailable ? 'active' : 'sold';
+    const matchesStatus = listingStatusFilter === 'all' || listingStatus === listingStatusFilter.toLowerCase();
     return matchesSearch && matchesStatus;
   });
 
@@ -345,19 +346,19 @@ export default function AdminDashboard() {
                       <>
                         <div className="flex justify-between items-center">
                           <span className="text-sm">{t('adminDashboard.overview.systemHealth.metrics.serverUptime')}</span>
-                          <Badge variant="default">{systemHealth.serverUptime || '99.9%'}</Badge>
+                          <Badge variant="default">{systemHealth.status === 'healthy' ? '99.9%' : systemHealth.status === 'warning' ? '95%' : '90%'}</Badge>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-sm">{t('adminDashboard.overview.systemHealth.metrics.averageResponseTime')}</span>
-                          <span className="font-medium">{systemHealth.averageResponseTime || '145ms'}</span>
+                          <span className="font-medium">{systemHealth.responseTime ? `${systemHealth.responseTime}ms` : 'N/A'}</span>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-sm">{t('adminDashboard.overview.systemHealth.metrics.activeSessions')}</span>
-                          <span className="font-medium">{(systemHealth.activeSessions || 1247).toLocaleString()}</span>
+                          <span className="font-medium">{(systemHealth.activeConnections || 0).toLocaleString()}</span>
                         </div>
                         <div className="flex justify-between items-center">
                           <span className="text-sm">{t('adminDashboard.overview.systemHealth.metrics.errorRate')}</span>
-                          <Badge variant="secondary">{systemHealth.errorRate || '0.02%'}</Badge>
+                          <Badge variant="secondary">{systemHealth.errorRate != null ? `${systemHealth.errorRate}%` : 'N/A'}</Badge>
                         </div>
                       </>
                     )}
@@ -487,8 +488,8 @@ export default function AdminDashboard() {
                     </TableRow>
                   ) : filteredListings.length > 0 ? (
                     filteredListings.map((listing) => {
-                      const listingTitle = listing.title || `${listing.carMake?.name || listing.truckMake?.name || listing.bikeMake?.name} ${listing.carModel?.name || listing.truckModel?.name || listing.bikeModel?.name}`;
-                      const category = listing.carMake ? 'Car' : listing.truckMake ? 'Truck' : 'Bike';
+                      const listingTitle = listing.title || `${listing.make || ''} ${listing.model || ''}`.trim();
+                      const category = listing.vehicleType || 'Car';
                       
                       return (
                         <TableRow key={listing.id}>
@@ -504,9 +505,9 @@ export default function AdminDashboard() {
                               <span className="ml-2">{category}</span>
                             </div>
                           </TableCell>
-                          <TableCell>{listing.user?.name || 'Unknown Seller'}</TableCell>
+                          <TableCell>{listing.seller?.name || listing.user?.name || 'Unknown Seller'}</TableCell>
                           <TableCell>€{(listing.price || 0).toLocaleString()}</TableCell>
-                          <TableCell>{getStatusBadge(listing.status?.toLowerCase() || 'active')}</TableCell>
+                          <TableCell>{getStatusBadge(listing.isAvailable ? 'active' : 'sold')}</TableCell>
                           <TableCell>{listing.createdAt ? new Date(listing.createdAt).toLocaleDateString() : 'N/A'}</TableCell>
                           <TableCell>
                             <DropdownMenu>

@@ -887,7 +887,7 @@ class ApiClient {
   async getAdminStats(): Promise<any> {
     const query = `
       query GetAdminStats {
-        adminStats {
+        getAdminStats {
           totalUsers
           totalDealers
           totalListings
@@ -896,73 +896,59 @@ class ApiClient {
           flaggedListings
           totalRevenue
           newUsersThisMonth
+          newUsersThisWeek
+          totalViews
+          totalInquiries
+          averageListingPrice
         }
       }
     `;
 
     try {
-      const response = await this.request<{ adminStats: any }>(query);
+      const response = await this.request<{ getAdminStats: any }>(query);
       if (response.errors) {
         console.warn('AdminStats GraphQL errors:', response.errors);
-        // Return fallback data if backend has issues
-        return {
-          totalUsers: 2847,
-          totalDealers: 156,
-          totalListings: 1284,
-          activeListings: 1180,
-          pendingListings: 8,
-          flaggedListings: 3,
-          totalRevenue: 89240,
-          newUsersThisMonth: 234
-        };
+        return {};
       }
-      return response.data?.adminStats || {};
+      return response.data?.getAdminStats || {};
     } catch (error) {
       console.warn('Backend connection failed for admin stats:', error);
-      // Return fallback data
-      return {
-        totalUsers: 2847,
-        totalDealers: 156,
-        totalListings: 1284,
-        activeListings: 1180,
-        pendingListings: 8,
-        flaggedListings: 3,
-        totalRevenue: 89240,
-        newUsersThisMonth: 234
-      };
+      return {};
     }
   }
 
   async getRecentActivity(): Promise<any[]> {
     const query = `
       query GetRecentActivity {
-        recentActivity {
+        getRecentActivity {
           id
           action
           user
           time
           details
+          type
+          entityId
         }
       }
     `;
 
     try {
-      const response = await this.request<{ recentActivity: any[] }>(query);
+      const response = await this.request<{ getRecentActivity: any[] }>(query);
       if (response.errors) {
         console.warn('RecentActivity GraphQL errors:', response.errors);
-        return this.getMockRecentActivity();
+        return [];
       }
-      return response.data?.recentActivity || this.getMockRecentActivity();
+      return response.data?.getRecentActivity || [];
     } catch (error) {
       console.warn('Backend connection failed for recent activity:', error);
-      return this.getMockRecentActivity();
+      return [];
     }
   }
 
   async getAllUsers(): Promise<any[]> {
     const query = `
       query GetAllUsers {
-        allUsers {
+        getAllUsers {
           id
           email
           name
@@ -978,112 +964,69 @@ class ApiClient {
     `;
 
     try {
-      const response = await this.request<{ allUsers: any[] }>(query);
+      const response = await this.request<{ getAllUsers: any[] }>(query);
       if (response.errors) {
         console.warn('AllUsers GraphQL errors:', response.errors);
-        return this.getMockUsers();
+        return [];
       }
-      return response.data?.allUsers || this.getMockUsers();
+      return response.data?.getAllUsers || [];
     } catch (error) {
       console.warn('Backend connection failed for all users:', error);
-      return this.getMockUsers();
+      return [];
     }
   }
 
   async getAllListings(): Promise<any[]> {
     const query = `
       query GetAllListings {
-        allListings {
-          ... on Car {
+        getAllListings {
+          id
+          make
+          model
+          description
+          price
+          year
+          mileage
+          isAvailable
+          vehicleType
+          location
+          fuelType
+          transmission
+          condition
+          seller {
             id
-            title
-            description
-            price
-            status
-            year
-            mileage
-            user {
-              id
-              name
-              email
-            }
-            carMake {
-              name
-            }
-            carModel {
-              name
-            }
-            createdAt
-            updatedAt
+            name
+            email
           }
-          ... on Truck {
-            id
-            title
-            description
-            price
-            status
-            year
-            mileage
-            user {
-              id
-              name
-              email
-            }
-            truckMake {
-              name
-            }
-            truckModel {
-              name
-            }
-            createdAt
-            updatedAt
-          }
-          ... on Bike {
-            id
-            title
-            description
-            price
-            status
-            year
-            mileage
-            user {
-              id
-              name
-              email
-            }
-            bikeMake {
-              name
-            }
-            bikeModel {
-              name
-            }
-            createdAt
-            updatedAt
-          }
+          createdAt
+          updatedAt
         }
       }
     `;
 
     try {
-      const response = await this.request<{ allListings: any[] }>(query);
+      const response = await this.request<{ getAllListings: any[] }>(query);
       if (response.errors) {
         console.warn('AllListings GraphQL errors:', response.errors);
-        return this.getMockListings();
+        return [];
       }
-      return response.data?.allListings || this.getMockListings();
+      return response.data?.getAllListings || [];
     } catch (error) {
       console.warn('Backend connection failed for all listings:', error);
-      return this.getMockListings();
+      return [];
     }
   }
 
   async getSystemHealth(): Promise<any> {
     const query = `
       query GetSystemHealth {
-        systemHealth {
-          serverUptime
-          averageResponseTime
-          activeSessions
+        getSystemHealth {
+          status
+          cpuUsage
+          memoryUsage
+          diskUsage
+          activeConnections
+          responseTime
           errorRate
           lastUpdated
         }
@@ -1091,15 +1034,15 @@ class ApiClient {
     `;
 
     try {
-      const response = await this.request<{ systemHealth: any }>(query);
+      const response = await this.request<{ getSystemHealth: any }>(query);
       if (response.errors) {
         console.warn('SystemHealth GraphQL errors:', response.errors);
-        return this.getMockSystemHealth();
+        return {};
       }
-      return response.data?.systemHealth || this.getMockSystemHealth();
+      return response.data?.getSystemHealth || {};
     } catch (error) {
       console.warn('Backend connection failed for system health:', error);
-      return this.getMockSystemHealth();
+      return {};
     }
   }
 

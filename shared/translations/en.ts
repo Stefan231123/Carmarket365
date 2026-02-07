@@ -1820,23 +1820,36 @@ export const enTranslations: TranslationStrings = {
         totalUsers: {
           title: 'Total Users',
           description: '+12.5% from last month',
+          fromLastMonth: '+12.5% from last month',
         },
         activeDealers: {
           title: 'Active Dealers',
           description: '+8.2% from last month',
+          newThisMonth: '+8.2% from last month',
         },
         totalListings: {
           title: 'Total Listings',
           description: '+15.3% from last month',
+          today: '+15.3% from last month',
         },
         platformRevenue: {
           title: 'Platform Revenue',
           description: '+22.1% from last month',
+          fromLastMonth: '+22.1% from last month',
         },
       },
       recentActivity: {
         title: 'Recent Activity',
         description: 'Latest platform actions and events',
+        activities: {
+          newDealerRegistration: 'New dealer registration',
+          listingFlaggedForReview: 'Listing flagged for review',
+          userAccountSuspended: 'User account suspended',
+          paymentProcessed: 'Payment processed',
+        },
+        timeAgo: {
+          hoursAgo: 'hours ago',
+        },
       },
       systemHealth: {
         title: 'System Health',
