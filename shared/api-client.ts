@@ -113,9 +113,16 @@ class ApiClient {
   private token: string | null = null;
 
   constructor() {
-    // Use VITE_GRAPHQL_ENDPOINT from environment, fallback to localhost for development
-    const envEndpoint = typeof import.meta !== 'undefined' && (import.meta as any).env?.VITE_GRAPHQL_ENDPOINT;
-    this.baseUrl = envEndpoint && envEndpoint !== '' ? envEndpoint : 'http://localhost:3002/graphql';
+    // Determine API endpoint: use env variable, detect production by hostname, or fallback to localhost
+    const envEndpoint = import.meta.env.VITE_GRAPHQL_ENDPOINT;
+    if (envEndpoint) {
+      this.baseUrl = envEndpoint;
+    } else if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
+      // Production: connect to Railway backend
+      this.baseUrl = 'https://carmarket365-production.up.railway.app/graphql';
+    } else {
+      this.baseUrl = 'http://localhost:3002/graphql';
+    }
     // Load token asynchronously and initialize CSRF
     this.initializeSecureAuth().catch(console.error);
   }

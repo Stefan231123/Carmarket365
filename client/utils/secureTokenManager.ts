@@ -12,7 +12,15 @@ export interface TokenData {
 }
 
 // Derive auth API base URL from GraphQL endpoint
-const AUTH_BASE_URL = (import.meta.env.VITE_GRAPHQL_ENDPOINT || 'http://localhost:3002/graphql').replace('/graphql', '');
+function getAuthBaseUrl(): string {
+  const envEndpoint = import.meta.env.VITE_GRAPHQL_ENDPOINT;
+  if (envEndpoint) return envEndpoint.replace('/graphql', '');
+  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
+    return 'https://carmarket365-production.up.railway.app';
+  }
+  return 'http://localhost:3002';
+}
+const AUTH_BASE_URL = getAuthBaseUrl();
 
 class SecureTokenManager {
   private static instance: SecureTokenManager;

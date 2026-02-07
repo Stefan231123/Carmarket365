@@ -1,8 +1,17 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
+function getGraphQLEndpoint(): string {
+  const envEndpoint = import.meta.env.VITE_GRAPHQL_ENDPOINT;
+  if (envEndpoint) return envEndpoint;
+  if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
+    return 'https://carmarket365-production.up.railway.app/graphql';
+  }
+  return 'http://localhost:3002/graphql';
+}
+
 const httpLink = createHttpLink({
-  uri: import.meta.env.VITE_GRAPHQL_ENDPOINT || 'http://localhost:3002/graphql',
+  uri: getGraphQLEndpoint(),
 });
 
 const authLink = setContext((_, { headers }) => {
