@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,178 +6,163 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { 
-  ArrowLeft, 
-  Heart, 
-  Search, 
-  Car, 
-  Zap, 
-  User, 
-  Settings, 
-  MapPin, 
-  Phone, 
-  Mail, 
-  Calendar,
+import {
+  ArrowLeft,
+  Heart,
+  Search,
+  Car,
+  Zap,
+  User,
+  Settings,
+  MapPin,
   Gauge,
   Fuel,
-  Euro,
   Eye,
   Trash2,
   Edit3,
   MessageSquare,
-  Bell,
   Shield,
   Download,
   Upload,
-  Camera,
-  Menu
+  Loader2
 } from "lucide-react";
 import { ImageWithFallback } from '../components/ImageWithFallback';
 import { useTranslation } from '../hooks/useTranslation';
 import { AdminBreadcrumb } from '../components/AdminBreadcrumb';
+import { useSafeAuth } from '../contexts/AuthContextSafe';
+import { useFavorites } from '../contexts/FavoritesContext';
+import { apiClient } from '@shared/api-client';
 
 export default function PrivateDashboard() {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { user } = useSafeAuth();
+  const { favorites, removeFromFavorites } = useFavorites();
   const [activeTab, setActiveTab] = useState("saved");
-  
+  const [myListings, setMyListings] = useState<any[]>([]);
+  const [listingsLoading, setListingsLoading] = useState(false);
+
   // Helper function to translate status values
   const translateStatus = (status: string) => {
     switch (status) {
-      case 'Active': return t('privateDashboard.statusActive');
-      case 'Under Review': return t('privateDashboard.statusUnderReview');
-      case 'Sold': return t('privateDashboard.statusSold');
-      case 'Expired': return t('privateDashboard.statusExpired');
+      case 'Active': case 'ACTIVE': return t('privateDashboard.statusActive');
+      case 'Under Review': case 'PENDING': return t('privateDashboard.statusUnderReview');
+      case 'Sold': case 'SOLD': return t('privateDashboard.statusSold');
+      case 'Expired': case 'EXPIRED': return t('privateDashboard.statusExpired');
       default: return status;
     }
   };
-  
+
   // Helper function to translate fuel types
   const translateFuelType = (fuelType: string) => {
     switch (fuelType) {
-      case 'Diesel': return t('privateDashboard.fuelDiesel');
-      case 'Petrol': return t('privateDashboard.fuelPetrol');
-      case 'Hybrid': return t('privateDashboard.fuelHybrid');
-      case 'Electric': return t('privateDashboard.fuelElectric');
-      case 'Gas': return t('privateDashboard.fuelGas');
+      case 'Diesel': case 'DIESEL': return t('privateDashboard.fuelDiesel');
+      case 'Petrol': case 'GASOLINE': return t('privateDashboard.fuelPetrol');
+      case 'Hybrid': case 'HYBRID': return t('privateDashboard.fuelHybrid');
+      case 'Electric': case 'ELECTRIC': return t('privateDashboard.fuelElectric');
+      case 'Gas': case 'LPG': case 'CNG': return t('privateDashboard.fuelGas');
       default: return fuelType;
     }
   };
+
+  // Derive user profile from auth context
+  const nameParts = (user?.name || '').split(' ');
   const [userProfile, setUserProfile] = useState({
-    firstName: "John",
-    lastName: "Doe",
-    email: "john.doe@email.com",
-    phone: "+49 30 12345678",
-    city: "Berlin",
-    country: "Germany",
+    firstName: nameParts[0] || "",
+    lastName: nameParts.slice(1).join(' ') || "",
+    email: user?.email || "",
+    phone: user?.dealerPhoneNumber || "",
+    city: user?.dealerCity || "",
+    country: "",
     avatar: ""
   });
 
-  // Mock data for saved cars
-  const savedCars = [
-    {
-      id: "1",
-      make: "BMW",
-      model: "3 Series",
-      year: 2022,
-      price: 45000,
-      mileage: 25000,
-      fuel: "Diesel",
-      location: "Berlin",
-      image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400&h=300&fit=crop",
-      savedDate: "2024-01-15"
-    },
-    {
-      id: "2",
-      make: "Audi",
-      model: "A4",
-      year: 2021,
-      price: 42000,
-      mileage: 35000,
-      fuel: "Petrol",
-      location: "Munich",
-      image: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=400&h=300&fit=crop",
-      savedDate: "2024-01-20"
+  // Update profile state when user data changes
+  useEffect(() => {
+    if (user) {
+      const parts = (user.name || '').split(' ');
+      setUserProfile({
+        firstName: parts[0] || "",
+        lastName: parts.slice(1).join(' ') || "",
+        email: user.email || "",
+        phone: user.dealerPhoneNumber || "",
+        city: user.dealerCity || "",
+        country: "",
+        avatar: ""
+      });
     }
-  ];
+  }, [user]);
 
-  // Mock data for user's listings
-  const userListings = [
-    {
-      id: "3",
-      make: "Volkswagen",
-      model: "Golf",
-      year: 2019,
-      price: 18500,
-      mileage: 45000,
-      fuel: "Petrol",
-      location: "Berlin",
-      image: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=400&h=300&fit=crop",
-      status: "Active",
-      views: 127,
-      inquiries: 8,
-      createdDate: "2024-01-10"
+  // Load user's own listings from backend
+  useEffect(() => {
+    if (user) {
+      setListingsLoading(true);
+      apiClient.getMyListings()
+        .then(listings => setMyListings(listings))
+        .catch(() => setMyListings([]))
+        .finally(() => setListingsLoading(false));
     }
-  ];
+  }, [user]);
 
-  // Mock data for express sale listings
-  const expressListings = [
-    {
-      id: "4",
-      make: "Mercedes-Benz",
-      model: "C-Class",
-      year: 2020,
-      estimatedPrice: "€32,000 - €35,000",
-      mileage: 28000,
-      fuel: "Hybrid",
-      status: "Under Review",
-      submittedDate: "2024-01-25",
-      photos: 12
-    }
-  ];
+  // Map favorites to saved cars format
+  const savedCars = favorites.map(fav => ({
+    id: fav.id,
+    make: fav.make,
+    model: fav.model,
+    year: fav.year,
+    price: fav.price,
+    mileage: 0,
+    fuel: '',
+    location: '',
+    image: fav.image || fav.images?.[0] || '',
+    savedDate: fav.dateAdded,
+  }));
 
-  // Mock data for last searches
-  const lastSearches = [
-    {
-      id: "1",
-      query: "BMW 3 Series 2020-2023",
-      filters: "Price: €30k-€50k, Location: Berlin",
-      results: 45,
-      searchDate: "2024-01-28"
-    },
-    {
-      id: "2",
-      query: "Audi A4 Diesel",
-      filters: "Price: €35k-€45k, Mileage: <50k km",
-      results: 23,
-      searchDate: "2024-01-27"
-    }
-  ];
+  // Map backend listings to the UI format
+  const userListings = myListings.map(listing => ({
+    id: listing.id,
+    make: listing.make,
+    model: listing.model,
+    year: listing.year,
+    price: listing.price,
+    mileage: listing.mileage || 0,
+    fuel: listing.fuelType || '',
+    location: listing.location || '',
+    image: listing.images?.[0]?.url || listing.images?.[0]?.thumbnailUrl || '',
+    status: listing.isAvailable ? 'Active' : 'Sold',
+    views: listing.viewCount || 0,
+    inquiries: listing.inquiryCount || 0,
+    createdDate: listing.createdAt,
+  }));
 
   const handleProfileUpdate = () => {
-    console.log("Profile updated:", userProfile);
+    // Profile update is stored locally for now
     alert(t('privateDashboard.profileUpdatedSuccessfully'));
   };
 
   const handleRemoveSaved = (carId: string) => {
-    console.log("Removing saved car:", carId);
-    alert(t('privateDashboard.carRemovedFromSaved'));
+    removeFromFavorites(carId);
   };
 
-  const handleDeleteListing = (listingId: string) => {
-    console.log("Deleting listing:", listingId);
-    alert(t('privateDashboard.listingDeletedSuccessfully'));
+  const handleDeleteListing = async (listingId: string) => {
+    if (!confirm(t('privateDashboard.confirmDeleteListing') || 'Are you sure you want to delete this listing?')) return;
+    try {
+      await apiClient.deleteCar(listingId);
+      setMyListings(prev => prev.filter(l => l.id !== listingId));
+    } catch (error) {
+      console.error('Failed to delete listing:', error);
+      alert('Failed to delete listing. Please try again.');
+    }
   };
 
   const onBackToHome = () => {
     navigate('/');
   };
 
-  const onViewListing = () => {
-    navigate('/car-detail/1');
+  const onViewListing = (carId: string) => {
+    navigate(`/car-detail/${carId}`);
   };
 
   const onCreateListing = () => {
@@ -252,6 +237,17 @@ export default function PrivateDashboard() {
               </div>
             </div>
 
+            {savedCars.length === 0 && (
+              <div className="text-center py-12">
+                <Heart className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                <p className="text-muted-foreground">{t('privateDashboard.noSavedCars') || 'No saved cars yet. Browse listings and save your favorites!'}</p>
+                <Button onClick={() => navigate('/browse')} className="mt-4 bg-black text-white hover:bg-black/90 rounded-full px-6 h-12">
+                  <Search className="h-4 w-4 mr-2" />
+                  {t('privateDashboard.startBrowsing') || 'Start Browsing'}
+                </Button>
+              </div>
+            )}
+
             <div className="grid gap-6">
               {savedCars.map((car) => (
                 <Card key={car.id} className="border-zinc-100 rounded-2xl hover:shadow-xl hover:scale-105 transition-all duration-300 bg-gradient-to-br from-white to-zinc-50">
@@ -300,12 +296,12 @@ export default function PrivateDashboard() {
                             </div>
                           </div>
                           <div className="flex flex-row sm:flex-col gap-3">
-                            <Button size="sm" onClick={onViewListing} className="flex-1 sm:flex-none bg-black text-white hover:bg-black/90 rounded-full px-6 h-12 shadow-md">
+                            <Button size="sm" onClick={() => onViewListing(car.id)} className="flex-1 sm:flex-none bg-black text-white hover:bg-black/90 rounded-full px-6 h-12 shadow-md">
                               <Eye className="h-4 w-4 mr-2" />
 {t('privateDashboard.viewDetails')}
                             </Button>
-                            <Button 
-                              size="sm" 
+                            <Button
+                              size="sm"
                               variant="outline"
                               onClick={() => handleRemoveSaved(car.id)}
                               className="flex-1 sm:flex-none bg-zinc-100 border-none rounded-full px-6 h-12 hover:bg-red-50 hover:text-red-600 transition-all duration-200"
@@ -342,40 +338,19 @@ export default function PrivateDashboard() {
                 <h2 className="text-xl sm:text-2xl">{t('privateDashboard.lastSearches')}</h2>
                 <p className="text-muted-foreground text-sm">{t('privateDashboard.recentSearchHistory')}</p>
               </div>
-              <Button size="sm" className="bg-black text-white hover:bg-black/90 rounded-full px-6 h-12 shadow-md">
+              <Button size="sm" onClick={() => navigate('/browse')} className="bg-black text-white hover:bg-black/90 rounded-full px-6 h-12 shadow-md">
                 <Search className="h-4 w-4 mr-2" />
 {t('privateDashboard.newSearch')}
               </Button>
             </div>
 
-            <div className="grid gap-4">
-              {lastSearches.map((search) => (
-                <Card key={search.id} className="border-zinc-100 rounded-2xl">
-                  <CardContent className="p-4">
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                      <div className="flex-1">
-                        <h3 className="font-medium">{search.query}</h3>
-                        <p className="text-sm text-muted-foreground mt-1">{search.filters}</p>
-                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground mt-2">
-                          <span>{search.results} {t('privateDashboard.resultsFound')}</span>
-                          <span>{t('privateDashboard.searchedOn')} {new Date(search.searchDate).toLocaleDateString()}</span>
-                        </div>
-                      </div>
-                      <div className="flex flex-row gap-2">
-                        <Button size="sm" variant="outline" className="flex-1 sm:flex-none bg-zinc-100 border-none rounded-full h-12 hover:bg-zinc-200">
-                          <Search className="h-4 w-4 mr-2" />
-                          <span className="hidden sm:inline">{t('privateDashboard.searchAgain')}</span>
-                          <span className="sm:hidden">{t('privateDashboard.search')}</span>
-                        </Button>
-                        <Button size="sm" className="flex-1 sm:flex-none bg-black text-white hover:bg-black/90 rounded-full h-12 shadow-md">
-                          <span className="hidden sm:inline">{t('privateDashboard.viewResults')}</span>
-                          <span className="sm:hidden">{t('privateDashboard.results')}</span>
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+            <div className="text-center py-12">
+              <Search className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+              <p className="text-muted-foreground">{t('privateDashboard.noRecentSearches') || 'No recent searches. Start browsing to see your search history here!'}</p>
+              <Button onClick={() => navigate('/browse')} className="mt-4 bg-black text-white hover:bg-black/90 rounded-full px-6 h-12">
+                <Search className="h-4 w-4 mr-2" />
+                {t('privateDashboard.startBrowsing') || 'Start Browsing'}
+              </Button>
             </div>
           </div>
           )}
@@ -395,8 +370,25 @@ export default function PrivateDashboard() {
               </Button>
             </div>
 
+            {listingsLoading && (
+              <div className="flex items-center justify-center py-12">
+                <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+              </div>
+            )}
+
+            {!listingsLoading && userListings.length === 0 && (
+              <div className="text-center py-12">
+                <Car className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                <p className="text-muted-foreground">{t('privateDashboard.noListingsYet') || 'You have no listings yet. Create your first listing!'}</p>
+                <Button onClick={onCreateListing} className="mt-4 bg-black text-white hover:bg-black/90 rounded-full px-6 h-12">
+                  <Car className="h-4 w-4 mr-2" />
+                  {t('privateDashboard.createNewListing')}
+                </Button>
+              </div>
+            )}
+
             <div className="grid gap-4 sm:gap-6">
-              {userListings.map((listing) => (
+              {!listingsLoading && userListings.map((listing) => (
                 <Card key={listing.id} className="border-zinc-100 rounded-2xl hover:shadow-xl hover:scale-105 transition-all duration-300">
                   <CardContent className="p-4 sm:p-6">
                     <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
@@ -448,7 +440,7 @@ export default function PrivateDashboard() {
                               <Edit3 className="h-4 w-4 mr-2" />
 {t('privateDashboard.edit')}
                             </Button>
-                            <Button size="sm" onClick={onViewListing} className="flex-1 sm:flex-none bg-black text-white hover:bg-black/90 rounded-full h-12 shadow-md">
+                            <Button size="sm" onClick={() => onViewListing(listing.id)} className="flex-1 sm:flex-none bg-black text-white hover:bg-black/90 rounded-full h-12 shadow-md">
                               <Eye className="h-4 w-4 mr-2" />
 {t('privateDashboard.view')}
                             </Button>
@@ -487,54 +479,9 @@ export default function PrivateDashboard() {
               </Button>
             </div>
 
-            <div className="grid gap-4 sm:gap-6">
-              {expressListings.map((listing) => (
-                <Card key={listing.id} className="border-zinc-100 rounded-2xl">
-                  <CardContent className="p-4 sm:p-6">
-                    <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
-                      <div className="flex-1">
-                        <div className="flex flex-wrap items-center gap-2 mb-2">
-                          <h3 className="text-lg font-medium">{listing.year} {listing.make} {listing.model}</h3>
-                          <Badge variant={listing.status === "Under Review" ? "secondary" : "default"} className="rounded-full">
-                            {translateStatus(listing.status)}
-                          </Badge>
-                        </div>
-                        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
-                          <span className="flex items-center">
-                            <Gauge className="h-3 w-3 mr-1" />
-                            {listing.mileage.toLocaleString()} km
-                          </span>
-                          <span className="flex items-center">
-                            <Fuel className="h-3 w-3 mr-1" />
-                            {translateFuelType(listing.fuel)}
-                          </span>
-                          <span className="flex items-center">
-                            <Camera className="h-3 w-3 mr-1" />
-{listing.photos} {t('privateDashboard.photos')}
-                          </span>
-                        </div>
-                        <div className="text-lg font-semibold text-primary mt-2">
-{t('privateDashboard.estimatedValue')} {listing.estimatedPrice}
-                        </div>
-                        <div className="text-sm text-muted-foreground mt-1">
-{t('privateDashboard.submittedOn')} {new Date(listing.submittedDate).toLocaleDateString()}
-                        </div>
-                      </div>
-                      <div className="flex flex-row sm:flex-col gap-2">
-                        <Button size="sm" variant="outline" className="flex-1 sm:flex-none bg-zinc-100 border-none rounded-full h-12 hover:bg-zinc-200">
-                          <Eye className="h-4 w-4 mr-2" />
-                          <span className="hidden sm:inline">{t('privateDashboard.viewDetails')}</span>
-                          <span className="sm:hidden">{t('privateDashboard.view')}</span>
-                        </Button>
-                        <Button size="sm" variant="outline" className="flex-1 sm:flex-none bg-zinc-100 border-none rounded-full h-12 hover:bg-zinc-200">
-                          <Edit3 className="h-4 w-4 mr-2" />
-{t('privateDashboard.edit')}
-                        </Button>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+            <div className="text-center py-12">
+              <Zap className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+              <p className="text-muted-foreground">{t('privateDashboard.expressSaleComingSoon') || 'Express sale feature is coming soon!'}</p>
             </div>
           </div>
           )}
@@ -556,7 +503,7 @@ export default function PrivateDashboard() {
                 <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
                   <Avatar className="w-16 h-16 sm:w-20 sm:h-20">
                     <AvatarImage src={userProfile.avatar} />
-                    <AvatarFallback className="text-lg">{userProfile.firstName[0]}{userProfile.lastName[0]}</AvatarFallback>
+                    <AvatarFallback className="text-lg">{userProfile.firstName?.[0] || ''}{userProfile.lastName?.[0] || ''}</AvatarFallback>
                   </Avatar>
                   <Button variant="outline" size="sm" className="bg-zinc-100 border-none rounded-full h-12 hover:bg-zinc-200">
                     <Upload className="h-4 w-4 mr-2" />

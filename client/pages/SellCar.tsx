@@ -8,9 +8,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Car, Truck, Bike, Camera, Upload, DollarSign, CheckCircle } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { ArrowLeft, Car, Truck, Bike, Camera, Upload, DollarSign, CheckCircle, AlertCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import ImageUpload from "@/components/ImageUpload";
+import { apiClient } from '@shared/api-client';
+import { uploadToCloudinary } from '@/lib/cloudinary';
 
 type VehicleType = 'car' | 'truck' | 'motorbike' | null;
 
@@ -41,6 +44,9 @@ export default function SellCar() {
   const { country } = useCountry();
   const { t } = useTranslation();
   const [currentStep, setCurrentStep] = useState(1);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [uploadProgress, setUploadProgress] = useState('');
   const [vehicleDetails, setVehicleDetails] = useState<VehicleDetails>({
     type: null,
     make: "",
@@ -134,6 +140,112 @@ export default function SellCar() {
 
   const handleImagesChange = (images: any[]) => {
     setVehicleDetails(prev => ({ ...prev, images }));
+  };
+
+  // Map frontend form values to backend enum values
+  const mapFuelType = (fuel: string): string => {
+    const map: Record<string, string> = {
+      [t('sell.fuelTypes.gasoline')]: 'GASOLINE',
+      [t('sell.fuelTypes.diesel')]: 'DIESEL',
+      [t('sell.fuelTypes.electric')]: 'ELECTRIC',
+      [t('sell.fuelTypes.hybrid')]: 'HYBRID',
+    };
+    return map[fuel] || 'GASOLINE';
+  };
+
+  const mapTransmission = (trans: string): string => {
+    const map: Record<string, string> = {
+      [t('sell.transmissions.automatic')]: 'AUTOMATIC',
+      [t('sell.transmissions.manual')]: 'MANUAL',
+      [t('sell.transmissions.cvt')]: 'CVT',
+    };
+    return map[trans] || 'MANUAL';
+  };
+
+  const mapCondition = (cond: string): string => {
+    const map: Record<string, string> = {
+      [t('sell.conditions.excellent')]: 'CERTIFIED',
+      [t('sell.conditions.veryGood')]: 'USED',
+      [t('sell.conditions.good')]: 'USED',
+      [t('sell.conditions.fair')]: 'DAMAGED',
+    };
+    return map[cond] || 'USED';
+  };
+
+  const mapVehicleType = (type: VehicleType): string => {
+    const map: Record<string, string> = { car: 'CAR', truck: 'TRUCK', motorbike: 'MOTORCYCLE' };
+    return map[type || 'car'] || 'CAR';
+  };
+
+  const handleCreateListing = async () => {
+    setIsSubmitting(true);
+    setSubmitError('');
+    setUploadProgress('');
+
+    try {
+      const input = {
+        make: vehicleDetails.make,
+        model: vehicleDetails.model,
+        year: parseInt(vehicleDetails.year) || new Date().getFullYear(),
+        price: parseFloat(vehicleDetails.price) || 0,
+        mileage: parseInt(vehicleDetails.mileage) || 0,
+        vehicleType: mapVehicleType(vehicleDetails.type),
+        fuelType: mapFuelType(vehicleDetails.fuelType),
+        transmission: mapTransmission(vehicleDetails.transmission),
+        condition: mapCondition(vehicleDetails.condition),
+        color: vehicleDetails.exteriorColor || undefined,
+        interiorColor: vehicleDetails.interiorColor || undefined,
+        description: vehicleDetails.description || undefined,
+        features: vehicleDetails.features,
+        location: vehicleDetails.location,
+        city: vehicleDetails.location,
+        countryCode: vehicleDetails.countryCode || undefined,
+        contactPhone: vehicleDetails.contactPhone || undefined,
+        contactEmail: vehicleDetails.contactEmail || undefined,
+      };
+
+      // Step 1: Create the car listing
+      setUploadProgress(t('sell.progress.creatingListing') || 'Creating listing...');
+      const car = await apiClient.createCar(input);
+
+      // Step 2: Upload images to Cloudinary and create image records
+      const imagesToUpload = vehicleDetails.images.filter(
+        (img: any) => img.compressed || img.file
+      );
+
+      if (imagesToUpload.length > 0) {
+        for (let i = 0; i < imagesToUpload.length; i++) {
+          const img = imagesToUpload[i];
+          const file = img.compressed || img.file;
+
+          setUploadProgress(
+            `${t('sell.progress.uploadingImage') || 'Uploading image'} ${i + 1}/${imagesToUpload.length}...`
+          );
+
+          try {
+            const uploadResult = await uploadToCloudinary(file);
+            await apiClient.createCarImage({
+              carId: car.id,
+              url: uploadResult.url,
+              fileName: uploadResult.originalFileName,
+              fileSize: uploadResult.fileSize,
+              sortOrder: i,
+              isPrimary: i === 0,
+            });
+          } catch (imgError) {
+            console.warn(`Failed to upload image ${i + 1}:`, imgError);
+            // Continue with remaining images even if one fails
+          }
+        }
+      }
+
+      navigate('/private-dashboard');
+    } catch (error) {
+      setSubmitError(error instanceof Error ? error.message : 'Failed to create listing');
+    } finally {
+      setIsSubmitting(false);
+      setUploadProgress('');
+    }
   };
 
   return (
@@ -524,12 +636,27 @@ export default function SellCar() {
                       </div>
                     </div>
 
+                    {submitError && (
+                      <Alert variant="destructive">
+                        <AlertCircle className="h-4 w-4" />
+                        <AlertDescription>{submitError}</AlertDescription>
+                      </Alert>
+                    )}
+
+                    {uploadProgress && (
+                      <p className="text-sm text-blue-600 font-medium">{uploadProgress}</p>
+                    )}
+
                     <div className="flex justify-between pt-6">
-                      <Button variant="outline" onClick={handlePrevStep}>
+                      <Button variant="outline" onClick={handlePrevStep} disabled={isSubmitting}>
                         {t('sell.buttons.previous')}
                       </Button>
-                      <Button className="bg-green-600 hover:bg-green-700 text-white">
-                        {t('sell.buttons.createListing')}
+                      <Button
+                        className="bg-green-600 hover:bg-green-700 text-white"
+                        onClick={handleCreateListing}
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting ? (uploadProgress || t('common.loading') || 'Creating...') : t('sell.buttons.createListing')}
                       </Button>
                     </div>
                   </div>

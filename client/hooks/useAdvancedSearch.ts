@@ -1,10 +1,14 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { 
-  AdvancedSearchFiltersInput, 
-  SortOptionsInput, 
-  PaginationInput, 
+import { useState, useEffect, useCallback } from 'react';
+import { useQuery } from '@apollo/client/react';
+import {
+  GET_CARS,
+  Car,
+  AdvancedSearchFiltersInput,
+  SortOptionsInput,
+  PaginationInput,
   SearchResult
 } from '../lib/graphql/operations';
+import { useCountry } from '@/contexts/CountryContext';
 
 // Debounce hook for search input
 export function useDebounce<T>(value: T, delay: number): T {
@@ -23,8 +27,41 @@ export function useDebounce<T>(value: T, delay: number): T {
   return debouncedValue;
 }
 
-// Simplified advanced search hook without GraphQL dependencies
+// Map frontend advanced search filters to backend CarFilterInput fields
+function mapFiltersToBackend(filters: AdvancedSearchFiltersInput): Record<string, any> {
+  const backendFilters: Record<string, any> = {};
+
+  if (filters.make) backendFilters.make = filters.make;
+  if (filters.model) backendFilters.model = filters.model;
+  if (filters.bodyType && filters.bodyType !== 'any') backendFilters.vehicleType = filters.bodyType;
+  if (filters.fuelType) backendFilters.fuelType = filters.fuelType;
+  if (filters.transmissionType) backendFilters.transmission = filters.transmissionType;
+  if (filters.vehicleCondition && filters.vehicleCondition !== 'any') backendFilters.condition = filters.vehicleCondition;
+  if (filters.bodyColor) backendFilters.color = filters.bodyColor;
+  if (filters.exteriorColor) backendFilters.color = filters.exteriorColor;
+
+  // Year range
+  if (filters.yearMin) backendFilters.minYear = filters.yearMin;
+  if (filters.yearMax) backendFilters.maxYear = filters.yearMax;
+  if (filters.firstRegistrationFrom) backendFilters.minYear = filters.firstRegistrationFrom;
+  if (filters.firstRegistrationTo) backendFilters.maxYear = filters.firstRegistrationTo;
+
+  // Price range
+  if (filters.priceMin) backendFilters.minPrice = filters.priceMin;
+  if (filters.priceMax) backendFilters.maxPrice = filters.priceMax;
+
+  // Mileage
+  if (filters.mileageMax) backendFilters.maxMileage = filters.mileageMax;
+
+  // Location
+  if (filters.location) backendFilters.location = filters.location;
+
+  return backendFilters;
+}
+
+// Advanced search hook connected to real GraphQL backend
 export function useAdvancedSearch() {
+  const { country } = useCountry();
   const [filters, setFilters] = useState<AdvancedSearchFiltersInput>({});
   const [sortOptions, setSortOptions] = useState<SortOptionsInput>({
     field: 'createdAt',
@@ -34,115 +71,51 @@ export function useAdvancedSearch() {
     page: 1,
     limit: 20
   });
-  const [searchResults, setSearchResults] = useState<SearchResult | null>(null);
-  const [isSearching, setIsSearching] = useState(false);
-  const [searchError, setSearchError] = useState<string | null>(null);
   const [searchHistory, setSearchHistory] = useState<AdvancedSearchFiltersInput[]>([]);
-  
+
   // Debounce the filters to avoid excessive API calls
   const debouncedFilters = useDebounce(filters, 300);
-  
-  // Cache for storing search results to improve performance
-  const resultsCache = useRef<Map<string, SearchResult>>(new Map());
-  
-  // Generate cache key from filters, sort, and pagination
-  const generateCacheKey = useCallback((
-    filters: AdvancedSearchFiltersInput, 
-    sort: SortOptionsInput, 
-    pagination: PaginationInput
-  ): string => {
-    return JSON.stringify({ filters, sort, pagination });
-  }, []);
 
-  // Mock search execution for now (replace with actual GraphQL when backend is ready)
-  const executeSearch = useCallback(async (
-    searchFilters: AdvancedSearchFiltersInput = filters,
-    searchSort: SortOptionsInput = sortOptions,
-    searchPagination: PaginationInput = pagination,
-    useCache: boolean = true
-  ) => {
-    setIsSearching(true);
-    setSearchError(null);
+  // Build the backend-compatible filters
+  const backendFilters = mapFiltersToBackend(debouncedFilters);
 
-    try {
-      const cacheKey = generateCacheKey(searchFilters, searchSort, searchPagination);
-      
-      // Check cache first
-      if (useCache && resultsCache.current.has(cacheKey)) {
-        const cachedResult = resultsCache.current.get(cacheKey)!;
-        setSearchResults(cachedResult);
-        setIsSearching(false);
-        return cachedResult;
-      }
+  // Add country context
+  if (country && country.code !== 'global') {
+    backendFilters.location = backendFilters.location || country.name;
+  }
 
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 200));
-      
-      // Mock search results based on filters
-      const mockResults: SearchResult = {
-        cars: [
-          {
-            id: '1',
-            make: searchFilters.make || 'BMW',
-            model: searchFilters.model || '3 Series',
-            year: 2020,
-            price: 25000,
-            mileage: 45000,
-            fuelType: searchFilters.fuelType || 'Gasoline',
-            transmission: 'Automatic',
-            bodyType: searchFilters.bodyType || 'Sedan',
-            color: 'Black',
-            engineSize: 2.0,
-            images: ['https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400'],
-            location: 'Berlin, Germany',
-            description: 'Well-maintained BMW 3 Series in excellent condition.',
-            seller: {
-              id: '1',
-              name: 'Premium Motors',
-              type: 'DEALER',
-              rating: 4.8,
-              responseTime: 'within 2 hours'
-            },
-            createdAt: new Date().toISOString(),
-            updatedAt: new Date().toISOString()
-          }
-        ],
-        totalCount: 1,
-        hasNextPage: false,
-        hasPreviousPage: false,
-        currentPage: searchPagination.page || 1,
-        totalPages: 1
-      };
+  const { data, loading, error, refetch } = useQuery<{ getCars: Car[] }>(GET_CARS, {
+    variables: { filters: backendFilters },
+    errorPolicy: 'all',
+    notifyOnNetworkStatusChange: true,
+    fetchPolicy: 'cache-and-network',
+  });
 
-      // Cache the result
-      if (useCache) {
-        resultsCache.current.set(cacheKey, mockResults);
-      }
-      
-      setSearchResults(mockResults);
-      
-      // Add to search history
-      if (Object.keys(searchFilters).length > 0) {
-        setSearchHistory(prev => {
-          const newHistory = [searchFilters, ...prev.slice(0, 9)]; // Keep last 10 searches
-          return newHistory;
-        });
-      }
+  const cars = data?.getCars || [];
 
-      return mockResults;
-      
-    } catch (error) {
-      console.error('Search error:', error);
-      setSearchError(error instanceof Error ? error.message : 'Search failed');
-      return null;
-    } finally {
-      setIsSearching(false);
+  // Build search result object
+  const searchResults: SearchResult | null = cars.length > 0 || !loading ? {
+    cars,
+    totalCount: cars.length,
+    hasNextPage: false,
+    totalPages: 1,
+    currentPage: pagination.page || 1,
+  } : null;
+
+  // Track search history
+  useEffect(() => {
+    if (Object.keys(debouncedFilters).length > 0 && cars.length > 0) {
+      setSearchHistory(prev => {
+        const newHistory = [debouncedFilters, ...prev.slice(0, 9)];
+        return newHistory;
+      });
     }
-  }, [filters, sortOptions, pagination, generateCacheKey]);
+  }, [debouncedFilters, cars.length]);
 
   // Update filters
   const updateFilters = useCallback((newFilters: AdvancedSearchFiltersInput) => {
     setFilters(newFilters);
+    setPagination(prev => ({ ...prev, page: 1 }));
   }, []);
 
   // Update sort options
@@ -153,58 +126,50 @@ export function useAdvancedSearch() {
   // Clear all filters
   const clearFilters = useCallback(() => {
     setFilters({});
-    setSearchResults(null);
-    setSearchError(null);
   }, []);
 
-  // Load more results (pagination)
-  const loadMore = useCallback(async () => {
-    if (searchResults?.hasNextPage && !isSearching) {
-      const nextPagePagination = {
-        ...pagination,
-        page: (pagination.page || 1) + 1
-      };
-      setPagination(nextPagePagination);
-      
-      const moreResults = await executeSearch(filters, sortOptions, nextPagePagination, true);
-      
-      if (moreResults && searchResults) {
-        // Append new results to existing ones
-        setSearchResults(prev => prev ? {
-          ...moreResults,
-          cars: [...prev.cars, ...moreResults.cars],
-          currentPage: moreResults.currentPage
-        } : moreResults);
-      }
+  // Execute search (triggers refetch)
+  const executeSearch = useCallback(async (
+    searchFilters?: AdvancedSearchFiltersInput,
+    _searchSort?: SortOptionsInput,
+    _searchPagination?: PaginationInput,
+  ) => {
+    if (searchFilters) {
+      setFilters(searchFilters);
     }
-  }, [searchResults, isSearching, pagination, filters, sortOptions, executeSearch]);
+    const result = await refetch();
+    const resultCars = result.data?.getCars || [];
+    return {
+      cars: resultCars,
+      totalCount: resultCars.length,
+      hasNextPage: false,
+      totalPages: 1,
+      currentPage: 1,
+    } as SearchResult;
+  }, [refetch]);
+
+  // Load more (no-op for now since backend doesn't support pagination on getCars)
+  const loadMore = useCallback(async () => {
+    // Backend doesn't currently support offset/limit on getCars
+  }, []);
 
   // Get active filter count
   const getActiveFilterCount = useCallback(() => {
     return Object.values(filters).filter(value => {
-      if (Array.isArray(value)) {
-        return value.length > 0;
-      }
+      if (Array.isArray(value)) return value.length > 0;
       return value !== undefined && value !== '' && value !== null;
     }).length;
   }, [filters]);
-
-  // Auto-execute search when debounced filters change
-  useEffect(() => {
-    if (Object.keys(debouncedFilters).length > 0) {
-      executeSearch(debouncedFilters, sortOptions, { page: 1, limit: pagination.limit || 20 });
-    }
-  }, [debouncedFilters, sortOptions, pagination.limit, executeSearch]);
 
   return {
     // State
     filters,
     sortOptions,
     searchResults,
-    isSearching,
-    searchError,
+    isSearching: loading,
+    searchError: error?.message || null,
     searchHistory,
-    
+
     // Actions
     updateFilters,
     updateSortOptions,
@@ -221,21 +186,15 @@ export function useSearchAnalytics() {
     filters: AdvancedSearchFiltersInput,
     resultCount: number
   ) => {
-    // Mock analytics tracking
-    console.log('🔍 Search Analytics:', {
+    console.log('Search Analytics:', {
       filters,
       resultCount,
       timestamp: new Date().toISOString(),
-      userAgent: navigator.userAgent,
-      viewport: `${window.innerWidth}x${window.innerHeight}`
     });
-    
-    // In production, send to analytics service
-    // analytics.track('advanced_search', { filters, resultCount });
   }, []);
 
   const trackFilterUsage = useCallback((filterType: string, value: any) => {
-    console.log('📊 Filter Usage:', {
+    console.log('Filter Usage:', {
       filterType,
       value,
       timestamp: new Date().toISOString()

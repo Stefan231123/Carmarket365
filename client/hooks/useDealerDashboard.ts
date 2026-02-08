@@ -9,7 +9,7 @@ import type {
   ExpressSaleListing,
 } from '../lib/graphql/dealer-operations';
 
-// Generic hook for fetching data with loading/error state (matches Apollo useQuery shape)
+// Generic hook for fetching data with loading/error state
 function useApiQuery<T>(fetcher: () => Promise<T>, deps: any[] = []) {
   const [data, setData] = useState<T | undefined>(undefined);
   const [loading, setLoading] = useState(true);
@@ -38,15 +38,13 @@ function useApiQuery<T>(fetcher: () => Promise<T>, deps: any[] = []) {
 // Hook for getting dealer's listings
 export const useDealerListings = (_status?: string, _searchTerm?: string) => {
   return useApiQuery<{ getDealerListings: CarListing[] }>(async () => {
-    // Use the existing apiClient to fetch listings
     const listings = await apiClient.getAllListings();
-    // Map backend data to the expected CarListing shape
     const mapped: CarListing[] = (listings || []).map((l: any) => ({
       id: l.id,
-      title: l.title || `${l.make || ''} ${l.model || ''}`.trim(),
+      title: `${l.make || ''} ${l.model || ''}`.trim(),
       price: l.price || 0,
       status: l.isAvailable ? 'ACTIVE' : 'SOLD',
-      imageUrls: l.images?.map((img: any) => img.url) || [],
+      imageUrls: l.images?.map((img: any) => typeof img === 'string' ? img : img.url) || [],
       year: l.year || 0,
       mileage: l.mileage || 0,
       createdAt: l.createdAt || new Date().toISOString(),
@@ -92,14 +90,38 @@ export const useDealerPerformance = () => {
   });
 };
 
-// Hook for getting dealer inquiries
+// Hook for getting dealer inquiries — uses real getSellerInquiries query
 export const useDealerInquiries = () => {
   return useApiQuery<{ getDealerInquiries: CarInquiry[] }>(async () => {
-    return { getDealerInquiries: [] };
+    const inquiries = await apiClient.getSellerInquiries();
+    const mapped: CarInquiry[] = (inquiries || []).map((inq: any) => ({
+      id: inq.id,
+      type: inq.type || 'GENERAL',
+      message: inq.message || '',
+      customerName: inq.name || '',
+      customerEmail: inq.email || '',
+      customerPhone: inq.phone || '',
+      status: inq.status === 'PENDING' ? 'NEW' : inq.status === 'REPLIED' ? 'RESPONDED' : 'CLOSED',
+      dealerResponse: inq.sellerResponse,
+      respondedAt: inq.repliedAt,
+      createdAt: inq.createdAt || new Date().toISOString(),
+      car: {
+        id: inq.car?.id || '',
+        title: `${inq.car?.make || ''} ${inq.car?.model || ''}`.trim(),
+        carMake: { name: inq.car?.make || '' },
+        carModel: { name: inq.car?.model || '' },
+      },
+      customer: inq.user ? {
+        id: inq.user.id,
+        name: inq.user.name,
+        email: inq.user.email,
+      } : undefined,
+    }));
+    return { getDealerInquiries: mapped };
   });
 };
 
-// Hook for getting express sale opportunities
+// Hook for express sale opportunities (no backend entity yet)
 export const useExpressSaleOpportunities = () => {
   return useApiQuery<{ getExpressSaleOpportunities: ExpressSaleListing[] }>(async () => {
     return { getExpressSaleOpportunities: [] };
@@ -110,6 +132,7 @@ export const useExpressSaleOpportunities = () => {
 export const useDealerDashboardData = () => {
   const statsQuery = useDealerStats();
   const performanceQuery = useDealerPerformance();
+  const inquiriesQuery = useDealerInquiries();
 
   const loading = statsQuery.loading || performanceQuery.loading;
   const error = statsQuery.error || performanceQuery.error;
@@ -117,13 +140,13 @@ export const useDealerDashboardData = () => {
   return {
     stats: statsQuery.data?.getDealerStats,
     performance: performanceQuery.data?.getDealerPerformance,
-    recentInquiries: [] as CarInquiry[],
+    recentInquiries: inquiriesQuery.data?.getDealerInquiries || ([] as CarInquiry[]),
     popularListings: [] as CarListing[],
     loading,
     error,
     refetchStats: statsQuery.refetch,
     refetchPerformance: performanceQuery.refetch,
-    refetchRecentInquiries: async () => {},
+    refetchRecentInquiries: inquiriesQuery.refetch,
     refetchPopularListings: async () => {},
   };
 };

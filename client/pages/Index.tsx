@@ -3,6 +3,7 @@ import { LastSearch } from "@/components/LastSearch";
 import { InterestingSuggestions } from "@/components/InterestingSuggestions";
 import { PopularBrands } from "@/components/PopularBrands";
 import { MobileAppAnnouncement } from "@/components/MobileAppAnnouncement";
+import { SEO } from "@/components/SEO";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from '@/hooks/useTranslation';
 import { useEffect } from 'react';
@@ -71,6 +72,20 @@ export default function Index({ onAdvancedSearchClick }: IndexProps) {
 
   return (
     <div className="min-h-screen">
+      <SEO
+        canonical="/"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "CarMarket365",
+          "url": "https://www.carmarket365.com",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.carmarket365.com/cars?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }}
+      />
       <HeroSection
         onSearchCarsClick={handleSearchCarsClick}
         onAdvancedSearchClick={handleAdvancedSearchClick}

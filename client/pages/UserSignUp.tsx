@@ -65,7 +65,6 @@ export default function UserSignUp() {
         email: formData.email,
         password: formData.password,
         name: formData.name,
-        role: 'USER'
       });
       
       // Navigate to dashboard on successful registration

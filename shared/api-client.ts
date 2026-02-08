@@ -212,8 +212,8 @@ class ApiClient {
   // Authentication Methods
   async login(input: LoginInput): Promise<{ user: User; tokens: AuthTokens }> {
     const query = `
-      mutation Login($email: String!, $password: String!) {
-        login(email: $email, password: $password) {
+      mutation Login($input: LoginInput!) {
+        login(input: $input) {
           user {
             id
             email
@@ -224,17 +224,15 @@ class ApiClient {
             dealerAddress
             dealerCity
             dealerPhoneNumber
-            savedListingIds
           }
           access_token
-          session_id
         }
       }
     `;
 
-    const response = await this.request<{ login: { user: User; access_token: string; session_id: string } }>(
+    const response = await this.request<{ login: { user: User; access_token: string } }>(
       query,
-      input
+      { input }
     );
 
     if (response.errors) {
@@ -242,10 +240,12 @@ class ApiClient {
     }
 
     if (response.data?.login) {
-      const { user, access_token, session_id } = response.data.login;
-      // Tokens are now stored automatically in httpOnly cookies
-      // Just update our local reference
+      const { user, access_token } = response.data.login;
       this.token = access_token;
+      // Also store in localStorage for apollo-client's auth link
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('authToken', access_token);
+      }
       return { user, tokens: { access_token } };
     }
 
@@ -254,8 +254,8 @@ class ApiClient {
 
   async register(input: RegisterInput): Promise<{ user: User; tokens: AuthTokens }> {
     const query = `
-      mutation Register($email: String!, $password: String!, $name: String, $role: UserRole) {
-        register(email: $email, password: $password, name: $name, role: $role) {
+      mutation Register($input: RegisterInput!) {
+        register(input: $input) {
           user {
             id
             email
@@ -266,17 +266,15 @@ class ApiClient {
             dealerAddress
             dealerCity
             dealerPhoneNumber
-            savedListingIds
           }
           access_token
-          session_id
         }
       }
     `;
 
-    const response = await this.request<{ register: { user: User; access_token: string; session_id: string } }>(
+    const response = await this.request<{ register: { user: User; access_token: string } }>(
       query,
-      input
+      { input }
     );
 
     if (response.errors) {
@@ -284,10 +282,12 @@ class ApiClient {
     }
 
     if (response.data?.register) {
-      const { user, access_token, session_id } = response.data.register;
-      // Tokens are now stored automatically in httpOnly cookies
-      // Just update our local reference
+      const { user, access_token } = response.data.register;
       this.token = access_token;
+      // Also store in localStorage for apollo-client's auth link
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('authToken', access_token);
+      }
       return { user, tokens: { access_token } };
     }
 
@@ -766,33 +766,26 @@ class ApiClient {
     return mockCars.find(car => car.id === id) || mockCars[0] || null;
   }
 
-  async createCar(carData: any): Promise<Car> {
+  async createCar(carData: any): Promise<any> {
     const query = `
-      mutation CreateCar($createCarInput: CreateCarInput!) {
-        createCar(createCarInput: $createCarInput) {
+      mutation CreateCar($input: CreateCarInput!) {
+        createCar(input: $input) {
           id
-          carMake {
-            id
-            name
-          }
-          carModel {
-            id
-            name
-          }
+          make
+          model
           year
           price
-          currency
           mileage
           fuelType
-          transmissionType
-          bodyType
-          exteriorColor
+          transmission
+          condition
+          color
           description
-          imageUrls
-          location
-          status
           features
-          user {
+          location
+          city
+          countryCode
+          seller {
             id
             name
             email
@@ -802,51 +795,254 @@ class ApiClient {
       }
     `;
 
-    const response = await this.request<{ createCar: any }>(query, { createCarInput: carData });
+    const response = await this.request<{ createCar: any }>(query, { input: carData });
 
     if (response.errors) {
       throw new Error(response.errors[0].message);
     }
 
-    const backendCar = response.data?.createCar;
-    if (!backendCar) {
+    const car = response.data?.createCar;
+    if (!car) {
       throw new Error('Failed to create car');
     }
 
-    // Transform backend data to frontend Car interface
-    return {
-      id: backendCar.id,
-      make: backendCar.carMake?.name || 'Unknown',
-      model: backendCar.carModel?.name || 'Unknown',
-      year: backendCar.year,
-      price: parseFloat(backendCar.price),
-      mileage: backendCar.mileage,
-      fuelType: backendCar.fuelType,
-      transmission: backendCar.transmissionType,
-      bodyType: backendCar.bodyType,
-      color: backendCar.exteriorColor,
-      description: backendCar.description,
-      images: backendCar.imageUrls || [],
-      location: backendCar.location,
-      countryCode: undefined, // Not returned in creation response
-      isAvailable: backendCar.status === 'ACTIVE',
-      isFeatured: false, // New cars are not featured by default
-      sellerId: backendCar.user.id,
-      seller: {
-        id: backendCar.user.id,
-        email: backendCar.user.email,
-        name: backendCar.user.name,
-        role: 'USER', // Default role
-        dealerName: '',
-        dealerLogoUrl: '',
-        dealerAddress: '',
-        dealerCity: '',
-        dealerPhoneNumber: '',
-        savedListingIds: []
-      },
-      createdAt: backendCar.createdAt,
-      updatedAt: backendCar.createdAt
-    };
+    return car;
+  }
+
+  async createCarImage(input: {
+    carId: string;
+    url: string;
+    fileName?: string;
+    fileSize?: number;
+    mimeType?: string;
+    sortOrder?: number;
+    isPrimary?: boolean;
+  }): Promise<any> {
+    const query = `
+      mutation CreateCarImage($input: CreateCarImageInput!) {
+        createCarImage(input: $input) {
+          id
+          url
+          thumbnailUrl
+          isMain
+          sortOrder
+        }
+      }
+    `;
+
+    const response = await this.request<{ createCarImage: any }>(query, { input });
+
+    if (response.errors) {
+      throw new Error(response.errors[0].message);
+    }
+
+    return response.data?.createCarImage;
+  }
+
+  async createCarInquiry(input: {
+    carId: string;
+    inquiryType: string;
+    message: string;
+    inquirerName: string;
+    inquirerEmail: string;
+    inquirerPhone?: string;
+  }): Promise<any> {
+    const query = `
+      mutation CreateCarInquiry($input: CreateCarInquiryInput!) {
+        createCarInquiry(input: $input) {
+          id
+          type
+          message
+          status
+          createdAt
+        }
+      }
+    `;
+
+    const response = await this.request<{ createCarInquiry: any }>(query, { input });
+
+    if (response.errors) {
+      throw new Error(response.errors[0].message);
+    }
+
+    return response.data?.createCarInquiry;
+  }
+
+  async getSellerInquiries(): Promise<any[]> {
+    const query = `
+      query GetSellerInquiries {
+        getSellerInquiries {
+          id
+          type
+          message
+          name
+          email
+          phone
+          status
+          sellerResponse
+          repliedAt
+          createdAt
+          car {
+            id
+            make
+            model
+          }
+          user {
+            id
+            name
+            email
+          }
+        }
+      }
+    `;
+
+    try {
+      const response = await this.request<{ getSellerInquiries: any[] }>(query);
+      if (response.errors) {
+        console.warn('SellerInquiries GraphQL errors:', response.errors);
+        return [];
+      }
+      return response.data?.getSellerInquiries || [];
+    } catch (error) {
+      console.warn('Failed to fetch seller inquiries:', error);
+      return [];
+    }
+  }
+
+  async getUserSavedCars(): Promise<any[]> {
+    const query = `
+      query GetUserSavedCars {
+        getUserSavedCars {
+          id
+          car {
+            id
+            make
+            model
+            year
+            price
+            mileage
+            fuelType
+            location
+            images {
+              url
+              thumbnailUrl
+            }
+          }
+          createdAt
+        }
+      }
+    `;
+
+    try {
+      const response = await this.request<{ getUserSavedCars: any[] }>(query);
+      if (response.errors) {
+        console.warn('UserSavedCars GraphQL errors:', response.errors);
+        return [];
+      }
+      return response.data?.getUserSavedCars || [];
+    } catch (error) {
+      console.warn('Failed to fetch saved cars:', error);
+      return [];
+    }
+  }
+
+  async saveCar(carId: string): Promise<any> {
+    const query = `
+      mutation SaveCar($carId: String!) {
+        saveCar(carId: $carId) {
+          id
+        }
+      }
+    `;
+
+    const response = await this.request<{ saveCar: any }>(query, { carId });
+    if (response.errors) {
+      throw new Error(response.errors[0].message);
+    }
+    return response.data?.saveCar;
+  }
+
+  async getMyListings(): Promise<any[]> {
+    const query = `
+      query GetCars {
+        getCars {
+          id
+          make
+          model
+          year
+          price
+          mileage
+          fuelType
+          transmission
+          condition
+          location
+          countryCode
+          isAvailable
+          isFeatured
+          viewCount
+          inquiryCount
+          description
+          images {
+            id
+            url
+            thumbnailUrl
+            isMain
+            sortOrder
+          }
+          seller {
+            id
+            name
+            email
+          }
+          createdAt
+          updatedAt
+        }
+      }
+    `;
+
+    try {
+      const response = await this.request<{ getCars: any[] }>(query);
+      if (response.errors) {
+        console.warn('GetMyListings GraphQL errors:', response.errors);
+        return [];
+      }
+      const allCars = response.data?.getCars || [];
+      // Filter to only the current user's listings
+      const currentUser = await this.getCurrentUser();
+      if (!currentUser) return [];
+      return allCars.filter((car: any) => car.seller?.id === currentUser.id);
+    } catch (error) {
+      console.warn('Failed to fetch my listings:', error);
+      return [];
+    }
+  }
+
+  async deleteCar(id: string): Promise<boolean> {
+    const query = `
+      mutation DeleteCar($id: String!) {
+        deleteCar(id: $id)
+      }
+    `;
+
+    const response = await this.request<{ deleteCar: boolean }>(query, { id });
+    if (response.errors) {
+      throw new Error(response.errors[0].message);
+    }
+    return response.data?.deleteCar || false;
+  }
+
+  async unsaveCar(carId: string): Promise<boolean> {
+    const query = `
+      mutation UnsaveCar($carId: String!) {
+        unsaveCar(carId: $carId)
+      }
+    `;
+
+    const response = await this.request<{ unsaveCar: boolean }>(query, { carId });
+    if (response.errors) {
+      throw new Error(response.errors[0].message);
+    }
+    return response.data?.unsaveCar || false;
   }
 
   // Car Makes & Models

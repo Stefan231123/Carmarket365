@@ -22,6 +22,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Mail, Phone, User, MessageCircle, Car, CheckCircle } from "lucide-react";
 import { useTranslation } from '../hooks/useTranslation';
+import { apiClient } from '@shared/api-client';
 
 interface ContactFormData {
   name: string;
@@ -87,20 +88,14 @@ export function ContactCarModal({ car, isOpen, onClose }: ContactCarModalProps) 
     setIsSubmitting(true);
     
     try {
-      // For now, just console.log the data - backend integration will be added later
-      console.log("Contact form submission:", {
-        car: {
-          id: car.id,
-          make: car.make,
-          model: car.model,
-          year: car.year,
-          price: car.price,
-        },
-        contact: data,
+      await apiClient.createCarInquiry({
+        carId: car.id,
+        inquiryType: 'GENERAL',
+        message: data.message,
+        inquirerName: data.name,
+        inquirerEmail: data.email,
+        inquirerPhone: data.phone || undefined,
       });
-
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
       
       setIsSuccess(true);
       

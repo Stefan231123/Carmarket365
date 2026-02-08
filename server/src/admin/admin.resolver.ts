@@ -1,10 +1,16 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
 import { AdminService } from './admin.service';
 import { AdminStats, RecentActivity, SystemHealth, UserStats } from './dto/admin-stats.dto';
-import { User } from '../users/user.entity';
+import { User, UserRole } from '../users/user.entity';
 import { Car } from '../cars/car.entity';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { Roles } from '../auth/decorators/roles.decorator';
 
 @Resolver()
+@UseGuards(JwtAuthGuard, RolesGuard)
+@Roles(UserRole.ADMIN)
 export class AdminResolver {
   constructor(private readonly adminService: AdminService) {}
 

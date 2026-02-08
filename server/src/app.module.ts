@@ -3,12 +3,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { ConfigModule } from '@nestjs/config';
+import { ThrottlerModule } from '@nestjs/throttler';
 import { join } from 'path';
 
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { CarsModule } from './cars/cars.module';
 import { AdminModule } from './admin/admin.module';
+import { EmailModule } from './common/email/email.module';
 
 @Module({
   imports: [
@@ -48,7 +50,14 @@ import { AdminModule } from './admin/admin.module';
       plugins: [],
     }),
 
+    // Rate limiting - 60 requests per minute per IP
+    ThrottlerModule.forRoot([{
+      ttl: 60000,
+      limit: 60,
+    }]),
+
     // Feature modules
+    EmailModule,
     AuthModule,
     UsersModule,
     CarsModule,

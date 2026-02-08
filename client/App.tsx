@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import { Suspense, lazy } from "react";
+import { HelmetProvider } from "react-helmet-async";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SafeAuthProvider } from "@/contexts/AuthContextSafe";
@@ -10,6 +11,8 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { DevSubdomainTester } from "@/components/DevSubdomainTester";
 import { AutoRedirectDialog } from "@/components/RedirectDialog";
+import { CookieConsent } from "@/components/CookieConsent";
+import { Analytics } from "@/components/Analytics";
 import { useTranslation } from "@/hooks/useTranslation";
 
 // Critical pages loaded immediately
@@ -165,23 +168,27 @@ function AppContent() {
       />
       <DevSubdomainTester />
       <AutoRedirectDialog />
+      <CookieConsent />
+      <Analytics />
     </div>
   );
 }
 
 function App() {
   return (
-    <BrowserRouter>
-      <CountryProvider>
-        <SafeAuthProvider>
-          <FavoritesProvider>
-            <ErrorBoundary>
-              <AppContent />
-            </ErrorBoundary>
-          </FavoritesProvider>
-        </SafeAuthProvider>
-      </CountryProvider>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <CountryProvider>
+          <SafeAuthProvider>
+            <FavoritesProvider>
+              <ErrorBoundary>
+                <AppContent />
+              </ErrorBoundary>
+            </FavoritesProvider>
+          </SafeAuthProvider>
+        </CountryProvider>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }
 

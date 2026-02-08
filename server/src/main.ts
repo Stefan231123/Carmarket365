@@ -3,6 +3,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
+import helmet from 'helmet';
 import 'reflect-metadata';
 
 async function bootstrap() {
@@ -28,6 +29,12 @@ async function bootstrap() {
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Accept', 'X-CSRF-Token'],
   });
+
+  // Security headers
+  app.use(helmet({
+    contentSecurityPolicy: false, // Disabled for GraphQL playground
+    crossOriginEmbedderPolicy: false,
+  }));
 
   // Add cookie parser middleware
   app.use(cookieParser());

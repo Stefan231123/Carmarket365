@@ -52,19 +52,19 @@ export function CarCard({ car, layout }: CarCardProps) {
   };
 
   // Handle both old and new car data structures
-  const carMake = 'carMake' in car ? car.carMake.name : car.make;
-  const carModel = 'carModel' in car ? car.carModel.name : car.model;
-  const fuelType = 'transmissionType' in car ? car.fuelType : car.fuelType;
-  const transmission = 'transmissionType' in car ? car.transmissionType : car.transmission;
-  const images = 'imageUrls' in car ? car.imageUrls : car.images;
-  const dealer = 'user' in car ? (car.user.dealerName || car.user.name) : car.dealer;
-  const currency = 'currency' in car ? car.currency : 'USD';
+  const carMake = car.make;
+  const carModel = car.model;
+  const fuelType = car.fuelType;
+  const transmission = car.transmission;
+  const dealer = 'seller' in car ? (car.seller?.dealerName || car.seller?.name) : ('dealer' in car ? car.dealer : '');
+  const currency = 'USD';
 
-  // Determine which images to use
-  const displayImages = images && images.length > 0 
-    ? images 
-    : ('image' in car && car.image) 
-    ? [car.image] 
+  // Extract image URLs from CarImage objects or string arrays
+  const rawImages = car.images;
+  const displayImages: string[] = rawImages && rawImages.length > 0
+    ? rawImages.map((img: any) => typeof img === 'string' ? img : img.url)
+    : ('image' in car && car.image)
+    ? [car.image]
     : [];
   
   const displayThumbnails = ('thumbnails' in car && car.thumbnails && car.thumbnails.length === displayImages.length)

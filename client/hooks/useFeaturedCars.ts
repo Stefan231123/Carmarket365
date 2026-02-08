@@ -11,16 +11,15 @@ interface UseFeaturedCarsState {
 
 export function useFeaturedCars(): UseFeaturedCarsState {
   const { country } = useCountry();
-  
-  const { data, loading, error, refetch } = useQuery(GET_FEATURED_CARS, {
+
+  const { data, loading, error, refetch } = useQuery<{ getFeaturedCars: Car[] }>(GET_FEATURED_CARS, {
     errorPolicy: 'all',
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'cache-and-network'
   });
 
   // Filter cars based on country
-  const filteredCars = data?.findCarsForYou?.filter((car: Car) => {
-    // Country filtering
+  const filteredCars = data?.getFeaturedCars?.filter((car: Car) => {
     if (country && country.code !== 'global') {
       if (car.location && !car.location.toLowerCase().includes(country.name.toLowerCase())) {
         return false;

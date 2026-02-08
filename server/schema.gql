@@ -407,7 +407,6 @@ input RegisterInput {
   email: String!
   name: String
   password: String!
-  role: UserRole
 }
 
 type SavedCar {

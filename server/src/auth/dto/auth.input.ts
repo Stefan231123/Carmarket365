@@ -1,6 +1,5 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { IsEmail, IsString, MinLength, IsOptional, IsEnum } from 'class-validator';
-import { UserRole } from '../../users/user.entity';
+import { IsEmail, IsString, MinLength, IsOptional } from 'class-validator';
 
 @InputType()
 export class LoginInput {
@@ -29,11 +28,6 @@ export class RegisterInput {
   @IsOptional()
   @IsString()
   name?: string;
-
-  @Field(() => UserRole, { nullable: true })
-  @IsOptional()
-  @IsEnum(UserRole)
-  role?: UserRole;
 
   // Dealer-specific fields
   @Field({ nullable: true })

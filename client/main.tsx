@@ -2,8 +2,12 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { ApolloProvider } from "@apollo/client/react";
 import apolloClient from "./lib/apollo-client";
+import { initSentry } from "./lib/sentry";
 import App from "./App";
 import "./global.css";
+
+// Initialize Sentry error monitoring (only if DSN is configured)
+initSentry();
 
 console.log('🚀 Loading FULL Car Market Platform...');
 const root = createRoot(document.getElementById("root")!);

@@ -25,8 +25,9 @@ import { useCars, useCarMakes } from "@/hooks/useCars";
 import { useFavorites } from "@/hooks/useFavorites";
 import { ContactCarModal } from "@/components/ContactCarModal";
 import { useTranslation } from "@/hooks/useTranslation";
+import { SEO } from "@/components/SEO";
 
-interface CarFilterInput {
+interface CarFilterParams {
   countryCode?: string;
   make?: string;
   model?: string;
@@ -34,8 +35,11 @@ interface CarFilterInput {
   maxYear?: number;
   minPrice?: number;
   maxPrice?: number;
+  maxMileage?: number;
   fuelType?: string;
   transmission?: string;
+  location?: string;
+  vehicleType?: string;
 }
 
 export default function BrowseCars() {
@@ -79,45 +83,38 @@ export default function BrowseCars() {
     if (locationParam) setLocationFilter(locationParam);
   }, [location.search]);
 
-  // Create filters object for the API call
-  const filters = useMemo((): CarFilterInput => {
-    const apiFilters: CarFilterInput = {};
-    
-    // TODO: We need to convert make names to makeIds - for now using make names directly
-    // This will need to be updated when we have a makeId mapping
+  // Create filters object for the API call — field names match backend CarFilterInput schema
+  const filters = useMemo((): CarFilterParams => {
+    const apiFilters: CarFilterParams = {};
+
     if (makeFilter && makeFilter !== "any-make") {
-      // Temporarily using makeId field with make name - this will need proper ID mapping
-      apiFilters.makeId = makeFilter;
+      apiFilters.make = makeFilter;
     }
-    
+
     if (modelFilter && modelFilter !== "any-model") {
-      // Temporarily using modelId field with model name - this will need proper ID mapping
-      apiFilters.modelId = modelFilter;
+      apiFilters.model = modelFilter;
     }
-    
+
     if (priceFromFilter && priceFromFilter !== "no-min") {
-      apiFilters.priceMin = parseInt(priceFromFilter);
+      apiFilters.minPrice = parseInt(priceFromFilter);
     }
-    
+
     if (priceToFilter && priceToFilter !== "no-max") {
-      apiFilters.priceMax = parseInt(priceToFilter);
+      apiFilters.maxPrice = parseInt(priceToFilter);
     }
-    
+
     if (yearFromFilter && yearFromFilter !== "any-year") {
-      apiFilters.yearMin = parseInt(yearFromFilter);
+      apiFilters.minYear = parseInt(yearFromFilter);
     }
-    
+
     if (mileageFilter && mileageFilter !== "any-mileage") {
-      apiFilters.mileageMax = parseInt(mileageFilter);
+      apiFilters.maxMileage = parseInt(mileageFilter);
     }
-    
+
     if (locationFilter) {
       apiFilters.location = locationFilter;
     }
-    
-    // TODO: Implement search functionality by combining searchQuery with other filters
-    // For now, searchQuery is handled client-side in the UI but not sent to the API
-    
+
     return apiFilters;
   }, [makeFilter, modelFilter, priceFromFilter, priceToFilter, yearFromFilter, mileageFilter, locationFilter]);
 
@@ -140,18 +137,25 @@ export default function BrowseCars() {
   };
 
   const handleFavoriteClick = (car: any) => {
+    const imageUrls = (car.images || []).map((img: any) => typeof img === 'string' ? img : img.url);
     toggleFavorite({
       id: car.id,
       make: car.make,
       model: car.model,
       year: car.year,
       price: car.price,
-      image: car.images?.[0],
-      images: car.images,
+      image: imageUrls[0] || '',
+      images: imageUrls,
     });
   };
 
   return (
+    <>
+    <SEO
+      title="Browse Cars"
+      description="Browse thousands of cars for sale across Europe. Filter by make, model, price, year, and more."
+      canonical="/cars"
+    />
     <section className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
@@ -473,7 +477,7 @@ placeholder={t('browseCars.filters.anyLocation')}
                       <div className={viewMode === "list" ? "flex flex-col sm:flex-row gap-6" : ""}>
                         <div className={`relative overflow-hidden rounded-2xl ${viewMode === "list" ? "w-full sm:w-64 h-48 sm:h-40" : "w-full h-48"} mb-4`}>
                           <img
-                            src={car.images?.[0] || "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400&h=300&fit=crop"}
+                            src={car.images?.[0]?.url || car.images?.[0]?.thumbnailUrl || "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400&h=300&fit=crop"}
                             alt={`${car.make} ${car.model}`}
                             className="w-full h-full object-cover"
                           />
@@ -606,5 +610,6 @@ placeholder={t('browseCars.filters.anyLocation')}
         }}
       />
     </section>
+    </>
   );
 }

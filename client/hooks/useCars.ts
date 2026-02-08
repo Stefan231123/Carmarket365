@@ -1,19 +1,12 @@
-import { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client/react';
-import { 
-  GET_CARS, 
-  GET_CAR_BY_ID, 
-  GET_CAR_MAKES, 
+import {
+  GET_CARS,
+  GET_CAR_BY_ID,
+  GET_CAR_MAKES,
   GET_CAR_MODELS,
   Car,
-  CarMake,
-  CarModel,
-  FilterCarsInput
 } from '@/lib/graphql/operations';
 import { useCountry } from '@/contexts/CountryContext';
-
-// Use the backend-compatible filter interface
-type CarFilterInput = FilterCarsInput;
 
 interface UseCarsState {
   cars: Car[];
@@ -22,23 +15,23 @@ interface UseCarsState {
   refetch: () => Promise<void>;
 }
 
-export function useCars(filters?: CarFilterInput): UseCarsState {
+export function useCars(filters?: Record<string, any>): UseCarsState {
   const { country } = useCountry();
-  
+
   // Add location filter based on country context
   const enhancedFilters = {
     ...filters,
     ...(country && country.code !== 'global' ? { location: country.name } : {})
   };
-  
-  const { data, loading, error, refetch } = useQuery(GET_CARS, {
+
+  const { data, loading, error, refetch } = useQuery<{ getCars: Car[] }>(GET_CARS, {
     variables: { filters: enhancedFilters },
     errorPolicy: 'all',
     notifyOnNetworkStatusChange: true,
     fetchPolicy: 'cache-and-network'
   });
 
-  const cars = data?.cars || [];
+  const cars = data?.getCars || [];
 
   return {
     cars,
@@ -59,8 +52,8 @@ interface UseCarState {
 
 export function useCar(id: string): UseCarState {
   const { country } = useCountry();
-  
-  const { data, loading, error, refetch } = useQuery(GET_CAR_BY_ID, {
+
+  const { data, loading, error, refetch } = useQuery<{ getCarById: Car }>(GET_CAR_BY_ID, {
     variables: { id },
     skip: !id,
     errorPolicy: 'all',
@@ -68,13 +61,12 @@ export function useCar(id: string): UseCarState {
     fetchPolicy: 'cache-and-network'
   });
 
-  const car = data?.car || null;
+  const car = data?.getCarById || null;
   let processedError = error?.message || null;
-  
+
   // Check if the car belongs to the current country (unless global)
   if (car && country && country.code !== 'global') {
     if (car.location && !car.location.toLowerCase().includes(country.name.toLowerCase())) {
-      console.warn(`🚫 Car ${id} is not available in ${country.code} (location: ${car.location})`);
       processedError = 'This car listing is not available in your region';
     }
   }
@@ -90,41 +82,41 @@ export function useCar(id: string): UseCarState {
 }
 
 interface UseCarMakesState {
-  makes: CarMake[];
+  makes: string[];
   isLoading: boolean;
   error: string | null;
 }
 
 export function useCarMakes(): UseCarMakesState {
-  const { data, loading, error } = useQuery(GET_CAR_MAKES, {
+  const { data, loading, error } = useQuery<{ getCarMakes: string[] }>(GET_CAR_MAKES, {
     errorPolicy: 'all',
     fetchPolicy: 'cache-first'
   });
 
-  return { 
-    makes: data?.carMakes || [], 
-    isLoading: loading, 
-    error: error?.message || null 
+  return {
+    makes: data?.getCarMakes || [],
+    isLoading: loading,
+    error: error?.message || null
   };
 }
 
 interface UseCarModelsState {
-  models: CarModel[];
+  models: string[];
   isLoading: boolean;
   error: string | null;
 }
 
-export function useCarModels(carMakeId: string): UseCarModelsState {
-  const { data, loading, error } = useQuery(GET_CAR_MODELS, {
-    variables: { carMakeId },
-    skip: !carMakeId,
+export function useCarModels(make: string): UseCarModelsState {
+  const { data, loading, error } = useQuery<{ getCarModels: string[] }>(GET_CAR_MODELS, {
+    variables: { make },
+    skip: !make,
     errorPolicy: 'all',
     fetchPolicy: 'cache-first'
   });
 
-  return { 
-    models: data?.carModelsByMake || [], 
-    isLoading: loading, 
-    error: error?.message || null 
+  return {
+    models: data?.getCarModels || [],
+    isLoading: loading,
+    error: error?.message || null
   };
 }

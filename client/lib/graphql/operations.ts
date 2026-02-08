@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 
 // Auth Operations
 export const LOGIN_MUTATION = gql`
-  mutation Login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
+  mutation Login($input: LoginInput!) {
+    login(input: $input) {
       user {
         id
         email
@@ -14,7 +14,6 @@ export const LOGIN_MUTATION = gql`
         dealerAddress
         dealerCity
         dealerPhoneNumber
-        savedListingIds
       }
       access_token
     }
@@ -22,8 +21,8 @@ export const LOGIN_MUTATION = gql`
 `;
 
 export const REGISTER_MUTATION = gql`
-  mutation Register($email: String!, $password: String!, $name: String, $role: UserRole = USER) {
-    register(email: $email, password: $password, name: $name, role: $role) {
+  mutation Register($input: RegisterInput!) {
+    register(input: $input) {
       user {
         id
         email
@@ -34,7 +33,6 @@ export const REGISTER_MUTATION = gql`
         dealerAddress
         dealerCity
         dealerPhoneNumber
-        savedListingIds
       }
       access_token
     }
@@ -58,39 +56,46 @@ export const GET_CURRENT_USER = gql`
   }
 `;
 
-// Car Operations
+// Car Operations - field names match backend Car entity exactly
 export const GET_CARS = gql`
-  query GetCars($filters: FilterCarsInput) {
-    cars(filters: $filters) {
+  query GetCars($filters: CarFilterInput) {
+    getCars(filters: $filters) {
       id
-      carMake {
-        id
-        name
-      }
-      carModel {
-        id
-        name
-      }
+      make
+      model
+      variant
       year
       price
-      currency
       mileage
+      vehicleType
       fuelType
-      transmissionType
-      bodyType
-      exteriorColor
+      transmission
+      condition
+      color
       description
-      imageUrls
-      location
-      status
       features
-      user {
+      location
+      city
+      countryCode
+      isAvailable
+      isFeatured
+      isCertified
+      viewCount
+      favoriteCount
+      seller {
         id
         name
         email
         dealerName
         dealerLogoUrl
         dealerPhoneNumber
+      }
+      images {
+        id
+        url
+        thumbnailUrl
+        isMain
+        sortOrder
       }
       createdAt
       updatedAt
@@ -99,43 +104,63 @@ export const GET_CARS = gql`
 `;
 
 export const GET_CAR_BY_ID = gql`
-  query GetCarById($id: ID!) {
-    car(id: $id) {
+  query GetCarById($id: String!) {
+    getCarById(id: $id) {
       id
-      carMake {
-        id
-        name
-      }
-      carModel {
-        id
-        name
-      }
+      make
+      model
+      variant
       year
       price
-      currency
       mileage
+      vehicleType
       fuelType
-      transmissionType
-      bodyType
-      exteriorColor
+      transmission
+      condition
+      color
+      interiorColor
       description
-      imageUrls
-      location
-      status
-      features
       engineSize
-      powerKw
-      numberOfDoors
-      numberOfSeats
-      previousOwners
-      fullServiceHistory
-      user {
+      horsePower
+      doors
+      seats
+      drivetrain
+      vin
+      features
+      safetyFeatures
+      location
+      city
+      countryCode
+      isAvailable
+      isFeatured
+      isCertified
+      contactPhone
+      contactEmail
+      allowTestDrive
+      acceptsTradeIn
+      priceNegotiable
+      originalPrice
+      viewCount
+      favoriteCount
+      inquiryCount
+      seller {
         id
         name
         email
+        phone
         dealerName
         dealerLogoUrl
         dealerPhoneNumber
+        dealerAddress
+        dealerCity
+      }
+      images {
+        id
+        url
+        thumbnailUrl
+        isMain
+        isInterior
+        sortOrder
       }
       createdAt
       updatedAt
@@ -144,36 +169,42 @@ export const GET_CAR_BY_ID = gql`
 `;
 
 export const GET_FEATURED_CARS = gql`
-  query GetFeaturedCars {
-    findCarsForYou {
+  query GetFeaturedCars($limit: Int) {
+    getFeaturedCars(limit: $limit) {
       id
-      carMake {
-        id
-        name
-      }
-      carModel {
-        id
-        name
-      }
+      make
+      model
+      variant
       year
       price
-      currency
       mileage
+      vehicleType
       fuelType
-      transmissionType
-      bodyType
-      exteriorColor
+      transmission
+      condition
+      color
       description
-      imageUrls
-      location
-      status
       features
-      user {
+      location
+      city
+      countryCode
+      isFeatured
+      isCertified
+      viewCount
+      favoriteCount
+      seller {
         id
         name
         email
         dealerName
         dealerLogoUrl
+      }
+      images {
+        id
+        url
+        thumbnailUrl
+        isMain
+        sortOrder
       }
       createdAt
       updatedAt
@@ -182,101 +213,86 @@ export const GET_FEATURED_CARS = gql`
 `;
 
 export const GET_CARS_BY_MAKE = gql`
-  query GetCarsByMake($makeId: ID!) {
-    cars(filters: { makeId: $makeId }) {
+  query GetCarsByMake($make: String!) {
+    getCarsByMake(make: $make) {
       id
-      carMake {
-        id
-        name
-      }
-      carModel {
-        id
-        name
-      }
+      make
+      model
       year
       price
-      currency
       mileage
       fuelType
-      transmissionType
-      bodyType
-      exteriorColor
+      transmission
+      color
       description
-      imageUrls
       location
-      status
-      features
-      user {
+      seller {
         id
         name
-        email
         dealerName
       }
+      images {
+        id
+        url
+        isMain
+      }
       createdAt
-      updatedAt
     }
   }
 `;
 
 export const GET_CAR_MAKES = gql`
   query GetCarMakes {
-    carMakes {
-      id
-      name
-      carModels {
-        id
-        name
-      }
-    }
+    getCarMakes
   }
 `;
 
 export const GET_CAR_MODELS = gql`
-  query GetCarModelsByMake($carMakeId: ID!) {
-    carModelsByMake(carMakeId: $carMakeId) {
-      id
-      name
-      carMake {
-        id
-        name
-      }
-    }
+  query GetCarModels($make: String!) {
+    getCarModels(make: $make)
   }
 `;
 
-// Advanced Search Operations (using existing cars query with filters)
+// Advanced Search Operations (same as GET_CARS with filters)
 export const SEARCH_CARS = gql`
-  query SearchCars($filters: FilterCarsInput) {
-    cars(filters: $filters) {
+  query SearchCars($filters: CarFilterInput) {
+    getCars(filters: $filters) {
       id
-      carMake {
-        id
-        name
-      }
-      carModel {
-        id
-        name
-      }
+      make
+      model
+      variant
       year
       price
-      currency
       mileage
+      vehicleType
       fuelType
-      transmissionType
-      bodyType
-      exteriorColor
+      transmission
+      condition
+      color
       description
-      imageUrls
-      location
-      status
       features
-      user {
+      location
+      city
+      countryCode
+      isAvailable
+      isFeatured
+      isCertified
+      viewCount
+      favoriteCount
+      seller {
         id
         name
         email
         dealerName
         dealerLogoUrl
         dealerPhoneNumber
+      }
+      images {
+        id
+        url
+        thumbnailUrl
+        isMain
+        sortOrder
       }
       createdAt
       updatedAt
@@ -286,37 +302,24 @@ export const SEARCH_CARS = gql`
 
 // Car Creation/Update Operations
 export const CREATE_CAR = gql`
-  mutation CreateCar($createCarInput: CreateCarInput!) {
-    createCar(createCarInput: $createCarInput) {
+  mutation CreateCar($input: CreateCarInput!) {
+    createCar(input: $input) {
       id
-      carMake {
-        id
-        name
-      }
-      carModel {
-        id
-        name
-      }
+      make
+      model
       year
       price
-      currency
       mileage
       fuelType
-      transmissionType
-      bodyType
-      exteriorColor
+      transmission
+      condition
+      color
       description
-      imageUrls
-      location
-      status
       features
-      engineSize
-      powerKw
-      numberOfDoors
-      numberOfSeats
-      previousOwners
-      fullServiceHistory
-      user {
+      location
+      city
+      countryCode
+      seller {
         id
         name
         email
@@ -327,49 +330,29 @@ export const CREATE_CAR = gql`
 `;
 
 export const UPDATE_CAR = gql`
-  mutation UpdateCar($updateCarInput: UpdateCarInput!) {
-    updateCar(updateCarInput: $updateCarInput) {
+  mutation UpdateCar($id: String!, $input: UpdateCarInput!) {
+    updateCar(id: $id, input: $input) {
       id
-      carMake {
-        id
-        name
-      }
-      carModel {
-        id
-        name
-      }
+      make
+      model
       year
       price
-      currency
       mileage
       fuelType
-      transmissionType
-      bodyType
-      exteriorColor
+      transmission
+      condition
+      color
       description
-      imageUrls
-      location
-      status
       features
-      engineSize
-      powerKw
-      numberOfDoors
-      numberOfSeats
-      previousOwners
-      fullServiceHistory
-      user {
-        id
-        name
-        email
-      }
+      location
       updatedAt
     }
   }
 `;
 
 export const DELETE_CAR = gql`
-  mutation RemoveCar($id: ID!) {
-    removeCar(id: $id)
+  mutation DeleteCar($id: String!) {
+    deleteCar(id: $id)
   }
 `;
 
@@ -411,88 +394,118 @@ export enum UserRole {
   USER = 'USER'
 }
 
-export interface CreateCarInput {
-  carMakeId: string;
-  carModelId: string;
-  year: number;
-  price: number;
-  currency: string;
-  mileage: number;
-  fuelType: FuelType;
-  transmissionType: TransmissionType;
-  bodyType: BodyType;
-  exteriorColor?: string;
-  description?: string;
-  imageUrls?: string[];
-  location: string;
-  status?: VehicleStatus;
-  features?: string[];
-  engineSize?: number;
-  powerKw?: number;
-  numberOfDoors?: number;
-  numberOfSeats?: number;
-  previousOwners?: number;
-  fullServiceHistory?: boolean;
-}
-
+// Enums matching backend exactly
 export enum FuelType {
-  PETROL = 'PETROL',
+  GASOLINE = 'GASOLINE',
   DIESEL = 'DIESEL',
   ELECTRIC = 'ELECTRIC',
   HYBRID = 'HYBRID',
+  PLUGIN_HYBRID = 'PLUGIN_HYBRID',
   LPG = 'LPG',
-  CNG = 'CNG'
+  CNG = 'CNG',
+  HYDROGEN = 'HYDROGEN',
 }
 
 export enum TransmissionType {
   MANUAL = 'MANUAL',
-  AUTOMATIC = 'AUTOMATIC'
+  AUTOMATIC = 'AUTOMATIC',
+  SEMI_AUTOMATIC = 'SEMI_AUTOMATIC',
+  CVT = 'CVT',
 }
 
-export enum BodyType {
-  SEDAN = 'SEDAN',
-  HATCHBACK = 'HATCHBACK',
+export enum VehicleType {
+  CAR = 'CAR',
+  MOTORCYCLE = 'MOTORCYCLE',
+  TRUCK = 'TRUCK',
+  VAN = 'VAN',
   SUV = 'SUV',
   COUPE = 'COUPE',
   CONVERTIBLE = 'CONVERTIBLE',
   WAGON = 'WAGON',
-  PICKUP = 'PICKUP',
-  VAN = 'VAN',
-  MINIVAN = 'MINIVAN'
+  HATCHBACK = 'HATCHBACK',
+  SEDAN = 'SEDAN',
 }
 
-export enum VehicleStatus {
-  DRAFT = 'DRAFT',
-  ACTIVE = 'ACTIVE',
-  PENDING_APPROVAL = 'PENDING_APPROVAL',
-  REJECTED = 'REJECTED',
-  SOLD = 'SOLD',
-  EXPIRED = 'EXPIRED'
+export enum CarCondition {
+  NEW = 'NEW',
+  USED = 'USED',
+  CERTIFIED = 'CERTIFIED',
+  DAMAGED = 'DAMAGED',
+}
+
+export enum DrivetrainType {
+  FWD = 'FWD',
+  RWD = 'RWD',
+  AWD = 'AWD',
+  FOUR_WD = 'FOUR_WD',
+}
+
+export interface CreateCarInput {
+  make: string;
+  model: string;
+  variant?: string;
+  year: number;
+  price: number;
+  mileage: number;
+  vehicleType?: VehicleType;
+  fuelType: FuelType;
+  transmission: TransmissionType;
+  condition?: CarCondition;
+  color?: string;
+  interiorColor?: string;
+  description?: string;
+  engineSize?: number;
+  horsePower?: number;
+  doors?: number;
+  seats?: number;
+  drivetrain?: DrivetrainType;
+  vin?: string;
+  features?: string[];
+  safetyFeatures?: string[];
+  location: string;
+  city?: string;
+  countryCode?: string;
+  contactPhone?: string;
+  contactEmail?: string;
+  allowTestDrive?: boolean;
+  acceptsTradeIn?: boolean;
+  priceNegotiable?: boolean;
+  quickSale?: boolean;
+  isFeatured?: boolean;
 }
 
 export interface UpdateCarInput {
-  id: string;
-  carMakeId?: string;
-  carModelId?: string;
+  make?: string;
+  model?: string;
+  variant?: string;
   year?: number;
   price?: number;
-  currency?: string;
   mileage?: number;
+  vehicleType?: VehicleType;
   fuelType?: FuelType;
-  transmissionType?: TransmissionType;
-  bodyType?: BodyType;
-  exteriorColor?: string;
+  transmission?: TransmissionType;
+  condition?: CarCondition;
+  color?: string;
+  interiorColor?: string;
   description?: string;
-  imageUrls?: string[];
-  location?: string;
-  status?: VehicleStatus;
-  features?: string[];
   engineSize?: number;
-  powerKw?: number;
-  numberOfDoors?: number;
-  numberOfSeats?: number;
-  previousOwners?: number;
-  fullServiceHistory?: boolean;
+  horsePower?: number;
+  doors?: number;
+  seats?: number;
+  drivetrain?: DrivetrainType;
+  vin?: string;
+  features?: string[];
+  safetyFeatures?: string[];
+  location?: string;
+  city?: string;
+  countryCode?: string;
+  contactPhone?: string;
+  contactEmail?: string;
+  allowTestDrive?: boolean;
+  acceptsTradeIn?: boolean;
+  priceNegotiable?: boolean;
+  isAvailable?: boolean;
+  isFeatured?: boolean;
 }
 
 export interface AuthResponse {
@@ -506,62 +519,71 @@ export interface AuthResponse {
     dealerAddress?: string;
     dealerCity?: string;
     dealerPhoneNumber?: string;
-    savedListingIds: string[];
   };
   access_token: string;
 }
 
+export interface CarImage {
+  id: string;
+  url: string;
+  thumbnailUrl?: string;
+  isMain: boolean;
+  isInterior?: boolean;
+  sortOrder: number;
+}
+
 export interface Car {
   id: string;
-  carMake: {
-    id: string;
-    name: string;
-  };
-  carModel: {
-    id: string;
-    name: string;
-  };
+  make: string;
+  model: string;
+  variant?: string;
   year: number;
   price: number;
-  currency: string;
   mileage: number;
+  vehicleType: VehicleType;
   fuelType: FuelType;
-  transmissionType: TransmissionType;
-  bodyType: BodyType;
-  exteriorColor?: string;
+  transmission: TransmissionType;
+  condition: CarCondition;
+  color?: string;
+  interiorColor?: string;
   description?: string;
-  imageUrls: string[];
-  location: string;
-  status: VehicleStatus;
-  features?: string[];
   engineSize?: number;
-  powerKw?: number;
-  numberOfDoors?: number;
-  numberOfSeats?: number;
-  previousOwners?: number;
-  fullServiceHistory?: boolean;
-  user: {
+  horsePower?: number;
+  doors?: number;
+  seats?: number;
+  drivetrain?: DrivetrainType;
+  vin?: string;
+  features: string[];
+  safetyFeatures?: string[];
+  location: string;
+  city?: string;
+  countryCode?: string;
+  isAvailable: boolean;
+  isFeatured: boolean;
+  isCertified: boolean;
+  contactPhone?: string;
+  contactEmail?: string;
+  allowTestDrive?: boolean;
+  acceptsTradeIn?: boolean;
+  priceNegotiable?: boolean;
+  originalPrice?: number;
+  viewCount: number;
+  favoriteCount: number;
+  inquiryCount?: number;
+  seller: {
     id: string;
     name: string;
     email: string;
+    phone?: string;
     dealerName?: string;
     dealerLogoUrl?: string;
     dealerPhoneNumber?: string;
+    dealerAddress?: string;
+    dealerCity?: string;
   };
+  images: CarImage[];
   createdAt: string;
   updatedAt?: string;
-}
-
-export interface CarMake {
-  id: string;
-  name: string;
-  carModels?: CarModel[];
-}
-
-export interface CarModel {
-  id: string;
-  name: string;
-  carMake?: CarMake;
 }
 
 export interface User {
@@ -574,7 +596,6 @@ export interface User {
   dealerAddress?: string;
   dealerCity?: string;
   dealerPhoneNumber?: string;
-  savedListingIds: string[];
   createdAt?: string;
   updatedAt?: string;
 }

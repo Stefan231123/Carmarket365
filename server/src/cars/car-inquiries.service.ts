@@ -1,8 +1,10 @@
-import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
+import { Injectable, NotFoundException, ForbiddenException, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CarInquiry, InquiryType, InquiryStatus } from './car-inquiry.entity';
+import { Car } from './car.entity';
 import { User } from '../users/user.entity';
+import { EmailService } from '../common/email/email.service';
 
 export interface CreateCarInquiryData {
   carId: string;
@@ -21,9 +23,14 @@ export interface UpdateCarInquiryData {
 
 @Injectable()
 export class CarInquiriesService {
+  private readonly logger = new Logger(CarInquiriesService.name);
+
   constructor(
     @InjectRepository(CarInquiry)
     private readonly carInquiryRepository: Repository<CarInquiry>,
+    @InjectRepository(Car)
+    private readonly carRepository: Repository<Car>,
+    private readonly emailService: EmailService,
   ) {}
 
   async create(inquiryData: CreateCarInquiryData): Promise<CarInquiry> {
@@ -32,7 +39,31 @@ export class CarInquiriesService {
       status: InquiryStatus.PENDING,
     });
 
-    return this.carInquiryRepository.save(inquiry);
+    const saved = await this.carInquiryRepository.save(inquiry);
+
+    // Send email notification to the seller (fire-and-forget)
+    this.notifySeller(inquiryData).catch(err =>
+      this.logger.warn(`Failed to send inquiry notification email: ${err.message}`),
+    );
+
+    return saved;
+  }
+
+  private async notifySeller(inquiryData: CreateCarInquiryData): Promise<void> {
+    const car = await this.carRepository.findOne({
+      where: { id: inquiryData.carId },
+      relations: ['seller'],
+    });
+    if (!car?.seller?.email) return;
+
+    const carTitle = `${car.year} ${car.make} ${car.model}`;
+    await this.emailService.sendInquiryNotification(
+      car.seller.email,
+      carTitle,
+      inquiryData.inquirerName,
+      inquiryData.inquirerEmail,
+      inquiryData.message,
+    );
   }
 
   async findById(id: string): Promise<CarInquiry> {
