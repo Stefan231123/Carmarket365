@@ -41,7 +41,13 @@ async function bootstrap() {
 
   // Add session middleware for CSRF protection
   app.use(session({
-    secret: process.env.SESSION_SECRET || 'carmarket365-session-secret',
+    secret: (() => {
+      const secret = process.env.SESSION_SECRET;
+      if (!secret && process.env.NODE_ENV === 'production') {
+        throw new Error('SESSION_SECRET environment variable is required in production');
+      }
+      return secret || 'dev-only-session-secret-do-not-use-in-production';
+    })(),
     resave: false,
     saveUninitialized: false,
     cookie: {

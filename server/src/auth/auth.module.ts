@@ -11,7 +11,13 @@ import { JwtStrategy } from './strategies/jwt.strategy';
   imports: [
     PassportModule,
     JwtModule.register({
-      secret: process.env.JWT_SECRET || 'carmarket365-secret-key',
+      secret: (() => {
+        const secret = process.env.JWT_SECRET;
+        if (!secret && process.env.NODE_ENV === 'production') {
+          throw new Error('JWT_SECRET environment variable is required in production');
+        }
+        return secret || 'dev-only-secret-do-not-use-in-production';
+      })(),
       signOptions: { expiresIn: '7d' },
     }),
     UsersModule,
