@@ -72,6 +72,7 @@ function authReducer(state: AuthState, action: AuthAction): AuthState {
 interface AuthContextType extends AuthState {
   login: (credentials: { email: string; password: string }) => Promise<void>;
   register: (userData: { email: string; password: string; name?: string; dealerName?: string; dealerAddress?: string; dealerCity?: string; dealerPhoneNumber?: string }) => Promise<void>;
+  loginWithOAuth: (input: { provider: 'google' | 'facebook'; token: string; email?: string; name?: string }) => Promise<void>;
   logout: () => Promise<void>;
   clearError: () => void;
 }
@@ -176,6 +177,35 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const loginWithOAuth = async (input: { provider: 'google' | 'facebook'; token: string; email?: string; name?: string }) => {
+    dispatch({ type: 'AUTH_START' });
+
+    try {
+      const result = await apiClient.loginWithOAuth(input);
+
+      const user: SafeUser = {
+        id: result.user.id,
+        email: result.user.email,
+        name: result.user.name,
+        role: result.user.role,
+        dealerName: result.user.dealerName,
+        dealerLogoUrl: result.user.dealerLogoUrl,
+        dealerAddress: result.user.dealerAddress,
+        dealerCity: result.user.dealerCity,
+        dealerPhoneNumber: result.user.dealerPhoneNumber,
+      };
+
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      localStorage.setItem('authToken', result.tokens.access_token);
+
+      dispatch({ type: 'AUTH_SUCCESS', payload: user });
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'OAuth login failed';
+      dispatch({ type: 'AUTH_FAILURE', payload: errorMessage });
+      throw error;
+    }
+  };
+
   const logout = async () => {
     try {
       await apiClient.logout();
@@ -197,6 +227,7 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
     ...state,
     login,
     register,
+    loginWithOAuth,
     logout,
     clearError,
   };

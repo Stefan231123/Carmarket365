@@ -33,7 +33,7 @@ declare global {
 
 export function SocialLoginModal({ isOpen, onClose, provider }: SocialLoginModalProps) {
   const { t } = useTranslation();
-  // const { loginWithOAuth } = useSafeAuth(); // OAuth not implemented in SafeAuthProvider yet
+  const { loginWithOAuth } = useSafeAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -114,7 +114,7 @@ export function SocialLoginModal({ isOpen, onClose, provider }: SocialLoginModal
       
       script.onload = () => {
         window.FB.init({
-          appId: import.meta.env.VITE_FACEBOOK_APP_ID,
+          appId: import.meta.env.VITE_FACEBOOK_APP_ID || '1246521367213618',
           cookie: true,
           xfbml: true,
           version: 'v18.0'
@@ -146,24 +146,21 @@ export function SocialLoginModal({ isOpen, onClose, provider }: SocialLoginModal
       }
 
       // Initialize Google Sign-In
+      const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || '278873060598-isn3tu53q7l4ron29dc13oi5j545qq9c.apps.googleusercontent.com';
       window.google.accounts.id.initialize({
-        client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+        client_id: googleClientId,
         callback: async (response: any) => {
           try {
-            // Decode JWT to get user info
             const payload = JSON.parse(atob(response.credential.split('.')[1]));
-            
-            // TODO: Implement OAuth in SafeAuthProvider
-            console.log('Google OAuth login:', payload);
-            setError('OAuth login not yet implemented');
-            // await loginWithOAuth({
-            //   provider: 'google',
-            //   token: response.credential,
-            //   email: payload.email,
-            //   name: payload.name
-            // });
-            
-            // onClose(); // Don't close on error
+
+            await loginWithOAuth({
+              provider: 'google',
+              token: response.credential,
+              email: payload.email,
+              name: payload.name,
+            });
+
+            onClose();
           } catch (error) {
             console.error('Google OAuth callback error:', error);
             setError(error instanceof Error ? error.message : 'Google login failed');
@@ -243,25 +240,22 @@ export function SocialLoginModal({ isOpen, onClose, provider }: SocialLoginModal
       });
 
       const getUserInfoAndLogin = (accessToken: string) => {
-        window.FB.api('/me', { 
-          fields: 'id,name,email,picture.type(large)' 
+        window.FB.api('/me', {
+          fields: 'id,name,email,picture.type(large)'
         }, async (userInfo: any) => {
           try {
             if (!userInfo.email) {
               throw new Error('Facebook account must have a verified email address');
             }
 
-            // TODO: Implement OAuth in SafeAuthProvider
-            console.log('Facebook OAuth login:', userInfo);
-            setError('OAuth login not yet implemented');
-            // await loginWithOAuth({
-            //   provider: 'facebook',
-            //   token: accessToken,
-            //   email: userInfo.email,
-            //   name: userInfo.name
-            // });
-            
-            // onClose(); // Don't close on error
+            await loginWithOAuth({
+              provider: 'facebook',
+              token: accessToken,
+              email: userInfo.email,
+              name: userInfo.name,
+            });
+
+            onClose();
           } catch (error) {
             console.error('Facebook OAuth error:', error);
             setError(error instanceof Error ? error.message : 'Facebook login failed');

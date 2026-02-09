@@ -64,7 +64,44 @@ export class UsersService {
     return user;
   }
 
+  async findOrCreateOAuthUser(
+    email: string,
+    name: string | undefined,
+    provider: string,
+    avatarUrl?: string,
+  ): Promise<User> {
+    const existingUser = await this.findByEmail(email);
+
+    if (existingUser) {
+      // Update provider info and last login
+      existingUser.authProvider = provider;
+      existingUser.lastLoginAt = new Date();
+      if (avatarUrl && !existingUser.avatarUrl) {
+        existingUser.avatarUrl = avatarUrl;
+      }
+      return this.userRepository.save(existingUser);
+    }
+
+    // Create new OAuth user (no password needed)
+    const [firstName, ...lastParts] = (name || email.split('@')[0]).split(' ');
+    const lastName = lastParts.join(' ') || undefined;
+
+    const user = this.userRepository.create({
+      email,
+      firstName,
+      lastName,
+      authProvider: provider,
+      avatarUrl,
+      role: UserRole.USER,
+      isEmailVerified: true, // OAuth emails are pre-verified
+      isActive: true,
+    });
+
+    return this.userRepository.save(user);
+  }
+
   async validatePassword(user: User, password: string): Promise<boolean> {
+    if (!user.password) return false;
     return bcrypt.compare(password, user.password);
   }
 }

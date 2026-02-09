@@ -31,8 +31,12 @@ export class User {
   @Column({ unique: true })
   email: string;
 
-  @Column()
-  password: string; // Hidden from GraphQL
+  @Column({ nullable: true })
+  password?: string; // Hidden from GraphQL, nullable for OAuth users
+
+  @Field({ nullable: true })
+  @Column({ nullable: true, default: 'local' })
+  authProvider?: string; // 'local' | 'google' | 'facebook'
 
   @Field({ nullable: true })
   @Column({ nullable: true })

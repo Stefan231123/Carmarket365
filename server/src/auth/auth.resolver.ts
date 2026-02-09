@@ -16,4 +16,14 @@ export class AuthResolver {
   async register(@Args('input') registerInput: RegisterInput): Promise<AuthResponse> {
     return this.authService.register(registerInput);
   }
+
+  @Mutation(() => AuthResponse)
+  async socialLogin(
+    @Args('provider') provider: string,
+    @Args('token') token: string,
+    @Args('email') email: string,
+    @Args('name', { nullable: true }) name?: string,
+  ): Promise<AuthResponse> {
+    return this.authService.socialLogin(provider, token, email, name);
+  }
 }
