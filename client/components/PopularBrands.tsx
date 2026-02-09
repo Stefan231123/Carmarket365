@@ -4,41 +4,18 @@ import { useTranslation } from "@/hooks/useTranslation";
 
 interface Brand {
   name: string;
-  logo: string;
+  initials: string;
+  color: string;
   count: string;
 }
 
 const popularBrands: Brand[] = [
-  {
-    name: "BMW",
-    logo: "https://images.unsplash.com/photo-1617886903355-9354bb57751f?w=80&h=80&fit=crop",
-    count: "2,340"
-  },
-  {
-    name: "Mercedes-Benz",
-    logo: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=80&h=80&fit=crop",
-    count: "1,890"
-  },
-  {
-    name: "Audi",
-    logo: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=80&h=80&fit=crop",
-    count: "2,120"
-  },
-  {
-    name: "Volkswagen",
-    logo: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=80&h=80&fit=crop",
-    count: "3,450"
-  },
-  {
-    name: "Toyota",
-    logo: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=80&h=80&fit=crop",
-    count: "1,680"
-  },
-  {
-    name: "Ford",
-    logo: "https://images.unsplash.com/photo-1612825173281-9a193378527e?w=80&h=80&fit=crop",
-    count: "1,290"
-  }
+  { name: "BMW", initials: "BMW", color: "#0066B1", count: "2,340" },
+  { name: "Mercedes-Benz", initials: "MB", color: "#333333", count: "1,890" },
+  { name: "Audi", initials: "A", color: "#BB0A30", count: "2,120" },
+  { name: "Volkswagen", initials: "VW", color: "#001E50", count: "3,450" },
+  { name: "Toyota", initials: "T", color: "#EB0A1E", count: "1,680" },
+  { name: "Ford", initials: "F", color: "#003478", count: "1,290" },
 ];
 
 export function PopularBrands() {
@@ -66,12 +43,11 @@ export function PopularBrands() {
               className="p-6 text-center hover:shadow-xl hover:scale-105 active:scale-100 transition-all duration-300 cursor-pointer group border-zinc-100 rounded-2xl"
               onClick={() => handleBrandClick(brand.name)}
             >
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden bg-white border border-zinc-100">
-                <img
-                  src={brand.logo}
-                  alt={brand.name}
-                  className="w-full h-full object-cover"
-                />
+              <div
+                className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center text-white font-bold text-sm"
+                style={{ backgroundColor: brand.color }}
+              >
+                {brand.initials}
               </div>
               <h3 className="mb-1 group-hover:text-primary transition-colors font-medium">
                 {brand.name}

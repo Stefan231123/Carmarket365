@@ -14,41 +14,41 @@ export interface GeolocationProvider {
   detect(): Promise<GeolocationResult | null>;
 }
 
-// IP-API.com service (free, no API key required, 1000 requests/month)
+// ipapi.co service (free HTTPS, 1000 requests/day, no API key required)
 class IPAPIProvider implements GeolocationProvider {
-  name = 'IP-API';
+  name = 'ipapi.co';
 
   async detect(): Promise<GeolocationResult | null> {
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 5000);
-      
-      const response = await fetch('http://ip-api.com/json/?fields=status,country,countryCode,region,city,query', {
+
+      const response = await fetch('https://ipapi.co/json/', {
         signal: controller.signal,
       });
-      
+
       clearTimeout(timeoutId);
-      
+
       if (!response.ok) {
         throw new Error(`HTTP ${response.status}`);
       }
-      
+
       const data = await response.json();
-      
-      if (data.status !== 'success') {
-        throw new Error('IP-API returned failure status');
+
+      if (data.error) {
+        throw new Error(data.reason || 'API error');
       }
 
       return {
-        countryCode: data.countryCode?.toLowerCase() || '',
-        country: data.country || '',
+        countryCode: data.country_code?.toLowerCase() || '',
+        country: data.country_name || '',
         region: data.region,
         city: data.city,
-        ip: data.query,
-        confidence: 0.8, // Generally reliable
+        ip: data.ip,
+        confidence: 0.8,
       };
     } catch (error) {
-      console.warn('IP-API geolocation failed:', error);
+      console.warn('ipapi.co geolocation failed:', error);
       return null;
     }
   }
@@ -156,9 +156,9 @@ class TimezoneProvider implements GeolocationProvider {
 // Main geolocation service
 export class GeolocationService {
   private providers: GeolocationProvider[] = [
+    new TimezoneProvider(),
     new IPAPIProvider(),
     new IPifyProvider(),
-    new TimezoneProvider(),
   ];
 
   private cache: { result: GeolocationResult; timestamp: number } | null = null;
@@ -173,13 +173,10 @@ export class GeolocationService {
     // Try providers in order of preference
     for (const provider of this.providers) {
       try {
-        console.log(`Trying geolocation provider: ${provider.name}`);
         const result = await provider.detect();
-        
+
         if (result && result.countryCode) {
-          // Cache successful result
           this.cache = { result, timestamp: Date.now() };
-          console.log(`Geolocation success with ${provider.name}:`, result);
           return result;
         }
       } catch (error) {

@@ -35,7 +35,7 @@ const newSuggestions: Car[] = [
     fuel: "Diesel",
     transmission: "Automatic",
     location: "Dresden, Germany",
-    image: "https://images.unsplash.com/photo-1617469165786-8007eda307c9?w=400&h=250&fit=crop",
+    image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400&h=250&fit=crop",
     dealer: "BMW Dresden",
     daysListed: 1,
     isNew: true
