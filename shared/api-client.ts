@@ -1401,7 +1401,6 @@ class ApiClient {
             dealerAddress
             dealerCity
             dealerPhoneNumber
-            savedListingIds
           }
           access_token
         }
