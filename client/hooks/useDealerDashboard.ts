@@ -56,35 +56,92 @@ export const useDealerListings = (_status?: string, _searchTerm?: string) => {
   }, [_status, _searchTerm]);
 };
 
-// Hook for getting dealer dashboard stats
+// Hook for getting dealer dashboard stats — enriched with inquiry data
 export const useDealerStats = () => {
   return useApiQuery<{ getDealerStats: DealerStats }>(async () => {
-    const stats = await apiClient.getAdminStats();
+    const [stats, inquiries] = await Promise.all([
+      apiClient.getAdminStats(),
+      apiClient.getSellerInquiries(),
+    ]);
+
+    const now = new Date();
+    const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+    const allInquiries = inquiries || [];
+    const newInquiriesThisWeek = allInquiries.filter(
+      (inq: any) => new Date(inq.createdAt) >= oneWeekAgo
+    ).length;
+
+    const repliedCount = allInquiries.filter((inq: any) => inq.status === 'REPLIED').length;
+    const responseRate = allInquiries.length > 0
+      ? Math.round((repliedCount / allInquiries.length) * 100)
+      : 0;
+
     return {
       getDealerStats: {
         activeListings: stats.activeListings || 0,
         totalViews: stats.totalViews || 0,
-        totalInquiries: stats.totalInquiries || 0,
+        totalInquiries: stats.totalInquiries || allInquiries.length,
         revenue: stats.totalRevenue || 0,
-        newInquiriesThisWeek: 0,
+        newInquiriesThisWeek,
         viewsThisMonth: stats.totalViews || 0,
-        responseRate: 0,
+        responseRate,
       },
     };
   });
 };
 
-// Hook for getting dealer performance metrics
+// Hook for getting dealer performance metrics — derived from real listings + inquiries
 export const useDealerPerformance = () => {
   return useApiQuery<{ getDealerPerformance: DealerPerformance }>(async () => {
+    const [listings, inquiries] = await Promise.all([
+      apiClient.getAllListings(),
+      apiClient.getSellerInquiries(),
+    ]);
+
+    const now = new Date();
+    const thisMonthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+    const lastMonthStart = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+
+    // Count sold listings (isAvailable === false) by month
+    const soldListings = (listings || []).filter((l: any) => !l.isAvailable);
+    const salesThisMonth = soldListings.filter(
+      (l: any) => new Date(l.updatedAt) >= thisMonthStart
+    ).length;
+    const salesLastMonth = soldListings.filter(
+      (l: any) => new Date(l.updatedAt) >= lastMonthStart && new Date(l.updatedAt) < thisMonthStart
+    ).length;
+
+    // Average days from creation to sold (updatedAt - createdAt for sold items)
+    const sellTimes = soldListings
+      .map((l: any) => (new Date(l.updatedAt).getTime() - new Date(l.createdAt).getTime()) / (1000 * 60 * 60 * 24))
+      .filter((d: number) => d > 0);
+    const averageTimeToSell = sellTimes.length > 0
+      ? Math.round(sellTimes.reduce((a: number, b: number) => a + b, 0) / sellTimes.length)
+      : 0;
+
+    // Conversion rate: sold / total listings
+    const totalListings = (listings || []).length;
+    const conversionRate = totalListings > 0
+      ? Math.round((soldListings.length / totalListings) * 100)
+      : 0;
+
+    // Average response time from inquiries that were replied to (in hours)
+    const repliedInquiries = (inquiries || [])
+      .filter((inq: any) => inq.repliedAt && inq.createdAt)
+      .map((inq: any) => (new Date(inq.repliedAt).getTime() - new Date(inq.createdAt).getTime()) / (1000 * 60 * 60));
+    const averageResponseTime = repliedInquiries.length > 0
+      ? Math.round(repliedInquiries.reduce((a: number, b: number) => a + b, 0) / repliedInquiries.length)
+      : 0;
+
     return {
       getDealerPerformance: {
-        salesThisMonth: 0,
-        salesLastMonth: 0,
-        averageTimeToSell: 0,
-        conversionRate: 0,
-        averageListingViews: 0,
-        averageResponseTime: 0,
+        salesThisMonth,
+        salesLastMonth,
+        averageTimeToSell,
+        conversionRate,
+        averageListingViews: 0, // No per-listing view tracking yet
+        averageResponseTime,
       },
     };
   });
@@ -133,20 +190,26 @@ export const useDealerDashboardData = () => {
   const statsQuery = useDealerStats();
   const performanceQuery = useDealerPerformance();
   const inquiriesQuery = useDealerInquiries();
+  const listingsQuery = useDealerListings();
 
   const loading = statsQuery.loading || performanceQuery.loading;
   const error = statsQuery.error || performanceQuery.error;
+
+  // Show most recent active listings as "popular"
+  const popularListings = (listingsQuery.data?.getDealerListings || [])
+    .filter((l) => l.status === 'ACTIVE')
+    .slice(0, 5);
 
   return {
     stats: statsQuery.data?.getDealerStats,
     performance: performanceQuery.data?.getDealerPerformance,
     recentInquiries: inquiriesQuery.data?.getDealerInquiries || ([] as CarInquiry[]),
-    popularListings: [] as CarListing[],
+    popularListings,
     loading,
     error,
     refetchStats: statsQuery.refetch,
     refetchPerformance: performanceQuery.refetch,
     refetchRecentInquiries: inquiriesQuery.refetch,
-    refetchPopularListings: async () => {},
+    refetchPopularListings: listingsQuery.refetch,
   };
 };
