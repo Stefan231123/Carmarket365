@@ -586,7 +586,6 @@ export const sqTranslations: TranslationStrings = {
     contactInformation: 'Informacionet e kontaktit',
     publish: 'Publiko',
     draft: 'Ruaj si draft',
-    preview: 'Parashiko',
     required: 'I detyrueshëm',
     optional: 'Opsional',
     addPhotos: 'Shto foto',
@@ -617,17 +616,6 @@ export const sqTranslations: TranslationStrings = {
         name: 'Motocikletë',
         description: 'Motocikleta, skuter, ATV',
       },
-    },
-    
-    // Headers and descriptions
-    headers: {
-      vehicleTypeQuestion: 'Ç\'lloj automjeti po shitni?',
-      basicInformation: 'Informacione bazë',
-      basicInfoDescription: 'Na tregoni për {vehicleType} tuaj',
-      additionalDetails: 'Detaje shtesë',
-      additionalDetailsDescription: 'Shtoni më shumë detaje për {vehicleType} tuaj',
-      photosAndContact: 'Foto dhe informacionet e kontaktit',
-      photosAndContactDescription: 'Shtoni foto dhe detajet tuaja të kontaktit',
     },
     
     // Form fields and labels
@@ -1139,112 +1127,6 @@ export const sqTranslations: TranslationStrings = {
           answer: 'Përdorni faqen tonë Na Kontaktoni, telefononi (555) 123-HELP, email-o support@carmarket365.com, ose përdorni funksionin e chat-it në këndin e poshtëm djathtas të çdo faqe.'
         },
       ],
-    },
-  },
-
-  forms: {
-    placeholders: {
-      selectMake: 'Zgjidhni markën',
-      selectModel: 'Zgjidhni modelin',
-      selectYear: 'Zgjidhni vitin',
-      selectCondition: 'Zgjidhni gjendjen',
-      selectFuelType: 'Zgjidhni llojin e karburantit',
-      selectTransmission: 'Zgjidhni transmisionin',
-      selectBodyType: 'Zgjidhni llojin e karocerisë',
-      selectDrivetrain: 'Zgjidhni sistemin e lëvizjes',
-      enterName: 'Shkruani emrin',
-      enterEmail: 'Shkruani email-in',
-      enterPassword: 'Shkruani fjalëkalimin',
-      enterPhone: 'Shkruani numrin e telefonit',
-      enterModel: 'Shkruani modelin',
-      enterMileage: 'Shkruani kilometrazhin',
-      enterPrice: 'Shkruani çmimin',
-      enterLocation: 'Shkruani vendndodhjen',
-      enterCity: 'Shkruani qytetin',
-      enterDescription: 'Shkruani përshkrimin',
-      searchCars: 'Kërko makina...',
-      searchListings: 'Kërko shpallje...',
-      searchFAQs: 'Kërko në pyetjet e shpeshta...',
-      anyMake: 'Çdo markë',
-      anyModel: 'Çdo model',
-      anyYear: 'Çdo vit',
-      anyMileage: 'Çdo kilometrazh',
-      minPrice: 'Çmimi minimal',
-      maxPrice: 'Çmimi maksimal',
-      role: 'Roli',
-      sortBy: 'Rendit sipas',
-      filterBy: 'Filtro sipas',
-    },
-    labels: {
-      businessName: 'Emri i biznesit',
-      businessType: 'Lloji i biznesit',
-      vatNumber: 'Numri i TVSH-së',
-      firstName: 'Emri',
-      lastName: 'Mbiemri',
-      email: 'Email',
-      password: 'Fjalëkalimi',
-      confirmPassword: 'Konfirmo fjalëkalimin',
-      phoneNumber: 'Numri i telefonit',
-      street: 'Rruga',
-      city: 'Qyteti',
-      state: 'Shteti/Qarku',
-      postalCode: 'Kodi postar',
-      country: 'Vendi',
-      make: 'Marka',
-      model: 'Modeli',
-      year: 'Viti',
-      mileage: 'Kilometrat e përshkuara',
-      condition: 'Gjendja',
-      fuelType: 'Lloji i karburantit',
-      transmission: 'Transmisioni',
-      bodyType: 'Lloji i karocerisë',
-      exteriorColor: 'Ngjyra e jashtme',
-      interiorColor: 'Ngjyra e brendshme',
-      price: 'Çmimi',
-      description: 'Përshkrimi',
-      contactName: 'Emri i kontaktit',
-      contactPhone: 'Telefoni i kontaktit',
-      contactEmail: 'Email-i i kontaktit',
-      location: 'Vendndodhja',
-      rememberMe: 'Më mbaj mend',
-      termsAccepted: 'Pranoj kushtet',
-      privacyAccepted: 'Pranoj politikën e privatësisë',
-    },
-    buttons: {
-      submit: 'Dërgo',
-      register: 'Regjistrohu',
-      signIn: 'Kyçu',
-      signUp: 'Regjistrohu',
-      signOut: 'Dil',
-      backToSignIn: 'Kthehu te kyçja',
-      backToHome: 'Kthehu në fillore',
-      createAccount: 'Krijo llogari',
-      forgotPassword: 'Fjalëkalim i harruar',
-      resetPassword: 'Rivendos fjalëkalimin',
-      updateProfile: 'Përditëso profilin',
-      uploadPhotos: 'Ngarko foto',
-      removePhoto: 'Hiq foton',
-      publishListing: 'Publiko shpalljen',
-      saveDraft: 'Ruaj si draft',
-      previewListing: 'Parashiko shpalljen',
-      editListing: 'Edito shpalljen',
-      deleteListing: 'Fshi shpalljen',
-      viewListing: 'Shiko shpalljen',
-      viewDetails: 'Shiko detajet',
-      contactDealer: 'Kontakto dilerin',
-      scheduleTestDrive: 'Planifiko provën e drejtimit',
-      requestFinancing: 'Kërko financim',
-      shareVehicle: 'Shpërndaj automjetin',
-      saveToFavorites: 'Ruaj në të preferuarat',
-      removeFromFavorites: 'Hiq nga të preferuarat',
-      applyFilters: 'Apliko filtrat',
-      clearFilters: 'Pastro filtrat',
-      clearSearch: 'Pastro kërkimin',
-      searchVehicles: 'Kërko automjete',
-      viewAllCars: 'Shiko të gjitha makinat',
-      loadMore: 'Ngarko më shumë',
-      showMore: 'Trego më shumë',
-      showLess: 'Trego më pak',
     },
   },
 
@@ -2378,18 +2260,6 @@ export const sqTranslations: TranslationStrings = {
     },
   },
 
-  // Faqet e gabimeve
-  errors: {
-    notFound: {
-      title: '404',
-      heading: 'Faqja nuk u gjet',
-      message: 'Faqja që po kërkoni nuk ekziston ose është zhvendosur.',
-      goHome: 'Shko te faqja kryesore',
-      goBack: 'Kthehu mbrapa',
-      supportMessage: 'Nëse besoni se kjo është gabim, ju lutemi kontaktoni ekipin tonë të mbështetjes.'
-    },
-  },
-
   // Faqet ligjore
   legal: {
     accessibility: {
@@ -3004,125 +2874,6 @@ export const sqTranslations: TranslationStrings = {
     listingSubmissionDescription: 'Kur përdoruesit parashtruan shpallje të reja automjetesh, kodi i vendit vendoset automatikisht bazuar në nëndomenin e tyre aktual, duke siguruar që shpaljet janë të dukshme vetëm në vendin e duhur.',
   },
 
-  // Formularët dhe Hyrjet
-  forms: {
-    placeholders: {
-      selectMake: 'Zgjidhni markën',
-      selectModel: 'Zgjidhni modelin',
-      selectYear: 'Zgjidhni vitin',
-      selectCondition: 'Zgjidhni gjendjen',
-      selectFuelType: 'Zgjidhni llojin e karburantit',
-      selectTransmission: 'Zgjidhni transmetimin',
-      selectBodyType: 'Zgjidhni llojin e karoseries',
-      selectDrivetrain: 'Zgjidhni sistemin e lëvizjes',
-      enterName: 'Shkruani emrin',
-      enterEmail: 'Shkruani email-in',
-      enterPassword: 'Shkruani fjalëkalimin',
-      enterPhone: 'Shkruani telefonin',
-      enterModel: 'Shkruani modelin',
-      enterMileage: 'Shkruani kilometrazhin',
-      enterPrice: 'Shkruani çmimin',
-      enterLocation: 'Shkruani vendndodhjen',
-      enterCity: 'Shkruani qytetin',
-      enterDescription: 'Shkruani përshkrimin',
-      searchCars: 'Kërkoni automjete',
-      searchListings: 'Kërkoni shpallje',
-      searchFAQs: 'Kërkoni në FAQ',
-      anyMake: 'Çdo Markë',
-      anyModel: 'Çdo Model',
-      anyYear: 'Çdo Vit',
-      anyMileage: 'Çdo Kilometrazh',
-      minPrice: 'Çmimi Minimal',
-      maxPrice: 'Çmimi Maksimal',
-      role: 'Roli',
-      sortBy: 'Rendit sipas',
-      filterBy: 'Filtro sipas',
-      dealerNameOrCity: 'Emri i shitësit ose qyteti',
-      allStates: 'Të Gjitha Shtetet',
-      allSpecialties: 'Të Gjitha Specialitetet',
-      egFiftyThousand: 'p.sh. 50,000',
-      successMessage: 'Shpallja juaj u krijua me sukses!',
-      requiredFieldMessage: 'Kjo fushë është e detyrueshme',
-      enterMessage: 'Shkruani mesazhin tuaj',
-    },
-    labels: {
-      businessName: 'Emri i Biznesit',
-      businessType: 'Lloji i Biznesit',
-      vatNumber: 'Numri TVSH',
-      firstName: 'Emri',
-      lastName: 'Mbiemri',
-      email: 'Email-i',
-      password: 'Fjalëkalimi',
-      confirmPassword: 'Konfirmoni Fjalëkalimin',
-      phoneNumber: 'Numri i Telefonit',
-      street: 'Rruga',
-      city: 'Qyteti',
-      state: 'Shteti',
-      postalCode: 'Kodi Postar',
-      country: 'Vendi',
-      make: 'Marka',
-      model: 'Modeli',
-      year: 'Viti',
-      mileage: 'Kilometrat e përshkuara',
-      condition: 'Gjendja',
-      fuelType: 'Lloji i Karburantit',
-      transmission: 'Transmetimi',
-      bodyType: 'Lloji i Karoseries',
-      exteriorColor: 'Ngjyra e Jashtme',
-      interiorColor: 'Ngjyra e Brendshme',
-      price: 'Çmimi',
-      description: 'Përshkrimi',
-      contactName: 'Emri i Kontaktit',
-      contactPhone: 'Telefoni i Kontaktit',
-      contactEmail: 'Email-i i Kontaktit',
-      location: 'Vendndodhja',
-      rememberMe: 'Më mban mend',
-      termsAccepted: 'Kushtet e Pranuara',
-      privacyAccepted: 'Privatësia e Pranuar',
-    },
-    buttons: {
-      submit: 'Parashtroni',
-      register: 'Regjistrohuni',
-      signIn: 'Hyni',
-      signUp: 'Regjistrohuni',
-      signOut: 'Dilni',
-      backToSignIn: 'Kthehu tek Hyrja',
-      backToHome: 'Kthehu tek Kryefaqja',
-      createAccount: 'Krijo Llogari',
-      forgotPassword: 'Harruat Fjalëkalimin',
-      resetPassword: 'Rivendosni Fjalëkalimin',
-      updateProfile: 'Përditësoni Profilin',
-      uploadPhotos: 'Ngarkoni Fotot',
-      removePhoto: 'Hiq Foton',
-      publishListing: 'Publikoni Shpalljen',
-      saveDraft: 'Ruaje si Draft',
-      previewListing: 'Parapamje e Shpalljes',
-      editListing: 'Ndrysho Shpalljen',
-      deleteListing: 'Fshi Shpalljen',
-      viewListing: 'Shiko Shpalljen',
-      viewDetails: 'Shiko Detajet',
-      contactDealer: 'Kontakto Shitësin',
-      scheduleTestDrive: 'Planifikoni Test-Driving',
-      requestFinancing: 'Kërkoni Financim',
-      shareVehicle: 'Ndani Automjetin',
-      saveToFavorites: 'Ruaje në të Preferuara',
-      removeFromFavorites: 'Hiq nga të Preferuarat',
-      applyFilters: 'Apliko Filtrat',
-      clearFilters: 'Pastro Filtrat',
-      clearSearch: 'Pastro Kërkimin',
-      searchVehicles: 'Kërkoni Automjete',
-      viewAllCars: 'Shiko Të Gjitha Automjetet',
-      loadMore: 'Ngarko Më Shumë',
-      showMore: 'Trego Më Shumë',
-      showLess: 'Trego Më Pak',
-    },
-    validation: {
-      nameMinLength: 'Emri duhet të jetë të paktën 2 karaktere',
-      validEmail: 'Ju lutemi shkruani një adresë email të vlefshme',
-      messageMinLength: 'Mesazhi duhet të jetë të paktën 10 karaktere',
-    },
-  },
-
   // Static content for About page
   about: {
     stats: {
@@ -3335,66 +3086,6 @@ export const sqTranslations: TranslationStrings = {
     comingSoonText: 'Aktualisht po ndërtojmë bazën tonë gjithëpërfshirëse të recensioneve. Recensionet eksperte dhe komentet e pronëve do të jenë të disponueshme së shpejti për t\'ju ndihmuar të udhëzoni vendimet tuaja të blerjes së makinave.',
     browseCars: 'Shfleto Makinat e Disponueshme',
     exploreInventory: 'Eksploro Inventarin'
-  },
-
-  // Static vehicle data for AdvancedSearch
-  advancedSearch: {
-    staticVehicleData: {
-      makes: [
-        'Audi', 'BMW', 'Mercedes-Benz', 'Volkswagen', 'Toyota', 'Honda', 'Ford', 'Peugeot', 
-        'Renault', 'Opel', 'Fiat', 'Citroen', 'Nissan', 'Hyundai', 'Kia', 'Mazda', 
-        'Subaru', 'Volvo', 'SEAT', 'Skoda', 'Alfa Romeo', 'Mini', 'Jaguar', 'Land Rover',
-        'Porsche', 'Lexus', 'Infiniti', 'Acura', 'Cadillac', 'Lincoln', 'Buick', 'GMC',
-        'Chevrolet', 'Chrysler', 'Dodge', 'Jeep', 'Ram', 'Tesla', 'Lucid', 'Rivian'
-      ],
-      bodyTypes: [
-        'Sedan', 'SUV', 'Hatchback', 'Coupe', 'Kabriolet', 'Karavan', 'Kamionet', 'Van',
-        'Minivan', 'Crossover', 'Kompakt', 'Subkompakt', 'Madhësi e mesme', 'Madhësi e plotë',
-        'Makinë sportive', 'Luksoze', 'Elektrike', 'Hibride'
-      ],
-      fuelTypes: [
-        'Benzina', 'Diesel', 'Hibride', 'Elektrike', 'Hibride me Karikues', 'CNG', 'LPG',
-        'Flex Fuel', 'Hidrogjen', 'Bio-diesel', 'E85 Etanol'
-      ],
-      transmissions: [
-        'Manuale', 'Automatike', 'CVT', 'Gjysmëautomatike', 'Dual Clutch', '6-Shpejtësi Manuale',
-        '7-Shpejtësi Automatike', '8-Shpejtësi Automatike', '9-Shpejtësi Automatike', '10-Shpejtësi Automatike'
-      ],
-      drivetrains: [
-        'Dridhje e Përparme', 'Dridhje e Pasme', 'Dridhje në të Gjitha Rrotat', '4WD', 
-        'Part-Time 4WD', 'Full-Time 4WD', 'AWD Elektronike', 'AWD Mekanike'
-      ],
-      colors: [
-        'E zezë', 'E bardhë', 'Argjend', 'Gri', 'Blu', 'E kuqe', 'E gjelbër', 'Kafe', 
-        'Ar', 'E verdhë', 'Portokalli', 'Vjollcë', 'Bezhë', 'Tan', 'Bronz', 'Bakër',
-        'E bardhë perla', 'Argjend metalike', 'Blu e thellë', 'E kuqe gare', 'E gjelbër pyjore',
-        'Qymyr', 'Platinë', 'Tjetër'
-      ],
-      conditions: [
-        'E re', 'Si e re', 'E shkëlqyer', 'Shumë e mirë', 'E mirë', 'E drejtë', 'E përdorur', 
-        'E certifikuar para-zotërimit', 'E rinovuar', 'E restauruar', 'Klasike', 'Vintage'
-      ],
-      features: [
-        'Kondicionim ajri', 'Sedilje lëkure', 'Sistem navigimi', 'Bluetooth', 'Portë USB',
-        'Kamera e kthimit', 'Sensorë parkimi', 'Sedilje të ngrohura', 'Sunroof', 'Rrota aliazhi',
-        'Kontroll kursimi', 'Frena anti-bllokues', 'Kontroll stabiliteti elektronik', 'Airbag',
-        'Fillim nga distanca', 'Hyrje pa çelës', 'Dritare elektrike', 'Drejtim elektrik', 'Dritare të zymta',
-        'Sistem zanor premium', 'Radio satelitore', 'Lexues CD', 'Lexues MP3', 'Lexues DVD',
-        'Karikues pa tel', 'Apple CarPlay', 'Android Auto', 'Paralajmërim devijimi të rrugës',
-        'Monitorim i pikës së verbër', 'Paralajmërim përplasje para', 'Frekim emergjent automatik',
-        'Kontroll kursimi adaptiv', 'Ndihmë parkimi', 'Kamera e kthimit', 'Kamera 360-gradë',
-        'Drejtim i ngrohur', 'Sedilje të ftohura', 'Sedilje të ajrosura', 'Sedilje memorie',
-        'Sedilje të rregullueshme elektrike', 'Sediljja e radhës së tretë', 'Sedilje të palosshme të pasme', 
-        'Kapak ngarkimi', 'Rack çatie', 'Paketë tërheqjeje', 'Dërrasë anësore', 'Hapat anësore'
-      ],
-      certifications: [
-        'E certifikuar para-zotërimit', 'Garanci prodhuesi', 'Garanci e zgjeruar', 
-        'Ndihmë rrugore', 'Raport historik automjeti', 'Inspektim shumë-pikësh',
-        'E testuar për emision', 'E inspektuar për siguri', 'E certifikuar nga shitësi', 'E certifikuar nga palë e tretë',
-        'Carfax e verifikuar', 'AutoCheck i verifikuar', 'Pa aksidente', 'Zotërues i vetëm',
-        'Regjistrat e shërbimit të disponueshëm', 'Mirëmbajtja e azhurnuar'
-      ]
-    },
   },
 
   safetyTips: {
@@ -4830,111 +4521,8 @@ export const sqTranslations: TranslationStrings = {
     },
   },
 
-  uiDemo: {
-    title: 'Demonstrimi i Komponentëve UI',
-    subtitle: 'Eksploroni sistemin tonë të dizajnit dhe komponentët UI',
-    components: 'Komponentë',
-    forms: 'Forma',
-    buttons: 'Butonat',
-    cards: 'Kartat',
-  },
-
-  finalFixes: {
-    dealerSignUp: {
-      firstNamePlaceholder: 'Imer',
-      lastNamePlaceholder: 'Hoxha',
-    },
-    
-    savedCars: {
-      title: 'Makina të ruajtura',
-      back: 'Kthehu',
-      noSavedCars: 'Ende nuk ka makina të ruajtura',
-      startBrowsing: 'Filloni të shfletoni inventarin tonë për të ruajtur automjetet tuaja të preferuara për më vonë.',
-      browseVehicles: 'Shfletoni automjetet',
-      carsSaved: 'makina të ruajtura',
-      clearAll: 'Pastro të gjitha',
-      sortBy: 'Rendit sipas',
-      recentlySaved: 'Ruajtura së fundmi',
-      priceLowToHigh: 'Çmimi: Nga i ulti në të lartë',
-      priceHighToLow: 'Çmimi: Nga i larti në të ulët',
-      yearNewestFirst: 'Viti: Më të rejat së pari',
-      yearOldestFirst: 'Viti: Më të vjetrat së pari',
-      filterPlaceholder: 'Filtro',
-      allCars: 'Të gjitha makinat',
-      savedThisWeek: 'Ruajtura këtë javë',
-      savedDate: 'Ruajtur',
-      contact: 'Kontakt',
-      view: 'Detajet'
-    },
-
-    errors: {
-      generic: 'Diçka shkoi keq. Ju lutemi provoni përsëri.',
-      network: 'Gabim në rrjet. Ju lutemi kontrolloni lidhjen tuaj.',
-      notFound: 'Artikulli i kërkuar nuk u gjet.',
-      unauthorized: 'Nuk keni leje për të aksesuar këtë burim.',
-      forbidden: 'Aksesi në këtë burim është i ndaluar.',
-      serverError: 'Gabim në server. Ju lutemi provoni përsëri më vonë.',
-      validation: 'Ju lutemi kontrolloni të dhënat tuaja dhe provoni përsëri.',
-      required: 'Kjo fushë është e detyrueshme.',
-      invalidEmail: 'Ju lutemi vendosni një adresë email-i të vlefshme.',
-      invalidPhone: 'Ju lutemi vendosni një numër telefoni të vlefshëm.',
-      passwordTooShort: 'Fjalëkalimi duhet të ketë së paku 8 karaktere.',
-      passwordMismatch: 'Fjalëkalimet nuk përputhen.',
-      fileTooBig: 'Madhësia e skedarit është shumë e madhe.',
-      invalidFileType: 'Lloj skedari i pavlefshëm.',
-      noInternetConnection: 'Nuk ka lidhje interneti.',
-      sessionExpired: 'Seanci juaj ka skaduar. Ju lutemi hyni përsëri.',
-    },
-
-    // Error pages
-    errorPages: {
-      notFound: {
-        title: 'Faqja nuk u gjet',
-        heading: '404 - Faqja nuk u gjet',
-        message: 'Faqja që po kërkoni nuk ekziston ose është lëvizur.',
-        goHome: 'Kthehu në faqen kryesore',
-        goBack: 'Kthehu prapa',
-        supportMessage: 'Nëse mendoni se kjo është një gabim, ju lutemi na kontaktoni.',
-      },
-    },
-  },
-
   // Navigimi
   navigation: {
     backToHome: 'Kthehu tek faqja kryesore',
-  },
-
-  // Sell section for ExpressSell component
-  sell: {
-    fuelTypes: {
-      gasoline: 'Benzina',
-      diesel: 'Nafta',
-      hybrid: 'Hibrid',
-      electric: 'Elektrike',
-      lpg: 'LPG (Gaz i lëngshëm petroleum)',
-      cng: 'CNG (Gaz natyror i ngjeshur)',
-      pluginHybrid: 'Hibrid plug-in',
-      flexFuel: 'Karburant fleks',
-    },
-    transmissions: {
-      manual: 'Manuale',
-      automatic: 'Automatike',
-      semiAutomatic: 'Gjysëm-automatike',
-      cvt: 'CVT'
-    },
-    conditions: {
-      excellent: 'E shkëlqyer',
-      veryGood: 'Shumë e mirë',
-      good: 'E mirë',
-      fair: 'E kënaqshme',
-      poor: 'E dobët'
-    }
-  },
-
-  // Forms section for placeholders
-  forms: {
-    placeholders: {
-      egFiftyThousand: 'p.sh. 50.000 km'
-    }
   },
 };
