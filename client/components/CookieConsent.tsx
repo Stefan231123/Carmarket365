@@ -1,71 +1,93 @@
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { useTranslation } from "@/hooks/useTranslation";
-import { Cookie, X } from "lucide-react";
 
 const COOKIE_CONSENT_KEY = "carmarket365_cookie_consent";
 
 export function CookieConsent() {
-  const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem(COOKIE_CONSENT_KEY);
-    if (!consent) {
-      // Small delay so it doesn't flash on page load
-      const timer = setTimeout(() => setIsVisible(true), 1000);
-      return () => clearTimeout(timer);
+    try {
+      const consent = localStorage.getItem(COOKIE_CONSENT_KEY);
+      if (!consent) {
+        const timer = setTimeout(() => setIsVisible(true), 500);
+        return () => clearTimeout(timer);
+      }
+    } catch {
+      // localStorage might be blocked in some browsers
     }
   }, []);
 
   const handleAccept = () => {
-    localStorage.setItem(COOKIE_CONSENT_KEY, "accepted");
+    try { localStorage.setItem(COOKIE_CONSENT_KEY, "accepted"); } catch {}
     setIsVisible(false);
   };
 
   const handleDecline = () => {
-    localStorage.setItem(COOKIE_CONSENT_KEY, "declined");
+    try { localStorage.setItem(COOKIE_CONSENT_KEY, "declined"); } catch {}
     setIsVisible(false);
   };
 
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 animate-in slide-in-from-bottom-5 duration-500">
-      <div className="container mx-auto max-w-4xl">
-        <div className="bg-white border border-zinc-200 rounded-2xl shadow-2xl p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4">
-          <div className="flex items-start gap-3 flex-1">
-            <Cookie className="h-6 w-6 text-amber-500 flex-shrink-0 mt-0.5" />
-            <div>
-              <p className="text-sm text-foreground font-medium mb-1">
-                {t('cookies.title') || 'We use cookies'}
-              </p>
-              <p className="text-xs text-muted-foreground">
-                {t('cookies.description') || 'We use cookies to improve your experience and analyze site traffic. By continuing, you agree to our use of cookies.'}
-                {' '}
-                <a href="/cookie-policy" className="underline hover:text-foreground">
-                  {t('cookies.learnMore') || 'Learn more'}
-                </a>
-              </p>
-            </div>
-          </div>
-          <div className="flex items-center gap-2 flex-shrink-0">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleDecline}
-              className="rounded-full h-9 px-4 text-xs"
-            >
-              {t('cookies.decline') || 'Decline'}
-            </Button>
-            <Button
-              size="sm"
-              onClick={handleAccept}
-              className="rounded-full h-9 px-4 text-xs bg-black text-white hover:bg-black/90"
-            >
-              {t('cookies.accept') || 'Accept'}
-            </Button>
-          </div>
+    <div style={{
+      position: 'fixed',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      zIndex: 99999,
+      padding: '16px',
+    }}>
+      <div style={{
+        maxWidth: '800px',
+        margin: '0 auto',
+        background: '#ffffff',
+        border: '1px solid #e4e4e7',
+        borderRadius: '16px',
+        boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
+        padding: '20px 24px',
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        gap: '16px',
+      }}>
+        <div style={{ flex: 1, minWidth: '200px' }}>
+          <p style={{ fontSize: '14px', fontWeight: 600, marginBottom: '4px', color: '#18181b' }}>
+            🍪 We use cookies
+          </p>
+          <p style={{ fontSize: '12px', color: '#71717a' }}>
+            We use cookies to improve your experience and analyze site traffic.{' '}
+            <a href="/cookie-policy" style={{ textDecoration: 'underline' }}>Learn more</a>
+          </p>
+        </div>
+        <div style={{ display: 'flex', gap: '8px', flexShrink: 0 }}>
+          <button
+            onClick={handleDecline}
+            style={{
+              padding: '8px 16px',
+              fontSize: '12px',
+              borderRadius: '9999px',
+              border: '1px solid #e4e4e7',
+              background: '#ffffff',
+              cursor: 'pointer',
+            }}
+          >
+            Decline
+          </button>
+          <button
+            onClick={handleAccept}
+            style={{
+              padding: '8px 16px',
+              fontSize: '12px',
+              borderRadius: '9999px',
+              border: 'none',
+              background: '#18181b',
+              color: '#ffffff',
+              cursor: 'pointer',
+            }}
+          >
+            Accept
+          </button>
         </div>
       </div>
     </div>
