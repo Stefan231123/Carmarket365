@@ -165,7 +165,7 @@ export function SearchResults({
             <span className="text-lg font-semibold text-foreground">
               {searchResults ? (
                 <>
-                  {searchResults.totalCount.toLocaleString()} {' '}
+                  {(searchResults.totalCount ?? 0).toLocaleString()} {' '}
                   {searchResults.totalCount === 1 
                     ? t('advancedSearch.carFound', 'car found')
                     : t('advancedSearch.carsFound', 'cars found')
@@ -177,7 +177,7 @@ export function SearchResults({
             </span>
           </div>
           
-          {searchResults && searchResults.totalPages > 1 && (
+          {searchResults && (searchResults.totalPages ?? 0) > 1 && (
             <Badge variant="outline" className="text-xs">
               {t('advancedSearch.page', 'Page')} {searchResults.currentPage} / {searchResults.totalPages}
             </Badge>

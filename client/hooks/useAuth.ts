@@ -38,7 +38,7 @@ export function useAuth(): UseAuthReturn {
   // Login mutation
   const [loginMutation, { loading: loginLoading }] = useMutation(LOGIN_MUTATION, {
     errorPolicy: 'all',
-    onCompleted: async (data: { login: AuthResponse }) => {
+    onCompleted: async (data: any) => {
       await tokenManager.setTokens({ access_token: data.login.access_token });
       setError(null);
       refetchUser(); // Refresh user data

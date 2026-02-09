@@ -20,7 +20,7 @@ import { Badge } from '../ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { DatePickerWithRange } from '../ui/date-picker-with-range';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '../ui/chart';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, AreaChart, Area, BarChart, Bar, PieChart as RechartsPieChart, Cell } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, ResponsiveContainer, AreaChart, Area, BarChart, Bar, PieChart as RechartsPieChart, Pie, Cell } from 'recharts';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../ui/tabs';
 
 interface AnalyticsData {
@@ -544,7 +544,7 @@ export default function SEOAnalytics() {
                         cx="50%"
                         cy="50%"
                         outerRadius={80}
-                        label={({ device, clicks }) => `${device}: ${clicks}`}
+                        label={({ device, clicks }: { device: string; clicks: number }) => `${device}: ${clicks}`}
                       >
                         {analyticsData.deviceBreakdown.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={DEVICE_COLORS[index % DEVICE_COLORS.length]} />
