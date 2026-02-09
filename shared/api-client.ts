@@ -1408,70 +1408,28 @@ class ApiClient {
       }
     `;
 
-    try {
-      const response = await this.request<{ socialLogin: { user: User; access_token: string } }>(
-        socialLoginQuery,
-        {
-          provider: input.provider,
-          token: input.token,
-          email: input.email || '',
-          name: input.name || ''
-        }
-      );
-
-      if (response.errors && !response.errors[0].message.includes('Unknown')) {
-        throw new Error(response.errors[0].message);
+    const response = await this.request<{ socialLogin: { user: User; access_token: string } }>(
+      socialLoginQuery,
+      {
+        provider: input.provider,
+        token: input.token,
+        email: input.email || '',
+        name: input.name || ''
       }
+    );
 
-      if (response.data?.socialLogin) {
-        const { user, access_token } = response.data.socialLogin;
-        this.saveTokenToStorage(access_token);
-        console.log(`${input.provider} OAuth login successful:`, user.email);
-        return { user, tokens: { access_token } };
-      }
-
-      // If socialLogin is not available, fallback to regular auth flow
-      throw new Error('Backend social login not available');
-      
-    } catch (error: any) {
-      console.warn(`Backend ${input.provider} login not available, using fallback method:`, error.message);
-      
-      if (!input.email) {
-        throw new Error(`${input.provider} login requires an email address`);
-      }
-
-      // Try to login first (user might already exist)
-      try {
-        const existingUserResult = await this.login({
-          email: input.email,
-          password: `oauth_${input.provider}_temp` // This won't work, but we'll catch it
-        });
-        return existingUserResult;
-      } catch (loginError) {
-        // Login failed, try to register new user
-        console.log(`User doesn't exist, registering new ${input.provider} user:`, input.email);
-        
-        try {
-          const registerResult = await this.register({
-            email: input.email,
-            password: `oauth_${input.provider}_${Date.now()}`, // Secure temporary password
-            name: input.name || input.email.split('@')[0],
-            role: 'USER'
-          });
-          
-          console.log(`${input.provider} OAuth registration successful:`, registerResult.user.email);
-          return registerResult;
-          
-        } catch (registerError: any) {
-          if (registerError.message.includes('already exists')) {
-            // User exists but password doesn't match, this is expected for OAuth users
-            // In a real app, you'd handle this more gracefully
-            throw new Error(`Account exists with email ${input.email}. Please sign in with your password or use the forgot password feature.`);
-          }
-          throw registerError;
-        }
-      }
+    if (response.errors) {
+      throw new Error(response.errors[0].message);
     }
+
+    if (!response.data?.socialLogin) {
+      throw new Error('Social login failed — no response from server');
+    }
+
+    const { user, access_token } = response.data.socialLogin;
+    this.saveTokenToStorage(access_token);
+    console.log(`${input.provider} OAuth login successful:`, user.email);
+    return { user, tokens: { access_token } };
   }
 }
 
