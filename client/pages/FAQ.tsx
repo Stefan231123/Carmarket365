@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { useTranslation } from "@/hooks/useTranslation";
+import { SEO } from "@/components/SEO";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
@@ -105,6 +106,7 @@ export default function FAQ() {
 
   return (
     <div className="min-h-screen bg-muted/30">
+      <SEO title="Frequently Asked Questions" canonical="/faq" />
       {/* Header */}
       <div className="bg-gradient-to-br from-primary/10 to-blue-500/10 py-20">
         <div className="container mx-auto px-4">

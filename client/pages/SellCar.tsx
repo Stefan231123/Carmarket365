@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useCountry } from "@/contexts/CountryContext";
 import { useTranslation } from "@/hooks/useTranslation";
+import { SEO } from "@/components/SEO";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -277,6 +278,7 @@ export default function SellCar() {
 
   return (
     <div className="min-h-screen bg-muted/30">
+      <SEO title="Sell Your Car" canonical="/sell" />
       {/* Header */}
       <div className="bg-white border-b border-zinc-100">
         <div className="container mx-auto px-4 py-4">

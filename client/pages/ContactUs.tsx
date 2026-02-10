@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { apiClient } from "@shared/api-client";
 import { useTranslation } from "@/hooks/useTranslation";
+import { SEO } from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -69,6 +70,11 @@ export default function ContactUs() {
 
   return (
     <div className="min-h-screen bg-muted/30">
+      <SEO
+        title="Contact Us"
+        description="Get in touch with CarMarket365. We're here to help with buying and selling cars across Europe."
+        canonical="/contact"
+      />
       {/* Header */}
       <div className="bg-gradient-to-br from-primary/10 to-blue-500/10 py-20">
         <div className="container mx-auto px-4">

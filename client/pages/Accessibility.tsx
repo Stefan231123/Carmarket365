@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { ArrowLeft, Eye, Ear, Hand, Brain } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from '../hooks/useTranslation';
+import { SEO } from "@/components/SEO";
 
 export default function Accessibility() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ export default function Accessibility() {
 
   return (
     <div className="min-h-screen bg-muted/30">
+      <SEO title="Accessibility" canonical="/accessibility" />
       {/* Header */}
       <div className="bg-gradient-to-br from-primary/10 to-blue-600/10 py-20">
         <div className="container mx-auto px-4">

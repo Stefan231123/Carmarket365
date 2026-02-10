@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useTranslation } from "@/hooks/useTranslation";
+import { SEO } from "@/components/SEO";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useCar } from "@/hooks/useCars";
 import { ContactCarModal } from "@/components/ContactCarModal";
@@ -326,6 +327,13 @@ export default function CarDetail() {
 
   return (
     <div className="min-h-screen bg-muted/30">
+      <SEO
+        title={`${carData.year} ${carData.make} ${carData.model}`}
+        description={`${carData.year} ${carData.make} ${carData.model} - ${carData.mileage.toLocaleString()} km, ${carData.fuelType}, ${carData.transmission}. ${carData.price.toLocaleString()} EUR on CarMarket365.`}
+        canonical={`/cars/${car.id}`}
+        ogImage={car.images?.[0]}
+        ogType="product"
+      />
       {/* Header */}
       <div className="border-b border-zinc-100 bg-white">
         <div className="container mx-auto px-4 py-4">
@@ -335,10 +343,10 @@ export default function CarDetail() {
               {t('carDetail.backToSearch')}
             </Link>
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="icon" onClick={handleFavoriteClick} className="rounded-full transition-colors">
+              <Button variant="ghost" size="icon" onClick={handleFavoriteClick} aria-label={t('carDetail.saveCar')} className="rounded-full transition-colors">
                 <Heart className={`h-5 w-5 ${isFavorite(carData.id) ? 'fill-red-500 text-red-500' : 'hover:text-red-500'}`} />
               </Button>
-              <Button variant="ghost" size="icon" className="rounded-full" onClick={() => setIsShareModalOpen(true)}>
+              <Button variant="ghost" size="icon" aria-label={t('carDetail.shareCar')} className="rounded-full" onClick={() => setIsShareModalOpen(true)}>
                 <Share2 className="h-5 w-5" />
               </Button>
             </div>

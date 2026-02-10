@@ -153,7 +153,7 @@ export function Header({
                 {/* User Profile Dropdown */}
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="sm" className="text-white hover:bg-white/10 hover:text-white hover:shadow-lg hover:shadow-white/20 transition-all duration-200 rounded-full px-3">
+                    <Button variant="ghost" size="sm" aria-label={t('header.userMenu')} className="text-white hover:bg-white/10 hover:text-white hover:shadow-lg hover:shadow-white/20 transition-all duration-200 rounded-full px-3">
                       <User className="h-4 w-4" />
                     </Button>
                   </DropdownMenuTrigger>
@@ -210,10 +210,11 @@ export function Header({
 
           {/* Mobile Actions */}
           <div className="flex md:hidden items-center space-x-2">
-            <Button 
-              variant="ghost" 
-              size="lg" 
-              onClick={onSavedClick} 
+            <Button
+              variant="ghost"
+              size="lg"
+              onClick={onSavedClick}
+              aria-label={t('header.savedCars')}
               className="text-white hover:bg-white/10 rounded-full px-4 py-3 min-w-[44px] min-h-[44px]"
             >
               <Heart className="h-5 w-5" />
@@ -221,9 +222,10 @@ export function Header({
             
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild>
-                <Button 
-                  variant="ghost" 
-                  size="lg" 
+                <Button
+                  variant="ghost"
+                  size="lg"
+                  aria-label={t('common.menu')}
                   className="text-white hover:bg-white/10 rounded-full px-4 py-3 min-w-[44px] min-h-[44px]"
                 >
                   <Menu className="h-6 w-6" />

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/hooks/useTranslation";
+import { SEO } from "@/components/SEO";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -93,6 +94,7 @@ export default function Financing() {
 
   return (
     <div className="min-h-screen bg-muted/30">
+      <SEO title="Car Financing Calculator" canonical="/financing" />
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-primary/10 to-car-blue/10 py-16">
         <div className="container mx-auto px-4 text-center">

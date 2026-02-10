@@ -12,6 +12,7 @@ interface SEOProps {
 const DEFAULT_TITLE = "CarMarket365 - Find Your Perfect Car";
 const DEFAULT_DESCRIPTION = "CarMarket365 - The leading multilingual car marketplace. Buy and sell cars across Europe.";
 const SITE_URL = "https://www.carmarket365.com";
+const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`;
 
 export function SEO({
   title,
@@ -22,6 +23,7 @@ export function SEO({
   jsonLd,
 }: SEOProps) {
   const fullTitle = title ? `${title} | CarMarket365` : DEFAULT_TITLE;
+  const image = ogImage || DEFAULT_OG_IMAGE;
 
   return (
     <Helmet>
@@ -30,13 +32,13 @@ export function SEO({
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:type" content={ogType} />
+      <meta property="og:image" content={image} />
       {canonical && <link rel="canonical" href={`${SITE_URL}${canonical}`} />}
       {canonical && <meta property="og:url" content={`${SITE_URL}${canonical}`} />}
-      {ogImage && <meta property="og:image" content={ogImage} />}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
-      {ogImage && <meta name="twitter:image" content={ogImage} />}
+      <meta name="twitter:image" content={image} />
       {jsonLd && (
         <script type="application/ld+json">
           {JSON.stringify(jsonLd)}

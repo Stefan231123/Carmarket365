@@ -114,7 +114,7 @@ export function SocialLoginModal({ isOpen, onClose, provider }: SocialLoginModal
       
       script.onload = () => {
         window.FB.init({
-          appId: import.meta.env.VITE_FACEBOOK_APP_ID || '1246521367213618',
+          appId: import.meta.env.VITE_FACEBOOK_APP_ID,
           cookie: true,
           xfbml: true,
           version: 'v18.0'
@@ -146,7 +146,7 @@ export function SocialLoginModal({ isOpen, onClose, provider }: SocialLoginModal
       }
 
       // Initialize Google Sign-In
-      const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID || '278873060598-isn3tu53q7l4ron29dc13oi5j545qq9c.apps.googleusercontent.com';
+      const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
       window.google.accounts.id.initialize({
         client_id: googleClientId,
         callback: async (response: any) => {

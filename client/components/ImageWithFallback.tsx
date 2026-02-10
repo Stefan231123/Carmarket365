@@ -118,6 +118,7 @@ export function ImageWithFallback(props: ImageWithFallbackProps) {
         ref={imgRef}
         src={actualSrc}
         alt={alt}
+        loading="lazy"
         className={`${className ?? ''} ${!isLoaded && lazy ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
         style={style}
         onError={handleError}

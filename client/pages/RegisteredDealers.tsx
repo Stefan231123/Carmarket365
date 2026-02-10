@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ImageWithFallback } from '@/components/ImageWithFallback';
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "@/hooks/useTranslation";
+import { SEO } from "@/components/SEO";
 
 interface Dealer {
   id: string;
@@ -141,6 +142,7 @@ export default function RegisteredDealers() {
 
   return (
     <div className="min-h-screen bg-muted/30">
+      <SEO title="Registered Dealers" canonical="/registered-dealers" />
       {/* Header */}
       <div className="bg-white border-b border-zinc-100">
         <div className="container mx-auto px-4 py-4">

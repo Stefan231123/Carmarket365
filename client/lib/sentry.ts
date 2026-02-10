@@ -1,6 +1,6 @@
 import * as Sentry from "@sentry/react";
 
-const SENTRY_DSN = import.meta.env.VITE_SENTRY_DSN || "https://6aa21f5c56b76af9cec1400b2f84f1a6@o4510857157804032.ingest.de.sentry.io/4510857167306832";
+const SENTRY_DSN = import.meta.env.VITE_SENTRY_DSN;
 
 export function initSentry() {
   if (!SENTRY_DSN) return;

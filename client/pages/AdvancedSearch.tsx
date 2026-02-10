@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { SEO } from '@/components/SEO';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -957,6 +958,7 @@ export default function AdvancedSearch() {
 
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="Advanced Car Search" canonical="/advanced-search" />
       <div className="container mx-auto px-4 py-16">
         {/* Header Section */}
         <div className="text-center mb-12">

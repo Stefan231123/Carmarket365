@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
 import { useTranslation } from "@/hooks/useTranslation";
+import { SEO } from "@/components/SEO";
 import { 
   Users, 
   Target, 
@@ -60,6 +61,7 @@ export default function About() {
   
   return (
     <div className="min-h-screen bg-background">
+      <SEO title="About Us" canonical="/about" />
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-primary/10 to-car-blue/10 py-20">
         <div className="container mx-auto px-4 text-center">

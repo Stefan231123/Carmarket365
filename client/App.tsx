@@ -31,7 +31,6 @@ const About = lazy(() => import("@/pages/About"));
 const CarDetail = lazy(() => import("@/pages/CarDetail"));
 const ContactUs = lazy(() => import("@/pages/ContactUs"));
 const FAQ = lazy(() => import("@/pages/FAQ"));
-const PlaceholderPage = lazy(() => import("@/pages/PlaceholderPage"));
 const AdvancedSearch = lazy(() => import("@/pages/AdvancedSearch"));
 const DealerSignUp = lazy(() => import("@/pages/DealerSignUp"));
 const UserSignUp = lazy(() => import("@/pages/UserSignUp"));
@@ -139,11 +138,11 @@ function AppContent() {
             <Route path="/ui-demo" element={<Navigate to="/" replace />} />
             <Route path="/country-test" element={<Navigate to="/" replace />} />
             <Route path="/translation-review" element={<Navigate to="/" replace />} />
-            <Route path="/help" element={<PlaceholderPage title={t('pages.help.title')} />} />
+            <Route path="/help" element={<Navigate to="/faq" replace />} />
             <Route path="/faq" element={<FAQ />} />
-            <Route path="/feedback" element={<PlaceholderPage title={t('pages.feedback.title')} />} />
-            <Route path="/disclaimer" element={<PlaceholderPage title={t('pages.disclaimer.title')} />} />
-            <Route path="/insurance" element={<PlaceholderPage title={t('pages.insurance.title')} />} />
+            <Route path="/feedback" element={<Navigate to="/contact" replace />} />
+            <Route path="/disclaimer" element={<Navigate to="/terms-of-service" replace />} />
+            <Route path="/insurance" element={<Navigate to="/financing" replace />} />
             
             {/* New Footer Pages */}
             <Route path="/car-reviews" element={<CarReviews />} />

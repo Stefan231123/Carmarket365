@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { ArrowLeft, FileText, Scale, Users, Shield, AlertTriangle, Gavel } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "@/hooks/useTranslation";
+import { SEO } from "@/components/SEO";
 
 export default function TermsOfService() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ export default function TermsOfService() {
 
   return (
     <div className="min-h-screen bg-muted/30">
+      <SEO title="Terms of Service" canonical="/terms-of-service" />
       {/* Header */}
       <div className="bg-gradient-to-br from-primary/10 to-blue-600/10 py-20">
         <div className="container mx-auto px-4">

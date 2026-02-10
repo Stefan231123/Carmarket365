@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { ArrowLeft, Shield, CheckCircle, AlertTriangle, Eye, CreditCard } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "@/hooks/useTranslation";
+import { SEO } from "@/components/SEO";
 
 export default function SafetyTips() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ export default function SafetyTips() {
 
   return (
     <div className="min-h-screen bg-muted/30">
+      <SEO title="Safety Tips" canonical="/safety-tips" />
       {/* Header */}
       <div className="bg-gradient-to-br from-primary/10 to-red-500/10 py-20">
         <div className="container mx-auto px-4">

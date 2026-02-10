@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { ArrowLeft, Star, Calendar, User, ThumbsUp, TrendingUp } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "@/hooks/useTranslation";
+import { SEO } from "@/components/SEO";
 
 export default function CarReviews() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ export default function CarReviews() {
 
   return (
     <div className="min-h-screen bg-muted/30">
+      <SEO title="Car Reviews" canonical="/car-reviews" />
       {/* Header */}
       <div className="bg-gradient-to-br from-primary/10 to-yellow-500/10 py-20">
         <div className="container mx-auto px-4">
