@@ -100,6 +100,21 @@ export class UsersService {
     return this.userRepository.save(user);
   }
 
+  async setPasswordResetToken(userId: string, hashedToken: string, expires: Date): Promise<void> {
+    await this.userRepository.update(userId, {
+      passwordResetToken: hashedToken,
+      passwordResetExpires: expires,
+    });
+  }
+
+  async updatePassword(userId: string, hashedPassword: string): Promise<void> {
+    await this.userRepository.update(userId, {
+      password: hashedPassword,
+      passwordResetToken: undefined,
+      passwordResetExpires: undefined,
+    });
+  }
+
   async validatePassword(user: User, password: string): Promise<boolean> {
     if (!user.password) return false;
     return bcrypt.compare(password, user.password);

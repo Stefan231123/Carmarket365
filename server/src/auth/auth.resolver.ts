@@ -26,4 +26,32 @@ export class AuthResolver {
   ): Promise<AuthResponse> {
     return this.authService.socialLogin(provider, token, email, name);
   }
+
+  @Mutation(() => Boolean)
+  async sendContactMessage(
+    @Args('name') name: string,
+    @Args('email') email: string,
+    @Args('subject') subject: string,
+    @Args('inquiryType') inquiryType: string,
+    @Args('message') message: string,
+    @Args('phone', { nullable: true }) phone?: string,
+  ): Promise<boolean> {
+    return this.authService.sendContactMessage(name, email, phone, subject, inquiryType, message);
+  }
+
+  @Mutation(() => Boolean)
+  async requestPasswordReset(
+    @Args('email') email: string,
+  ): Promise<boolean> {
+    return this.authService.requestPasswordReset(email);
+  }
+
+  @Mutation(() => Boolean)
+  async resetPassword(
+    @Args('token') token: string,
+    @Args('email') email: string,
+    @Args('newPassword') newPassword: string,
+  ): Promise<boolean> {
+    return this.authService.resetPassword(token, email, newPassword);
+  }
 }

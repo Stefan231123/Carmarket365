@@ -1,6 +1,8 @@
 import { Injectable, UnauthorizedException, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { OAuth2Client } from 'google-auth-library';
+import * as crypto from 'crypto';
+import * as bcrypt from 'bcryptjs';
 import { UsersService } from '../users/users.service';
 import { EmailService } from '../common/email/email.service';
 import { LoginInput, RegisterInput } from './dto/auth.input';
@@ -129,6 +131,63 @@ export class AuthService {
     }
 
     return { user, access_token };
+  }
+
+  async sendContactMessage(
+    name: string,
+    email: string,
+    phone: string | undefined,
+    subject: string,
+    inquiryType: string,
+    message: string,
+  ): Promise<boolean> {
+    return this.emailService.sendContactFormEmail(name, email, phone, subject, inquiryType, message);
+  }
+
+  async requestPasswordReset(email: string): Promise<boolean> {
+    const user = await this.usersService.findByEmail(email);
+    if (!user) {
+      // Don't reveal whether email exists — always return true
+      return true;
+    }
+
+    // Generate a secure random token
+    const rawToken = crypto.randomBytes(32).toString('hex');
+    const hashedToken = crypto.createHash('sha256').update(rawToken).digest('hex');
+    const expires = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+
+    await this.usersService.setPasswordResetToken(user.id, hashedToken, expires);
+
+    // Send email with the raw token (user will present it back to verify)
+    this.emailService.sendPasswordResetEmail(user.email, user.name || '', rawToken).catch(err =>
+      this.logger.warn(`Failed to send password reset email: ${err.message}`),
+    );
+
+    return true;
+  }
+
+  async resetPassword(token: string, email: string, newPassword: string): Promise<boolean> {
+    const user = await this.usersService.findByEmail(email);
+    if (!user || !user.passwordResetToken || !user.passwordResetExpires) {
+      throw new UnauthorizedException('Invalid or expired reset token');
+    }
+
+    // Check expiry
+    if (new Date() > user.passwordResetExpires) {
+      throw new UnauthorizedException('Reset token has expired');
+    }
+
+    // Verify token
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+    if (hashedToken !== user.passwordResetToken) {
+      throw new UnauthorizedException('Invalid or expired reset token');
+    }
+
+    // Hash new password and save
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await this.usersService.updatePassword(user.id, hashedPassword);
+
+    return true;
   }
 
   async validateUser(userId: string): Promise<User | null> {

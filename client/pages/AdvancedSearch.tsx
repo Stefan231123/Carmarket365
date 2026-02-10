@@ -348,8 +348,6 @@ export default function AdvancedSearch() {
     const urlLang = urlParams.get('lang');
     const effectiveLanguage = urlLang || currentLanguage;
     
-    console.log(`🔍 Translation Debug - Key: ${key}, UrlLang: ${urlLang}, CurrentLang: ${currentLanguage}, Effective: ${effectiveLanguage}`);
-    
     // For Macedonian language, return hardcoded Macedonian translations
     if (effectiveLanguage === 'mk' || currentLanguage === 'mk') {
       const mkTranslations: {[key: string]: string} = {
@@ -432,10 +430,7 @@ export default function AdvancedSearch() {
       };
       
       if (mkTranslations[key]) {
-        console.log(`✅ Found MK translation for ${key}: ${mkTranslations[key]}`);
         return mkTranslations[key];
-      } else {
-        console.log(`❌ Missing MK translation for ${key}, using fallback: ${fallback}`);
       }
     }
     
@@ -517,15 +512,10 @@ export default function AdvancedSearch() {
       };
       
       if (sqTranslations[key]) {
-        console.log(`✅ Found SQ translation for ${key}: ${sqTranslations[key]}`);
         return sqTranslations[key];
-      } else {
-        console.log(`❌ Missing SQ translation for ${key}, using fallback: ${fallback}`);
       }
     }
     
-    // Return English fallback
-    console.log(`🔄 Using English fallback for ${key}: ${fallback} (Language: ${effectiveLanguage})`);
     return fallback;
   };
 

@@ -23,7 +23,6 @@ import NotFound from "@/pages/NotFound";
 // Lazy load non-critical pages
 const BrowseCars = lazy(() => import("@/pages/BrowseCars"));
 const SellCar = lazy(() => import("@/pages/SellCar"));
-const SellVehicle = lazy(() => import("@/pages/SellVehicle"));
 const SavedCars = lazy(() => import("@/pages/SavedCars"));
 const RegisteredDealers = lazy(() => import("@/pages/RegisteredDealers"));
 const DealerProfile = lazy(() => import("@/pages/DealerProfile"));
@@ -33,9 +32,7 @@ const CarDetail = lazy(() => import("@/pages/CarDetail"));
 const ContactUs = lazy(() => import("@/pages/ContactUs"));
 const FAQ = lazy(() => import("@/pages/FAQ"));
 const PlaceholderPage = lazy(() => import("@/pages/PlaceholderPage"));
-const UIDemo = lazy(() => import("@/pages/UIDemo"));
 const AdvancedSearch = lazy(() => import("@/pages/AdvancedSearch"));
-const ExpressSell = lazy(() => import("@/pages/ExpressSell"));
 const DealerSignUp = lazy(() => import("@/pages/DealerSignUp"));
 const UserSignUp = lazy(() => import("@/pages/UserSignUp"));
 const DealerDashboard = lazy(() => import("@/pages/DealerDashboard"));
@@ -50,9 +47,8 @@ const TermsOfService = lazy(() => import("@/pages/TermsOfService"));
 const CookiePolicy = lazy(() => import("@/pages/CookiePolicy"));
 const Imprint = lazy(() => import("@/pages/Imprint"));
 const Accessibility = lazy(() => import("@/pages/Accessibility"));
-const CountryTestPage = lazy(() => import("@/pages/CountryTestPage"));
-const TranslationReview = lazy(() => import("@/pages/TranslationReview"));
 const DashboardSelector = lazy(() => import("@/pages/DashboardSelector"));
+const ResetPassword = lazy(() => import("@/pages/ResetPassword"));
 
 function AppContent() {
   const navigate = useNavigate();
@@ -60,7 +56,7 @@ function AppContent() {
 
   const handleSignInClick = () => navigate('/signin');
   const handleHomeClick = () => navigate('/');
-  const handleSellClick = () => navigate('/sell-vehicle');
+  const handleSellClick = () => navigate('/sell');
   const handleSavedClick = () => navigate('/saved');
   const handleExpressSellClick = () => navigate('/express-sell');
   const handleContactUsClick = () => navigate('/contact');
@@ -87,8 +83,8 @@ function AppContent() {
             <Route path="/advanced-search" element={<AdvancedSearch />} />
             <Route path="/cars/:id" element={<CarDetail />} />
             <Route path="/sell" element={<SellCar />} />
-            <Route path="/sell-vehicle" element={<SellVehicle />} />
-            <Route path="/express-sell" element={<ExpressSell />} />
+            <Route path="/sell-vehicle" element={<Navigate to="/sell" replace />} />
+            <Route path="/express-sell" element={<Navigate to="/sell" replace />} />
             <Route path="/saved" element={<SavedCars />} />
             <Route path="/registered-dealers" element={<RegisteredDealers />} />
             <Route path="/dealers" element={<Navigate to="/registered-dealers" replace />} />
@@ -98,6 +94,7 @@ function AppContent() {
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<UserSignUp />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
             <Route path="/dealer-signup" element={<DealerSignUp />} />
             <Route 
               path="/dealer-dashboard" 
@@ -139,9 +136,9 @@ function AppContent() {
                 </ProtectedRoute>
               } 
             />
-            <Route path="/ui-demo" element={<UIDemo />} />
-            <Route path="/country-test" element={<CountryTestPage />} />
-            <Route path="/translation-review" element={<TranslationReview />} />
+            <Route path="/ui-demo" element={<Navigate to="/" replace />} />
+            <Route path="/country-test" element={<Navigate to="/" replace />} />
+            <Route path="/translation-review" element={<Navigate to="/" replace />} />
             <Route path="/help" element={<PlaceholderPage title={t('pages.help.title')} />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/feedback" element={<PlaceholderPage title={t('pages.feedback.title')} />} />

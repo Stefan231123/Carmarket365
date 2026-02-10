@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { apiClient } from "@shared/api-client";
 import { useTranslation } from "@/hooks/useTranslation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,16 +34,33 @@ export default function ContactUs() {
     inquiryType: ""
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleBackToHome = () => {
     navigate('/');
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Simulate form submission
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 3000);
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      await apiClient.sendContactMessage({
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone || undefined,
+        subject: formData.subject,
+        inquiryType: formData.inquiryType,
+        message: formData.message,
+      });
+      setIsSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to send message');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleInputChange = (field: string, value: string) => {
@@ -326,10 +344,16 @@ export default function ContactUs() {
                       />
                     </div>
 
+                    {error && (
+                      <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-sm text-red-700">
+                        {error}
+                      </div>
+                    )}
+
                     {/* Submit Button */}
-                    <Button type="submit" className="w-full bg-black text-white hover:bg-black/90 rounded-full h-12" size="lg">
+                    <Button type="submit" disabled={isLoading} className="w-full bg-black text-white hover:bg-black/90 rounded-full h-12" size="lg">
                       <Send className="h-4 w-4 mr-2" />
-                      {t('contact.form.submitButton')}
+                      {isLoading ? t('common.sending') : t('contact.form.submitButton')}
                     </Button>
 
                     <p className="text-xs text-muted-foreground text-center">

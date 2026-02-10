@@ -25,11 +25,6 @@ interface HeroSectionProps {
 export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSectionProps) {
   const { t } = useTranslation();
   
-  // Debug: Log translation values
-  console.log('🔍 HeroSection Debug:');
-  console.log('- hero.title:', t('hero.title'));
-  console.log('- hero.searchForm.make:', t('hero.searchForm.make'));
-  console.log('- hero.searchForm.anyMake:', t('hero.searchForm.anyMake'));
   const [searchForm, setSearchForm] = useState<SearchFormData>({
     vehicleType: 'cars',
     make: '',

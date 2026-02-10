@@ -318,7 +318,11 @@ type Mutation {
   register(input: RegisterInput!): AuthResponse!
   removeFromSavedListings(carId: String!): User!
   reorderCarImages(carId: String!, imageOrders: [ImageOrderInput!]!): [CarImage!]!
+  requestPasswordReset(email: String!): Boolean!
+  resetPassword(email: String!, newPassword: String!, token: String!): Boolean!
   saveCar(carId: String!): SavedCar!
+  sendContactMessage(email: String!, inquiryType: String!, message: String!, name: String!, phone: String, subject: String!): Boolean!
+  socialLogin(email: String!, name: String, provider: String!, token: String!): AuthResponse!
   toggleSearchAlert(id: String!): SearchAlert!
   unsaveCar(carId: String!): Boolean!
   updateCar(id: String!, input: UpdateCarInput!): Car!

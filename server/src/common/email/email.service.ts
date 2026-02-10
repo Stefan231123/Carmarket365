@@ -124,6 +124,81 @@ export class EmailService {
     });
   }
 
+  async sendContactFormEmail(
+    name: string,
+    email: string,
+    phone: string | undefined,
+    subject: string,
+    inquiryType: string,
+    message: string,
+  ): Promise<boolean> {
+    return this.sendEmail({
+      to: 'support@carmarket365.com',
+      subject: `[Contact Form] ${subject}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <div style="background: #000; padding: 24px; text-align: center;">
+            <h1 style="color: #fff; margin: 0; font-size: 24px;">CarMarket365</h1>
+          </div>
+          <div style="padding: 32px 24px;">
+            <h2 style="color: #111;">New Contact Form Submission</h2>
+            <div style="background: #f9f9f9; border-radius: 12px; padding: 20px; margin: 20px 0;">
+              <p style="margin: 0 0 8px; color: #333;"><strong>Name:</strong> ${name}</p>
+              <p style="margin: 0 0 8px; color: #333;"><strong>Email:</strong> ${email}</p>
+              ${phone ? `<p style="margin: 0 0 8px; color: #333;"><strong>Phone:</strong> ${phone}</p>` : ''}
+              <p style="margin: 0 0 8px; color: #333;"><strong>Inquiry Type:</strong> ${inquiryType}</p>
+              <p style="margin: 0 0 8px; color: #333;"><strong>Subject:</strong> ${subject}</p>
+              <hr style="border: none; border-top: 1px solid #ddd; margin: 16px 0;" />
+              <p style="margin: 0; color: #555; white-space: pre-wrap;">${message}</p>
+            </div>
+            <p style="color: #999; font-size: 12px;">Reply directly to this email to respond to the sender at ${email}</p>
+          </div>
+          <div style="background: #f5f5f5; padding: 16px 24px; text-align: center; color: #999; font-size: 12px;">
+            &copy; ${new Date().getFullYear()} CarMarket365. All rights reserved.
+          </div>
+        </div>
+      `,
+      text: `New contact from ${name} (${email})${phone ? `, Phone: ${phone}` : ''}\nType: ${inquiryType}\nSubject: ${subject}\n\n${message}`,
+    });
+  }
+
+  async sendPasswordResetEmail(email: string, name: string, resetToken: string): Promise<boolean> {
+    const resetUrl = `https://www.carmarket365.com/reset-password?token=${resetToken}&email=${encodeURIComponent(email)}`;
+
+    return this.sendEmail({
+      to: email,
+      subject: 'Reset Your CarMarket365 Password',
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <div style="background: #000; padding: 24px; text-align: center;">
+            <h1 style="color: #fff; margin: 0; font-size: 24px;">CarMarket365</h1>
+          </div>
+          <div style="padding: 32px 24px;">
+            <h2 style="color: #111;">Reset Your Password</h2>
+            <p style="color: #555; line-height: 1.6;">
+              Hi${name ? ' ' + name : ''},
+            </p>
+            <p style="color: #555; line-height: 1.6;">
+              We received a request to reset your password. Click the button below to create a new password:
+            </p>
+            <div style="text-align: center; margin: 32px 0;">
+              <a href="${resetUrl}" style="display: inline-block; background: #000; color: #fff; padding: 14px 40px; border-radius: 24px; text-decoration: none; font-weight: bold;">
+                Reset Password
+              </a>
+            </div>
+            <p style="color: #999; font-size: 13px; line-height: 1.6;">
+              This link will expire in 1 hour. If you didn't request a password reset, you can safely ignore this email.
+            </p>
+          </div>
+          <div style="background: #f5f5f5; padding: 16px 24px; text-align: center; color: #999; font-size: 12px;">
+            &copy; ${new Date().getFullYear()} CarMarket365. All rights reserved.
+          </div>
+        </div>
+      `,
+      text: `Reset your CarMarket365 password: ${resetUrl}\n\nThis link expires in 1 hour. If you didn't request this, ignore this email.`,
+    });
+  }
+
   async sendSearchAlertEmail(email: string, alertName: string, newCars: number): Promise<boolean> {
     return this.sendEmail({
       to: email,

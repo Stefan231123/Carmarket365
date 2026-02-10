@@ -1385,9 +1385,6 @@ class ApiClient {
 
   // OAuth Login Methods
   async loginWithOAuth(input: OAuthLoginInput): Promise<{ user: User; tokens: AuthTokens }> {
-    console.log(`Starting ${input.provider} OAuth login for:`, input.email);
-    
-    // First try the dedicated social login endpoint
     const socialLoginQuery = `
       mutation SocialLogin($provider: String!, $token: String!, $email: String!, $name: String) {
         socialLogin(provider: $provider, token: $token, email: $email, name: $name) {
@@ -1427,8 +1424,62 @@ class ApiClient {
 
     const { user, access_token } = response.data.socialLogin;
     this.saveTokenToStorage(access_token);
-    console.log(`${input.provider} OAuth login successful:`, user.email);
     return { user, tokens: { access_token } };
+  }
+
+  async sendContactMessage(input: {
+    name: string;
+    email: string;
+    phone?: string;
+    subject: string;
+    inquiryType: string;
+    message: string;
+  }): Promise<boolean> {
+    const query = `
+      mutation SendContactMessage($name: String!, $email: String!, $subject: String!, $inquiryType: String!, $message: String!, $phone: String) {
+        sendContactMessage(name: $name, email: $email, subject: $subject, inquiryType: $inquiryType, message: $message, phone: $phone)
+      }
+    `;
+
+    const response = await this.request<{ sendContactMessage: boolean }>(query, input);
+
+    if (response.errors) {
+      throw new Error(response.errors[0].message);
+    }
+
+    return response.data?.sendContactMessage ?? false;
+  }
+
+  async requestPasswordReset(email: string): Promise<boolean> {
+    const query = `
+      mutation RequestPasswordReset($email: String!) {
+        requestPasswordReset(email: $email)
+      }
+    `;
+
+    const response = await this.request<{ requestPasswordReset: boolean }>(query, { email });
+
+    if (response.errors) {
+      throw new Error(response.errors[0].message);
+    }
+
+    return response.data?.requestPasswordReset ?? false;
+  }
+
+  async resetPassword(token: string, email: string, newPassword: string): Promise<boolean> {
+    const query = `
+      mutation ResetPassword($token: String!, $email: String!, $newPassword: String!) {
+        resetPassword(token: $token, email: $email, newPassword: $newPassword)
+      }
+    `;
+
+    const response = await this.request<{ resetPassword: boolean }>(query, { token, email, newPassword });
+
+    if (response.errors) {
+      throw new Error(response.errors[0].message);
+    }
+
+    return response.data?.resetPassword ?? false;
   }
 }
 

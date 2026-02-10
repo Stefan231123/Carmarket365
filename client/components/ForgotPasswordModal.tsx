@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { apiClient } from '@shared/api-client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -39,14 +40,10 @@ export function ForgotPasswordModal({ isOpen, onClose }: ForgotPasswordModalProp
     }
 
     try {
-      // Simulate API call - replace with actual backend integration later
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      console.log('Password reset requested for:', email);
-      
+      await apiClient.requestPasswordReset(email);
       setIsSuccess(true);
     } catch (err) {
-      setError(t('common.error'));
+      setError(err instanceof Error ? err.message : t('common.error'));
     } finally {
       setIsLoading(false);
     }
