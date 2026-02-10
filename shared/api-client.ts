@@ -62,7 +62,10 @@ export interface RegisterInput {
   email: string;
   password: string;
   name?: string;
-  role?: 'USER' | 'DEALER';
+  dealerName?: string;
+  dealerAddress?: string;
+  dealerCity?: string;
+  dealerPhoneNumber?: string;
 }
 
 export interface OAuthLoginInput {

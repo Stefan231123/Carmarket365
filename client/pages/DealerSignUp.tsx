@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Building2, User, MapPin, Eye, EyeOff, FileText, Shield, Mail } from 'lucide-react';
+import { ArrowLeft, Building2, User, MapPin, Eye, EyeOff, FileText, Shield, Loader2 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/card';
 import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Checkbox } from '../components/ui/checkbox';
+import { Alert, AlertDescription } from '../components/ui/alert';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '../hooks/useTranslation';
+import { useSafeAuth } from '../contexts/AuthContextSafe';
 
 interface DealerFormData {
   // Business Information
@@ -50,6 +52,7 @@ interface DealerSignUpProps {
 export default function DealerSignUp({ onBackToSignIn, onSignUpSuccess }: DealerSignUpProps) {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { register } = useSafeAuth();
   const [formData, setFormData] = useState<DealerFormData>({
     // Business Information
     businessName: '',
@@ -86,6 +89,8 @@ export default function DealerSignUp({ onBackToSignIn, onSignUpSuccess }: Dealer
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
@@ -137,14 +142,32 @@ export default function DealerSignUp({ onBackToSignIn, onSignUpSuccess }: Dealer
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (validateForm()) {
-      // Handle dealer registration logic here
-      console.log("Dealer registration:", formData);
-      // Navigate to dealer dashboard after successful registration
+    setSubmitError(null);
+
+    if (!validateForm()) return;
+
+    setIsLoading(true);
+    try {
+      const fullName = `${formData.firstName} ${formData.lastName}`.trim();
+      const fullAddress = [formData.street, formData.postalCode, formData.state].filter(Boolean).join(', ');
+
+      await register({
+        email: formData.email,
+        password: formData.password,
+        name: fullName,
+        dealerName: formData.businessName,
+        dealerAddress: fullAddress,
+        dealerCity: formData.city,
+        dealerPhoneNumber: formData.phone,
+      });
+
       navigate('/dealer-dashboard');
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : 'Registration failed');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -584,10 +607,20 @@ export default function DealerSignUp({ onBackToSignIn, onSignUpSuccess }: Dealer
               </CardContent>
             </Card>
 
+            {submitError && (
+              <Alert variant="destructive" className="rounded-2xl">
+                <AlertDescription>{submitError}</AlertDescription>
+              </Alert>
+            )}
+
             {/* Submit Button */}
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center items-center">
-              <Button type="submit" className="w-full sm:w-auto bg-black text-white hover:bg-black/90 rounded-full px-6 h-12">
-                {t('auth.createDealerAccount')}
+              <Button type="submit" disabled={isLoading} className="w-full sm:w-auto bg-black text-white hover:bg-black/90 rounded-full px-6 h-12">
+                {isLoading ? (
+                  <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> {t('common.loading')}</>
+                ) : (
+                  t('auth.createDealerAccount')
+                )}
               </Button>
               <Button
                 type="button"

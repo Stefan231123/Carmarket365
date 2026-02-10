@@ -182,6 +182,28 @@ export default function SellCar() {
     setSubmitError('');
     setUploadProgress('');
 
+    // Validate required fields
+    if (!vehicleDetails.make || !vehicleDetails.model) {
+      setSubmitError(t('sell.validation.makeModelRequired') || 'Make and model are required');
+      setIsSubmitting(false);
+      return;
+    }
+    if (!vehicleDetails.price || parseFloat(vehicleDetails.price) <= 0) {
+      setSubmitError(t('sell.validation.priceRequired') || 'Please enter a valid price');
+      setIsSubmitting(false);
+      return;
+    }
+    if (!vehicleDetails.mileage || parseInt(vehicleDetails.mileage) < 0) {
+      setSubmitError(t('sell.validation.mileageRequired') || 'Please enter a valid mileage');
+      setIsSubmitting(false);
+      return;
+    }
+    if (!vehicleDetails.location) {
+      setSubmitError(t('sell.validation.locationRequired') || 'Location is required');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
       const input = {
         make: vehicleDetails.make,
@@ -213,6 +235,7 @@ export default function SellCar() {
         (img: any) => img.compressed || img.file
       );
 
+      const failedImages: number[] = [];
       if (imagesToUpload.length > 0) {
         for (let i = 0; i < imagesToUpload.length; i++) {
           const img = imagesToUpload[i];
@@ -233,13 +256,17 @@ export default function SellCar() {
               isPrimary: i === 0,
             });
           } catch (imgError) {
-            console.warn(`Failed to upload image ${i + 1}:`, imgError);
-            // Continue with remaining images even if one fails
+            failedImages.push(i + 1);
           }
         }
       }
 
-      navigate('/private-dashboard');
+      if (failedImages.length > 0) {
+        setSubmitError(`Listing created, but ${failedImages.length} image(s) failed to upload. You can add them later from your dashboard.`);
+        setTimeout(() => navigate('/private-dashboard'), 3000);
+      } else {
+        navigate('/private-dashboard');
+      }
     } catch (error) {
       setSubmitError(error instanceof Error ? error.message : 'Failed to create listing');
     } finally {
@@ -430,6 +457,9 @@ export default function SellCar() {
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.mileage')} *</label>
                         <Input
+                          type="number"
+                          min="0"
+                          max="9999999"
                           placeholder={t('sell.placeholders.enterMileage')}
                           value={vehicleDetails.mileage}
                           onChange={(e) => setVehicleDetails({...vehicleDetails, mileage: e.target.value})}
@@ -522,6 +552,9 @@ export default function SellCar() {
                         <div className="relative">
                           <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                           <Input
+                            type="number"
+                            min="0"
+                            max="99999999"
                             className="pl-10"
                             placeholder={t('sell.placeholders.priceExample')}
                             value={vehicleDetails.price}

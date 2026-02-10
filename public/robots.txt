@@ -12,3 +12,18 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Disallow private/admin pages
+Disallow: /admin-dashboard
+Disallow: /admin/
+Disallow: /private-dashboard
+Disallow: /dealer-dashboard
+Disallow: /dashboard
+
+# Disallow auth pages
+Disallow: /signin
+Disallow: /signup
+Disallow: /dealer-signup
+Disallow: /reset-password
+
+Sitemap: https://www.carmarket365.com/sitemap.xml
