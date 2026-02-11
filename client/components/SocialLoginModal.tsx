@@ -15,6 +15,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Info, ExternalLink, Mail, Loader2 } from 'lucide-react';
 import { useSafeAuth } from '@/contexts/AuthContextSafe';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
 
 interface SocialLoginModalProps {
@@ -33,6 +34,7 @@ declare global {
 
 export function SocialLoginModal({ isOpen, onClose, provider }: SocialLoginModalProps) {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const { loginWithOAuth } = useSafeAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -161,6 +163,7 @@ export function SocialLoginModal({ isOpen, onClose, provider }: SocialLoginModal
             });
 
             onClose();
+            navigate('/');
           } catch (error) {
             console.error('Google OAuth callback error:', error);
             setError(error instanceof Error ? error.message : 'Google login failed');
@@ -256,6 +259,7 @@ export function SocialLoginModal({ isOpen, onClose, provider }: SocialLoginModal
             });
 
             onClose();
+            navigate('/');
           } catch (error) {
             console.error('Facebook OAuth error:', error);
             setError(error instanceof Error ? error.message : 'Facebook login failed');
