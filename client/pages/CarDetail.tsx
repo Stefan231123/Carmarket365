@@ -14,7 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
 import { 
   ArrowLeft, 
@@ -742,7 +742,8 @@ export default function CarDetail() {
 
       {/* Fullscreen Image Modal */}
       <Dialog open={isFullscreenModalOpen} onOpenChange={setIsFullscreenModalOpen}>
-        <DialogContent className="max-w-[100vw] max-h-[100vh] w-full h-full p-0 bg-black/95">
+        <DialogContent className="max-w-[100vw] max-h-[100vh] w-full h-full p-0 bg-black/95" aria-describedby={undefined}>
+          <DialogTitle className="sr-only">{t('carDetail.imageGallery')}</DialogTitle>
           <div className="relative w-full h-full flex items-center justify-center">
             {/* Close Button */}
             <Button

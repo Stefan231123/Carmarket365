@@ -73,6 +73,25 @@ class SecureTokenManager {
   }
 
   /**
+   * Migrate tokens from any legacy storage keys to the current key
+   */
+  public migrateLegacyTokens(): void {
+    try {
+      const legacyKeys = ['token', 'jwt_token', 'auth_token', 'carmarket_token'];
+      for (const key of legacyKeys) {
+        const legacyToken = localStorage.getItem(key);
+        if (legacyToken && isValidTokenFormat(legacyToken)) {
+          localStorage.setItem(AUTH_TOKEN_KEY, legacyToken);
+          localStorage.removeItem(key);
+          break;
+        }
+      }
+    } catch {
+      // Silently ignore migration errors
+    }
+  }
+
+  /**
    * No-op: CSRF is not needed with GraphQL + JWT auth
    */
   public async initializeCSRFToken(): Promise<string | null> {
