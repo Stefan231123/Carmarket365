@@ -150,21 +150,21 @@ export default function DealerDashboard() {
   return (
     <>
       <AdminBreadcrumb currentPage="Dealer Dashboard" />
-      <section className="py-20 bg-muted/30">
+      <section className="py-10 md:py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
-          <h1 className="text-4xl md:text-5xl mb-3 text-foreground">
+          <h1 className="text-3xl md:text-5xl mb-3 text-foreground">
             {t('dealerDashboard.title')}
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-base md:text-xl text-muted-foreground max-w-3xl mx-auto">
             {t('dealerDashboard.subtitle')}
           </p>
         </div>
 
-        <Card className="max-w-5xl mx-auto p-8 rounded-2xl border border-zinc-100 shadow-xl bg-white">
+        <Card className="max-w-5xl mx-auto p-4 sm:p-6 md:p-8 rounded-2xl border border-zinc-100 shadow-xl bg-white">
           {/* Tab Navigation */}
-          <div className="flex justify-center mb-6">
-            <div className="flex items-center rounded-full p-1">
+          <div className="flex justify-center mb-6 overflow-x-auto">
+            <div className="flex flex-wrap items-center justify-center gap-1 rounded-full p-1">
               {tabConfigs.map((tab) => {
                 const IconComponent = tab.icon;
                 const isActive = activeTab === tab.value;
@@ -173,14 +173,14 @@ export default function DealerDashboard() {
                     key={tab.value}
                     onClick={() => setActiveTab(tab.value)}
                     aria-pressed={isActive}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-full transition-colors ${
+                    className={`flex items-center gap-2 px-3 sm:px-4 py-2 min-h-[44px] rounded-full transition-colors whitespace-nowrap ${
                       isActive
                         ? 'bg-black text-white'
                         : 'bg-zinc-100 text-muted-foreground hover:bg-zinc-200'
                     }`}
                   >
                     <IconComponent className="h-4 w-4" />
-                    <span className="text-sm font-medium">{tab.label}</span>
+                    <span className="text-xs sm:text-sm font-medium">{tab.label}</span>
                   </button>
                 );
               })}

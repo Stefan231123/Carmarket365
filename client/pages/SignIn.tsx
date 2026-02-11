@@ -97,21 +97,21 @@ export default function SignIn() {
             {/* User Type Selection */}
             <div className="space-y-2">
               <Label className="text-sm text-muted-foreground">{t('auth.userType')}</Label>
-              <div className="bg-white rounded-full p-1 border grid grid-cols-2 gap-1">
+              <div className="bg-white rounded-2xl p-1 border grid grid-cols-2 gap-1">
                 <Button
                   type="button"
                   variant={userType === 'private' ? 'default' : 'ghost'}
-                  className={`h-auto p-4 min-h-[60px] flex flex-col items-center gap-1 relative rounded-full transition-all ${
-                    userType === 'private' 
-                      ? 'bg-black text-white shadow-sm' 
+                  className={`h-auto p-3 min-h-[60px] flex flex-col items-center gap-1 relative rounded-xl transition-all overflow-hidden ${
+                    userType === 'private'
+                      ? 'bg-black text-white shadow-sm'
                       : 'bg-zinc-100 text-muted-foreground hover:bg-zinc-200'
                   }`}
                   onClick={() => setUserType('private')}
                 >
-                  <User className="h-4 w-4" />
-                  <div className="text-center">
-                    <div className="text-xs font-medium">{t('auth.privatePerson')}</div>
-                    <div className="text-xs opacity-70">
+                  <User className="h-4 w-4 flex-shrink-0" />
+                  <div className="text-center w-full overflow-hidden">
+                    <div className="text-xs font-medium truncate">{t('auth.privatePerson')}</div>
+                    <div className="text-[10px] opacity-70 truncate">
                       {t('auth.privatePersonDescription')}
                     </div>
                   </div>
@@ -119,21 +119,21 @@ export default function SignIn() {
                 <Button
                   type="button"
                   variant={userType === 'dealer' ? 'default' : 'ghost'}
-                  className={`h-auto p-4 min-h-[60px] flex flex-col items-center gap-1 relative rounded-full transition-all ${
-                    userType === 'dealer' 
-                      ? 'bg-black text-white shadow-sm' 
+                  className={`h-auto p-3 min-h-[60px] flex flex-col items-center gap-1 relative rounded-xl transition-all overflow-hidden ${
+                    userType === 'dealer'
+                      ? 'bg-black text-white shadow-sm'
                       : 'bg-zinc-100 text-muted-foreground hover:bg-zinc-200'
                   }`}
                   onClick={() => setUserType('dealer')}
                 >
-                  <Building2 className="h-4 w-4" />
-                  <div className="text-center">
-                    <div className="text-xs font-medium">{t('common.dealer')}</div>
-                    <div className="text-xs opacity-70">
+                  <Building2 className="h-4 w-4 flex-shrink-0" />
+                  <div className="text-center w-full overflow-hidden">
+                    <div className="text-xs font-medium truncate">{t('common.dealer')}</div>
+                    <div className="text-[10px] opacity-70 truncate">
                       {t('auth.dealerDescription')}
                     </div>
                   </div>
-                  <Badge variant="secondary" className="absolute -top-4 -right-4 text-xs px-1 py-0.5 h-auto rounded-full bg-secondary text-secondary-foreground">
+                  <Badge variant="secondary" className="absolute -top-2 -right-2 text-[10px] px-1 py-0.5 h-auto rounded-full bg-secondary text-secondary-foreground">
                     {t('auth.pro')}
                   </Badge>
                 </Button>

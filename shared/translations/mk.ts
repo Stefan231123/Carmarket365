@@ -1758,6 +1758,8 @@ export const mkTranslations: TranslationStrings = {
 
   // Dashboard sections (simplified versions for now)
   dealerDashboard: {
+    title: 'Дилерски контролен панел',
+    subtitle: 'Управувајте со огласите, следете ги перформансите и развивајте го вашиот бизнис',
     overview: {
       stats: {
         activeListings: {
