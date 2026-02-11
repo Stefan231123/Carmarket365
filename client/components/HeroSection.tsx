@@ -54,7 +54,7 @@ export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSe
   };
 
   return (
-    <section className="py-20 bg-muted/30">
+    <section className="py-10 md:py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
           <h1 className="text-4xl md:text-5xl mb-3 text-foreground">
@@ -65,10 +65,10 @@ export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSe
           </p>
         </div>
 
-        <Card className="max-w-5xl mx-auto p-8 rounded-2xl border border-zinc-100 shadow-xl bg-white">
+        <Card className="max-w-5xl mx-auto p-4 sm:p-6 md:p-8 rounded-2xl border border-zinc-100 shadow-xl bg-white">
           {/* Vehicle Type Selector */}
           <div className="flex justify-center mb-6">
-            <div className="flex items-center rounded-full p-1">
+            <div className="flex flex-wrap items-center justify-center gap-1 rounded-full p-1">
               {vehicleTypes.map((type) => {
                 const IconComponent = type.icon;
                 const isActive = searchForm.vehicleType === type.id;

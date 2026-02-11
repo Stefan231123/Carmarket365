@@ -338,7 +338,7 @@ export default function CarDetail() {
       <div className="border-b border-zinc-100 bg-white">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link to="/cars" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors rounded-full px-4 py-2 hover:bg-zinc-100">
+            <Link to="/cars" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors rounded-full px-4 py-3 min-h-[44px] hover:bg-zinc-100">
               <ArrowLeft className="h-4 w-4" />
               {t('carDetail.backToSearch')}
             </Link>
@@ -354,7 +354,7 @@ export default function CarDetail() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-4 sm:py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Images and Details */}
           <div className="lg:col-span-2 space-y-6">
@@ -407,7 +407,7 @@ export default function CarDetail() {
 
             {/* Vehicle Information Tabs */}
             <Tabs defaultValue="overview" className="w-full">
-              <TabsList className="grid w-full grid-cols-4">
+              <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4">
                 <TabsTrigger value="overview">{t('carDetail.tabs.overview')}</TabsTrigger>
                 <TabsTrigger value="features">{t('carDetail.tabs.features')}</TabsTrigger>
                 <TabsTrigger value="inspection">{t('carDetail.tabs.inspection')}</TabsTrigger>
@@ -546,8 +546,8 @@ export default function CarDetail() {
             </Tabs>
           </div>
 
-          {/* Right Column - Price and Contact */}
-          <div className="space-y-6">
+          {/* Right Column - Price and Contact (shows first on mobile) */}
+          <div className="order-first lg:order-none space-y-6">
             {/* Price Card */}
             <Card className="border-zinc-100 rounded-2xl">
               <CardHeader>

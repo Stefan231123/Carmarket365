@@ -29,7 +29,7 @@ export function CountrySwitcher({ className, variant }: CountrySwitcherProps) {
   
   return (
     <Select value={currentLanguage} onValueChange={handleLanguageChange}>
-      <SelectTrigger className={`w-auto min-w-[40px] border-none hover:bg-white/10 ${className}`}>
+      <SelectTrigger className={`w-auto min-w-[44px] min-h-[44px] border-none hover:bg-white/10 ${className}`}>
         <SelectValue>
           <span className="text-lg">{currentLanguageDetails?.flag}</span>
         </SelectValue>

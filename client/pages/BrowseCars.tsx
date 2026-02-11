@@ -156,7 +156,7 @@ export default function BrowseCars() {
       description="Browse thousands of cars for sale across Europe. Filter by make, model, price, year, and more."
       canonical="/cars"
     />
-    <section className="py-20 bg-muted/30">
+    <section className="py-10 md:py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
           <div className="flex justify-center mb-6">
@@ -320,7 +320,7 @@ placeholder={t('browseCars.searchPlaceholder')}
               </Alert>
             )}
 
-            <Card className="p-8 rounded-2xl border border-zinc-100 shadow-xl bg-white">
+            <Card className="p-4 sm:p-6 md:p-8 rounded-2xl border border-zinc-100 shadow-xl bg-white">
               {/* Mobile Filters Toggle */}
               <div className="block md:hidden mb-6">
                 <Button 
@@ -536,27 +536,27 @@ placeholder={t('browseCars.filters.anyLocation')}
                                 {car.seller?.dealerName || car.seller?.name || t('auth.privatePerson')}
                               </div>
                             </div>
-                            <div className="flex gap-2">
-                              <Button 
-                                className="bg-zinc-100 border-none rounded-full hover:bg-zinc-200 h-10 min-h-[40px] px-4" 
-                                variant="outline" 
+                            <div className="flex flex-wrap gap-2">
+                              <Button
+                                className="bg-zinc-100 border-none rounded-full hover:bg-zinc-200 h-10 min-h-[44px] px-4"
+                                variant="outline"
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   handleContactClick(car);
                                 }}
                               >
                                 <Phone className="h-4 w-4 mr-2" />
-{t('browseCars.carCard.contactSeller')}
+                                <span className="truncate">{t('browseCars.carCard.contactSeller')}</span>
                               </Button>
-                              <Button 
-                                className="bg-black text-white hover:bg-black/90 rounded-full shadow-md h-10 min-h-[40px] px-4"
+                              <Button
+                                className="bg-black text-white hover:bg-black/90 rounded-full shadow-md h-10 min-h-[44px] px-4"
                                 onClick={(e) => {
                                   e.stopPropagation();
                                   handleCarClick(car.id);
                                 }}
                               >
                                 <Eye className="h-4 w-4 mr-2" />
-{t('browseCars.carCard.viewDetails')}
+                                <span className="truncate">{t('browseCars.carCard.viewDetails')}</span>
                               </Button>
                             </div>
                           </div>

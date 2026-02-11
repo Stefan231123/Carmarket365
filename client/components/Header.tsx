@@ -107,7 +107,7 @@ export function Header({
             </div>
             
             {/* Prominent Sell Link */}
-            <div className="hidden sm:flex">
+            <div className="hidden md:flex">
               <Button 
                 variant="outline"
                 size="sm"
@@ -231,7 +231,7 @@ export function Header({
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-64">
+              <SheetContent side="right" className="w-[280px] bg-white">
                 <SheetHeader>
                   <SheetTitle>{t('common.menu')}</SheetTitle>
                   <SheetDescription>
@@ -241,7 +241,7 @@ export function Header({
                 <div className="mt-6 space-y-3">
                   <Button 
                     variant="outline" 
-                    className="w-full justify-start h-12 text-base" 
+                    className="w-full justify-start h-12 text-sm overflow-hidden" 
                     onClick={() => handleNavClick(onSellClick)}
                   >
                     <Car className="h-5 w-5 mr-3" />
@@ -249,7 +249,7 @@ export function Header({
                   </Button>
                   <Button 
                     variant="outline" 
-                    className="w-full justify-start h-12 text-base" 
+                    className="w-full justify-start h-12 text-sm overflow-hidden" 
                     onClick={() => handleNavClick(onExpressSellClick)}
                   >
                     <Car className="h-5 w-5 mr-3" />
@@ -259,7 +259,7 @@ export function Header({
                     <>
                       <Button 
                         variant="outline" 
-                        className="w-full justify-start h-12 text-base" 
+                        className="w-full justify-start h-12 text-sm overflow-hidden" 
                         onClick={() => handleNavClick(handleDashboardClick)}
                       >
                         {(() => {
@@ -284,7 +284,7 @@ export function Header({
                   ) : (
                     <Button 
                       variant="outline" 
-                      className="w-full justify-start h-12 text-base" 
+                      className="w-full justify-start h-12 text-sm overflow-hidden" 
                       onClick={() => handleNavClick(onSignInClick)}
                     >
                       <User className="h-5 w-5 mr-3" />
