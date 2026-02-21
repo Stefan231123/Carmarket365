@@ -13,10 +13,10 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     JwtModule.register({
       secret: (() => {
         const secret = process.env.JWT_SECRET;
-        if (!secret && process.env.NODE_ENV === 'production') {
-          throw new Error('JWT_SECRET environment variable is required in production');
+        if (!secret) {
+          throw new Error('JWT_SECRET environment variable is required. Set it in your .env file.');
         }
-        return secret || 'dev-only-secret-do-not-use-in-production';
+        return secret;
       })(),
       signOptions: { expiresIn: '7d' },
     }),

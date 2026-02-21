@@ -1,14 +1,15 @@
-import { 
-  Controller, 
-  Post, 
-  Get, 
-  Body, 
-  Res, 
-  Req, 
+import {
+  Controller,
+  Post,
+  Get,
+  Body,
+  Res,
+  Req,
   HttpStatus,
   UseGuards,
   Headers,
   UnauthorizedException,
+  Logger,
 } from '@nestjs/common';
 import { Response, Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
@@ -27,6 +28,7 @@ interface CSRFTokenStore {
 
 @Controller('api/auth')
 export class SecureTokenController {
+  private readonly logger = new Logger(SecureTokenController.name);
   private csrfTokens: CSRFTokenStore = {};
 
   constructor(
@@ -79,7 +81,7 @@ export class SecureTokenController {
       res.status(HttpStatus.OK).json({ success: true });
       
     } catch (error) {
-      console.error('Error storing tokens:', error);
+      this.logger.error('Error storing tokens:', error);
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ 
         error: 'Failed to store tokens' 
       });
@@ -127,7 +129,7 @@ export class SecureTokenController {
       }
       
     } catch (error) {
-      console.error('Error retrieving token:', error);
+      this.logger.error('Error retrieving token:', error);
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ 
         error: 'Failed to retrieve token' 
       });
@@ -159,7 +161,7 @@ export class SecureTokenController {
       }
       
     } catch (error) {
-      console.error('Error refreshing token:', error);
+      this.logger.error('Error refreshing token:', error);
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ 
         error: 'Failed to refresh token' 
       });
@@ -188,7 +190,7 @@ export class SecureTokenController {
       res.status(HttpStatus.OK).json({ success: true });
       
     } catch (error) {
-      console.error('Error during logout:', error);
+      this.logger.error('Error during logout:', error);
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ 
         error: 'Failed to logout' 
       });
@@ -229,7 +231,7 @@ export class SecureTokenController {
       return newAccessToken;
       
     } catch (error) {
-      console.error('Refresh token validation failed:', error);
+      this.logger.error('Refresh token validation failed:', error);
       return null;
     }
   }

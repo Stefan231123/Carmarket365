@@ -12,7 +12,9 @@ export interface EmailTemplate {
 export class EmailService {
   private readonly logger = new Logger(EmailService.name);
   private resend: Resend | null = null;
-  private readonly fromAddress = 'CarMarket365 <noreply@carmarket365.com>';
+  private readonly fromAddress = process.env.FROM_EMAIL || 'CarMarket365 <noreply@carmarket365.com>';
+  private readonly contactEmail = process.env.CONTACT_EMAIL;
+  private readonly frontendUrl = process.env.FRONTEND_URL || 'https://www.carmarket365.com';
 
   constructor() {
     const apiKey = process.env.RESEND_API_KEY;
@@ -73,7 +75,7 @@ export class EmailService {
               <li>Post your own car for sale</li>
               <li>Contact sellers directly</li>
             </ul>
-            <a href="https://www.carmarket365.com" style="display: inline-block; background: #000; color: #fff; padding: 12px 32px; border-radius: 24px; text-decoration: none; margin-top: 16px;">
+            <a href="${this.frontendUrl}" style="display: inline-block; background: #000; color: #fff; padding: 12px 32px; border-radius: 24px; text-decoration: none; margin-top: 16px;">
               Start Browsing
             </a>
           </div>
@@ -82,7 +84,44 @@ export class EmailService {
           </div>
         </div>
       `,
-      text: `Welcome${name ? ', ' + name : ''}! Thank you for joining CarMarket365. Start browsing at https://www.carmarket365.com`,
+      text: `Welcome${name ? ', ' + name : ''}! Thank you for joining CarMarket365. Start browsing at ${this.frontendUrl}`,
+    });
+  }
+
+  async sendVerificationEmail(email: string, name: string, verificationToken: string): Promise<boolean> {
+    const verifyUrl = `${this.frontendUrl}/verify-email?token=${verificationToken}&email=${encodeURIComponent(email)}`;
+
+    return this.sendEmail({
+      to: email,
+      subject: 'Verify your CarMarket365 email',
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <div style="background: #000; padding: 24px; text-align: center;">
+            <h1 style="color: #fff; margin: 0; font-size: 24px;">CarMarket365</h1>
+          </div>
+          <div style="padding: 32px 24px;">
+            <h2 style="color: #111;">Verify Your Email</h2>
+            <p style="color: #555; line-height: 1.6;">
+              Hi${name ? ' ' + name : ''},
+            </p>
+            <p style="color: #555; line-height: 1.6;">
+              Please verify your email address to get full access to CarMarket365. Click the button below:
+            </p>
+            <div style="text-align: center; margin: 32px 0;">
+              <a href="${verifyUrl}" style="display: inline-block; background: #000; color: #fff; padding: 14px 40px; border-radius: 24px; text-decoration: none; font-weight: bold;">
+                Verify Email
+              </a>
+            </div>
+            <p style="color: #999; font-size: 13px; line-height: 1.6;">
+              This link will expire in 24 hours. If you didn't create an account, you can safely ignore this email.
+            </p>
+          </div>
+          <div style="background: #f5f5f5; padding: 16px 24px; text-align: center; color: #999; font-size: 12px;">
+            &copy; ${new Date().getFullYear()} CarMarket365. All rights reserved.
+          </div>
+        </div>
+      `,
+      text: `Verify your CarMarket365 email: ${verifyUrl}\n\nThis link expires in 24 hours. If you didn't create this account, ignore this email.`,
     });
   }
 
@@ -111,7 +150,7 @@ export class EmailService {
               <p style="margin: 0 0 8px; color: #333;"><strong>Email:</strong> ${inquirerEmail}</p>
               <p style="margin: 12px 0 0; color: #555;">"${message}"</p>
             </div>
-            <a href="https://www.carmarket365.com/private-dashboard" style="display: inline-block; background: #000; color: #fff; padding: 12px 32px; border-radius: 24px; text-decoration: none; margin-top: 16px;">
+            <a href="${this.frontendUrl}/private-dashboard" style="display: inline-block; background: #000; color: #fff; padding: 12px 32px; border-radius: 24px; text-decoration: none; margin-top: 16px;">
               View & Respond
             </a>
           </div>
@@ -120,7 +159,7 @@ export class EmailService {
           </div>
         </div>
       `,
-      text: `New inquiry for "${carTitle}" from ${inquirerName} (${inquirerEmail}): "${message}". Log in to respond: https://www.carmarket365.com/private-dashboard`,
+      text: `New inquiry for "${carTitle}" from ${inquirerName} (${inquirerEmail}): "${message}". Log in to respond: ${this.frontendUrl}/private-dashboard`,
     });
   }
 
@@ -133,7 +172,13 @@ export class EmailService {
     message: string,
   ): Promise<boolean> {
     return this.sendEmail({
-      to: process.env.CONTACT_EMAIL || 'zipthatfat@gmail.com',
+      to: (() => {
+        if (!this.contactEmail) {
+          this.logger.error('CONTACT_EMAIL environment variable is not set. Contact form email cannot be sent.');
+          throw new Error('CONTACT_EMAIL environment variable is required.');
+        }
+        return this.contactEmail;
+      })(),
       subject: `[Contact Form] ${subject}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -163,7 +208,7 @@ export class EmailService {
   }
 
   async sendPasswordResetEmail(email: string, name: string, resetToken: string): Promise<boolean> {
-    const resetUrl = `https://www.carmarket365.com/reset-password?token=${resetToken}&email=${encodeURIComponent(email)}`;
+    const resetUrl = `${this.frontendUrl}/reset-password?token=${resetToken}&email=${encodeURIComponent(email)}`;
 
     return this.sendEmail({
       to: email,
@@ -213,7 +258,7 @@ export class EmailService {
             <p style="color: #555; line-height: 1.6;">
               We found <strong>${newCars} new car${newCars > 1 ? 's' : ''}</strong> matching your search alert "<strong>${alertName}</strong>".
             </p>
-            <a href="https://www.carmarket365.com/cars" style="display: inline-block; background: #000; color: #fff; padding: 12px 32px; border-radius: 24px; text-decoration: none; margin-top: 16px;">
+            <a href="${this.frontendUrl}/cars" style="display: inline-block; background: #000; color: #fff; padding: 12px 32px; border-radius: 24px; text-decoration: none; margin-top: 16px;">
               View Matches
             </a>
           </div>
@@ -222,7 +267,7 @@ export class EmailService {
           </div>
         </div>
       `,
-      text: `${newCars} new cars match your alert "${alertName}". View them at https://www.carmarket365.com/cars`,
+      text: `${newCars} new cars match your alert "${alertName}". View them at ${this.frontendUrl}/cars`,
     });
   }
 }

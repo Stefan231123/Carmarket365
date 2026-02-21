@@ -30,6 +30,23 @@ function loadGoogleAnalytics(measurementId: string) {
   });
 }
 
+/**
+ * Track a custom GA4 event. No-ops if GA isn't loaded or cookies weren't accepted.
+ */
+export function trackEvent(
+  eventName: string,
+  params?: Record<string, string | number | boolean>,
+) {
+  if (!GA_MEASUREMENT_ID || !window.gtag) return;
+  try {
+    const consent = localStorage.getItem(COOKIE_CONSENT_KEY);
+    if (consent !== "accepted") return;
+    window.gtag("event", eventName, params);
+  } catch {
+    // localStorage might be blocked
+  }
+}
+
 export function Analytics() {
   const location = useLocation();
 

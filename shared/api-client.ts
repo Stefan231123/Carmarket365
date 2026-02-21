@@ -3,8 +3,6 @@
  * Handles all communication with the backend NestJS GraphQL API
  */
 
-import { tokenManager } from '../client/utils/secureTokenManager';
-
 export interface ApiResponse<T> {
   data?: T;
   errors?: Array<{
@@ -113,9 +111,11 @@ export interface FacebookLoginResponse {
 
 class ApiClient {
   private baseUrl: string;
-  private token: string | null = null;
+  private readonly isProduction: boolean;
 
   constructor() {
+    this.isProduction = import.meta.env.PROD || false;
+
     // Determine API endpoint: use env variable, detect production by hostname, or fallback to localhost
     const envEndpoint = import.meta.env.VITE_GRAPHQL_ENDPOINT;
     if (envEndpoint) {
@@ -126,48 +126,6 @@ class ApiClient {
     } else {
       this.baseUrl = 'http://localhost:3002/graphql';
     }
-    // Load token asynchronously and initialize CSRF
-    this.initializeSecureAuth().catch(console.error);
-  }
-
-  private async initializeSecureAuth() {
-    if (typeof window !== 'undefined') {
-      // Migrate legacy tokens first
-      tokenManager.migrateLegacyTokens();
-      
-      // Initialize CSRF token
-      await tokenManager.initializeCSRFToken();
-      
-      // Load from secure storage
-      this.token = await tokenManager.getAccessToken();
-    }
-  }
-
-  private async loadTokenFromStorage() {
-    // This method is now replaced by initializeSecureAuth
-    await this.initializeSecureAuth();
-  }
-
-  private async saveTokenToStorage(token: string) {
-    if (typeof window !== 'undefined') {
-      const success = await tokenManager.setTokens({ access_token: token });
-      if (success) {
-        this.token = token;
-      } else {
-        console.error('Failed to store token securely');
-      }
-    }
-  }
-
-  private async removeTokenFromStorage() {
-    if (typeof window !== 'undefined') {
-      const success = await tokenManager.clearTokens();
-      this.token = null;
-      
-      if (!success) {
-        console.error('Failed to clear tokens completely');
-      }
-    }
   }
 
   private async request<T>(query: string, variables?: any): Promise<ApiResponse<T>> {
@@ -175,25 +133,11 @@ class ApiClient {
       'Content-Type': 'application/json',
     };
 
-    // For mutations, include CSRF token
-    const isStateChanging = query.trim().toLowerCase().startsWith('mutation');
-    if (isStateChanging) {
-      const csrfToken = sessionStorage.getItem('csrf_token');
-      if (csrfToken) {
-        headers['X-CSRF-Token'] = csrfToken;
-      }
-    }
-
-    // Include Authorization header if we have a token (for Bearer token fallback)
-    if (this.token) {
-      headers['Authorization'] = `Bearer ${this.token}`;
-    }
-
     try {
       const response = await fetch(this.baseUrl, {
         method: 'POST',
         headers,
-        credentials: 'include', // This ensures cookies are sent
+        credentials: 'include', // httpOnly cookies sent automatically
         body: JSON.stringify({
           query,
           variables,
@@ -244,21 +188,17 @@ class ApiClient {
 
     if (response.data?.login) {
       const { user, access_token } = response.data.login;
-      this.token = access_token;
-      // Also store in localStorage for apollo-client's auth link
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('authToken', access_token);
-      }
-      return { user, tokens: { access_token } };
+      // Cookie is set automatically by the backend via Set-Cookie header
+      return { user, tokens: { access_token: access_token || '' } };
     }
 
     throw new Error('Login failed');
   }
 
-  async register(input: RegisterInput): Promise<{ user: User; tokens: AuthTokens }> {
+  async register(input: RegisterInput, captchaToken?: string): Promise<{ user: User; tokens: AuthTokens }> {
     const query = `
-      mutation Register($input: RegisterInput!) {
-        register(input: $input) {
+      mutation Register($input: RegisterInput!, $captchaToken: String) {
+        register(input: $input, captchaToken: $captchaToken) {
           user {
             id
             email
@@ -277,7 +217,7 @@ class ApiClient {
 
     const response = await this.request<{ register: { user: User; access_token: string } }>(
       query,
-      { input }
+      { input, captchaToken }
     );
 
     if (response.errors) {
@@ -286,12 +226,8 @@ class ApiClient {
 
     if (response.data?.register) {
       const { user, access_token } = response.data.register;
-      this.token = access_token;
-      // Also store in localStorage for apollo-client's auth link
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('authToken', access_token);
-      }
-      return { user, tokens: { access_token } };
+      // Cookie is set automatically by the backend via Set-Cookie header
+      return { user, tokens: { access_token: access_token || '' } };
     }
 
     throw new Error('Registration failed');
@@ -299,7 +235,7 @@ class ApiClient {
 
   async logout(): Promise<void> {
     try {
-      // Call GraphQL logout mutation
+      // Backend clears the httpOnly cookie via Set-Cookie
       const query = `
         mutation Logout {
           logout
@@ -307,17 +243,8 @@ class ApiClient {
       `;
 
       await this.request<{ logout: boolean }>(query);
-      
-      // Clear local token reference
-      this.token = null;
-      
-      // Clear local storage fallback
-      await this.removeTokenFromStorage();
     } catch (error) {
       console.error('Logout error:', error);
-      // Clear local state even if backend call fails
-      this.token = null;
-      await this.removeTokenFromStorage();
     }
   }
 
@@ -341,20 +268,13 @@ class ApiClient {
 
     try {
       const response = await this.request<{ me: User }>(query);
-      
+
       if (response.errors) {
-        // Clear tokens on authentication error
-        this.token = null;
-        await this.removeTokenFromStorage();
         return null;
       }
 
       return response.data?.me || null;
-    } catch (error) {
-      console.error('getCurrentUser error:', error);
-      // Clear tokens on error
-      this.token = null;
-      await this.removeTokenFromStorage();
+    } catch {
       return null;
     }
   }
@@ -414,13 +334,14 @@ class ApiClient {
 
       if (response.errors) {
         console.warn('GraphQL errors:', response.errors);
-        // For now, return mock data if backend has issues
+        if (this.isProduction) return [];
         return this.getMockCars(filters);
       }
 
       // Transform backend data to frontend Car interface
       const backendCars = response.data?.cars || [];
       if (backendCars.length === 0) {
+        if (this.isProduction) return [];
         console.log('No cars returned from backend, using mock data');
         return this.getMockCars(filters);
       }
@@ -460,7 +381,8 @@ class ApiClient {
       }));
 
     } catch (error) {
-      console.warn('Backend connection failed, using mock data:', error);
+      console.warn('Backend connection failed:', error);
+      if (this.isProduction) return [];
       return this.getMockCars(filters);
     }
   }
@@ -715,12 +637,13 @@ class ApiClient {
 
       if (response.errors) {
         console.warn('GraphQL errors for single car:', response.errors);
-        // Return mock car if backend has issues
+        if (this.isProduction) return null;
         return this.getMockCarById(id);
       }
 
       const car = response.data?.car;
       if (!car) {
+        if (this.isProduction) return null;
         return this.getMockCarById(id);
       }
 
@@ -759,7 +682,8 @@ class ApiClient {
       };
 
     } catch (error) {
-      console.warn('Backend connection failed for single car, using mock data:', error);
+      console.warn('Backend connection failed for single car:', error);
+      if (this.isProduction) return null;
       return this.getMockCarById(id);
     }
   }
@@ -849,10 +773,10 @@ class ApiClient {
     inquirerName: string;
     inquirerEmail: string;
     inquirerPhone?: string;
-  }): Promise<any> {
+  }, captchaToken?: string): Promise<any> {
     const query = `
-      mutation CreateCarInquiry($input: CreateCarInquiryInput!) {
-        createCarInquiry(input: $input) {
+      mutation CreateCarInquiry($input: CreateCarInquiryInput!, $captchaToken: String) {
+        createCarInquiry(input: $input, captchaToken: $captchaToken) {
           id
           type
           message
@@ -862,7 +786,7 @@ class ApiClient {
       }
     `;
 
-    const response = await this.request<{ createCarInquiry: any }>(query, { input });
+    const response = await this.request<{ createCarInquiry: any }>(query, { input, captchaToken });
 
     if (response.errors) {
       throw new Error(response.errors[0].message);
@@ -1081,14 +1005,10 @@ class ApiClient {
     return response.data?.carModelsByMake || [];
   }
 
-  // Helper method to check if user is authenticated
+  // Auth state is managed by httpOnly cookies — use getCurrentUser() to check
   isAuthenticated(): boolean {
-    return !!this.token;
-  }
-
-  // Helper method to get current token
-  getToken(): string | null {
-    return this.token;
+    // Cannot check httpOnly cookie from JS; callers should use getCurrentUser()
+    return false;
   }
 
   // Admin-specific methods
@@ -1254,138 +1174,6 @@ class ApiClient {
     }
   }
 
-  // Mock data fallbacks
-  private getMockRecentActivity(): any[] {
-    return [
-      {
-        id: '1',
-        action: 'New dealer registration',
-        user: 'Premium Motors GmbH',
-        time: '2 hours ago',
-        details: 'Dealer verification pending'
-      },
-      {
-        id: '2',
-        action: 'Listing flagged for review',
-        user: 'Elite Cars',
-        time: '4 hours ago',
-        details: 'Reported by user for suspicious pricing'
-      },
-      {
-        id: '3',
-        action: 'User account suspended',
-        user: 'suspicious.user@email.com',
-        time: '6 hours ago',
-        details: 'Multiple policy violations'
-      },
-      {
-        id: '4',
-        action: 'Payment processed',
-        user: 'AutoHaus Berlin',
-        time: '8 hours ago',
-        details: '€2,500 featured listing fee'
-      }
-    ];
-  }
-
-  private getMockUsers(): any[] {
-    return [
-      {
-        id: '1',
-        name: 'John Dealer',
-        email: 'john@premiumcars.de',
-        role: 'DEALER',
-        isActive: true,
-        createdAt: '2024-01-15',
-        updatedAt: '2024-01-20',
-        lastLoginAt: '2024-01-20',
-        dealerName: 'Premium Cars Berlin',
-        dealerPhoneNumber: '+49 30 12345678'
-      },
-      {
-        id: '2',
-        name: 'Anna Customer',
-        email: 'anna@example.com',
-        role: 'USER',
-        isActive: true,
-        createdAt: '2024-01-10',
-        updatedAt: '2024-01-19',
-        lastLoginAt: '2024-01-19',
-        dealerName: null,
-        dealerPhoneNumber: null
-      },
-      {
-        id: '3',
-        name: 'Bob Admin',
-        email: 'bob@carmarket365.com',
-        role: 'ADMIN',
-        isActive: true,
-        createdAt: '2023-12-01',
-        updatedAt: '2024-01-20',
-        lastLoginAt: '2024-01-20',
-        dealerName: null,
-        dealerPhoneNumber: null
-      }
-    ];
-  }
-
-  private getMockListings(): any[] {
-    return [
-      {
-        id: '1',
-        title: 'BMW 3 Series 2022',
-        description: 'Excellent condition BMW',
-        price: 35000,
-        status: 'ACTIVE',
-        year: 2022,
-        mileage: 15000,
-        user: { id: '1', name: 'John Dealer', email: 'john@premiumcars.de' },
-        carMake: { name: 'BMW' },
-        carModel: { name: '3 Series' },
-        createdAt: '2024-01-15',
-        updatedAt: '2024-01-15'
-      },
-      {
-        id: '2',
-        title: 'Audi A4 2021',
-        description: 'Great Audi sedan',
-        price: 42000,
-        status: 'PENDING_APPROVAL',
-        year: 2021,
-        mileage: 25000,
-        user: { id: '4', name: 'Premium Motors', email: 'premium@motors.de' },
-        carMake: { name: 'Audi' },
-        carModel: { name: 'A4' },
-        createdAt: '2024-01-10',
-        updatedAt: '2024-01-10'
-      },
-      {
-        id: '3',
-        title: 'Mercedes C-Class 2020',
-        description: 'Luxury Mercedes sedan',
-        price: 38000,
-        status: 'SOLD',
-        year: 2020,
-        mileage: 35000,
-        user: { id: '5', name: 'Elite Cars', email: 'elite@cars.de' },
-        carMake: { name: 'Mercedes-Benz' },
-        carModel: { name: 'C-Class' },
-        createdAt: '2024-01-05',
-        updatedAt: '2024-01-05'
-      }
-    ];
-  }
-
-  private getMockSystemHealth(): any {
-    return {
-      serverUptime: '99.9%',
-      averageResponseTime: '145ms',
-      activeSessions: 1247,
-      errorRate: '0.02%',
-      lastUpdated: new Date().toISOString()
-    };
-  }
-
   // OAuth Login Methods
   async loginWithOAuth(input: OAuthLoginInput): Promise<{ user: User; tokens: AuthTokens }> {
     const socialLoginQuery = `
@@ -1426,8 +1214,8 @@ class ApiClient {
     }
 
     const { user, access_token } = response.data.socialLogin;
-    this.saveTokenToStorage(access_token);
-    return { user, tokens: { access_token } };
+    // Cookie is set automatically by the backend via Set-Cookie header
+    return { user, tokens: { access_token: access_token || '' } };
   }
 
   async sendContactMessage(input: {
@@ -1437,14 +1225,14 @@ class ApiClient {
     subject: string;
     inquiryType: string;
     message: string;
-  }): Promise<boolean> {
+  }, captchaToken?: string): Promise<boolean> {
     const query = `
-      mutation SendContactMessage($name: String!, $email: String!, $subject: String!, $inquiryType: String!, $message: String!, $phone: String) {
-        sendContactMessage(name: $name, email: $email, subject: $subject, inquiryType: $inquiryType, message: $message, phone: $phone)
+      mutation SendContactMessage($name: String!, $email: String!, $subject: String!, $inquiryType: String!, $message: String!, $phone: String, $captchaToken: String) {
+        sendContactMessage(name: $name, email: $email, subject: $subject, inquiryType: $inquiryType, message: $message, phone: $phone, captchaToken: $captchaToken)
       }
     `;
 
-    const response = await this.request<{ sendContactMessage: boolean }>(query, input);
+    const response = await this.request<{ sendContactMessage: boolean }>(query, { ...input, captchaToken });
 
     if (response.errors) {
       throw new Error(response.errors[0].message);

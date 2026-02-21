@@ -100,6 +100,20 @@ export class UsersService {
     return this.userRepository.save(user);
   }
 
+  async setEmailVerificationToken(userId: string, hashedToken: string): Promise<void> {
+    await this.userRepository.update(userId, {
+      emailVerificationToken: hashedToken,
+      isEmailVerified: false,
+    });
+  }
+
+  async verifyEmail(userId: string): Promise<void> {
+    await this.userRepository.update(userId, {
+      isEmailVerified: true,
+      emailVerificationToken: undefined,
+    });
+  }
+
   async setPasswordResetToken(userId: string, hashedToken: string, expires: Date): Promise<void> {
     await this.userRepository.update(userId, {
       passwordResetToken: hashedToken,

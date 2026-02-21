@@ -142,6 +142,8 @@ export function InterestingSuggestions({ onCarClick }: InterestingSuggestionsPro
                   src={car.image}
                   alt={car.title}
                   className="w-full h-48 object-cover"
+                  width={400}
+                  height={250}
                 />
                 <Button
                   variant="ghost"

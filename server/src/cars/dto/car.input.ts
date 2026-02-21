@@ -1,5 +1,5 @@
 import { InputType, Field, Int, Float } from '@nestjs/graphql';
-import { IsString, IsNumber, IsOptional, IsArray, IsBoolean, IsEnum, Min, Max } from 'class-validator';
+import { IsString, IsNumber, IsOptional, IsArray, IsBoolean, IsEnum, Min, Max, MaxLength, ArrayMaxSize } from 'class-validator';
 import { VehicleType, FuelType, TransmissionType, CarCondition, DrivetrainType } from '../car.entity';
 
 @InputType()
@@ -64,6 +64,7 @@ export class CreateCarInput {
   @Field({ nullable: true })
   @IsOptional()
   @IsString()
+  @MaxLength(5000)
   description?: string;
 
   @Field(() => Int, { nullable: true })
@@ -100,22 +101,26 @@ export class CreateCarInput {
   @Field({ nullable: true })
   @IsOptional()
   @IsString()
+  @MaxLength(17)
   vin?: string;
 
   @Field(() => [String], { nullable: true })
   @IsOptional()
   @IsArray()
+  @ArrayMaxSize(50)
   @IsString({ each: true })
   features?: string[];
 
   @Field(() => [String], { nullable: true })
   @IsOptional()
   @IsArray()
+  @ArrayMaxSize(50)
   @IsString({ each: true })
   safetyFeatures?: string[];
 
   @Field()
   @IsString()
+  @MaxLength(255)
   location: string;
 
   @Field({ nullable: true })
@@ -233,6 +238,7 @@ export class UpdateCarInput {
   @Field({ nullable: true })
   @IsOptional()
   @IsString()
+  @MaxLength(5000)
   description?: string;
 
   @Field(() => Int, { nullable: true })
@@ -269,23 +275,27 @@ export class UpdateCarInput {
   @Field({ nullable: true })
   @IsOptional()
   @IsString()
+  @MaxLength(17)
   vin?: string;
 
   @Field(() => [String], { nullable: true })
   @IsOptional()
   @IsArray()
+  @ArrayMaxSize(50)
   @IsString({ each: true })
   features?: string[];
 
   @Field(() => [String], { nullable: true })
   @IsOptional()
   @IsArray()
+  @ArrayMaxSize(50)
   @IsString({ each: true })
   safetyFeatures?: string[];
 
   @Field({ nullable: true })
   @IsOptional()
   @IsString()
+  @MaxLength(255)
   location?: string;
 
   @Field({ nullable: true })

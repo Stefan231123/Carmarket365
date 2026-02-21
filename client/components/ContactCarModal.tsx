@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import {
   Dialog,
   DialogContent,
@@ -23,6 +24,7 @@ import { Separator } from "@/components/ui/separator";
 import { Mail, Phone, User, MessageCircle, Car, CheckCircle } from "lucide-react";
 import { useTranslation } from '../hooks/useTranslation';
 import { apiClient } from '@shared/api-client';
+import { trackEvent } from '@/components/Analytics';
 
 interface ContactFormData {
   name: string;
@@ -52,6 +54,7 @@ interface ContactCarModalProps {
 
 export function ContactCarModal({ car, isOpen, onClose }: ContactCarModalProps) {
   const { t } = useTranslation();
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -88,6 +91,7 @@ export function ContactCarModal({ car, isOpen, onClose }: ContactCarModalProps) 
     setIsSubmitting(true);
     
     try {
+      const captchaToken = executeRecaptcha ? await executeRecaptcha('inquiry') : undefined;
       await apiClient.createCarInquiry({
         carId: car.id,
         inquiryType: 'GENERAL',
@@ -95,10 +99,11 @@ export function ContactCarModal({ car, isOpen, onClose }: ContactCarModalProps) 
         inquirerName: data.name,
         inquirerEmail: data.email,
         inquirerPhone: data.phone || undefined,
-      });
+      }, captchaToken);
       
       setIsSuccess(true);
-      
+      trackEvent('generate_lead', { car_id: car.id, inquiry_type: 'GENERAL' });
+
       // Reset form after successful submission
       setTimeout(() => {
         setIsSuccess(false);

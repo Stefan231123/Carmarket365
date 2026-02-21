@@ -15,6 +15,7 @@ import { useTranslation } from '../hooks/useTranslation';
 import { mkTranslations } from '../../shared/translations/mk';
 import { sqTranslations } from '../../shared/translations/sq';
 import { AdvancedSearchFiltersInput } from '../lib/graphql/operations';
+import { trackEvent } from '../components/Analytics';
 
 // Filter interfaces
 interface AdvancedSearchFilters {
@@ -833,6 +834,7 @@ export default function AdvancedSearch() {
     // Force a fresh search
     await executeSearch(filters, sortOptions, { page: 1, limit: 20 }, false);
     setShowResults(true);
+    trackEvent('search', { filter_count: activeFilterCount });
   }, [filters, sortOptions, getActiveFilterCount, executeSearch, navigate]);
 
   const clearAllFilters = useCallback(() => {

@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import { HelmetProvider } from "react-helmet-async";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { SafeAuthProvider } from "@/contexts/AuthContextSafe";
@@ -9,18 +10,17 @@ import { FavoritesProvider } from "@/contexts/FavoritesContext";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
-import { DevSubdomainTester } from "@/components/DevSubdomainTester";
 import { AutoRedirectDialog } from "@/components/RedirectDialog";
 import { CookieConsent } from "@/components/CookieConsent";
 import { Analytics } from "@/components/Analytics";
 import { useTranslation } from "@/hooks/useTranslation";
 
-// Critical pages loaded immediately
+// Critical page loaded immediately (homepage)
 import Index from "@/pages/Index";
-import SignIn from "@/pages/SignIn";
-import NotFound from "@/pages/NotFound";
 
-// Lazy load non-critical pages
+// Lazy load all non-critical pages
+const SignIn = lazy(() => import("@/pages/SignIn"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
 const BrowseCars = lazy(() => import("@/pages/BrowseCars"));
 const SellCar = lazy(() => import("@/pages/SellCar"));
 const SavedCars = lazy(() => import("@/pages/SavedCars"));
@@ -62,7 +62,7 @@ function AppContent() {
   const handleRegisteredDealersClick = () => navigate('/registered-dealers');
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen overflow-x-hidden">
       <Header
         onSignInClick={handleSignInClick}
         onHomeClick={handleHomeClick}
@@ -135,9 +135,6 @@ function AppContent() {
                 </ProtectedRoute>
               } 
             />
-            <Route path="/ui-demo" element={<Navigate to="/" replace />} />
-            <Route path="/country-test" element={<Navigate to="/" replace />} />
-            <Route path="/translation-review" element={<Navigate to="/" replace />} />
             <Route path="/help" element={<Navigate to="/faq" replace />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/feedback" element={<Navigate to="/contact" replace />} />
@@ -162,7 +159,6 @@ function AppContent() {
         onContactUsClick={handleContactUsClick}
         onRegisteredDealersClick={handleRegisteredDealersClick}
       />
-      <DevSubdomainTester />
       <AutoRedirectDialog />
       <CookieConsent />
       <Analytics />
@@ -170,20 +166,27 @@ function AppContent() {
   );
 }
 
+const recaptchaSiteKey = import.meta.env.VITE_RECAPTCHA_SITE_KEY || '';
+
 function App() {
   return (
     <HelmetProvider>
-      <BrowserRouter>
-        <CountryProvider>
-          <SafeAuthProvider>
-            <FavoritesProvider>
-              <ErrorBoundary>
-                <AppContent />
-              </ErrorBoundary>
-            </FavoritesProvider>
-          </SafeAuthProvider>
-        </CountryProvider>
-      </BrowserRouter>
+      <GoogleReCaptchaProvider
+        reCaptchaKey={recaptchaSiteKey}
+        scriptProps={{ async: true, defer: true }}
+      >
+        <BrowserRouter>
+          <CountryProvider>
+            <SafeAuthProvider>
+              <FavoritesProvider>
+                <ErrorBoundary>
+                  <AppContent />
+                </ErrorBoundary>
+              </FavoritesProvider>
+            </SafeAuthProvider>
+          </CountryProvider>
+        </BrowserRouter>
+      </GoogleReCaptchaProvider>
     </HelmetProvider>
   );
 }

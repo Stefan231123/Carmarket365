@@ -44,15 +44,54 @@ export class AuthService {
     const user = await this.usersService.create(registerInput, role);
     const access_token = this.generateJwtToken(user);
 
-    // Send welcome email (fire-and-forget)
-    this.emailService.sendWelcomeEmail(user.email, user.name || '').catch(err =>
-      this.logger.warn(`Failed to send welcome email: ${err.message}`),
+    // Send verification email (fire-and-forget)
+    this.sendVerificationToken(user).catch(err =>
+      this.logger.warn(`Failed to send verification email: ${err.message}`),
     );
 
     return {
       user,
       access_token,
     };
+  }
+
+  async verifyEmail(token: string, email: string): Promise<boolean> {
+    const user = await this.usersService.findByEmail(email);
+    if (!user || !user.emailVerificationToken) {
+      return false;
+    }
+
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+    if (hashedToken !== user.emailVerificationToken) {
+      return false;
+    }
+
+    await this.usersService.verifyEmail(user.id);
+    return true;
+  }
+
+  async resendVerificationEmail(email: string): Promise<boolean> {
+    const user = await this.usersService.findByEmail(email);
+    if (!user || user.isEmailVerified) {
+      // Don't reveal user existence
+      return true;
+    }
+
+    await this.sendVerificationToken(user);
+    return true;
+  }
+
+  private async sendVerificationToken(user: User): Promise<void> {
+    const rawToken = crypto.randomBytes(32).toString('hex');
+    const hashedToken = crypto.createHash('sha256').update(rawToken).digest('hex');
+
+    await this.usersService.setEmailVerificationToken(user.id, hashedToken);
+
+    await this.emailService.sendVerificationEmail(
+      user.email,
+      user.name || '',
+      rawToken,
+    );
   }
 
   async socialLogin(

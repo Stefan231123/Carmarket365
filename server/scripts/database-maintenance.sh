@@ -3,7 +3,7 @@
 # CarMarket365 Database Maintenance Script
 # Run this weekly to keep your database healthy
 
-DB_URL="postgresql://postgres:password@localhost:5432/carmarket365"
+DB_URL="${DATABASE_URL:-postgresql://postgres:password@localhost:5432/carmarket365}"
 BACKUP_DIR="./backups"
 DATE=$(date +%Y%m%d_%H%M)
 

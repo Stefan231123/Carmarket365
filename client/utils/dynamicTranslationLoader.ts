@@ -151,21 +151,6 @@ class DynamicTranslationLoader {
           translations = sqModule.sqTranslations;
           break;
           
-        case 'sl':
-          const slModule = await import('../../shared/translations/sl');
-          translations = slModule.slTranslations;
-          break;
-          
-        case 'lv':
-          const lvModule = await import('../../shared/translations/lv');
-          translations = lvModule.lvTranslations;
-          break;
-          
-        case 'ru':
-          const ruModule = await import('../../shared/translations/ru');
-          translations = ruModule.ruTranslations;
-          break;
-          
         default:
           throw new Error(`Unsupported language: ${language}`);
       }

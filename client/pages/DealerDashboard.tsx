@@ -519,18 +519,18 @@ export default function DealerDashboard() {
                       <LoadingSpinner />
                     </div>
                   ) : allInquiries.length > 0 ? allInquiries.map((inquiry) => (
-                    <div key={inquiry.id} className="flex items-center justify-between p-4 border border-zinc-100 rounded-2xl">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-4">
-                          <div>
-                            <p className="font-medium">{inquiry.customerName || inquiry.customer?.name || 'Anonymous'}</p>
-                            <p className="text-sm text-muted-foreground">{inquiry.customerEmail || inquiry.customer?.email || 'No email'}</p>
+                    <div key={inquiry.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 border border-zinc-100 rounded-2xl">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+                          <div className="min-w-0">
+                            <p className="font-medium truncate">{inquiry.customerName || inquiry.customer?.name || 'Anonymous'}</p>
+                            <p className="text-sm text-muted-foreground truncate">{inquiry.customerEmail || inquiry.customer?.email || 'No email'}</p>
                           </div>
-                          <div>
+                          <div className="min-w-0">
                             <p className="text-sm">{inquiry.car?.carMake?.name} {inquiry.car?.carModel?.name}</p>
                             <p className="text-xs text-muted-foreground">{inquiry.type.toLowerCase()}</p>
                           </div>
-                          <div className="text-right">
+                          <div className="sm:text-right">
                             <Badge variant={inquiry.status === 'NEW' ? 'default' : 'secondary'} className="rounded-full">
                               {inquiry.status.toLowerCase()}
                             </Badge>
@@ -538,7 +538,7 @@ export default function DealerDashboard() {
                           </div>
                         </div>
                       </div>
-                      <Button size="sm" className="bg-black text-white hover:bg-black/90 rounded-full h-12 shadow-md">
+                      <Button size="sm" className="bg-black text-white hover:bg-black/90 rounded-full h-12 shadow-md w-full sm:w-auto">
                         {t('dealerDashboard.inquiries.actions.respond')}
                       </Button>
                     </div>

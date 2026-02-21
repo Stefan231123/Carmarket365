@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { ArrowLeft, Building2, User, MapPin, Eye, EyeOff, FileText, Shield, Loader2 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/card';
@@ -10,6 +11,7 @@ import { Alert, AlertDescription } from '../components/ui/alert';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '../hooks/useTranslation';
 import { useSafeAuth } from '../contexts/AuthContextSafe';
+import { trackEvent } from '../components/Analytics';
 
 interface DealerFormData {
   // Business Information
@@ -53,6 +55,7 @@ export default function DealerSignUp({ onBackToSignIn, onSignUpSuccess }: Dealer
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { register } = useSafeAuth();
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [formData, setFormData] = useState<DealerFormData>({
     // Business Information
     businessName: '',
@@ -150,6 +153,7 @@ export default function DealerSignUp({ onBackToSignIn, onSignUpSuccess }: Dealer
 
     setIsLoading(true);
     try {
+      const captchaToken = executeRecaptcha ? await executeRecaptcha('register') : undefined;
       const fullName = `${formData.firstName} ${formData.lastName}`.trim();
       const fullAddress = [formData.street, formData.postalCode, formData.state].filter(Boolean).join(', ');
 
@@ -161,8 +165,9 @@ export default function DealerSignUp({ onBackToSignIn, onSignUpSuccess }: Dealer
         dealerAddress: fullAddress,
         dealerCity: formData.city,
         dealerPhoneNumber: formData.phone,
-      });
+      }, captchaToken);
 
+      trackEvent('sign_up', { method: 'email_dealer' });
       navigate('/dealer-dashboard');
     } catch (err) {
       setSubmitError(err instanceof Error ? err.message : 'Registration failed');

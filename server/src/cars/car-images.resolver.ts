@@ -1,10 +1,11 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
-import { UseGuards } from '@nestjs/common';
+import { UseGuards, ForbiddenException } from '@nestjs/common';
 import { CarImage } from './car-image.entity';
 import { CarImagesService } from './car-images.service';
+import { CarsService } from './cars.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { User } from '../users/user.entity';
+import { User, UserRole } from '../users/user.entity';
 import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
@@ -69,7 +70,17 @@ class ImageOrderInput {
 
 @Resolver(() => CarImage)
 export class CarImagesResolver {
-  constructor(private readonly carImagesService: CarImagesService) {}
+  constructor(
+    private readonly carImagesService: CarImagesService,
+    private readonly carsService: CarsService,
+  ) {}
+
+  private async validateCarOwnership(carId: string, user: User): Promise<void> {
+    const car = await this.carsService.findById(carId);
+    if (user.role !== UserRole.ADMIN && car.sellerId !== user.id) {
+      throw new ForbiddenException('You can only manage images for your own listings');
+    }
+  }
 
   @Query(() => [CarImage], { name: 'getCarImages' })
   async getCarImages(@Args('carId') carId: string): Promise<CarImage[]> {
@@ -87,6 +98,7 @@ export class CarImagesResolver {
     @Args('input') createCarImageInput: CreateCarImageInput,
     @CurrentUser() user: User,
   ): Promise<CarImage> {
+    await this.validateCarOwnership(createCarImageInput.carId, user);
     return this.carImagesService.create(createCarImageInput);
   }
 
@@ -97,6 +109,8 @@ export class CarImagesResolver {
     @Args('input') updateCarImageInput: UpdateCarImageInput,
     @CurrentUser() user: User,
   ): Promise<CarImage> {
+    const image = await this.carImagesService.findById(id);
+    await this.validateCarOwnership(image.carId, user);
     return this.carImagesService.update(id, updateCarImageInput);
   }
 
@@ -106,6 +120,8 @@ export class CarImagesResolver {
     @Args('id') id: string,
     @CurrentUser() user: User,
   ): Promise<boolean> {
+    const image = await this.carImagesService.findById(id);
+    await this.validateCarOwnership(image.carId, user);
     return this.carImagesService.remove(id);
   }
 
@@ -116,6 +132,7 @@ export class CarImagesResolver {
     @Args('imageOrders', { type: () => [ImageOrderInput] }) imageOrders: ImageOrderInput[],
     @CurrentUser() user: User,
   ): Promise<CarImage[]> {
+    await this.validateCarOwnership(carId, user);
     return this.carImagesService.reorderImages(carId, imageOrders);
   }
 }

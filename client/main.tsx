@@ -6,10 +6,6 @@ import { initSentry } from "./lib/sentry";
 import App from "./App";
 import "./global.css";
 
-// Initialize Sentry error monitoring (only if DSN is configured)
-initSentry();
-
-console.log('🚀 Loading FULL Car Market Platform...');
 const root = createRoot(document.getElementById("root")!);
 
 try {
@@ -20,10 +16,11 @@ try {
       </ApolloProvider>
     </StrictMode>
   );
-  console.log('✅ Car Market Platform loaded successfully!');
+
+  // Defer Sentry initialization to avoid blocking first paint
+  requestIdleCallback(() => initSentry(), { timeout: 3000 });
 } catch (error) {
-  console.error('❌ App failed to load:', error);
-  console.error('Error details:', error);
+  console.error('App failed to load:', error);
   
   // Show detailed error
   root.render(

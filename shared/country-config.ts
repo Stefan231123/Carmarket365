@@ -12,28 +12,55 @@ export interface CountryConfig {
   languages: Language[];
   defaultLanguage: string;
   hasMultipleLanguages: boolean;
+  currency: string;
+  currencySymbol: string;
+  phonePrefix: string;
 }
 
 // Language definitions
 export const LANGUAGES: Record<string, Language> = {
   mk: { code: 'mk', name: 'Македонски', flag: '🇲🇰' },
   sq: { code: 'sq', name: 'Shqip', flag: '🇦🇱' },
-  sl: { code: 'sl', name: 'Slovenščina', flag: '🇸🇮' },
-  lv: { code: 'lv', name: 'Latviešu', flag: '🇱🇻' },
-  ru: { code: 'ru', name: 'Русский', flag: '🇷🇺' },
   en: { code: 'en', name: 'English', flag: '🇬🇧' }, // Fallback language
 };
 
-// Country configurations - Only Macedonia with Macedonian and Albanian languages
+// Country configurations
 export const COUNTRIES: Record<string, CountryConfig> = {
   mk: {
     code: 'mk',
     name: 'Macedonia',
     flag: '🇲🇰',
     domain: 'mk.carmarket365.com',
-    languages: [LANGUAGES.mk, LANGUAGES.sq],
+    languages: [LANGUAGES.mk, LANGUAGES.sq, LANGUAGES.en],
     defaultLanguage: 'mk',
     hasMultipleLanguages: true,
+    currency: 'MKD',
+    currencySymbol: 'ден',
+    phonePrefix: '+389',
+  },
+  al: {
+    code: 'al',
+    name: 'Albania',
+    flag: '🇦🇱',
+    domain: 'al.carmarket365.com',
+    languages: [LANGUAGES.sq, LANGUAGES.en],
+    defaultLanguage: 'sq',
+    hasMultipleLanguages: true,
+    currency: 'ALL',
+    currencySymbol: 'L',
+    phonePrefix: '+355',
+  },
+  xk: {
+    code: 'xk',
+    name: 'Kosovo',
+    flag: '🇽🇰',
+    domain: 'xk.carmarket365.com',
+    languages: [LANGUAGES.sq, LANGUAGES.en],
+    defaultLanguage: 'sq',
+    hasMultipleLanguages: true,
+    currency: 'EUR',
+    currencySymbol: '€',
+    phonePrefix: '+383',
   },
 };
 

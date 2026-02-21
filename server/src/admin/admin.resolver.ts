@@ -14,37 +14,37 @@ import { Roles } from '../auth/decorators/roles.decorator';
 export class AdminResolver {
   constructor(private readonly adminService: AdminService) {}
 
-  @Query(() => AdminStats)
+  @Query(() => AdminStats, { description: 'Dashboard statistics: users, listings, views, inquiries.' })
   async getAdminStats(): Promise<AdminStats> {
     return this.adminService.getAdminStats();
   }
 
-  @Query(() => [RecentActivity])
+  @Query(() => [RecentActivity], { description: 'Recent platform activity feed (registrations, listings, inquiries).' })
   async getRecentActivity(): Promise<RecentActivity[]> {
     return this.adminService.getRecentActivity();
   }
 
-  @Query(() => [User])
+  @Query(() => [User], { description: 'List all users (limited to 100). Admin only.' })
   async getAllUsers(): Promise<User[]> {
     return this.adminService.getAllUsers();
   }
 
-  @Query(() => [Car])
+  @Query(() => [Car], { description: 'List all car listings with seller info. Admin only.' })
   async getAllListings(): Promise<Car[]> {
     return this.adminService.getAllListings();
   }
 
-  @Query(() => SystemHealth)
+  @Query(() => SystemHealth, { description: 'Real-time system health: CPU, memory, DB connections, response time.' })
   async getSystemHealth(): Promise<SystemHealth> {
     return this.adminService.getSystemHealth();
   }
 
-  @Query(() => UserStats)
+  @Query(() => UserStats, { description: 'User growth metrics: new users today/week/month, growth rate.' })
   async getUserStats(): Promise<UserStats> {
     return this.adminService.getUserStats();
   }
 
-  @Mutation(() => User)
+  @Mutation(() => User, { description: 'Activate or suspend a user account.' })
   async updateUserStatus(
     @Args('userId') userId: string,
     @Args('status') status: 'active' | 'suspended'
@@ -52,11 +52,18 @@ export class AdminResolver {
     return this.adminService.updateUserStatus(userId, status);
   }
 
-  @Mutation(() => Car)
+  @Mutation(() => Car, { description: 'Flag a listing for review with a reason.' })
   async flagListing(
     @Args('carId') carId: string,
     @Args('reason') reason: string
   ): Promise<Car> {
     return this.adminService.flagListing(carId, reason);
+  }
+
+  @Mutation(() => Car, { description: 'Remove flag from a listing.' })
+  async unflagListing(
+    @Args('carId') carId: string
+  ): Promise<Car> {
+    return this.adminService.unflagListing(carId);
   }
 }

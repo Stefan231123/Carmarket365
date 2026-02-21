@@ -1,5 +1,4 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
 
 function getGraphQLEndpoint(): string {
   const envEndpoint = import.meta.env.VITE_GRAPHQL_ENDPOINT;
@@ -12,20 +11,11 @@ function getGraphQLEndpoint(): string {
 
 const httpLink = createHttpLink({
   uri: getGraphQLEndpoint(),
-});
-
-const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('authToken');
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : "",
-    }
-  }
+  credentials: 'include', // Send httpOnly cookies with every request
 });
 
 export const apolloClient = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: httpLink,
   cache: new InMemoryCache(),
   defaultOptions: {
     watchQuery: {

@@ -1,16 +1,21 @@
 import { Module } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { ConfigModule } from '@nestjs/config';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { LoggerModule } from 'nestjs-pino';
 import { join } from 'path';
 
+import { GqlThrottlerGuard } from './common/guards/gql-throttler.guard';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { CarsModule } from './cars/cars.module';
 import { AdminModule } from './admin/admin.module';
 import { EmailModule } from './common/email/email.module';
+import { RecaptchaModule } from './common/recaptcha/recaptcha.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -18,6 +23,18 @@ import { EmailModule } from './common/email/email.module';
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: ['.env.local', '.env'],
+    }),
+
+    // Structured logging (JSON in production, pretty in development)
+    LoggerModule.forRoot({
+      pinoHttp: {
+        level: process.env.LOG_LEVEL || (process.env.NODE_ENV === 'production' ? 'info' : 'debug'),
+        transport: process.env.NODE_ENV !== 'production'
+          ? { target: 'pino-pretty', options: { colorize: true, singleLine: true } }
+          : undefined,
+        autoLogging: process.env.NODE_ENV === 'production',
+        redact: ['req.headers.authorization', 'req.headers.cookie'],
+      },
     }),
 
     // Database configuration
@@ -33,8 +50,19 @@ import { EmailModule } from './common/email/email.module';
       schema: 'public',
       ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
       entities: [join(__dirname, '**', '*.entity.{ts,js}')],
-      synchronize: process.env.NODE_ENV !== 'production', // Auto-create tables in development
+      migrations: [join(__dirname, '..', 'migrations', '*.{ts,js}')],
+      migrationsRun: true, // Automatically run pending migrations on startup
+      synchronize: false, // Never use synchronize - use migrations instead
       logging: process.env.NODE_ENV === 'development',
+      // Connection pooling
+      extra: {
+        max: parseInt(process.env.DB_POOL_MAX) || 10,
+        min: parseInt(process.env.DB_POOL_MIN) || 2,
+        idleTimeoutMillis: parseInt(process.env.DB_IDLE_TIMEOUT) || 30000,
+        connectionTimeoutMillis: parseInt(process.env.DB_CONNECT_TIMEOUT) || 5000,
+      },
+      retryAttempts: 3,
+      retryDelay: 3000,
     }),
 
     // GraphQL configuration
@@ -45,23 +73,39 @@ import { EmailModule } from './common/email/email.module';
       playground: process.env.NODE_ENV === 'development',
       introspection: process.env.NODE_ENV === 'development',
       context: ({ req, res }) => ({ req, res }),
-      csrfPrevention: false, // Disable CSRF protection for frontend integration
+      csrfPrevention: true, // Requires Content-Type: application/json (blocks simple form POSTs)
       cache: 'bounded',
       plugins: [],
     }),
 
-    // Rate limiting - 60 requests per minute per IP
-    ThrottlerModule.forRoot([{
-      ttl: 60000,
-      limit: 60,
-    }]),
+    // Rate limiting
+    ThrottlerModule.forRoot([
+      {
+        name: 'default',
+        ttl: 60000,
+        limit: 60, // 60 requests per minute per IP (general)
+      },
+      {
+        name: 'auth',
+        ttl: 60000,
+        limit: 5, // 5 requests per minute per IP (auth endpoints)
+      },
+    ]),
 
     // Feature modules
+    RecaptchaModule,
     EmailModule,
     AuthModule,
     UsersModule,
     CarsModule,
     AdminModule,
+    HealthModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: GqlThrottlerGuard,
+    },
   ],
 })
 export class AppModule {}

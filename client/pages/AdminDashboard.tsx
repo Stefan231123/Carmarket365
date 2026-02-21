@@ -581,6 +581,7 @@ export default function AdminDashboard() {
                 </div>
 
                 {/* Users Table */}
+                <div className="overflow-x-auto">
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -653,6 +654,7 @@ export default function AdminDashboard() {
                     )}
                   </TableBody>
                 </Table>
+                </div>
               </CardContent>
             </Card>
           </div>

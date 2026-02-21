@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, Between } from 'typeorm';
+import { InjectRepository, InjectDataSource } from '@nestjs/typeorm';
+import { Repository, Between, DataSource } from 'typeorm';
+import * as os from 'os';
 import { User, UserRole } from '../users/user.entity';
 import { Car } from '../cars/car.entity';
 import { CarInquiry } from '../cars/car-inquiry.entity';
@@ -18,6 +19,8 @@ export class AdminService {
     private carInquiryRepository: Repository<CarInquiry>,
     @InjectRepository(CarView)
     private carViewRepository: Repository<CarView>,
+    @InjectDataSource()
+    private dataSource: DataSource,
   ) {}
 
   async getAdminStats(): Promise<AdminStats> {
@@ -70,7 +73,7 @@ export class AdminService {
       totalListings,
       activeListings,
       pendingListings,
-      flaggedListings: 0, // Would need a flagged status in car entity
+      flaggedListings: await this.carRepository.count({ where: { isFlagged: true } }),
       totalRevenue,
       newUsersThisMonth,
       newUsersThisWeek,
@@ -165,21 +168,56 @@ export class AdminService {
 
   async getSystemHealth(): Promise<SystemHealth> {
     const now = new Date().toISOString();
-    
-    // In a real application, you would get these metrics from monitoring tools
-    // For now, we'll simulate realistic values
-    const cpuUsage = Math.random() * 30 + 10; // 10-40%
-    const memoryUsage = Math.random() * 20 + 40; // 40-60%
-    const diskUsage = Math.random() * 10 + 20; // 20-30%
-    const activeConnections = Math.floor(Math.random() * 50 + 10); // 10-60
-    const responseTime = Math.floor(Math.random() * 100 + 50); // 50-150ms
-    const errorRate = Math.floor(Math.random() * 2); // 0-2%
+
+    // Real CPU usage from OS load average (1-min) normalized to core count
+    const cpus = os.cpus();
+    const loadAvg = os.loadavg()[0]; // 1-minute load average
+    const cpuUsage = Math.min((loadAvg / cpus.length) * 100, 100);
+
+    // Real memory usage from process and OS
+    const totalMem = os.totalmem();
+    const freeMem = os.freemem();
+    const memoryUsage = ((totalMem - freeMem) / totalMem) * 100;
+
+    // Disk usage - default to 0 if unavailable (Railway may not expose this)
+    let diskUsage = 0;
+    try {
+      const diskResult = await this.dataSource.query(
+        `SELECT pg_database_size(current_database()) as db_size`
+      );
+      // Report DB size in MB as a proxy (actual disk % requires OS-level access)
+      diskUsage = parseFloat(diskResult[0]?.db_size || '0') / (1024 * 1024);
+    } catch {
+      diskUsage = 0;
+    }
+
+    // Real DB active connections
+    let activeConnections = 0;
+    try {
+      const connResult = await this.dataSource.query(
+        `SELECT count(*) as count FROM pg_stat_activity WHERE state = 'active'`
+      );
+      activeConnections = parseInt(connResult[0]?.count || '0', 10);
+    } catch {
+      activeConnections = 0;
+    }
+
+    // Measure real DB response time (ping query)
+    const pingStart = Date.now();
+    try {
+      await this.dataSource.query('SELECT 1');
+    } catch { /* ignore */ }
+    const responseTime = Date.now() - pingStart;
+
+    // Error rate is not measurable from a single snapshot; report 0
+    // (Sentry dashboard provides real error rates)
+    const errorRate = 0;
 
     // Determine overall status
     let status = 'healthy';
-    if (cpuUsage > 80 || memoryUsage > 90 || errorRate > 5) {
+    if (cpuUsage > 80 || memoryUsage > 90 || responseTime > 1000) {
       status = 'critical';
-    } else if (cpuUsage > 60 || memoryUsage > 70 || errorRate > 2) {
+    } else if (cpuUsage > 60 || memoryUsage > 70 || responseTime > 500) {
       status = 'warning';
     }
 
@@ -257,9 +295,22 @@ export class AdminService {
     if (!car) {
       throw new Error('Car listing not found');
     }
-    
-    // In a real app, you'd have a flagged status or separate flagged listings table
-    car.isAvailable = false;
+
+    car.isFlagged = true;
+    car.flagReason = reason;
+    car.flaggedAt = new Date();
+    return this.carRepository.save(car);
+  }
+
+  async unflagListing(carId: string): Promise<Car> {
+    const car = await this.carRepository.findOne({ where: { id: carId } });
+    if (!car) {
+      throw new Error('Car listing not found');
+    }
+
+    car.isFlagged = false;
+    car.flagReason = undefined;
+    car.flaggedAt = undefined;
     return this.carRepository.save(car);
   }
 }

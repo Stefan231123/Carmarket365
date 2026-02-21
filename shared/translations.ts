@@ -1,5 +1,5 @@
 // Translation system for CarMarket365
-export type SupportedLanguage = 'mk' | 'sq' | 'sl' | 'lv' | 'ru' | 'en';
+export type SupportedLanguage = 'mk' | 'sq' | 'en';
 
 export interface TranslationStrings {
   // Common/Global
@@ -3812,18 +3812,11 @@ export interface TranslationStrings {
 import { enTranslations } from './translations/en';
 import { mkTranslations } from './translations/mk';
 import { sqTranslations } from './translations/sq';
-import { slTranslations } from './translations/sl';
-import { lvTranslations } from './translations/lv';
-import { ruTranslations } from './translations/ru';
-
 // Translation storage - now using proper multilingual support with clean files
 export const translations: Record<SupportedLanguage, TranslationStrings> = {
   en: enTranslations,
   mk: mkTranslations,
   sq: sqTranslations,
-  sl: slTranslations,
-  lv: lvTranslations,
-  ru: ruTranslations,
 };
 
 // Translation utility functions

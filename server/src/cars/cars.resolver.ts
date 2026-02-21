@@ -11,41 +11,41 @@ import { User } from '../users/user.entity';
 export class CarsResolver {
   constructor(private readonly carsService: CarsService) {}
 
-  @Query(() => [Car], { name: 'getCars' })
+  @Query(() => [Car], { name: 'getCars', description: 'Browse available car listings with optional filters' })
   async getCars(
     @Args('filters', { type: () => CarFilterInput, nullable: true }) filters?: CarFilterInput,
   ): Promise<Car[]> {
     return this.carsService.findAll(filters);
   }
 
-  @Query(() => Car, { name: 'getCarById' })
+  @Query(() => Car, { name: 'getCarById', description: 'Get a single car listing by ID' })
   async getCarById(@Args('id') id: string): Promise<Car> {
     return this.carsService.findById(id);
   }
 
-  @Query(() => [Car], { name: 'getCarsByMake' })
+  @Query(() => [Car], { name: 'getCarsByMake', description: 'Get all available listings for a specific make' })
   async getCarsByMake(@Args('make') make: string): Promise<Car[]> {
     return this.carsService.findByMake(make);
   }
 
-  @Query(() => [Car], { name: 'getFeaturedCars' })
+  @Query(() => [Car], { name: 'getFeaturedCars', description: 'Get featured/promoted car listings' })
   async getFeaturedCars(
     @Args('limit', { type: () => Int, defaultValue: 10 }) limit: number,
   ): Promise<Car[]> {
     return this.carsService.getFeaturedCars(limit);
   }
 
-  @Query(() => [String], { name: 'getCarMakes' })
+  @Query(() => [String], { name: 'getCarMakes', description: 'Get distinct car makes available in the marketplace' })
   async getCarMakes(): Promise<string[]> {
     return this.carsService.getCarMakes();
   }
 
-  @Query(() => [String], { name: 'getCarModels' })
+  @Query(() => [String], { name: 'getCarModels', description: 'Get distinct models for a specific car make' })
   async getCarModels(@Args('make') make: string): Promise<string[]> {
     return this.carsService.getCarModels(make);
   }
 
-  @Mutation(() => Car)
+  @Mutation(() => Car, { description: 'Create a new car listing. Requires authentication.' })
   @UseGuards(JwtAuthGuard)
   async createCar(
     @Args('input') createCarInput: CreateCarInput,
@@ -54,7 +54,7 @@ export class CarsResolver {
     return this.carsService.create(createCarInput, user);
   }
 
-  @Mutation(() => Car)
+  @Mutation(() => Car, { description: 'Update a car listing. Only the owner or admin can update.' })
   @UseGuards(JwtAuthGuard)
   async updateCar(
     @Args('id') id: string,
@@ -64,7 +64,7 @@ export class CarsResolver {
     return this.carsService.update(id, updateCarInput, user);
   }
 
-  @Mutation(() => Boolean)
+  @Mutation(() => Boolean, { description: 'Delete a car listing. Only the owner or admin can delete.' })
   @UseGuards(JwtAuthGuard)
   async deleteCar(
     @Args('id') id: string,

@@ -92,12 +92,10 @@ class IPifyProvider implements GeolocationProvider {
     // In production, replace with actual geolocation service
     const lastOctet = parseInt(ip.split('.').pop() || '0');
     
-    if (lastOctet < 50) return { countryCode: 'mk', country: 'North Macedonia' };
-    if (lastOctet < 100) return { countryCode: 'al', country: 'Albania' };
-    if (lastOctet < 150) return { countryCode: 'xk', country: 'Kosovo' };
-    if (lastOctet < 200) return { countryCode: 'si', country: 'Slovenia' };
-    if (lastOctet < 250) return { countryCode: 'lv', country: 'Latvia' };
-    
+    if (lastOctet < 85) return { countryCode: 'mk', country: 'North Macedonia' };
+    if (lastOctet < 170) return { countryCode: 'al', country: 'Albania' };
+    if (lastOctet < 255) return { countryCode: 'xk', country: 'Kosovo' };
+
     return { countryCode: 'mk', country: 'North Macedonia' }; // Default
   }
 }
@@ -134,19 +132,13 @@ class TimezoneProvider implements GeolocationProvider {
       // Timezone patterns
       'Europe/Skopje': { code: 'mk', name: 'North Macedonia' },
       'Europe/Tirane': { code: 'al', name: 'Albania' },
-      'Europe/Ljubljana': { code: 'si', name: 'Slovenia' },
-      'Europe/Riga': { code: 'lv', name: 'Latvia' },
-      
+
       // Locale patterns
       'mk': { code: 'mk', name: 'North Macedonia' },
       'mk-MK': { code: 'mk', name: 'North Macedonia' },
       'sq': { code: 'al', name: 'Albania' },
       'sq-AL': { code: 'al', name: 'Albania' },
-      'sl': { code: 'si', name: 'Slovenia' },
-      'sl-SI': { code: 'si', name: 'Slovenia' },
-      'lv': { code: 'lv', name: 'Latvia' },
-      'lv-LV': { code: 'lv', name: 'Latvia' },
-      'ru': { code: 'lv', name: 'Latvia' }, // Russian speakers might be in Latvia
+      'sq-XK': { code: 'xk', name: 'Kosovo' },
     };
 
     return mapping[timezone] || mapping[locale] || mapping[locale.split('-')[0]] || null;
@@ -199,13 +191,9 @@ export class GeolocationService {
 
     // Handle special cases and regional mappings
     const regionMapping: Record<string, string> = {
-      'xk': 'xk', // Kosovo
       'rs': 'mk', // Serbia -> North Macedonia (regional fallback)
       'bg': 'mk', // Bulgaria -> North Macedonia (regional fallback)
-      'hr': 'si', // Croatia -> Slovenia (regional fallback)
-      'hu': 'si', // Hungary -> Slovenia (regional fallback)
-      'ee': 'lv', // Estonia -> Latvia (Baltic region)
-      'lt': 'lv', // Lithuania -> Latvia (Baltic region)
+      'me': 'mk', // Montenegro -> North Macedonia (regional fallback)
     };
 
     const mappedCode = regionMapping[countryCode];

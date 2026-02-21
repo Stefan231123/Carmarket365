@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -10,11 +11,13 @@ import { Separator } from '@/components/ui/separator';
 import { useSafeAuth } from '@/contexts/AuthContextSafe';
 import { Eye, EyeOff, Car, User, Mail, Lock, ArrowLeft, AlertCircle } from 'lucide-react';
 import { useTranslation } from '@/hooks/useTranslation';
+import { trackEvent } from '@/components/Analytics';
 
 export default function UserSignUp() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { register } = useSafeAuth();
+  const { executeRecaptcha } = useGoogleReCaptcha();
   
   const [formData, setFormData] = useState({
     name: '',
@@ -61,13 +64,14 @@ export default function UserSignUp() {
     setError('');
 
     try {
+      const captchaToken = executeRecaptcha ? await executeRecaptcha('register') : undefined;
       await register({
         email: formData.email,
         password: formData.password,
         name: formData.name,
-      });
-      
-      // Navigate to dashboard on successful registration
+      }, captchaToken);
+
+      trackEvent('sign_up', { method: 'email' });
       navigate('/private-dashboard');
     } catch (err) {
       setError(err instanceof Error ? err.message : t('auth.registrationFailed'));

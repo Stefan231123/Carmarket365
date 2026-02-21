@@ -71,7 +71,7 @@ function authReducer(state: AuthState, action: AuthAction): AuthState {
 
 interface AuthContextType extends AuthState {
   login: (credentials: { email: string; password: string }) => Promise<void>;
-  register: (userData: { email: string; password: string; name?: string; dealerName?: string; dealerAddress?: string; dealerCity?: string; dealerPhoneNumber?: string }) => Promise<void>;
+  register: (userData: { email: string; password: string; name?: string; dealerName?: string; dealerAddress?: string; dealerCity?: string; dealerPhoneNumber?: string }, captchaToken?: string) => Promise<void>;
   loginWithOAuth: (input: { provider: 'google' | 'facebook'; token: string; email?: string; name?: string }) => Promise<void>;
   logout: () => Promise<void>;
   clearError: () => void;
@@ -82,27 +82,18 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  // Check for existing authentication on mount
+  // Check for existing authentication on mount via httpOnly cookie
   useEffect(() => {
     const initAuth = async () => {
       try {
-        // Check if we have a stored token and try to get current user
-        const token = localStorage.getItem('authToken');
-        if (!token) {
-          dispatch({ type: 'AUTH_FAILURE', payload: '' });
-          return;
-        }
-
-        // Try to restore session from stored user data
-        const userData = localStorage.getItem('currentUser');
-        if (userData) {
-          const user = JSON.parse(userData) as SafeUser;
-          dispatch({ type: 'AUTH_SUCCESS', payload: user });
+        // The httpOnly cookie is sent automatically — ask the backend who we are
+        const user = await apiClient.getCurrentUser();
+        if (user) {
+          dispatch({ type: 'AUTH_SUCCESS', payload: user as SafeUser });
         } else {
           dispatch({ type: 'AUTH_FAILURE', payload: '' });
         }
-      } catch (error) {
-        console.error('Auth initialization failed:', error);
+      } catch {
         dispatch({ type: 'AUTH_FAILURE', payload: '' });
       }
     };
@@ -131,10 +122,7 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
         dealerPhoneNumber: result.user.dealerPhoneNumber,
       };
 
-      // Store user data and token for session persistence
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      localStorage.setItem('authToken', result.tokens.access_token);
-
+      // Cookie is set automatically by the backend response
       dispatch({ type: 'AUTH_SUCCESS', payload: user });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Login failed';
@@ -143,7 +131,7 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const register = async (userData: { email: string; password: string; name?: string; dealerName?: string; dealerAddress?: string; dealerCity?: string; dealerPhoneNumber?: string }) => {
+  const register = async (userData: { email: string; password: string; name?: string; dealerName?: string; dealerAddress?: string; dealerCity?: string; dealerPhoneNumber?: string }, captchaToken?: string) => {
     dispatch({ type: 'AUTH_START' });
 
     try {
@@ -151,7 +139,7 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
         email: userData.email,
         password: userData.password,
         name: userData.name,
-      });
+      }, captchaToken);
 
       const user: SafeUser = {
         id: result.user.id,
@@ -165,10 +153,7 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
         dealerPhoneNumber: result.user.dealerPhoneNumber,
       };
 
-      // Store user data and token for session persistence
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      localStorage.setItem('authToken', result.tokens.access_token);
-
+      // Cookie is set automatically by the backend response
       dispatch({ type: 'AUTH_SUCCESS', payload: user });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Registration failed';
@@ -195,9 +180,7 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
         dealerPhoneNumber: result.user.dealerPhoneNumber,
       };
 
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      localStorage.setItem('authToken', result.tokens.access_token);
-
+      // Cookie is set automatically by the backend response
       dispatch({ type: 'AUTH_SUCCESS', payload: user });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'OAuth login failed';
@@ -208,13 +191,11 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = async () => {
     try {
+      // Backend clears the httpOnly cookie
       await apiClient.logout();
     } catch (error) {
       console.error('Logout error:', error);
     } finally {
-      // Always clear local state
-      localStorage.removeItem('authToken');
-      localStorage.removeItem('currentUser');
       dispatch({ type: 'AUTH_LOGOUT' });
     }
   };

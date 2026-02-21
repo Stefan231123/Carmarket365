@@ -39,7 +39,7 @@ export function CountryProvider({ children }: CountryProviderProps) {
     if (typeof window !== 'undefined') {
       const urlParams = new URLSearchParams(window.location.search);
       const langParam = urlParams.get('lang');
-      if (langParam && ['mk', 'sq'].includes(langParam)) {
+      if (langParam && ['mk', 'sq', 'en'].includes(langParam)) {
         return langParam;
       }
     }

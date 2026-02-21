@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { apiClient } from "@shared/api-client";
 import { useTranslation } from "@/hooks/useTranslation";
 import { SEO } from "@/components/SEO";
@@ -26,6 +27,7 @@ import { useNavigate } from "react-router-dom";
 export default function ContactUs() {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -48,6 +50,7 @@ export default function ContactUs() {
     setError(null);
 
     try {
+      const captchaToken = executeRecaptcha ? await executeRecaptcha('contact') : undefined;
       await apiClient.sendContactMessage({
         name: formData.name,
         email: formData.email,
@@ -55,7 +58,7 @@ export default function ContactUs() {
         subject: formData.subject,
         inquiryType: formData.inquiryType,
         message: formData.message,
-      });
+      }, captchaToken);
       setIsSubmitted(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to send message');

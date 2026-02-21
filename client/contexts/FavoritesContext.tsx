@@ -47,27 +47,25 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
       setIsLoaded(true);
     }
 
-    // Try to load from backend if user is authenticated
-    if (apiClient.isAuthenticated()) {
-      apiClient.getUserSavedCars().then((savedCars) => {
-        if (savedCars && savedCars.length > 0) {
-          const backendFavorites: FavoriteCar[] = savedCars.map((sc: any) => ({
-            id: sc.car?.id || sc.id,
-            make: sc.car?.make || '',
-            model: sc.car?.model || '',
-            year: sc.car?.year || 0,
-            price: sc.car?.price || 0,
-            image: sc.car?.images?.[0]?.url || sc.car?.images?.[0]?.thumbnailUrl || '',
-            images: sc.car?.images?.map((img: any) => img.url) || [],
-            dateAdded: sc.createdAt || new Date().toISOString(),
-          }));
-          setFavorites(backendFavorites);
-          localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(backendFavorites));
-        }
-      }).catch(() => {
-        // Silently fall back to localStorage data
-      });
-    }
+    // Try to load from backend (cookie-based auth sent automatically)
+    apiClient.getUserSavedCars().then((savedCars) => {
+      if (savedCars && savedCars.length > 0) {
+        const backendFavorites: FavoriteCar[] = savedCars.map((sc: any) => ({
+          id: sc.car?.id || sc.id,
+          make: sc.car?.make || '',
+          model: sc.car?.model || '',
+          year: sc.car?.year || 0,
+          price: sc.car?.price || 0,
+          image: sc.car?.images?.[0]?.url || sc.car?.images?.[0]?.thumbnailUrl || '',
+          images: sc.car?.images?.map((img: any) => img.url) || [],
+          dateAdded: sc.createdAt || new Date().toISOString(),
+        }));
+        setFavorites(backendFavorites);
+        localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(backendFavorites));
+      }
+    }).catch(() => {
+      // Silently fall back to localStorage data
+    });
   }, []);
 
   // Save favorites to localStorage whenever favorites change
@@ -97,23 +95,19 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
       return [newFavorite, ...prev];
     });
 
-    // Sync with backend if authenticated
-    if (apiClient.isAuthenticated()) {
-      apiClient.saveCar(car.id).catch(() => {
-        // Silently fail — localStorage is the source of truth
-      });
-    }
+    // Sync with backend (cookie-based auth sent automatically; silently fails if not logged in)
+    apiClient.saveCar(car.id).catch(() => {
+      // Silently fail — localStorage is the source of truth
+    });
   };
 
   const removeFromFavorites = (carId: string) => {
     setFavorites(prev => prev.filter(fav => fav.id !== carId));
 
-    // Sync with backend if authenticated
-    if (apiClient.isAuthenticated()) {
-      apiClient.unsaveCar(carId).catch(() => {
-        // Silently fail
-      });
-    }
+    // Sync with backend (cookie-based auth sent automatically; silently fails if not logged in)
+    apiClient.unsaveCar(carId).catch(() => {
+      // Silently fail
+    });
   };
 
   const toggleFavorite = (car: Omit<FavoriteCar, 'dateAdded'>) => {

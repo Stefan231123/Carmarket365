@@ -1,7 +1,8 @@
 import { Resolver, Query, Mutation, Args, Int, ObjectType, Field } from '@nestjs/graphql';
-import { UseGuards } from '@nestjs/common';
+import { UseGuards, UnauthorizedException } from '@nestjs/common';
 import { CarInquiry, InquiryType, InquiryStatus } from './car-inquiry.entity';
 import { CarInquiriesService, CreateCarInquiryData, UpdateCarInquiryData } from './car-inquiries.service';
+import { RecaptchaService } from '../common/recaptcha/recaptcha.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { User } from '../users/user.entity';
@@ -54,13 +55,22 @@ class InquiryStats {
 
 @Resolver(() => CarInquiry)
 export class CarInquiriesResolver {
-  constructor(private readonly carInquiriesService: CarInquiriesService) {}
+  constructor(
+    private readonly carInquiriesService: CarInquiriesService,
+    private readonly recaptchaService: RecaptchaService,
+  ) {}
 
   @Mutation(() => CarInquiry)
   async createCarInquiry(
     @Args('input') createCarInquiryInput: CreateCarInquiryInput,
+    @Args('captchaToken', { nullable: true }) captchaToken?: string,
     @CurrentUser() user?: User,
   ): Promise<CarInquiry> {
+    const isHuman = await this.recaptchaService.verify(captchaToken, 'inquiry');
+    if (!isHuman) {
+      throw new UnauthorizedException('CAPTCHA verification failed');
+    }
+
     const inquiryData: CreateCarInquiryData = {
       ...createCarInquiryInput,
       userId: user?.id,

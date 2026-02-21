@@ -13,6 +13,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { ArrowLeft, Car, Truck, Bike, Camera, Upload, DollarSign, CheckCircle, AlertCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import ImageUpload from "@/components/ImageUpload";
+import { trackEvent } from "@/components/Analytics";
 import { apiClient } from '@shared/api-client';
 import { uploadToCloudinary } from '@/lib/cloudinary';
 
@@ -261,6 +262,11 @@ export default function SellCar() {
           }
         }
       }
+
+      trackEvent('create_listing', {
+        vehicle_type: vehicleDetails.type || 'car',
+        make: vehicleDetails.make || '',
+      });
 
       if (failedImages.length > 0) {
         setSubmitError(`Listing created, but ${failedImages.length} image(s) failed to upload. You can add them later from your dashboard.`);

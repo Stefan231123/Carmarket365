@@ -77,7 +77,7 @@ export function ImageWithFallback(props: ImageWithFallbackProps) {
   if (didError) {
     return (
       <div
-        className={`inline-block bg-gray-100 text-center align-middle ${className ?? ''}`}
+        className={`block bg-gray-100 text-center ${className ?? ''}`}
         style={style}
       >
         <div className="flex items-center justify-center w-full h-full">
@@ -92,7 +92,7 @@ export function ImageWithFallback(props: ImageWithFallbackProps) {
     return (
       <div
         ref={imgRef}
-        className={`inline-block bg-gray-50 text-center align-middle flex items-center justify-center ${className ?? ''}`}
+        className={`block bg-gray-50 text-center flex items-center justify-center ${className ?? ''}`}
         style={style}
       >
         {placeholderSrc ? (
@@ -108,7 +108,7 @@ export function ImageWithFallback(props: ImageWithFallbackProps) {
 
   // Show main image with loading state
   return (
-    <div className="relative inline-block">
+    <div className="relative block">
       {!isLoaded && lazy && (
         <div className={`absolute inset-0 flex items-center justify-center bg-gray-50 ${className ?? ''}`} style={style}>
           <img src={LOADING_IMG_SRC} alt="Loading..." className="opacity-50" width="40" height="40" />

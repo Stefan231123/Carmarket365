@@ -1,13 +1,21 @@
 import { NestFactory } from '@nestjs/core';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, Logger } from '@nestjs/common';
 import { AppModule } from './app.module';
+import { Logger as PinoLogger } from 'nestjs-pino';
+import { initSentry } from './common/sentry/sentry.service';
+import { SentryExceptionFilter } from './common/sentry/sentry-exception.filter';
 import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import helmet from 'helmet';
 import 'reflect-metadata';
 
+// Initialize Sentry before anything else (only if DSN is configured)
+initSentry();
+
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { bufferLogs: true });
+  app.useLogger(app.get(PinoLogger));
+  const logger = new Logger('Bootstrap');
   
   // Enable CORS for frontend
   const corsOrigins = [
@@ -32,7 +40,7 @@ async function bootstrap() {
 
   // Security headers
   app.use(helmet({
-    contentSecurityPolicy: false, // Disabled for GraphQL playground
+    contentSecurityPolicy: process.env.NODE_ENV === 'production', // Only enable CSP in production; disabled in dev for GraphQL playground
     crossOriginEmbedderPolicy: false,
   }));
 
@@ -43,10 +51,10 @@ async function bootstrap() {
   app.use(session({
     secret: (() => {
       const secret = process.env.SESSION_SECRET;
-      if (!secret && process.env.NODE_ENV === 'production') {
-        throw new Error('SESSION_SECRET environment variable is required in production');
+      if (!secret) {
+        throw new Error('SESSION_SECRET environment variable is required. Set it in your .env file.');
       }
-      return secret || 'dev-only-session-secret-do-not-use-in-production';
+      return secret;
     })(),
     resave: false,
     saveUninitialized: false,
@@ -64,6 +72,9 @@ async function bootstrap() {
     transform: true,
   }));
 
+  // Global Sentry exception filter (captures unhandled errors)
+  app.useGlobalFilters(new SentryExceptionFilter());
+
   const port = process.env.PORT || 3002;
   await app.listen(port, '0.0.0.0'); // Listen on all interfaces for Railway
   
@@ -72,10 +83,10 @@ async function bootstrap() {
     ? process.env.RAILWAY_STATIC_URL || `http://localhost:${port}`
     : `http://localhost:${port}`;
   
-  console.log(`🚀 NestJS GraphQL server running on port ${port}`);
-  console.log(`📊 GraphQL Playground: ${serverUrl}/graphql`);
-  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`🔗 CORS Origins: ${corsOrigins.join(', ')}`);
+  logger.log(`NestJS GraphQL server running on port ${port}`);
+  logger.log(`GraphQL Playground: ${serverUrl}/graphql`);
+  logger.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+  logger.debug(`CORS Origins: ${corsOrigins.join(', ')}`);
 }
 
 bootstrap();

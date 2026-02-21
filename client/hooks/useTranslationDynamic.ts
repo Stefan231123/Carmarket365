@@ -93,7 +93,7 @@ export function useTranslationDynamic(): UseTranslationReturn {
     const browserLang = navigator.language.split('-')[0] as SupportedLanguage;
     const languagesToPreload: SupportedLanguage[] = ['en'];
     
-    if (browserLang !== 'en' && ['mk', 'sq', 'sl', 'lv', 'ru'].includes(browserLang)) {
+    if (browserLang !== 'en' && ['mk', 'sq'].includes(browserLang)) {
       languagesToPreload.push(browserLang);
     }
     

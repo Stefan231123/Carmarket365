@@ -6,6 +6,6 @@ export class AuthResponse {
   @Field(() => User)
   user: User;
 
-  @Field()
-  access_token: string;
+  @Field({ nullable: true, deprecationReason: 'Use httpOnly cookie instead' })
+  access_token?: string;
 }

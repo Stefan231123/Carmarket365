@@ -17,10 +17,10 @@ export enum DealerStatus {
   REJECTED = 'REJECTED',
 }
 
-registerEnumType(UserRole, { name: 'UserRole' });
-registerEnumType(DealerStatus, { name: 'DealerStatus' });
+registerEnumType(UserRole, { name: 'UserRole', description: 'User account role' });
+registerEnumType(DealerStatus, { name: 'DealerStatus', description: 'Dealer verification status' });
 
-@ObjectType()
+@ObjectType({ description: 'A registered user, dealer, or admin account' })
 @Entity('users')
 export class User {
   @Field(() => ID)
@@ -70,15 +70,12 @@ export class User {
   @Column({ default: false })
   isEmailVerified: boolean;
 
-  @Field({ nullable: true })
   @Column({ nullable: true })
   emailVerificationToken?: string;
 
-  @Field({ nullable: true })
   @Column({ nullable: true })
   passwordResetToken?: string;
 
-  @Field({ nullable: true })
   @Column({ nullable: true })
   passwordResetExpires?: Date;
 

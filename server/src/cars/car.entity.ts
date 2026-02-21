@@ -50,13 +50,13 @@ export enum DrivetrainType {
   FOUR_WD = 'FOUR_WD', // 4-wheel drive
 }
 
-registerEnumType(VehicleType, { name: 'VehicleType' });
-registerEnumType(FuelType, { name: 'FuelType' });
-registerEnumType(TransmissionType, { name: 'TransmissionType' });
-registerEnumType(CarCondition, { name: 'CarCondition' });
-registerEnumType(DrivetrainType, { name: 'DrivetrainType' });
+registerEnumType(VehicleType, { name: 'VehicleType', description: 'Vehicle body type classification' });
+registerEnumType(FuelType, { name: 'FuelType', description: 'Engine fuel type' });
+registerEnumType(TransmissionType, { name: 'TransmissionType', description: 'Transmission/gearbox type' });
+registerEnumType(CarCondition, { name: 'CarCondition', description: 'Vehicle condition category' });
+registerEnumType(DrivetrainType, { name: 'DrivetrainType', description: 'Drivetrain configuration' });
 
-@ObjectType()
+@ObjectType({ description: 'A car listing on the marketplace' })
 @Entity('cars')
 export class Car {
   @Field(() => ID)
@@ -204,6 +204,18 @@ export class Car {
   @Field()
   @Column({ default: false })
   isCertified: boolean;
+
+  @Field()
+  @Column({ default: false })
+  isFlagged: boolean;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  flagReason?: string;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  flaggedAt?: Date;
 
   @Field({ nullable: true })
   @Column({ nullable: true })

@@ -1,12 +1,14 @@
 import { HeroSection, SearchFormData } from "@/components/HeroSection";
-import { LastSearch } from "@/components/LastSearch";
-import { InterestingSuggestions } from "@/components/InterestingSuggestions";
-import { PopularBrands } from "@/components/PopularBrands";
-import { MobileAppAnnouncement } from "@/components/MobileAppAnnouncement";
 import { SEO } from "@/components/SEO";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from '@/hooks/useTranslation';
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
+
+// Lazy load below-the-fold sections
+const LastSearch = lazy(() => import("@/components/LastSearch").then(m => ({ default: m.LastSearch })));
+const InterestingSuggestions = lazy(() => import("@/components/InterestingSuggestions").then(m => ({ default: m.InterestingSuggestions })));
+const PopularBrands = lazy(() => import("@/components/PopularBrands").then(m => ({ default: m.PopularBrands })));
+const MobileAppAnnouncement = lazy(() => import("@/components/MobileAppAnnouncement").then(m => ({ default: m.MobileAppAnnouncement })));
 
 interface IndexProps {
   onAdvancedSearchClick?: () => void;
@@ -90,10 +92,12 @@ export default function Index({ onAdvancedSearchClick }: IndexProps) {
         onSearchCarsClick={handleSearchCarsClick}
         onAdvancedSearchClick={handleAdvancedSearchClick}
       />
-      <LastSearch onCarClick={handleCarClick} />
-      <InterestingSuggestions onCarClick={handleCarClick} />
-      <MobileAppAnnouncement variant="section" />
-      <PopularBrands />
+      <Suspense fallback={null}>
+        <LastSearch onCarClick={handleCarClick} />
+        <InterestingSuggestions onCarClick={handleCarClick} />
+        <MobileAppAnnouncement variant="section" />
+        <PopularBrands />
+      </Suspense>
     </div>
   );
 }
