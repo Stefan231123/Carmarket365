@@ -18,7 +18,8 @@ try {
   );
 
   // Defer Sentry initialization to avoid blocking first paint
-  requestIdleCallback(() => initSentry(), { timeout: 3000 });
+  const defer = window.requestIdleCallback ?? ((cb: () => void) => setTimeout(cb, 3000));
+  defer(() => initSentry());
 } catch (error) {
   console.error('App failed to load:', error);
   
