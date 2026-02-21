@@ -2,6 +2,14 @@ import { useState, useEffect } from "react";
 
 const COOKIE_CONSENT_KEY = "carmarket365_cookie_consent";
 
+export function hasAnalyticsConsent(): boolean {
+  try {
+    return localStorage.getItem(COOKIE_CONSENT_KEY) === "accepted";
+  } catch {
+    return false;
+  }
+}
+
 export function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
 

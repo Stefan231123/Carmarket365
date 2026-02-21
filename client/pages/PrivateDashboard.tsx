@@ -38,11 +38,13 @@ import { apiClient } from '@shared/api-client';
 export default function PrivateDashboard() {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { user } = useSafeAuth();
+  const { user, logout } = useSafeAuth();
   const { favorites, removeFromFavorites } = useFavorites();
   const [activeTab, setActiveTab] = useState("saved");
   const [myListings, setMyListings] = useState<any[]>([]);
   const [listingsLoading, setListingsLoading] = useState(false);
+  const [deletingAccount, setDeletingAccount] = useState(false);
+  const [exportingData, setExportingData] = useState(false);
 
   // Helper function to translate status values
   const translateStatus = (status: string) => {
@@ -105,6 +107,44 @@ export default function PrivateDashboard() {
         .finally(() => setListingsLoading(false));
     }
   }, [user]);
+
+  // GDPR: Export user data
+  const handleExportData = async () => {
+    setExportingData(true);
+    try {
+      const data = await apiClient.exportMyData();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `carmarket365-my-data-${new Date().toISOString().split('T')[0]}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      alert(t('privateDashboard.exportDataError') || 'Failed to export data');
+    } finally {
+      setExportingData(false);
+    }
+  };
+
+  // GDPR: Delete account
+  const handleDeleteAccount = async () => {
+    const confirmed = window.confirm(
+      t('privateDashboard.deleteAccountConfirmation') ||
+      'Are you sure you want to permanently delete your account? This action cannot be undone.'
+    );
+    if (!confirmed) return;
+
+    setDeletingAccount(true);
+    try {
+      await apiClient.deleteMyAccount();
+      await logout();
+      navigate('/');
+    } catch (err) {
+      alert(t('privateDashboard.deleteAccountError') || 'Failed to delete account');
+      setDeletingAccount(false);
+    }
+  };
 
   // Map favorites to saved cars format
   const savedCars = favorites.map(fav => ({
@@ -669,17 +709,28 @@ export default function PrivateDashboard() {
                   <CardDescription>{t('privateDashboard.manageAccountAndData')}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <Button variant="outline" className="w-full bg-zinc-100 border-none rounded-full h-12 hover:bg-zinc-200">
-                    <Download className="h-4 w-4 mr-2" />
-{t('privateDashboard.downloadMyData')}
+                  <Button
+                    variant="outline"
+                    className="w-full bg-zinc-100 border-none rounded-full h-12 hover:bg-zinc-200"
+                    onClick={handleExportData}
+                    disabled={exportingData}
+                  >
+                    {exportingData ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Download className="h-4 w-4 mr-2" />}
+                    {t('privateDashboard.downloadMyData')}
                   </Button>
                   <Button variant="outline" className="w-full bg-zinc-100 border-none rounded-full h-12 hover:bg-zinc-200">
                     <Shield className="h-4 w-4 mr-2" />
 {t('privateDashboard.changePassword')}
                   </Button>
                   <Separator />
-                  <Button variant="destructive" className="w-full rounded-full h-12">
-{t('privateDashboard.deleteAccount')}
+                  <Button
+                    variant="destructive"
+                    className="w-full rounded-full h-12"
+                    onClick={handleDeleteAccount}
+                    disabled={deletingAccount}
+                  >
+                    {deletingAccount ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Trash2 className="h-4 w-4 mr-2" />}
+                    {t('privateDashboard.deleteAccount')}
                   </Button>
                 </CardContent>
               </Card>

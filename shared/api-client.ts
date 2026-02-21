@@ -1272,6 +1272,58 @@ class ApiClient {
 
     return response.data?.resetPassword ?? false;
   }
+
+  // --- GDPR Operations ---
+
+  async exportMyData(): Promise<Record<string, unknown>> {
+    const query = `
+      query ExportMyData {
+        exportMyData
+      }
+    `;
+
+    const response = await this.request<{ exportMyData: Record<string, unknown> }>(query);
+
+    if (response.errors) {
+      throw new Error(response.errors[0].message);
+    }
+
+    return response.data!.exportMyData;
+  }
+
+  async deleteMyAccount(): Promise<boolean> {
+    const query = `
+      mutation DeleteMyAccount {
+        deleteMyAccount
+      }
+    `;
+
+    const response = await this.request<{ deleteMyAccount: boolean }>(query);
+
+    if (response.errors) {
+      throw new Error(response.errors[0].message);
+    }
+
+    return response.data?.deleteMyAccount ?? false;
+  }
+
+  async updateMarketingPreferences(marketingEmails: boolean, smsNotifications: boolean): Promise<void> {
+    const query = `
+      mutation UpdateMarketingPreferences($marketingEmails: Boolean!, $smsNotifications: Boolean!) {
+        updateMarketingPreferences(marketingEmails: $marketingEmails, smsNotifications: $smsNotifications) {
+          id
+          marketingEmailsEnabled
+          smsNotificationsEnabled
+        }
+      }
+    `;
+
+    const response = await this.request(query, { marketingEmails, smsNotifications });
+
+    if (response.errors) {
+      throw new Error(response.errors[0].message);
+    }
+  }
 }
 
 // Export singleton instance

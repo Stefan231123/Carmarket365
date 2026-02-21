@@ -1,5 +1,6 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { UseGuards, ForbiddenException } from '@nestjs/common';
+import { GraphQLJSON } from 'graphql-type-json';
 import { User, UserRole } from './user.entity';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -57,5 +58,29 @@ export class UsersResolver {
     @CurrentUser() user: User,
   ): Promise<User> {
     return this.usersService.updateSavedListings(user.id, carId, 'remove');
+  }
+
+  // --- GDPR Endpoints ---
+
+  @Query(() => GraphQLJSON, { name: 'exportMyData', description: 'Export all personal data (GDPR Art. 20 - Right to Data Portability).' })
+  @UseGuards(JwtAuthGuard)
+  async exportMyData(@CurrentUser() user: User): Promise<Record<string, unknown>> {
+    return this.usersService.exportUserData(user.id);
+  }
+
+  @Mutation(() => Boolean, { description: 'Permanently delete your account and all associated data (GDPR Art. 17 - Right to Erasure).' })
+  @UseGuards(JwtAuthGuard)
+  async deleteMyAccount(@CurrentUser() user: User): Promise<boolean> {
+    return this.usersService.deleteAccount(user.id);
+  }
+
+  @Mutation(() => User, { description: 'Update marketing communication preferences.' })
+  @UseGuards(JwtAuthGuard)
+  async updateMarketingPreferences(
+    @Args('marketingEmails') marketingEmails: boolean,
+    @Args('smsNotifications') smsNotifications: boolean,
+    @CurrentUser() user: User,
+  ): Promise<User> {
+    return this.usersService.updateMarketingPreferences(user.id, marketingEmails, smsNotifications);
   }
 }

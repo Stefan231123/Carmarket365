@@ -1,9 +1,11 @@
 import * as Sentry from "@sentry/react";
+import { hasAnalyticsConsent } from "../components/CookieConsent";
 
 const SENTRY_DSN = import.meta.env.VITE_SENTRY_DSN;
 
 export function initSentry() {
   if (!SENTRY_DSN) return;
+  if (!hasAnalyticsConsent()) return;
 
   Sentry.init({
     dsn: SENTRY_DSN,

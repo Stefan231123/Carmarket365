@@ -375,6 +375,29 @@ export const GET_USERS = gql`
   }
 `;
 
+// GDPR Operations
+export const EXPORT_MY_DATA = gql`
+  query ExportMyData {
+    exportMyData
+  }
+`;
+
+export const DELETE_MY_ACCOUNT = gql`
+  mutation DeleteMyAccount {
+    deleteMyAccount
+  }
+`;
+
+export const UPDATE_MARKETING_PREFERENCES = gql`
+  mutation UpdateMarketingPreferences($marketingEmails: Boolean!, $smsNotifications: Boolean!) {
+    updateMarketingPreferences(marketingEmails: $marketingEmails, smsNotifications: $smsNotifications) {
+      id
+      marketingEmailsEnabled
+      smsNotificationsEnabled
+    }
+  }
+`;
+
 // Type definitions for TypeScript
 export interface LoginParams {
   email: string;

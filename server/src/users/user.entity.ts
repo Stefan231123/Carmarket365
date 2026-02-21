@@ -92,7 +92,7 @@ export class User {
   countryPreference?: string;
 
   @Field()
-  @Column({ default: true })
+  @Column({ default: false })
   marketingEmailsEnabled: boolean;
 
   @Field()

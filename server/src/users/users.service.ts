@@ -1,15 +1,28 @@
-import { Injectable, NotFoundException, ConflictException } from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, DataSource } from 'typeorm';
 import { User, UserRole } from './user.entity';
+import { SavedCar } from './saved-car.entity';
+import { SearchAlert } from './search-alert.entity';
+import { Car } from '../cars/car.entity';
+import { CarInquiry } from '../cars/car-inquiry.entity';
+import { CarView } from '../cars/car-view.entity';
+import { CarImage } from '../cars/car-image.entity';
 import { RegisterInput } from '../auth/dto/auth.input';
 import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UsersService {
+  private readonly logger = new Logger(UsersService.name);
+
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    @InjectRepository(SavedCar)
+    private readonly savedCarRepository: Repository<SavedCar>,
+    @InjectRepository(SearchAlert)
+    private readonly searchAlertRepository: Repository<SearchAlert>,
+    private readonly dataSource: DataSource,
   ) {}
 
   async findAll(): Promise<User[]> {
@@ -132,5 +145,150 @@ export class UsersService {
   async validatePassword(user: User, password: string): Promise<boolean> {
     if (!user.password) return false;
     return bcrypt.compare(password, user.password);
+  }
+
+  // --- GDPR: Right to Data Portability (Art. 20) ---
+
+  async exportUserData(userId: string): Promise<Record<string, unknown>> {
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
+      relations: ['cars', 'cars.images', 'savedCars', 'savedCars.car', 'searchAlerts'],
+    });
+    if (!user) throw new NotFoundException('User not found');
+
+    const inquiries = await this.dataSource.getRepository(CarInquiry).find({
+      where: { userId },
+      relations: ['car'],
+    });
+
+    const views = await this.dataSource.getRepository(CarView).find({
+      where: { userId },
+      relations: ['car'],
+    });
+
+    // Strip sensitive internal fields
+    const { password, passwordResetToken, passwordResetExpires, emailVerificationToken, ...profileData } = user;
+
+    return {
+      exportedAt: new Date().toISOString(),
+      profile: profileData,
+      listings: (user.cars || []).map(car => ({
+        id: car.id,
+        make: car.make,
+        model: car.model,
+        year: car.year,
+        price: car.price,
+        location: car.location,
+        createdAt: car.createdAt,
+        images: (car.images || []).map(img => ({ url: img.url, isMain: img.isMain })),
+      })),
+      savedCars: (user.savedCars || []).map(sc => ({
+        carId: sc.carId,
+        make: sc.car?.make,
+        model: sc.car?.model,
+        savedAt: sc.createdAt,
+      })),
+      searchAlerts: (user.searchAlerts || []).map(sa => ({
+        name: sa.name,
+        make: sa.make,
+        model: sa.model,
+        priceFrom: sa.priceFrom,
+        priceTo: sa.priceTo,
+        frequency: sa.frequency,
+        isActive: sa.isActive,
+        createdAt: sa.createdAt,
+      })),
+      inquiries: inquiries.map(inq => ({
+        carId: inq.carId,
+        carMake: inq.car?.make,
+        carModel: inq.car?.model,
+        type: inq.type,
+        message: inq.message,
+        status: inq.status,
+        createdAt: inq.createdAt,
+      })),
+      viewHistory: views.map(v => ({
+        carId: v.carId,
+        viewedAt: v.createdAt,
+      })),
+      preferences: {
+        marketingEmailsEnabled: user.marketingEmailsEnabled,
+        smsNotificationsEnabled: user.smsNotificationsEnabled,
+        languagePreference: user.languagePreference,
+        countryPreference: user.countryPreference,
+      },
+    };
+  }
+
+  // --- GDPR: Right to Erasure / Right to be Forgotten (Art. 17) ---
+
+  async deleteAccount(userId: string): Promise<boolean> {
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
+      relations: ['cars', 'cars.images'],
+    });
+    if (!user) throw new NotFoundException('User not found');
+
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
+    try {
+      // 1. Anonymize inquiries (preserve for seller records but remove PII)
+      await queryRunner.manager.update(CarInquiry, { userId }, {
+        userId: undefined,
+        name: '[Deleted User]',
+        email: '[deleted]',
+        phone: undefined,
+        ipAddress: undefined,
+        userAgent: undefined,
+      } as Partial<CarInquiry>);
+
+      // 2. Anonymize car views
+      await queryRunner.manager.update(CarView, { userId }, {
+        userId: undefined,
+        ipAddress: undefined,
+        userAgent: undefined,
+      } as Partial<CarView>);
+
+      // 3. Delete car images for user's listings
+      for (const car of user.cars || []) {
+        await queryRunner.manager.delete(CarImage, { carId: car.id });
+      }
+
+      // 4. Delete user's car listings
+      await queryRunner.manager.delete(Car, { sellerId: userId });
+
+      // 5. SavedCars and SearchAlerts cascade automatically via onDelete: CASCADE
+
+      // 6. Delete the user account
+      await queryRunner.manager.delete(User, { id: userId });
+
+      await queryRunner.commitTransaction();
+      this.logger.log(`Account deleted for user ${userId} (GDPR Art. 17)`);
+      return true;
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      this.logger.error(`Failed to delete account for user ${userId}`, error);
+      throw error;
+    } finally {
+      await queryRunner.release();
+    }
+  }
+
+  // --- GDPR: Marketing Preferences ---
+
+  async updateMarketingPreferences(
+    userId: string,
+    marketingEmails: boolean,
+    smsNotifications: boolean,
+  ): Promise<User> {
+    await this.userRepository.update(userId, {
+      marketingEmailsEnabled: marketingEmails,
+      smsNotificationsEnabled: smsNotifications,
+    });
+    const user = await this.findById(userId);
+    if (!user) throw new NotFoundException('User not found');
+    return user;
   }
 }
