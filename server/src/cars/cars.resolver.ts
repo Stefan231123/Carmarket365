@@ -6,6 +6,7 @@ import { CreateCarInput, UpdateCarInput, CarFilterInput } from './dto/car.input'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { User } from '../users/user.entity';
+import { CAR_MAKES, getModelsForMake } from '../../../shared/car-data';
 
 @Resolver(() => Car)
 export class CarsResolver {
@@ -43,6 +44,16 @@ export class CarsResolver {
   @Query(() => [String], { name: 'getCarModels', description: 'Get distinct models for a specific car make' })
   async getCarModels(@Args('make') make: string): Promise<string[]> {
     return this.carsService.getCarModels(make);
+  }
+
+  @Query(() => [String], { name: 'getAllCarMakes', description: 'Get all supported car makes (reference data)' })
+  async getAllCarMakes(): Promise<string[]> {
+    return CAR_MAKES;
+  }
+
+  @Query(() => [String], { name: 'getAllCarModels', description: 'Get all supported models for a car make (reference data)' })
+  async getAllCarModels(@Args('make') make: string): Promise<string[]> {
+    return getModelsForMake(make);
   }
 
   @Mutation(() => Car, { description: 'Create a new car listing. Requires authentication.' })

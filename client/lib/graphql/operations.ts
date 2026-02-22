@@ -253,6 +253,18 @@ export const GET_CAR_MODELS = gql`
   }
 `;
 
+export const GET_ALL_CAR_MAKES = gql`
+  query GetAllCarMakes {
+    getAllCarMakes
+  }
+`;
+
+export const GET_ALL_CAR_MODELS = gql`
+  query GetAllCarModels($make: String!) {
+    getAllCarModels(make: $make)
+  }
+`;
+
 // Advanced Search Operations (same as GET_CARS with filters)
 export const SEARCH_CARS = gql`
   query SearchCars($filters: CarFilterInput) {

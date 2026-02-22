@@ -42,6 +42,7 @@ import {
   AlertTriangle
 } from "lucide-react";
 import { useTranslation } from '../hooks/useTranslation';
+import { CAR_MAKES } from '@shared/car-data';
 
 interface TradeInEstimatorModalProps {
   isOpen: boolean;
@@ -77,13 +78,7 @@ interface TradeInEstimate {
   recommendations: string[];
 }
 
-const popularMakes = [
-  "Toyota", "Honda", "Ford", "Chevrolet", "Nissan", "Hyundai", "Kia",
-  "Mazda", "Subaru", "Volkswagen", "BMW", "Mercedes-Benz", "Audi", 
-  "Lexus", "Acura", "Infiniti", "Cadillac", "Buick", "GMC", "RAM",
-  "Jeep", "Dodge", "Chrysler", "Lincoln", "Tesla", "Volvo", "Jaguar",
-  "Land Rover", "Porsche", "Mitsubishi", "Genesis"
-];
+const popularMakes = CAR_MAKES;
 
 // Condition options are now translated dynamically inside the component
 

@@ -20,6 +20,6 @@
     "noFallthroughCasesInSwitch": false,
     "esModuleInterop": true
   },
-  "include": ["src/**/*", "migrations/**/*"],
+  "include": ["src/**/*", "migrations/**/*", "../shared/car-data.ts"],
   "exclude": ["node_modules", "dist"]
 }

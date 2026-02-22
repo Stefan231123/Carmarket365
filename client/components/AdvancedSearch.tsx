@@ -16,6 +16,7 @@ import {
 import { useTranslation } from "@/hooks/useTranslation";
 import { mkTranslations } from "../../shared/translations/mk";
 import { sqTranslations } from "../../shared/translations/sq";
+import { CAR_MAKES } from "@shared/car-data";
 
 interface AdvancedSearchProps {
   onSearch: (filters: SearchFilters) => void;
@@ -229,7 +230,7 @@ export function AdvancedSearch({ onSearch, onClose }: AdvancedSearchProps) {
     const getMinimalFallback = (dataKey: string): string[] => {
       switch(dataKey) {
         case 'makes':
-          return ['Audi', 'BMW', 'Toyota', 'Volkswagen', 'Mercedes-Benz', 'Ford'];
+          return CAR_MAKES;
         case 'bodyTypes':
           if (currentLanguage === 'mk') return ['Седан', 'SUV', 'Хечбек', 'Караван', 'Купе'];
           if (currentLanguage === 'sq') return ['Sedan', 'SUV', 'Hatchback', 'Karavan', 'Kupé'];

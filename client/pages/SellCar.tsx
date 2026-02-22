@@ -16,6 +16,7 @@ import ImageUpload from "@/components/ImageUpload";
 import { trackEvent } from "@/components/Analytics";
 import { apiClient } from '@shared/api-client';
 import { uploadToCloudinary } from '@/lib/cloudinary';
+import { CAR_MAKES, getModelsForMake } from '@shared/car-data';
 
 type VehicleType = 'car' | 'truck' | 'motorbike' | null;
 
@@ -115,7 +116,8 @@ export default function SellCar() {
     }
   ];
 
-  const carMakes = ["Toyota", "Honda", "Ford", "Chevrolet", "BMW", "Mercedes-Benz", "Audi", "Volkswagen", "Nissan", "Hyundai"];
+  const carMakes = CAR_MAKES;
+  const carModels = vehicleDetails.make ? getModelsForMake(vehicleDetails.make) : [];
   const fuelTypes = [t('sell.fuelTypes.gasoline'), t('sell.fuelTypes.electric'), t('sell.fuelTypes.hybrid'), t('sell.fuelTypes.diesel')];
   const transmissions = [t('sell.transmissions.automatic'), t('sell.transmissions.manual'), t('sell.transmissions.cvt')];
   const conditions = [t('sell.conditions.excellent'), t('sell.conditions.veryGood'), t('sell.conditions.good'), t('sell.conditions.fair')];
@@ -424,7 +426,7 @@ export default function SellCar() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.make')} *</label>
-                        <Select value={vehicleDetails.make} onValueChange={(value) => setVehicleDetails({...vehicleDetails, make: value})}>
+                        <Select value={vehicleDetails.make} onValueChange={(value) => setVehicleDetails({...vehicleDetails, make: value, model: ''})}>
                           <SelectTrigger>
                             <SelectValue placeholder={t('sell.placeholders.selectMake')} />
                           </SelectTrigger>
@@ -438,11 +440,24 @@ export default function SellCar() {
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.model')} *</label>
-                        <Input
-                          placeholder={t('sell.placeholders.enterModel')}
-                          value={vehicleDetails.model}
-                          onChange={(e) => setVehicleDetails({...vehicleDetails, model: e.target.value})}
-                        />
+                        {carModels.length > 0 ? (
+                          <Select value={vehicleDetails.model} onValueChange={(value) => setVehicleDetails({...vehicleDetails, model: value})}>
+                            <SelectTrigger>
+                              <SelectValue placeholder={t('sell.placeholders.enterModel')} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {carModels.map((model) => (
+                                <SelectItem key={model} value={model}>{model}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        ) : (
+                          <Input
+                            placeholder={t('sell.placeholders.enterModel')}
+                            value={vehicleDetails.model}
+                            onChange={(e) => setVehicleDetails({...vehicleDetails, model: e.target.value})}
+                          />
+                        )}
                       </div>
 
                       <div>

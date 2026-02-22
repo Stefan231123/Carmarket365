@@ -16,6 +16,7 @@ import { mkTranslations } from '../../shared/translations/mk';
 import { sqTranslations } from '../../shared/translations/sq';
 import { AdvancedSearchFiltersInput } from '../lib/graphql/operations';
 import { trackEvent } from '../components/Analytics';
+import { CAR_MAKES, CAR_MODELS_BY_MAKE } from '@shared/car-data';
 
 // Filter interfaces
 interface AdvancedSearchFilters {
@@ -105,40 +106,9 @@ interface AdvancedSearchFilters {
 }
 
 // Data arrays
-const carMakes = ['Audi', 'BMW', 'Mercedes-Benz', 'Volkswagen', 'Ford', 'Opel', 'Peugeot', 'Renault', 'Fiat', 'Toyota', 'Honda', 'Nissan', 'Hyundai', 'Kia', 'Skoda', 'Seat', 'Mazda', 'Volvo', 'Porsche', 'Jaguar', 'Land Rover', 'Mini', 'Smart', 'Tesla', 'Lexus', 'Infiniti', 'Acura', 'Genesis', 'Alfa Romeo', 'Lancia'];
+const carMakes = CAR_MAKES;
 
-const carModelsByMake: Record<string, string[]> = {
-  'Audi': ['A1', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'Q2', 'Q3', 'Q5', 'Q7', 'Q8', 'TT', 'R8', 'e-tron GT'],
-  'BMW': ['1 Series', '2 Series', '3 Series', '4 Series', '5 Series', '6 Series', '7 Series', '8 Series', 'X1', 'X2', 'X3', 'X4', 'X5', 'X6', 'X7', 'Z4', 'i3', 'i4', 'iX'],
-  'Mercedes-Benz': ['A-Class', 'B-Class', 'C-Class', 'CLA', 'CLS', 'E-Class', 'S-Class', 'G-Class', 'GLA', 'GLB', 'GLC', 'GLE', 'GLS', 'AMG GT', 'EQC', 'EQS'],
-  'Volkswagen': ['Polo', 'Golf', 'Jetta', 'Passat', 'Arteon', 'T-Cross', 'T-Roc', 'Tiguan', 'Touareg', 'ID.3', 'ID.4', 'ID.Buzz'],
-  'Ford': ['Fiesta', 'Focus', 'Mondeo', 'Mustang', 'EcoSport', 'Kuga', 'Edge', 'Explorer', 'F-150', 'Ranger', 'Transit'],
-  'Opel': ['Corsa', 'Astra', 'Insignia', 'Crossland', 'Grandland', 'Mokka', 'Combo', 'Vivaro', 'Movano'],
-  'Peugeot': ['108', '208', '308', '508', '2008', '3008', '5008', 'Partner', 'Expert', 'Boxer'],
-  'Renault': ['Clio', 'Megane', 'Talisman', 'Captur', 'Kadjar', 'Koleos', 'Scenic', 'Espace', 'Master'],
-  'Fiat': ['500', 'Panda', 'Tipo', '500X', '500L', 'Doblo', 'Ducato'],
-  'Toyota': ['Yaris', 'Corolla', 'Camry', 'Prius', 'C-HR', 'RAV4', 'Highlander', 'Land Cruiser', 'Hilux'],
-  'Honda': ['Civic', 'Accord', 'Jazz', 'HR-V', 'CR-V', 'Pilot', 'Ridgeline'],
-  'Nissan': ['Micra', 'Sentra', 'Altima', 'Juke', 'Qashqai', 'X-Trail', 'Pathfinder', 'Leaf'],
-  'Hyundai': ['i10', 'i20', 'i30', 'Elantra', 'Sonata', 'Kona', 'Tucson', 'Santa Fe', 'Ioniq'],
-  'Kia': ['Picanto', 'Rio', 'Ceed', 'Forte', 'Optima', 'Stonic', 'Sportage', 'Sorento', 'EV6'],
-  'Skoda': ['Citigo', 'Fabia', 'Scala', 'Octavia', 'Superb', 'Kamiq', 'Karoq', 'Kodiaq'],
-  'Seat': ['Mii', 'Ibiza', 'Leon', 'Toledo', 'Arona', 'Ateca', 'Tarraco'],
-  'Mazda': ['2', '3', '6', 'CX-3', 'CX-30', 'CX-5', 'CX-9', 'MX-5'],
-  'Volvo': ['V40', 'V60', 'V90', 'S60', 'S90', 'XC40', 'XC60', 'XC90'],
-  'Porsche': ['911', 'Boxster', 'Cayman', 'Panamera', 'Macan', 'Cayenne', 'Taycan'],
-  'Jaguar': ['XE', 'XF', 'XJ', 'F-Type', 'E-Pace', 'F-Pace', 'I-Pace'],
-  'Land Rover': ['Defender', 'Discovery Sport', 'Discovery', 'Range Rover Evoque', 'Range Rover Velar', 'Range Rover Sport', 'Range Rover'],
-  'Mini': ['Hatch', 'Clubman', 'Countryman', 'Convertible', 'Electric'],
-  'Smart': ['ForTwo', 'ForFour'],
-  'Tesla': ['Model S', 'Model 3', 'Model X', 'Model Y'],
-  'Lexus': ['IS', 'ES', 'GS', 'LS', 'UX', 'NX', 'GX', 'LX'],
-  'Infiniti': ['Q30', 'Q50', 'Q60', 'Q70', 'QX30', 'QX50', 'QX60', 'QX80'],
-  'Acura': ['ILX', 'TLX', 'RLX', 'RDX', 'MDX'],
-  'Genesis': ['G70', 'G80', 'G90', 'GV70', 'GV80'],
-  'Alfa Romeo': ['Giulietta', 'Giulia', 'Stelvio'],
-  'Lancia': ['Ypsilon']
-};
+const carModelsByMake = CAR_MODELS_BY_MAKE;
 
 // Macedonian arrays (will be used by getTranslatedArray for MK language)
 const fallbackAdditionalProperties = ['Сертифициран предпродажен', 'Еден сопственик', 'Без незгоди', 'Достапни сервисни записи', 'Во гаранција', 'Неодамна сервисиран', 'Мал пробег', 'Чуван во гаража', 'Зимски пакет', 'Спортски пакет'];
