@@ -4,8 +4,9 @@
     "builder": "nixpacks"
   },
   "deploy": {
+    "healthcheckPath": "/health/liveness",
     "healthcheckTimeout": 300,
-    "restartPolicyType": "on_failure", 
+    "restartPolicyType": "on_failure",
     "restartPolicyMaxRetries": 3
   }
 }

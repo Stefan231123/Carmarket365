@@ -18,8 +18,9 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "rootDir": "."
   },
-  "include": ["src/**/*", "migrations/**/*", "../shared/car-data.ts"],
+  "include": ["src/**/*", "migrations/**/*"],
   "exclude": ["node_modules", "dist"]
 }

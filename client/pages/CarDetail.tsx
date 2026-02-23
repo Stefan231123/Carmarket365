@@ -16,16 +16,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
-import { 
-  ArrowLeft, 
-  Heart, 
-  Share2, 
-  Phone, 
-  Mail, 
-  MapPin, 
-  Calendar, 
-  Gauge, 
-  Fuel, 
+import {
+  ArrowLeft,
+  Heart,
+  Share2,
+  Phone,
+  Mail,
+  MapPin,
+  Calendar,
+  Gauge,
+  Fuel,
   Users,
   Shield,
   CheckCircle,
@@ -37,141 +37,11 @@ import {
   ChevronRight
 } from "lucide-react";
 
-// Mock data for demo cars that don't exist in the database
-const mockCars: { [key: string]: any } = {
-  "550e8400-e29b-41d4-a716-446655440001": {
-    id: "550e8400-e29b-41d4-a716-446655440001",
-    make: "Tesla",
-    model: "Model 3",
-    year: 2023,
-    price: 42990,
-    mileage: 5420,
-    fuelType: "Electric",
-    transmission: "Automatic",
-    images: ["https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"],
-    location: "San Francisco, CA",
-    seller: {
-      name: "Tesla San Francisco",
-      dealerName: "Tesla San Francisco",
-      role: "DEALER",
-      dealerPhoneNumber: "(415) 555-0123",
-      email: "contact@teslasf.com"
-    },
-    description: "This certified pre-owned Tesla Model 3 delivers incredible performance and efficiency with its all-electric powertrain. Features include Autopilot, premium interior, and over-the-air updates.",
-    createdAt: new Date().toISOString()
-  },
-  "550e8400-e29b-41d4-a716-446655440002": {
-    id: "550e8400-e29b-41d4-a716-446655440002",
-    make: "BMW",
-    model: "X5",
-    year: 2024,
-    price: 67800,
-    mileage: 1200,
-    fuelType: "Gasoline",
-    transmission: "Automatic",
-    images: ["https://images.pexels.com/photos/3764984/pexels-photo-3764984.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"],
-    location: "Los Angeles, CA",
-    seller: {
-      name: "BMW of Los Angeles",
-      dealerName: "BMW of Los Angeles",
-      role: "DEALER",
-      dealerPhoneNumber: "(323) 555-0456",
-      email: "sales@bmwla.com"
-    },
-    description: "Brand new BMW X5 with luxurious interior, advanced driver assistance features, and powerful twin-turbo engine. Perfect for families who demand both performance and comfort.",
-    createdAt: new Date().toISOString()
-  },
-  "550e8400-e29b-41d4-a716-446655440003": {
-    id: "550e8400-e29b-41d4-a716-446655440003",
-    make: "Toyota",
-    model: "Camry",
-    year: 2023,
-    price: 28450,
-    mileage: 8900,
-    fuelType: "Hybrid",
-    transmission: "CVT",
-    images: ["https://images.pexels.com/photos/33419739/pexels-photo-33419739.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"],
-    location: "Austin, TX",
-    seller: {
-      name: "Toyota of Austin",
-      dealerName: "Toyota of Austin",
-      role: "DEALER",
-      dealerPhoneNumber: "(512) 555-0789",
-      email: "info@toyotaaustin.com"
-    },
-    description: "Excellent fuel economy and reliability in this hybrid Camry. Features Toyota Safety Sense 2.0, premium audio system, and spacious interior perfect for daily commuting.",
-    createdAt: new Date().toISOString()
-  },
-  "550e8400-e29b-41d4-a716-446655440004": {
-    id: "550e8400-e29b-41d4-a716-446655440004",
-    make: "Mercedes-Benz",
-    model: "C-Class",
-    year: 2023,
-    price: 45600,
-    mileage: 3200,
-    fuelType: "Gasoline",
-    transmission: "Automatic",
-    images: ["https://images.pexels.com/photos/33419739/pexels-photo-33419739.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"],
-    location: "Miami, FL",
-    seller: {
-      name: "Mercedes-Benz of Miami",
-      dealerName: "Mercedes-Benz of Miami",
-      role: "DEALER",
-      dealerPhoneNumber: "(305) 555-0321",
-      email: "sales@mbmiami.com"
-    },
-    description: "Luxury and performance meet in this stunning C-Class sedan. Features MBUX infotainment, premium leather seats, and advanced safety technology.",
-    createdAt: new Date().toISOString()
-  },
-  "550e8400-e29b-41d4-a716-446655440005": {
-    id: "550e8400-e29b-41d4-a716-446655440005",
-    make: "Honda",
-    model: "Civic",
-    year: 2024,
-    price: 24200,
-    mileage: 500,
-    fuelType: "Gasoline",
-    transmission: "Manual",
-    images: ["https://images.pexels.com/photos/33419739/pexels-photo-33419739.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"],
-    location: "Chicago, IL",
-    seller: {
-      name: "Honda of Chicago",
-      dealerName: "Honda of Chicago",
-      role: "DEALER",
-      dealerPhoneNumber: "(312) 555-0654",
-      email: "contact@hondachicago.com"
-    },
-    description: "Brand new Honda Civic with manual transmission for driving enthusiasts. Excellent fuel economy, spacious interior, and Honda's legendary reliability.",
-    createdAt: new Date().toISOString()
-  },
-  "550e8400-e29b-41d4-a716-446655440006": {
-    id: "550e8400-e29b-41d4-a716-446655440006",
-    make: "Audi",
-    model: "A4",
-    year: 2023,
-    price: 39800,
-    mileage: 6700,
-    fuelType: "Gasoline",
-    transmission: "Automatic",
-    images: ["https://images.pexels.com/photos/33419739/pexels-photo-33419739.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"],
-    location: "Seattle, WA",
-    seller: {
-      name: "Audi Seattle",
-      dealerName: "Audi Seattle",
-      role: "DEALER",
-      dealerPhoneNumber: "(206) 555-0987",
-      email: "info@audiseattle.com"
-    },
-    description: "Sophisticated Audi A4 with quattro all-wheel drive, Virtual Cockpit, and premium Bang & Olufsen sound system. Perfect balance of luxury and performance.",
-    createdAt: new Date().toISOString()
-  }
-};
-
 export default function CarDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { car: apiCar, isLoading, error } = useCar(id || '');
+  const { car, isLoading, error } = useCar(id || '');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
@@ -181,11 +51,7 @@ export default function CarDetail() {
   const [fullscreenImageIndex, setFullscreenImageIndex] = useState(0);
   const { isFavorite, toggleFavorite } = useFavorites();
 
-  // Use mock data if API fails and we have mock data for this ID
-  const car = apiCar || (id && mockCars[id] ? mockCars[id] : null);
-  const isMockCar = !apiCar && id && mockCars[id];
-
-  if (isLoading && !isMockCar) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-muted/30 flex items-center justify-center">
         <LoadingSpinner />
@@ -193,7 +59,7 @@ export default function CarDetail() {
     );
   }
 
-  if ((error && !isMockCar) || !car) {
+  if (error || !car) {
     return (
       <div className="min-h-screen bg-muted/30 flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
@@ -222,57 +88,46 @@ export default function CarDetail() {
     );
   }
 
-  // Transform the API data to match the expected format
+  // Map API data to display format using real fields
+  const imageUrls = car.images && car.images.length > 0
+    ? car.images.map((img: any) => typeof img === 'string' ? img : img.url)
+    : [];
+
+  const sellerName = car.seller?.dealerName || car.seller?.name || t('carDetail.seller.privateSeller');
+  const sellerPhone = car.contactPhone || car.seller?.dealerPhoneNumber;
+  const sellerEmail = car.contactEmail || car.seller?.email;
+  const isDealer = car.seller?.dealerName != null;
+
   const carData = {
     id: car.id,
-    make: car.make || t('carDetail.mockData.unknownMake'),
-    model: car.model || t('carDetail.mockData.unknownModel'),
-    year: car.year || 2023,
-    price: car.price || 0,
-    originalPrice: car.price ? car.price + 3000 : 3000, // Mock original price for demo
-    mileage: car.mileage || 0,
-    vin: `VIN${car.id.slice(-8).toUpperCase()}`, // Mock VIN
-    condition: t('carDetail.mockData.excellent'), // Mock condition
-    fuelType: car.fuelType || t('carDetail.mockData.gasoline'),
-    transmission: car.transmission || t('carDetail.mockData.automatic'),
-    exteriorColor: car.color || t('carDetail.mockData.unknown'),
-    interiorColor: t('carDetail.mockData.black'), // Mock interior color
-    bodyType: car.bodyType || t('carDetail.mockData.sedan'),
-    drivetrain: t('carDetail.mockData.frontWheelDrive'), // Mock drivetrain
-    description: car.description || t('carDetail.mockData.wellMaintained'),
-    features: [
-      t('carDetail.mockData.features.airConditioning'),
-      t('carDetail.mockData.features.powerSteering'),
-      t('carDetail.mockData.features.electricWindows'),
-      t('carDetail.mockData.features.centralLocking'),
-      t('carDetail.mockData.features.airbags'),
-      t('carDetail.mockData.features.abs'),
-      t('carDetail.mockData.features.powerBrakes'),
-      t('carDetail.mockData.features.amfmRadio')
-    ], // Mock features
-    location: car.location || t('carDetail.mockData.locationNotSpecified'),
-    dealer: {
-      name: car.seller?.dealerName || car.seller?.name || t('carDetail.mockData.privateSeller')
-    },
+    make: car.make,
+    model: car.model,
+    year: car.year,
+    price: car.price,
+    originalPrice: car.originalPrice,
+    mileage: car.mileage,
+    vin: car.vin,
+    condition: car.condition,
+    fuelType: car.fuelType,
+    transmission: car.transmission,
+    exteriorColor: car.color,
+    interiorColor: car.interiorColor,
+    bodyType: car.vehicleType,
+    drivetrain: car.drivetrain,
+    description: car.description,
+    features: [...(car.features || []), ...(car.safetyFeatures || [])],
+    location: car.location,
+    dealer: { name: sellerName },
     dealerInfo: {
-      name: car.seller?.dealerName || car.seller?.name || t('carDetail.mockData.privateSeller'),
-      rating: 4.5, // Mock rating
-      reviewCount: 89, // Mock review count
-      phone: car.seller?.dealerPhoneNumber || "(555) 123-4567",
-      email: car.seller?.email || "contact@dealer.com",
-      verified: car.seller?.role === 'DEALER'
+      name: sellerName,
+      phone: sellerPhone,
+      email: sellerEmail,
+      verified: isDealer,
     },
-    images: car.images && car.images.length > 0 
-      ? car.images 
-      : ["https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&fit=crop"],
-    inspection: {
-      date: new Date(car.createdAt || Date.now()).toISOString().split('T')[0],
-      score: 8.5, // Mock inspection score
-      report: t('carDetail.mockData.inspectionReport')
-    },
+    images: imageUrls,
+    isCertified: car.isCertified,
     history: [
       { date: new Date(car.createdAt || Date.now()).toISOString().split('T')[0], event: t('carDetail.history.listedForSale'), description: t('carDetail.history.vehicleAdded') },
-      { date: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], event: t('carDetail.history.lastService'), description: t('carDetail.history.regularMaintenance') }
     ]
   };
 
@@ -299,29 +154,21 @@ export default function CarDetail() {
     });
   };
 
-  const handleContactClick = () => {
-    setIsContactModalOpen(true);
-  };
-
   const handleCallDealer = () => {
     if (carData.dealerInfo.phone) {
-      // Remove any formatting and create tel: link
       const cleanPhone = carData.dealerInfo.phone.replace(/\D/g, '');
-      window.location.href = `tel:+1${cleanPhone}`;
+      window.location.href = `tel:${cleanPhone}`;
     } else {
-      // If no phone available, show message modal
       setIsContactModalOpen(true);
     }
   };
 
   const handleViewDealerCars = () => {
-    // Navigate to BrowseCars page with dealer filter
     navigate(`/cars?dealer=${encodeURIComponent(carData.dealerInfo.name)}`);
   };
 
   const handleViewDealerProfile = () => {
-    // Navigate to dealer profile page - using dealer ID (for now use "1" as demo)
-    const dealerId = "1"; // In real app, this would come from the car data
+    const dealerId = car.seller?.id || "1";
     navigate(`/dealer/${dealerId}`);
   };
 
@@ -331,7 +178,7 @@ export default function CarDetail() {
         title={`${carData.year} ${carData.make} ${carData.model}`}
         description={`${carData.year} ${carData.make} ${carData.model} - ${carData.mileage.toLocaleString()} km, ${carData.fuelType}, ${carData.transmission}. ${carData.price.toLocaleString()} EUR on CarMarket365.`}
         canonical={`/cars/${car.id}`}
-        ogImage={car.images?.[0]}
+        ogImage={imageUrls[0]}
         ogType="product"
       />
       {/* Header */}
@@ -360,60 +207,73 @@ export default function CarDetail() {
           <div className="lg:col-span-2 space-y-6">
             {/* Image Gallery */}
             <div className="space-y-4">
-              <div className="relative aspect-[16/10] overflow-hidden cursor-pointer group border border-zinc-100 bg-zinc-50"
-                   style={{borderRadius: '16px'}}
-                   onClick={() => {
-                     setFullscreenImageIndex(currentImageIndex);
-                     setIsFullscreenModalOpen(true);
-                   }}>
-                <ImageWithFallback
-                  src={carData.images[currentImageIndex]}
-                  alt={`${carData.year} ${carData.make} ${carData.model}`}
-                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                />
-                <div className="absolute top-4 left-4 flex gap-2">
-                  <Badge className="bg-success text-success-foreground rounded-full">
-                    {t('carDetail.certified')}
-                  </Badge>
-                  {carData.originalPrice > carData.price && (
-                    <Badge variant="destructive">
-                      ${carData.originalPrice - carData.price} {t('carDetail.savingsAmount')}
-                    </Badge>
-                  )}
+              {carData.images.length > 0 ? (
+                <div className="relative aspect-[16/10] overflow-hidden cursor-pointer group border border-zinc-100 bg-zinc-50"
+                     style={{borderRadius: '16px'}}
+                     onClick={() => {
+                       setFullscreenImageIndex(currentImageIndex);
+                       setIsFullscreenModalOpen(true);
+                     }}>
+                  <ImageWithFallback
+                    src={carData.images[currentImageIndex]}
+                    alt={`${carData.year} ${carData.make} ${carData.model}`}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                  />
+                  <div className="absolute top-4 left-4 flex gap-2">
+                    {carData.isCertified && (
+                      <Badge className="bg-success text-success-foreground rounded-full">
+                        {t('carDetail.certified')}
+                      </Badge>
+                    )}
+                    {carData.originalPrice && carData.originalPrice > carData.price && (
+                      <Badge variant="destructive">
+                        ${Math.round(carData.originalPrice - carData.price)} {t('carDetail.savingsAmount')}
+                      </Badge>
+                    )}
+                  </div>
+                  <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <Button size="icon" variant="secondary" className="rounded-full bg-white/90 hover:bg-white">
+                      <Expand className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
-                <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Button size="icon" variant="secondary" className="rounded-full bg-white/90 hover:bg-white">
-                    <Expand className="h-4 w-4" />
-                  </Button>
+              ) : (
+                <div className="relative aspect-[16/10] overflow-hidden border border-zinc-100 bg-zinc-100 flex items-center justify-center"
+                     style={{borderRadius: '16px'}}>
+                  <div className="text-center text-muted-foreground">
+                    <MapPin className="h-12 w-12 mx-auto mb-2 opacity-30" />
+                    <p className="text-sm">{t('carDetail.noImages')}</p>
+                  </div>
                 </div>
-              </div>
-              
+              )}
+
               {/* Thumbnail Navigation */}
-              <div className="flex gap-2 overflow-x-auto">
-                {carData.images.map((image: string, index: number) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentImageIndex(index)}
-                    className={`flex-shrink-0 w-20 h-16 overflow-hidden border-2 transition-colors hover:border-primary/60 ${
-                      currentImageIndex === index ? 'border-primary' : 'border-zinc-100'
-                    }`}
-                    style={{borderRadius: '12px'}}
-                  >
-                    <ImageWithFallback src={image} alt="" className="w-full h-full object-cover" />
-                  </button>
-                ))}
-              </div>
+              {carData.images.length > 1 && (
+                <div className="flex gap-2 overflow-x-auto">
+                  {carData.images.map((image: string, index: number) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`flex-shrink-0 w-20 h-16 overflow-hidden border-2 transition-colors hover:border-primary/60 ${
+                        currentImageIndex === index ? 'border-primary' : 'border-zinc-100'
+                      }`}
+                      style={{borderRadius: '12px'}}
+                    >
+                      <ImageWithFallback src={image} alt="" className="w-full h-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Vehicle Information Tabs */}
             <Tabs defaultValue="overview" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 sm:grid-cols-4">
+              <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3">
                 <TabsTrigger value="overview">{t('carDetail.tabs.overview')}</TabsTrigger>
                 <TabsTrigger value="features">{t('carDetail.tabs.features')}</TabsTrigger>
-                <TabsTrigger value="inspection">{t('carDetail.tabs.inspection')}</TabsTrigger>
                 <TabsTrigger value="history">{t('carDetail.tabs.history')}</TabsTrigger>
               </TabsList>
-              
+
               <TabsContent value="overview" className="space-y-4">
                 <Card className="border-zinc-100 rounded-2xl">
                   <CardHeader>
@@ -449,40 +309,58 @@ export default function CarDetail() {
                           <span>{carData.year}</span>
                         </div>
                       </div>
-                      <div className="space-y-1">
-                        <div className="text-sm text-muted-foreground">{t('carDetail.overview.exteriorColor')}</div>
-                        <span>{carData.exteriorColor}</span>
-                      </div>
-                      <div className="space-y-1">
-                        <div className="text-sm text-muted-foreground">{t('carDetail.overview.interiorColor')}</div>
-                        <span>{carData.interiorColor}</span>
-                      </div>
-                      <div className="space-y-1">
-                        <div className="text-sm text-muted-foreground">{t('carDetail.overview.bodyType')}</div>
-                        <span>{carData.bodyType}</span>
-                      </div>
-                      <div className="space-y-1">
-                        <div className="text-sm text-muted-foreground">{t('carDetail.overview.drivetrain')}</div>
-                        <span>{carData.drivetrain}</span>
-                      </div>
-                      <div className="space-y-1">
-                        <div className="text-sm text-muted-foreground">{t('carDetail.overview.vin')}</div>
-                        <span className="font-mono text-xs">{carData.vin}</span>
-                      </div>
+                      {carData.condition && (
+                        <div className="space-y-1">
+                          <div className="text-sm text-muted-foreground">{t('carDetail.overview.condition')}</div>
+                          <span>{carData.condition}</span>
+                        </div>
+                      )}
+                      {carData.exteriorColor && (
+                        <div className="space-y-1">
+                          <div className="text-sm text-muted-foreground">{t('carDetail.overview.exteriorColor')}</div>
+                          <span>{carData.exteriorColor}</span>
+                        </div>
+                      )}
+                      {carData.interiorColor && (
+                        <div className="space-y-1">
+                          <div className="text-sm text-muted-foreground">{t('carDetail.overview.interiorColor')}</div>
+                          <span>{carData.interiorColor}</span>
+                        </div>
+                      )}
+                      {carData.bodyType && (
+                        <div className="space-y-1">
+                          <div className="text-sm text-muted-foreground">{t('carDetail.overview.bodyType')}</div>
+                          <span>{carData.bodyType}</span>
+                        </div>
+                      )}
+                      {carData.drivetrain && (
+                        <div className="space-y-1">
+                          <div className="text-sm text-muted-foreground">{t('carDetail.overview.drivetrain')}</div>
+                          <span>{carData.drivetrain}</span>
+                        </div>
+                      )}
+                      {carData.vin && (
+                        <div className="space-y-1">
+                          <div className="text-sm text-muted-foreground">{t('carDetail.overview.vin')}</div>
+                          <span className="font-mono text-xs">{carData.vin}</span>
+                        </div>
+                      )}
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="border-zinc-100 rounded-2xl">
-                  <CardHeader>
-                    <CardTitle>{t('carDetail.overview.description')}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-muted-foreground leading-relaxed">
-                      {carData.description}
-                    </p>
-                  </CardContent>
-                </Card>
+                {carData.description && (
+                  <Card className="border-zinc-100 rounded-2xl">
+                    <CardHeader>
+                      <CardTitle>{t('carDetail.overview.description')}</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-muted-foreground leading-relaxed">
+                        {carData.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                )}
               </TabsContent>
 
               <TabsContent value="features" className="space-y-4">
@@ -491,33 +369,20 @@ export default function CarDetail() {
                     <CardTitle>{t('carDetail.features.featuresAndOptions')}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                      {carData.features.map((feature) => (
-                        <div key={feature} className="flex items-center gap-2">
-                          <CheckCircle className="h-4 w-4 text-success" />
-                          <span className="text-sm">{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-
-              <TabsContent value="inspection" className="space-y-4">
-                <Card className="border-zinc-100 rounded-2xl">
-                  <CardHeader>
-                    <CardTitle>{t('carDetail.inspection.title')}</CardTitle>
-                    <CardDescription>{t('carDetail.inspection.lastUpdated')} {carData.inspection.date}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className="text-3xl font-bold text-success">{carData.inspection.score}/10</div>
-                      <div>
-                        <div className="font-medium">{t('carDetail.inspection.excellentCondition')}</div>
-                        <div className="text-sm text-muted-foreground">{t('carDetail.inspection.pointInspection')}</div>
+                    {carData.features.length > 0 ? (
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        {carData.features.map((feature) => (
+                          <div key={feature} className="flex items-center gap-2">
+                            <CheckCircle className="h-4 w-4 text-success" />
+                            <span className="text-sm">{feature}</span>
+                          </div>
+                        ))}
                       </div>
-                    </div>
-                    <p className="text-muted-foreground">{carData.inspection.report}</p>
+                    ) : (
+                      <p className="text-muted-foreground text-sm">
+                        {t('carDetail.features.noFeatures')}
+                      </p>
+                    )}
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -533,9 +398,9 @@ export default function CarDetail() {
                         <div key={index} className="flex gap-3">
                           <div className="flex-shrink-0 w-2 h-2 bg-primary rounded-full mt-2"></div>
                           <div>
-                            <div className="font-medium">{event.event === 'Listed for sale' ? t('carDetail.history.listedForSale') : event.event === 'Last service' ? t('carDetail.history.lastService') : event.event}</div>
+                            <div className="font-medium">{event.event}</div>
                             <div className="text-sm text-muted-foreground">{event.date}</div>
-                            <div className="text-sm text-muted-foreground">{event.description === 'Vehicle added to marketplace' ? t('carDetail.history.vehicleAdded') : event.description === 'Regular maintenance completed' ? t('carDetail.history.regularMaintenance') : event.description}</div>
+                            <div className="text-sm text-muted-foreground">{event.description}</div>
                           </div>
                         </div>
                       ))}
@@ -568,7 +433,7 @@ export default function CarDetail() {
                   <div className="text-3xl font-bold text-foreground">
                     {formatPrice(carData.price)}
                   </div>
-                  {carData.originalPrice > carData.price && (
+                  {carData.originalPrice && carData.originalPrice > carData.price && (
                     <div className="text-sm text-muted-foreground line-through">
                       {formatPrice(carData.originalPrice)}
                     </div>
@@ -591,7 +456,7 @@ export default function CarDetail() {
               </CardContent>
             </Card>
 
-            {/* Dealer Info */}
+            {/* Seller Info */}
             <Card className="border-zinc-100 rounded-2xl">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -601,27 +466,13 @@ export default function CarDetail() {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <button 
+                  <button
                     onClick={handleViewDealerProfile}
                     className="font-medium text-left hover:text-primary transition-colors underline-offset-4 hover:underline"
                   >
                     {carData.dealerInfo.name}
                   </button>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <div className="flex items-center">
-                      {[...Array(5)].map((_, i) => (
-                        <Star
-                          key={i}
-                          className={`h-4 w-4 ${
-                            i < Math.floor(carData.dealerInfo.rating)
-                              ? 'text-yellow-400 fill-current'
-                              : 'text-muted-foreground'
-                          }`}
-                        />
-                      ))}
-                      <span className="ml-1">{carData.dealerInfo.rating}</span>
-                    </div>
-                    <span>({carData.dealerInfo.reviewCount} {t('carDetail.seller.reviews')})</span>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground mt-1">
                     {carData.dealerInfo.verified && (
                       <Badge variant="secondary" className="text-xs rounded-full">
                         <CheckCircle className="h-3 w-3 mr-1" />
@@ -632,14 +483,18 @@ export default function CarDetail() {
                 </div>
 
                 <div className="space-y-2 text-sm">
-                  <div className="flex items-center gap-2">
-                    <Phone className="h-4 w-4 text-muted-foreground" />
-                    {carData.dealerInfo.phone}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Mail className="h-4 w-4 text-muted-foreground" />
-                    {carData.dealerInfo.email}
-                  </div>
+                  {carData.dealerInfo.phone && (
+                    <div className="flex items-center gap-2">
+                      <Phone className="h-4 w-4 text-muted-foreground" />
+                      {carData.dealerInfo.phone}
+                    </div>
+                  )}
+                  {carData.dealerInfo.email && (
+                    <div className="flex items-center gap-2">
+                      <Mail className="h-4 w-4 text-muted-foreground" />
+                      {carData.dealerInfo.email}
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -662,9 +517,9 @@ export default function CarDetail() {
                 <div className="text-sm text-muted-foreground">
                   {t('carDetail.financing.estimatedPayment')}
                 </div>
-                <div className="text-2xl font-bold">€649{t('carDetail.financing.monthlyPayment')}</div>
+                <div className="text-2xl font-bold">{formatPrice(Math.round(carData.price / 72))}{t('carDetail.financing.monthlyPayment')}</div>
                 <div className="text-xs text-muted-foreground">
-                  {t('carDetail.financing.basedOnTerms')} 6.5% {t('carDetail.financing.aprForMonths')} 72 {t('carDetail.financing.withDown')} €5,000 down
+                  {t('carDetail.financing.basedOnTerms')} 6.5% {t('carDetail.financing.aprForMonths')} 72
                 </div>
                 <Button onClick={() => setIsFinancingModalOpen(true)} variant="outline" className="w-full border-zinc-100 rounded-full h-12">
                   {t('carDetail.actions.getPreApproved')}
@@ -705,7 +560,7 @@ export default function CarDetail() {
           price: carData.price,
           images: carData.images,
           location: carData.location,
-          description: carData.description
+          description: carData.description || ''
         }}
         isOpen={isShareModalOpen}
         onClose={() => setIsShareModalOpen(false)}
@@ -741,91 +596,93 @@ export default function CarDetail() {
       />
 
       {/* Fullscreen Image Modal */}
-      <Dialog open={isFullscreenModalOpen} onOpenChange={setIsFullscreenModalOpen}>
-        <DialogContent className="max-w-[100vw] max-h-[100vh] w-full h-full p-0 bg-black/95" aria-describedby={undefined}>
-          <DialogTitle className="sr-only">{t('carDetail.imageGallery')}</DialogTitle>
-          <div className="relative w-full h-full flex items-center justify-center">
-            {/* Close Button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute top-4 right-4 z-10 text-white hover:bg-white/20 rounded-full"
-              onClick={() => setIsFullscreenModalOpen(false)}
-            >
-              <X className="h-6 w-6" />
-            </Button>
+      {carData.images.length > 0 && (
+        <Dialog open={isFullscreenModalOpen} onOpenChange={setIsFullscreenModalOpen}>
+          <DialogContent className="max-w-[100vw] max-h-[100vh] w-full h-full p-0 bg-black/95" aria-describedby={undefined}>
+            <DialogTitle className="sr-only">{t('carDetail.imageGallery')}</DialogTitle>
+            <div className="relative w-full h-full flex items-center justify-center">
+              {/* Close Button */}
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute top-4 right-4 z-10 text-white hover:bg-white/20 rounded-full"
+                onClick={() => setIsFullscreenModalOpen(false)}
+              >
+                <X className="h-6 w-6" />
+              </Button>
 
-            {/* Image Navigation Buttons */}
-            {carData.images.length > 1 && (
-              <>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="absolute left-4 z-10 text-white hover:bg-white/20 rounded-full"
-                  onClick={() => {
-                    const newIndex = fullscreenImageIndex === 0 
-                      ? carData.images.length - 1 
-                      : fullscreenImageIndex - 1;
-                    setFullscreenImageIndex(newIndex);
-                  }}
-                >
-                  <ChevronLeft className="h-6 w-6" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="absolute right-4 z-10 text-white hover:bg-white/20 rounded-full"
-                  onClick={() => {
-                    const newIndex = fullscreenImageIndex === carData.images.length - 1 
-                      ? 0 
-                      : fullscreenImageIndex + 1;
-                    setFullscreenImageIndex(newIndex);
-                  }}
-                >
-                  <ChevronRight className="h-6 w-6" />
-                </Button>
-              </>
-            )}
+              {/* Image Navigation Buttons */}
+              {carData.images.length > 1 && (
+                <>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute left-4 z-10 text-white hover:bg-white/20 rounded-full"
+                    onClick={() => {
+                      const newIndex = fullscreenImageIndex === 0
+                        ? carData.images.length - 1
+                        : fullscreenImageIndex - 1;
+                      setFullscreenImageIndex(newIndex);
+                    }}
+                  >
+                    <ChevronLeft className="h-6 w-6" />
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute right-4 z-10 text-white hover:bg-white/20 rounded-full"
+                    onClick={() => {
+                      const newIndex = fullscreenImageIndex === carData.images.length - 1
+                        ? 0
+                        : fullscreenImageIndex + 1;
+                      setFullscreenImageIndex(newIndex);
+                    }}
+                  >
+                    <ChevronRight className="h-6 w-6" />
+                  </Button>
+                </>
+              )}
 
-            {/* Main Image */}
-            <div className="w-full h-full flex items-center justify-center p-8">
-              <ImageWithFallback
-                src={carData.images[fullscreenImageIndex]}
-                alt={`${carData.year} ${carData.make} ${carData.model} - Image ${fullscreenImageIndex + 1}`}
-                className="max-w-full max-h-full object-contain"
-              />
+              {/* Main Image */}
+              <div className="w-full h-full flex items-center justify-center p-8">
+                <ImageWithFallback
+                  src={carData.images[fullscreenImageIndex]}
+                  alt={`${carData.year} ${carData.make} ${carData.model} - Image ${fullscreenImageIndex + 1}`}
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+
+              {/* Image Counter */}
+              {carData.images.length > 1 && (
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10">
+                  <div className="bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+                    {fullscreenImageIndex + 1} {t('carDetail.imageCounter')} {carData.images.length}
+                  </div>
+                </div>
+              )}
+
+              {/* Thumbnail Strip */}
+              {carData.images.length > 1 && (
+                <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-10">
+                  <div className="flex gap-2 max-w-sm overflow-x-auto px-2">
+                    {carData.images.map((image: string, index: number) => (
+                      <button
+                        key={index}
+                        onClick={() => setFullscreenImageIndex(index)}
+                        className={`flex-shrink-0 w-16 h-12 rounded-lg overflow-hidden border-2 transition-colors ${
+                          fullscreenImageIndex === index ? 'border-white' : 'border-white/30 hover:border-white/60'
+                        }`}
+                      >
+                        <ImageWithFallback src={image} alt="" className="w-full h-full object-cover" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
-
-            {/* Image Counter */}
-            {carData.images.length > 1 && (
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10">
-                <div className="bg-black/50 text-white px-3 py-1 rounded-full text-sm">
-                  {fullscreenImageIndex + 1} {t('carDetail.imageCounter')} {carData.images.length}
-                </div>
-              </div>
-            )}
-
-            {/* Thumbnail Strip */}
-            {carData.images.length > 1 && (
-              <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-10">
-                <div className="flex gap-2 max-w-sm overflow-x-auto px-2">
-                  {carData.images.map((image: string, index: number) => (
-                    <button
-                      key={index}
-                      onClick={() => setFullscreenImageIndex(index)}
-                      className={`flex-shrink-0 w-16 h-12 rounded-lg overflow-hidden border-2 transition-colors ${
-                        fullscreenImageIndex === index ? 'border-white' : 'border-white/30 hover:border-white/60'
-                      }`}
-                    >
-                      <ImageWithFallback src={image} alt="" className="w-full h-full object-cover" />
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-        </DialogContent>
-      </Dialog>
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 }

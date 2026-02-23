@@ -6,7 +6,7 @@ import { CreateCarInput, UpdateCarInput, CarFilterInput } from './dto/car.input'
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { User } from '../users/user.entity';
-import { CAR_MAKES, getModelsForMake } from '../../../shared/car-data';
+import { CAR_MAKES, getModelsForMake } from '../shared/car-data';
 
 @Resolver(() => Car)
 export class CarsResolver {

@@ -433,7 +433,9 @@ export const mkTranslations: TranslationStrings = {
     certifiedPreOwned: 'Сертифицирани половни',
     electric: 'Електрични',
     luxury: 'Луксузни',
-    viewAllCars: 'Погледни ги сите автомобили'
+    viewAllCars: 'Погледни ги сите автомобили',
+    noFeaturedCars: 'Нема достапни препорачани автомобили',
+    noFeaturedCarsDescription: 'Проверете повторно наскоро за нови препорачани огласи, или прегледајте ги сите достапни автомобили.',
   },
 
   filters: {
@@ -1958,13 +1960,169 @@ export const mkTranslations: TranslationStrings = {
 
   // Car detail page sections
   carDetail: {
+    // Header and Navigation
+    backToSearch: 'Назад кон пребарување',
+
+    // Vehicle Title and Info
+    vehicleTitle: 'Наслов на возило',
+    locationLabel: 'Локација',
+    priceLabel: 'Цена',
+    originalPrice: 'Оригинална цена',
+    savingsAmount: 'Попуст',
+
+    // Status Badges
+    certified: 'Сертифицирано',
+    featured: 'Препорачано',
+    newArrival: 'Ново пристигнување',
+    priceReduced: 'Намалена цена',
+    greatDeal: 'Одлична понуда',
+    verified: 'Верифицирано',
+
+    // Image Gallery
+    mainImage: 'Главна слика',
+    imageGallery: 'Галерија на слики',
+    viewFullscreen: 'Погледни на цел екран',
+    imageCounter: 'од',
+    noImages: 'Нема достапни слики',
+    saveCar: 'Зачувај автомобил',
+    shareCar: 'Сподели автомобил',
+
+    // Tabs
+    tabs: {
+      overview: 'Преглед',
+      features: 'Карактеристики',
+      inspection: 'Инспекција',
+      history: 'Историја',
+    },
+
+    // Overview Tab
+    overview: {
+      vehicleDetails: 'Детали за возилото',
+      mileage: 'Километража',
+      fuelType: 'Тип на гориво',
+      transmission: 'Менувач',
+      year: 'Година',
+      condition: 'Состојба',
+      exteriorColor: 'Надворешна боја',
+      interiorColor: 'Внатрешна боја',
+      bodyType: 'Тип на каросерија',
+      drivetrain: 'Тип на погон',
+      vin: 'ВИН',
+      description: 'Опис',
+      miles: 'км',
+    },
+
+    // Features Tab
+    features: {
+      title: 'Карактеристики',
+      featuresAndOptions: 'Карактеристики и опции',
+      noFeatures: 'Нема наведени карактеристики за ова возило.',
+    },
+
+    // Inspection Tab
+    inspection: {
+      title: 'Извештај од инспекција',
+      lastUpdated: 'Последно ажурирано:',
+      excellentCondition: 'Одлична состојба',
+      pointInspection: 'Завршена инспекција од 150 точки',
+      inspectionCompleted: 'инспекцијата е завршена',
+      inspectionScore: 'Резултат од инспекција',
+    },
+
+    // History Tab
+    history: {
+      title: 'Историја',
+      vehicleHistory: 'Историја на возилото',
+      listedForSale: 'Поставено на продажба',
+      vehicleAdded: 'Возилото е додадено на платформата',
+      lastService: 'Последен сервис',
+      regularMaintenance: 'Редовно одржување завршено',
+    },
+
+    // Action Buttons
+    actions: {
+      callDealer: 'Повикај продавач',
+      sendMessage: 'Испрати порака',
+      scheduleTestDrive: 'Закажи тест возење',
+      getPreApproved: 'Добиј претходно одобрување',
+      calculatePayment: 'Пресметај плаќање',
+      viewDealerProfile: 'Погледни профил на продавач',
+      viewAllDealerCars: 'Погледни ги сите автомобили на продавачот',
+      shareVehicle: 'Сподели возило',
+      saveToFavorites: 'Зачувај во омилени',
+      removeFromFavorites: 'Отстрани од омилени',
+    },
+
+    // Seller Information
     seller: {
       title: 'Продавач',
-      dealer: 'Дилер',
-      private: 'Приватен',
-      rating: 'Рејтинг',
-      reviews: 'рецензии'
-    }
+      sellerInformation: 'Информации за продавачот',
+      dealerRating: 'Рејтинг',
+      reviews: 'рецензии',
+      verified: 'Верифициран',
+      phone: 'Телефон',
+      email: 'Е-пошта',
+      privateSeller: 'Приватен продавач',
+    },
+
+    // Financing Section
+    financing: {
+      title: 'Финансирање',
+      financingOptions: 'Опции за финансирање',
+      estimatedPayment: 'Проценето месечно плаќање',
+      monthlyPayment: '/мес',
+      basedOnTerms: 'Базирано на',
+      aprForMonths: 'годишна каматна стапка за',
+      withDown: 'месеци со',
+      getPreApproved: 'Добиј претходно одобрување',
+      calculatePayment: 'Пресметај плаќање',
+    },
+
+    // Error States
+    errors: {
+      carNotFound: 'Автомобилот не е пронајден',
+      failedToLoad: 'Не можевме да го вчитаме овој оглас. Обидете се повторно подоцна.',
+      doesntExist: 'Овој оглас не постои или е отстранет.',
+      hasBeenRemoved: 'Овој оглас е отстранет.',
+      backToCars: 'Назад кон автомобили',
+    },
+
+    // Loading States
+    loading: {
+      loadingVehicle: 'Се вчитува возилото...',
+      loadingDetails: 'Се вчитуваат деталите...',
+    },
+
+    // Contact and Communication
+    contact: {
+      contactDealer: 'Контактирај продавач',
+      interestedIn: 'Ме интересира ова возило',
+      preferredContactMethod: 'Претпочитан начин на контакт',
+      additionalMessage: 'Дополнителна порака',
+      sendInquiry: 'Испрати прашање',
+      callNow: 'Повикај сега',
+      emailDealer: 'Испрати е-пошта на продавачот',
+      scheduleViewing: 'Закажи преглед',
+    },
+
+    // Test Drive
+    testDrive: {
+      scheduleTestDrive: 'Закажи тест возење',
+      preferredDate: 'Претпочитан датум',
+      preferredTime: 'Претпочитано време',
+      contactInfo: 'Контакт информации',
+      additionalNotes: 'Дополнителни белешки',
+      submitRequest: 'Испрати барање',
+    },
+
+    // Share Feature
+    share: {
+      shareVehicle: 'Сподели возило',
+      shareOnSocial: 'Сподели на социјални мрежи',
+      copyLink: 'Копирај линк',
+      emailToFriend: 'Испрати по е-пошта до пријател',
+      generateQR: 'Генерирај QR код',
+    },
   },
 
   // Продај возило

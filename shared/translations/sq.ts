@@ -402,6 +402,8 @@ export const sqTranslations: TranslationStrings = {
     electric: 'Elektrike',
     luxury: 'Luksoze',
     viewAllCars: 'Shiko të gjitha makinat',
+    noFeaturedCars: 'Nuk ka makina të promovuara',
+    noFeaturedCarsDescription: 'Kontrolloni përsëri së shpejti për lista të reja të promovuara, ose shfletoni të gjitha makinat e disponueshme.',
   },
 
   filters: {
@@ -4001,7 +4003,7 @@ export const sqTranslations: TranslationStrings = {
     },
   },
 
-  // CarDetail section with mockData
+  // Car detail page sections
   carDetail: {
     backToSearch: 'Kthehu në kërkim',
     
@@ -4025,7 +4027,10 @@ export const sqTranslations: TranslationStrings = {
     imageGallery: 'Galeria e Imazheve',
     viewFullscreen: 'Shiko në Ekran të Plotë',
     imageCounter: 'nga',
-    
+    noImages: 'Nuk ka imazhe të disponueshme',
+    saveCar: 'Ruaj makinën',
+    shareCar: 'Ndaj makinën',
+
     // Tabs and Content
     tabs: {
       overview: 'Përmbledhje',
@@ -4041,6 +4046,7 @@ export const sqTranslations: TranslationStrings = {
       fuelType: 'Lloji i karburantit',
       transmission: 'Transmisioni',
       year: 'Viti',
+      condition: 'Gjendja',
       exteriorColor: 'Ngjyra e Jashtme',
       interiorColor: 'Ngjyra e Brendshme',
       bodyType: 'Lloji i Karocerisë',
@@ -4054,6 +4060,7 @@ export const sqTranslations: TranslationStrings = {
     features: {
       title: 'Karakteristikat',
       featuresAndOptions: 'Karakteristikat dhe Opsionet',
+      noFeatures: 'Nuk ka karakteristika të listuara për këtë automjet.',
     },
     
     // Inspection Tab
@@ -4099,6 +4106,7 @@ export const sqTranslations: TranslationStrings = {
       verified: 'I Verifikuar',
       phone: 'Telefoni',
       email: 'Email',
+      privateSeller: 'Shitës Privat',
     },
     
     // Financing Section
@@ -4150,81 +4158,14 @@ export const sqTranslations: TranslationStrings = {
       additionalNotes: 'Shënime shtesë',
       submitRequest: 'Dërgo Kërkesën',
     },
-    
-    // Mock Data Values
-    mockData: {
-      unknownMake: 'Markë e Panjohur',
-      unknownModel: 'Model i Panjohur',
-      excellent: 'E shkëlqyer',
-      gasoline: 'Benzina',
-      automatic: 'Automatike',
-      unknown: 'E panjohur',
-      black: 'E zezë',
-      sedan: 'Sedan',
-      frontWheelDrive: 'Drejt përpara',
-      wellMaintained: 'Automjet i mirëmbajtur në gjendje të shkëlqyer.',
-      inspectionReport: 'Automjeti është kontrolluar dhe i plotëson standardet tona të cilësisë.',
-      locationNotSpecified: 'Vendndodhja nuk është specifikuar',
-      privateSeller: 'Shitës Privat',
-      features: {
-        airConditioning: 'Ajër i kondicionuar',
-        powerSteering: 'Drejtim me servo',
-        electricWindows: 'Dritare elektrike',
-        centralLocking: 'Kyçje qendrore',
-        airbags: 'Jastëk sigurie',
-        abs: 'ABS',
-        powerBrakes: 'Frenj me servo',
-        amfmRadio: 'Radio AM/FM',
-      },
-      condition: 'E shkëlqyer',
-      interiorColor: 'E zezë',
-      drivetrain: 'Sistemi i transmetimit',
-      description: 'Automjet i mirëmbajtur në gjendje të shkëlqyer.',
-      historyEvents: [
-        'Blerë e re në 2020',
-        'Servis i rregullt çdo 10,000km',
-        'Asnjë aksident në histori',
-        'Një pronar deri tani'
-      ],
-      // Locations
-      locations: {
-        'Berlin, Germany': 'Berlin, Gjermani',
-        'Munich, Germany': 'Munich, Gjermani',
-        'Hamburg, Germany': 'Hamburg, Gjermani',
-        'Frankfurt, Germany': 'Frankfurt, Gjermani',
-        'Cologne, Germany': 'Cologne, Gjermani',
-        'Stuttgart, Germany': 'Stuttgart, Gjermani',
-        'Dresden, Germany': 'Dresden, Gjermani',
-        'Leipzig, Germany': 'Leipzig, Gjermani',
-        'Nuremberg, Germany': 'Nuremberg, Gjermani',
-        'Düsseldorf, Germany': 'Düsseldorf, Gjermani'
-      },
-      // Dealers
-      dealers: {
-        'Premium Motors': 'Premium Motors',
-        'BMW Center': 'Qendra BMW',
-        'Auto House': 'Auto House',
-        'Elite Motors': 'Elite Motors',
-        'Sports Cars GmbH': 'Makina Sportive GmbH',
-        'City Motors': 'City Motors',
-        'BMW Dresden': 'BMW Dresden',
-        'Auto Leipzig': 'Auto Leipzig',
-        'Premium Cars': 'Makina Premium',
-        'BMW Düsseldorf': 'BMW Düsseldorf'
-      },
-      // Fuel types
-      fuel: {
-        'Diesel': 'Nafta',
-        'Petrol': 'Benzina',
-        'Electric': 'Elektrike',
-        'Hybrid': 'Hibride'
-      },
-      // Transmission types
-      transmission: {
-        'Automatic': 'Automatike',
-        'Manuale': 'Manuale',
-        'Semi-Automatic': 'Gjysmë-Automatike'
-      },
+
+    // Share Feature
+    share: {
+      shareVehicle: 'Ndaj Automjetin',
+      shareOnSocial: 'Ndaj në Rrjete Sociale',
+      copyLink: 'Kopjo Linkun',
+      emailToFriend: 'Dërgo me Email një Miku',
+      generateQR: 'Gjenero Kodin QR',
     },
   },
 

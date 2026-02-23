@@ -168,6 +168,8 @@ export interface TranslationStrings {
     electric: string;
     luxury: string;
     viewAllCars: string;
+    noFeaturedCars: string;
+    noFeaturedCarsDescription: string;
   };
 
   // Filters
@@ -1590,6 +1592,9 @@ export interface TranslationStrings {
     imageGallery: string;
     viewFullscreen: string;
     imageCounter: string;
+    noImages: string;
+    saveCar: string;
+    shareCar: string;
     
     // Tabs and Content
     tabs: {
@@ -1606,6 +1611,7 @@ export interface TranslationStrings {
       fuelType: string;
       transmission: string;
       year: string;
+      condition: string;
       exteriorColor: string;
       interiorColor: string;
       bodyType: string;
@@ -1619,6 +1625,7 @@ export interface TranslationStrings {
     features: {
       title: string;
       featuresAndOptions: string;
+      noFeatures: string;
     };
     
     // Inspection Tab
@@ -1664,6 +1671,7 @@ export interface TranslationStrings {
       verified: string;
       phone: string;
       email: string;
+      privateSeller: string;
     };
     
     // Financing Section
@@ -1725,49 +1733,6 @@ export interface TranslationStrings {
       generateQR: string;
     };
     
-    // Mock Data Values
-    mockData: {
-      unknownMake: string;
-      unknownModel: string;
-      excellent: string;
-      gasoline: string;
-      automatic: string;
-      unknown: string;
-      black: string;
-      sedan: string;
-      frontWheelDrive: string;
-      wellMaintained: string;
-      inspectionReport: string;
-      locationNotSpecified: string;
-      privateSeller: string;
-      features: {
-        airConditioning: string;
-        powerSteering: string;
-        electricWindows: string;
-        centralLocking: string;
-        airbags: string;
-        abs: string;
-        powerBrakes: string;
-        amfmRadio: string;
-      };
-      condition: string;
-      interiorColor: string;
-      drivetrain: string;
-      description: string;
-      historyEvents: string[];
-      locations: {
-        [key: string]: string;
-      };
-      dealers: {
-        [key: string]: string;
-      };
-      fuel: {
-        [key: string]: string;
-      };
-      transmission: {
-        [key: string]: string;
-      };
-    };
   };
 
   // Advanced Search

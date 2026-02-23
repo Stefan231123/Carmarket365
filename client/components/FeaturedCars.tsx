@@ -1,104 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { CarCard } from "./CarCard";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Car } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
 import { useNavigate } from "react-router-dom";
 import { useFeaturedCars } from "@/hooks/useFeaturedCars";
-import { LoadingSpinner } from "./LoadingSpinner";
-import { Alert, AlertDescription } from "@/components/ui/alert";
-
-const featuredCars = [
-  {
-    id: "550e8400-e29b-41d4-a716-446655440001",
-    make: "Tesla",
-    model: "Model 3",
-    year: 2023,
-    price: 42990,
-    mileage: 5420,
-    fuelType: "Electric",
-    transmission: "Automatic",
-    image: "https://images.pexels.com/photos/110844/pexels-photo-110844.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-    location: "San Francisco, CA",
-    dealer: "Tesla San Francisco",
-    isNew: false,
-    isCertified: true,
-  },
-  {
-    id: "550e8400-e29b-41d4-a716-446655440002",
-    make: "BMW",
-    model: "X5",
-    year: 2024,
-    price: 67800,
-    mileage: 1200,
-    fuelType: "Gasoline",
-    transmission: "Automatic",
-    image: "https://images.pexels.com/photos/3764984/pexels-photo-3764984.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-    location: "Los Angeles, CA",
-    dealer: "BMW of Los Angeles",
-    isNew: true,
-    isCertified: true,
-  },
-  {
-    id: "550e8400-e29b-41d4-a716-446655440003",
-    make: "Toyota",
-    model: "Camry",
-    year: 2023,
-    price: 28450,
-    mileage: 8900,
-    fuelType: "Hybrid",
-    transmission: "CVT",
-    image: "https://images.pexels.com/photos/33419739/pexels-photo-33419739.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-    location: "Austin, TX",
-    dealer: "Toyota of Austin",
-    isNew: false,
-    isCertified: true,
-  },
-  {
-    id: "550e8400-e29b-41d4-a716-446655440004",
-    make: "Mercedes-Benz",
-    model: "C-Class",
-    year: 2023,
-    price: 45600,
-    mileage: 3200,
-    fuelType: "Gasoline",
-    transmission: "Automatic",
-    image: "https://images.pexels.com/photos/33419739/pexels-photo-33419739.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-    location: "Miami, FL",
-    dealer: "Mercedes-Benz of Miami",
-    isNew: false,
-    isCertified: true,
-  },
-  {
-    id: "550e8400-e29b-41d4-a716-446655440005",
-    make: "Honda",
-    model: "Civic",
-    year: 2024,
-    price: 24200,
-    mileage: 500,
-    fuelType: "Gasoline",
-    transmission: "Manual",
-    image: "https://images.pexels.com/photos/33419739/pexels-photo-33419739.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-    location: "Chicago, IL",
-    dealer: "Honda of Chicago",
-    isNew: true,
-    isCertified: false,
-  },
-  {
-    id: "550e8400-e29b-41d4-a716-446655440006",
-    make: "Audi",
-    model: "A4",
-    year: 2023,
-    price: 39800,
-    mileage: 6700,
-    fuelType: "Gasoline",
-    transmission: "Automatic",
-    image: "https://images.pexels.com/photos/33419739/pexels-photo-33419739.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
-    location: "Seattle, WA",
-    dealer: "Audi Seattle",
-    isNew: false,
-    isCertified: true,
-  },
-];
 
 export function FeaturedCars() {
   const { t } = useTranslation();
@@ -113,13 +18,6 @@ export function FeaturedCars() {
     navigate('/cars');
   };
 
-  // Use API cars if available, otherwise fallback to mock data
-  const displayCars = apiCars.length > 0 ? apiCars : featuredCars;
-
-  if (error) {
-    console.warn('Failed to load featured cars from API, using mock data:', error);
-  }
-  
   return (
     <section className="py-16 lg:py-20 bg-background">
       <div className="container mx-auto px-4">
@@ -157,22 +55,33 @@ export function FeaturedCars() {
         </div>
 
         {/* Cars grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {isLoading ? (
-            // Show loading skeletons
-            Array.from({ length: 3 }).map((_, index) => (
+        {isLoading ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {Array.from({ length: 3 }).map((_, index) => (
               <div key={index} className="animate-pulse">
-                <div className="bg-gray-300 h-48 rounded-lg mb-4"></div>
-                <div className="bg-gray-300 h-4 rounded mb-2"></div>
-                <div className="bg-gray-300 h-4 rounded w-3/4"></div>
+                <div className="bg-gray-200 h-48 rounded-lg mb-4"></div>
+                <div className="bg-gray-200 h-4 rounded mb-2"></div>
+                <div className="bg-gray-200 h-4 rounded w-3/4"></div>
               </div>
-            ))
-          ) : (
-            displayCars.map((car) => (
+            ))}
+          </div>
+        ) : apiCars.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            {apiCars.map((car) => (
               <CarCard key={car.id} car={car} />
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-16 mb-12">
+            <Car className="h-16 w-16 text-muted-foreground/40 mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-muted-foreground mb-2">
+              {t('cars.noFeaturedCars')}
+            </h3>
+            <p className="text-sm text-muted-foreground/70 max-w-md mx-auto">
+              {t('cars.noFeaturedCarsDescription')}
+            </p>
+          </div>
+        )}
 
         {/* View all button */}
         <div className="text-center">

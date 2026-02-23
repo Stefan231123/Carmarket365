@@ -68,7 +68,7 @@ import { HealthModule } from './health/health.module';
     // GraphQL configuration
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: join(process.cwd(), 'server/schema.gql'),
+      autoSchemaFile: join(__dirname, '..', 'schema.gql'),
       sortSchema: true,
       playground: process.env.NODE_ENV === 'development',
       introspection: process.env.NODE_ENV === 'development',

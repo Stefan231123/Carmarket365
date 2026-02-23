@@ -403,6 +403,8 @@ export const enTranslations: TranslationStrings = {
     electric: 'Electric',
     luxury: 'Luxury',
     viewAllCars: 'View All Cars',
+    noFeaturedCars: 'No featured cars available',
+    noFeaturedCarsDescription: 'Check back soon for new featured listings, or browse all available cars.',
   },
 
   filters: {
@@ -2442,13 +2444,42 @@ export const enTranslations: TranslationStrings = {
     imageGallery: 'Image Gallery',
     viewFullscreen: 'View Fullscreen',
     imageCounter: 'of',
-    
-    // Tabs and Content
-    
+    noImages: 'No images available',
+    saveCar: 'Save car',
+    shareCar: 'Share car',
+
+    // Tabs
+    tabs: {
+      overview: 'Overview',
+      features: 'Features',
+      inspection: 'Inspection',
+      history: 'History',
+    },
+
     // Overview Tab
-    
+    overview: {
+      vehicleDetails: 'Vehicle Details',
+      mileage: 'Mileage',
+      fuelType: 'Fuel Type',
+      transmission: 'Transmission',
+      year: 'Year',
+      condition: 'Condition',
+      exteriorColor: 'Exterior Color',
+      interiorColor: 'Interior Color',
+      bodyType: 'Body Type',
+      drivetrain: 'Drivetrain',
+      vin: 'VIN',
+      description: 'Description',
+      miles: 'km',
+    },
+
     // Features Tab
-    
+    features: {
+      title: 'Features',
+      featuresAndOptions: 'Features & Options',
+      noFeatures: 'No features listed for this vehicle.',
+    },
+
     // Inspection Tab
     inspection: {
       title: 'Inspection Report',
@@ -2458,34 +2489,101 @@ export const enTranslations: TranslationStrings = {
       inspectionCompleted: 'inspection completed',
       inspectionScore: 'Inspection Score',
     },
-    
+
     // History Tab
-    
+    history: {
+      title: 'History',
+      vehicleHistory: 'Vehicle History',
+      listedForSale: 'Listed for sale',
+      vehicleAdded: 'Vehicle added to marketplace',
+      lastService: 'Last service',
+      regularMaintenance: 'Regular maintenance completed',
+    },
+
     // Action Buttons
-    
+    actions: {
+      callDealer: 'Call Seller',
+      sendMessage: 'Send Message',
+      scheduleTestDrive: 'Schedule Test Drive',
+      getPreApproved: 'Get Pre-Approved',
+      calculatePayment: 'Calculate Payment',
+      viewDealerProfile: 'View Seller Profile',
+      viewAllDealerCars: 'View All Seller Cars',
+      shareVehicle: 'Share Vehicle',
+      saveToFavorites: 'Save to Favorites',
+      removeFromFavorites: 'Remove from Favorites',
+    },
+
     // Seller Information
-    
+    seller: {
+      title: 'Seller',
+      sellerInformation: 'Seller Information',
+      dealerRating: 'Rating',
+      reviews: 'reviews',
+      verified: 'Verified',
+      phone: 'Phone',
+      email: 'Email',
+      privateSeller: 'Private Seller',
+    },
+
     // Financing Section
-    
-    // Mock Data Values
-    
+    financing: {
+      title: 'Financing',
+      financingOptions: 'Financing Options',
+      estimatedPayment: 'Estimated monthly payment',
+      monthlyPayment: '/mo',
+      basedOnTerms: 'Based on',
+      aprForMonths: 'APR for',
+      withDown: 'months with',
+      getPreApproved: 'Get Pre-Approved',
+      calculatePayment: 'Calculate Payment',
+    },
+
     // Error States
-    
+    errors: {
+      carNotFound: 'Car Not Found',
+      failedToLoad: 'We couldn\'t load this car listing. Please try again later.',
+      doesntExist: 'This car listing doesn\'t exist or has been removed.',
+      hasBeenRemoved: 'This listing has been removed.',
+      backToCars: 'Back to Cars',
+    },
+
     // Loading States
-    
+    loading: {
+      loadingVehicle: 'Loading vehicle...',
+      loadingDetails: 'Loading details...',
+    },
+
     // Contact and Communication
-    
+    contact: {
+      contactDealer: 'Contact Seller',
+      interestedIn: 'I\'m interested in this vehicle',
+      preferredContactMethod: 'Preferred contact method',
+      additionalMessage: 'Additional message',
+      sendInquiry: 'Send Inquiry',
+      callNow: 'Call Now',
+      emailDealer: 'Email Seller',
+      scheduleViewing: 'Schedule Viewing',
+    },
+
     // Test Drive
     testDrive: {
       scheduleTestDrive: 'Schedule Test Drive',
-      preferredDate: 'Predpochtiteln data',
-      preferredTime: 'Predpochtiteln time',
+      preferredDate: 'Preferred Date',
+      preferredTime: 'Preferred Time',
       contactInfo: 'Contact Information',
-      additionalNotes: 'Dopolniteln zametki',
-      submitRequest: 'Otpravit zapros',
+      additionalNotes: 'Additional Notes',
+      submitRequest: 'Submit Request',
     },
-    
+
     // Share Feature
+    share: {
+      shareVehicle: 'Share Vehicle',
+      shareOnSocial: 'Share on Social Media',
+      copyLink: 'Copy Link',
+      emailToFriend: 'Email to a Friend',
+      generateQR: 'Generate QR Code',
+    },
   },
 
     
