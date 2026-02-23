@@ -72,6 +72,7 @@ import { HealthModule } from './health/health.module';
       sortSchema: true,
       playground: process.env.NODE_ENV === 'development',
       introspection: process.env.NODE_ENV === 'development',
+      includeStacktraceInErrorResponses: process.env.NODE_ENV !== 'production',
       context: ({ req, res }) => ({ req, res }),
       csrfPrevention: true, // Requires Content-Type: application/json (blocks simple form POSTs)
       cache: 'bounded',
