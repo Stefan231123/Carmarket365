@@ -236,19 +236,19 @@ export class UsersService {
     try {
       // 1. Anonymize inquiries (preserve for seller records but remove PII)
       await queryRunner.manager.update(CarInquiry, { userId }, {
-        userId: undefined,
+        userId: null,
         name: '[Deleted User]',
         email: '[deleted]',
-        phone: undefined,
-        ipAddress: undefined,
-        userAgent: undefined,
+        phone: null,
+        ipAddress: null,
+        userAgent: null,
       } as Partial<CarInquiry>);
 
       // 2. Anonymize car views
       await queryRunner.manager.update(CarView, { userId }, {
-        userId: undefined,
-        ipAddress: undefined,
-        userAgent: undefined,
+        userId: null,
+        ipAddress: null,
+        userAgent: null,
       } as Partial<CarView>);
 
       // 3. Delete car images for user's listings
