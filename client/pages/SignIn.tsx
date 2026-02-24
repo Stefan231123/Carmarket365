@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Eye, EyeOff, Mail, Lock, Car, ArrowLeft, User, Building2, AlertCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useSafeAuth } from "@/contexts/AuthContextSafe";
 import { ForgotPasswordModal } from "@/components/ForgotPasswordModal";
 import { SocialLoginModal } from "@/components/SocialLoginModal";
@@ -18,6 +19,7 @@ export default function SignIn() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { login, isLoading, error, clearError } = useSafeAuth();
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -36,8 +38,9 @@ export default function SignIn() {
     }
 
     try {
-      await login({ email, password });
-      
+      const captchaToken = executeRecaptcha ? await executeRecaptcha('login') : undefined;
+      await login({ email, password }, captchaToken);
+
       // Navigate based on the actual user role from backend
       // The auth context will contain the user info after successful login
       navigate('/');

@@ -157,10 +157,10 @@ class ApiClient {
   }
 
   // Authentication Methods
-  async login(input: LoginInput): Promise<{ user: User; tokens: AuthTokens }> {
+  async login(input: LoginInput, captchaToken?: string): Promise<{ user: User; tokens: AuthTokens }> {
     const query = `
-      mutation Login($input: LoginInput!) {
-        login(input: $input) {
+      mutation Login($input: LoginInput!, $captchaToken: String) {
+        login(input: $input, captchaToken: $captchaToken) {
           user {
             id
             email
@@ -179,7 +179,7 @@ class ApiClient {
 
     const response = await this.request<{ login: { user: User; access_token: string } }>(
       query,
-      { input }
+      { input, captchaToken }
     );
 
     if (response.errors) {
@@ -1241,14 +1241,14 @@ class ApiClient {
     return response.data?.sendContactMessage ?? false;
   }
 
-  async requestPasswordReset(email: string): Promise<boolean> {
+  async requestPasswordReset(email: string, captchaToken?: string): Promise<boolean> {
     const query = `
-      mutation RequestPasswordReset($email: String!) {
-        requestPasswordReset(email: $email)
+      mutation RequestPasswordReset($email: String!, $captchaToken: String) {
+        requestPasswordReset(email: $email, captchaToken: $captchaToken)
       }
     `;
 
-    const response = await this.request<{ requestPasswordReset: boolean }>(query, { email });
+    const response = await this.request<{ requestPasswordReset: boolean }>(query, { email, captchaToken });
 
     if (response.errors) {
       throw new Error(response.errors[0].message);
@@ -1257,14 +1257,14 @@ class ApiClient {
     return response.data?.requestPasswordReset ?? false;
   }
 
-  async resetPassword(token: string, email: string, newPassword: string): Promise<boolean> {
+  async resetPassword(token: string, email: string, newPassword: string, captchaToken?: string): Promise<boolean> {
     const query = `
-      mutation ResetPassword($token: String!, $email: String!, $newPassword: String!) {
-        resetPassword(token: $token, email: $email, newPassword: $newPassword)
+      mutation ResetPassword($token: String!, $email: String!, $newPassword: String!, $captchaToken: String) {
+        resetPassword(token: $token, email: $email, newPassword: $newPassword, captchaToken: $captchaToken)
       }
     `;
 
-    const response = await this.request<{ resetPassword: boolean }>(query, { token, email, newPassword });
+    const response = await this.request<{ resetPassword: boolean }>(query, { token, email, newPassword, captchaToken });
 
     if (response.errors) {
       throw new Error(response.errors[0].message);

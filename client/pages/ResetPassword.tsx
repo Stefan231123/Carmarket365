@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { apiClient } from '@shared/api-client';
 import { useTranslation } from '@/hooks/useTranslation';
 import { Button } from '@/components/ui/button';
@@ -12,6 +13,7 @@ import { CheckCircle, Lock } from 'lucide-react';
 export default function ResetPassword() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token') || '';
   const email = searchParams.get('email') || '';
@@ -44,7 +46,8 @@ export default function ResetPassword() {
     setIsLoading(true);
 
     try {
-      await apiClient.resetPassword(token, email, password);
+      const captchaToken = executeRecaptcha ? await executeRecaptcha('reset_password') : undefined;
+      await apiClient.resetPassword(token, email, password, captchaToken);
       setIsSuccess(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to reset password');

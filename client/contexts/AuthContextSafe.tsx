@@ -70,7 +70,7 @@ function authReducer(state: AuthState, action: AuthAction): AuthState {
 }
 
 interface AuthContextType extends AuthState {
-  login: (credentials: { email: string; password: string }) => Promise<void>;
+  login: (credentials: { email: string; password: string }, captchaToken?: string) => Promise<void>;
   register: (userData: { email: string; password: string; name?: string; dealerName?: string; dealerAddress?: string; dealerCity?: string; dealerPhoneNumber?: string }, captchaToken?: string) => Promise<void>;
   loginWithOAuth: (input: { provider: 'google' | 'facebook'; token: string; email?: string; name?: string }) => Promise<void>;
   logout: () => Promise<void>;
@@ -101,14 +101,14 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
     initAuth();
   }, []);
 
-  const login = async (credentials: { email: string; password: string }) => {
+  const login = async (credentials: { email: string; password: string }, captchaToken?: string) => {
     dispatch({ type: 'AUTH_START' });
 
     try {
       const result = await apiClient.login({
         email: credentials.email,
         password: credentials.password,
-      });
+      }, captchaToken);
 
       const user: SafeUser = {
         id: result.user.id,

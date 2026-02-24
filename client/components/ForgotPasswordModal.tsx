@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { apiClient } from '@shared/api-client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -21,6 +22,7 @@ interface ForgotPasswordModalProps {
 
 export function ForgotPasswordModal({ isOpen, onClose }: ForgotPasswordModalProps) {
   const { t } = useTranslation();
+  const { executeRecaptcha } = useGoogleReCaptcha();
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -40,7 +42,8 @@ export function ForgotPasswordModal({ isOpen, onClose }: ForgotPasswordModalProp
     }
 
     try {
-      await apiClient.requestPasswordReset(email);
+      const captchaToken = executeRecaptcha ? await executeRecaptcha('request_password_reset') : undefined;
+      await apiClient.requestPasswordReset(email, captchaToken);
       setIsSuccess(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : t('common.error'));

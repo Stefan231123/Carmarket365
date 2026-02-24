@@ -34,8 +34,13 @@ export class AuthResolver {
   @Throttle({ auth: { ttl: 60000, limit: 5 } })
   async login(
     @Args('input') loginInput: LoginInput,
+    @Args('captchaToken', { nullable: true }) captchaToken: string | undefined,
     @Context() ctx: { res: Response },
   ): Promise<AuthResponse> {
+    const isHuman = await this.recaptchaService.verify(captchaToken, 'login');
+    if (!isHuman) {
+      throw new UnauthorizedException('CAPTCHA verification failed');
+    }
     const result = await this.authService.login(loginInput);
     this.setAuthCookie(ctx.res, result.access_token);
     return result;
@@ -119,7 +124,12 @@ export class AuthResolver {
   @Throttle({ auth: { ttl: 60000, limit: 3 } })
   async requestPasswordReset(
     @Args('email') email: string,
+    @Args('captchaToken', { nullable: true }) captchaToken: string | undefined,
   ): Promise<boolean> {
+    const isHuman = await this.recaptchaService.verify(captchaToken, 'request_password_reset');
+    if (!isHuman) {
+      throw new UnauthorizedException('CAPTCHA verification failed');
+    }
     return this.authService.requestPasswordReset(email);
   }
 
@@ -129,7 +139,12 @@ export class AuthResolver {
     @Args('token') token: string,
     @Args('email') email: string,
     @Args('newPassword') newPassword: string,
+    @Args('captchaToken', { nullable: true }) captchaToken: string | undefined,
   ): Promise<boolean> {
+    const isHuman = await this.recaptchaService.verify(captchaToken, 'reset_password');
+    if (!isHuman) {
+      throw new UnauthorizedException('CAPTCHA verification failed');
+    }
     return this.authService.resetPassword(token, email, newPassword);
   }
 }
