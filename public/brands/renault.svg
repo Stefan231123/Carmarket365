@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 100">
-  <!-- Diamond / Losange shape -->
-  <path d="M40,4 L72,50 L40,96 L8,50 Z" fill="none" stroke="#000" stroke-width="6"/>
-  <path d="M40,16 L62,50 L40,84 L18,50 Z" fill="none" stroke="#000" stroke-width="3"/>
-</svg>
