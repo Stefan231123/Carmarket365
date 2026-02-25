@@ -120,6 +120,7 @@ export function useTranslationDynamic(): UseTranslationReturn {
     // If translations are not ready, use fallback system
     if (!currentTranslations) {
       translationDev.logMissingKey(key);
+      if (actualOptions?.returnObjects) return [];
       return fallback || getTranslationWithFallback(null, key, fallback);
     }
 
@@ -161,11 +162,13 @@ export function useTranslationDynamic(): UseTranslationReturn {
 
       // Translation not found, use fallback system
       translationDev.logMissingKey(key);
+      if (actualOptions?.returnObjects) return [];
       return getTranslationWithFallback(currentTranslations, key, fallback);
 
     } catch (error) {
       console.error('Translation error:', error);
       translationDev.logMissingKey(key);
+      if (actualOptions?.returnObjects) return [];
       return getTranslationWithFallback(currentTranslations, key, fallback);
     }
   }, [currentTranslations]);

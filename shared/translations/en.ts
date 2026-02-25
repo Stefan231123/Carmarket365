@@ -1054,6 +1054,130 @@ export const enTranslations: TranslationStrings = {
       contactPrivacyTeam: 'Contact Privacy Team'
     },
 
+    cookiePolicy: {
+      title: 'Cookie Policy',
+      subtitle: 'Learn how we use cookies and similar technologies on our platform.',
+      backToHome: 'Back to Home',
+      policyTitle: 'Our Cookie Policy',
+      policyDescription: 'Understanding how cookies improve your experience on CarMarket365.',
+      policyText: 'We use cookies and similar technologies to provide, protect, and improve our platform. This policy explains what cookies are, how we use them, and your choices regarding their use.',
+      essential: {
+        title: 'Essential Cookies',
+        items: [
+          'User authentication and session management',
+          'Security and fraud prevention',
+          'Load balancing and platform stability',
+          'Cookie consent preferences'
+        ]
+      },
+      functional: {
+        title: 'Functional Cookies',
+        items: [
+          'Language and region preferences',
+          'Search filter preferences',
+          'Recently viewed listings',
+          'Display and layout preferences'
+        ]
+      },
+      analytics: {
+        title: 'Analytics Cookies',
+        items: [
+          'Page visit and traffic analysis',
+          'User interaction patterns',
+          'Platform performance monitoring',
+          'Feature usage statistics'
+        ]
+      },
+      marketing: {
+        title: 'Marketing Cookies',
+        items: [
+          'Personalized content delivery',
+          'Ad campaign measurement',
+          'Cross-platform tracking',
+          'Remarketing support'
+        ]
+      },
+      managingPreferences: 'Managing Your Preferences',
+      managingPreferencesDescription: 'You have full control over how cookies are used on our platform.',
+      browserSettings: 'Browser Settings',
+      browserSettingsItems: [
+        'Block all cookies',
+        'Delete existing cookies',
+        'Allow only first-party cookies',
+        'Receive cookie notifications'
+      ],
+      platformControls: 'Platform Controls',
+      platformControlsItems: [
+        'Toggle optional cookies on/off',
+        'Manage consent preferences',
+        'Download cookie data report',
+        'Reset all cookie preferences'
+      ],
+      questionsAboutCookies: 'Questions about cookies?',
+      questionsMessage: 'If you have questions about our cookie policy or how we use tracking technologies, please contact our team at privacy@carmarket365.com',
+      returnToPlatform: 'Return to Platform',
+      cookieSupport: 'Cookie Support'
+    },
+
+    accessibility: {
+      title: 'Accessibility',
+      subtitle: 'We are committed to making CarMarket365 accessible to everyone.',
+      backToHome: 'Back to Home',
+      commitmentTitle: 'Our Accessibility Commitment',
+      commitmentDescription: 'Making our car market platform inclusive and usable for all users.',
+      commitmentText: 'At CarMarket365, we believe everyone should have equal access to find and sell vehicles. We are continuously working to improve the accessibility of our platform and ensure compliance with recognized standards.',
+      visual: {
+        title: 'Visual Accessibility',
+        features: [
+          'High contrast mode support',
+          'Screen reader compatibility',
+          'Scalable text and interface',
+          'Alt text for all images'
+        ]
+      },
+      motor: {
+        title: 'Motor Accessibility',
+        features: [
+          'Full keyboard navigation',
+          'Large click targets',
+          'Reduced motion options',
+          'Voice control compatibility'
+        ]
+      },
+      audio: {
+        title: 'Audio Accessibility',
+        features: [
+          'Visual alerts and notifications',
+          'Captions for video content',
+          'Text-based communication',
+          'No audio-only content'
+        ]
+      },
+      cognitive: {
+        title: 'Cognitive Accessibility',
+        features: [
+          'Clear and simple language',
+          'Consistent navigation patterns',
+          'Error prevention and recovery',
+          'Predictable interface behavior'
+        ]
+      },
+      standards: {
+        title: 'Standards & Guidelines',
+        description: 'We follow established accessibility standards to ensure a great experience for all users.',
+        wcagGuidelines: 'WCAG 2.1 Guidelines',
+        wcagDescription: 'Our platform aims to meet WCAG 2.1 Level AA standards, covering perceivability, operability, understandability, and robustness.',
+        platformCompatibility: 'Platform Compatibility',
+        platformCompatibilityDescription: 'We test with major screen readers including NVDA, JAWS, and VoiceOver, and ensure compatibility with all modern browsers.'
+      },
+      feedback: {
+        title: 'Accessibility Feedback',
+        message: 'We welcome your feedback on the accessibility of CarMarket365. Please let us know if you encounter any barriers.',
+        returnToPlatform: 'Return to Platform',
+        contactTeam: 'Contact Accessibility Team'
+      }
+    },
+
     // Page-zaglushka
 
     // Chasto asked questions
@@ -2167,6 +2291,15 @@ export const enTranslations: TranslationStrings = {
     // Categories
     categoriesTitle: 'Review Categories',
     categoriesDescription: 'Our reviews cover all aspects of vehicle ownership and performance.',
+    performance: {
+      title: 'Performance & Driving',
+      items: [
+        'Engine power and responsiveness',
+        'Fuel efficiency and range',
+        'Handling and road stability',
+        'Braking performance'
+      ]
+    },
     comfort: {
       title: 'Comfort & Interior',
       items: [
@@ -2193,6 +2326,74 @@ export const enTranslations: TranslationStrings = {
     exploreInventory: 'Explore Inventory'
   },
 
+  safetyTips: {
+    title: 'Safety Tips',
+    subtitle: 'Stay safe when buying and selling vehicles on our platform.',
+    backToHome: 'Back to Home',
+    mainTitle: 'Your Safety Guide',
+    mainDescription: 'Essential safety tips for a secure car buying and selling experience.',
+    safetyOverview: 'At CarMarket365, your safety is our priority. Whether you are buying or selling a vehicle, following these guidelines will help ensure a smooth, secure, and successful transaction.',
+    meetingSafety: {
+      title: 'Meeting Safety',
+      items: [
+        'Meet in a public, well-lit location',
+        'Bring a friend or family member',
+        'Inform someone of your plans',
+        'Trust your instincts'
+      ]
+    },
+    paymentSecurity: {
+      title: 'Payment Security',
+      items: [
+        'Use secure payment methods',
+        'Avoid cash for large transactions',
+        'Verify payment before transfer',
+        'Keep all transaction records'
+      ]
+    },
+    vehicleInspection: {
+      title: 'Vehicle Inspection',
+      items: [
+        'Always inspect the vehicle in person',
+        'Request a professional inspection',
+        'Check vehicle history report',
+        'Test drive before purchasing'
+      ]
+    },
+    redFlags: {
+      title: 'Red Flags',
+      items: [
+        'Price significantly below market value',
+        'Seller refuses in-person meeting',
+        'Pressure to complete quickly',
+        'Inconsistent vehicle information'
+      ]
+    },
+    documentation: {
+      title: 'Essential Documentation',
+      description: 'Ensure all paperwork is in order before completing any transaction.',
+      forBuyers: 'For Buyers',
+      buyerItems: [
+        'Verify vehicle registration',
+        'Check for outstanding liens',
+        'Review service history',
+        'Confirm VIN matches documents'
+      ],
+      forSellers: 'For Sellers',
+      sellerItems: [
+        'Prepare all ownership documents',
+        'Provide maintenance records',
+        'Disclose known issues',
+        'Complete transfer paperwork'
+      ]
+    },
+    emergency: {
+      title: 'Need to Report a Concern?',
+      message: 'If you encounter suspicious activity or feel unsafe, please contact our safety team immediately.',
+      browseCars: 'Browse Cars Safely',
+      reportConcern: 'Report a Concern'
+    }
+  },
 
   expressSell: {
     title: 'Prodayte your car bystro',

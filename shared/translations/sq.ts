@@ -1130,6 +1130,130 @@ export const sqTranslations: TranslationStrings = {
         },
       ],
     },
+
+    cookiePolicy: {
+      title: 'Politika e Cookies',
+      subtitle: 'Mësoni se si përdorim cookies dhe teknologji të ngjashme në platformën tonë.',
+      backToHome: 'Kthehu në Fillore',
+      policyTitle: 'Politika jonë e Cookies',
+      policyDescription: 'Të kuptuarit se si cookies përmirësojnë përvojën tuaj në CarMarket365.',
+      policyText: 'Ne përdorim cookies dhe teknologji të ngjashme për të ofruar, mbrojtur dhe përmirësuar platformën tonë. Kjo politikë shpjegon se çfarë janë cookies, si i përdorim ato dhe zgjedhjet tuaja në lidhje me përdorimin e tyre.',
+      essential: {
+        title: 'Cookies Thelbësore',
+        items: [
+          'Autentifikimi i përdoruesit dhe menaxhimi i sesionit',
+          'Siguria dhe parandalimi i mashtrimit',
+          'Ekuilibrimi i ngarkesës dhe stabiliteti i platformës',
+          'Preferencat e pëlqimit të cookies'
+        ]
+      },
+      functional: {
+        title: 'Cookies Funksionale',
+        items: [
+          'Preferencat e gjuhës dhe rajonit',
+          'Preferencat e filtrit të kërkimit',
+          'Shpalljet e shikuara kohët e fundit',
+          'Preferencat e shfaqjes dhe paraqitjes'
+        ]
+      },
+      analytics: {
+        title: 'Cookies Analitike',
+        items: [
+          'Analiza e vizitave të faqeve dhe trafikut',
+          'Modelet e ndërveprimit të përdoruesve',
+          'Monitorimi i performancës së platformës',
+          'Statistikat e përdorimit të veçorive'
+        ]
+      },
+      marketing: {
+        title: 'Cookies Marketingu',
+        items: [
+          'Ofrimi i përmbajtjes së personalizuar',
+          'Matja e fushatave reklamuese',
+          'Gjurmimi ndërmjet platformave',
+          'Mbështetja e rimarketingut'
+        ]
+      },
+      managingPreferences: 'Menaxhimi i Preferencave Tuaja',
+      managingPreferencesDescription: 'Ju keni kontroll të plotë mbi mënyrën se si përdoren cookies në platformën tonë.',
+      browserSettings: 'Cilësimet e Shfletuesit',
+      browserSettingsItems: [
+        'Blloko të gjitha cookies',
+        'Fshi cookies ekzistuese',
+        'Lejo vetëm cookies të palëve të para',
+        'Merr njoftime për cookies'
+      ],
+      platformControls: 'Kontrollet e Platformës',
+      platformControlsItems: [
+        'Aktivizo/çaktivizo cookies opsionale',
+        'Menaxho preferencat e pëlqimit',
+        'Shkarko raportin e të dhënave të cookies',
+        'Rivendos të gjitha preferencat e cookies'
+      ],
+      questionsAboutCookies: 'Pyetje rreth cookies?',
+      questionsMessage: 'Nëse keni pyetje rreth politikës sonë të cookies ose mënyrës se si përdorim teknologjitë e gjurmimit, ju lutemi kontaktoni ekipin tonë në privacy@carmarket365.com',
+      returnToPlatform: 'Kthehu në Platformë',
+      cookieSupport: 'Mbështetja për Cookies'
+    },
+
+    accessibility: {
+      title: 'Aksesueshmëria',
+      subtitle: 'Ne jemi të angazhuar për ta bërë CarMarket365 të aksesueshëm për të gjithë.',
+      backToHome: 'Kthehu në Fillore',
+      commitmentTitle: 'Angazhimi Ynë për Aksesueshmërinë',
+      commitmentDescription: 'Duke e bërë platformën tonë të tregut të makinave gjithëpërfshirëse dhe të përdorshme për të gjithë përdoruesit.',
+      commitmentText: 'Në CarMarket365, ne besojmë se të gjithë duhet të kenë akses të barabartë për të gjetur dhe shitur automjete. Ne punojmë vazhdimisht për të përmirësuar aksesueshmërinë e platformës sonë dhe për të siguruar përputhshmëri me standardet e njohura.',
+      visual: {
+        title: 'Aksesueshmëria Vizuale',
+        features: [
+          'Mbështetja e modalitetit me kontrast të lartë',
+          'Pajtueshmëria me lexuesit e ekranit',
+          'Tekst dhe ndërfaqe e shkallëzueshme',
+          'Tekst alternativ për të gjitha imazhet'
+        ]
+      },
+      motor: {
+        title: 'Aksesueshmëria Motorike',
+        features: [
+          'Navigim i plotë me tastierë',
+          'Objektiva të mëdha klikimi',
+          'Opsione për lëvizje të reduktuar',
+          'Pajtueshmëria me kontrollin zanor'
+        ]
+      },
+      audio: {
+        title: 'Aksesueshmëria Audio',
+        features: [
+          'Alarmet dhe njoftimet vizuale',
+          'Titrat për përmbajtjen video',
+          'Komunikimi i bazuar në tekst',
+          'Asnjë përmbajtje vetëm audio'
+        ]
+      },
+      cognitive: {
+        title: 'Aksesueshmëria Kognitive',
+        features: [
+          'Gjuhë e qartë dhe e thjeshtë',
+          'Modele konsistente navigimi',
+          'Parandalimi dhe rikuperimi i gabimeve',
+          'Sjellja e parashikueshme e ndërfaqes'
+        ]
+      },
+      standards: {
+        title: 'Standardet dhe Udhëzimet',
+        description: 'Ne ndjekim standardet e vendosura të aksesueshmërisë për të siguruar një përvojë të shkëlqyer për të gjithë përdoruesit.',
+        wcagGuidelines: 'Udhëzimet WCAG 2.1',
+        wcagDescription: 'Platforma jonë synon të përmbushë standardet WCAG 2.1 Niveli AA, duke mbuluar perceptueshmërinë, operueshmërinë, të kuptuarit dhe robustitetin.',
+        platformCompatibility: 'Pajtueshmëria e Platformës',
+        platformCompatibilityDescription: 'Ne testojmë me lexuesit kryesorë të ekranit duke përfshirë NVDA, JAWS dhe VoiceOver, dhe sigurojmë pajtueshmëri me të gjithë shfletuesit modernë.'
+      },
+      feedback: {
+        title: 'Reagime për Aksesueshmërinë',
+        message: 'Ne i mirëpresim reagimet tuaja rreth aksesueshmërisë së CarMarket365. Ju lutemi na njoftoni nëse hasni ndonjë pengesë.',
+        returnToPlatform: 'Kthehu në Platformë',
+        contactTeam: 'Kontaktoni Ekipin e Aksesueshmërisë'
+      }
+    },
   },
 
   carSpecs: {
@@ -3092,91 +3216,71 @@ export const sqTranslations: TranslationStrings = {
 
   safetyTips: {
     title: 'Këshillat e Sigurisë',
-    subtitle: 'Udhëzime thelbësore sigurie për blerjen, shitjen dhe mirëmbajtjen e mjetit tuaj në mënyrë të sigurt.',
-    backToHome: 'Kthehu në Kryefaqe',
-    
-    // Main content
-    mainTitle: 'Udhëzimet e Sigurisë së Mjeteve',
-    mainDescription: 'Këshilla të hollësishme sigurie për blerje dhe shitje të sigurt të automobilave.',
-    safetyOverview: 'Pavarësisht nëse po blini automobilin tuaj të parë ose po shisni atë aktual, ndjekja e udhëzimeve të duhura të sigurisë ju mbron nga mashtrimet, siguron transaksione të ndershme dhe ndihmon për të ruajtur sigurinë tuaj personale gjatë gjithë procesit.',
-    
-    // Safety categories
+    subtitle: 'Qëndroni të sigurt kur blini dhe shisni automjete në platformën tonë.',
+    backToHome: 'Kthehu në Fillore',
+    mainTitle: 'Udhëzuesi Juaj i Sigurisë',
+    mainDescription: 'Këshilla thelbësore sigurie për një përvojë të sigurt në blerjen dhe shitjen e makinave.',
+    safetyOverview: 'Në CarMarket365, siguria juaj është prioriteti ynë. Nëse po blini ose shisni një automjet, ndiqja e këtyre udhëzimeve do të ndihmojë në sigurimin e një transaksioni të qetë, të sigurt dhe të suksesshëm.',
     meetingSafety: {
       title: 'Siguria e Takimit',
       items: [
-        'Takohuni gjithmonë në një vend publik, të ndriçuar mirë',
-        'Sillni një mik ose anëtar të familjes të besuar',
-        'Tregojuni dikujt për planet tuaja të takimit',
-        'Takohuni gjatë orëve të ditës kur është e mundur',
-        'Besoni instinktet tuaja - largohuni nëse diçka duket gabim',
-        'Mos u takoni kurrë në shtëpi ose mos ftoni të panjohur atje'
+        'Takohuni në një vendndodhje publike, të ndriçuar mirë',
+        'Sillni një mik ose anëtar të familjes',
+        'Njoftoni dikë për planet tuaja',
+        'Besoni instinktet tuaja'
       ]
     },
     paymentSecurity: {
       title: 'Siguria e Pagesës',
       items: [
-        'Mos dërgoni kurrë para ose depozita para se ta shihni mjetin',
-        'Përdorni metoda të sigurta pagese (transferim bankar, çek i çertifikuar)',
-        'Evitoni transaksionet me të gatshme për shuma të mëdha',
-        'Ruhuni nga mashtrimet me tejpagim',
-        'Përfundoni transaksionet në bankë kur është e mundur',
-        'Merrni fatura për të gjitha pagesat dhe transaksionet'
+        'Përdorni metoda të sigurta pagese',
+        'Shmangni paratë cash për transaksione të mëdha',
+        'Verifikoni pagesën para transferimit',
+        'Mbani të gjitha regjistrat e transaksionit'
       ]
     },
     vehicleInspection: {
-      title: 'Inspektimi i Mjetit',
+      title: 'Inspektimi i Automjetit',
       items: [
-        'Inspektoni gjithmonë mjetin personalisht',
-        'Merrni një mekanik të dijshëm ose mik me përvojë',
-        'Testoni mjetin në kushte të ndryshme',
-        'Kontrolloni të gjitha dokumentet dhe historikun e mjetit',
-        'Verifikoni që numri VIN përputhet me të gjitha dokumentet',
-        'Mos nxitoni - merrni kohën për të inspektuar plotësisht'
+        'Gjithmonë inspektoni automjetin personalisht',
+        'Kërkoni një inspektim profesional',
+        'Kontrolloni raportin e historisë së automjetit',
+        'Testoni drejtimin para blerjes'
       ]
     },
     redFlags: {
-      title: 'Sinjale Paralajmëruese',
+      title: 'Sinjale Alarmi',
       items: [
-        'Shitësi refuzon të takohet personalisht',
-        'Kërkesa për pagesë para shikimit të mjetit',
         'Çmim ndjeshëm nën vlerën e tregut',
-        'Presion për ta përfunduar transaksionin shpejt',
-        'Dokumentacion i paplotë ose i dyshimtë',
-        'Shitësi nuk mund të ofrojë provë të qartë pronësie'
+        'Shitësi refuzon takimin personal',
+        'Presion për të përfunduar shpejt',
+        'Informacion i pakonzistentë mbi automjetin'
       ]
     },
-    
-    // Documentation
     documentation: {
       title: 'Dokumentacion Thelbësor',
-      description: 'Dokumente të rëndësishme për verifikim dhe marrje gjatë transaksioneve të mjeteve.',
+      description: 'Sigurohuni që të gjitha dokumentet janë në rregull para se të përfundoni ndonjë transaksion.',
       forBuyers: 'Për Blerësit',
       buyerItems: [
-        'Çertifikatë regjistrimi të mjetit',
-        'Identifikim i vlefshëm nga shitësi',
-        'Regjistrime servisi dhe mirëmbajtjeje',
-        'Çertifikatë inspektimi të mjetit',
-        'Verifikim sigurie',
-        'Titull i qartë ose informacion hipoteke'
+        'Verifikoni regjistrimin e automjetit',
+        'Kontrolloni për hipoteka të papaguara',
+        'Rishikoni historinë e shërbimit',
+        'Konfirmoni që VIN përputhet me dokumentet'
       ],
       forSellers: 'Për Shitësit',
       sellerItems: [
-        'Regjistrim i tanishëm i mjetit',
-        'Titull i qartë i mjetit',
-        'Regjistrime të fundit mirëmbajtjeje',
-        'Patentë valide',
-        'Model fature shitjeje',
-        'Formular lirimi nga përgjegjësia'
+        'Përgatitni të gjitha dokumentet e pronësisë',
+        'Ofroni regjistrat e mirëmbajtjes',
+        'Zbuloni çështjet e njohura',
+        'Plotësoni dokumentacionin e transferimit'
       ]
     },
-    
-    // Emergency contact
     emergency: {
-      title: 'Keni Nevojë për Ndihmë ose Keni Shqetësime?',
-      message: 'Nëse hasni aktivitet të dyshimtë ose keni nevojë për ndihmë, mos hezitoni të kontaktoni autoritetet lokale ose të raportoni shqetësimin te ekipi ynë i mbështetjes.',
-      browseCars: 'Shfleto Shpalljet e Sigurta',
-      reportConcern: 'Raporto Shqetësim'
-    },
+      title: 'Duhet të Raportoni një Shqetësim?',
+      message: 'Nëse hasni aktivitet të dyshimtë ose ndjeheni të pasigurt, ju lutemi kontaktoni ekipin tonë të sigurisë menjëherë.',
+      browseCars: 'Shfletoni Makinat në Mënyrë të Sigurt',
+      reportConcern: 'Raportoni një Shqetësim'
+    }
   },
 
   faq: {

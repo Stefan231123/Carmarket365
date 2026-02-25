@@ -894,18 +894,20 @@ export interface TranslationStrings {
         title: string;
         features: string[];
       };
-      standardsWeFollow?: string;
-      standardsDescription?: string;
-      wcagCompliance?: string;
-      wcagDescription?: string;
-      testing?: string;
-      testingDescription?: string;
-      feedback?: string;
-      feedbackDescription?: string;
-      questionsAboutAccessibility?: string;
-      accessibilityQuestionsText?: string;
-      returnToPlatform?: string;
-      contactAccessibilityTeam?: string;
+      standards?: {
+        title: string;
+        description: string;
+        wcagGuidelines: string;
+        wcagDescription: string;
+        platformCompatibility: string;
+        platformCompatibilityDescription: string;
+      };
+      feedback?: {
+        title: string;
+        message: string;
+        returnToPlatform: string;
+        contactTeam: string;
+      };
     };
     signUp: string;
     signIn: string;
