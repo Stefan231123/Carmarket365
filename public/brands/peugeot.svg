@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 100">
+  <!-- Shield shape -->
+  <path d="M10,10 L70,10 L70,60 Q70,90 40,98 Q10,90 10,60 Z" fill="#1B3C6D" stroke="#1B3C6D" stroke-width="2"/>
+  <!-- Simplified lion standing -->
+  <path d="M35,85 L35,55 Q30,45 35,35 L40,28 L45,22 Q50,18 52,22 L48,30 Q55,25 58,30 Q60,35 55,40 L50,45 Q55,50 50,60 L50,70 L55,75 L55,85" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

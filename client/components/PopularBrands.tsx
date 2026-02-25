@@ -28,11 +28,13 @@ export function PopularBrands() {
               className="p-6 text-center hover:shadow-xl hover:scale-105 active:scale-100 transition-all duration-300 cursor-pointer group border-zinc-100 rounded-2xl"
               onClick={() => handleBrandClick(brand.name)}
             >
-              <div
-                className="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center text-white font-bold text-sm"
-                style={{ backgroundColor: brand.color }}
-              >
-                {brand.initials}
+              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <img
+                  src={brand.logo}
+                  alt={`${brand.name} logo`}
+                  className="w-14 h-14 object-contain"
+                  loading="lazy"
+                />
               </div>
               <h3 className="mb-1 group-hover:text-primary transition-colors font-medium">
                 {brand.name}

@@ -1309,16 +1309,16 @@ export function getYearOptions(): number[] {
 
 /** Popular brands shown on the homepage (subset of all makes) */
 export const POPULAR_BRANDS = [
-  { name: 'BMW', initials: 'BMW', color: '#0066B1' },
-  { name: 'Mercedes-Benz', initials: 'MB', color: '#333333' },
-  { name: 'Audi', initials: 'A', color: '#BB0A30' },
-  { name: 'Volkswagen', initials: 'VW', color: '#001E50' },
-  { name: 'Toyota', initials: 'T', color: '#EB0A1E' },
-  { name: 'Opel', initials: 'O', color: '#F7A600' },
-  { name: 'Ford', initials: 'F', color: '#003478' },
-  { name: 'Renault', initials: 'R', color: '#FFCC00' },
-  { name: 'Peugeot', initials: 'P', color: '#1B3C6D' },
-  { name: 'Škoda', initials: 'Š', color: '#4BA82E' },
-  { name: 'Fiat', initials: 'Fi', color: '#9E1B32' },
-  { name: 'Hyundai', initials: 'H', color: '#002C5F' },
+  { name: 'BMW', initials: 'BMW', color: '#0066B1', logo: '/brands/bmw.svg' },
+  { name: 'Mercedes-Benz', initials: 'MB', color: '#333333', logo: '/brands/mercedes-benz.svg' },
+  { name: 'Audi', initials: 'A', color: '#BB0A30', logo: '/brands/audi.svg' },
+  { name: 'Volkswagen', initials: 'VW', color: '#001E50', logo: '/brands/volkswagen.svg' },
+  { name: 'Toyota', initials: 'T', color: '#EB0A1E', logo: '/brands/toyota.svg' },
+  { name: 'Opel', initials: 'O', color: '#F7A600', logo: '/brands/opel.svg' },
+  { name: 'Ford', initials: 'F', color: '#003478', logo: '/brands/ford.svg' },
+  { name: 'Renault', initials: 'R', color: '#FFCC00', logo: '/brands/renault.svg' },
+  { name: 'Peugeot', initials: 'P', color: '#1B3C6D', logo: '/brands/peugeot.svg' },
+  { name: 'Škoda', initials: 'Š', color: '#4BA82E', logo: '/brands/skoda.svg' },
+  { name: 'Fiat', initials: 'Fi', color: '#9E1B32', logo: '/brands/fiat.svg' },
+  { name: 'Hyundai', initials: 'H', color: '#002C5F', logo: '/brands/hyundai.svg' },
 ] as const;
