@@ -61,6 +61,7 @@ function AppContent() {
   const handleExpressSellClick = () => navigate('/express-sell');
   const handleContactUsClick = () => navigate('/contact');
   const handleRegisteredDealersClick = () => navigate('/registered-dealers');
+  const handleAdvancedSearchClick = () => navigate('/advanced-search');
 
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden">
@@ -156,6 +157,7 @@ function AppContent() {
         </Suspense>
       </main>
       <Footer
+        onAdvancedSearchClick={handleAdvancedSearchClick}
         onSellClick={handleSellClick}
         onContactUsClick={handleContactUsClick}
         onRegisteredDealersClick={handleRegisteredDealersClick}
