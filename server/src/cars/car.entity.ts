@@ -277,8 +277,8 @@ export class Car {
   @JoinColumn({ name: 'sellerId' })
   seller: User;
 
-  @Field(() => [CarImage])
-  @OneToMany(() => CarImage, image => image.car, { cascade: true })
+  @Field(() => [CarImage], { defaultValue: [] })
+  @OneToMany(() => CarImage, image => image.car, { cascade: true, eager: false })
   images: CarImage[];
 
   @Field(() => [CarView])
