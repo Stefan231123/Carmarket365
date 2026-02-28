@@ -186,6 +186,7 @@ export default function ExpressSell() {
               isPrimary: i === 0,
             });
           } catch (imgError) {
+            console.error(`Image ${i + 1} upload failed:`, imgError);
             failedImages.push(i + 1);
           }
         }
