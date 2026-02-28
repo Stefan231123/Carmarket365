@@ -479,22 +479,14 @@ export default function SellCar() {
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.mileage')} *</label>
-                        <Select value={vehicleDetails.mileage} onValueChange={(value) => setVehicleDetails({...vehicleDetails, mileage: value})}>
-                          <SelectTrigger>
-                            <SelectValue placeholder={t('sell.placeholders.enterMileage')} />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {[
-                              5000, 10000, 15000, 20000, 25000, 30000, 40000, 50000,
-                              60000, 70000, 80000, 90000, 100000, 125000, 150000,
-                              175000, 200000, 250000, 300000, 400000, 500000
-                            ].map((km) => (
-                              <SelectItem key={km} value={km.toString()}>
-                                {km.toLocaleString()} km
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
+                        <Input
+                          type="number"
+                          min="0"
+                          max="9999999"
+                          placeholder={t('sell.placeholders.enterMileage')}
+                          value={vehicleDetails.mileage}
+                          onChange={(e) => setVehicleDetails({...vehicleDetails, mileage: e.target.value})}
+                        />
                       </div>
 
                       <div>

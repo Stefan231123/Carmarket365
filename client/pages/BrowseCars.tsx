@@ -275,11 +275,13 @@ placeholder={t('browseCars.searchPlaceholder')}
                     </SelectTrigger>
                     <SelectContent className="rounded-3xl border border-zinc-100 bg-white shadow-lg overflow-hidden p-2">
 <SelectItem value="any-mileage">{t('filters.anyMileage')}</SelectItem>
-                      <SelectItem value="6200">6,200 miles</SelectItem>
-                      <SelectItem value="12500">12,500 miles</SelectItem>
-                      <SelectItem value="31000">31,000 miles</SelectItem>
-                      <SelectItem value="62000">62,000 miles</SelectItem>
-                      <SelectItem value="124000">124,000 miles</SelectItem>
+                      <SelectItem value="50000">0 - 50,000 km</SelectItem>
+                      <SelectItem value="100000">50,001 - 100,000 km</SelectItem>
+                      <SelectItem value="150000">100,001 - 150,000 km</SelectItem>
+                      <SelectItem value="200000">150,001 - 200,000 km</SelectItem>
+                      <SelectItem value="250000">200,001 - 250,000 km</SelectItem>
+                      <SelectItem value="300000">250,001 - 300,000 km</SelectItem>
+                      <SelectItem value="500000">300,001+ km</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -510,7 +512,7 @@ placeholder={t('browseCars.filters.anyLocation')}
                             <div className={`grid gap-3 mb-4 text-sm text-muted-foreground ${viewMode === "list" ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-2"}`}>
                               <div className="flex items-center gap-2">
                                 <Gauge className="h-4 w-4 text-blue-600" />
-<span>{Math.round((car.mileage || 0) / 1.60934).toLocaleString()} miles</span>
+<span>{(car.mileage || 0).toLocaleString()} km</span>
                               </div>
                               <div className="flex items-center gap-2">
                                 <Fuel className="h-4 w-4 text-green-600" />
