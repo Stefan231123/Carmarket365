@@ -23,6 +23,7 @@ const SignIn = lazy(() => import("@/pages/SignIn"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
 const BrowseCars = lazy(() => import("@/pages/BrowseCars"));
 const SellCar = lazy(() => import("@/pages/SellCar"));
+const ExpressSell = lazy(() => import("@/pages/ExpressSell"));
 const SavedCars = lazy(() => import("@/pages/SavedCars"));
 const RegisteredDealers = lazy(() => import("@/pages/RegisteredDealers"));
 const DealerProfile = lazy(() => import("@/pages/DealerProfile"));
@@ -83,7 +84,7 @@ function AppContent() {
             <Route path="/cars/:id" element={<CarDetail />} />
             <Route path="/sell" element={<SellCar />} />
             <Route path="/sell-vehicle" element={<Navigate to="/sell" replace />} />
-            <Route path="/express-sell" element={<Navigate to="/sell" replace />} />
+            <Route path="/express-sell" element={<ExpressSell />} />
             <Route path="/saved" element={<SavedCars />} />
             <Route path="/registered-dealers" element={<RegisteredDealers />} />
             <Route path="/dealers" element={<Navigate to="/registered-dealers" replace />} />

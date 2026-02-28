@@ -178,10 +178,27 @@ export const useDealerInquiries = () => {
   });
 };
 
-// Hook for express sale opportunities (no backend entity yet)
+// Hook for express sale opportunities — fetches quickSale listings from backend
 export const useExpressSaleOpportunities = () => {
   return useApiQuery<{ getExpressSaleOpportunities: ExpressSaleListing[] }>(async () => {
-    return { getExpressSaleOpportunities: [] };
+    const listings = await apiClient.getExpressSaleOpportunities();
+    const mapped: ExpressSaleListing[] = (listings || []).map((l: any) => ({
+      id: l.id,
+      vehicleDescription: `${l.year || ''} ${l.make || ''} ${l.model || ''}`.trim(),
+      details: l.description || `${l.mileage ? l.mileage + ' km' : ''} ${l.fuelType || ''} ${l.transmission || ''}`.trim(),
+      askingPrice: l.price || 0,
+      location: l.location || '',
+      imageUrls: l.images?.map((img: any) => typeof img === 'string' ? img : img.url) || [],
+      status: l.isAvailable ? 'ACTIVE' as const : 'SOLD' as const,
+      createdAt: l.createdAt || new Date().toISOString(),
+      seller: {
+        id: l.seller?.id || '',
+        name: l.seller?.name || l.seller?.dealerName || '',
+        email: l.seller?.email || '',
+      },
+      interestedDealers: [],
+    }));
+    return { getExpressSaleOpportunities: mapped };
   });
 };
 

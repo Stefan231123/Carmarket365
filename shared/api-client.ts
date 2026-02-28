@@ -1307,6 +1307,56 @@ class ApiClient {
     return response.data?.deleteMyAccount ?? false;
   }
 
+  async getExpressSaleOpportunities(): Promise<any[]> {
+    const query = `
+      query GetExpressSaleOpportunities {
+        getExpressSaleOpportunities {
+          id
+          make
+          model
+          year
+          price
+          mileage
+          fuelType
+          transmission
+          condition
+          location
+          countryCode
+          description
+          isAvailable
+          quickSale
+          images {
+            id
+            url
+            thumbnailUrl
+            isMain
+          }
+          seller {
+            id
+            name
+            email
+            dealerName
+            dealerPhoneNumber
+          }
+          createdAt
+          updatedAt
+        }
+      }
+    `;
+
+    try {
+      const response = await this.request<{ getExpressSaleOpportunities: any[] }>(query);
+      if (response.errors) {
+        console.warn('ExpressSaleOpportunities GraphQL errors:', response.errors);
+        return [];
+      }
+      return response.data?.getExpressSaleOpportunities || [];
+    } catch (error) {
+      console.warn('Failed to fetch express sale opportunities:', error);
+      return [];
+    }
+  }
+
   async updateMarketingPreferences(marketingEmails: boolean, smsNotifications: boolean): Promise<void> {
     const query = `
       mutation UpdateMarketingPreferences($marketingEmails: Boolean!, $smsNotifications: Boolean!) {

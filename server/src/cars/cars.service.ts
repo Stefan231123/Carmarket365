@@ -16,7 +16,8 @@ export class CarsService {
     const query = this.carRepository
       .createQueryBuilder('car')
       .leftJoinAndSelect('car.seller', 'seller')
-      .where('car.isAvailable = :isAvailable', { isAvailable: true });
+      .where('car.isAvailable = :isAvailable', { isAvailable: true })
+      .andWhere('(car.quickSale = false OR car.quickSale IS NULL)');
 
     this.applyFilters(query, filters);
 
@@ -39,20 +40,26 @@ export class CarsService {
   }
 
   async findByMake(make: string): Promise<Car[]> {
-    return this.carRepository.find({
-      where: { make, isAvailable: true },
-      relations: ['seller'],
-      order: { createdAt: 'DESC' },
-    });
+    return this.carRepository
+      .createQueryBuilder('car')
+      .leftJoinAndSelect('car.seller', 'seller')
+      .where('car.make = :make', { make })
+      .andWhere('car.isAvailable = :isAvailable', { isAvailable: true })
+      .andWhere('(car.quickSale = false OR car.quickSale IS NULL)')
+      .orderBy('car.createdAt', 'DESC')
+      .getMany();
   }
 
   async getFeaturedCars(limit: number = 10): Promise<Car[]> {
-    return this.carRepository.find({
-      where: { isFeatured: true, isAvailable: true },
-      relations: ['seller'],
-      order: { createdAt: 'DESC' },
-      take: limit,
-    });
+    return this.carRepository
+      .createQueryBuilder('car')
+      .leftJoinAndSelect('car.seller', 'seller')
+      .where('car.isFeatured = :isFeatured', { isFeatured: true })
+      .andWhere('car.isAvailable = :isAvailable', { isAvailable: true })
+      .andWhere('(car.quickSale = false OR car.quickSale IS NULL)')
+      .orderBy('car.createdAt', 'DESC')
+      .take(limit)
+      .getMany();
   }
 
   async getCarMakes(): Promise<string[]> {
@@ -60,6 +67,7 @@ export class CarsService {
       .createQueryBuilder('car')
       .select('DISTINCT car.make', 'make')
       .where('car.isAvailable = :isAvailable', { isAvailable: true })
+      .andWhere('(car.quickSale = false OR car.quickSale IS NULL)')
       .orderBy('car.make', 'ASC')
       .getRawMany();
 
@@ -70,14 +78,22 @@ export class CarsService {
     const result = await this.carRepository
       .createQueryBuilder('car')
       .select('DISTINCT car.model', 'model')
-      .where('car.make = :make AND car.isAvailable = :isAvailable', { 
-        make, 
-        isAvailable: true 
-      })
+      .where('car.make = :make AND car.isAvailable = :isAvailable', { make, isAvailable: true })
+      .andWhere('(car.quickSale = false OR car.quickSale IS NULL)')
       .orderBy('car.model', 'ASC')
       .getRawMany();
 
     return result.map(row => row.model);
+  }
+
+  async findQuickSaleListings(): Promise<Car[]> {
+    return this.carRepository
+      .createQueryBuilder('car')
+      .leftJoinAndSelect('car.seller', 'seller')
+      .where('car.quickSale = :quickSale', { quickSale: true })
+      .andWhere('car.isAvailable = :isAvailable', { isAvailable: true })
+      .orderBy('car.createdAt', 'DESC')
+      .getMany();
   }
 
   async create(createCarInput: CreateCarInput, seller: User): Promise<Car> {

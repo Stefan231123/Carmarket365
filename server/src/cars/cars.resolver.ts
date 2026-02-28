@@ -56,6 +56,12 @@ export class CarsResolver {
     return getModelsForMake(make);
   }
 
+  @Query(() => [Car], { name: 'getExpressSaleOpportunities', description: 'Get express/quick sale listings (dealer-only visibility)' })
+  @UseGuards(JwtAuthGuard)
+  async getExpressSaleOpportunities(): Promise<Car[]> {
+    return this.carsService.findQuickSaleListings();
+  }
+
   @Mutation(() => Car, { description: 'Create a new car listing. Requires authentication.' })
   @UseGuards(JwtAuthGuard)
   async createCar(
