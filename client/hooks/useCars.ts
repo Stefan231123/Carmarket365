@@ -51,8 +51,6 @@ interface UseCarState {
 }
 
 export function useCar(id: string): UseCarState {
-  const { country } = useCountry();
-
   const { data, loading, error, refetch } = useQuery<{ getCarById: Car }>(GET_CAR_BY_ID, {
     variables: { id },
     skip: !id,
@@ -62,17 +60,10 @@ export function useCar(id: string): UseCarState {
   });
 
   const car = data?.getCarById || null;
-  let processedError = error?.message || null;
-
-  // Check if the car belongs to the current country (unless global)
-  if (car && country && country.code !== 'global') {
-    if (car.location && !car.location.toLowerCase().includes(country.name.toLowerCase())) {
-      processedError = 'This car listing is not available in your region';
-    }
-  }
+  const processedError = error?.message || null;
 
   return {
-    car: processedError === 'This car listing is not available in your region' ? null : car,
+    car,
     isLoading: loading,
     error: processedError,
     refetch: async () => {
