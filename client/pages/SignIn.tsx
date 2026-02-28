@@ -100,14 +100,14 @@ export default function SignIn() {
             {/* User Type Selection */}
             <div className="space-y-2">
               <Label className="text-sm text-muted-foreground">{t('auth.userType')}</Label>
-              <div className="bg-white rounded-2xl p-1 border grid grid-cols-2 gap-1">
+              <div className="bg-zinc-100 rounded-full p-1 border border-zinc-200 grid grid-cols-2 gap-1">
                 <Button
                   type="button"
                   variant={userType === 'private' ? 'default' : 'ghost'}
-                  className={`h-auto p-3 min-h-[60px] flex flex-col items-center gap-1 relative rounded-xl transition-all overflow-hidden ${
+                  className={`h-auto p-3 min-h-[60px] flex flex-col items-center gap-1 relative rounded-full transition-all overflow-hidden ${
                     userType === 'private'
                       ? 'bg-black text-white shadow-sm'
-                      : 'bg-zinc-100 text-muted-foreground hover:bg-zinc-200'
+                      : 'bg-transparent text-muted-foreground hover:bg-zinc-200'
                   }`}
                   onClick={() => setUserType('private')}
                 >
@@ -122,10 +122,10 @@ export default function SignIn() {
                 <Button
                   type="button"
                   variant={userType === 'dealer' ? 'default' : 'ghost'}
-                  className={`h-auto p-3 min-h-[60px] flex flex-col items-center gap-1 relative rounded-xl transition-all overflow-hidden ${
+                  className={`h-auto p-3 min-h-[60px] flex flex-col items-center gap-1 relative rounded-full transition-all overflow-hidden ${
                     userType === 'dealer'
                       ? 'bg-black text-white shadow-sm'
-                      : 'bg-zinc-100 text-muted-foreground hover:bg-zinc-200'
+                      : 'bg-transparent text-muted-foreground hover:bg-zinc-200'
                   }`}
                   onClick={() => setUserType('dealer')}
                 >
