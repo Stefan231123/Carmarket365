@@ -202,7 +202,7 @@ export default function PrivateDashboard() {
   };
 
   const onViewListing = (carId: string) => {
-    navigate(`/car-detail/${carId}`);
+    navigate(`/cars/${carId}`);
   };
 
   const onCreateListing = () => {
