@@ -12,6 +12,8 @@
   ],
   "env": {
     "VITE_APP_NAME": "CarMarket365",
-    "VITE_GRAPHQL_ENDPOINT": "https://carmarket365-production.up.railway.app/graphql"
+    "VITE_GRAPHQL_ENDPOINT": "https://carmarket365-production.up.railway.app/graphql",
+    "VITE_CLOUDINARY_CLOUD_NAME": "dqduao6rg",
+    "VITE_CLOUDINARY_UPLOAD_PRESET": "carmarket365"
   }
 }
