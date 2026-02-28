@@ -166,6 +166,7 @@ export default function ExpressSell() {
       );
 
       const failedImages: number[] = [];
+      const imageErrors: string[] = [];
       if (imagesToUpload.length > 0) {
         for (let i = 0; i < imagesToUpload.length; i++) {
           const img = imagesToUpload[i];
@@ -186,8 +187,10 @@ export default function ExpressSell() {
               isPrimary: i === 0,
             });
           } catch (imgError) {
-            console.error(`Image ${i + 1} upload failed:`, imgError);
+            const errMsg = imgError instanceof Error ? imgError.message : String(imgError);
+            console.error(`Image ${i + 1} upload failed:`, errMsg, imgError);
             failedImages.push(i + 1);
+            imageErrors.push(`Image ${i + 1}: ${errMsg}`);
           }
         }
       }
@@ -197,7 +200,7 @@ export default function ExpressSell() {
       });
 
       if (failedImages.length > 0) {
-        setSubmitError(`Listing created successfully! However, ${failedImages.length} image(s) failed to upload. You can add them from your dashboard.`);
+        setSubmitError(`Listing created! Image upload failed: ${imageErrors.join('; ')}`);
       } else {
         navigate('/private-dashboard');
       }
