@@ -112,6 +112,7 @@ export interface FacebookLoginResponse {
 class ApiClient {
   private baseUrl: string;
   private readonly isProduction: boolean;
+  private accessToken: string | null = null;
 
   constructor() {
     this.isProduction = import.meta.env.PROD || false;
@@ -128,10 +129,19 @@ class ApiClient {
     }
   }
 
+  setAccessToken(token: string | null) {
+    this.accessToken = token;
+  }
+
   private async request<T>(query: string, variables?: any): Promise<ApiResponse<T>> {
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
     };
+
+    // Send JWT as Authorization header (fallback for cross-origin when cookies aren't sent)
+    if (this.accessToken) {
+      headers['Authorization'] = `Bearer ${this.accessToken}`;
+    }
 
     try {
       const response = await fetch(this.baseUrl, {
@@ -188,7 +198,8 @@ class ApiClient {
 
     if (response.data?.login) {
       const { user, access_token } = response.data.login;
-      // Cookie is set automatically by the backend via Set-Cookie header
+      // Store token in memory for Authorization header (cross-origin fallback)
+      if (access_token) this.accessToken = access_token;
       return { user, tokens: { access_token: access_token || '' } };
     }
 
@@ -226,7 +237,8 @@ class ApiClient {
 
     if (response.data?.register) {
       const { user, access_token } = response.data.register;
-      // Cookie is set automatically by the backend via Set-Cookie header
+      // Store token in memory for Authorization header (cross-origin fallback)
+      if (access_token) this.accessToken = access_token;
       return { user, tokens: { access_token: access_token || '' } };
     }
 
@@ -245,13 +257,15 @@ class ApiClient {
       await this.request<{ logout: boolean }>(query);
     } catch (error) {
       console.error('Logout error:', error);
+    } finally {
+      this.accessToken = null;
     }
   }
 
   async getCurrentUser(): Promise<User | null> {
     const query = `
-      query Me {
-        me {
+      query GetCurrentUser {
+        getCurrentUser {
           id
           email
           name
@@ -267,13 +281,13 @@ class ApiClient {
     `;
 
     try {
-      const response = await this.request<{ me: User }>(query);
+      const response = await this.request<{ getCurrentUser: User }>(query);
 
       if (response.errors) {
         return null;
       }
 
-      return response.data?.me || null;
+      return response.data?.getCurrentUser || null;
     } catch {
       return null;
     }
@@ -1214,7 +1228,8 @@ class ApiClient {
     }
 
     const { user, access_token } = response.data.socialLogin;
-    // Cookie is set automatically by the backend via Set-Cookie header
+    // Store token in memory for Authorization header (cross-origin fallback)
+    if (access_token) this.accessToken = access_token;
     return { user, tokens: { access_token: access_token || '' } };
   }
 
