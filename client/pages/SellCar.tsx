@@ -343,7 +343,7 @@ export default function SellCar() {
             {/* Main Content */}
             <div className="lg:col-span-3">
               {/* Progress Steps */}
-              <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
+              <div className="bg-white rounded-2xl shadow-sm p-6 mb-8">
                 <div className="flex items-center justify-between">
                   {steps.map((step, index) => (
                     <div key={step.number} className="flex items-center">
@@ -370,7 +370,7 @@ export default function SellCar() {
               </div>
 
               {/* Step Content */}
-              <div className="bg-white rounded-lg shadow-sm p-6">
+              <div className="bg-white rounded-2xl shadow-sm p-6">
                 {/* Step 1: Vehicle Type */}
                 {currentStep === 1 && (
                   <div className="space-y-6">
@@ -387,7 +387,7 @@ export default function SellCar() {
                           <button
                             key={type.id}
                             onClick={() => handleVehicleTypeSelect(type.id as VehicleType)}
-                            className={`p-6 rounded-lg border-2 transition-all duration-200 text-center hover:border-gray-300 ${
+                            className={`p-6 rounded-2xl border-2 transition-all duration-200 text-center hover:border-gray-300 ${
                               vehicleDetails.type === type.id
                                 ? 'border-black bg-gray-50'
                                 : 'border-gray-200 bg-white'

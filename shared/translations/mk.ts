@@ -659,7 +659,13 @@ export const mkTranslations: TranslationStrings = {
     contactInformation: 'Контакт информации',
     publish: 'Објави',
     draft: 'Зачувај како нацрт',
-    preview: 'Преглед',
+    preview: {
+      title: 'Преглед на огласот',
+      yourVehicle: 'Вашето возило',
+      priceLabel: 'Цена',
+      milesLabel: 'км',
+      photosCount: '{count} фото{plural} избрани',
+    },
     required: 'Задолжително',
     optional: 'Опционално',
     addPhotos: 'Додај фотографии',
@@ -694,8 +700,53 @@ export const mkTranslations: TranslationStrings = {
     },
 
     // Form fields and labels
+    fields: {
+      make: 'Марка',
+      model: 'Модел',
+      year: 'Година',
+      mileage: 'Километража',
+      condition: 'Состојба',
+      fuelType: 'Тип на гориво',
+      transmission: 'Менувач',
+      exteriorColor: 'Надворешна боја',
+      interiorColor: 'Внатрешна боја',
+      askingPrice: 'Цена',
+      featuresAndOptions: 'Опрема и додатоци',
+      description: 'Опис',
+      vehiclePhotos: 'Фотографии на возилото',
+      contactName: 'Име за контакт',
+      phoneNumber: 'Телефонски број',
+      emailAddress: 'Е-пошта адреса',
+      location: 'Локација',
+    },
 
     // Placeholders
+    placeholders: {
+      selectMake: 'Изберете марка',
+      enterModel: 'Внесете модел',
+      selectYear: 'Изберете година',
+      selectCondition: 'Изберете состојба',
+      enterMileage: 'Внесете километража (км)',
+      selectFuelType: 'Изберете тип на гориво',
+      selectTransmission: 'Изберете менувач',
+      exteriorColorExample: 'нпр. Бела, Црна, Сребрена',
+      interiorColorExample: 'нпр. Црна, Беж, Сива',
+      priceExample: '25.000',
+      descriptionExample: 'Опишете ја состојбата на возилото, историјата и дополнителни детали...',
+      yourFullName: 'Вашето полно име',
+      phoneExample: '(02) 123-4567',
+      emailExample: 'vasa.email@primer.com',
+      cityState: 'Град, Држава',
+      yourName: 'Вашето име',
+      yourPhoneNumber: 'Вашиот телефонски број',
+      yourEmail: 'Вашата е-пошта',
+      cityCountry: 'Град, Земја',
+      enterAskingPrice: 'Внесете ја бараната цена',
+      describeYourVehicle: 'Опишете го вашето возило...',
+      selectFuel: 'Изберете тип на гориво',
+      selectTransmissionType: 'Изберете тип на менувач',
+      choosePhotos: 'Изберете фотографии',
+    },
 
     // Button labels
     buttons: {
@@ -782,20 +833,39 @@ export const mkTranslations: TranslationStrings = {
       poor: 'Лоша'
     },
 
-    // Vehicle types for express selling
+    // Vehicle types
     vehicleTypes: {
       car: {
-        name: 'Автомобил'
+        name: 'Автомобил',
+        description: 'Седан, SUV, Купе, Хечбек',
       },
       truck: {
-        name: 'Камион'
+        name: 'Камион',
+        description: 'Пикап, комерцијални возила',
       },
       motorbike: {
-        name: 'Мотор'
-      }
+        name: 'Мотор',
+        description: 'Мотоцикли, скутери, ATV',
+      },
     },
 
     // Features list
+    features: {
+      airConditioning: 'Климатизација',
+      leatherSeats: 'Кожни седишта',
+      heatedSeats: 'Греани седишта',
+      sunroof: 'Шибер',
+      gpsNavigation: 'GPS навигација',
+      backupCamera: 'Камера за паркирање',
+      bluetooth: 'Bluetooth',
+      usbPorts: 'USB порти',
+      premiumSound: 'Премиум аудио систем',
+      keylessEntry: 'Влез без клуч',
+      remoteStart: 'Далечинско палење',
+      cruiseControl: 'Темпомат',
+      parkingSensors: 'Сензори за паркирање',
+      blindSpotMonitoring: 'Мониторинг на слепа точка',
+    },
   },
 
   countries: {

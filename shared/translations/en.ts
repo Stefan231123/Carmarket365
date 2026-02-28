@@ -636,7 +636,13 @@ export const enTranslations: TranslationStrings = {
     contactInformation: 'Contact Information',
     publish: 'Publish',
     draft: 'Save as draft',
-    preview: 'Preview',
+    preview: {
+      title: 'Listing Preview',
+      yourVehicle: 'Your Vehicle',
+      priceLabel: 'Price',
+      milesLabel: 'km',
+      photosCount: '{count} photo{plural} selected',
+    },
     required: 'Required',
     optional: 'Optional',
     addPhotos: 'Add photos',
@@ -654,7 +660,21 @@ export const enTranslations: TranslationStrings = {
     },
     
     // Vehicle type selection
-    
+    vehicleTypes: {
+      car: {
+        name: 'Car',
+        description: 'Sedan, SUV, Coupe, Hatchback',
+      },
+      truck: {
+        name: 'Truck',
+        description: 'Pickup trucks, commercial vehicles',
+      },
+      motorbike: {
+        name: 'Motorbike',
+        description: 'Motorcycles, scooters, ATVs',
+      },
+    },
+
     // Headers and descriptions
     headers: {
       vehicleTypeQuestion: 'What type of vehicle are you selling?',
@@ -692,8 +712,33 @@ export const enTranslations: TranslationStrings = {
     },
     
     // Placeholders
-    
-    
+    placeholders: {
+      selectMake: 'Select make',
+      enterModel: 'Enter model',
+      selectYear: 'Select year',
+      selectCondition: 'Select condition',
+      enterMileage: 'Enter mileage (km)',
+      selectFuelType: 'Select fuel type',
+      selectTransmission: 'Select transmission',
+      exteriorColorExample: 'e.g. White, Black, Silver',
+      interiorColorExample: 'e.g. Black, Beige, Gray',
+      priceExample: '25,000',
+      descriptionExample: 'Describe your vehicle condition, history and any additional details...',
+      yourFullName: 'Your full name',
+      phoneExample: '(02) 123-4567',
+      emailExample: 'your.email@example.com',
+      cityState: 'City, State',
+      yourName: 'Your name',
+      yourPhoneNumber: 'Your phone number',
+      yourEmail: 'Your email',
+      cityCountry: 'City, Country',
+      enterAskingPrice: 'Enter asking price',
+      describeYourVehicle: 'Describe your vehicle...',
+      selectFuel: 'Select fuel type',
+      selectTransmissionType: 'Select transmission type',
+      choosePhotos: 'Choose Photos',
+    },
+
     // Button labels
     buttons: {
       nextStep: 'Next Step',
@@ -780,8 +825,22 @@ export const enTranslations: TranslationStrings = {
     },
     
     // Features list
-  
-      needsWork: 'Needs Work',
+    features: {
+      airConditioning: 'Air Conditioning',
+      leatherSeats: 'Leather Seats',
+      heatedSeats: 'Heated Seats',
+      sunroof: 'Sunroof',
+      gpsNavigation: 'GPS Navigation',
+      backupCamera: 'Backup Camera',
+      bluetooth: 'Bluetooth',
+      usbPorts: 'USB Ports',
+      premiumSound: 'Premium Sound System',
+      keylessEntry: 'Keyless Entry',
+      remoteStart: 'Remote Start',
+      cruiseControl: 'Cruise Control',
+      parkingSensors: 'Parking Sensors',
+      blindSpotMonitoring: 'Blind Spot Monitoring',
+    },
   },
 
   countries: {

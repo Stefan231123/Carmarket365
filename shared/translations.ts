@@ -346,7 +346,13 @@ export interface TranslationStrings {
     contactInformation: string;
     publish: string;
     draft: string;
-    preview: string;
+    preview: {
+      title: string;
+      yourVehicle: string;
+      priceLabel: string;
+      milesLabel: string;
+      photosCount: string;
+    };
     required: string;
     optional: string;
     addPhotos: string;
@@ -354,7 +360,7 @@ export interface TranslationStrings {
     mainPhoto: string;
     additionalInfo: string;
     sellerNotes: string;
-    
+
     // Step titles
     steps: {
       vehicleType: string;
