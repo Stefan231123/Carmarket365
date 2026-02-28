@@ -4563,6 +4563,17 @@ export const sqTranslations: TranslationStrings = {
       luxury: 'Markat e Luksit',
       businessCars: 'Makina Biznesi',
       fleetSales: 'Shitje Flote',
+      leasing: 'Lejzing',
+      ecoFriendly: 'Miqësore me Mjedisin',
+    },
+
+    descriptions: {
+      autoMaxDescription: 'Diler kryesor i makinave luksoze në Berlin me mbi 15 vjet përvojë. Specializuar në markat premium gjermane.',
+      cityMotorsDescription: 'Diler familjar që shërben Mynihun dhe zonat përreth. I njohur për shërbim të shkëlqyer ndaj klientëve dhe çmime të drejta.',
+      ecoWheelsDescription: 'Specialist kryesor për automjete elektrike dhe hibride në Hamburg. I përkushtuar ndaj zgjidhjeve të transportit të qëndrueshëm.',
+      rheinAutoDescription: 'Specialistë në automjete sportive dhe me performancë të lartë në Rhineland. Koleksion i gjerë automjetesh me performancë të lartë.',
+      stuttgartLuxuryDescription: 'Diler i autorizuar Mercedes-Benz dhe Porsche në Stuttgart. Shtëpia e inxhinierisë më të mirë gjermane.',
+      nordFahrzeugeDescription: 'Specialist për automjete korporative që shërben qarkun e biznesit në Frankfurt. Ekspert në zgjidhje flotash dhe lejzing.',
     },
   },
 

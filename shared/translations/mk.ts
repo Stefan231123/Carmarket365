@@ -1725,6 +1725,54 @@ export const mkTranslations: TranslationStrings = {
     }
   },
 
+  // Registered Dealers
+  registeredDealers: {
+    title: 'Регистрирани дилери',
+    subtitle: 'Прегледајте ја нашата мрежа на верифицирани дилери на автомобили',
+    viewProfile: 'Прикажи профил',
+    viewInventory: 'Прикажи инвентар',
+    contactDealer: 'Контактирај дилер',
+    backToHome: 'Назад на почетна',
+    allDealersVerified: 'Сите дилери се верифицирани',
+    customerRated: 'Оценети од клиенти',
+    supportAvailable: 'Поддршка 24/7',
+    browseNetwork: 'Прегледајте ја нашата мрежа од {count} верифицирани дилери низ Германија',
+    reviews: 'рецензии',
+    verifiedSince: 'Верифициран од {year}',
+    experience: 'Искуство:',
+    totalSales: 'Вкупна продажба:',
+    viewDealerProfile: 'Прикажи профил на дилер',
+    years: 'години',
+
+    specialties: {
+      luxuryCars: 'Луксузни автомобили',
+      suvs: 'SUV',
+      electricVehicles: 'Електрични возила',
+      familyCars: 'Семејни автомобили',
+      compactCars: 'Компактни автомобили',
+      hybrids: 'Хибридни возила',
+      sportsCars: 'Спортски автомобили',
+      convertibles: 'Кабриолети',
+      performance: 'Високи перформанси',
+      mercedesBenz: 'Mercedes-Benz',
+      porsche: 'Porsche',
+      luxury: 'Луксузни брендови',
+      businessCars: 'Деловни автомобили',
+      fleetSales: 'Продажба на флоти',
+      leasing: 'Лизинг решенија',
+      ecoFriendly: 'Еко-пријателски',
+    },
+
+    descriptions: {
+      autoMaxDescription: 'Водечки дилер на луксузни автомобили во Берлин со над 15 години искуство. Специјализиран за премиум германски брендови.',
+      cityMotorsDescription: 'Семеен дилер кој ги опслужува Минхен и околината. Познат по одличната услуга за клиенти и фер цени.',
+      ecoWheelsDescription: 'Водечки специјалист за електрични и хибридни возила во Хамбург. Посветен на одржливи транспортни решенија.',
+      rheinAutoDescription: 'Специјалисти за спортски автомобили во регионот на Рајна. Обемна колекција на возила со високи перформанси.',
+      stuttgartLuxuryDescription: 'Овластен дилер на Mercedes-Benz и Porsche во Штутгарт. Дом на најдоброто германско инженерство.',
+      nordFahrzeugeDescription: 'Специјалист за корпоративни возила кој го опслужува деловниот дистрикт на Франкфурт. Експерт за решенија за флоти и лизинг.',
+    },
+  },
+
   // Safety Tips
   safetyTips: {
     title: 'Безбедносни совети',

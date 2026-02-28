@@ -27,7 +27,7 @@ const ExpressSell = lazy(() => import("@/pages/ExpressSell"));
 const SavedCars = lazy(() => import("@/pages/SavedCars"));
 const RegisteredDealers = lazy(() => import("@/pages/RegisteredDealers"));
 const DealerProfile = lazy(() => import("@/pages/DealerProfile"));
-const Financing = lazy(() => import("@/pages/Financing"));
+
 const About = lazy(() => import("@/pages/About"));
 const CarDetail = lazy(() => import("@/pages/CarDetail"));
 const ContactUs = lazy(() => import("@/pages/ContactUs"));
@@ -90,7 +90,7 @@ function AppContent() {
             <Route path="/registered-dealers" element={<RegisteredDealers />} />
             <Route path="/dealers" element={<Navigate to="/registered-dealers" replace />} />
             <Route path="/dealer/:id" element={<DealerProfile />} />
-            <Route path="/financing" element={<Financing />} />
+            <Route path="/financing" element={<Navigate to="/" replace />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/signin" element={<SignIn />} />
@@ -141,7 +141,7 @@ function AppContent() {
             <Route path="/faq" element={<FAQ />} />
             <Route path="/feedback" element={<Navigate to="/contact" replace />} />
             <Route path="/disclaimer" element={<Navigate to="/terms-of-service" replace />} />
-            <Route path="/insurance" element={<Navigate to="/financing" replace />} />
+            <Route path="/insurance" element={<Navigate to="/" replace />} />
             
             {/* New Footer Pages */}
             <Route path="/car-reviews" element={<CarReviews />} />
