@@ -905,8 +905,8 @@ class ApiClient {
 
   async getMyListings(): Promise<any[]> {
     const query = `
-      query GetCars {
-        getCars {
+      query GetMyListings {
+        getMyListings {
           id
           make
           model
@@ -920,6 +920,7 @@ class ApiClient {
           countryCode
           isAvailable
           isFeatured
+          quickSale
           viewCount
           inquiryCount
           description
@@ -942,16 +943,12 @@ class ApiClient {
     `;
 
     try {
-      const response = await this.request<{ getCars: any[] }>(query);
+      const response = await this.request<{ getMyListings: any[] }>(query);
       if (response.errors) {
         console.warn('GetMyListings GraphQL errors:', response.errors);
         return [];
       }
-      const allCars = response.data?.getCars || [];
-      // Filter to only the current user's listings
-      const currentUser = await this.getCurrentUser();
-      if (!currentUser) return [];
-      return allCars.filter((car: any) => car.seller?.id === currentUser.id);
+      return response.data?.getMyListings || [];
     } catch (error) {
       console.warn('Failed to fetch my listings:', error);
       return [];

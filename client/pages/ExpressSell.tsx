@@ -197,8 +197,7 @@ export default function ExpressSell() {
       });
 
       if (failedImages.length > 0) {
-        setSubmitError(`Listing created, but ${failedImages.length} image(s) failed to upload. You can add them later from your dashboard.`);
-        setTimeout(() => navigate('/private-dashboard'), 3000);
+        setSubmitError(`Listing created successfully! However, ${failedImages.length} image(s) failed to upload. You can add them from your dashboard.`);
       } else {
         navigate('/private-dashboard');
       }

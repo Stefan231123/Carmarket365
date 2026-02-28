@@ -56,6 +56,12 @@ export class CarsResolver {
     return getModelsForMake(make);
   }
 
+  @Query(() => [Car], { name: 'getMyListings', description: 'Get all listings for the current user (including quickSale)' })
+  @UseGuards(JwtAuthGuard)
+  async getMyListings(@CurrentUser() user: User): Promise<Car[]> {
+    return this.carsService.findByUser(user.id);
+  }
+
   @Query(() => [Car], { name: 'getExpressSaleOpportunities', description: 'Get express/quick sale listings (dealer-only visibility)' })
   @UseGuards(JwtAuthGuard)
   async getExpressSaleOpportunities(): Promise<Car[]> {

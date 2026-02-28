@@ -86,6 +86,16 @@ export class CarsService {
     return result.map(row => row.model);
   }
 
+  async findByUser(userId: string): Promise<Car[]> {
+    return this.carRepository
+      .createQueryBuilder('car')
+      .leftJoinAndSelect('car.seller', 'seller')
+      .leftJoinAndSelect('car.images', 'images')
+      .where('car.sellerId = :userId', { userId })
+      .orderBy('car.createdAt', 'DESC')
+      .getMany();
+  }
+
   async findQuickSaleListings(): Promise<Car[]> {
     return this.carRepository
       .createQueryBuilder('car')
