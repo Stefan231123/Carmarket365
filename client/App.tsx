@@ -83,9 +83,9 @@ function AppContent() {
             <Route path="/cars" element={<BrowseCars />} />
             <Route path="/advanced-search" element={<AdvancedSearch />} />
             <Route path="/cars/:id" element={<CarDetail />} />
-            <Route path="/sell" element={<SellCar />} />
+            <Route path="/sell" element={<ProtectedRoute><SellCar /></ProtectedRoute>} />
             <Route path="/sell-vehicle" element={<Navigate to="/sell" replace />} />
-            <Route path="/express-sell" element={<ExpressSell />} />
+            <Route path="/express-sell" element={<ProtectedRoute><ExpressSell /></ProtectedRoute>} />
             <Route path="/saved" element={<SavedCars />} />
             <Route path="/registered-dealers" element={<RegisteredDealers />} />
             <Route path="/dealers" element={<Navigate to="/registered-dealers" replace />} />
