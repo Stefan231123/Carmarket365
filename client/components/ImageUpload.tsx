@@ -108,7 +108,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
           });
 
           const compressed = await compressImage(newImage.file);
-          
+
           setImages(prevImages => {
             const updated = [...prevImages];
             updated[imageIndex] = {
@@ -118,6 +118,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({
               uploaded: true,
               progress: 100,
             };
+            onImagesChange(updated);
             return updated;
           });
         } catch (error) {

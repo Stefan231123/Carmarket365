@@ -476,7 +476,7 @@ export default function PrivateDashboard() {
                             </div>
                           </div>
                           <div className="flex flex-wrap gap-2">
-                            <Button size="sm" variant="outline" className="flex-1 sm:flex-none bg-zinc-100 border-none rounded-full h-12 hover:bg-zinc-200">
+                            <Button size="sm" variant="outline" onClick={() => onViewListing(listing.id)} className="flex-1 sm:flex-none bg-zinc-100 border-none rounded-full h-12 hover:bg-zinc-200">
                               <Edit3 className="h-4 w-4 mr-2" />
 {t('privateDashboard.edit')}
                             </Button>
