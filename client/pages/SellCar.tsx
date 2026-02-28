@@ -122,6 +122,22 @@ export default function SellCar() {
   const transmissions = [t('sell.transmissions.automatic'), t('sell.transmissions.manual'), t('sell.transmissions.cvt')];
   const conditions = [t('sell.conditions.excellent'), t('sell.conditions.veryGood'), t('sell.conditions.good'), t('sell.conditions.fair')];
 
+  const colorOptions = [
+    { value: 'Black', label: t('sell.colors.black') },
+    { value: 'White', label: t('sell.colors.white') },
+    { value: 'Silver', label: t('sell.colors.silver') },
+    { value: 'Gray', label: t('sell.colors.gray') },
+    { value: 'Red', label: t('sell.colors.red') },
+    { value: 'Blue', label: t('sell.colors.blue') },
+    { value: 'Green', label: t('sell.colors.green') },
+    { value: 'Brown', label: t('sell.colors.brown') },
+    { value: 'Gold', label: t('sell.colors.gold') },
+    { value: 'Orange', label: t('sell.colors.orange') },
+    { value: 'Purple', label: t('sell.colors.purple') },
+    { value: 'Yellow', label: t('sell.colors.yellow') },
+    { value: 'Beige', label: t('sell.colors.beige') },
+  ];
+
   const features = [
     t('sell.features.airConditioning'), t('sell.features.leatherSeats'), t('sell.features.heatedSeats'), t('sell.features.sunroof'), t('sell.features.gpsNavigation'),
     t('sell.features.backupCamera'), t('sell.features.bluetooth'), t('sell.features.usbPorts'), t('sell.features.premiumSound'), t('sell.features.keylessEntry'),
@@ -554,20 +570,30 @@ export default function SellCar() {
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.exteriorColor')}</label>
-                        <Input
-                          placeholder={t('sell.placeholders.exteriorColorExample')}
-                          value={vehicleDetails.exteriorColor}
-                          onChange={(e) => setVehicleDetails({...vehicleDetails, exteriorColor: e.target.value})}
-                        />
+                        <Select value={vehicleDetails.exteriorColor} onValueChange={(value) => setVehicleDetails({...vehicleDetails, exteriorColor: value})}>
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('sell.placeholders.exteriorColorExample')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {colorOptions.map((color) => (
+                              <SelectItem key={color.value} value={color.value}>{color.label}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </div>
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.interiorColor')}</label>
-                        <Input
-                          placeholder={t('sell.placeholders.interiorColorExample')}
-                          value={vehicleDetails.interiorColor}
-                          onChange={(e) => setVehicleDetails({...vehicleDetails, interiorColor: e.target.value})}
-                        />
+                        <Select value={vehicleDetails.interiorColor} onValueChange={(value) => setVehicleDetails({...vehicleDetails, interiorColor: value})}>
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('sell.placeholders.interiorColorExample')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {colorOptions.map((color) => (
+                              <SelectItem key={color.value} value={color.value}>{color.label}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </div>
 
                       <div>

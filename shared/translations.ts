@@ -523,8 +523,9 @@ export interface TranslationStrings {
       orange: string;
       purple: string;
       yellow: string;
+      beige: string;
     };
-    
+
     // Conditions
     conditions: {
       new: string;

@@ -811,6 +811,7 @@ export const enTranslations: TranslationStrings = {
       orange: 'Orange',
       purple: 'Purple',
       yellow: 'Yellow',
+      beige: 'Beige',
     },
     
     // Conditions

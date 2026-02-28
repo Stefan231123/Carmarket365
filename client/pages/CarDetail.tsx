@@ -98,6 +98,77 @@ export default function CarDetail() {
   const sellerEmail = car.contactEmail || car.seller?.email;
   const isDealer = car.seller?.dealerName != null;
 
+  // Translate stored enum values to localized display strings
+  const translateFuelType = (value: string) => {
+    const map: Record<string, string> = {
+      GASOLINE: t('sell.fuelTypes.gasoline'),
+      DIESEL: t('sell.fuelTypes.diesel'),
+      ELECTRIC: t('sell.fuelTypes.electric'),
+      HYBRID: t('sell.fuelTypes.hybrid'),
+      LPG: t('sell.fuelTypes.lpg'),
+      CNG: t('sell.fuelTypes.cng'),
+    };
+    return map[value] || value;
+  };
+
+  const translateTransmission = (value: string) => {
+    const map: Record<string, string> = {
+      AUTOMATIC: t('sell.transmissions.automatic'),
+      MANUAL: t('sell.transmissions.manual'),
+      CVT: t('sell.transmissions.cvt'),
+    };
+    return map[value] || value;
+  };
+
+  const translateCondition = (value: string) => {
+    const map: Record<string, string> = {
+      NEW: t('sell.conditions.new'),
+      CERTIFIED: t('sell.conditions.excellent'),
+      USED: t('sell.conditions.good'),
+      DAMAGED: t('sell.conditions.fair'),
+    };
+    return map[value] || value;
+  };
+
+  const translateBodyType = (value: string) => {
+    const map: Record<string, string> = {
+      CAR: t('sell.vehicleTypes.car.name'),
+      TRUCK: t('sell.vehicleTypes.truck.name'),
+      MOTORBIKE: t('sell.vehicleTypes.motorbike.name'),
+      SEDAN: t('sell.bodyTypes.sedan'),
+      SUV: t('sell.bodyTypes.suv'),
+      COUPE: t('sell.bodyTypes.coupe'),
+      HATCHBACK: t('sell.bodyTypes.hatchback'),
+      CONVERTIBLE: t('sell.bodyTypes.convertible'),
+      WAGON: t('sell.bodyTypes.wagon'),
+      VAN: t('sell.bodyTypes.van'),
+      CROSSOVER: t('sell.bodyTypes.crossover'),
+    };
+    return map[value] || value;
+  };
+
+  const translateColor = (value: string) => {
+    if (!value) return value;
+    const key = value.toLowerCase();
+    const map: Record<string, string> = {
+      black: t('sell.colors.black'),
+      white: t('sell.colors.white'),
+      silver: t('sell.colors.silver'),
+      gray: t('sell.colors.gray'),
+      grey: t('sell.colors.gray'),
+      red: t('sell.colors.red'),
+      blue: t('sell.colors.blue'),
+      green: t('sell.colors.green'),
+      brown: t('sell.colors.brown'),
+      gold: t('sell.colors.gold'),
+      orange: t('sell.colors.orange'),
+      purple: t('sell.colors.purple'),
+      yellow: t('sell.colors.yellow'),
+      beige: t('sell.colors.beige'),
+    };
+    return map[key] || value;
+  };
+
   const carData = {
     id: car.id,
     make: car.make,
@@ -292,14 +363,14 @@ export default function CarDetail() {
                         <div className="text-sm text-muted-foreground">{t('carDetail.overview.fuelType')}</div>
                         <div className="flex items-center gap-2">
                           <Fuel className="h-4 w-4 text-muted-foreground" />
-                          <span>{carData.fuelType}</span>
+                          <span>{translateFuelType(carData.fuelType)}</span>
                         </div>
                       </div>
                       <div className="space-y-1">
                         <div className="text-sm text-muted-foreground">{t('carDetail.overview.transmission')}</div>
                         <div className="flex items-center gap-2">
                           <Users className="h-4 w-4 text-muted-foreground" />
-                          <span>{carData.transmission}</span>
+                          <span>{translateTransmission(carData.transmission)}</span>
                         </div>
                       </div>
                       <div className="space-y-1">
@@ -312,25 +383,25 @@ export default function CarDetail() {
                       {carData.condition && (
                         <div className="space-y-1">
                           <div className="text-sm text-muted-foreground">{t('carDetail.overview.condition')}</div>
-                          <span>{carData.condition}</span>
+                          <span>{translateCondition(carData.condition)}</span>
                         </div>
                       )}
                       {carData.exteriorColor && (
                         <div className="space-y-1">
                           <div className="text-sm text-muted-foreground">{t('carDetail.overview.exteriorColor')}</div>
-                          <span>{carData.exteriorColor}</span>
+                          <span>{translateColor(carData.exteriorColor)}</span>
                         </div>
                       )}
                       {carData.interiorColor && (
                         <div className="space-y-1">
                           <div className="text-sm text-muted-foreground">{t('carDetail.overview.interiorColor')}</div>
-                          <span>{carData.interiorColor}</span>
+                          <span>{translateColor(carData.interiorColor)}</span>
                         </div>
                       )}
                       {carData.bodyType && (
                         <div className="space-y-1">
                           <div className="text-sm text-muted-foreground">{t('carDetail.overview.bodyType')}</div>
-                          <span>{carData.bodyType}</span>
+                          <span>{translateBodyType(carData.bodyType)}</span>
                         </div>
                       )}
                       {carData.drivetrain && (

@@ -767,8 +767,9 @@ export const sqTranslations: TranslationStrings = {
       orange: 'Portokalli',
       purple: 'Vjollcë',
       yellow: 'E verdhë',
+      beige: 'Bezhë',
     },
-    
+
     // Conditions
     conditions: {
       new: 'E re',

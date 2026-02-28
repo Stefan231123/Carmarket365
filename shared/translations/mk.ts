@@ -819,7 +819,8 @@ export const mkTranslations: TranslationStrings = {
       gold: 'Златна',
       orange: 'Портокалова',
       purple: 'Виолетова',
-      yellow: 'Жолта'
+      yellow: 'Жолта',
+      beige: 'Беж',
     },
 
     // Conditions
