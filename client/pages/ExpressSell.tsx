@@ -161,9 +161,11 @@ export default function ExpressSell() {
       const car = await apiClient.createCar(input);
 
       // Step 2: Upload images to Cloudinary and create image records
+      console.log('[ExpressSell] carData.images:', carData.images.length, carData.images);
       const imagesToUpload = carData.images.filter(
         (img: any) => img.compressed || img.file
       );
+      console.log('[ExpressSell] imagesToUpload after filter:', imagesToUpload.length);
 
       const failedImages: number[] = [];
       const imageErrors: string[] = [];
@@ -171,6 +173,7 @@ export default function ExpressSell() {
         for (let i = 0; i < imagesToUpload.length; i++) {
           const img = imagesToUpload[i];
           const file = img.compressed || img.file;
+          console.log(`[ExpressSell] Uploading image ${i + 1}:`, file?.name, file?.size, file?.type);
 
           setUploadProgress(
             `${t('sell.progress.uploadingImage') || 'Uploading image'} ${i + 1}/${imagesToUpload.length}...`
@@ -178,6 +181,7 @@ export default function ExpressSell() {
 
           try {
             const uploadResult = await uploadToCloudinary(file);
+            console.log(`[ExpressSell] Cloudinary upload success:`, uploadResult.url);
             await apiClient.createCarImage({
               carId: car.id,
               url: uploadResult.url,
@@ -186,13 +190,16 @@ export default function ExpressSell() {
               sortOrder: i,
               isPrimary: i === 0,
             });
+            console.log(`[ExpressSell] createCarImage success for image ${i + 1}`);
           } catch (imgError) {
             const errMsg = imgError instanceof Error ? imgError.message : String(imgError);
-            console.error(`Image ${i + 1} upload failed:`, errMsg, imgError);
+            console.error(`[ExpressSell] Image ${i + 1} upload failed:`, errMsg, imgError);
             failedImages.push(i + 1);
             imageErrors.push(`Image ${i + 1}: ${errMsg}`);
           }
         }
+      } else {
+        console.warn('[ExpressSell] No images to upload! carData.images:', JSON.stringify(carData.images.map((img: any) => ({ hasFile: !!img.file, hasCompressed: !!img.compressed, hasPreview: !!img.preview, id: img.id }))));
       }
 
       trackEvent('create_express_listing', {
@@ -201,6 +208,8 @@ export default function ExpressSell() {
 
       if (failedImages.length > 0) {
         setSubmitError(`Listing created! Image upload failed: ${imageErrors.join('; ')}`);
+      } else if (carData.images.length > 0 && imagesToUpload.length === 0) {
+        setSubmitError('Listing created, but images could not be processed. Please add images from your dashboard.');
       } else {
         navigate('/private-dashboard');
       }

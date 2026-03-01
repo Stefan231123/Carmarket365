@@ -251,15 +251,19 @@ export default function SellCar() {
       const car = await apiClient.createCar(input);
 
       // Step 2: Upload images to Cloudinary and create image records
+      console.log('[SellCar] vehicleDetails.images:', vehicleDetails.images.length, vehicleDetails.images);
       const imagesToUpload = vehicleDetails.images.filter(
         (img: any) => img.compressed || img.file
       );
+      console.log('[SellCar] imagesToUpload after filter:', imagesToUpload.length);
 
       const failedImages: number[] = [];
+      const imageErrors: string[] = [];
       if (imagesToUpload.length > 0) {
         for (let i = 0; i < imagesToUpload.length; i++) {
           const img = imagesToUpload[i];
           const file = img.compressed || img.file;
+          console.log(`[SellCar] Uploading image ${i + 1}:`, file?.name, file?.size, file?.type);
 
           setUploadProgress(
             `${t('sell.progress.uploadingImage') || 'Uploading image'} ${i + 1}/${imagesToUpload.length}...`
@@ -267,6 +271,7 @@ export default function SellCar() {
 
           try {
             const uploadResult = await uploadToCloudinary(file);
+            console.log(`[SellCar] Cloudinary upload success:`, uploadResult.url);
             await apiClient.createCarImage({
               carId: car.id,
               url: uploadResult.url,
@@ -275,11 +280,16 @@ export default function SellCar() {
               sortOrder: i,
               isPrimary: i === 0,
             });
+            console.log(`[SellCar] createCarImage success for image ${i + 1}`);
           } catch (imgError) {
-            console.error(`Image ${i + 1} upload failed:`, imgError);
+            const errMsg = imgError instanceof Error ? imgError.message : String(imgError);
+            console.error(`[SellCar] Image ${i + 1} upload failed:`, errMsg, imgError);
             failedImages.push(i + 1);
+            imageErrors.push(`Image ${i + 1}: ${errMsg}`);
           }
         }
+      } else {
+        console.warn('[SellCar] No images to upload! vehicleDetails.images:', JSON.stringify(vehicleDetails.images.map((img: any) => ({ hasFile: !!img.file, hasCompressed: !!img.compressed, hasPreview: !!img.preview, id: img.id }))));
       }
 
       trackEvent('create_listing', {
@@ -288,8 +298,9 @@ export default function SellCar() {
       });
 
       if (failedImages.length > 0) {
-        setSubmitError(`Listing created, but ${failedImages.length} image(s) failed to upload. You can add them later from your dashboard.`);
-        setTimeout(() => navigate('/private-dashboard'), 3000);
+        setSubmitError(`Listing created, but ${failedImages.length} image(s) failed: ${imageErrors.join('; ')}. You can add them later from your dashboard.`);
+      } else if (vehicleDetails.images.length > 0 && imagesToUpload.length === 0) {
+        setSubmitError('Listing created, but images could not be processed. Please add images from your dashboard.');
       } else {
         navigate('/private-dashboard');
       }
