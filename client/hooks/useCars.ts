@@ -18,10 +18,10 @@ interface UseCarsState {
 export function useCars(filters?: Record<string, any>): UseCarsState {
   const { country } = useCountry();
 
-  // Add location filter based on country context
+  // Add country filter based on country context
   const enhancedFilters = {
     ...filters,
-    ...(country && country.code !== 'global' ? { location: country.name } : {})
+    ...(country && country.code !== 'global' ? { countryCode: country.code } : {})
   };
 
   const { data, loading, error, refetch } = useQuery<{ getCars: Car[] }>(GET_CARS, {

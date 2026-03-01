@@ -430,7 +430,7 @@ export default function AdminDashboard() {
                         />
                         <div>
                           <p className="font-medium text-sm">{listing.title}</p>
-                          <p className="text-xs text-muted-foreground">{listing.seller}</p>
+                          <p className="text-xs text-muted-foreground">{typeof listing.seller === 'string' ? listing.seller : listing.seller?.name || 'Unknown Seller'}</p>
                           <p className="text-sm">€{listing.price.toLocaleString()}</p>
                         </div>
                       </div>
