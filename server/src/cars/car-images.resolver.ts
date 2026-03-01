@@ -7,64 +7,93 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { User, UserRole } from '../users/user.entity';
 import { InputType, Field } from '@nestjs/graphql';
+import { IsString, IsNumber, IsOptional, IsBoolean } from 'class-validator';
 
 @InputType()
 class CreateCarImageInput {
   @Field()
+  @IsString()
   carId: string;
 
   @Field()
+  @IsString()
   url: string;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
   fileName?: string;
 
   @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
   fileSize?: number;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
   mimeType?: string;
 
   @Field(() => Int, { defaultValue: 0 })
+  @IsNumber()
   sortOrder: number;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
   caption?: string;
 
   @Field({ defaultValue: false })
+  @IsBoolean()
   isPrimary: boolean;
 }
 
 @InputType()
 class UpdateCarImageInput {
   @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
   url?: string;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
   fileName?: string;
 
   @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
   fileSize?: number;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
   mimeType?: string;
 
   @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
   sortOrder?: number;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
   caption?: string;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsBoolean()
   isPrimary?: boolean;
 }
 
 @InputType()
 class ImageOrderInput {
   @Field()
+  @IsString()
   id: string;
 
   @Field(() => Int)
+  @IsNumber()
   order: number;
 }
 
