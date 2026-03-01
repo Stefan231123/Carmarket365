@@ -279,8 +279,8 @@ export default function CarDetail() {
             {/* Image Gallery */}
             <div className="space-y-4">
               {carData.images.length > 0 ? (
-                <div className="relative aspect-[16/10] overflow-hidden cursor-pointer group border border-zinc-100 bg-zinc-50"
-                     style={{borderRadius: '16px'}}
+                <div className="relative overflow-hidden cursor-pointer group border border-zinc-100 bg-zinc-50 flex items-center justify-center"
+                     style={{borderRadius: '16px', maxHeight: '600px'}}
                      onClick={() => {
                        setFullscreenImageIndex(currentImageIndex);
                        setIsFullscreenModalOpen(true);
@@ -288,7 +288,7 @@ export default function CarDetail() {
                   <ImageWithFallback
                     src={carData.images[currentImageIndex]}
                     alt={`${carData.year} ${carData.make} ${carData.model}`}
-                    className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]"
+                    className="max-w-full max-h-[600px] object-contain transition-transform duration-300 group-hover:scale-[1.02]"
                   />
                   <div className="absolute top-4 left-4 flex gap-2">
                     {carData.isCertified && (
