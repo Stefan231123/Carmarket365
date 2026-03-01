@@ -99,7 +99,17 @@ export class CarImagesResolver {
     @CurrentUser() user: User,
   ): Promise<CarImage> {
     await this.validateCarOwnership(createCarImageInput.carId, user);
-    return this.carImagesService.create(createCarImageInput);
+    // Map input field names to entity field names
+    const entityData: Partial<CarImage> = {
+      carId: createCarImageInput.carId,
+      url: createCarImageInput.url,
+      originalFileName: createCarImageInput.fileName,
+      fileSize: createCarImageInput.fileSize,
+      mimeType: createCarImageInput.mimeType,
+      sortOrder: createCarImageInput.sortOrder,
+      isMain: createCarImageInput.isPrimary,
+    };
+    return this.carImagesService.create(entityData);
   }
 
   @Mutation(() => CarImage)

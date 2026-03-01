@@ -276,6 +276,7 @@ export default function SellCar() {
               isPrimary: i === 0,
             });
           } catch (imgError) {
+            console.error(`Image ${i + 1} upload failed:`, imgError);
             failedImages.push(i + 1);
           }
         }
