@@ -56,6 +56,49 @@ function mapFiltersToBackend(filters: AdvancedSearchFiltersInput): Record<string
   // Location
   if (filters.location) backendFilters.location = filters.location;
 
+  // Drivetrain
+  if (filters.gear) {
+    const gearMap: Record<string, string> = {
+      'Manual': 'MANUAL', 'Automatic': 'AUTOMATIC',
+      'Semi-automatic': 'SEMI_AUTOMATIC', 'CVT': 'CVT',
+    };
+    if (gearMap[filters.gear]) backendFilters.transmission = gearMap[filters.gear];
+  }
+
+  // Power (kW to HP conversion: 1 kW ≈ 1.36 HP)
+  if (filters.powerMinKW) backendFilters.minHorsePower = Math.round(filters.powerMinKW * 1.36);
+  if (filters.powerMaxKW) backendFilters.maxHorsePower = Math.round(filters.powerMaxKW * 1.36);
+
+  // Seats
+  if (filters.numberOfSeats) backendFilters.seats = parseInt(String(filters.numberOfSeats));
+
+  // Interior color
+  if (filters.interiorColor && filters.interiorColor !== 'any') backendFilters.interiorColor = filters.interiorColor;
+
+  // Upholstery
+  if (filters.upholstery && filters.upholstery !== 'any') backendFilters.upholsteryType = filters.upholstery;
+
+  // Paint work
+  if (filters.paintWork && filters.paintWork !== 'any') backendFilters.paintWorkType = filters.paintWork;
+
+  // Previous owners
+  if (filters.previousOwners) backendFilters.maxPreviousOwners = parseInt(String(filters.previousOwners));
+
+  // Accident history
+  if (filters.hadAccident && filters.hadAccident !== 'any') backendFilters.hadAccident = filters.hadAccident;
+
+  // Non-smoking
+  if (filters.nonSmokingVehicle === 'Yes') backendFilters.nonSmokingVehicle = true;
+
+  // Full service history
+  if (filters.fullServiceHistory === 'Yes' || filters.fullServiceHistory === true) backendFilters.fullServiceHistory = true;
+
+  // Emission class
+  if (filters.euroEmissionClass && filters.euroEmissionClass !== 'any') backendFilters.emissionClass = filters.euroEmissionClass;
+
+  // Drivetrain type
+  if (filters.drivetrain) backendFilters.drivetrain = filters.drivetrain;
+
   return backendFilters;
 }
 

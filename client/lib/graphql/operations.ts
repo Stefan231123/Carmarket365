@@ -74,6 +74,20 @@ export const GET_CARS = gql`
       color
       description
       features
+      safetyFeatures
+      engineSize
+      horsePower
+      doors
+      seats
+      drivetrain
+      fuelConsumption
+      emissionClass
+      previousOwners
+      hadAccident
+      nonSmokingVehicle
+      fullServiceHistory
+      upholsteryType
+      paintWorkType
       location
       city
       countryCode
@@ -128,6 +142,15 @@ export const GET_CAR_BY_ID = gql`
       vin
       features
       safetyFeatures
+      fuelConsumption
+      emissionClass
+      warrantyMonths
+      previousOwners
+      hadAccident
+      nonSmokingVehicle
+      fullServiceHistory
+      upholsteryType
+      paintWorkType
       location
       city
       countryCode
@@ -677,6 +700,7 @@ export interface FilterCarsInput {
   guarantee?: string;
   nonSmokingVehicle?: string;
   euroEmissionClass?: string;
+  drivetrain?: string;
   searchTerm?: string;
   onlyWithImages?: boolean;
 }

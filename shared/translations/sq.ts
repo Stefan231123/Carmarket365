@@ -639,6 +639,25 @@ export const sqTranslations: TranslationStrings = {
       phoneNumber: 'Numri i telefonit',
       emailAddress: 'Adresa e email-it',
       location: 'Vendndodhja',
+      bodyType: 'Lloji i karocerisë',
+      drivetrain: 'Tërheqja',
+      engineSize: 'Madhësia e motorit (CC)',
+      horsePower: 'Fuqia (KF)',
+      doors: 'Dyert',
+      seats: 'Ulëset',
+      safetyFeatures: 'Pajisjet e sigurisë',
+      upholsteryType: 'Tapiceria',
+      paintWorkType: 'Lloji i bojës',
+      previousOwners: 'Pronarët e mëparshëm',
+      hadAccident: 'Historiku i aksidenteve',
+      emissionClass: 'Klasa e emetimit',
+      fuelConsumption: 'Konsumi i karburantit (L/100km)',
+      warrantyMonths: 'Garancia (muaj)',
+      fullServiceHistory: 'Historik i plotë i servisimit',
+      nonSmokingVehicle: 'Automjet pa duhan',
+      priceNegotiable: 'Çmim i negociueshëm',
+      acceptsTradeIn: 'Pranon shkëmbim',
+      allowTestDrive: 'Lejon provë drejtimi',
     },
     
     // Placeholders
@@ -667,6 +686,15 @@ export const sqTranslations: TranslationStrings = {
       selectFuel: 'Zgjidhni llojin e karburantit',
       selectTransmissionType: 'Zgjidhni llojin e transmetimit',
       choosePhotos: 'Zgjidhni Fotot',
+      selectBodyType: 'Zgjidhni llojin e karocerisë',
+      selectDrivetrain: 'Zgjidhni tërheqjen',
+      selectDoors: 'Zgjidhni numrin e dyerve',
+      selectSeats: 'Zgjidhni numrin e ulëseve',
+      selectUpholstery: 'Zgjidhni llojin e tapicerisë',
+      selectPaintWork: 'Zgjidhni llojin e bojës',
+      selectPreviousOwners: 'Zgjidhni numrin e pronarëve të mëparshëm',
+      selectAccidentHistory: 'Zgjidhni historikun e aksidenteve',
+      selectEmissionClass: 'Zgjidhni klasën e emetimit',
     },
     
     // Headers
@@ -682,6 +710,8 @@ export const sqTranslations: TranslationStrings = {
       photosAndContactInfo: 'Fotot dhe Informacionet e Kontaktit',
       uploadVehiclePhotos: 'Ngarkoni Fotot e Automjetit',
       addUpToTenPhotos: 'Shtoni deri në 10 foto',
+      vehicleHistory: 'Historiku dhe Gjendja e Automjetit',
+      listingOptions: 'Opsionet e Shpalljes',
     },
     
     // Button labels
@@ -797,6 +827,66 @@ export const sqTranslations: TranslationStrings = {
       cruiseControl: 'Kontrolli i kursit',
       parkingSensors: 'Sensorët e parkimit',
       blindSpotMonitoring: 'Monitorimi i pikës së verbër',
+    },
+
+    // Upholstery types
+    upholsteryTypes: {
+      fabric: 'Pëlhurë',
+      leather: 'Lëkurë',
+      leatherette: 'Lëkurë artificiale',
+      alcantara: 'Alcantara',
+      vinyl: 'Vinil',
+      combination: 'Kombinim',
+    },
+
+    // Paint work types
+    paintWorkTypes: {
+      solid: 'E thjeshtë',
+      metallic: 'Metalike',
+      pearl: 'Perlë',
+      matte: 'Mat',
+      twoTone: 'Dy-ngjyrëshe',
+      custom: 'E personalizuar',
+    },
+
+    // Emission classes
+    emissionClasses: {
+      euro1: 'Euro 1',
+      euro2: 'Euro 2',
+      euro3: 'Euro 3',
+      euro4: 'Euro 4',
+      euro5: 'Euro 5',
+      euro6: 'Euro 6',
+      euro6d: 'Euro 6d',
+    },
+
+    // Accident history
+    accidentHistory: {
+      yes: 'Po',
+      no: 'Jo',
+      unknown: 'E panjohur',
+    },
+
+    // Safety features list
+    safetyFeaturesList: {
+      abs: 'ABS',
+      esp: 'ESP/ESC',
+      driverAirbag: 'Jastëk ajri për shofer',
+      passengerAirbag: 'Jastëk ajri për pasagjer',
+      sideAirbags: 'Jastëkë ajri anësore',
+      curtainAirbags: 'Jastëkë ajri perde',
+      blindSpotMonitor: 'Monitor i pikës së verbër',
+      laneDepartureWarning: 'Paralajmërim i daljes nga korsia',
+      emergencyBraking: 'Frenata e urgjencës',
+      parkingSensors: 'Sensorët e parkimit',
+      backupCamera: 'Kamera e parkimit',
+      camera360: 'Kamera 360°',
+      tirePressureMonitor: 'Monitor i presionit të gomave',
+    },
+
+    // Progress messages
+    progress: {
+      creatingListing: 'Duke krijuar shpalljen...',
     },
   },
 

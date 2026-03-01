@@ -167,6 +167,56 @@ export class CreateCarInput {
   @IsOptional()
   @IsBoolean()
   isFeatured?: boolean;
+
+  @Field(() => Float, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  fuelConsumption?: number;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  emissionClass?: string;
+
+  @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  @Max(120)
+  warrantyMonths?: number;
+
+  @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  @Min(1)
+  @Max(10)
+  previousOwners?: number;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  hadAccident?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsBoolean()
+  nonSmokingVehicle?: boolean;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsBoolean()
+  fullServiceHistory?: boolean;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  upholsteryType?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  paintWorkType?: string;
 }
 
 @InputType()
@@ -342,6 +392,56 @@ export class UpdateCarInput {
   @IsOptional()
   @IsBoolean()
   isFeatured?: boolean;
+
+  @Field(() => Float, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  fuelConsumption?: number;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  emissionClass?: string;
+
+  @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  @Max(120)
+  warrantyMonths?: number;
+
+  @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  @Min(1)
+  @Max(10)
+  previousOwners?: number;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  hadAccident?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsBoolean()
+  nonSmokingVehicle?: boolean;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsBoolean()
+  fullServiceHistory?: boolean;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  upholsteryType?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  paintWorkType?: string;
 }
 
 @InputType()
@@ -430,4 +530,79 @@ export class CarFilterInput {
   @IsOptional()
   @IsBoolean()
   isCertified?: boolean;
+
+  @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  minEngineSize?: number;
+
+  @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  maxEngineSize?: number;
+
+  @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  minHorsePower?: number;
+
+  @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  maxHorsePower?: number;
+
+  @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  doors?: number;
+
+  @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  seats?: number;
+
+  @Field(() => DrivetrainType, { nullable: true })
+  @IsOptional()
+  @IsEnum(DrivetrainType)
+  drivetrain?: DrivetrainType;
+
+  @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  maxPreviousOwners?: number;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  hadAccident?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsBoolean()
+  nonSmokingVehicle?: boolean;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsBoolean()
+  fullServiceHistory?: boolean;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  upholsteryType?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  paintWorkType?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  emissionClass?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  interiorColor?: string;
 }

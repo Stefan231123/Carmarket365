@@ -229,6 +229,30 @@ export class Car {
   @Column({ nullable: true })
   emissionClass?: string; // e.g., "Euro 6"
 
+  @Field(() => Int, { nullable: true })
+  @Column({ nullable: true })
+  previousOwners?: number;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  hadAccident?: string; // 'YES', 'NO', 'UNKNOWN'
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  nonSmokingVehicle?: boolean;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  fullServiceHistory?: boolean;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  upholsteryType?: string;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  paintWorkType?: string;
+
   @Field(() => Int)
   @Column({ default: 0 })
   viewCount: number;

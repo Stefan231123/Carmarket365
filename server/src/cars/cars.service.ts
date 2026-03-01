@@ -212,5 +212,65 @@ export class CarsService {
     if (filters.isFeatured !== undefined) {
       query.andWhere('car.isFeatured = :isFeatured', { isFeatured: filters.isFeatured });
     }
+
+    if (filters.minEngineSize) {
+      query.andWhere('car.engineSize >= :minEngineSize', { minEngineSize: filters.minEngineSize });
+    }
+
+    if (filters.maxEngineSize) {
+      query.andWhere('car.engineSize <= :maxEngineSize', { maxEngineSize: filters.maxEngineSize });
+    }
+
+    if (filters.minHorsePower) {
+      query.andWhere('car.horsePower >= :minHorsePower', { minHorsePower: filters.minHorsePower });
+    }
+
+    if (filters.maxHorsePower) {
+      query.andWhere('car.horsePower <= :maxHorsePower', { maxHorsePower: filters.maxHorsePower });
+    }
+
+    if (filters.doors) {
+      query.andWhere('car.doors = :doors', { doors: filters.doors });
+    }
+
+    if (filters.seats) {
+      query.andWhere('car.seats = :seats', { seats: filters.seats });
+    }
+
+    if (filters.drivetrain) {
+      query.andWhere('car.drivetrain = :drivetrain', { drivetrain: filters.drivetrain });
+    }
+
+    if (filters.maxPreviousOwners) {
+      query.andWhere('car.previousOwners <= :maxPreviousOwners', { maxPreviousOwners: filters.maxPreviousOwners });
+    }
+
+    if (filters.hadAccident) {
+      query.andWhere('car.hadAccident = :hadAccident', { hadAccident: filters.hadAccident });
+    }
+
+    if (filters.nonSmokingVehicle !== undefined) {
+      query.andWhere('car.nonSmokingVehicle = :nonSmokingVehicle', { nonSmokingVehicle: filters.nonSmokingVehicle });
+    }
+
+    if (filters.fullServiceHistory !== undefined) {
+      query.andWhere('car.fullServiceHistory = :fullServiceHistory', { fullServiceHistory: filters.fullServiceHistory });
+    }
+
+    if (filters.upholsteryType) {
+      query.andWhere('car.upholsteryType = :upholsteryType', { upholsteryType: filters.upholsteryType });
+    }
+
+    if (filters.paintWorkType) {
+      query.andWhere('car.paintWorkType = :paintWorkType', { paintWorkType: filters.paintWorkType });
+    }
+
+    if (filters.emissionClass) {
+      query.andWhere('car.emissionClass = :emissionClass', { emissionClass: filters.emissionClass });
+    }
+
+    if (filters.interiorColor) {
+      query.andWhere('LOWER(car.interiorColor) = LOWER(:interiorColor)', { interiorColor: filters.interiorColor });
+    }
   }
 }

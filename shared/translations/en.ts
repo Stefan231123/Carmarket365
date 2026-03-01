@@ -688,6 +688,8 @@ export const enTranslations: TranslationStrings = {
       photosAndContactInfo: 'Photos and Contact Information',
       uploadVehiclePhotos: 'Upload Vehicle Photos',
       addUpToTenPhotos: 'Add up to 10 photos',
+      vehicleHistory: 'Vehicle History & Condition',
+      listingOptions: 'Listing Options',
     },
     
     // Form fields and labels
@@ -709,6 +711,25 @@ export const enTranslations: TranslationStrings = {
       phoneNumber: 'Phone number',
       emailAddress: 'Email address',
       location: 'Location',
+      bodyType: 'Body Type',
+      drivetrain: 'Drivetrain',
+      engineSize: 'Engine Size (CC)',
+      horsePower: 'Horsepower (HP)',
+      doors: 'Doors',
+      seats: 'Seats',
+      safetyFeatures: 'Safety Features',
+      upholsteryType: 'Upholstery',
+      paintWorkType: 'Paint Work',
+      previousOwners: 'Previous Owners',
+      hadAccident: 'Accident History',
+      emissionClass: 'Emission Class',
+      fuelConsumption: 'Fuel Consumption (L/100km)',
+      warrantyMonths: 'Warranty (months)',
+      fullServiceHistory: 'Full Service History',
+      nonSmokingVehicle: 'Non-Smoking Vehicle',
+      priceNegotiable: 'Price Negotiable',
+      acceptsTradeIn: 'Accepts Trade-In',
+      allowTestDrive: 'Allow Test Drive',
     },
     
     // Placeholders
@@ -737,6 +758,15 @@ export const enTranslations: TranslationStrings = {
       selectFuel: 'Select fuel type',
       selectTransmissionType: 'Select transmission type',
       choosePhotos: 'Choose Photos',
+      selectBodyType: 'Select body type',
+      selectDrivetrain: 'Select drivetrain',
+      selectDoors: 'Select number of doors',
+      selectSeats: 'Select number of seats',
+      selectUpholstery: 'Select upholstery type',
+      selectPaintWork: 'Select paint work type',
+      selectPreviousOwners: 'Select number of previous owners',
+      selectAccidentHistory: 'Select accident history',
+      selectEmissionClass: 'Select emission class',
     },
 
     // Button labels
@@ -841,6 +871,66 @@ export const enTranslations: TranslationStrings = {
       cruiseControl: 'Cruise Control',
       parkingSensors: 'Parking Sensors',
       blindSpotMonitoring: 'Blind Spot Monitoring',
+    },
+
+    // Upholstery types
+    upholsteryTypes: {
+      fabric: 'Fabric',
+      leather: 'Leather',
+      leatherette: 'Leatherette',
+      alcantara: 'Alcantara',
+      vinyl: 'Vinyl',
+      combination: 'Combination',
+    },
+
+    // Paint work types
+    paintWorkTypes: {
+      solid: 'Solid',
+      metallic: 'Metallic',
+      pearl: 'Pearl',
+      matte: 'Matte',
+      twoTone: 'Two-Tone',
+      custom: 'Custom',
+    },
+
+    // Emission classes
+    emissionClasses: {
+      euro1: 'Euro 1',
+      euro2: 'Euro 2',
+      euro3: 'Euro 3',
+      euro4: 'Euro 4',
+      euro5: 'Euro 5',
+      euro6: 'Euro 6',
+      euro6d: 'Euro 6d',
+    },
+
+    // Accident history
+    accidentHistory: {
+      yes: 'Yes',
+      no: 'No',
+      unknown: 'Unknown',
+    },
+
+    // Safety features list
+    safetyFeaturesList: {
+      abs: 'ABS',
+      esp: 'ESP/ESC',
+      driverAirbag: 'Driver Airbag',
+      passengerAirbag: 'Passenger Airbag',
+      sideAirbags: 'Side Airbags',
+      curtainAirbags: 'Head/Curtain Airbags',
+      blindSpotMonitor: 'Blind Spot Monitor',
+      laneDepartureWarning: 'Lane Departure Warning',
+      emergencyBraking: 'Emergency Braking',
+      parkingSensors: 'Parking Sensors',
+      backupCamera: 'Backup Camera',
+      camera360: '360° Camera',
+      tirePressureMonitor: 'Tire Pressure Monitor',
+    },
+
+    // Progress messages
+    progress: {
+      creatingListing: 'Creating listing...',
     },
   },
 

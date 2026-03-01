@@ -696,7 +696,9 @@ export const mkTranslations: TranslationStrings = {
       vehicleDetails: 'Детали за автомобилот',
       photosAndContactInfo: 'Фотографии и контакт информации',
       uploadVehiclePhotos: 'Прикачи фотографии од автомобилот',
-      addUpToTenPhotos: 'Додај до 10 фотографии'
+      addUpToTenPhotos: 'Додај до 10 фотографии',
+      vehicleHistory: 'Историја и состојба на возилото',
+      listingOptions: 'Опции за огласот',
     },
 
     // Form fields and labels
@@ -718,6 +720,25 @@ export const mkTranslations: TranslationStrings = {
       phoneNumber: 'Телефонски број',
       emailAddress: 'Е-пошта адреса',
       location: 'Локација',
+      bodyType: 'Тип на каросерија',
+      drivetrain: 'Погон',
+      engineSize: 'Зафатнина на моторот (CC)',
+      horsePower: 'Коњски сили (КС)',
+      doors: 'Врати',
+      seats: 'Седишта',
+      safetyFeatures: 'Безбедносна опрема',
+      upholsteryType: 'Тапацирање',
+      paintWorkType: 'Тип на боја',
+      previousOwners: 'Претходни сопственици',
+      hadAccident: 'Историја на несреќи',
+      emissionClass: 'Емисиона класа',
+      fuelConsumption: 'Потрошувачка на гориво (Л/100км)',
+      warrantyMonths: 'Гаранција (месеци)',
+      fullServiceHistory: 'Целосна сервисна историја',
+      nonSmokingVehicle: 'Возило без пушење',
+      priceNegotiable: 'Цена по договор',
+      acceptsTradeIn: 'Прифаќа замена',
+      allowTestDrive: 'Дозволува тест возење',
     },
 
     // Placeholders
@@ -746,6 +767,15 @@ export const mkTranslations: TranslationStrings = {
       selectFuel: 'Изберете тип на гориво',
       selectTransmissionType: 'Изберете тип на менувач',
       choosePhotos: 'Изберете фотографии',
+      selectBodyType: 'Изберете тип на каросерија',
+      selectDrivetrain: 'Изберете погон',
+      selectDoors: 'Изберете број на врати',
+      selectSeats: 'Изберете број на седишта',
+      selectUpholstery: 'Изберете тип на тапацирање',
+      selectPaintWork: 'Изберете тип на боја',
+      selectPreviousOwners: 'Изберете број на претходни сопственици',
+      selectAccidentHistory: 'Изберете историја на несреќи',
+      selectEmissionClass: 'Изберете емисиона класа',
     },
 
     // Button labels
@@ -866,6 +896,66 @@ export const mkTranslations: TranslationStrings = {
       cruiseControl: 'Темпомат',
       parkingSensors: 'Сензори за паркирање',
       blindSpotMonitoring: 'Мониторинг на слепа точка',
+    },
+
+    // Upholstery types
+    upholsteryTypes: {
+      fabric: 'Платно',
+      leather: 'Кожа',
+      leatherette: 'Еко-кожа',
+      alcantara: 'Alcantara',
+      vinyl: 'Винил',
+      combination: 'Комбинација',
+    },
+
+    // Paint work types
+    paintWorkTypes: {
+      solid: 'Обична',
+      metallic: 'Металик',
+      pearl: 'Перла',
+      matte: 'Мат',
+      twoTone: 'Двобојна',
+      custom: 'Прилагодена',
+    },
+
+    // Emission classes
+    emissionClasses: {
+      euro1: 'Euro 1',
+      euro2: 'Euro 2',
+      euro3: 'Euro 3',
+      euro4: 'Euro 4',
+      euro5: 'Euro 5',
+      euro6: 'Euro 6',
+      euro6d: 'Euro 6d',
+    },
+
+    // Accident history
+    accidentHistory: {
+      yes: 'Да',
+      no: 'Не',
+      unknown: 'Непознато',
+    },
+
+    // Safety features list
+    safetyFeaturesList: {
+      abs: 'ABS',
+      esp: 'ESP/ESC',
+      driverAirbag: 'Ербег за возач',
+      passengerAirbag: 'Ербег за патник',
+      sideAirbags: 'Странични ербези',
+      curtainAirbags: 'Завесни ербези',
+      blindSpotMonitor: 'Мониторинг на слепа точка',
+      laneDepartureWarning: 'Предупредување за излегување од лента',
+      emergencyBraking: 'Автоматско аварно сопирање',
+      parkingSensors: 'Сензори за паркирање',
+      backupCamera: 'Камера за паркирање',
+      camera360: 'Камера 360°',
+      tirePressureMonitor: 'Монитор на притисок на гуми',
+    },
+
+    // Progress messages
+    progress: {
+      creatingListing: 'Се создава огласот...',
     },
   },
 

@@ -339,6 +339,7 @@ export interface TranslationStrings {
   // Selling
   sell: {
     title: string;
+    expressTitle: string;
     sellYourCar: string;
     carInformation: string;
     uploadPhotos: string;
@@ -398,6 +399,8 @@ export interface TranslationStrings {
       photosAndContactInfo: string;
       uploadVehiclePhotos: string;
       addUpToTenPhotos: string;
+      vehicleHistory: string;
+      listingOptions: string;
     };
     
     // Form fields and labels
@@ -419,6 +422,25 @@ export interface TranslationStrings {
       phoneNumber: string;
       emailAddress: string;
       location: string;
+      bodyType: string;
+      drivetrain: string;
+      engineSize: string;
+      horsePower: string;
+      doors: string;
+      seats: string;
+      safetyFeatures: string;
+      upholsteryType: string;
+      paintWorkType: string;
+      previousOwners: string;
+      hadAccident: string;
+      emissionClass: string;
+      fuelConsumption: string;
+      warrantyMonths: string;
+      fullServiceHistory: string;
+      nonSmokingVehicle: string;
+      priceNegotiable: string;
+      acceptsTradeIn: string;
+      allowTestDrive: string;
     };
     
     // Placeholders
@@ -447,6 +469,15 @@ export interface TranslationStrings {
       selectFuel: string;
       selectTransmissionType: string;
       choosePhotos: string;
+      selectBodyType: string;
+      selectDrivetrain: string;
+      selectDoors: string;
+      selectSeats: string;
+      selectUpholstery: string;
+      selectPaintWork: string;
+      selectPreviousOwners: string;
+      selectAccidentHistory: string;
+      selectEmissionClass: string;
     };
     
     // Button labels
@@ -553,6 +584,66 @@ export interface TranslationStrings {
       cruiseControl: string;
       parkingSensors: string;
       blindSpotMonitoring: string;
+    };
+
+    // Upholstery types
+    upholsteryTypes: {
+      fabric: string;
+      leather: string;
+      leatherette: string;
+      alcantara: string;
+      vinyl: string;
+      combination: string;
+    };
+
+    // Paint work types
+    paintWorkTypes: {
+      solid: string;
+      metallic: string;
+      pearl: string;
+      matte: string;
+      twoTone: string;
+      custom: string;
+    };
+
+    // Emission classes
+    emissionClasses: {
+      euro1: string;
+      euro2: string;
+      euro3: string;
+      euro4: string;
+      euro5: string;
+      euro6: string;
+      euro6d: string;
+    };
+
+    // Accident history options
+    accidentHistory: {
+      yes: string;
+      no: string;
+      unknown: string;
+    };
+
+    // Safety features list
+    safetyFeaturesList: {
+      abs: string;
+      esp: string;
+      driverAirbag: string;
+      passengerAirbag: string;
+      sideAirbags: string;
+      curtainAirbags: string;
+      blindSpotMonitor: string;
+      laneDepartureWarning: string;
+      emergencyBraking: string;
+      parkingSensors: string;
+      backupCamera: string;
+      camera360: string;
+      tirePressureMonitor: string;
+    };
+
+    // Progress messages
+    progress: {
+      creatingListing: string;
     };
   };
 

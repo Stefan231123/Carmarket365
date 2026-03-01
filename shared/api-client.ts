@@ -741,6 +741,24 @@ class ApiClient {
           color
           description
           features
+          safetyFeatures
+          engineSize
+          horsePower
+          doors
+          seats
+          drivetrain
+          fuelConsumption
+          emissionClass
+          warrantyMonths
+          previousOwners
+          hadAccident
+          nonSmokingVehicle
+          fullServiceHistory
+          allowTestDrive
+          acceptsTradeIn
+          priceNegotiable
+          upholsteryType
+          paintWorkType
           location
           city
           countryCode
@@ -785,6 +803,24 @@ class ApiClient {
           interiorColor
           description
           features
+          safetyFeatures
+          engineSize
+          horsePower
+          doors
+          seats
+          drivetrain
+          fuelConsumption
+          emissionClass
+          warrantyMonths
+          previousOwners
+          hadAccident
+          nonSmokingVehicle
+          fullServiceHistory
+          allowTestDrive
+          acceptsTradeIn
+          priceNegotiable
+          upholsteryType
+          paintWorkType
           location
           city
           countryCode

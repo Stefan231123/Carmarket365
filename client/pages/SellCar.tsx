@@ -40,6 +40,25 @@ interface VehicleDetails {
   contactPhone: string;
   contactEmail: string;
   images: any[]; // Will store image files for upload
+  bodyType: string;
+  engineSize: string;
+  horsePower: string;
+  doors: string;
+  seats: string;
+  drivetrain: string;
+  safetyFeatures: string[];
+  fuelConsumption: string;
+  emissionClass: string;
+  warrantyMonths: string;
+  previousOwners: string;
+  hadAccident: string;
+  nonSmokingVehicle: boolean;
+  fullServiceHistory: boolean;
+  allowTestDrive: boolean;
+  acceptsTradeIn: boolean;
+  priceNegotiable: boolean;
+  upholsteryType: string;
+  paintWorkType: string;
 }
 
 export default function SellCar() {
@@ -70,6 +89,25 @@ export default function SellCar() {
     contactPhone: "",
     contactEmail: "",
     images: [],
+    bodyType: "",
+    engineSize: "",
+    horsePower: "",
+    doors: "",
+    seats: "",
+    drivetrain: "",
+    safetyFeatures: [],
+    fuelConsumption: "",
+    emissionClass: "",
+    warrantyMonths: "",
+    previousOwners: "",
+    hadAccident: "",
+    nonSmokingVehicle: false,
+    fullServiceHistory: false,
+    allowTestDrive: false,
+    acceptsTradeIn: false,
+    priceNegotiable: false,
+    upholsteryType: "",
+    paintWorkType: "",
   });
 
   const handleVehicleTypeSelect = (type: VehicleType) => {
@@ -158,6 +196,20 @@ export default function SellCar() {
     }
   };
 
+  const handleSafetyFeatureChange = (feature: string, checked: boolean) => {
+    if (checked) {
+      setVehicleDetails(prev => ({
+        ...prev,
+        safetyFeatures: [...prev.safetyFeatures, feature]
+      }));
+    } else {
+      setVehicleDetails(prev => ({
+        ...prev,
+        safetyFeatures: prev.safetyFeatures.filter(f => f !== feature)
+      }));
+    }
+  };
+
   const handleImagesChange = (images: any[]) => {
     setVehicleDetails(prev => ({ ...prev, images }));
   };
@@ -192,7 +244,15 @@ export default function SellCar() {
     return map[cond] || 'USED';
   };
 
-  const mapVehicleType = (type: VehicleType): string => {
+  const mapVehicleType = (type: VehicleType, bodyType?: string): string => {
+    if (bodyType) {
+      const bodyTypeMap: Record<string, string> = {
+        sedan: 'SEDAN', suv: 'SUV', coupe: 'COUPE',
+        convertible: 'CONVERTIBLE', wagon: 'WAGON',
+        hatchback: 'HATCHBACK', van: 'VAN',
+      };
+      if (bodyTypeMap[bodyType.toLowerCase()]) return bodyTypeMap[bodyType.toLowerCase()];
+    }
     const map: Record<string, string> = { car: 'CAR', truck: 'TRUCK', motorbike: 'MOTORCYCLE' };
     return map[type || 'car'] || 'CAR';
   };
@@ -231,7 +291,7 @@ export default function SellCar() {
         year: parseInt(vehicleDetails.year) || new Date().getFullYear(),
         price: parseFloat(vehicleDetails.price) || 0,
         mileage: parseInt(vehicleDetails.mileage) || 0,
-        vehicleType: mapVehicleType(vehicleDetails.type),
+        vehicleType: mapVehicleType(vehicleDetails.type, vehicleDetails.bodyType),
         fuelType: mapFuelType(vehicleDetails.fuelType),
         transmission: mapTransmission(vehicleDetails.transmission),
         condition: mapCondition(vehicleDetails.condition),
@@ -244,6 +304,24 @@ export default function SellCar() {
         countryCode: vehicleDetails.countryCode || undefined,
         contactPhone: vehicleDetails.contactPhone || undefined,
         contactEmail: vehicleDetails.contactEmail || undefined,
+        engineSize: vehicleDetails.engineSize ? parseInt(vehicleDetails.engineSize) : undefined,
+        horsePower: vehicleDetails.horsePower ? parseInt(vehicleDetails.horsePower) : undefined,
+        doors: vehicleDetails.doors ? parseInt(vehicleDetails.doors) : undefined,
+        seats: vehicleDetails.seats ? parseInt(vehicleDetails.seats) : undefined,
+        drivetrain: vehicleDetails.drivetrain || undefined,
+        safetyFeatures: vehicleDetails.safetyFeatures.length > 0 ? vehicleDetails.safetyFeatures : undefined,
+        fuelConsumption: vehicleDetails.fuelConsumption ? parseFloat(vehicleDetails.fuelConsumption) : undefined,
+        emissionClass: vehicleDetails.emissionClass || undefined,
+        warrantyMonths: vehicleDetails.warrantyMonths ? parseInt(vehicleDetails.warrantyMonths) : undefined,
+        previousOwners: vehicleDetails.previousOwners ? parseInt(vehicleDetails.previousOwners) : undefined,
+        hadAccident: vehicleDetails.hadAccident || undefined,
+        nonSmokingVehicle: vehicleDetails.nonSmokingVehicle || undefined,
+        fullServiceHistory: vehicleDetails.fullServiceHistory || undefined,
+        allowTestDrive: vehicleDetails.allowTestDrive || undefined,
+        acceptsTradeIn: vehicleDetails.acceptsTradeIn || undefined,
+        priceNegotiable: vehicleDetails.priceNegotiable || undefined,
+        upholsteryType: vehicleDetails.upholsteryType || undefined,
+        paintWorkType: vehicleDetails.paintWorkType || undefined,
       };
 
       // Step 1: Create the car listing
@@ -546,6 +624,96 @@ export default function SellCar() {
                       </div>
                     </div>
 
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {vehicleDetails.type === 'car' && (
+                        <div>
+                          <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.bodyType')}</label>
+                          <Select value={vehicleDetails.bodyType} onValueChange={(value) => setVehicleDetails({...vehicleDetails, bodyType: value})}>
+                            <SelectTrigger>
+                              <SelectValue placeholder={t('sell.placeholders.selectBodyType')} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="sedan">{t('sell.bodyTypes.sedan')}</SelectItem>
+                              <SelectItem value="suv">{t('sell.bodyTypes.suv')}</SelectItem>
+                              <SelectItem value="coupe">{t('sell.bodyTypes.coupe')}</SelectItem>
+                              <SelectItem value="convertible">{t('sell.bodyTypes.convertible')}</SelectItem>
+                              <SelectItem value="wagon">{t('sell.bodyTypes.wagon')}</SelectItem>
+                              <SelectItem value="hatchback">{t('sell.bodyTypes.hatchback')}</SelectItem>
+                              <SelectItem value="van">{t('sell.bodyTypes.van')}</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      )}
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.drivetrain')}</label>
+                        <Select value={vehicleDetails.drivetrain} onValueChange={(value) => setVehicleDetails({...vehicleDetails, drivetrain: value})}>
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('sell.placeholders.selectDrivetrain')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="FWD">{t('sell.drivetrains.fwd')}</SelectItem>
+                            <SelectItem value="RWD">{t('sell.drivetrains.rwd')}</SelectItem>
+                            <SelectItem value="AWD">{t('sell.drivetrains.awd')}</SelectItem>
+                            <SelectItem value="4WD">{t('sell.drivetrains.fourwd')}</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.engineSize')}</label>
+                        <Input
+                          type="number"
+                          placeholder="e.g. 1998"
+                          value={vehicleDetails.engineSize}
+                          onChange={(e) => setVehicleDetails({...vehicleDetails, engineSize: e.target.value})}
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.horsePower')}</label>
+                        <Input
+                          type="number"
+                          placeholder="e.g. 150"
+                          value={vehicleDetails.horsePower}
+                          onChange={(e) => setVehicleDetails({...vehicleDetails, horsePower: e.target.value})}
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.doors')}</label>
+                        <Select value={vehicleDetails.doors} onValueChange={(value) => setVehicleDetails({...vehicleDetails, doors: value})}>
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('sell.placeholders.selectDoors')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="2">2</SelectItem>
+                            <SelectItem value="3">3</SelectItem>
+                            <SelectItem value="4">4</SelectItem>
+                            <SelectItem value="5">5</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.seats')}</label>
+                        <Select value={vehicleDetails.seats} onValueChange={(value) => setVehicleDetails({...vehicleDetails, seats: value})}>
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('sell.placeholders.selectSeats')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="2">2</SelectItem>
+                            <SelectItem value="4">4</SelectItem>
+                            <SelectItem value="5">5</SelectItem>
+                            <SelectItem value="6">6</SelectItem>
+                            <SelectItem value="7">7</SelectItem>
+                            <SelectItem value="8">8</SelectItem>
+                            <SelectItem value="9">9</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                    </div>
+
                     <div className="flex justify-between pt-6">
                       <Button variant="outline" onClick={handlePrevStep}>
                         {t('sell.buttons.previous')}
@@ -607,7 +775,140 @@ export default function SellCar() {
                           </SelectContent>
                         </Select>
                       </div>
+                    </div>
 
+                    <h3 className="text-lg font-medium text-gray-900 mt-8 mb-4">{t('sell.headers.vehicleHistory')}</h3>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.upholsteryType')}</label>
+                        <Select value={vehicleDetails.upholsteryType} onValueChange={(value) => setVehicleDetails({...vehicleDetails, upholsteryType: value})}>
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('sell.placeholders.selectUpholstery')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Fabric">{t('sell.upholsteryTypes.fabric')}</SelectItem>
+                            <SelectItem value="Leather">{t('sell.upholsteryTypes.leather')}</SelectItem>
+                            <SelectItem value="Leatherette">{t('sell.upholsteryTypes.leatherette')}</SelectItem>
+                            <SelectItem value="Alcantara">{t('sell.upholsteryTypes.alcantara')}</SelectItem>
+                            <SelectItem value="Vinyl">{t('sell.upholsteryTypes.vinyl')}</SelectItem>
+                            <SelectItem value="Combination">{t('sell.upholsteryTypes.combination')}</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.paintWorkType')}</label>
+                        <Select value={vehicleDetails.paintWorkType} onValueChange={(value) => setVehicleDetails({...vehicleDetails, paintWorkType: value})}>
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('sell.placeholders.selectPaintWork')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Solid">{t('sell.paintWorkTypes.solid')}</SelectItem>
+                            <SelectItem value="Metallic">{t('sell.paintWorkTypes.metallic')}</SelectItem>
+                            <SelectItem value="Pearl">{t('sell.paintWorkTypes.pearl')}</SelectItem>
+                            <SelectItem value="Matte">{t('sell.paintWorkTypes.matte')}</SelectItem>
+                            <SelectItem value="Two-tone">{t('sell.paintWorkTypes.twoTone')}</SelectItem>
+                            <SelectItem value="Custom">{t('sell.paintWorkTypes.custom')}</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.previousOwners')}</label>
+                        <Select value={vehicleDetails.previousOwners} onValueChange={(value) => setVehicleDetails({...vehicleDetails, previousOwners: value})}>
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('sell.placeholders.selectPreviousOwners')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="1">1</SelectItem>
+                            <SelectItem value="2">2</SelectItem>
+                            <SelectItem value="3">3</SelectItem>
+                            <SelectItem value="4">4</SelectItem>
+                            <SelectItem value="5">5+</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.hadAccident')}</label>
+                        <Select value={vehicleDetails.hadAccident} onValueChange={(value) => setVehicleDetails({...vehicleDetails, hadAccident: value})}>
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('sell.placeholders.selectAccidentHistory')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Yes">{t('sell.accidentHistory.yes')}</SelectItem>
+                            <SelectItem value="No">{t('sell.accidentHistory.no')}</SelectItem>
+                            <SelectItem value="Unknown">{t('sell.accidentHistory.unknown')}</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.emissionClass')}</label>
+                        <Select value={vehicleDetails.emissionClass} onValueChange={(value) => setVehicleDetails({...vehicleDetails, emissionClass: value})}>
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('sell.placeholders.selectEmissionClass')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Euro 1">{t('sell.emissionClasses.euro1')}</SelectItem>
+                            <SelectItem value="Euro 2">{t('sell.emissionClasses.euro2')}</SelectItem>
+                            <SelectItem value="Euro 3">{t('sell.emissionClasses.euro3')}</SelectItem>
+                            <SelectItem value="Euro 4">{t('sell.emissionClasses.euro4')}</SelectItem>
+                            <SelectItem value="Euro 5">{t('sell.emissionClasses.euro5')}</SelectItem>
+                            <SelectItem value="Euro 6">{t('sell.emissionClasses.euro6')}</SelectItem>
+                            <SelectItem value="Euro 6d">{t('sell.emissionClasses.euro6d')}</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.fuelConsumption')}</label>
+                        <Input
+                          type="number"
+                          step="0.1"
+                          placeholder="e.g. 7.5 L/100km"
+                          value={vehicleDetails.fuelConsumption}
+                          onChange={(e) => setVehicleDetails({...vehicleDetails, fuelConsumption: e.target.value})}
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.warrantyMonths')}</label>
+                        <Input
+                          type="number"
+                          placeholder="e.g. 12"
+                          value={vehicleDetails.warrantyMonths}
+                          onChange={(e) => setVehicleDetails({...vehicleDetails, warrantyMonths: e.target.value})}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-6 mt-6">
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="fullServiceHistory"
+                          checked={vehicleDetails.fullServiceHistory}
+                          onCheckedChange={(checked) => setVehicleDetails({...vehicleDetails, fullServiceHistory: checked as boolean})}
+                        />
+                        <label htmlFor="fullServiceHistory" className="text-sm text-gray-700">
+                          {t('sell.fields.fullServiceHistory')}
+                        </label>
+                      </div>
+
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="nonSmokingVehicle"
+                          checked={vehicleDetails.nonSmokingVehicle}
+                          onCheckedChange={(checked) => setVehicleDetails({...vehicleDetails, nonSmokingVehicle: checked as boolean})}
+                        />
+                        <label htmlFor="nonSmokingVehicle" className="text-sm text-gray-700">
+                          {t('sell.fields.nonSmokingVehicle')}
+                        </label>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.askingPrice')} *</label>
                         <div className="relative">
@@ -637,6 +938,38 @@ export default function SellCar() {
                             />
                             <label htmlFor={feature} className="text-sm text-gray-700">
                               {feature}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-4">{t('sell.fields.safetyFeatures')}</label>
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                        {[
+                          t('sell.safetyFeaturesList.abs'),
+                          t('sell.safetyFeaturesList.esp'),
+                          t('sell.safetyFeaturesList.driverAirbag'),
+                          t('sell.safetyFeaturesList.passengerAirbag'),
+                          t('sell.safetyFeaturesList.sideAirbags'),
+                          t('sell.safetyFeaturesList.curtainAirbags'),
+                          t('sell.safetyFeaturesList.blindSpotMonitor'),
+                          t('sell.safetyFeaturesList.laneDepartureWarning'),
+                          t('sell.safetyFeaturesList.emergencyBraking'),
+                          t('sell.safetyFeaturesList.parkingSensors'),
+                          t('sell.safetyFeaturesList.backupCamera'),
+                          t('sell.safetyFeaturesList.camera360'),
+                          t('sell.safetyFeaturesList.tirePressureMonitor'),
+                        ].map((safetyFeature) => (
+                          <div key={safetyFeature} className="flex items-center space-x-2">
+                            <Checkbox
+                              id={safetyFeature}
+                              checked={vehicleDetails.safetyFeatures.includes(safetyFeature)}
+                              onCheckedChange={(checked) => handleSafetyFeatureChange(safetyFeature, checked as boolean)}
+                            />
+                            <label htmlFor={safetyFeature} className="text-sm text-gray-700">
+                              {safetyFeature}
                             </label>
                           </div>
                         ))}
@@ -727,6 +1060,44 @@ export default function SellCar() {
                           value={vehicleDetails.location}
                           onChange={(e) => setVehicleDetails({...vehicleDetails, location: e.target.value})}
                         />
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-lg font-medium text-gray-900 mb-4">{t('sell.headers.listingOptions')}</h3>
+                      <div className="flex flex-wrap gap-6">
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="priceNegotiable"
+                            checked={vehicleDetails.priceNegotiable}
+                            onCheckedChange={(checked) => setVehicleDetails({...vehicleDetails, priceNegotiable: checked as boolean})}
+                          />
+                          <label htmlFor="priceNegotiable" className="text-sm text-gray-700">
+                            {t('sell.fields.priceNegotiable')}
+                          </label>
+                        </div>
+
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="acceptsTradeIn"
+                            checked={vehicleDetails.acceptsTradeIn}
+                            onCheckedChange={(checked) => setVehicleDetails({...vehicleDetails, acceptsTradeIn: checked as boolean})}
+                          />
+                          <label htmlFor="acceptsTradeIn" className="text-sm text-gray-700">
+                            {t('sell.fields.acceptsTradeIn')}
+                          </label>
+                        </div>
+
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="allowTestDrive"
+                            checked={vehicleDetails.allowTestDrive}
+                            onCheckedChange={(checked) => setVehicleDetails({...vehicleDetails, allowTestDrive: checked as boolean})}
+                          />
+                          <label htmlFor="allowTestDrive" className="text-sm text-gray-700">
+                            {t('sell.fields.allowTestDrive')}
+                          </label>
+                        </div>
                       </div>
                     </div>
 
