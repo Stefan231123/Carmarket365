@@ -100,9 +100,9 @@ export function FinancingModal({ car, isOpen, onClose }: FinancingModalProps) {
   if (!car) return null;
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('de-DE', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'EUR',
       maximumFractionDigits: 0,
     }).format(price);
   };
@@ -218,7 +218,7 @@ export function FinancingModal({ car, isOpen, onClose }: FinancingModalProps) {
                 </span>
               </div>
               <div className="text-xs text-muted-foreground mt-1">
-                Estimated payment: <span className="font-medium">${Math.round(car.price * 0.015)}/month</span> based on 72 months at 6.5% APR
+                Estimated payment: <span className="font-medium">€{Math.round(car.price * 0.015)}/month</span> based on 72 months at 6.5% APR
               </div>
             </div>
           </div>

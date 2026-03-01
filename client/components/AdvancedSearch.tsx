@@ -618,7 +618,7 @@ placeholder={getAdvancedSearchText('placeholders.anyModel', 'Any Model')}
             {/* Price Range */}
             <div>
               <label className="text-sm font-medium text-foreground mb-2 block">
-                {getAdvancedSearchText('priceRange', 'Price Range')}: ${filters.priceMin.toLocaleString()} - ${filters.priceMax.toLocaleString()}
+                {getAdvancedSearchText('priceRange', 'Price Range')}: €{filters.priceMin.toLocaleString()} - €{filters.priceMax.toLocaleString()}
               </label>
               <Slider
                 value={[filters.priceMin, filters.priceMax]}

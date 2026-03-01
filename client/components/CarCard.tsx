@@ -39,8 +39,8 @@ export function CarCard({ car, layout }: CarCardProps) {
   const vehicleTranslator = useVehicleSpecTranslator(t);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
-  const formatPrice = (price: number, currencyCode: string = 'USD') => {
-    return new Intl.NumberFormat('en-US', {
+  const formatPrice = (price: number, currencyCode: string = 'EUR') => {
+    return new Intl.NumberFormat('de-DE', {
       style: 'currency',
       currency: currencyCode,
       maximumFractionDigits: 0,
@@ -57,7 +57,7 @@ export function CarCard({ car, layout }: CarCardProps) {
   const fuelType = car.fuelType;
   const transmission = car.transmission;
   const dealer = 'seller' in car ? (car.seller?.dealerName || car.seller?.name) : ('dealer' in car ? car.dealer : '');
-  const currency = 'USD';
+  const currency = 'EUR';
 
   // Extract image URLs from CarImage objects or string arrays
   const rawImages = car.images;

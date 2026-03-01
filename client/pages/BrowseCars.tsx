@@ -532,7 +532,7 @@ placeholder={t('browseCars.filters.anyLocation')}
                           <div className={`flex items-center justify-between pt-2 border-t border-zinc-100 ${viewMode === "list" ? "sm:flex-row" : "flex-col"} gap-4`}>
                             <div>
                               <div className={`font-bold text-blue-600 ${viewMode === "list" ? "text-2xl" : "text-xl"} mb-1`}>
-                                ${(car.price || 0).toLocaleString()}
+                                €{(car.price || 0).toLocaleString()}
                               </div>
 <div className="text-sm text-muted-foreground">
                                 {car.seller?.dealerName || car.seller?.name || t('auth.privatePerson')}

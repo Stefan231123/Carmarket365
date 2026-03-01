@@ -29,7 +29,7 @@ export const mkTranslations: TranslationStrings = {
     address: 'Адреса',
     location: 'Локација',
     price: 'Цена',
-    currency: 'USD',
+    currency: 'EUR',
     year: 'Година',
     make: 'Марка',
     model: 'Модел',

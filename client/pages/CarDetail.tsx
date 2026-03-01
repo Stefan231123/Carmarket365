@@ -203,9 +203,9 @@ export default function CarDetail() {
   };
 
   const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('de-DE', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'EUR',
       maximumFractionDigits: 0,
     }).format(price);
   };
@@ -298,7 +298,7 @@ export default function CarDetail() {
                     )}
                     {carData.originalPrice && carData.originalPrice > carData.price && (
                       <Badge variant="destructive">
-                        ${Math.round(carData.originalPrice - carData.price)} {t('carDetail.savingsAmount')}
+                        €{Math.round(carData.originalPrice - carData.price)} {t('carDetail.savingsAmount')}
                       </Badge>
                     )}
                   </div>

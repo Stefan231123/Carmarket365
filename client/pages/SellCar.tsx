@@ -344,7 +344,7 @@ export default function SellCar() {
                     </h3>
                     <p className="text-sm text-gray-500">{vehicleDetails.mileage ? `${vehicleDetails.mileage} ${t('sell.preview.milesLabel')}` : t('common.mileage')}</p>
                     <p className="text-lg font-bold text-primary">
-                      {vehicleDetails.price ? `$${vehicleDetails.price}` : t('sell.preview.priceLabel')}
+                      {vehicleDetails.price ? `€${vehicleDetails.price}` : t('sell.preview.priceLabel')}
                     </p>
                     {vehicleDetails.images.length > 0 && (
                       <p className="text-xs text-gray-400 mt-1">

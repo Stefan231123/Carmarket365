@@ -36,7 +36,7 @@ export const fallbackTranslations: Partial<TranslationStrings> = {
     address: 'Address',
     location: 'Location',
     price: 'Price',
-    currency: 'USD',
+    currency: 'EUR',
     year: 'Year',
     make: 'Make',
     model: 'Model',

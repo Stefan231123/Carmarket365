@@ -202,7 +202,7 @@ export default function SavedCars() {
                   {car.year} {car.make} {car.model}
                 </h3>
                 <p className="text-2xl font-bold text-primary mb-3">
-                  ${car.price.toLocaleString()}
+                  €{car.price.toLocaleString()}
                 </p>
                 
                 <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">

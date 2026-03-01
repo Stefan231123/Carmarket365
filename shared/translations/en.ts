@@ -33,7 +33,7 @@ export const enTranslations: TranslationStrings = {
     email: 'Email',
     location: 'Location',
     price: 'Price',
-    currency: 'USD',
+    currency: 'EUR',
     year: 'Year',
     make: 'Make',
     model: 'Model',
