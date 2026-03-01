@@ -713,7 +713,7 @@ export const enTranslations: TranslationStrings = {
       location: 'Location',
       bodyType: 'Body Type',
       drivetrain: 'Drivetrain',
-      engineSize: 'Engine Size (CC)',
+      engineSize: 'Engine Size (L)',
       horsePower: 'Horsepower (HP)',
       doors: 'Doors',
       seats: 'Seats',
@@ -760,6 +760,7 @@ export const enTranslations: TranslationStrings = {
       choosePhotos: 'Choose Photos',
       selectBodyType: 'Select body type',
       selectDrivetrain: 'Select drivetrain',
+      selectEngineSize: 'Select engine size',
       selectDoors: 'Select number of doors',
       selectSeats: 'Select number of seats',
       selectUpholstery: 'Select upholstery type',
@@ -1793,7 +1794,7 @@ export const enTranslations: TranslationStrings = {
     bodyType: 'Body Type',
     
     // Vehicle Details
-    engineSize: 'Engine Size',
+    engineSize: 'Engine Size (L)',
     horsepower: 'Horsepower',
     color: 'Color',
     numberOfDoors: 'Number of doors',

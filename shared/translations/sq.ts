@@ -641,7 +641,7 @@ export const sqTranslations: TranslationStrings = {
       location: 'Vendndodhja',
       bodyType: 'Lloji i karocerisë',
       drivetrain: 'Tërheqja',
-      engineSize: 'Madhësia e motorit (CC)',
+      engineSize: 'Madhësia e motorit (L)',
       horsePower: 'Fuqia (KF)',
       doors: 'Dyert',
       seats: 'Ulëset',
@@ -688,6 +688,7 @@ export const sqTranslations: TranslationStrings = {
       choosePhotos: 'Zgjidhni Fotot',
       selectBodyType: 'Zgjidhni llojin e karocerisë',
       selectDrivetrain: 'Zgjidhni tërheqjen',
+      selectEngineSize: 'Zgjidhni madhësinë e motorit',
       selectDoors: 'Zgjidhni numrin e dyerve',
       selectSeats: 'Zgjidhni numrin e ulëseve',
       selectUpholstery: 'Zgjidhni llojin e tapicerisë',
@@ -2348,7 +2349,7 @@ export const sqTranslations: TranslationStrings = {
     bodyType: 'Lloji i karoseries',
     
     // Detajet e automjetit
-    engineSize: 'Madhësia e motorit',
+    engineSize: 'Madhësia e motorit (L)',
     horsepower: 'Fuqia në kuaj',
     color: 'Ngjyra',
     numberOfDoors: 'Numri i dyerve',

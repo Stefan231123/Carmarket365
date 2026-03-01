@@ -662,12 +662,29 @@ export default function SellCar() {
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.engineSize')}</label>
-                        <Input
-                          type="number"
-                          placeholder="e.g. 1998"
-                          value={vehicleDetails.engineSize}
-                          onChange={(e) => setVehicleDetails({...vehicleDetails, engineSize: e.target.value})}
-                        />
+                        <Select value={vehicleDetails.engineSize} onValueChange={(value) => setVehicleDetails({...vehicleDetails, engineSize: value})}>
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('sell.placeholders.selectEngineSize')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="500">0.5L</SelectItem>
+                            <SelectItem value="800">0.8L</SelectItem>
+                            <SelectItem value="1000">1.0L</SelectItem>
+                            <SelectItem value="1200">1.2L</SelectItem>
+                            <SelectItem value="1400">1.4L</SelectItem>
+                            <SelectItem value="1600">1.6L</SelectItem>
+                            <SelectItem value="1800">1.8L</SelectItem>
+                            <SelectItem value="2000">2.0L</SelectItem>
+                            <SelectItem value="2200">2.2L</SelectItem>
+                            <SelectItem value="2500">2.5L</SelectItem>
+                            <SelectItem value="2800">2.8L</SelectItem>
+                            <SelectItem value="3000">3.0L</SelectItem>
+                            <SelectItem value="3500">3.5L</SelectItem>
+                            <SelectItem value="4000">4.0L</SelectItem>
+                            <SelectItem value="5000">5.0L</SelectItem>
+                            <SelectItem value="6000">6.0L</SelectItem>
+                          </SelectContent>
+                        </Select>
                       </div>
 
                       <div>
@@ -682,17 +699,27 @@ export default function SellCar() {
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.doors')}</label>
-                        <Select value={vehicleDetails.doors} onValueChange={(value) => setVehicleDetails({...vehicleDetails, doors: value})}>
-                          <SelectTrigger>
-                            <SelectValue placeholder={t('sell.placeholders.selectDoors')} />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="2">2</SelectItem>
-                            <SelectItem value="3">3</SelectItem>
-                            <SelectItem value="4">4</SelectItem>
-                            <SelectItem value="5">5</SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <div className="flex rounded-2xl border border-input overflow-hidden h-11">
+                          {[
+                            { label: 'All', value: '' },
+                            { label: '2/3', value: '2/3' },
+                            { label: '4/5', value: '4/5' },
+                            { label: '6/7', value: '6/7' },
+                          ].map((option) => (
+                            <button
+                              key={option.value}
+                              type="button"
+                              onClick={() => setVehicleDetails({...vehicleDetails, doors: option.value})}
+                              className={`flex-1 text-sm font-medium transition-colors ${
+                                vehicleDetails.doors === option.value
+                                  ? 'bg-black text-white'
+                                  : 'bg-white text-gray-700 hover:bg-gray-50'
+                              } ${option.value !== '' ? 'border-l border-input' : ''}`}
+                            >
+                              {option.label}
+                            </button>
+                          ))}
+                        </div>
                       </div>
 
                       <div>

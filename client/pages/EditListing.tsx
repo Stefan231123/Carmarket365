@@ -79,9 +79,9 @@ export default function EditListing() {
       setLocation(car.location || "");
       setContactPhone(car.contactPhone || "");
       setContactEmail(car.contactEmail || "");
-      setEngineSize(car.engineSize ? String(car.engineSize) : "");
+      setEngineSize(car.engineSize ? String([500,800,1000,1200,1400,1600,1800,2000,2200,2500,2800,3000,3500,4000,5000,6000].reduce((prev, curr) => Math.abs(curr - car.engineSize!) < Math.abs(prev - car.engineSize!) ? curr : prev)) : "");
       setHorsePower(car.horsePower ? String(car.horsePower) : "");
-      setDoors(car.doors ? String(car.doors) : "");
+      setDoors(car.doors ? (car.doors <= 3 ? '2/3' : car.doors <= 5 ? '4/5' : '6/7') : "");
       setSeats(car.seats ? String(car.seats) : "");
       setDrivetrain(car.drivetrain || "");
       setFuelConsumption(car.fuelConsumption ? String(car.fuelConsumption) : "");
@@ -416,7 +416,27 @@ export default function EditListing() {
                 </div>
                 <div>
                   <label className="text-sm font-medium mb-1 block">{t("sell.fields.engineSize")}</label>
-                  <Input type="number" placeholder="e.g. 1998" value={engineSize} onChange={(e) => setEngineSize(e.target.value)} />
+                  <Select value={engineSize} onValueChange={setEngineSize}>
+                    <SelectTrigger><SelectValue placeholder={t("sell.placeholders.selectEngineSize")} /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="500">0.5L</SelectItem>
+                      <SelectItem value="800">0.8L</SelectItem>
+                      <SelectItem value="1000">1.0L</SelectItem>
+                      <SelectItem value="1200">1.2L</SelectItem>
+                      <SelectItem value="1400">1.4L</SelectItem>
+                      <SelectItem value="1600">1.6L</SelectItem>
+                      <SelectItem value="1800">1.8L</SelectItem>
+                      <SelectItem value="2000">2.0L</SelectItem>
+                      <SelectItem value="2200">2.2L</SelectItem>
+                      <SelectItem value="2500">2.5L</SelectItem>
+                      <SelectItem value="2800">2.8L</SelectItem>
+                      <SelectItem value="3000">3.0L</SelectItem>
+                      <SelectItem value="3500">3.5L</SelectItem>
+                      <SelectItem value="4000">4.0L</SelectItem>
+                      <SelectItem value="5000">5.0L</SelectItem>
+                      <SelectItem value="6000">6.0L</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
                 <div>
                   <label className="text-sm font-medium mb-1 block">{t("sell.fields.horsePower")}</label>
@@ -424,15 +444,27 @@ export default function EditListing() {
                 </div>
                 <div>
                   <label className="text-sm font-medium mb-1 block">{t("sell.fields.doors")}</label>
-                  <Select value={doors} onValueChange={setDoors}>
-                    <SelectTrigger><SelectValue placeholder={t("sell.placeholders.selectDoors")} /></SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="2">2</SelectItem>
-                      <SelectItem value="3">3</SelectItem>
-                      <SelectItem value="4">4</SelectItem>
-                      <SelectItem value="5">5</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <div className="flex rounded-2xl border border-input overflow-hidden h-11">
+                    {[
+                      { label: 'All', value: '' },
+                      { label: '2/3', value: '2/3' },
+                      { label: '4/5', value: '4/5' },
+                      { label: '6/7', value: '6/7' },
+                    ].map((option) => (
+                      <button
+                        key={option.value}
+                        type="button"
+                        onClick={() => setDoors(option.value)}
+                        className={`flex-1 text-sm font-medium transition-colors ${
+                          doors === option.value
+                            ? 'bg-black text-white'
+                            : 'bg-white text-gray-700 hover:bg-gray-50'
+                        } ${option.value !== '' ? 'border-l border-input' : ''}`}
+                      >
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
                 <div>
                   <label className="text-sm font-medium mb-1 block">{t("sell.fields.seats")}</label>

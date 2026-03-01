@@ -722,7 +722,7 @@ export const mkTranslations: TranslationStrings = {
       location: 'Локација',
       bodyType: 'Тип на каросерија',
       drivetrain: 'Погон',
-      engineSize: 'Зафатнина на моторот (CC)',
+      engineSize: 'Зафатнина на моторот (L)',
       horsePower: 'Коњски сили (КС)',
       doors: 'Врати',
       seats: 'Седишта',
@@ -769,6 +769,7 @@ export const mkTranslations: TranslationStrings = {
       choosePhotos: 'Изберете фотографии',
       selectBodyType: 'Изберете тип на каросерија',
       selectDrivetrain: 'Изберете погон',
+      selectEngineSize: 'Изберете зафатнина',
       selectDoors: 'Изберете број на врати',
       selectSeats: 'Изберете број на седишта',
       selectUpholstery: 'Изберете тип на тапацирање',
@@ -2576,7 +2577,7 @@ export const mkTranslations: TranslationStrings = {
     bodyType: 'Тип на каросерија',
     
     // Детали за возилото
-    engineSize: 'Зафатнина на мотор',
+    engineSize: 'Зафатнина на моторот (L)',
     horsepower: 'Коњски сили',
     color: 'Боја',
     numberOfDoors: 'Број на врати',
