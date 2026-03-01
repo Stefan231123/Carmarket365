@@ -61,7 +61,7 @@ export class SecureTokenController {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production', // HTTPS only in production
         sameSite: 'strict',
-        maxAge: 24 * 60 * 60 * 1000, // 24 hours
+        maxAge: 90 * 24 * 60 * 60 * 1000, // 90 days
       });
 
       // Store refresh token if provided
@@ -70,7 +70,7 @@ export class SecureTokenController {
           httpOnly: true,
           secure: process.env.NODE_ENV === 'production',
           sameSite: 'strict',
-          maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+          maxAge: 90 * 24 * 60 * 60 * 1000, // 90 days
         });
       }
 

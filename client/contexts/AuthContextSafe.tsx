@@ -27,10 +27,32 @@ type AuthAction =
   | { type: 'AUTH_LOGOUT' }
   | { type: 'CLEAR_ERROR' };
 
+const AUTH_USER_KEY = 'cm365_user';
+
+function getCachedUser(): SafeUser | null {
+  try {
+    const cached = localStorage.getItem(AUTH_USER_KEY);
+    if (cached) return JSON.parse(cached);
+  } catch {}
+  return null;
+}
+
+function setCachedUser(user: SafeUser | null) {
+  try {
+    if (user) {
+      localStorage.setItem(AUTH_USER_KEY, JSON.stringify(user));
+    } else {
+      localStorage.removeItem(AUTH_USER_KEY);
+    }
+  } catch {}
+}
+
+const cachedUser = getCachedUser();
+
 const initialState: AuthState = {
-  user: null,
-  isAuthenticated: false,
-  isLoading: true,
+  user: cachedUser,
+  isAuthenticated: !!cachedUser,
+  isLoading: !cachedUser, // Only show loading if no cached user
   error: null,
 };
 
@@ -79,22 +101,49 @@ interface AuthContextType extends AuthState {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+async function fetchCurrentUserWithRetry(maxRetries = 2): Promise<SafeUser | null> {
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      const user = await apiClient.getCurrentUser();
+      if (user) return user as SafeUser;
+      // Server returned null/no user — cookie invalid or not logged in
+      return null;
+    } catch {
+      // Network or server error — retry after delay
+      if (attempt < maxRetries) {
+        await new Promise(r => setTimeout(r, 1000 * (attempt + 1)));
+      }
+    }
+  }
+  // All retries failed — return undefined to signal transient error
+  return undefined as any;
+}
+
 export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   // Check for existing authentication on mount via httpOnly cookie
   useEffect(() => {
     const initAuth = async () => {
-      try {
-        // The httpOnly cookie is sent automatically — ask the backend who we are
-        const user = await apiClient.getCurrentUser();
-        if (user) {
-          dispatch({ type: 'AUTH_SUCCESS', payload: user as SafeUser });
+      const user = await fetchCurrentUserWithRetry();
+
+      if (user) {
+        // Server confirmed our identity
+        setCachedUser(user);
+        dispatch({ type: 'AUTH_SUCCESS', payload: user });
+      } else if (user === null) {
+        // Server explicitly said: no valid session (not a network error)
+        setCachedUser(null);
+        dispatch({ type: 'AUTH_FAILURE', payload: '' });
+      } else {
+        // All retries failed (transient error) — keep cached user if we have one
+        const cached = getCachedUser();
+        if (cached) {
+          // Stay logged in with cached data; will re-validate on next navigation
+          dispatch({ type: 'AUTH_SUCCESS', payload: cached });
         } else {
           dispatch({ type: 'AUTH_FAILURE', payload: '' });
         }
-      } catch {
-        dispatch({ type: 'AUTH_FAILURE', payload: '' });
       }
     };
 
@@ -123,6 +172,7 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
       };
 
       // Cookie is set automatically by the backend response
+      setCachedUser(user);
       dispatch({ type: 'AUTH_SUCCESS', payload: user });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Login failed';
@@ -154,6 +204,7 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
       };
 
       // Cookie is set automatically by the backend response
+      setCachedUser(user);
       dispatch({ type: 'AUTH_SUCCESS', payload: user });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Registration failed';
@@ -181,6 +232,7 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
       };
 
       // Cookie is set automatically by the backend response
+      setCachedUser(user);
       dispatch({ type: 'AUTH_SUCCESS', payload: user });
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'OAuth login failed';
@@ -196,6 +248,7 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
     } catch (error) {
       console.error('Logout error:', error);
     } finally {
+      setCachedUser(null);
       dispatch({ type: 'AUTH_LOGOUT' });
     }
   };
