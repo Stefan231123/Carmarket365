@@ -113,6 +113,7 @@ class ApiClient {
   private baseUrl: string;
   private readonly isProduction: boolean;
   private accessToken: string | null = null;
+  private static readonly TOKEN_KEY = 'cm365_token';
 
   constructor() {
     this.isProduction = import.meta.env.PROD || false;
@@ -127,10 +128,22 @@ class ApiClient {
     } else {
       this.baseUrl = 'http://localhost:3002/graphql';
     }
+
+    // Restore token from localStorage so it survives page reloads
+    try {
+      this.accessToken = localStorage.getItem(ApiClient.TOKEN_KEY);
+    } catch {}
   }
 
   setAccessToken(token: string | null) {
     this.accessToken = token;
+    try {
+      if (token) {
+        localStorage.setItem(ApiClient.TOKEN_KEY, token);
+      } else {
+        localStorage.removeItem(ApiClient.TOKEN_KEY);
+      }
+    } catch {}
   }
 
   private async request<T>(query: string, variables?: any): Promise<ApiResponse<T>> {
@@ -198,8 +211,8 @@ class ApiClient {
 
     if (response.data?.login) {
       const { user, access_token } = response.data.login;
-      // Store token in memory for Authorization header (cross-origin fallback)
-      if (access_token) this.accessToken = access_token;
+      // Store token for Authorization header (persists across page reloads)
+      if (access_token) this.setAccessToken(access_token);
       return { user, tokens: { access_token: access_token || '' } };
     }
 
@@ -237,8 +250,8 @@ class ApiClient {
 
     if (response.data?.register) {
       const { user, access_token } = response.data.register;
-      // Store token in memory for Authorization header (cross-origin fallback)
-      if (access_token) this.accessToken = access_token;
+      // Store token for Authorization header (persists across page reloads)
+      if (access_token) this.setAccessToken(access_token);
       return { user, tokens: { access_token: access_token || '' } };
     }
 
@@ -258,7 +271,7 @@ class ApiClient {
     } catch (error) {
       console.error('Logout error:', error);
     } finally {
-      this.accessToken = null;
+      this.setAccessToken(null);
     }
   }
 
@@ -280,17 +293,22 @@ class ApiClient {
       }
     `;
 
-    try {
-      const response = await this.request<{ getCurrentUser: User }>(query);
+    // Let network errors throw (so retry logic can catch them).
+    // Only return null for auth errors (UNAUTHENTICATED = no valid session).
+    const response = await this.request<{ getCurrentUser: User }>(query);
 
-      if (response.errors) {
-        return null;
+    if (response.errors) {
+      const isAuthError = response.errors.some(
+        (e: any) => e.extensions?.code === 'UNAUTHENTICATED' || e.message?.includes('Unauthorized')
+      );
+      if (isAuthError) {
+        return null; // Genuinely not logged in
       }
-
-      return response.data?.getCurrentUser || null;
-    } catch {
-      return null;
+      // Other GraphQL errors (server issue, etc.) — throw so retry kicks in
+      throw new Error(response.errors[0]?.message || 'GraphQL error');
     }
+
+    return response.data?.getCurrentUser || null;
   }
 
   // Car Methods
@@ -1266,8 +1284,8 @@ class ApiClient {
     }
 
     const { user, access_token } = response.data.socialLogin;
-    // Store token in memory for Authorization header (cross-origin fallback)
-    if (access_token) this.accessToken = access_token;
+    // Store token for Authorization header (persists across page reloads)
+    if (access_token) this.setAccessToken(access_token);
     return { user, tokens: { access_token: access_token || '' } };
   }
 
