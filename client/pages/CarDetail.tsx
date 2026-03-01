@@ -7,7 +7,7 @@ import { useCar } from "@/hooks/useCars";
 import { ContactCarModal } from "@/components/ContactCarModal";
 import { ShareCarModal } from "@/components/ShareCarModal";
 import { ScheduleTestDriveModal } from "@/components/ScheduleTestDriveModal";
-import { FinancingModal } from "@/components/FinancingModal";
+
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -46,7 +46,7 @@ export default function CarDetail() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isTestDriveModalOpen, setIsTestDriveModalOpen] = useState(false);
-  const [isFinancingModalOpen, setIsFinancingModalOpen] = useState(false);
+
   const [isFullscreenModalOpen, setIsFullscreenModalOpen] = useState(false);
   const [fullscreenImageIndex, setFullscreenImageIndex] = useState(0);
   const { isFavorite, toggleFavorite } = useFavorites();
@@ -579,29 +579,6 @@ export default function CarDetail() {
               </CardContent>
             </Card>
 
-            {/* Financing Options */}
-            <Card className="border-zinc-100 rounded-2xl">
-              <CardHeader>
-                <CardTitle>{t('carDetail.financing.title')}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="text-sm text-muted-foreground">
-                  {t('carDetail.financing.estimatedPayment')}
-                </div>
-                <div className="text-2xl font-bold">{formatPrice(Math.round(carData.price / 72))}{t('carDetail.financing.monthlyPayment')}</div>
-                <div className="text-xs text-muted-foreground">
-                  {t('carDetail.financing.basedOnTerms')} 6.5% {t('carDetail.financing.aprForMonths')} 72
-                </div>
-                <Button onClick={() => setIsFinancingModalOpen(true)} variant="outline" className="w-full border-zinc-100 rounded-full h-12">
-                  {t('carDetail.actions.getPreApproved')}
-                </Button>
-                <Link to="/financing" className="block">
-                  <Button variant="ghost" className="w-full text-sm rounded-full h-12">
-                    {t('carDetail.actions.calculatePayment')}
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </div>
@@ -652,19 +629,6 @@ export default function CarDetail() {
         onClose={() => setIsTestDriveModalOpen(false)}
       />
 
-      {/* Financing Modal */}
-      <FinancingModal
-        car={{
-          id: carData.id,
-          make: carData.make,
-          model: carData.model,
-          year: carData.year,
-          price: carData.price,
-          images: carData.images
-        }}
-        isOpen={isFinancingModalOpen}
-        onClose={() => setIsFinancingModalOpen(false)}
-      />
 
       {/* Fullscreen Image Modal */}
       {carData.images.length > 0 && (
