@@ -18,7 +18,7 @@ import { JwtStrategy } from './strategies/jwt.strategy';
         }
         return secret;
       })(),
-      signOptions: { expiresIn: '7d' },
+      signOptions: { expiresIn: '90d' },
     }),
     UsersModule,
   ],

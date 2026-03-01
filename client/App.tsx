@@ -49,6 +49,7 @@ const Imprint = lazy(() => import("@/pages/Imprint"));
 const Accessibility = lazy(() => import("@/pages/Accessibility"));
 const DashboardSelector = lazy(() => import("@/pages/DashboardSelector"));
 const ResetPassword = lazy(() => import("@/pages/ResetPassword"));
+const EditListing = lazy(() => import("@/pages/EditListing"));
 
 function AppContent() {
   const navigate = useNavigate();
@@ -86,6 +87,7 @@ function AppContent() {
             <Route path="/sell" element={<ProtectedRoute><SellCar /></ProtectedRoute>} />
             <Route path="/sell-vehicle" element={<Navigate to="/sell" replace />} />
             <Route path="/express-sell" element={<ProtectedRoute><ExpressSell /></ProtectedRoute>} />
+            <Route path="/edit-listing/:id" element={<ProtectedRoute><EditListing /></ProtectedRoute>} />
             <Route path="/saved" element={<SavedCars />} />
             <Route path="/registered-dealers" element={<RegisteredDealers />} />
             <Route path="/dealers" element={<Navigate to="/registered-dealers" replace />} />

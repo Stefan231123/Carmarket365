@@ -750,6 +750,47 @@ class ApiClient {
     return car;
   }
 
+  async updateCar(id: string, carData: any): Promise<any> {
+    const query = `
+      mutation UpdateCar($id: String!, $input: UpdateCarInput!) {
+        updateCar(id: $id, input: $input) {
+          id
+          make
+          model
+          year
+          price
+          mileage
+          fuelType
+          transmission
+          condition
+          color
+          interiorColor
+          description
+          features
+          location
+          city
+          countryCode
+          contactPhone
+          contactEmail
+          updatedAt
+        }
+      }
+    `;
+
+    const response = await this.request<{ updateCar: any }>(query, { id, input: carData });
+
+    if (response.errors) {
+      throw new Error(response.errors[0].message);
+    }
+
+    const car = response.data?.updateCar;
+    if (!car) {
+      throw new Error('Failed to update car');
+    }
+
+    return car;
+  }
+
   async createCarImage(input: {
     carId: string;
     url: string;

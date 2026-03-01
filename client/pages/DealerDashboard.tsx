@@ -22,6 +22,7 @@
  */
 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Car, Users, Euro, TrendingUp, Plus, Search, Filter, Download, Eye, Edit, Trash2, MoreHorizontal, Zap, Heart, MapPin, Fuel, Gauge, Calendar } from 'lucide-react';
 import { useTranslation } from '../hooks/useTranslation';
 import { Button } from '../components/ui/button';
@@ -42,6 +43,7 @@ import { LoadingSpinner } from '../components/LoadingSpinner';
 
 export default function DealerDashboard() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('overview');
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
@@ -105,8 +107,12 @@ export default function DealerDashboard() {
     );
   }
 
-  const onViewListing = () => {
-    console.log('View listing clicked');
+  const onViewListing = (listingId: string) => {
+    navigate(`/cars/${listingId}`);
+  };
+
+  const onEditListing = (listingId: string) => {
+    navigate(`/edit-listing/${listingId}`);
   };
 
   const getStatusBadge = (status: string) => {
@@ -409,11 +415,11 @@ export default function DealerDashboard() {
                                 </Button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent>
-                                <DropdownMenuItem onClick={onViewListing}>
+                                <DropdownMenuItem onClick={() => onViewListing(listing.id)}>
                                   <Eye className="h-4 w-4 mr-2" />
                                   {t('dealer.viewListing')}
                                 </DropdownMenuItem>
-                                <DropdownMenuItem>
+                                <DropdownMenuItem onClick={() => onEditListing(listing.id)}>
                                   <Edit className="h-4 w-4 mr-2" />
                                   {t('dealer.editListing')}
                                 </DropdownMenuItem>
@@ -479,11 +485,11 @@ export default function DealerDashboard() {
                             </Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent>
-                            <DropdownMenuItem onClick={onViewListing}>
+                            <DropdownMenuItem onClick={() => onViewListing(listing.id)}>
                               <Eye className="h-4 w-4 mr-2" />
                               {t('dealerDashboard.myListings.actions.viewListing')}
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => onEditListing(listing.id)}>
                               <Edit className="h-4 w-4 mr-2" />
                               {t('dealerDashboard.myListings.actions.editListing')}
                             </DropdownMenuItem>
