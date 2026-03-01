@@ -288,7 +288,7 @@ export default function CarDetail() {
                   <ImageWithFallback
                     src={carData.images[currentImageIndex]}
                     alt={`${carData.year} ${carData.make} ${carData.model}`}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                    className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-[1.02]"
                   />
                   <div className="absolute top-4 left-4 flex gap-2">
                     {carData.isCertified && (
