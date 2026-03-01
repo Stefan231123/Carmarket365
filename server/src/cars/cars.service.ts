@@ -16,6 +16,7 @@ export class CarsService {
     const query = this.carRepository
       .createQueryBuilder('car')
       .leftJoinAndSelect('car.seller', 'seller')
+      .leftJoinAndSelect('car.images', 'images')
       .where('car.isAvailable = :isAvailable', { isAvailable: true })
       .andWhere('(car.quickSale = false OR car.quickSale IS NULL)');
 
@@ -23,13 +24,14 @@ export class CarsService {
 
     return query
       .orderBy('car.createdAt', 'DESC')
+      .addOrderBy('images.sortOrder', 'ASC')
       .getMany();
   }
 
   async findById(id: string): Promise<Car> {
     const car = await this.carRepository.findOne({
       where: { id },
-      relations: ['seller'],
+      relations: ['seller', 'images'],
     });
 
     if (!car) {
@@ -43,10 +45,12 @@ export class CarsService {
     return this.carRepository
       .createQueryBuilder('car')
       .leftJoinAndSelect('car.seller', 'seller')
+      .leftJoinAndSelect('car.images', 'images')
       .where('car.make = :make', { make })
       .andWhere('car.isAvailable = :isAvailable', { isAvailable: true })
       .andWhere('(car.quickSale = false OR car.quickSale IS NULL)')
       .orderBy('car.createdAt', 'DESC')
+      .addOrderBy('images.sortOrder', 'ASC')
       .getMany();
   }
 
@@ -54,10 +58,12 @@ export class CarsService {
     return this.carRepository
       .createQueryBuilder('car')
       .leftJoinAndSelect('car.seller', 'seller')
+      .leftJoinAndSelect('car.images', 'images')
       .where('car.isFeatured = :isFeatured', { isFeatured: true })
       .andWhere('car.isAvailable = :isAvailable', { isAvailable: true })
       .andWhere('(car.quickSale = false OR car.quickSale IS NULL)')
       .orderBy('car.createdAt', 'DESC')
+      .addOrderBy('images.sortOrder', 'ASC')
       .take(limit)
       .getMany();
   }
