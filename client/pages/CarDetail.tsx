@@ -53,6 +53,15 @@ export default function CarDetail() {
   const [fullscreenImageIndex, setFullscreenImageIndex] = useState(0);
   const { isFavorite, toggleFavorite } = useFavorites();
 
+  // Fetch other listings from the same seller (must be before early returns)
+  const sellerId = car?.seller?.id;
+  const { data: sellerCarsData } = useQuery<{ getCars: Car[] }>(GET_CARS, {
+    variables: { filters: { sellerId } },
+    skip: !sellerId,
+    fetchPolicy: 'cache-first',
+  });
+  const sellerOtherCars = (sellerCarsData?.getCars || []).filter(c => c.id !== car?.id).slice(0, 6);
+
   if (isLoading) {
     return (
       <div className="min-h-screen bg-muted/30 flex items-center justify-center">
@@ -244,15 +253,6 @@ export default function CarDetail() {
     const dealerId = car.seller?.id || "1";
     navigate(`/dealer/${dealerId}`);
   };
-
-  // Fetch other listings from the same seller
-  const sellerId = car.seller?.id;
-  const { data: sellerCarsData } = useQuery<{ getCars: Car[] }>(GET_CARS, {
-    variables: { filters: { sellerId } },
-    skip: !sellerId,
-    fetchPolicy: 'cache-first',
-  });
-  const sellerOtherCars = (sellerCarsData?.getCars || []).filter(c => c.id !== car.id).slice(0, 6);
 
   return (
     <div className="min-h-screen bg-muted/30">
