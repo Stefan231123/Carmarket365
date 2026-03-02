@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import { useQuery } from "@apollo/client/react";
 import { useTranslation } from "@/hooks/useTranslation";
 import { SEO } from "@/components/SEO";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useCar } from "@/hooks/useCars";
+import { GET_CARS, Car } from "@/lib/graphql/operations";
 import { ContactCarModal } from "@/components/ContactCarModal";
 import { ShareCarModal } from "@/components/ShareCarModal";
 import { ScheduleTestDriveModal } from "@/components/ScheduleTestDriveModal";
@@ -242,6 +244,15 @@ export default function CarDetail() {
     const dealerId = car.seller?.id || "1";
     navigate(`/dealer/${dealerId}`);
   };
+
+  // Fetch other listings from the same seller
+  const sellerId = car.seller?.id;
+  const { data: sellerCarsData } = useQuery<{ getCars: Car[] }>(GET_CARS, {
+    variables: { filters: { sellerId } },
+    skip: !sellerId,
+    fetchPolicy: 'cache-first',
+  });
+  const sellerOtherCars = (sellerCarsData?.getCars || []).filter(c => c.id !== car.id).slice(0, 6);
 
   return (
     <div className="min-h-screen bg-muted/30">
@@ -582,6 +593,55 @@ export default function CarDetail() {
           </div>
         </div>
       </div>
+
+      {/* More from this seller */}
+      {sellerOtherCars.length > 0 && (
+        <div className="border-t border-zinc-100 bg-white">
+          <div className="container mx-auto px-4 py-8">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-semibold">{t('carDetail.moreFromSeller')}</h2>
+              <Button variant="ghost" onClick={handleViewDealerCars} className="text-sm text-muted-foreground hover:text-foreground">
+                {t('carDetail.actions.viewAllDealerCars')} →
+              </Button>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {sellerOtherCars.map((sellerCar) => {
+                const imgUrl = sellerCar.images && sellerCar.images.length > 0
+                  ? (typeof sellerCar.images[0] === 'string' ? sellerCar.images[0] : (sellerCar.images[0] as any).url)
+                  : '';
+                return (
+                  <Link key={sellerCar.id} to={`/cars/${sellerCar.id}`} className="group">
+                    <Card className="overflow-hidden rounded-2xl border-zinc-100 hover:shadow-md transition-shadow">
+                      <div className="aspect-[16/10] overflow-hidden bg-muted">
+                        {imgUrl ? (
+                          <ImageWithFallback
+                            src={imgUrl}
+                            alt={`${sellerCar.year} ${sellerCar.make} ${sellerCar.model}`}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-muted-foreground text-sm">
+                            {t('carDetail.noImage')}
+                          </div>
+                        )}
+                      </div>
+                      <CardContent className="p-4">
+                        <h3 className="font-semibold truncate">{sellerCar.year} {sellerCar.make} {sellerCar.model}</h3>
+                        <div className="flex items-center gap-3 mt-1 text-sm text-muted-foreground">
+                          <span>{formatMileage(sellerCar.mileage)} km</span>
+                          <span>·</span>
+                          <span>{translateFuelType(sellerCar.fuelType)}</span>
+                        </div>
+                        <p className="text-lg font-bold mt-2">{formatPrice(sellerCar.price)}</p>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Contact Modal */}
       <ContactCarModal

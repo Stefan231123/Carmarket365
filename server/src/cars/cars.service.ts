@@ -272,5 +272,9 @@ export class CarsService {
     if (filters.interiorColor) {
       query.andWhere('LOWER(car.interiorColor) = LOWER(:interiorColor)', { interiorColor: filters.interiorColor });
     }
+
+    if (filters.sellerId) {
+      query.andWhere('car.sellerId = :sellerId', { sellerId: filters.sellerId });
+    }
   }
 }

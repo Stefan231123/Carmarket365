@@ -1695,6 +1695,8 @@ export interface TranslationStrings {
     viewFullscreen: string;
     imageCounter: string;
     noImages: string;
+    noImage: string;
+    moreFromSeller: string;
     saveCar: string;
     shareCar: string;
     

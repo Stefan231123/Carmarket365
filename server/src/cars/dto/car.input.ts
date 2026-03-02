@@ -605,4 +605,9 @@ export class CarFilterInput {
   @IsOptional()
   @IsString()
   interiorColor?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  sellerId?: string;
 }

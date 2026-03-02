@@ -2798,6 +2798,8 @@ export const enTranslations: TranslationStrings = {
     viewFullscreen: 'View Fullscreen',
     imageCounter: 'of',
     noImages: 'No images available',
+    noImage: 'No image',
+    moreFromSeller: 'More from this seller',
     saveCar: 'Save car',
     shareCar: 'Share car',
 

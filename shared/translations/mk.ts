@@ -2271,6 +2271,8 @@ export const mkTranslations: TranslationStrings = {
     viewFullscreen: 'Погледни на цел екран',
     imageCounter: 'од',
     noImages: 'Нема достапни слики',
+    noImage: 'Нема слика',
+    moreFromSeller: 'Повеќе од овој продавач',
     saveCar: 'Зачувај автомобил',
     shareCar: 'Сподели автомобил',
 

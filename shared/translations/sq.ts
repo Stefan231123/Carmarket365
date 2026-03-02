@@ -4225,6 +4225,8 @@ export const sqTranslations: TranslationStrings = {
     viewFullscreen: 'Shiko në Ekran të Plotë',
     imageCounter: 'nga',
     noImages: 'Nuk ka imazhe të disponueshme',
+    noImage: 'Nuk ka imazh',
+    moreFromSeller: 'Më shumë nga ky shitës',
     saveCar: 'Ruaj makinën',
     shareCar: 'Ndaj makinën',
 
