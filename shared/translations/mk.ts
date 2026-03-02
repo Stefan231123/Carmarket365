@@ -778,6 +778,8 @@ export const mkTranslations: TranslationStrings = {
       selectPreviousOwners: 'Изберете број на претходни сопственици',
       selectAccidentHistory: 'Изберете историја на несреќи',
       selectEmissionClass: 'Изберете емисиона класа',
+      selectLocation: 'Изберете општина...',
+      searchLocation: 'Пребарај...',
     },
 
     // Button labels
@@ -786,6 +788,8 @@ export const mkTranslations: TranslationStrings = {
       previous: 'Претходно',
       createListing: 'Создај оглас'
     },
+
+    noLocationFound: 'Не е пронајдена локација',
 
     // Photo upload
     photos: {
@@ -2352,6 +2356,7 @@ export const mkTranslations: TranslationStrings = {
       phone: 'Телефон',
       email: 'Е-пошта',
       privateSeller: 'Приватен продавач',
+      address: 'Адреса',
     },
 
     // Financing Section

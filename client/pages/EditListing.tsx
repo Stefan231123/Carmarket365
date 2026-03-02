@@ -7,11 +7,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { ArrowLeft, Save, Loader2, AlertCircle, CheckCircle } from "lucide-react";
+import { ArrowLeft, Save, Loader2, AlertCircle, CheckCircle, Check, ChevronsUpDown } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
+import { useCountry } from "@/contexts/CountryContext";
 import { useCar } from "@/hooks/useCars";
 import { apiClient } from "@shared/api-client";
 import { CAR_MAKES, getModelsForMake } from "@shared/car-data";
+import { getLocationsForCountry } from "@shared/locations";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
+import { cn } from "@/lib/utils";
 import ImageUpload from "@/components/ImageUpload";
 import { uploadToCloudinary } from "@/lib/cloudinary";
 
@@ -19,7 +24,10 @@ export default function EditListing() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const { country } = useCountry();
   const { car, isLoading: isLoadingCar, error: loadError } = useCar(id || "");
+  const [locationOpen, setLocationOpen] = useState(false);
+  const locations = getLocationsForCountry(country?.code || 'mk');
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
@@ -322,7 +330,42 @@ export default function EditListing() {
                 </div>
                 <div>
                   <label className="text-sm font-medium mb-1 block">{t("sell.locationLabel") || "Location"}</label>
-                  <Input value={location} onChange={(e) => setLocation(e.target.value)} className="rounded-xl" />
+                  <Popover open={locationOpen} onOpenChange={setLocationOpen}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        role="combobox"
+                        aria-expanded={locationOpen}
+                        className="w-full justify-between font-normal h-11 rounded-xl"
+                      >
+                        {location || t('sell.placeholders.selectLocation')}
+                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
+                      <Command>
+                        <CommandInput placeholder={t('sell.placeholders.searchLocation')} />
+                        <CommandList>
+                          <CommandEmpty>{t('sell.noLocationFound')}</CommandEmpty>
+                          <CommandGroup>
+                            {locations.map((loc) => (
+                              <CommandItem
+                                key={loc.value}
+                                value={loc.value}
+                                onSelect={(value) => {
+                                  setLocation(value);
+                                  setLocationOpen(false);
+                                }}
+                              >
+                                <Check className={cn("mr-2 h-4 w-4", location === loc.value ? "opacity-100" : "opacity-0")} />
+                                {loc.label}
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
                 </div>
               </div>
             </CardContent>

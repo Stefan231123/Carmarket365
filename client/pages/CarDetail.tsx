@@ -108,6 +108,8 @@ export default function CarDetail() {
   const sellerPhone = car.contactPhone || car.seller?.dealerPhoneNumber;
   const sellerEmail = car.contactEmail || car.seller?.email;
   const isDealer = car.seller?.dealerName != null;
+  const dealerAddress = car.seller?.dealerAddress;
+  const dealerCity = car.seller?.dealerCity;
 
   // Translate stored enum values to localized display strings
   const translateFuelType = (value: string) => {
@@ -575,6 +577,15 @@ export default function CarDetail() {
                     <div className="flex items-center gap-2">
                       <Mail className="h-4 w-4 text-muted-foreground" />
                       {carData.dealerInfo.email}
+                    </div>
+                  )}
+                  {isDealer && (dealerAddress || dealerCity) && (
+                    <div className="flex items-start gap-2">
+                      <MapPin className="h-4 w-4 text-muted-foreground mt-0.5" />
+                      <div className="text-sm">
+                        {dealerAddress && <div>{dealerAddress}</div>}
+                        {dealerCity && <div>{dealerCity}</div>}
+                      </div>
                     </div>
                   )}
                 </div>

@@ -103,6 +103,8 @@ export const GET_CARS = gql`
         dealerName
         dealerLogoUrl
         dealerPhoneNumber
+        dealerAddress
+        dealerCity
       }
       images {
         id

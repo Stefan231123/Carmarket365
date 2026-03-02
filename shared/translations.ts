@@ -480,6 +480,8 @@ export interface TranslationStrings {
       selectPreviousOwners: string;
       selectAccidentHistory: string;
       selectEmissionClass: string;
+      selectLocation: string;
+      searchLocation: string;
     };
     
     // Button labels
@@ -491,6 +493,8 @@ export interface TranslationStrings {
     
     // Preview section (removed duplicate - keeping only one preview section)
     
+    noLocationFound: string;
+
     // Photo upload
     photos: {
       instruction: string;
@@ -1776,6 +1780,7 @@ export interface TranslationStrings {
       phone: string;
       email: string;
       privateSeller: string;
+      address: string;
     };
     
     // Financing Section

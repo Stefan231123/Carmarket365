@@ -10,13 +10,17 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { ArrowLeft, Car, Truck, Bike, Camera, Upload, DollarSign, CheckCircle, AlertCircle } from "lucide-react";
+import { ArrowLeft, Car, Truck, Bike, Camera, Upload, DollarSign, CheckCircle, AlertCircle, Check, ChevronsUpDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import ImageUpload from "@/components/ImageUpload";
 import { trackEvent } from "@/components/Analytics";
 import { apiClient } from '@shared/api-client';
 import { uploadToCloudinary } from '@/lib/cloudinary';
 import { CAR_MAKES, getModelsForMake } from '@shared/car-data';
+import { getLocationsForCountry } from '@shared/locations';
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
+import { cn } from "@/lib/utils";
 
 type VehicleType = 'car' | 'truck' | 'motorbike' | null;
 
@@ -70,6 +74,8 @@ export default function SellCar() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [uploadProgress, setUploadProgress] = useState('');
+  const [locationOpen, setLocationOpen] = useState(false);
+  const locations = getLocationsForCountry(country?.code || 'mk');
   const [vehicleDetails, setVehicleDetails] = useState<VehicleDetails>({
     type: null,
     make: "",
@@ -1109,11 +1115,42 @@ export default function SellCar() {
 
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.location')} *</label>
-                        <Input
-                          placeholder={t('sell.placeholders.cityState')}
-                          value={vehicleDetails.location}
-                          onChange={(e) => setVehicleDetails({...vehicleDetails, location: e.target.value})}
-                        />
+                        <Popover open={locationOpen} onOpenChange={setLocationOpen}>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant="outline"
+                              role="combobox"
+                              aria-expanded={locationOpen}
+                              className="w-full justify-between font-normal h-11 rounded-2xl"
+                            >
+                              {vehicleDetails.location || t('sell.placeholders.selectLocation')}
+                              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
+                            <Command>
+                              <CommandInput placeholder={t('sell.placeholders.searchLocation')} />
+                              <CommandList>
+                                <CommandEmpty>{t('sell.noLocationFound')}</CommandEmpty>
+                                <CommandGroup>
+                                  {locations.map((loc) => (
+                                    <CommandItem
+                                      key={loc.value}
+                                      value={loc.value}
+                                      onSelect={(value) => {
+                                        setVehicleDetails({...vehicleDetails, location: value});
+                                        setLocationOpen(false);
+                                      }}
+                                    >
+                                      <Check className={cn("mr-2 h-4 w-4", vehicleDetails.location === loc.value ? "opacity-100" : "opacity-0")} />
+                                      {loc.label}
+                                    </CommandItem>
+                                  ))}
+                                </CommandGroup>
+                              </CommandList>
+                            </Command>
+                          </PopoverContent>
+                        </Popover>
                       </div>
                     </div>
 

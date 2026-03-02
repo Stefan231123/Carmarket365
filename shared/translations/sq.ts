@@ -697,6 +697,8 @@ export const sqTranslations: TranslationStrings = {
       selectPreviousOwners: 'Zgjidhni numrin e pronarëve të mëparshëm',
       selectAccidentHistory: 'Zgjidhni historikun e aksidenteve',
       selectEmissionClass: 'Zgjidhni klasën e emetimit',
+      selectLocation: 'Zgjidhni komunën...',
+      searchLocation: 'Kërko...',
     },
     
     // Headers
@@ -733,7 +735,9 @@ export const sqTranslations: TranslationStrings = {
       photo: '',
       photos: '',
     },
-    
+
+    noLocationFound: 'Nuk u gjet vendndodhja',
+
     // Photo upload
     photos: {
       instruction: 'Shtoni deri në 10 foto me cilësi të lartë të automjetit tuaj. Foto e parë do të jetë imazhi kryesor që shfaqet në rezultatet e kërkimit.',
@@ -4306,6 +4310,7 @@ export const sqTranslations: TranslationStrings = {
       phone: 'Telefoni',
       email: 'Email',
       privateSeller: 'Shitës Privat',
+      address: 'Adresa',
     },
     
     // Financing Section

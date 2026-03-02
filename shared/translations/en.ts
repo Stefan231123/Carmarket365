@@ -769,6 +769,8 @@ export const enTranslations: TranslationStrings = {
       selectPreviousOwners: 'Select number of previous owners',
       selectAccidentHistory: 'Select accident history',
       selectEmissionClass: 'Select emission class',
+      selectLocation: 'Select municipality...',
+      searchLocation: 'Search...',
     },
 
     // Button labels
@@ -777,7 +779,9 @@ export const enTranslations: TranslationStrings = {
       previous: 'Previous',
       createListing: 'Create Listing',
     },
-    
+
+    noLocationFound: 'No location found',
+
     // Photo upload
     photos: {
       instruction: 'Add up to 10 high-quality photos of your vehicle. The first photo will be the main image in search results.',
@@ -2879,6 +2883,7 @@ export const enTranslations: TranslationStrings = {
       phone: 'Phone',
       email: 'Email',
       privateSeller: 'Private Seller',
+      address: 'Address',
     },
 
     // Financing Section
