@@ -2806,6 +2806,7 @@ export const enTranslations: TranslationStrings = {
     moreFromSeller: 'More from this seller',
     saveCar: 'Save car',
     shareCar: 'Share car',
+    shareOnSocial: 'Share this listing',
 
     // Tabs
     tabs: {

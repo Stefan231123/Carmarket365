@@ -4233,6 +4233,7 @@ export const sqTranslations: TranslationStrings = {
     moreFromSeller: 'Më shumë nga ky shitës',
     saveCar: 'Ruaj makinën',
     shareCar: 'Ndaj makinën',
+    shareOnSocial: 'Ndaj këtë shpallje',
 
     // Tabs and Content
     tabs: {

@@ -1703,7 +1703,8 @@ export interface TranslationStrings {
     moreFromSeller: string;
     saveCar: string;
     shareCar: string;
-    
+    shareOnSocial: string;
+
     // Tabs and Content
     tabs: {
       overview: string;

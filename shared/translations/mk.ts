@@ -2279,6 +2279,7 @@ export const mkTranslations: TranslationStrings = {
     moreFromSeller: 'Повеќе од овој продавач',
     saveCar: 'Зачувај автомобил',
     shareCar: 'Сподели автомобил',
+    shareOnSocial: 'Сподели го огласот',
 
     // Tabs
     tabs: {
