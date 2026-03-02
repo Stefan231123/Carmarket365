@@ -41,7 +41,8 @@ interface VehicleDetails {
   contactEmail: string;
   images: any[]; // Will store image files for upload
   bodyType: string;
-  engineSize: string;
+  engineSizeFrom: string;
+  engineSizeTo: string;
   horsePower: string;
   doors: string;
   seats: string;
@@ -90,7 +91,8 @@ export default function SellCar() {
     contactEmail: "",
     images: [],
     bodyType: "",
-    engineSize: "",
+    engineSizeFrom: "",
+    engineSizeTo: "",
     horsePower: "",
     doors: "",
     seats: "",
@@ -304,7 +306,7 @@ export default function SellCar() {
         countryCode: vehicleDetails.countryCode || undefined,
         contactPhone: vehicleDetails.contactPhone || undefined,
         contactEmail: vehicleDetails.contactEmail || undefined,
-        engineSize: vehicleDetails.engineSize ? parseInt(vehicleDetails.engineSize) : undefined,
+        engineSize: vehicleDetails.engineSizeTo ? parseInt(vehicleDetails.engineSizeTo) : (vehicleDetails.engineSizeFrom ? parseInt(vehicleDetails.engineSizeFrom) : undefined),
         horsePower: vehicleDetails.horsePower ? parseInt(vehicleDetails.horsePower) : undefined,
         doors: vehicleDetails.doors ? parseInt(vehicleDetails.doors) : undefined,
         seats: vehicleDetails.seats ? parseInt(vehicleDetails.seats) : undefined,
@@ -660,31 +662,56 @@ export default function SellCar() {
                         </Select>
                       </div>
 
-                      <div>
+                      <div className="sm:col-span-2">
                         <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.engineSize')}</label>
-                        <Select value={vehicleDetails.engineSize} onValueChange={(value) => setVehicleDetails({...vehicleDetails, engineSize: value})}>
-                          <SelectTrigger>
-                            <SelectValue placeholder={t('sell.placeholders.selectEngineSize')} />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="500">0.5L</SelectItem>
-                            <SelectItem value="800">0.8L</SelectItem>
-                            <SelectItem value="1000">1.0L</SelectItem>
-                            <SelectItem value="1200">1.2L</SelectItem>
-                            <SelectItem value="1400">1.4L</SelectItem>
-                            <SelectItem value="1600">1.6L</SelectItem>
-                            <SelectItem value="1800">1.8L</SelectItem>
-                            <SelectItem value="2000">2.0L</SelectItem>
-                            <SelectItem value="2200">2.2L</SelectItem>
-                            <SelectItem value="2500">2.5L</SelectItem>
-                            <SelectItem value="2800">2.8L</SelectItem>
-                            <SelectItem value="3000">3.0L</SelectItem>
-                            <SelectItem value="3500">3.5L</SelectItem>
-                            <SelectItem value="4000">4.0L</SelectItem>
-                            <SelectItem value="5000">5.0L</SelectItem>
-                            <SelectItem value="6000">6.0L</SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <div className="grid grid-cols-2 gap-3">
+                          <Select value={vehicleDetails.engineSizeFrom} onValueChange={(value) => setVehicleDetails({...vehicleDetails, engineSizeFrom: value})}>
+                            <SelectTrigger>
+                              <SelectValue placeholder={t('sell.placeholders.engineSizeFrom')} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="500">0.5L</SelectItem>
+                              <SelectItem value="800">0.8L</SelectItem>
+                              <SelectItem value="1000">1.0L</SelectItem>
+                              <SelectItem value="1200">1.2L</SelectItem>
+                              <SelectItem value="1400">1.4L</SelectItem>
+                              <SelectItem value="1600">1.6L</SelectItem>
+                              <SelectItem value="1800">1.8L</SelectItem>
+                              <SelectItem value="2000">2.0L</SelectItem>
+                              <SelectItem value="2200">2.2L</SelectItem>
+                              <SelectItem value="2500">2.5L</SelectItem>
+                              <SelectItem value="2800">2.8L</SelectItem>
+                              <SelectItem value="3000">3.0L</SelectItem>
+                              <SelectItem value="3500">3.5L</SelectItem>
+                              <SelectItem value="4000">4.0L</SelectItem>
+                              <SelectItem value="5000">5.0L</SelectItem>
+                              <SelectItem value="6000">6.0L</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <Select value={vehicleDetails.engineSizeTo} onValueChange={(value) => setVehicleDetails({...vehicleDetails, engineSizeTo: value})}>
+                            <SelectTrigger>
+                              <SelectValue placeholder={t('sell.placeholders.engineSizeTo')} />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="500">0.5L</SelectItem>
+                              <SelectItem value="800">0.8L</SelectItem>
+                              <SelectItem value="1000">1.0L</SelectItem>
+                              <SelectItem value="1200">1.2L</SelectItem>
+                              <SelectItem value="1400">1.4L</SelectItem>
+                              <SelectItem value="1600">1.6L</SelectItem>
+                              <SelectItem value="1800">1.8L</SelectItem>
+                              <SelectItem value="2000">2.0L</SelectItem>
+                              <SelectItem value="2200">2.2L</SelectItem>
+                              <SelectItem value="2500">2.5L</SelectItem>
+                              <SelectItem value="2800">2.8L</SelectItem>
+                              <SelectItem value="3000">3.0L</SelectItem>
+                              <SelectItem value="3500">3.5L</SelectItem>
+                              <SelectItem value="4000">4.0L</SelectItem>
+                              <SelectItem value="5000">5.0L</SelectItem>
+                              <SelectItem value="6000">6.0L</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
                       </div>
 
                       <div>

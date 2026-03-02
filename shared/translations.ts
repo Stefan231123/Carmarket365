@@ -471,7 +471,8 @@ export interface TranslationStrings {
       choosePhotos: string;
       selectBodyType: string;
       selectDrivetrain: string;
-      selectEngineSize: string;
+      engineSizeFrom: string;
+      engineSizeTo: string;
       selectDoors: string;
       selectSeats: string;
       selectUpholstery: string;

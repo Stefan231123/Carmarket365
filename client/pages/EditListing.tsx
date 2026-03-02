@@ -44,7 +44,8 @@ export default function EditListing() {
   const [newImages, setNewImages] = useState<any[]>([]);
 
   // New enriched fields
-  const [engineSize, setEngineSize] = useState("");
+  const [engineSizeFrom, setEngineSizeFrom] = useState("");
+  const [engineSizeTo, setEngineSizeTo] = useState("");
   const [horsePower, setHorsePower] = useState("");
   const [doors, setDoors] = useState("");
   const [seats, setSeats] = useState("");
@@ -79,7 +80,11 @@ export default function EditListing() {
       setLocation(car.location || "");
       setContactPhone(car.contactPhone || "");
       setContactEmail(car.contactEmail || "");
-      setEngineSize(car.engineSize ? String([500,800,1000,1200,1400,1600,1800,2000,2200,2500,2800,3000,3500,4000,5000,6000].reduce((prev, curr) => Math.abs(curr - car.engineSize!) < Math.abs(prev - car.engineSize!) ? curr : prev)) : "");
+      if (car.engineSize) {
+        const nearest = String([500,800,1000,1200,1400,1600,1800,2000,2200,2500,2800,3000,3500,4000,5000,6000].reduce((prev, curr) => Math.abs(curr - car.engineSize!) < Math.abs(prev - car.engineSize!) ? curr : prev));
+        setEngineSizeFrom(nearest);
+        setEngineSizeTo(nearest);
+      }
       setHorsePower(car.horsePower ? String(car.horsePower) : "");
       setDoors(car.doors ? (car.doors <= 3 ? '2/3' : car.doors <= 5 ? '4/5' : '6/7') : "");
       setSeats(car.seats ? String(car.seats) : "");
@@ -154,7 +159,7 @@ export default function EditListing() {
         city: location || undefined,
         contactPhone: contactPhone || undefined,
         contactEmail: contactEmail || undefined,
-        engineSize: engineSize ? parseInt(engineSize) : undefined,
+        engineSize: engineSizeTo ? parseInt(engineSizeTo) : (engineSizeFrom ? parseInt(engineSizeFrom) : undefined),
         horsePower: horsePower ? parseInt(horsePower) : undefined,
         doors: doors ? parseInt(doors) : undefined,
         seats: seats ? parseInt(seats) : undefined,
@@ -414,29 +419,52 @@ export default function EditListing() {
                     </SelectContent>
                   </Select>
                 </div>
-                <div>
+                <div className="sm:col-span-2">
                   <label className="text-sm font-medium mb-1 block">{t("sell.fields.engineSize")}</label>
-                  <Select value={engineSize} onValueChange={setEngineSize}>
-                    <SelectTrigger><SelectValue placeholder={t("sell.placeholders.selectEngineSize")} /></SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="500">0.5L</SelectItem>
-                      <SelectItem value="800">0.8L</SelectItem>
-                      <SelectItem value="1000">1.0L</SelectItem>
-                      <SelectItem value="1200">1.2L</SelectItem>
-                      <SelectItem value="1400">1.4L</SelectItem>
-                      <SelectItem value="1600">1.6L</SelectItem>
-                      <SelectItem value="1800">1.8L</SelectItem>
-                      <SelectItem value="2000">2.0L</SelectItem>
-                      <SelectItem value="2200">2.2L</SelectItem>
-                      <SelectItem value="2500">2.5L</SelectItem>
-                      <SelectItem value="2800">2.8L</SelectItem>
-                      <SelectItem value="3000">3.0L</SelectItem>
-                      <SelectItem value="3500">3.5L</SelectItem>
-                      <SelectItem value="4000">4.0L</SelectItem>
-                      <SelectItem value="5000">5.0L</SelectItem>
-                      <SelectItem value="6000">6.0L</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <div className="grid grid-cols-2 gap-3">
+                    <Select value={engineSizeFrom} onValueChange={setEngineSizeFrom}>
+                      <SelectTrigger><SelectValue placeholder={t("sell.placeholders.engineSizeFrom")} /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="500">0.5L</SelectItem>
+                        <SelectItem value="800">0.8L</SelectItem>
+                        <SelectItem value="1000">1.0L</SelectItem>
+                        <SelectItem value="1200">1.2L</SelectItem>
+                        <SelectItem value="1400">1.4L</SelectItem>
+                        <SelectItem value="1600">1.6L</SelectItem>
+                        <SelectItem value="1800">1.8L</SelectItem>
+                        <SelectItem value="2000">2.0L</SelectItem>
+                        <SelectItem value="2200">2.2L</SelectItem>
+                        <SelectItem value="2500">2.5L</SelectItem>
+                        <SelectItem value="2800">2.8L</SelectItem>
+                        <SelectItem value="3000">3.0L</SelectItem>
+                        <SelectItem value="3500">3.5L</SelectItem>
+                        <SelectItem value="4000">4.0L</SelectItem>
+                        <SelectItem value="5000">5.0L</SelectItem>
+                        <SelectItem value="6000">6.0L</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <Select value={engineSizeTo} onValueChange={setEngineSizeTo}>
+                      <SelectTrigger><SelectValue placeholder={t("sell.placeholders.engineSizeTo")} /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="500">0.5L</SelectItem>
+                        <SelectItem value="800">0.8L</SelectItem>
+                        <SelectItem value="1000">1.0L</SelectItem>
+                        <SelectItem value="1200">1.2L</SelectItem>
+                        <SelectItem value="1400">1.4L</SelectItem>
+                        <SelectItem value="1600">1.6L</SelectItem>
+                        <SelectItem value="1800">1.8L</SelectItem>
+                        <SelectItem value="2000">2.0L</SelectItem>
+                        <SelectItem value="2200">2.2L</SelectItem>
+                        <SelectItem value="2500">2.5L</SelectItem>
+                        <SelectItem value="2800">2.8L</SelectItem>
+                        <SelectItem value="3000">3.0L</SelectItem>
+                        <SelectItem value="3500">3.5L</SelectItem>
+                        <SelectItem value="4000">4.0L</SelectItem>
+                        <SelectItem value="5000">5.0L</SelectItem>
+                        <SelectItem value="6000">6.0L</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
                 <div>
                   <label className="text-sm font-medium mb-1 block">{t("sell.fields.horsePower")}</label>
