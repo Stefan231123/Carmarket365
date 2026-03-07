@@ -313,7 +313,7 @@ export const mkTranslations: TranslationStrings = {
       priceFrom: 'Цена од',
       priceTo: 'Цена до',
       yearFrom: 'Година од',
-      mileage: 'Пробег (км)',
+      mileage: 'Километража',
       location: 'Локација',
       anyMake: 'Која било марка',
       anyModel: 'Кој било модел',

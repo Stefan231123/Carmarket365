@@ -282,7 +282,7 @@ export const enTranslations: TranslationStrings = {
       priceFrom: 'Price From',
       priceTo: 'Price To',
       yearFrom: 'Year From',
-      mileage: 'Mileage (km)',
+      mileage: 'Mileage',
       location: 'Location',
       anyMake: 'Any Make',
       anyModel: 'Any Model',

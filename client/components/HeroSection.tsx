@@ -181,13 +181,13 @@ export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSe
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="any-mileage">{t('hero.searchForm.anyMileage')}</SelectItem>
-                  <SelectItem value="50000">0 - 50,000 km</SelectItem>
-                  <SelectItem value="100000">50,001 - 100,000 km</SelectItem>
-                  <SelectItem value="150000">100,001 - 150,000 km</SelectItem>
-                  <SelectItem value="200000">150,001 - 200,000 km</SelectItem>
-                  <SelectItem value="250000">200,001 - 250,000 km</SelectItem>
-                  <SelectItem value="300000">250,001 - 300,000 km</SelectItem>
-                  <SelectItem value="500000">300,001+ km</SelectItem>
+                  <SelectItem value="50000">50,000 km</SelectItem>
+                  <SelectItem value="100000">100,000 km</SelectItem>
+                  <SelectItem value="150000">150,000 km</SelectItem>
+                  <SelectItem value="200000">200,000 km</SelectItem>
+                  <SelectItem value="250000">250,000 km</SelectItem>
+                  <SelectItem value="300000">300,000 km</SelectItem>
+                  <SelectItem value="500000">500,000 km</SelectItem>
                 </SelectContent>
               </Select>
             </div>
