@@ -625,7 +625,6 @@ export default function AdvancedSearch() {
     clearFilters,
     loadMore,
     getActiveFilterCount,
-    executeSearch
   } = useAdvancedSearch();
   
   // Search analytics
@@ -765,17 +764,7 @@ export default function AdvancedSearch() {
       euroEmissionClass: localFilters.euroEmissionClass || undefined
     };
     
-    // Only update if there are meaningful changes
-    const hasFilters = Object.values(advancedFilters).some(value => 
-      value !== undefined && value !== '' && (Array.isArray(value) ? value.length > 0 : true)
-    );
-    
-    if (hasFilters) {
-      updateFilters(advancedFilters);
-      setShowResults(true);
-    } else {
-      setShowResults(false);
-    }
+    updateFilters(advancedFilters);
   }, [localFilters, updateFilters]);
   
   // Track search analytics when results change
@@ -793,19 +782,21 @@ export default function AdvancedSearch() {
     }));
   };
 
-  const handleSearchSubmit = useCallback(async () => {
-    const activeFilterCount = getActiveFilterCount();
-    if (activeFilterCount === 0) {
-      // If no filters, show all cars or navigate to browse page
-      navigate('/cars');
-      return;
-    }
-    
-    // Force a fresh search
-    await executeSearch(filters, sortOptions, { page: 1, limit: 20 }, false);
-    setShowResults(true);
-    trackEvent('search', { filter_count: activeFilterCount });
-  }, [filters, sortOptions, getActiveFilterCount, executeSearch, navigate]);
+  const handleSearchSubmit = useCallback(() => {
+    const params = new URLSearchParams();
+    if (localFilters.make && localFilters.make !== 'all') params.set('make', localFilters.make);
+    if (localFilters.model && localFilters.model !== 'all') params.set('model', localFilters.model);
+    if (localFilters.bodyType && localFilters.bodyType !== 'any') params.set('type', localFilters.bodyType);
+    if (localFilters.fuelType && localFilters.fuelType !== 'any') params.set('fuelType', localFilters.fuelType);
+    if (localFilters.gear && localFilters.gear !== 'any') params.set('transmission', localFilters.gear);
+    if (localFilters.firstRegistrationFrom && localFilters.firstRegistrationFrom > 1990) params.set('yearFrom', String(localFilters.firstRegistrationFrom));
+    if (localFilters.priceMin && localFilters.priceMin > 0) params.set('priceFrom', String(localFilters.priceMin));
+    if (localFilters.priceMax && localFilters.priceMax < 200000) params.set('priceTo', String(localFilters.priceMax));
+    if (localFilters.mileageMax && localFilters.mileageMax < 400000) params.set('mileage', String(localFilters.mileageMax));
+    if (localFilters.cityZipCode) params.set('location', localFilters.cityZipCode);
+    trackEvent('search', { filter_count: getActiveFilterCount() });
+    navigate(`/cars?${params.toString()}`);
+  }, [localFilters, getActiveFilterCount, navigate]);
 
   const clearAllFilters = useCallback(() => {
     setLocalFilters({

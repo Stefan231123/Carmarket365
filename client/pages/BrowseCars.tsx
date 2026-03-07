@@ -55,6 +55,8 @@ export default function BrowseCars() {
   const [mileageFilter, setMileageFilter] = useState("");
   const [locationFilter, setLocationFilter] = useState("");
   const [vehicleTypeFilter, setVehicleTypeFilter] = useState("");
+  const [fuelTypeFilter, setFuelTypeFilter] = useState("");
+  const [transmissionFilter, setTransmissionFilter] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("list");
   const [showFilters, setShowFilters] = useState(false);
   const [contactCar, setContactCar] = useState(null);
@@ -72,6 +74,8 @@ export default function BrowseCars() {
     const yearFrom = params.get('yearFrom');
     const mileage = params.get('mileage');
     const locationParam = params.get('location');
+    const fuelType = params.get('fuelType');
+    const transmission = params.get('transmission');
 
     if (type) setVehicleTypeFilter(type);
     if (make) setMakeFilter(make);
@@ -81,6 +85,8 @@ export default function BrowseCars() {
     if (yearFrom) setYearFromFilter(yearFrom);
     if (mileage) setMileageFilter(mileage);
     if (locationParam) setLocationFilter(locationParam);
+    if (fuelType) setFuelTypeFilter(fuelType);
+    if (transmission) setTransmissionFilter(transmission);
   }, [location.search]);
 
   // Create filters object for the API call — field names match backend CarFilterInput schema
@@ -115,8 +121,16 @@ export default function BrowseCars() {
       apiFilters.location = locationFilter;
     }
 
+    if (fuelTypeFilter) {
+      apiFilters.fuelType = fuelTypeFilter;
+    }
+
+    if (transmissionFilter) {
+      apiFilters.transmission = transmissionFilter;
+    }
+
     return apiFilters;
-  }, [makeFilter, modelFilter, priceFromFilter, priceToFilter, yearFromFilter, mileageFilter, locationFilter]);
+  }, [makeFilter, modelFilter, priceFromFilter, priceToFilter, yearFromFilter, mileageFilter, locationFilter, fuelTypeFilter, transmissionFilter]);
 
   // Fetch cars and makes from API
   const { cars, isLoading, error, refetch } = useCars(filters);

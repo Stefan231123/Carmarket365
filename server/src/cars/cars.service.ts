@@ -208,7 +208,7 @@ export class CarsService {
     }
 
     if (filters.countryCode) {
-      query.andWhere('car.countryCode = :countryCode', { countryCode: filters.countryCode });
+      query.andWhere('(car.countryCode = :countryCode OR car.countryCode IS NULL OR car.countryCode = \'\')', { countryCode: filters.countryCode });
     }
 
     if (filters.isFeatured !== undefined) {
