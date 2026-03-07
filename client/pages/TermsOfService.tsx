@@ -15,7 +15,7 @@ export default function TermsOfService() {
 
   return (
     <div className="min-h-screen bg-muted/30">
-      <SEO title="Terms of Service" canonical="/terms-of-service" />
+      <SEO title={t('meta.pages.termsOfService')} canonical="/terms-of-service" />
       {/* Header */}
       <div className="bg-gradient-to-br from-primary/10 to-blue-600/10 py-20">
         <div className="container mx-auto px-4">

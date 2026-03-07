@@ -94,7 +94,7 @@ export default function Financing() {
 
   return (
     <div className="min-h-screen bg-muted/30">
-      <SEO title="Car Financing Calculator" canonical="/financing" />
+      <SEO title={t('meta.pages.financing')} canonical="/financing" />
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-primary/10 to-car-blue/10 py-16">
         <div className="container mx-auto px-4 text-center">

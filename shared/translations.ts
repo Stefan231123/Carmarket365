@@ -891,6 +891,33 @@ export interface TranslationStrings {
     };
   };
 
+  // SEO / Page metadata
+  meta: {
+    defaultTitle: string;
+    defaultDescription: string;
+    pages: {
+      about: string;
+      browseCars: string;
+      browseCarsDescription: string;
+      sellCar: string;
+      expressSell: string;
+      advancedSearch: string;
+      contact: string;
+      contactDescription: string;
+      faq: string;
+      safetyTips: string;
+      carReviews: string;
+      accessibility: string;
+      imprint: string;
+      cookiePolicy: string;
+      privacyPolicy: string;
+      termsOfService: string;
+      savedCars: string;
+      registeredDealers: string;
+      financing: string;
+    };
+  };
+
   // Pages & Navigation
   pages: {
     about: string;

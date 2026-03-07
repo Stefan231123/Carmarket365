@@ -15,7 +15,7 @@ export default function CarReviews() {
 
   return (
     <div className="min-h-screen bg-muted/30">
-      <SEO title="Car Reviews" canonical="/car-reviews" />
+      <SEO title={t('meta.pages.carReviews')} canonical="/car-reviews" />
       {/* Header */}
       <div className="bg-gradient-to-br from-primary/10 to-yellow-500/10 py-20">
         <div className="container mx-auto px-4">

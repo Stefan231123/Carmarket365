@@ -96,7 +96,7 @@ export default function SavedCars() {
   if (favorites.length === 0) {
     return (
       <div className="min-h-screen bg-muted/30">
-        <SEO title="Saved Cars" canonical="/saved" />
+        <SEO title={t('meta.pages.savedCars')} canonical="/saved" />
         <div className="border-b border-zinc-100 bg-white">
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center gap-4">
@@ -127,7 +127,7 @@ export default function SavedCars() {
 
   return (
     <div className="min-h-screen bg-muted/30">
-      <SEO title="Saved Cars" canonical="/saved" />
+      <SEO title={t('meta.pages.savedCars')} canonical="/saved" />
       {/* Header */}
       <div className="border-b border-zinc-100 bg-white">
         <div className="container mx-auto px-4 py-4">

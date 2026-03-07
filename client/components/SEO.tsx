@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { useTranslation } from "@/hooks/useTranslation";
 
 interface SEOProps {
   title?: string;
@@ -9,35 +10,40 @@ interface SEOProps {
   jsonLd?: Record<string, any>;
 }
 
-const DEFAULT_TITLE = "CarMarket365 - Find Your Perfect Car";
-const DEFAULT_DESCRIPTION = "CarMarket365 - The leading multilingual car marketplace. Buy and sell cars across Europe.";
 const SITE_URL = "https://www.carmarket365.com";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`;
 
 export function SEO({
   title,
-  description = DEFAULT_DESCRIPTION,
+  description,
   canonical,
   ogImage,
   ogType = "website",
   jsonLd,
 }: SEOProps) {
-  const fullTitle = title ? `${title} | CarMarket365` : DEFAULT_TITLE;
+  const { t, currentLanguage } = useTranslation();
+
+  const defaultTitle = t('meta.defaultTitle');
+  const defaultDescription = t('meta.defaultDescription');
+
+  const fullTitle = title ? `${title} | CarMarket365` : defaultTitle;
+  const finalDescription = description || defaultDescription;
   const image = ogImage || DEFAULT_OG_IMAGE;
 
   return (
     <Helmet>
+      <html lang={currentLanguage} />
       <title>{fullTitle}</title>
-      <meta name="description" content={description} />
+      <meta name="description" content={finalDescription} />
       <meta property="og:title" content={fullTitle} />
-      <meta property="og:description" content={description} />
+      <meta property="og:description" content={finalDescription} />
       <meta property="og:type" content={ogType} />
       <meta property="og:image" content={image} />
       {canonical && <link rel="canonical" href={`${SITE_URL}${canonical}`} />}
       {canonical && <meta property="og:url" content={`${SITE_URL}${canonical}`} />}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
-      <meta name="twitter:description" content={description} />
+      <meta name="twitter:description" content={finalDescription} />
       <meta name="twitter:image" content={image} />
       {jsonLd && (
         <script type="application/ld+json">

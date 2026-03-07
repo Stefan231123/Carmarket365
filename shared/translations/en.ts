@@ -1071,6 +1071,32 @@ export const enTranslations: TranslationStrings = {
     deleteListing: 'Delete Listing',
   },
 
+  meta: {
+    defaultTitle: 'CarMarket365 - Find Your Perfect Car',
+    defaultDescription: 'CarMarket365 - The leading multilingual car marketplace. Buy and sell cars across Europe.',
+    pages: {
+      about: 'About Us',
+      browseCars: 'Browse Cars',
+      browseCarsDescription: 'Browse thousands of cars for sale across Europe. Filter by make, model, price, year, and more.',
+      sellCar: 'Sell Your Car',
+      expressSell: 'Express Sell',
+      advancedSearch: 'Advanced Car Search',
+      contact: 'Contact Us',
+      contactDescription: 'Get in touch with CarMarket365. We\'re here to help with buying and selling cars across Europe.',
+      faq: 'Frequently Asked Questions',
+      safetyTips: 'Safety Tips',
+      carReviews: 'Car Reviews',
+      accessibility: 'Accessibility',
+      imprint: 'Imprint',
+      cookiePolicy: 'Cookie Policy',
+      privacyPolicy: 'Privacy Policy',
+      termsOfService: 'Terms of Service',
+      savedCars: 'Saved Cars',
+      registeredDealers: 'Registered Dealers',
+      financing: 'Car Financing Calculator',
+    },
+  },
+
   pages: {
     help: {
       title: 'Help Center',

@@ -930,7 +930,7 @@ export default function AdvancedSearch() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SEO title="Advanced Car Search" canonical="/advanced-search" />
+      <SEO title={t('meta.pages.advancedSearch')} canonical="/advanced-search" />
       <div className="container mx-auto px-4 py-16">
         {/* Header Section */}
         <div className="text-center mb-12">

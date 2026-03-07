@@ -61,7 +61,7 @@ export default function About() {
   
   return (
     <div className="min-h-screen bg-background">
-      <SEO title="About Us" canonical="/about" />
+      <SEO title={t('meta.pages.about')} canonical="/about" />
       {/* Hero Section */}
       <div className="bg-gradient-to-br from-primary/10 to-car-blue/10 py-20">
         <div className="container mx-auto px-4 text-center">

@@ -15,7 +15,7 @@ export default function Accessibility() {
 
   return (
     <div className="min-h-screen bg-muted/30">
-      <SEO title="Accessibility" canonical="/accessibility" />
+      <SEO title={t('meta.pages.accessibility')} canonical="/accessibility" />
       {/* Header */}
       <div className="bg-gradient-to-br from-primary/10 to-blue-600/10 py-20">
         <div className="container mx-auto px-4">

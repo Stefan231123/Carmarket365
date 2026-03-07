@@ -400,7 +400,7 @@ export default function SellCar() {
 
   return (
     <div className="min-h-screen bg-muted/30">
-      <SEO title="Sell Your Car" canonical="/sell" />
+      <SEO title={t('meta.pages.sellCar')} canonical="/sell" />
       {/* Header */}
       <div className="bg-white border-b border-zinc-100">
         <div className="container mx-auto px-4 py-4">

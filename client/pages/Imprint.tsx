@@ -15,7 +15,7 @@ export default function Imprint() {
 
   return (
     <div className="min-h-screen bg-muted/30">
-      <SEO title="Imprint" canonical="/imprint" />
+      <SEO title={t('meta.pages.imprint')} canonical="/imprint" />
       {/* Header */}
       <div className="bg-gradient-to-br from-primary/10 to-purple-600/10 py-20">
         <div className="container mx-auto px-4">

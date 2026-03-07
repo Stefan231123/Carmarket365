@@ -15,7 +15,7 @@ export default function PrivacyPolicy() {
 
   return (
     <div className="min-h-screen bg-muted/30">
-      <SEO title="Privacy Policy" canonical="/privacy-policy" />
+      <SEO title={t('meta.pages.privacyPolicy')} canonical="/privacy-policy" />
       {/* Header */}
       <div className="bg-gradient-to-br from-primary/10 to-blue-600/10 py-20">
         <div className="container mx-auto px-4">

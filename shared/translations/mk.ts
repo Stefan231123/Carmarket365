@@ -1068,6 +1068,32 @@ export const mkTranslations: TranslationStrings = {
     dashboard: 'Администраторска контролен панел'
   },
 
+  meta: {
+    defaultTitle: 'CarMarket365 - Пронајдете го вашиот совршен автомобил',
+    defaultDescription: 'CarMarket365 - Водечки повеќејазичен пазар за автомобили. Купувајте и продавајте автомобили низ Европа.',
+    pages: {
+      about: 'За нас',
+      browseCars: 'Пребарај автомобили',
+      browseCarsDescription: 'Пребарајте илјадници автомобили за продажба низ Европа. Филтрирајте по марка, модел, цена, година и повеќе.',
+      sellCar: 'Продај го твојот автомобил',
+      expressSell: 'Експрес продажба',
+      advancedSearch: 'Напредно пребарување',
+      contact: 'Контактирајте нè',
+      contactDescription: 'Контактирајте го CarMarket365. Тука сме да ви помогнеме со купување и продажба на автомобили низ Европа.',
+      faq: 'Најчесто поставувани прашања',
+      safetyTips: 'Совети за безбедност',
+      carReviews: 'Рецензии на автомобили',
+      accessibility: 'Пристапност',
+      imprint: 'Импресум',
+      cookiePolicy: 'Политика за колачиња',
+      privacyPolicy: 'Политика за приватност',
+      termsOfService: 'Услови за користење',
+      savedCars: 'Зачувани автомобили',
+      registeredDealers: 'Регистрирани дилери',
+      financing: 'Калкулатор за финансирање',
+    },
+  },
+
   pages: {
     helpCenter: 'Центар за помош',
     feedback: 'Повратни информации',

@@ -142,7 +142,7 @@ export default function RegisteredDealers() {
 
   return (
     <div className="min-h-screen bg-muted/30">
-      <SEO title="Registered Dealers" canonical="/registered-dealers" />
+      <SEO title={t('meta.pages.registeredDealers')} canonical="/registered-dealers" />
       {/* Header */}
       <div className="bg-white border-b border-zinc-100">
         <div className="container mx-auto px-4 py-4">

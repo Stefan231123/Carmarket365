@@ -74,8 +74,8 @@ export default function ContactUs() {
   return (
     <div className="min-h-screen bg-muted/30">
       <SEO
-        title="Contact Us"
-        description="Get in touch with CarMarket365. We're here to help with buying and selling cars across Europe."
+        title={t('meta.pages.contact')}
+        description={t('meta.pages.contactDescription')}
         canonical="/contact"
       />
       {/* Header */}

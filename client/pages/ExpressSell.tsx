@@ -521,7 +521,7 @@ export default function ExpressSell() {
 
   return (
     <div className="min-h-screen bg-muted/30">
-      <SEO title="Express Sell" canonical="/express-sell" />
+      <SEO title={t('meta.pages.expressSell')} canonical="/express-sell" />
       {/* Header */}
       <div className="border-b border-zinc-100 bg-white">
         <div className="container mx-auto px-4 py-4">

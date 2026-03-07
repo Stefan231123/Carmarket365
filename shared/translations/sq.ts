@@ -930,6 +930,32 @@ export const sqTranslations: TranslationStrings = {
     selectCountryToContinue: 'Ju lutemi zgjidhni vendin tuaj për të vazhduar. Kjo do të përcaktojë faqen tuaj lokale, gjuhën dhe monedhën.',
   },
 
+  meta: {
+    defaultTitle: 'CarMarket365 - Gjeni makinën tuaj perfekte',
+    defaultDescription: 'CarMarket365 - Tregu kryesor shumëgjuhësh i makinave. Blini dhe shisni makina në të gjithë Evropën.',
+    pages: {
+      about: 'Rreth nesh',
+      browseCars: 'Shfleto makina',
+      browseCarsDescription: 'Shfletoni mijëra makina për shitje në të gjithë Evropën. Filtroni sipas markës, modelit, çmimit, vitit dhe më shumë.',
+      sellCar: 'Shit makinën tënde',
+      expressSell: 'Shitje ekspres',
+      advancedSearch: 'Kërkim i avancuar',
+      contact: 'Na kontaktoni',
+      contactDescription: 'Kontaktoni CarMarket365. Jemi këtu për t\'ju ndihmuar me blerjen dhe shitjen e makinave në të gjithë Evropën.',
+      faq: 'Pyetjet e bëra shpesh',
+      safetyTips: 'Këshilla sigurie',
+      carReviews: 'Vlerësime të makinave',
+      accessibility: 'Aksesueshmëria',
+      imprint: 'Impresi',
+      cookiePolicy: 'Politika e cookie-ve',
+      privacyPolicy: 'Politika e privatësisë',
+      termsOfService: 'Kushtet e shërbimit',
+      savedCars: 'Makina të ruajtura',
+      registeredDealers: 'Tregtarë të regjistruar',
+      financing: 'Kalkulatori i financimit',
+    },
+  },
+
   pages: {
     about: 'Rreth nesh',
     carReviews: 'Recensionet e makinave',

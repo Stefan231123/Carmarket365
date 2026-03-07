@@ -15,7 +15,7 @@ export default function CookiePolicy() {
 
   return (
     <div className="min-h-screen bg-muted/30">
-      <SEO title="Cookie Policy" canonical="/cookie-policy" />
+      <SEO title={t('meta.pages.cookiePolicy')} canonical="/cookie-policy" />
       {/* Header */}
       <div className="bg-gradient-to-br from-primary/10 to-orange-500/10 py-20">
         <div className="container mx-auto px-4">

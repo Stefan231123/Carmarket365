@@ -152,8 +152,8 @@ export default function BrowseCars() {
   return (
     <>
     <SEO
-      title="Browse Cars"
-      description="Browse thousands of cars for sale across Europe. Filter by make, model, price, year, and more."
+      title={t('meta.pages.browseCars')}
+      description={t('meta.pages.browseCarsDescription')}
       canonical="/cars"
     />
     <section className="py-10 md:py-20 bg-muted/30">
