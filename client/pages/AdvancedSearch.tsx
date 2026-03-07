@@ -370,6 +370,7 @@ export default function AdvancedSearch() {
         'fields.fullServiceHistory': 'Целосна сервисна историја',
         'fields.nonSmokingVehicle': 'Возило за непушачи',
         'fields.advancedDriverAssistance': 'Напредни системи за помош на возачот',
+        'fields.euroEmissionClass': 'Евро емисиона класа',
 
         // Placeholders
         'placeholders.anyMake': 'Било која марка',
@@ -384,6 +385,7 @@ export default function AdvancedSearch() {
         'placeholders.cityStateOrZip': 'Внесете град или поштенски код',
         'placeholders.anyColor': 'Било која боја',
         'placeholders.anyPaintType': 'Било кој тип на боја',
+        'placeholders.anyEmissionClass': 'Било која емисиона класа',
         'placeholders.anyMaterial': 'Било кој материјал',
         
         // Labels and units
@@ -469,6 +471,7 @@ export default function AdvancedSearch() {
         'fields.fullServiceHistory': 'Histori e plotë e shërbimit',
         'fields.nonSmokingVehicle': 'Automjet për jo-duhanpirës',
         'fields.advancedDriverAssistance': 'Sistemet e avancuara të ndihmës së shoferit',
+        'fields.euroEmissionClass': 'Klasa e emisionit Euro',
 
         // Placeholders
         'placeholders.anyMake': 'Çdo markë',
@@ -483,6 +486,7 @@ export default function AdvancedSearch() {
         'placeholders.cityStateOrZip': 'Futni qytetin ose kodin postar',
         'placeholders.anyColor': 'Çdo ngjyrë',
         'placeholders.anyPaintType': 'Çdo lloj boje',
+        'placeholders.anyEmissionClass': 'Çdo klasë emisioni',
         'placeholders.anyMaterial': 'Çdo material',
         
         // Labels and units
@@ -2118,7 +2122,7 @@ export default function AdvancedSearch() {
                 </div>
 
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">Euro Emission Class</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.euroEmissionClass', 'Euro Emission Class')}</label>
                   <Select value={localFilters.euroEmissionClass} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, euroEmissionClass: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
                       <SelectValue placeholder={getAdvancedSearchText('placeholders.anyEmissionClass', 'Any Emission Class')} />
