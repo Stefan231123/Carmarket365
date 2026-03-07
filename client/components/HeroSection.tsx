@@ -1,11 +1,12 @@
 import { Button } from "./ui/button";
-import { Input } from "./ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { Card } from "./ui/card";
-import { Search, MapPin, Car, Bike, Truck } from "lucide-react";
+import { Search, Car, Bike, Truck } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
 import { CAR_MAKES, CAR_MODELS_BY_MAKE } from "@shared/car-data";
+import { useCountry } from "@/contexts/CountryContext";
+import { getLocationsForCountry } from "@shared/locations";
 
 export interface SearchFormData {
   vehicleType: 'cars' | 'motorbikes' | 'trucks';
@@ -25,6 +26,8 @@ interface HeroSectionProps {
 
 export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSectionProps) {
   const { t } = useTranslation();
+  const { country } = useCountry();
+  const municipalities = getLocationsForCountry(country?.code || 'mk');
   
   const [searchForm, setSearchForm] = useState<SearchFormData>({
     vehicleType: 'cars',
@@ -203,15 +206,17 @@ export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSe
 
             <div>
               <label className="block text-sm mb-2 text-muted-foreground">{t('hero.searchForm.location')}</label>
-              <div className="relative">
-                <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input 
-                  value={searchForm.location}
-                  onChange={(e) => handleFormChange('location', e.target.value)}
-                  placeholder={t('hero.searchForm.enterLocation')} 
-                  className="pl-10 h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0" 
-                />
-              </div>
+              <Select value={searchForm.location} onValueChange={(value) => handleFormChange('location', value)}>
+                <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
+                  <SelectValue placeholder={t('hero.searchForm.enterLocation')} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="any-location">{t('hero.searchForm.anyLocation') || 'Која било локација'}</SelectItem>
+                  {municipalities.map(m => (
+                    <SelectItem key={m.value} value={m.value}>{m.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
           </div>
 
