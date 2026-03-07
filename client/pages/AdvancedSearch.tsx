@@ -182,11 +182,11 @@ const insuranceCategories = Array.from({ length: 25 }, (_, i) => (i + 1).toStrin
 
 // Advanced Safety Features
 const safetyRatings = ['1 Star', '2 Stars', '3 Stars', '4 Stars', '5 Stars', 'Not Rated'];
-const advancedSafetyFeatures = [
-  'Adaptive Cruise Control', 'Lane Departure Warning', 'Lane Keep Assist', 
-  'Emergency Braking Assistant', 'Blind Spot Monitor', 'Traffic Sign Recognition',
-  'Driver Attention Alert', 'Cross Traffic Alert', 'Automatic High Beams',
-  'Collision Mitigation', 'Pedestrian Detection', 'Cyclist Detection'
+const fallbackAdvancedSafetyFeatures = [
+  'Адаптивен круз контрол', 'Предупредување за напуштање на лента', 'Помош за задржување во лента',
+  'Асистент за итно сопирање', 'Монитор за слепа точка', 'Препознавање на сообраќајни знаци',
+  'Предупредување за внимание на возачот', 'Предупредување за вкрстен сообраќај', 'Автоматски долги светла',
+  'Ублажување на судир', 'Откривање пешаци', 'Откривање велосипедисти'
 ];
 const emergencyCallOptions = ['eCall Available', 'Private Emergency Service', 'Not Available'];
 
@@ -367,6 +367,7 @@ export default function AdvancedSearch() {
         'fields.guarantee': 'Гаранција',
         'fields.fullServiceHistory': 'Целосна сервисна историја',
         'fields.nonSmokingVehicle': 'Возило за непушачи',
+        'fields.advancedDriverAssistance': 'Напредни системи за помош на возачот',
 
         // Placeholders
         'placeholders.anyMake': 'Било која марка',
@@ -465,6 +466,7 @@ export default function AdvancedSearch() {
         'fields.guarantee': 'Garancia',
         'fields.fullServiceHistory': 'Histori e plotë e shërbimit',
         'fields.nonSmokingVehicle': 'Automjet për jo-duhanpirës',
+        'fields.advancedDriverAssistance': 'Sistemet e avancuara të ndihmës së shoferit',
 
         // Placeholders
         'placeholders.anyMake': 'Çdo markë',
@@ -508,7 +510,7 @@ export default function AdvancedSearch() {
   };
 
   // Simple array translation function
-  const getTranslatedArray = (arrayType: 'bodyTypes' | 'fuelTypes' | 'transmissions' | 'additionalProperties' | 'optionalEquipment' | 'sellerTypes' | 'conditions' | 'colors' | 'interiorColors' | 'paintworkTypes' | 'upholsteryTypes' | 'guaranteeOptions' | 'previousOwnersOptions' | 'turboOptions' | 'enginePositions' | 'serviceBookOptions' | 'yesNoUnknownOptions' | 'roadworthinessOptions' | 'environmentalBadges' | 'electricRangeOptions', fallbackArray: string[]): string[] => {
+  const getTranslatedArray = (arrayType: 'bodyTypes' | 'fuelTypes' | 'transmissions' | 'additionalProperties' | 'optionalEquipment' | 'sellerTypes' | 'conditions' | 'colors' | 'interiorColors' | 'paintworkTypes' | 'upholsteryTypes' | 'guaranteeOptions' | 'previousOwnersOptions' | 'turboOptions' | 'enginePositions' | 'serviceBookOptions' | 'yesNoUnknownOptions' | 'roadworthinessOptions' | 'environmentalBadges' | 'electricRangeOptions' | 'advancedSafetyFeatures', fallbackArray: string[]): string[] => {
     const effectiveLanguage = new URLSearchParams(window.location.search).get('lang') || currentLanguage;
     
     // For Macedonian, return hardcoded Macedonian arrays
@@ -566,6 +568,14 @@ export default function AdvancedSearch() {
       if (arrayType === 'yesNoUnknownOptions') {
         return ['Po', 'Jo', 'E panjohur'];
       }
+      if (arrayType === 'advancedSafetyFeatures') {
+        return [
+          'Kontroll kroçjeje adaptiv', 'Paralajmërim largimi korsi', 'Ndihmë mbajtje korsi',
+          'Asistent frenimi emergjent', 'Monitor pika të verbër', 'Njohja e shenjave',
+          'Paralajmërim vëmendjes së shoferit', 'Paralajmërim trafiku kryqëzues', 'Drita të gjata automatike',
+          'Zbutje e përplasjes', 'Zbulimi i këmbësorëve', 'Zbulimi i çiklistëve'
+        ];
+      }
     }
     
     // For other languages or untranslated arrays, use English
@@ -600,6 +610,7 @@ export default function AdvancedSearch() {
   const fuelTypes = getTranslatedArray('fuelTypes', fallbackFuelTypes);
   const gearTypes = getTranslatedArray('transmissions', fallbackGearTypes);
   const optionalEquipment = getTranslatedArray('optionalEquipment', fallbackOptionalEquipment);
+  const advancedSafetyFeatures = getTranslatedArray('advancedSafetyFeatures', fallbackAdvancedSafetyFeatures);
   
   // Get translated options arrays
   const sellerTypes = getTranslatedArray('sellerTypes', fallbackSellerTypes);
@@ -1943,7 +1954,7 @@ export default function AdvancedSearch() {
                 </div>
 
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">Advanced Driver Assistance Systems</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.advancedDriverAssistance', 'Advanced Driver Assistance Systems')}</label>
                   <CheckboxGroup
                     options={advancedSafetyFeatures}
                     selectedValues={localFilters.advancedDriverAssistance}
