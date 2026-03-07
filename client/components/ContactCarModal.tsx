@@ -84,7 +84,12 @@ export function ContactCarModal({ car, isOpen, onClose }: ContactCarModalProps) 
     setIsSubmitting(true);
     setSubmitError(null);
     try {
-      const captchaToken = executeRecaptcha ? await executeRecaptcha('inquiry') : undefined;
+      let captchaToken: string | undefined;
+      try {
+        captchaToken = executeRecaptcha ? await executeRecaptcha('inquiry') : undefined;
+      } catch {
+        // reCAPTCHA unavailable — server will accept if RECAPTCHA_SECRET_KEY not set
+      }
       await apiClient.createCarInquiry({
         carId: car.id,
         inquiryType: 'GENERAL',
@@ -100,9 +105,16 @@ export function ContactCarModal({ car, isOpen, onClose }: ContactCarModalProps) 
         form.reset();
         onClose();
       }, 2000);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to send message:", error);
-      setSubmitError(t('forms.errors.sendFailed') || 'Failed to send message. Please try again.');
+      const msg = error?.message || '';
+      if (msg.toLowerCase().includes('captcha')) {
+        setSubmitError('CAPTCHA verification failed. Please refresh the page and try again.');
+      } else if (msg) {
+        setSubmitError(msg);
+      } else {
+        setSubmitError(t('forms.errors.sendFailed') || 'Failed to send message. Please try again.');
+      }
     } finally {
       setIsSubmitting(false);
     }
