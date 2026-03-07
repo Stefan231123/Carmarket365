@@ -8,8 +8,6 @@ import {
   PaginationInput,
   SearchResult
 } from '../lib/graphql/operations';
-import { useCountry } from '@/contexts/CountryContext';
-
 // Debounce hook for search input
 export function useDebounce<T>(value: T, delay: number): T {
   const [debouncedValue, setDebouncedValue] = useState<T>(value);
@@ -104,7 +102,6 @@ function mapFiltersToBackend(filters: AdvancedSearchFiltersInput): Record<string
 
 // Advanced search hook connected to real GraphQL backend
 export function useAdvancedSearch() {
-  const { country } = useCountry();
   const [filters, setFilters] = useState<AdvancedSearchFiltersInput>({});
   const [sortOptions, setSortOptions] = useState<SortOptionsInput>({
     field: 'createdAt',
@@ -121,11 +118,6 @@ export function useAdvancedSearch() {
 
   // Build the backend-compatible filters
   const backendFilters = mapFiltersToBackend(debouncedFilters);
-
-  // Add country context
-  if (country && country.code !== 'global') {
-    backendFilters.location = backendFilters.location || country.name;
-  }
 
   const { data, loading, error, refetch } = useQuery<{ getCars: Car[] }>(GET_CARS, {
     variables: { filters: backendFilters },
