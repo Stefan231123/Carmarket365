@@ -106,9 +106,11 @@ export class CarsService {
     return this.carRepository
       .createQueryBuilder('car')
       .leftJoinAndSelect('car.seller', 'seller')
+      .leftJoinAndSelect('car.images', 'images')
       .where('car.quickSale = :quickSale', { quickSale: true })
       .andWhere('car.isAvailable = :isAvailable', { isAvailable: true })
       .orderBy('car.createdAt', 'DESC')
+      .addOrderBy('images.sortOrder', 'ASC')
       .getMany();
   }
 

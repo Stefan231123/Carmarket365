@@ -614,7 +614,7 @@ export default function DealerDashboard() {
                   <LoadingSpinner />
                 </div>
               ) : expressListings.length > 0 ? expressListings.map((listing) => (
-                <div key={listing.id} className="bg-card rounded-xl border border-border shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden">
+                <div key={listing.id} className="bg-card rounded-xl border border-border shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden cursor-pointer" onClick={() => navigate(`/cars/${listing.id}`)}>
                   {/* Image */}
                   <div className="relative">
                     <ImageWithFallback
@@ -688,10 +688,10 @@ export default function DealerDashboard() {
 
                     {/* Actions */}
                     <div className="flex gap-2 pt-2">
-                      <Button className="flex-1" size="sm">
+                      <Button className="flex-1" size="sm" onClick={(e) => { e.stopPropagation(); navigate(`/cars/${listing.id}`); }}>
                         {listing.status === 'ACTIVE' ? t('dealerDashboard.expressListings.actions.contact') : t('dealerDashboard.expressListings.actions.viewContact')}
                       </Button>
-                      <Button variant="outline" size="sm">
+                      <Button variant="outline" size="sm" onClick={(e) => e.stopPropagation()}>
                         <Heart className="h-4 w-4" />
                       </Button>
                     </div>
