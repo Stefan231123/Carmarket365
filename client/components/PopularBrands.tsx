@@ -8,7 +8,7 @@ export function PopularBrands() {
   const navigate = useNavigate();
 
   const handleBrandClick = (brandName: string) => {
-    navigate(`/browse-cars?make=${encodeURIComponent(brandName)}`);
+    navigate(`/cars?make=${encodeURIComponent(brandName)}`);
   };
 
   return (
