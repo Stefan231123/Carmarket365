@@ -770,73 +770,64 @@ export default function CarDetail() {
       {/* Fullscreen Image Modal */}
       {carData.images.length > 0 && (
         <Dialog open={isFullscreenModalOpen} onOpenChange={setIsFullscreenModalOpen}>
-          <DialogContent className="max-w-[100vw] max-h-[100vh] w-full h-full p-0 bg-black/95" aria-describedby={undefined}>
+          <DialogContent className="max-w-[100vw] max-h-[100dvh] w-screen h-[100dvh] p-0 border-0 bg-black/95 rounded-none [&>button:last-child]:hidden" aria-describedby={undefined}>
             <DialogTitle className="sr-only">{t('carDetail.imageGallery')}</DialogTitle>
-            <div className="relative w-full h-full flex items-center justify-center">
+            <div className="relative w-full h-full flex flex-col">
               {/* Close Button */}
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute top-4 right-4 z-10 text-white hover:bg-white/20 rounded-full"
+                className="absolute top-4 right-4 z-10 text-white hover:bg-white/20 rounded-full h-10 w-10"
                 onClick={() => setIsFullscreenModalOpen(false)}
               >
                 <X className="h-6 w-6" />
               </Button>
 
-              {/* Image Navigation Buttons */}
-              {carData.images.length > 1 && (
-                <>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute left-4 z-10 text-white hover:bg-white/20 rounded-full"
-                    onClick={() => {
-                      const newIndex = fullscreenImageIndex === 0
-                        ? carData.images.length - 1
-                        : fullscreenImageIndex - 1;
-                      setFullscreenImageIndex(newIndex);
-                    }}
-                  >
-                    <ChevronLeft className="h-6 w-6" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute right-4 z-10 text-white hover:bg-white/20 rounded-full"
-                    onClick={() => {
-                      const newIndex = fullscreenImageIndex === carData.images.length - 1
-                        ? 0
-                        : fullscreenImageIndex + 1;
-                      setFullscreenImageIndex(newIndex);
-                    }}
-                  >
-                    <ChevronRight className="h-6 w-6" />
-                  </Button>
-                </>
-              )}
+              {/* Main Image Area */}
+              <div className="flex-1 relative flex items-center justify-center min-h-0">
+                {/* Image Navigation Buttons */}
+                {carData.images.length > 1 && (
+                  <>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="absolute left-2 sm:left-4 z-10 text-white hover:bg-white/20 rounded-full h-10 w-10"
+                      onClick={() => {
+                        const newIndex = fullscreenImageIndex === 0
+                          ? carData.images.length - 1
+                          : fullscreenImageIndex - 1;
+                        setFullscreenImageIndex(newIndex);
+                      }}
+                    >
+                      <ChevronLeft className="h-6 w-6" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="absolute right-2 sm:right-4 z-10 text-white hover:bg-white/20 rounded-full h-10 w-10"
+                      onClick={() => {
+                        const newIndex = fullscreenImageIndex === carData.images.length - 1
+                          ? 0
+                          : fullscreenImageIndex + 1;
+                        setFullscreenImageIndex(newIndex);
+                      }}
+                    >
+                      <ChevronRight className="h-6 w-6" />
+                    </Button>
+                  </>
+                )}
 
-              {/* Main Image */}
-              <div className="w-full h-full flex items-center justify-center p-8">
-                <ImageWithFallback
+                <img
                   src={carData.images[fullscreenImageIndex]}
                   alt={`${carData.year} ${carData.make} ${carData.model} - Image ${fullscreenImageIndex + 1}`}
-                  className="max-w-full max-h-full object-contain"
+                  className="max-w-full max-h-full object-contain px-12 py-4"
                 />
               </div>
 
-              {/* Image Counter */}
+              {/* Bottom Bar: Counter + Thumbnails */}
               {carData.images.length > 1 && (
-                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10">
-                  <div className="bg-black/50 text-white px-3 py-1 rounded-full text-sm">
-                    {fullscreenImageIndex + 1} {t('carDetail.imageCounter')} {carData.images.length}
-                  </div>
-                </div>
-              )}
-
-              {/* Thumbnail Strip */}
-              {carData.images.length > 1 && (
-                <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 z-10">
-                  <div className="flex gap-2 max-w-sm overflow-x-auto px-2">
+                <div className="flex-shrink-0 flex flex-col items-center gap-2 pb-4 pt-2">
+                  <div className="flex gap-2 max-w-[90vw] overflow-x-auto px-4">
                     {carData.images.map((image: string, index: number) => (
                       <button
                         key={index}
@@ -845,9 +836,12 @@ export default function CarDetail() {
                           fullscreenImageIndex === index ? 'border-white' : 'border-white/30 hover:border-white/60'
                         }`}
                       >
-                        <ImageWithFallback src={image} alt="" className="w-full h-full object-cover" />
+                        <img src={image} alt="" className="w-full h-full object-cover" />
                       </button>
                     ))}
+                  </div>
+                  <div className="bg-black/50 text-white px-3 py-1 rounded-full text-sm">
+                    {fullscreenImageIndex + 1} {t('carDetail.imageCounter')} {carData.images.length}
                   </div>
                 </div>
               )}
