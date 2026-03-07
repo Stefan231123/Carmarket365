@@ -2677,15 +2677,30 @@ export const sqTranslations: TranslationStrings = {
   dealerDashboard: {
     title: 'Paneli i Shitësit',
     subtitle: 'Menaxhoni shpaljet tuaja të automjeteve, ndiqni performancën dhe zhvilloni biznesin',
-    
+    breadcrumb: 'Paneli i dilerit',
+
     // Navigimi i skedave
     tabs: {
       overview: 'Përmbledhje',
       myListings: 'Shpaljet e Mia',
       inquiries: 'Pyetjet',
       analytics: 'Analitika',
+      expressListings: 'Shitje ekspres',
     },
-    
+
+    // Gjendje gabimi
+    error: {
+      title: 'Gabim në panel',
+      description: 'Kemi problem me ngarkimin e të dhënave. Provoni të rifreskoni faqen.',
+      refresh: 'Rifresko faqen',
+    },
+
+    // Gjendje ngarkimi
+    loading: {
+      listings: 'Duke ngarkuar shpalljet...',
+      express: 'Duke ngarkuar shitjet ekspres...',
+    },
+
     // Skeda e përmbledhjes
     overview: {
       // Kartat e statistikave
@@ -2716,6 +2731,7 @@ export const sqTranslations: TranslationStrings = {
       performance: {
         title: 'Performanca Mujore',
         description: 'Automjetet e shitura në muaj këtë vit',
+        conversionRate: 'Shkalla e konvertimit',
         monthlyData: {
           january: 'Janar',
           december: 'Dhjetor',
@@ -2728,6 +2744,8 @@ export const sqTranslations: TranslationStrings = {
       recentInquiries: {
         title: 'Pyetjet e Fundit',
         description: 'Pyetjet më të reja të klientëve',
+        anonymous: 'Anonim',
+        noRecentInquiries: 'Nuk ka pyetje të fundit',
         inquiryTypes: {
           viewing: 'shikimi',
           price: 'çmimi',
@@ -2770,6 +2788,8 @@ export const sqTranslations: TranslationStrings = {
         inquiries: 'Pyetjet',
         listed: 'E Shpallur',
         actions: 'Veprimet',
+        lastUpdated: 'Përditësuar së fundi',
+        makeModel: 'Marka/Modeli',
       },
       
       // Etiketat e gjendjes
@@ -2777,6 +2797,7 @@ export const sqTranslations: TranslationStrings = {
         active: 'Aktive',
         sold: 'E Shitur',
         pending: 'Në Pritje',
+        draft: 'Draft',
       },
       
       // Veprimet
@@ -2785,18 +2806,25 @@ export const sqTranslations: TranslationStrings = {
         editListing: 'Ndrysho Shpalljen',
         deleteListing: 'Fshi Shpalljen',
       },
-      
+
+      // Mobile card labels
+      listed: 'E shpallur',
+      updated: 'Përditësuar',
+
       // Pamja mobile
       mobileView: {
         views: 'shikimet',
         inquiries: 'pyetjet',
       },
     },
-    
+
     // Skeda Pyetjeve
     inquiries: {
       title: 'Pyetjet e Klientëve',
       description: 'Menaxhoni dhe përgjigjuni pyetjeve të klientëve',
+      anonymous: 'Anonim',
+      noEmail: 'Nuk ka email',
+      noInquiriesYet: 'Ende nuk ka pyetje',
       
       // Llojet e pyetjeve
       inquiryTypes: {
@@ -2830,6 +2858,7 @@ export const sqTranslations: TranslationStrings = {
         description: 'Shpaljet më të shikuara këtë muaj',
         views: 'shikimet',
         inquiries: 'pyetjet',
+        noData: 'Nuk ka të dhëna për shpalljet',
       },
       
       // Metrikat e performancës
@@ -2849,9 +2878,49 @@ export const sqTranslations: TranslationStrings = {
       },
     },
     
+    // Shitje ekspres
+    expressListings: {
+      title: 'Shitje Ekspres',
+      description: 'Shitës privatë që kërkojnë shitje të shpejtë në zonën tuaj',
+      newListings: 'të reja',
+      searchPlaceholder: 'Kërko shitje ekspres...',
+      filterByStatus: 'Gjendja',
+      expressBadge: 'Ekspres',
+      sellerContact: 'Kontakti i shitësit',
+      submittedOn: 'Dërguar më',
+      privateSeller: 'Shitës Privat',
+      anonymousSeller: 'Shitës Anonim',
+      dealersInterested: 'diler(ë) të interesuar',
+      statusOptions: {
+        allStatus: 'Të Gjitha Gjendjet',
+        new: 'E Re',
+        contacted: 'E Kontaktuar',
+        sold: 'E Shitur',
+        expired: 'E Skaduar',
+      },
+      statusBadges: {
+        new: 'E Re',
+        sold: 'E Shitur',
+        expired: 'E Skaduar',
+      },
+      actions: {
+        contact: 'Kontakto Shitësin',
+        viewContact: 'Shiko Kontaktin',
+      },
+      emptyState: {
+        title: 'Nuk ka shitje ekspres',
+        description: 'Shitësit privatë ende nuk kanë dërguar kërkesa për shitje ekspres.',
+      },
+      info: {
+        title: 'Rreth shitjeve ekspres',
+        description: 'Këto janë shpallje nga shitës privatë që duan të shesin makinat shpejt. Mund t\'i kontaktoni drejtpërdrejt për të bërë oferta.',
+      },
+    },
+
     // Mesazhi i fundit
     footerMessage: 'Mjetet profesionale të shitësit - ',
     activeListingsCount: 'shpallje aktive',
+    drivingYourSuccess: 'e shtyjnë suksesin tuaj',
   },
 
   // Paneli i Administratorit

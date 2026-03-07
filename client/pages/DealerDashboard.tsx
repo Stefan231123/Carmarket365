@@ -82,7 +82,7 @@ export default function DealerDashboard() {
     console.error('Dashboard error:', hasError);
     return (
       <>
-        <AdminBreadcrumb currentPage="Dealer Dashboard" />
+        <AdminBreadcrumb currentPage={t('dealerDashboard.breadcrumb')} />
         <section className="py-20 bg-muted/30">
           <div className="container mx-auto px-4">
             <div className="text-center">
@@ -91,12 +91,12 @@ export default function DealerDashboard() {
               </h1>
               <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
                 <div className="text-red-500 text-center">
-                  <h3 className="text-lg font-semibold mb-2">Dashboard Error</h3>
+                  <h3 className="text-lg font-semibold mb-2">{t('dealerDashboard.error.title')}</h3>
                   <p className="text-sm text-muted-foreground mb-4">
-                    We're having trouble loading your dashboard data. Please try refreshing the page.
+                    {t('dealerDashboard.error.description')}
                   </p>
                   <Button onClick={() => window.location.reload()} className="w-full">
-                    Refresh Page
+                    {t('dealerDashboard.error.refresh')}
                   </Button>
                 </div>
               </div>
@@ -124,7 +124,7 @@ export default function DealerDashboard() {
       case 'PENDING_APPROVAL':
         return <Badge variant="outline" className="rounded-full">{t('dealerDashboard.myListings.statusBadges.pending')}</Badge>;
       case 'DRAFT':
-        return <Badge variant="outline" className="rounded-full">Draft</Badge>;
+        return <Badge variant="outline" className="rounded-full">{t('dealerDashboard.myListings.statusBadges.draft')}</Badge>;
       default:
         return <Badge variant="outline" className="rounded-full">{status}</Badge>;
     }
@@ -155,7 +155,7 @@ export default function DealerDashboard() {
 
   return (
     <>
-      <AdminBreadcrumb currentPage="Dealer Dashboard" />
+      <AdminBreadcrumb currentPage={t('dealerDashboard.breadcrumb')} />
       <section className="py-10 md:py-20 bg-muted/30">
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
@@ -290,7 +290,7 @@ export default function DealerDashboard() {
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm">Conversion Rate</span>
+                      <span className="text-sm">{t('dealerDashboard.overview.performance.conversionRate')}</span>
                       <div className="flex items-center gap-2">
                         <Progress value={performance?.conversionRate || 0} className="w-20" />
                         <span className="text-sm font-medium">{performance?.conversionRate?.toFixed(1) || 0}%</span>
@@ -313,7 +313,7 @@ export default function DealerDashboard() {
                     {recentInquiries.length > 0 ? recentInquiries.map((inquiry) => (
                       <div key={inquiry.id} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
                         <div>
-                          <p className="font-medium">{inquiry.customerName || inquiry.customer?.name || 'Anonymous'}</p>
+                          <p className="font-medium">{inquiry.customerName || inquiry.customer?.name || t('dealerDashboard.overview.recentInquiries.anonymous')}</p>
                           <p className="text-sm text-muted-foreground">{inquiry.car?.carMake?.name} {inquiry.car?.carModel?.name}</p>
                         </div>
                         <div className="text-right">
@@ -325,7 +325,7 @@ export default function DealerDashboard() {
                       </div>
                     )) : (
                       <div className="text-center py-4 text-muted-foreground">
-                        <p>No recent inquiries</p>
+                        <p>{t('dealerDashboard.overview.recentInquiries.noRecentInquiries')}</p>
                       </div>
                     )}
                   </div>
@@ -351,7 +351,7 @@ export default function DealerDashboard() {
             {listingsLoading && (
               <div className="text-center py-8">
                 <LoadingSpinner />
-                <p className="text-muted-foreground mt-2">Loading your listings...</p>
+                <p className="text-muted-foreground mt-2">{t('dealerDashboard.loading.listings')}</p>
               </div>
             )}
             {/* Filters and Search - Only show when not loading */}
@@ -432,8 +432,8 @@ export default function DealerDashboard() {
                           </div>
                         </div>
                         <div className="flex justify-between mt-2 text-xs text-muted-foreground">
-                          <span>Listed: {new Date(listing.createdAt).toLocaleDateString()}</span>
-                          <span>Updated: {new Date(listing.updatedAt).toLocaleDateString()}</span>
+                          <span>{t('dealerDashboard.myListings.listed')}: {new Date(listing.createdAt).toLocaleDateString()}</span>
+                          <span>{t('dealerDashboard.myListings.updated')}: {new Date(listing.updatedAt).toLocaleDateString()}</span>
                         </div>
                       </div>
                     </div>
@@ -450,9 +450,9 @@ export default function DealerDashboard() {
                     <TableHead>{t('dealerDashboard.myListings.tableHeaders.car')}</TableHead>
                     <TableHead>{t('dealerDashboard.myListings.tableHeaders.price')}</TableHead>
                     <TableHead>{t('dealerDashboard.myListings.tableHeaders.status')}</TableHead>
-                    <TableHead>Make/Model</TableHead>
+                    <TableHead>{t('dealerDashboard.myListings.tableHeaders.makeModel')}</TableHead>
                     <TableHead>{t('dealerDashboard.myListings.tableHeaders.listed')}</TableHead>
-                    <TableHead>Last Updated</TableHead>
+                    <TableHead>{t('dealerDashboard.myListings.tableHeaders.lastUpdated')}</TableHead>
                     <TableHead>{t('dealerDashboard.myListings.tableHeaders.actions')}</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -529,8 +529,8 @@ export default function DealerDashboard() {
                       <div className="flex-1 min-w-0">
                         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
                           <div className="min-w-0">
-                            <p className="font-medium truncate">{inquiry.customerName || inquiry.customer?.name || 'Anonymous'}</p>
-                            <p className="text-sm text-muted-foreground truncate">{inquiry.customerEmail || inquiry.customer?.email || 'No email'}</p>
+                            <p className="font-medium truncate">{inquiry.customerName || inquiry.customer?.name || t('dealerDashboard.inquiries.anonymous')}</p>
+                            <p className="text-sm text-muted-foreground truncate">{inquiry.customerEmail || inquiry.customer?.email || t('dealerDashboard.inquiries.noEmail')}</p>
                           </div>
                           <div className="min-w-0">
                             <p className="text-sm">{inquiry.car?.carMake?.name} {inquiry.car?.carModel?.name}</p>
@@ -550,7 +550,7 @@ export default function DealerDashboard() {
                     </div>
                   )) : (
                     <div className="text-center py-8 text-muted-foreground">
-                      <p>No inquiries yet</p>
+                      <p>{t('dealerDashboard.inquiries.noInquiriesYet')}</p>
                     </div>
                   )}
                 </div>
@@ -565,7 +565,7 @@ export default function DealerDashboard() {
             {expressLoading && (
               <div className="text-center py-8">
                 <LoadingSpinner />
-                <p className="text-muted-foreground mt-2">Loading express sale opportunities...</p>
+                <p className="text-muted-foreground mt-2">{t('dealerDashboard.loading.express')}</p>
               </div>
             )}
             {/* Header - Only show when not loading */}
@@ -655,7 +655,7 @@ export default function DealerDashboard() {
                       <h3 className="font-semibold text-lg text-foreground leading-tight">
                         {listing.vehicleDescription}
                       </h3>
-                      <p className="text-sm text-muted-foreground">{listing.seller?.name || 'Private Seller'}</p>
+                      <p className="text-sm text-muted-foreground">{listing.seller?.name || t('dealerDashboard.expressListings.privateSeller')}</p>
                     </div>
 
                     {/* Details - Show full description */}
@@ -672,7 +672,7 @@ export default function DealerDashboard() {
                     {/* Seller Contact Info */}
                     <div className="bg-muted/30 rounded-lg p-3 space-y-1">
                       <p className="text-xs text-muted-foreground">{t('dealerDashboard.expressListings.sellerContact')}</p>
-                      <p className="text-sm font-medium">{listing.seller?.name || 'Anonymous Seller'}</p>
+                      <p className="text-sm font-medium">{listing.seller?.name || t('dealerDashboard.expressListings.anonymousSeller')}</p>
                       <p className="text-sm">{listing.seller?.email}</p>
                       <p className="text-xs text-muted-foreground">
                         {t('dealerDashboard.expressListings.submittedOn')} {new Date(listing.createdAt).toLocaleDateString()}
@@ -682,7 +682,7 @@ export default function DealerDashboard() {
                     {/* Interest indicator */}
                     {listing.interestedDealers && listing.interestedDealers.length > 0 && (
                       <div className="text-xs text-muted-foreground">
-                        {listing.interestedDealers.length} dealer(s) interested
+                        {listing.interestedDealers.length} {t('dealerDashboard.expressListings.dealersInterested')}
                       </div>
                     )}
 
@@ -747,7 +747,7 @@ export default function DealerDashboard() {
                       </div>
                     )) : (
                       <div className="text-center py-4 text-muted-foreground">
-                        <p>No listings data available</p>
+                        <p>{t('dealerDashboard.analytics.popularListings.noData')}</p>
                       </div>
                     )}
                   </div>
@@ -786,7 +786,7 @@ export default function DealerDashboard() {
         </Card>
 
         <p className="text-center text-muted-foreground mt-8">
-          {t('dealerDashboard.footerMessage')}<span className="font-semibold">{stats?.activeListings || 0} {t('dealerDashboard.activeListingsCount')}</span> driving your success
+          {t('dealerDashboard.footerMessage')}<span className="font-semibold">{stats?.activeListings || 0} {t('dealerDashboard.activeListingsCount')}</span> {t('dealerDashboard.drivingYourSuccess')}
         </p>
       </div>
     </section>

@@ -2733,8 +2733,25 @@ export interface TranslationStrings {
     tabs: {
       overview: string;
       myListings: string;
+      expressListings: string;
       inquiries: string;
       analytics: string;
+    };
+
+    // Breadcrumb
+    breadcrumb: string;
+
+    // Error state
+    error: {
+      title: string;
+      description: string;
+      refresh: string;
+    };
+
+    // Loading states
+    loading: {
+      listings: string;
+      express: string;
     };
     
     // Overview tab
@@ -2767,6 +2784,7 @@ export interface TranslationStrings {
       performance: {
         title: string;
         description: string;
+        conversionRate: string;
         monthlyData: {
           january: string;
           december: string;
@@ -2774,11 +2792,13 @@ export interface TranslationStrings {
           sold: string;
         };
       };
-      
+
       // Recent inquiries
       recentInquiries: {
         title: string;
         description: string;
+        anonymous: string;
+        noRecentInquiries: string;
         inquiryTypes: {
           viewing: string;
           price: string;
@@ -2820,15 +2840,22 @@ export interface TranslationStrings {
         views: string;
         inquiries: string;
         listed: string;
+        lastUpdated: string;
+        makeModel: string;
         actions: string;
       };
-      
+
       // Status badges
       statusBadges: {
         active: string;
         sold: string;
         pending: string;
+        draft: string;
       };
+
+      // Mobile card labels
+      listed: string;
+      updated: string;
       
       // Actions
       actions: {
@@ -2849,30 +2876,73 @@ export interface TranslationStrings {
       title: string;
       description: string;
       
+      anonymous: string;
+      noEmail: string;
+      noInquiriesYet: string;
+
       // Inquiry types
       inquiryTypes: {
         testDriveRequest: string;
         priceInquiry: string;
       };
-      
+
       // Status
       status: {
         new: string;
         responded: string;
       };
-      
+
       // Actions
       actions: {
         respond: string;
       };
-      
+
       // Time indicators
       time: {
         hoursAgo: string;
         dayAgo: string;
       };
     };
-    
+
+    // Express Sale Listings tab
+    expressListings: {
+      title: string;
+      description: string;
+      newListings: string;
+      searchPlaceholder: string;
+      filterByStatus: string;
+      expressBadge: string;
+      sellerContact: string;
+      submittedOn: string;
+      privateSeller: string;
+      anonymousSeller: string;
+      dealersInterested: string;
+      statusOptions: {
+        allStatus: string;
+        new: string;
+        contacted: string;
+        sold: string;
+        expired: string;
+      };
+      statusBadges: {
+        new: string;
+        sold: string;
+        expired: string;
+      };
+      actions: {
+        contact: string;
+        viewContact: string;
+      };
+      emptyState: {
+        title: string;
+        description: string;
+      };
+      info: {
+        title: string;
+        description: string;
+      };
+    };
+
     // Analytics tab
     analytics: {
       // Popular listings
@@ -2881,6 +2951,7 @@ export interface TranslationStrings {
         description: string;
         views: string;
         inquiries: string;
+        noData: string;
       };
       
       // Performance metrics
@@ -2903,6 +2974,7 @@ export interface TranslationStrings {
     // Footer message
     footerMessage: string;
     activeListingsCount: string;
+    drivingYourSuccess: string;
   };
 
   // Admin Dashboard

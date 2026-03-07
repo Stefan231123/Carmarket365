@@ -1975,17 +1975,62 @@ export const enTranslations: TranslationStrings = {
   dealerDashboard: {
     title: 'Dealer Dashboard',
     subtitle: 'Manage your listings, track performance and grow your business',
-    
+    breadcrumb: 'Dealer Dashboard',
+    drivingYourSuccess: 'driving your success',
+
     // Tab navigation
-    
+    tabs: {
+      overview: 'Overview',
+      myListings: 'My Listings',
+      inquiries: 'Inquiries',
+      analytics: 'Analytics',
+      expressListings: 'Express Listings',
+    },
+
+    // Error states
+    error: {
+      title: 'Dashboard Error',
+      description: 'We\'re having trouble loading your dashboard data. Please try refreshing the page.',
+      refresh: 'Refresh Page',
+    },
+
+    // Loading states
+    loading: {
+      listings: 'Loading your listings...',
+      express: 'Loading express sale opportunities...',
+    },
+
     // Overview tab
     overview: {
       // Stats cards
-      
+      stats: {
+        activeListings: {
+          title: 'Active Listings',
+          description: 'Currently online',
+          fromLastMonth: '+12% from last month',
+        },
+        totalViews: {
+          title: 'Total Views',
+          description: 'This month',
+          fromLastMonth: '+18% from last month',
+        },
+        inquiries: {
+          title: 'Inquiries',
+          description: 'New today',
+          fromYesterday: '+3 from yesterday',
+        },
+        revenue: {
+          title: 'Revenue',
+          description: 'This month',
+          fromLastMonth: '+8% from last month',
+        },
+      },
+
       // Performance section
       performance: {
         title: 'Monthly Performance',
         description: 'Number of cars sold by month this year',
+        conversionRate: 'Conversion Rate',
         monthlyData: {
           january: 'January',
           december: 'December',
@@ -1998,6 +2043,8 @@ export const enTranslations: TranslationStrings = {
       recentInquiries: {
         title: 'Recent Inquiries',
         description: 'Latest client requests',
+        anonymous: 'Anonymous',
+        noRecentInquiries: 'No recent inquiries',
         inquiryTypes: {
           viewing: 'Viewing',
           price: 'Price Inquiry',
@@ -2009,6 +2056,10 @@ export const enTranslations: TranslationStrings = {
       },
       
       // Action buttons
+      actions: {
+        addNewListing: 'Add New Listing',
+        viewAnalytics: 'View analytics',
+      },
     },
     
     // My Listings tab
@@ -2035,29 +2086,86 @@ export const enTranslations: TranslationStrings = {
         views: 'Views',
         inquiries: 'Inquiries',
         listed: 'Listed',
+        lastUpdated: 'Last Updated',
+        makeModel: 'Make/Model',
         actions: 'Actions',
       },
-      
+
       // Status badges
       statusBadges: {
         active: 'Active',
         sold: 'Sold',
         pending: 'Pending',
+        draft: 'Draft',
       },
-      
+
       // Actions
-      
+      actions: {
+        viewListing: 'View Listing',
+        editListing: 'Edit Listing',
+        deleteListing: 'Delete Listing',
+      },
+
+      // Mobile card labels
+      listed: 'Listed',
+      updated: 'Updated',
+
       // Mobile view
       mobileView: {
         views: 'views',
         inquiries: 'requests',
       },
     },
-    
+
     // Inquiries tab
-    
+    inquiries: {
+      title: 'Customer Inquiries',
+      description: 'Manage and respond to customer inquiries',
+      anonymous: 'Anonymous',
+      noEmail: 'No email',
+      noInquiriesYet: 'No inquiries yet',
+      inquiryTypes: {
+        testDriveRequest: 'Test Drive Request',
+        priceInquiry: 'Price Inquiry',
+      },
+      status: {
+        new: 'new',
+        responded: 'responded',
+      },
+      actions: {
+        respond: 'Respond',
+      },
+      time: {
+        hoursAgo: 'hours ago',
+        dayAgo: 'day ago',
+      },
+    },
+
     // Analytics tab
-    
+    analytics: {
+      popularListings: {
+        title: 'Popular Listings',
+        description: 'Most viewed listings this month',
+        views: 'views',
+        inquiries: 'inquiries',
+        noData: 'No listings data available',
+      },
+      performanceMetrics: {
+        title: 'Performance Metrics',
+        description: 'Key performance indicators',
+        metrics: {
+          averageTimeToSell: 'Average Time to Sell',
+          conversionRate: 'Conversion Rate',
+          averageListingViews: 'Average Listing Views',
+          responseTime: 'Response Time',
+        },
+        values: {
+          days: 'days',
+          hours: 'hours',
+        },
+      },
+    },
+
     // Express Sale Listings tab
     expressListings: {
       title: 'Express Sale Listings',
@@ -2068,6 +2176,25 @@ export const enTranslations: TranslationStrings = {
       expressBadge: 'Express',
       sellerContact: 'Seller Contact',
       submittedOn: 'Submitted on',
+      privateSeller: 'Private Seller',
+      anonymousSeller: 'Anonymous Seller',
+      dealersInterested: 'dealer(s) interested',
+      statusOptions: {
+        allStatus: 'All Status',
+        new: 'New',
+        contacted: 'Contacted',
+        sold: 'Sold',
+        expired: 'Expired',
+      },
+      statusBadges: {
+        new: 'New',
+        sold: 'Sold',
+        expired: 'Expired',
+      },
+      actions: {
+        contact: 'Contact Seller',
+        viewContact: 'View Contact',
+      },
       emptyState: {
         title: 'No Express Listings',
         description: 'Private sellers haven\'t submitted any express sale requests yet.'
@@ -2075,9 +2202,9 @@ export const enTranslations: TranslationStrings = {
       info: {
         title: 'About Express Sale Listings',
         description: 'These are listings from private sellers who want to sell their cars quickly. You can contact them directly to make offers and help facilitate sales in your area.'
-      }
+      },
     },
-    
+
     // Footer message
     footerMessage: 'Professional dealer tools - ',
     activeListingsCount: 'active listings',

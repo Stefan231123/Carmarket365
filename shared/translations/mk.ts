@@ -2053,26 +2053,238 @@ export const mkTranslations: TranslationStrings = {
   dealerDashboard: {
     title: 'Дилерски контролен панел',
     subtitle: 'Управувајте со огласите, следете ги перформансите и развивајте го вашиот бизнис',
+    breadcrumb: 'Панел за дилери',
+    drivingYourSuccess: 'го движат вашиот успех',
+
+    // Tab navigation
+    tabs: {
+      overview: 'Преглед',
+      myListings: 'Мои огласи',
+      inquiries: 'Барања',
+      analytics: 'Аналитика',
+      expressListings: 'Експрес продажби',
+    },
+
+    // Error states
+    error: {
+      title: 'Грешка на панелот',
+      description: 'Имаме проблем со вчитување на податоците. Обидете се да ја освежите страницата.',
+      refresh: 'Освежи страница',
+    },
+
+    // Loading states
+    loading: {
+      listings: 'Вчитување на огласите...',
+      express: 'Вчитување на експрес продажбите...',
+    },
+
     overview: {
       stats: {
         activeListings: {
           title: 'Активни огласи',
-          value: '24'
+          description: 'Моментално онлајн',
+          fromLastMonth: '+12% од минатиот месец',
         },
         totalViews: {
           title: 'Вкупно прегледи',
-          value: '1,247'
+          description: 'Овој месец',
+          fromLastMonth: '+18% од минатиот месец',
         },
         inquiries: {
           title: 'Барања',
-          value: '18'
+          description: 'Нови денес',
+          fromYesterday: '+3 од вчера',
         },
         revenue: {
           title: 'Приходи',
-          value: '€45,230'
-        }
-      }
-    }
+          description: 'Овој месец',
+          fromLastMonth: '+8% од минатиот месец',
+        },
+      },
+
+      // Performance section
+      performance: {
+        title: 'Месечни перформанси',
+        description: 'Број на продадени автомобили по месец оваа година',
+        conversionRate: 'Стапка на конверзија',
+        monthlyData: {
+          january: 'Јануари',
+          december: 'Декември',
+          november: 'Ноември',
+          sold: 'продадени',
+        },
+      },
+
+      // Recent inquiries
+      recentInquiries: {
+        title: 'Скорешни барања',
+        description: 'Последни барања од клиенти',
+        anonymous: 'Анонимен',
+        noRecentInquiries: 'Нема скорешни барања',
+        inquiryTypes: {
+          viewing: 'Разгледување',
+          price: 'Цена',
+          financing: 'Финансирање',
+        },
+        timeAgo: {
+          hoursAgo: 'часа',
+        },
+      },
+
+      // Action buttons
+      actions: {
+        addNewListing: 'Додај нов оглас',
+        viewAnalytics: 'Погледни аналитика',
+      },
+    },
+
+    // My Listings tab
+    myListings: {
+      title: 'Мои огласи',
+
+      // Search and filters
+      searchPlaceholder: 'Пребарај огласи...',
+      filterByStatus: 'Филтрирај по статус',
+      statusOptions: {
+        allStatus: 'Сите статуси',
+        active: 'Активно',
+        sold: 'Продадено',
+        pending: 'Во тек',
+      },
+      exportReport: 'Извези извештај',
+      export: 'Извези',
+
+      // Table headers
+      tableHeaders: {
+        car: 'Автомобил',
+        price: 'Цена',
+        status: 'Статус',
+        views: 'Прегледи',
+        inquiries: 'Барања',
+        listed: 'Објавено',
+        lastUpdated: 'Последно ажурирано',
+        makeModel: 'Марка/Модел',
+        actions: 'Акции',
+      },
+
+      // Status badges
+      statusBadges: {
+        active: 'Активно',
+        sold: 'Продадено',
+        pending: 'Во тек',
+        draft: 'Нацрт',
+      },
+
+      // Actions
+      actions: {
+        viewListing: 'Погледни оглас',
+        editListing: 'Измени оглас',
+        deleteListing: 'Избриши оглас',
+      },
+
+      // Mobile card labels
+      listed: 'Објавено',
+      updated: 'Ажурирано',
+
+      // Mobile view
+      mobileView: {
+        views: 'прегледи',
+        inquiries: 'барања',
+      },
+    },
+
+    // Inquiries tab
+    inquiries: {
+      title: 'Барања од клиенти',
+      description: 'Управувајте и одговорете на барањата од клиентите',
+      anonymous: 'Анонимен',
+      noEmail: 'Нема е-пошта',
+      noInquiriesYet: 'Сè уште нема барања',
+      inquiryTypes: {
+        testDriveRequest: 'Барање за тест возење',
+        priceInquiry: 'Барање за цена',
+      },
+      status: {
+        new: 'ново',
+        responded: 'одговорено',
+      },
+      actions: {
+        respond: 'Одговори',
+      },
+      time: {
+        hoursAgo: 'часа',
+        dayAgo: 'ден',
+      },
+    },
+
+    // Analytics tab
+    analytics: {
+      popularListings: {
+        title: 'Популарни огласи',
+        description: 'Најгледани огласи овој месец',
+        views: 'прегледи',
+        inquiries: 'барања',
+        noData: 'Нема достапни податоци за огласи',
+      },
+      performanceMetrics: {
+        title: 'Метрики за перформанси',
+        description: 'Клучни показатели за перформанси',
+        metrics: {
+          averageTimeToSell: 'Просечно време за продажба',
+          conversionRate: 'Стапка на конверзија',
+          averageListingViews: 'Просечни прегледи на огласи',
+          responseTime: 'Време на одговор',
+        },
+        values: {
+          days: 'дена',
+          hours: 'часа',
+        },
+      },
+    },
+
+    // Express Sale Listings tab
+    expressListings: {
+      title: 'Огласи за експресна продажба',
+      description: 'Приватни продавачи што бараат брза продажба во вашата област',
+      newListings: 'нови',
+      searchPlaceholder: 'Пребарај експрес огласи...',
+      filterByStatus: 'Статус',
+      expressBadge: 'Експрес',
+      sellerContact: 'Контакт на продавач',
+      submittedOn: 'Поднесено на',
+      privateSeller: 'Приватен продавач',
+      anonymousSeller: 'Анонимен продавач',
+      dealersInterested: 'дилер(и) заинтересирани',
+      statusOptions: {
+        allStatus: 'Сите статуси',
+        new: 'Ново',
+        contacted: 'Контактирано',
+        sold: 'Продадено',
+        expired: 'Истечено',
+      },
+      statusBadges: {
+        new: 'Ново',
+        sold: 'Продадено',
+        expired: 'Истечено',
+      },
+      actions: {
+        contact: 'Контактирај го продавачот',
+        viewContact: 'Погледни контакт',
+      },
+      emptyState: {
+        title: 'Нема експрес огласи',
+        description: 'Приватните продавачи сè уште немаат поднесено барања за експресна продажба.',
+      },
+      info: {
+        title: 'За експрес огласите',
+        description: 'Ова се огласи од приватни продавачи кои сакаат брзо да ги продадат автомобилите. Можете директно да ги контактирате за да дадете понуди.',
+      },
+    },
+
+    // Footer message
+    footerMessage: 'Професионални дилерски алатки - ',
+    activeListingsCount: 'активни огласи',
+    drivingYourSuccess: 'го движат вашиот успех',
   },
 
   adminDashboard: {
