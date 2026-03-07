@@ -5,6 +5,7 @@ import { Card } from "./ui/card";
 import { Search, MapPin, Car, Bike, Truck } from "lucide-react";
 import { useState } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
+import { CAR_MAKES, CAR_MODELS_BY_MAKE } from "@shared/car-data";
 
 export interface SearchFormData {
   vehicleType: 'cars' | 'motorbikes' | 'trucks';
@@ -44,8 +45,16 @@ export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSe
   const activeTypeLabel = vehicleTypes.find(v => v.id === searchForm.vehicleType)?.label ?? 'Cars';
 
   const handleFormChange = (field: keyof SearchFormData, value: string) => {
-    setSearchForm(prev => ({ ...prev, [field]: value }));
+    if (field === 'make') {
+      setSearchForm(prev => ({ ...prev, make: value, model: '' }));
+    } else {
+      setSearchForm(prev => ({ ...prev, [field]: value }));
+    }
   };
+
+  const availableModels = searchForm.make && searchForm.make !== 'any-make'
+    ? (CAR_MODELS_BY_MAKE[searchForm.make] || [])
+    : [];
 
   const handleSearch = () => {
     if (onSearchCarsClick) {
@@ -100,12 +109,9 @@ export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSe
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="any-make">{t('hero.searchForm.anyMake')}</SelectItem>
-                  <SelectItem value="audi">Audi</SelectItem>
-                  <SelectItem value="bmw">BMW</SelectItem>
-                  <SelectItem value="mercedes">Mercedes-Benz</SelectItem>
-                  <SelectItem value="volkswagen">Volkswagen</SelectItem>
-                  <SelectItem value="toyota">Toyota</SelectItem>
-                  <SelectItem value="ford">Ford</SelectItem>
+                  {CAR_MAKES.map(make => (
+                    <SelectItem key={make} value={make}>{make}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -118,6 +124,9 @@ export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSe
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="any-model">{t('hero.searchForm.anyModel')}</SelectItem>
+                  {availableModels.map(model => (
+                    <SelectItem key={model} value={model}>{model}</SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
