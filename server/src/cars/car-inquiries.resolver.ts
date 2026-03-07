@@ -7,25 +7,36 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { User } from '../users/user.entity';
 import { InputType } from '@nestjs/graphql';
+import { IsString, IsEmail, IsOptional, IsEnum, IsNotEmpty } from 'class-validator';
 
 @InputType()
 class CreateCarInquiryInput {
   @Field()
+  @IsString()
+  @IsNotEmpty()
   carId: string;
 
   @Field()
+  @IsString()
+  @IsNotEmpty()
   inquirerName: string;
 
   @Field()
+  @IsEmail()
   inquirerEmail: string;
 
   @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
   inquirerPhone?: string;
 
   @Field(() => InquiryType)
+  @IsEnum(InquiryType)
   inquiryType: InquiryType;
 
   @Field()
+  @IsString()
+  @IsNotEmpty()
   message: string;
 }
 
