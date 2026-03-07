@@ -362,6 +362,11 @@ export default function AdvancedSearch() {
         'fields.bodyColor': 'Боја на каросерија',
         'fields.paintWork': 'Работа на бојата',
         'fields.upholstery': 'Тапацирање',
+        'fields.previousOwners': 'Претходни сопственици',
+        'fields.hadAccident': 'Имал несреќа',
+        'fields.guarantee': 'Гаранција',
+        'fields.fullServiceHistory': 'Целосна сервисна историја',
+        'fields.nonSmokingVehicle': 'Возило за непушачи',
 
         // Placeholders
         'placeholders.anyMake': 'Било која марка',
@@ -455,6 +460,11 @@ export default function AdvancedSearch() {
         'fields.bodyColor': 'Ngjyra e karocerisë',
         'fields.paintWork': 'Puna e bojës',
         'fields.upholstery': 'Tapiceria',
+        'fields.previousOwners': 'Pronarët e mëparshëm',
+        'fields.hadAccident': 'Ka pasur aksident',
+        'fields.guarantee': 'Garancia',
+        'fields.fullServiceHistory': 'Histori e plotë e shërbimit',
+        'fields.nonSmokingVehicle': 'Automjet për jo-duhanpirës',
 
         // Placeholders
         'placeholders.anyMake': 'Çdo markë',
@@ -1613,7 +1623,7 @@ export default function AdvancedSearch() {
                 </div>
 
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">Non-smoking Vehicle</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.nonSmokingVehicle', 'Non-smoking Vehicle')}</label>
                   <Select value={localFilters.nonSmokingVehicle} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, nonSmokingVehicle: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
                       <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
