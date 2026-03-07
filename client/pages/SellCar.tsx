@@ -1121,18 +1121,20 @@ export default function SellCar() {
                               variant="outline"
                               role="combobox"
                               aria-expanded={locationOpen}
-                              className="w-full justify-between font-normal h-11 rounded-2xl"
+                              className="w-full justify-between font-normal h-11 rounded-2xl bg-white border-gray-200 text-gray-900 hover:bg-gray-50"
                             >
-                              {vehicleDetails.location || t('sell.placeholders.selectLocation')}
+                              <span className={vehicleDetails.location ? "text-gray-900" : "text-gray-400"}>
+                                {vehicleDetails.location || t('sell.placeholders.selectLocation')}
+                              </span>
                               <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
                           </PopoverTrigger>
-                          <PopoverContent className="w-[--radix-popover-trigger-width] p-0" align="start">
-                            <Command>
-                              <CommandInput placeholder={t('sell.placeholders.searchLocation')} />
-                              <CommandList>
-                                <CommandEmpty>{t('sell.noLocationFound')}</CommandEmpty>
-                                <CommandGroup>
+                          <PopoverContent className="w-[--radix-popover-trigger-width] p-0 bg-white border border-gray-200 shadow-lg rounded-xl overflow-hidden" align="start">
+                            <Command className="bg-white">
+                              <CommandInput placeholder={t('sell.placeholders.searchLocation')} className="bg-white" />
+                              <CommandList className="bg-white max-h-60">
+                                <CommandEmpty className="bg-white text-sm text-gray-500 py-3 text-center">{t('sell.noLocationFound')}</CommandEmpty>
+                                <CommandGroup className="bg-white">
                                   {locations.map((loc) => (
                                     <CommandItem
                                       key={loc.value}
@@ -1141,6 +1143,7 @@ export default function SellCar() {
                                         setVehicleDetails({...vehicleDetails, location: value});
                                         setLocationOpen(false);
                                       }}
+                                      className="bg-white hover:bg-gray-50 cursor-pointer"
                                     >
                                       <Check className={cn("mr-2 h-4 w-4", vehicleDetails.location === loc.value ? "opacity-100" : "opacity-0")} />
                                       {loc.label}
