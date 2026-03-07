@@ -282,20 +282,20 @@ placeholder={t('browseCars.searchPlaceholder')}
 
                 {/* Mileage */}
                 <div>
-<label className="text-sm font-medium text-foreground mb-3 block">{t('browseCars.filters.mileageRange')}</label>
+<label className="text-sm font-medium text-foreground mb-3 block">{t('filters.mileageRange')}</label>
                   <Select value={mileageFilter} onValueChange={setMileageFilter}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
 <SelectValue placeholder={t('filters.anyMileage')} />
                     </SelectTrigger>
                     <SelectContent className="rounded-3xl border border-zinc-100 bg-white shadow-lg overflow-hidden p-2">
 <SelectItem value="any-mileage">{t('filters.anyMileage')}</SelectItem>
-                      <SelectItem value="50000">0 - 50,000 km</SelectItem>
-                      <SelectItem value="100000">50,001 - 100,000 km</SelectItem>
-                      <SelectItem value="150000">100,001 - 150,000 km</SelectItem>
-                      <SelectItem value="200000">150,001 - 200,000 km</SelectItem>
-                      <SelectItem value="250000">200,001 - 250,000 km</SelectItem>
-                      <SelectItem value="300000">250,001 - 300,000 km</SelectItem>
-                      <SelectItem value="500000">300,001+ km</SelectItem>
+                      <SelectItem value="50000">50,000 km</SelectItem>
+                      <SelectItem value="100000">100,000 km</SelectItem>
+                      <SelectItem value="150000">150,000 km</SelectItem>
+                      <SelectItem value="200000">200,000 km</SelectItem>
+                      <SelectItem value="250000">250,000 km</SelectItem>
+                      <SelectItem value="300000">300,000 km</SelectItem>
+                      <SelectItem value="500000">500,000 km</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

@@ -419,6 +419,8 @@ export const enTranslations: TranslationStrings = {
     yearMin: 'Min Year',
     yearMax: 'Max Year',
     mileageMax: 'Max Mileage',
+    mileageRange: 'Mileage',
+    anyMileage: 'Any Mileage',
     location: 'Location',
     fuelTypes: 'Fuel Type',
     transmissionTypes: 'Transmission',

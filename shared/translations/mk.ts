@@ -450,6 +450,8 @@ export const mkTranslations: TranslationStrings = {
     yearMin: 'Мин година',
     yearMax: 'Макс година',
     mileageMax: 'Макс километража',
+    mileageRange: 'Километража',
+    anyMileage: 'Кој било километража',
     location: 'Локација',
     fuelTypes: 'Тип на гориво',
     transmissionTypes: 'Менувач',

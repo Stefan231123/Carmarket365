@@ -418,6 +418,8 @@ export const sqTranslations: TranslationStrings = {
     yearMin: 'Viti minimal',
     yearMax: 'Viti maksimal',
     mileageMax: 'Kilometrat e përshkuara maksimal',
+    mileageRange: 'Kilometrazha',
+    anyMileage: 'Çdo kilometrazh',
     location: 'Vendndodhja',
     fuelTypes: 'Lloji i karburantit',
     transmissionTypes: 'Transmisioni',
