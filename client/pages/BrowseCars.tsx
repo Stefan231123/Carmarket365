@@ -241,11 +241,11 @@ placeholder={t('browseCars.searchPlaceholder')}
                       </SelectTrigger>
                       <SelectContent className="rounded-3xl border border-zinc-100 bg-white shadow-lg overflow-hidden p-2">
                         <SelectItem value="no-min">{t('browseCars.filters.noMin')}</SelectItem>
-                        <SelectItem value="1100">$1,100</SelectItem>
-                        <SelectItem value="5500">$5,500</SelectItem>
-                        <SelectItem value="11000">$11,000</SelectItem>
-                        <SelectItem value="22000">$22,000</SelectItem>
-                        <SelectItem value="33000">$33,000</SelectItem>
+                        <SelectItem value="1100">€1,100</SelectItem>
+                        <SelectItem value="5500">€5,500</SelectItem>
+                        <SelectItem value="11000">€11,000</SelectItem>
+                        <SelectItem value="22000">€22,000</SelectItem>
+                        <SelectItem value="33000">€33,000</SelectItem>
                       </SelectContent>
                     </Select>
                     <Select value={priceToFilter} onValueChange={setPriceToFilter}>
@@ -254,11 +254,11 @@ placeholder={t('browseCars.searchPlaceholder')}
                       </SelectTrigger>
                       <SelectContent className="rounded-3xl border border-zinc-100 bg-white shadow-lg overflow-hidden p-2">
                         <SelectItem value="no-max">{t('browseCars.filters.noMax')}</SelectItem>
-                        <SelectItem value="11000">$11,000</SelectItem>
-                        <SelectItem value="22000">$22,000</SelectItem>
-                        <SelectItem value="33000">$33,000</SelectItem>
-                        <SelectItem value="55000">$55,000</SelectItem>
-                        <SelectItem value="110000">$110,000+</SelectItem>
+                        <SelectItem value="11000">€11,000</SelectItem>
+                        <SelectItem value="22000">€22,000</SelectItem>
+                        <SelectItem value="33000">€33,000</SelectItem>
+                        <SelectItem value="55000">€55,000</SelectItem>
+                        <SelectItem value="110000">€110,000+</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -380,11 +380,11 @@ placeholder={t('browseCars.searchPlaceholder')}
                       </SelectTrigger>
                       <SelectContent className="rounded-3xl border border-zinc-100 bg-white shadow-lg overflow-hidden p-2">
 <SelectItem value="no-min">{t('browseCars.filters.noMin')}</SelectItem>
-                        <SelectItem value="1100">$1,100</SelectItem>
-                        <SelectItem value="5500">$5,500</SelectItem>
-                        <SelectItem value="11000">$11,000</SelectItem>
-                        <SelectItem value="22000">$22,000</SelectItem>
-                        <SelectItem value="33000">$33,000</SelectItem>
+                        <SelectItem value="1100">€1,100</SelectItem>
+                        <SelectItem value="5500">€5,500</SelectItem>
+                        <SelectItem value="11000">€11,000</SelectItem>
+                        <SelectItem value="22000">€22,000</SelectItem>
+                        <SelectItem value="33000">€33,000</SelectItem>
                       </SelectContent>
                     </Select>
                     <Select value={priceToFilter} onValueChange={setPriceToFilter}>
@@ -393,11 +393,11 @@ placeholder={t('browseCars.searchPlaceholder')}
                       </SelectTrigger>
                       <SelectContent className="rounded-3xl border border-zinc-100 bg-white shadow-lg overflow-hidden p-2">
 <SelectItem value="no-max">{t('browseCars.filters.noMax')}</SelectItem>
-                        <SelectItem value="11000">$11,000</SelectItem>
-                        <SelectItem value="22000">$22,000</SelectItem>
-                        <SelectItem value="33000">$33,000</SelectItem>
-                        <SelectItem value="55000">$55,000</SelectItem>
-                        <SelectItem value="110000">$110,000+</SelectItem>
+                        <SelectItem value="11000">€11,000</SelectItem>
+                        <SelectItem value="22000">€22,000</SelectItem>
+                        <SelectItem value="33000">€33,000</SelectItem>
+                        <SelectItem value="55000">€55,000</SelectItem>
+                        <SelectItem value="110000">€110,000+</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>

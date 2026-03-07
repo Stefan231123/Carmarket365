@@ -629,8 +629,8 @@ placeholder={getAdvancedSearchText('placeholders.anyModel', 'Any Model')}
                 className="w-full"
               />
               <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                <span>$0</span>
-                <span>$200,000+</span>
+                <span>€0</span>
+                <span>€200,000+</span>
               </div>
             </div>
 

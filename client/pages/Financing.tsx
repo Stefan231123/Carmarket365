@@ -168,8 +168,8 @@ export default function Financing() {
                     className="w-full"
                   />
                   <div className="flex justify-between text-xs text-car-gray mt-1">
-                    <span>$5,000</span>
-                    <span>$100,000</span>
+                    <span>€5,000</span>
+                    <span>€100,000</span>
                   </div>
                 </div>
 
@@ -190,7 +190,7 @@ export default function Financing() {
                     className="w-full"
                   />
                   <div className="flex justify-between text-xs text-car-gray mt-1">
-                    <span>$0</span>
+                    <span>€0</span>
                     <span>{formatCurrency(loanAmount[0] * 0.5)}</span>
                   </div>
                 </div>
