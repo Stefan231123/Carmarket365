@@ -638,12 +638,6 @@ export default function CarDetail() {
                       {carData.dealerInfo.phone}
                     </div>
                   )}
-                  {carData.dealerInfo.email && (
-                    <div className="flex items-center gap-2">
-                      <Mail className="h-4 w-4 text-muted-foreground" />
-                      {carData.dealerInfo.email}
-                    </div>
-                  )}
                   {isDealer && (dealerAddress || dealerCity) && (
                     <div className="flex items-start gap-2">
                       <MapPin className="h-4 w-4 text-muted-foreground mt-0.5" />
