@@ -359,8 +359,10 @@ export default function AdvancedSearch() {
         'fields.seller': 'Продавач',
         'fields.vehicleCondition': 'Состојба на возилото',
         'fields.interiorColor': 'Боја на ентериер',
+        'fields.bodyColor': 'Боја на каросерија',
+        'fields.paintWork': 'Работа на бојата',
         'fields.upholstery': 'Тапацирање',
-        
+
         // Placeholders
         'placeholders.anyMake': 'Било која марка',
         'placeholders.anyModel': 'Било кој модел',
@@ -373,6 +375,7 @@ export default function AdvancedSearch() {
         'placeholders.anyCondition': 'Било која состојба',
         'placeholders.cityStateOrZip': 'Внесете град или поштенски код',
         'placeholders.anyColor': 'Било која боја',
+        'placeholders.anyPaintType': 'Било кој тип на боја',
         'placeholders.anyMaterial': 'Било кој материјал',
         
         // Labels and units
@@ -449,8 +452,10 @@ export default function AdvancedSearch() {
         'fields.seller': 'Shitësi',
         'fields.vehicleCondition': 'Gjendja e automjetit',
         'fields.interiorColor': 'Ngjyra e brendshme',
+        'fields.bodyColor': 'Ngjyra e karocerisë',
+        'fields.paintWork': 'Puna e bojës',
         'fields.upholstery': 'Tapiceria',
-        
+
         // Placeholders
         'placeholders.anyMake': 'Çdo markë',
         'placeholders.anyModel': 'Çdo model',
@@ -463,6 +468,7 @@ export default function AdvancedSearch() {
         'placeholders.anyCondition': 'Çdo gjendje',
         'placeholders.cityStateOrZip': 'Futni qytetin ose kodin postar',
         'placeholders.anyColor': 'Çdo ngjyrë',
+        'placeholders.anyPaintType': 'Çdo lloj boje',
         'placeholders.anyMaterial': 'Çdo material',
         
         // Labels and units
