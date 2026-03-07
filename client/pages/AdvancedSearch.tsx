@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SEO } from '@/components/SEO';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -17,6 +16,8 @@ import { sqTranslations } from '../../shared/translations/sq';
 import { AdvancedSearchFiltersInput } from '../lib/graphql/operations';
 import { trackEvent } from '../components/Analytics';
 import { CAR_MAKES, CAR_MODELS_BY_MAKE } from '@shared/car-data';
+import { useCountry } from '@/contexts/CountryContext';
+import { getLocationsForCountry } from '@shared/locations';
 
 // Filter interfaces
 interface AdvancedSearchFilters {
@@ -291,7 +292,8 @@ function FilterSection({ title, children, sectionKey, icon, description }: Filte
 export default function AdvancedSearch() {
   const navigate = useNavigate();
   const { t, currentLanguage } = useTranslation();
-  
+  const { country } = useCountry();
+  const municipalities = getLocationsForCountry(country?.code || 'mk');
 
   // Helper function to get nested value from object using dot notation
   const getNestedValue = (obj: any, key: string): string | undefined => {
@@ -1248,12 +1250,17 @@ export default function AdvancedSearch() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.location', 'City/Zip Code')}</label>
-                    <Input
-                      placeholder={getAdvancedSearchText('placeholders.cityStateOrZip', 'Enter city or postal code')}
-                      value={localFilters.cityZipCode}
-                      onChange={(e) => setLocalFilters(prev => ({ ...prev, cityZipCode: e.target.value }))}
-                      className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0"
-                    />
+                    <Select value={localFilters.cityZipCode} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, cityZipCode: value === 'any-location' ? '' : value }))}>
+                      <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.cityStateOrZip', 'Enter city or postal code')} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="any-location">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
+                        {municipalities.map(m => (
+                          <SelectItem key={m.value} value={m.value}>{m.label}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <div>
