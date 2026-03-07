@@ -28,7 +28,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { 
   CreditCard, 
-  DollarSign, 
+  Euro, 
   User, 
   Phone, 
   Mail, 
@@ -359,7 +359,7 @@ export function FinancingModal({ car, isOpen, onClose }: FinancingModalProps) {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="flex items-center gap-2">
-                            <DollarSign className="h-4 w-4" />
+                            <Euro className="h-4 w-4" />
                             {t('financing.desiredLoanAmount')}
                           </FormLabel>
                           <FormControl>
@@ -383,7 +383,7 @@ export function FinancingModal({ car, isOpen, onClose }: FinancingModalProps) {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="flex items-center gap-2">
-                            <DollarSign className="h-4 w-4" />
+                            <Euro className="h-4 w-4" />
                             Annual Income
                           </FormLabel>
                           <FormControl>
@@ -443,7 +443,7 @@ export function FinancingModal({ car, isOpen, onClose }: FinancingModalProps) {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="flex items-center gap-2">
-                            <DollarSign className="h-4 w-4" />
+                            <Euro className="h-4 w-4" />
                             Monthly Expenses
                           </FormLabel>
                           <FormControl>

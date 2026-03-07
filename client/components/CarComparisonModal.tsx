@@ -19,7 +19,7 @@ import {
   Users, 
   Cog,
   MapPin,
-  DollarSign,
+  Euro,
   Star
 } from "lucide-react";
 import { useTranslation } from '../hooks/useTranslation';
@@ -88,7 +88,7 @@ export function CarComparisonModal({
   };
 
   const comparisonFields = [
-    { key: 'price', label: t('advancedFeatures.comparison.fields.price'), icon: DollarSign, formatter: formatPrice },
+    { key: 'price', label: t('advancedFeatures.comparison.fields.price'), icon: Euro, formatter: formatPrice },
     { key: 'year', label: t('advancedFeatures.comparison.fields.year'), icon: Calendar },
     { key: 'mileage', label: t('advancedFeatures.comparison.fields.mileage'), icon: Gauge, formatter: formatMileage },
     { key: 'fuelType', label: t('advancedFeatures.comparison.fields.fuelType'), icon: Fuel },

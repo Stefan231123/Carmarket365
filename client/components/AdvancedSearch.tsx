@@ -10,7 +10,7 @@ import {
   Search, 
   SlidersHorizontal, 
   X, 
-  DollarSign,
+  Euro,
   Car
 } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -610,7 +610,7 @@ placeholder={getAdvancedSearchText('placeholders.anyModel', 'Any Model')}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <DollarSign className="h-5 w-5" />
+              <Euro className="h-5 w-5" />
 {getAdvancedSearchText('sections.priceLocation.title', 'Price & Location')}
             </CardTitle>
           </CardHeader>

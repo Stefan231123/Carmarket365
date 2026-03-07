@@ -30,7 +30,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useForm } from "react-hook-form";
 import { 
   Calculator, 
-  DollarSign, 
+  Euro, 
   Car, 
   Gauge, 
   Calendar,
@@ -510,7 +510,7 @@ export function TradeInEstimatorModal({
             <Card className="border-2 border-primary/20">
               <CardHeader>
                 <CardTitle className="text-xl flex items-center gap-2 text-primary">
-                  <DollarSign className="h-5 w-5" />
+                  <Euro className="h-5 w-5" />
                   {t('modals.tradeIn.results.estimatedValue')}
                 </CardTitle>
               </CardHeader>

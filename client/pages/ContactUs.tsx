@@ -17,7 +17,7 @@ import {
   Send,
   CheckCircle,
   Car,
-  DollarSign,
+  Euro,
   Users,
   ArrowLeft,
   HeadphonesIcon
@@ -260,13 +260,13 @@ export default function ContactUs() {
                           </SelectItem>
                           <SelectItem value="selling">
                             <div className="flex items-center gap-2">
-                              <DollarSign className="h-4 w-4" />
+                              <Euro className="h-4 w-4" />
                               {t('contact.form.inquiryType.options.selling')}
                             </div>
                           </SelectItem>
                           <SelectItem value="financing">
                             <div className="flex items-center gap-2">
-                              <DollarSign className="h-4 w-4" />
+                              <Euro className="h-4 w-4" />
                               {t('contact.form.inquiryType.options.financing')}
                             </div>
                           </SelectItem>

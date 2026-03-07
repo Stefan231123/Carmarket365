@@ -1,4 +1,4 @@
-import { Shield, Search, DollarSign, Truck, Clock, Users } from "lucide-react";
+import { Shield, Search, Euro, Truck, Clock, Users } from "lucide-react";
 import { useTranslation } from '../hooks/useTranslation';
 
 export function Features() {
@@ -16,7 +16,7 @@ export function Features() {
       descriptionKey: "features.items.advancedSearch.description"
     },
     {
-      icon: DollarSign,
+      icon: Euro,
       titleKey: "features.items.bestPrices.title",
       descriptionKey: "features.items.bestPrices.description"
     },

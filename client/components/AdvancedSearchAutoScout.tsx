@@ -10,7 +10,7 @@ import {
   Search, 
   SlidersHorizontal, 
   X, 
-  DollarSign,
+  Euro,
   Car,
   Filter,
   ChevronDown,

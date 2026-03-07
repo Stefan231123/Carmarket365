@@ -9,7 +9,7 @@ import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import { 
   Calculator, 
-  DollarSign, 
+  Euro, 
   TrendingDown, 
   Shield, 
   Clock, 
@@ -388,7 +388,7 @@ export default function Financing() {
                   
                   <div className="flex items-start gap-3">
                     <div className="bg-primary/10 rounded-full p-2 mt-1">
-                      <DollarSign className="h-4 w-4 text-primary" />
+                      <Euro className="h-4 w-4 text-primary" />
                     </div>
                     <div>
                       <h4 className="font-medium text-foreground">{t('hardcodedFixes.financing.tips.saveForDownPayment')}</h4>

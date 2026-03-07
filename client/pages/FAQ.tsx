@@ -9,7 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { 
   Search, 
   Car, 
-  DollarSign, 
+  Euro, 
   Shield, 
   Users, 
   MessageCircle,
@@ -47,7 +47,7 @@ export default function FAQ() {
     {
       id: 'selling',
       name: 'Selling Cars',
-      icon: 'DollarSign',
+      icon: 'Euro',
       color: 'bg-green-100 text-green-600',
       faqs: [
         {
@@ -76,7 +76,7 @@ export default function FAQ() {
   // Icon mapping for the categories
   const iconMap: Record<string, any> = {
     'Car': Car,
-    'DollarSign': DollarSign,
+    'Euro': Euro,
     'Shield': Shield,
     'Users': Users
   };

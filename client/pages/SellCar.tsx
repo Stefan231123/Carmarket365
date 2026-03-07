@@ -10,7 +10,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { ArrowLeft, Car, Truck, Bike, Camera, Upload, DollarSign, CheckCircle, AlertCircle, Check, ChevronsUpDown } from "lucide-react";
+import { ArrowLeft, Car, Truck, Bike, Camera, Upload, Euro, CheckCircle, AlertCircle, Check, ChevronsUpDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import ImageUpload from "@/components/ImageUpload";
 import { trackEvent } from "@/components/Analytics";
@@ -972,7 +972,7 @@ export default function SellCar() {
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.askingPrice')} *</label>
                         <div className="relative">
-                          <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                          <Euro className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                           <Input
                             type="number"
                             min="0"

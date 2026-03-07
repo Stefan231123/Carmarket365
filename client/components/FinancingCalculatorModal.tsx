@@ -22,7 +22,7 @@ import { Slider } from "@/components/ui/slider";
 import { useForm } from "react-hook-form";
 import { 
   Calculator, 
-  DollarSign, 
+  Euro, 
   Calendar, 
   Percent, 
   TrendingUp,
@@ -236,7 +236,7 @@ export function FinancingCalculatorModal({
             <Card>
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
-                  <DollarSign className="h-4 w-4" />
+                  <Euro className="h-4 w-4" />
                   {t('advancedFeatures.financingCalculator.sections.paymentDetails')}
                 </CardTitle>
               </CardHeader>
