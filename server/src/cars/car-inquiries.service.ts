@@ -35,7 +35,13 @@ export class CarInquiriesService {
 
   async create(inquiryData: CreateCarInquiryData): Promise<CarInquiry> {
     const inquiry = this.carInquiryRepository.create({
-      ...inquiryData,
+      carId: inquiryData.carId,
+      name: inquiryData.inquirerName,
+      email: inquiryData.inquirerEmail,
+      phone: inquiryData.inquirerPhone,
+      type: inquiryData.inquiryType,
+      message: inquiryData.message,
+      userId: inquiryData.userId,
       status: InquiryStatus.PENDING,
     });
 

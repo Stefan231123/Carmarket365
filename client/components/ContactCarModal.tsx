@@ -54,6 +54,7 @@ export function ContactCarModal({ car, isOpen, onClose }: ContactCarModalProps) 
   const { executeRecaptcha } = useGoogleReCaptcha();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const form = useForm<ContactFormData>({
     defaultValues: {
@@ -81,6 +82,7 @@ export function ContactCarModal({ car, isOpen, onClose }: ContactCarModalProps) 
   const onSubmit = async (data: ContactFormData) => {
     if (!car) return;
     setIsSubmitting(true);
+    setSubmitError(null);
     try {
       const captchaToken = executeRecaptcha ? await executeRecaptcha('inquiry') : undefined;
       await apiClient.createCarInquiry({
@@ -100,6 +102,7 @@ export function ContactCarModal({ car, isOpen, onClose }: ContactCarModalProps) 
       }, 2000);
     } catch (error) {
       console.error("Failed to send message:", error);
+      setSubmitError(t('forms.errors.sendFailed') || 'Failed to send message. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -107,6 +110,7 @@ export function ContactCarModal({ car, isOpen, onClose }: ContactCarModalProps) 
 
   const handleClose = () => {
     setIsSuccess(false);
+    setSubmitError(null);
     form.reset();
     onClose();
   };
@@ -279,6 +283,13 @@ export function ContactCarModal({ car, isOpen, onClose }: ContactCarModalProps) 
                     </FormItem>
                   )}
                 />
+
+                {/* Error */}
+                {submitError && (
+                  <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3 text-sm text-red-600">
+                    {submitError}
+                  </div>
+                )}
 
                 {/* Actions */}
                 <div className="flex gap-3 pt-1">
