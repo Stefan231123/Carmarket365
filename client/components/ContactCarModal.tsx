@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import {
@@ -64,6 +64,17 @@ export function ContactCarModal({ car, isOpen, onClose }: ContactCarModalProps) 
       message: "",
     },
   });
+
+  // Pre-fill message when modal opens with a car
+  useEffect(() => {
+    if (isOpen && car) {
+      const defaultMessage = t('forms.placeholders.contactMessage')
+        .replace('{year}', car.year.toString())
+        .replace('{make}', car.make)
+        .replace('{model}', car.model);
+      form.setValue('message', defaultMessage);
+    }
+  }, [isOpen, car]);
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('de-DE', {
@@ -281,10 +292,6 @@ export function ContactCarModal({ car, isOpen, onClose }: ContactCarModalProps) 
                         <div className="relative">
                           <MessageCircle className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                           <Textarea
-                            placeholder={t('forms.placeholders.contactMessage')
-                              .replace('{year}', car.year.toString())
-                              .replace('{make}', car.make)
-                              .replace('{model}', car.model)}
                             className="pl-9 min-h-[90px] resize-none bg-gray-50 border-gray-200 rounded-xl text-sm focus:bg-white"
                             {...field}
                             disabled={isSubmitting}

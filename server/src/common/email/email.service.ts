@@ -131,6 +131,7 @@ export class EmailService {
     inquirerName: string,
     inquirerEmail: string,
     message: string,
+    inquirerPhone?: string,
   ): Promise<boolean> {
     return this.sendEmail({
       to: sellerEmail,
@@ -148,6 +149,7 @@ export class EmailService {
             <div style="background: #f9f9f9; border-radius: 12px; padding: 20px; margin: 20px 0;">
               <p style="margin: 0 0 8px; color: #333;"><strong>From:</strong> ${inquirerName}</p>
               <p style="margin: 0 0 8px; color: #333;"><strong>Email:</strong> ${inquirerEmail}</p>
+              ${inquirerPhone ? `<p style="margin: 0 0 8px; color: #333;"><strong>Phone:</strong> ${inquirerPhone}</p>` : ''}
               <p style="margin: 12px 0 0; color: #555;">"${message}"</p>
             </div>
             <a href="${this.frontendUrl}/private-dashboard" style="display: inline-block; background: #000; color: #fff; padding: 12px 32px; border-radius: 24px; text-decoration: none; margin-top: 16px;">
@@ -159,7 +161,7 @@ export class EmailService {
           </div>
         </div>
       `,
-      text: `New inquiry for "${carTitle}" from ${inquirerName} (${inquirerEmail}): "${message}". Log in to respond: ${this.frontendUrl}/private-dashboard`,
+      text: `New inquiry for "${carTitle}" from ${inquirerName} (${inquirerEmail})${inquirerPhone ? `, Phone: ${inquirerPhone}` : ''}: "${message}". Log in to respond: ${this.frontendUrl}/private-dashboard`,
     });
   }
 

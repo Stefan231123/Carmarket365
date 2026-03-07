@@ -69,6 +69,7 @@ export class CarInquiriesService {
       inquiryData.inquirerName,
       inquiryData.inquirerEmail,
       inquiryData.message,
+      inquiryData.inquirerPhone,
     );
   }
 
