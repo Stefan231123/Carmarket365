@@ -8,10 +8,10 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { useVehicleSpecTranslator } from '../utils/vehicleSpecTranslations';
 import { useFavorites } from "@/hooks/useFavorites";
 import { useNavigate } from "react-router-dom";
-import { useQuery } from "@apollo/client/react";
-import { GET_CARS, GET_FEATURED_CARS, Car, CarImage } from "@/lib/graphql/operations";
+import { useCars } from "@/hooks/useCars";
+import { useFeaturedCars } from "@/hooks/useFeaturedCars";
 import { getLastSearch } from "@/hooks/useLastSearch";
-import { useCountry } from "@/contexts/CountryContext";
+import { Car, CarImage } from "@/lib/graphql/operations";
 
 interface InterestingSuggestionsProps {
   onCarClick?: () => void;
@@ -22,54 +22,34 @@ export function InterestingSuggestions({ onCarClick }: InterestingSuggestionsPro
   const vehicleTranslator = useVehicleSpecTranslator(t);
   const { isFavorite, toggleFavorite } = useFavorites();
   const navigate = useNavigate();
-  const { country } = useCountry();
 
   const lastSearch = getLastSearch();
   const hasLastSearch = !!lastSearch && Object.values(lastSearch).some(v => v !== undefined);
 
-  // Build filters from last search + country
-  const searchFilters = hasLastSearch ? {
-    ...lastSearch,
-    ...(country && country.code !== 'global' ? { countryCode: country.code } : {}),
-  } : {};
-
-  // Personalized: cars matching last search (skipped if no history)
-  const { data: searchData, loading: searchLoading } = useQuery<{ getCars: Car[] }>(GET_CARS, {
-    variables: { filters: searchFilters },
-    skip: !hasLastSearch,
-    errorPolicy: 'all',
-    fetchPolicy: 'cache-and-network',
-  });
-
-  // Fallback: featured cars (skipped if we have a last search)
-  const { data: featuredData, loading: featuredLoading } = useQuery<{ getFeaturedCars: Car[] }>(GET_FEATURED_CARS, {
-    skip: hasLastSearch,
-    errorPolicy: 'all',
-    fetchPolicy: 'cache-and-network',
-  });
+  // Always call both hooks (Rules of Hooks — no conditional calls)
+  const { cars: searchCars, isLoading: searchLoading } = useCars(hasLastSearch ? lastSearch! : undefined);
+  const { cars: featuredCars, isLoading: featuredLoading } = useFeaturedCars();
 
   const isLoading = hasLastSearch ? searchLoading : featuredLoading;
-  const rawCars: Car[] = hasLastSearch
-    ? (searchData?.getCars ?? [])
-    : (featuredData?.getFeaturedCars ?? []);
+  const rawCars: Car[] = (hasLastSearch ? searchCars : featuredCars).slice(0, 4);
 
-  const cars = rawCars.slice(0, 4);
-
-  if (isLoading || cars.length === 0) return null;
+  if (isLoading || rawCars.length === 0) return null;
 
   const formatPrice = (price: number) =>
-    new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(price);
+    new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(price ?? 0);
 
   const formatMileage = (mileage: number) =>
-    new Intl.NumberFormat('de-DE').format(mileage) + ' km';
+    new Intl.NumberFormat('de-DE').format(mileage ?? 0) + ' km';
 
   const getMainImage = (images: CarImage[]) => {
     if (!images || images.length === 0) return undefined;
     return (images.find(i => i.isMain) ?? images[0]).url;
   };
 
-  const getDaysListed = (createdAt: string) =>
-    Math.floor((Date.now() - new Date(createdAt).getTime()) / 86400000);
+  const getDaysListed = (createdAt: string) => {
+    if (!createdAt) return 999;
+    return Math.floor((Date.now() - new Date(createdAt).getTime()) / 86400000);
+  };
 
   const handleCardClick = (carId: string) => {
     if (onCarClick) onCarClick();
@@ -119,7 +99,9 @@ export function InterestingSuggestions({ onCarClick }: InterestingSuggestionsPro
             <p className="text-muted-foreground max-w-2xl">
               {sectionDescription}
               {hasLastSearch && lastSearch?.make && (
-                <span className="ml-1 font-medium text-foreground">• {lastSearch.make}{lastSearch.model ? ` ${lastSearch.model}` : ''}</span>
+                <span className="ml-1 font-medium text-foreground">
+                  • {lastSearch.make}{lastSearch.model ? ` ${lastSearch.model}` : ''}
+                </span>
               )}
             </p>
           </div>
@@ -129,7 +111,7 @@ export function InterestingSuggestions({ onCarClick }: InterestingSuggestionsPro
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {cars.map((car) => {
+          {rawCars.map((car) => {
             const daysListed = getDaysListed(car.createdAt);
             const dealerLabel = car.seller?.dealerName || car.seller?.name || '';
             const image = getMainImage(car.images);
@@ -193,9 +175,9 @@ export function InterestingSuggestions({ onCarClick }: InterestingSuggestionsPro
                     <div className="flex items-center justify-between">
                       <div className="flex items-center">
                         <Fuel className="h-3 w-3 mr-1" />
-                        {vehicleTranslator.translateFuelType(car.fuelType)}
+                        {car.fuelType ? vehicleTranslator.translateFuelType(car.fuelType) : ''}
                       </div>
-                      <span>{vehicleTranslator.translateTransmission(car.transmission)}</span>
+                      <span>{car.transmission ? vehicleTranslator.translateTransmission(car.transmission) : ''}</span>
                     </div>
                   </div>
 

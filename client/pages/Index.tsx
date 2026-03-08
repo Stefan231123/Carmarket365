@@ -3,6 +3,7 @@ import { SEO } from "@/components/SEO";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from '@/hooks/useTranslation';
 import { useEffect, lazy, Suspense } from 'react';
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 // Lazy load below-the-fold sections
 const InterestingSuggestions = lazy(() => import("@/components/InterestingSuggestions").then(m => ({ default: m.InterestingSuggestions })));
@@ -88,7 +89,9 @@ export default function Index({ onAdvancedSearchClick }: IndexProps) {
         onAdvancedSearchClick={handleAdvancedSearchClick}
       />
       <Suspense fallback={null}>
-        <InterestingSuggestions />
+        <ErrorBoundary fallback={null}>
+          <InterestingSuggestions />
+        </ErrorBoundary>
         <MobileAppAnnouncement variant="section" />
         <PopularBrands />
       </Suspense>
