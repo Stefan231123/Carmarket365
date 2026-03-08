@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut, RotateCw } from 'lucide-
 import { Button } from './ui/button';
 import { Dialog, DialogContent } from './ui/dialog';
 import { ImageWithFallback } from './ImageWithFallback';
+import { getWatermarkedUrl } from '@/lib/cloudinary';
 
 interface ImageGalleryProps {
   images: string[];
@@ -228,7 +229,9 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [showViewer, setShowViewer] = useState(false);
 
-  const displayImages = thumbnails && thumbnails.length === images.length ? thumbnails : images;
+  const rawDisplayImages = thumbnails && thumbnails.length === images.length ? thumbnails : images;
+  const displayImages = rawDisplayImages.map(getWatermarkedUrl);
+  const watermarkedImages = images.map(getWatermarkedUrl);
 
   const handleImageClick = (index: number) => {
     if (onImageClick) {
@@ -292,7 +295,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
         
         {enableZoom && (
           <ImageViewer
-            images={images}
+            images={watermarkedImages}
             initialIndex={0}
             isOpen={showViewer}
             onClose={() => setShowViewer(false)}
@@ -378,7 +381,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
       {/* Image Viewer Modal */}
       {enableZoom && (
         <ImageViewer
-          images={images}
+          images={watermarkedImages}
           initialIndex={currentIndex}
           isOpen={showViewer}
           onClose={() => setShowViewer(false)}

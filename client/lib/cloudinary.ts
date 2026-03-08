@@ -59,6 +59,41 @@ export async function uploadToCloudinary(file: File): Promise<CloudinaryUploadRe
   };
 }
 
+/**
+ * Injects a Cloudinary text-overlay watermark transformation into a CDN URL.
+ * Works for both old (unwatermarked) and new (canvas-baked) images.
+ * Only applied to URLs in the carmarket365 folder to avoid affecting logos etc.
+ */
+export function getWatermarkedUrl(url: string): string {
+  if (!url?.includes('res.cloudinary.com')) return url;
+  if (!url.includes('/carmarket365/')) return url; // skip non-listing images
+  if (url.includes('l_text')) return url; // already has text overlay
+
+  const watermark = 'l_text:Arial_36_bold:carmarket365.com,o_35,co_white,g_center';
+  const uploadMarker = '/upload/';
+  const idx = url.indexOf(uploadMarker);
+  if (idx === -1) return url;
+
+  const afterUpload = url.slice(idx + uploadMarker.length);
+  const slashIdx = afterUpload.indexOf('/');
+  if (slashIdx !== -1) {
+    const firstSeg = afterUpload.slice(0, slashIdx);
+    // If first segment is a Cloudinary transformation (e.g. c_fill,w_400,...)
+    if (/^[a-z]_/.test(firstSeg) || firstSeg.includes(',')) {
+      // Inject watermark AFTER existing transformations so it respects final size
+      return (
+        url.slice(0, idx + uploadMarker.length) +
+        afterUpload.slice(0, slashIdx + 1) +
+        watermark + '/' +
+        afterUpload.slice(slashIdx + 1)
+      );
+    }
+  }
+
+  // No existing transformations — inject before the path
+  return url.slice(0, idx + uploadMarker.length) + watermark + '/' + afterUpload;
+}
+
 export async function uploadMultipleToCloudinary(
   files: File[],
   onProgress?: (completed: number, total: number) => void

@@ -12,6 +12,7 @@ import { useTranslation } from '../hooks/useTranslation';
 import { mkTranslations } from '../../shared/translations/mk';
 import { SEO } from "@/components/SEO";
 import { GET_CARS, Car } from "@/lib/graphql/operations";
+import { getWatermarkedUrl } from "@/lib/cloudinary";
 
 export default function SavedCars() {
   const navigate = useNavigate();
@@ -178,7 +179,7 @@ export default function SavedCars() {
         {/* Cars Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredAndSortedCars.map((car) => {
-            const imageUrl = freshImageMap[car.id] || undefined;
+            const imageUrl = freshImageMap[car.id] ? getWatermarkedUrl(freshImageMap[car.id]) : undefined;
 
             return (
               <Card key={car.id} className="group border-zinc-100 rounded-2xl hover:shadow-xl hover:scale-105 transition-all duration-300">
