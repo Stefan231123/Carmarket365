@@ -142,7 +142,7 @@ export function ContactCarModal({ car, isOpen, onClose }: ContactCarModalProps) 
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-lg p-0 overflow-hidden bg-white rounded-2xl border-0 shadow-2xl">
+      <DialogContent className="w-[calc(100%-2rem)] sm:w-full max-w-lg p-0 overflow-hidden bg-white rounded-2xl border-0 shadow-2xl">
 
         {/* Header */}
         <div className="bg-zinc-900 px-6 pt-6 pb-5">
