@@ -8,81 +8,8 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { useVehicleSpecTranslator } from '../utils/vehicleSpecTranslations';
 import { useFavorites } from "@/hooks/useFavorites";
 import { useNavigate } from "react-router-dom";
-
-interface Car {
-  id: number;
-  title: string;
-  price: string;
-  year: number;
-  mileage: string;
-  fuel: string;
-  transmission: string;
-  location: string;
-  image: string;
-  dealer: string;
-  daysListed: number;
-  isNew: boolean;
-}
-
-// Mock data simulating newest BMW cars matching the search criteria
-const newSuggestions: Car[] = [
-  {
-    id: 101,
-    title: "BMW 4 Series 420d Coupe",
-    price: "€34,500",
-    year: 2022,
-    mileage: "12,000 km",
-    fuel: "Diesel",
-    transmission: "Automatic",
-    location: "Dresden, Germany",
-    image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400&h=250&fit=crop",
-    dealer: "BMW Dresden",
-    daysListed: 1,
-    isNew: true
-  },
-  {
-    id: 102,
-    title: "BMW 2 Series Active Tourer",
-    price: "€29,800",
-    year: 2021,
-    mileage: "25,000 km",
-    fuel: "Petrol",
-    transmission: "Automatic",
-    location: "Leipzig, Germany",
-    image: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=400&h=250&fit=crop",
-    dealer: "Auto Leipzig",
-    daysListed: 2,
-    isNew: true
-  },
-  {
-    id: 103,
-    title: "BMW X2 sDrive18d",
-    price: "€27,900",
-    year: 2020,
-    mileage: "38,000 km",
-    fuel: "Diesel",
-    transmission: "Automatic",
-    location: "Nuremberg, Germany",
-    image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=250&fit=crop",
-    dealer: "Premium Cars",
-    daysListed: 3,
-    isNew: true
-  },
-  {
-    id: 104,
-    title: "BMW 3 Series Touring 320i",
-    price: "€30,200",
-    year: 2021,
-    mileage: "28,000 km",
-    fuel: "Petrol",
-    transmission: "Automatic",
-    location: "Düsseldorf, Germany",
-    image: "https://images.unsplash.com/photo-1559416523-140ddc3d238c?w=400&h=250&fit=crop",
-    dealer: "BMW Düsseldorf",
-    daysListed: 4,
-    isNew: true
-  }
-];
+import { useFeaturedCars } from "@/hooks/useFeaturedCars";
+import { Car, CarImage } from "@/lib/graphql/operations";
 
 interface InterestingSuggestionsProps {
   onCarClick?: () => void;
@@ -93,26 +20,40 @@ export function InterestingSuggestions({ onCarClick }: InterestingSuggestionsPro
   const vehicleTranslator = useVehicleSpecTranslator(t);
   const { isFavorite, toggleFavorite } = useFavorites();
   const navigate = useNavigate();
+  const { cars, isLoading } = useFeaturedCars();
 
-  const handleSeeMoreClick = () => {
-    navigate('/cars?category=suggestions');
+  if (isLoading || cars.length === 0) return null;
+
+  const displayCars = cars.slice(0, 4);
+
+  const formatPrice = (price: number) =>
+    new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(price);
+
+  const formatMileage = (mileage: number) =>
+    new Intl.NumberFormat('de-DE').format(mileage) + ' km';
+
+  const getMainImage = (images: CarImage[]) => {
+    if (!images || images.length === 0) return undefined;
+    return (images.find(i => i.isMain) ?? images[0]).url;
   };
 
-  const toggleSave = (car: Car, event: React.MouseEvent) => {
-    event.stopPropagation(); // Prevent card click
-    
-    // Convert InterestingSuggestions car data to FavoritesContext format
-    const [make, ...modelParts] = car.title.split(' ');
-    const model = modelParts.join(' ');
-    const priceNumber = parseFloat(car.price.replace(/[^0-9.]/g, ''));
-    
+  const getDaysListed = (createdAt: string) =>
+    Math.floor((Date.now() - new Date(createdAt).getTime()) / 86400000);
+
+  const handleCardClick = (carId: string) => {
+    if (onCarClick) onCarClick();
+    navigate(`/cars/${carId}`);
+  };
+
+  const handleToggleFavorite = (car: Car, event: React.MouseEvent) => {
+    event.stopPropagation();
     toggleFavorite({
-      id: car.id.toString(), // Convert number to string
-      make: make || 'Unknown',
-      model: model || 'Unknown',
+      id: car.id,
+      make: car.make,
+      model: car.model,
       year: car.year,
-      price: priceNumber || 0,
-      image: car.image,
+      price: car.price,
+      image: getMainImage(car.images),
     });
   };
 
@@ -129,77 +70,91 @@ export function InterestingSuggestions({ onCarClick }: InterestingSuggestionsPro
               {t('suggestions.description')}
             </p>
           </div>
-          <Button variant="outline" className="border-zinc-100 rounded-full px-6" onClick={handleSeeMoreClick}>
+          <Button variant="outline" className="border-zinc-100 rounded-full px-6" onClick={() => navigate('/cars')}>
             {t('suggestions.seeMore')}
           </Button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {newSuggestions.map((car) => (
-            <Card key={car.id} className="overflow-hidden hover:shadow-xl hover:scale-105 transition-all duration-300 group cursor-pointer border-zinc-100 rounded-2xl" onClick={onCarClick}>
-              <div className="relative">
-                <ImageWithFallback
-                  src={car.image}
-                  alt={car.title}
-                  className="w-full h-48 object-cover"
-                  width={400}
-                  height={250}
-                />
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className={`absolute top-2 right-2 bg-white/80 hover:bg-white rounded-full transition-colors ${
-                    isFavorite(car.id.toString()) ? 'text-red-500 hover:text-red-600' : 'text-gray-500 hover:text-gray-700'
-                  }`}
-                  onClick={(e) => toggleSave(car, e)}
-                >
-                  <Heart className={`h-4 w-4 ${isFavorite(car.id.toString()) ? 'fill-current' : ''}`} />
-                </Button>
-                <Badge className="absolute bottom-2 left-2 bg-primary text-primary-foreground">
-                  {car.dealer}
-                </Badge>
-                {car.isNew && (
-                  <Badge className="absolute top-2 left-2 bg-orange-500 text-white flex items-center gap-1 rounded-full">
-                    <Clock className="h-3 w-3" />
-                    {car.daysListed}{t('suggestions.daysAgo')}
-                  </Badge>
-                )}
-              </div>
-              
-              <CardContent className="p-4">
-                <h3 className="mb-2 group-hover:text-primary transition-colors">
-                  {car.title}
-                </h3>
-                <div className="text-2xl font-bold text-primary mb-3">
-                  {car.price}
+          {displayCars.map((car) => {
+            const daysListed = getDaysListed(car.createdAt);
+            const dealerLabel = car.seller?.dealerName || car.seller?.name || '';
+            const image = getMainImage(car.images);
+
+            return (
+              <Card
+                key={car.id}
+                className="overflow-hidden hover:shadow-xl hover:scale-105 transition-all duration-300 group cursor-pointer border-zinc-100 rounded-2xl"
+                onClick={() => handleCardClick(car.id)}
+              >
+                <div className="relative">
+                  <ImageWithFallback
+                    src={image}
+                    alt={`${car.year} ${car.make} ${car.model}`}
+                    className="w-full h-48 object-cover"
+                    width={400}
+                    height={250}
+                  />
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className={`absolute top-2 right-2 bg-white/80 hover:bg-white rounded-full transition-colors ${
+                      isFavorite(car.id) ? 'text-red-500 hover:text-red-600' : 'text-gray-500 hover:text-gray-700'
+                    }`}
+                    onClick={(e) => handleToggleFavorite(car, e)}
+                  >
+                    <Heart className={`h-4 w-4 ${isFavorite(car.id) ? 'fill-current' : ''}`} />
+                  </Button>
+                  {dealerLabel && (
+                    <Badge className="absolute bottom-2 left-2 bg-primary text-primary-foreground">
+                      {dealerLabel}
+                    </Badge>
+                  )}
+                  {daysListed <= 7 && (
+                    <Badge className="absolute top-2 left-2 bg-orange-500 text-white flex items-center gap-1 rounded-full">
+                      <Clock className="h-3 w-3" />
+                      {daysListed}{t('suggestions.daysAgo')}
+                    </Badge>
+                  )}
                 </div>
-                
-                <div className="space-y-2 text-sm text-muted-foreground mb-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <Calendar className="h-3 w-3 mr-1" />
-                      {car.year}
+
+                <CardContent className="p-4">
+                  <h3 className="mb-2 group-hover:text-primary transition-colors">
+                    {car.year} {car.make} {car.model}{car.variant ? ` ${car.variant}` : ''}
+                  </h3>
+                  <div className="text-2xl font-bold text-primary mb-3">
+                    {formatPrice(car.price)}
+                  </div>
+
+                  <div className="space-y-2 text-sm text-muted-foreground mb-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center">
+                        <Calendar className="h-3 w-3 mr-1" />
+                        {car.year}
+                      </div>
+                      <div className="flex items-center">
+                        <Gauge className="h-3 w-3 mr-1" />
+                        {formatMileage(car.mileage)}
+                      </div>
                     </div>
-                    <div className="flex items-center">
-                      <Gauge className="h-3 w-3 mr-1" />
-                      {car.mileage}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center">
+                        <Fuel className="h-3 w-3 mr-1" />
+                        {vehicleTranslator.translateFuelType(car.fuelType)}
+                      </div>
+                      <span>{vehicleTranslator.translateTransmission(car.transmission)}</span>
                     </div>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center">
-                      <Fuel className="h-3 w-3 mr-1" />
-                      {vehicleTranslator.translateFuelType(car.fuel)}
+
+                  {car.location && (
+                    <div className="text-xs text-muted-foreground mb-3">
+                      📍 {car.location}
                     </div>
-                    <span>{vehicleTranslator.translateTransmission(car.transmission)}</span>
-                  </div>
-                </div>
-                
-                <div className="text-xs text-muted-foreground mb-3">
-                  📍 {car.location}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                  )}
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -5,7 +5,6 @@ import { useTranslation } from '@/hooks/useTranslation';
 import { useEffect, lazy, Suspense } from 'react';
 
 // Lazy load below-the-fold sections
-const LastSearch = lazy(() => import("@/components/LastSearch").then(m => ({ default: m.LastSearch })));
 const InterestingSuggestions = lazy(() => import("@/components/InterestingSuggestions").then(m => ({ default: m.InterestingSuggestions })));
 const PopularBrands = lazy(() => import("@/components/PopularBrands").then(m => ({ default: m.PopularBrands })));
 const MobileAppAnnouncement = lazy(() => import("@/components/MobileAppAnnouncement").then(m => ({ default: m.MobileAppAnnouncement })));
@@ -30,10 +29,6 @@ export default function Index({ onAdvancedSearchClick }: IndexProps) {
       window.history.replaceState({}, '', newUrl);
     }
   }, []);
-
-  const handleCarClick = () => {
-    navigate('/cars/1'); // Navigate to a sample car detail page
-  };
 
   const handleSearchCarsClick = (searchData: SearchFormData) => {
     const params = new URLSearchParams();
@@ -93,8 +88,7 @@ export default function Index({ onAdvancedSearchClick }: IndexProps) {
         onAdvancedSearchClick={handleAdvancedSearchClick}
       />
       <Suspense fallback={null}>
-        <LastSearch onCarClick={handleCarClick} />
-        <InterestingSuggestions onCarClick={handleCarClick} />
+        <InterestingSuggestions />
         <MobileAppAnnouncement variant="section" />
         <PopularBrands />
       </Suspense>
