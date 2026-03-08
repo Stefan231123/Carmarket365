@@ -275,11 +275,9 @@ export default function CarDetail() {
               {t('carDetail.backToSearch')}
             </Link>
             <div className="flex items-center gap-2">
-              <Button variant="ghost" size="icon" onClick={handleFavoriteClick} aria-label={t('carDetail.saveCar')} className="rounded-full transition-colors">
-                <Heart className={`h-5 w-5 ${isFavorite(carData.id) ? 'fill-red-500 text-red-500' : 'hover:text-red-500'}`} />
-              </Button>
-              <Button variant="ghost" size="icon" aria-label={t('carDetail.shareCar')} className="rounded-full" onClick={() => setIsShareModalOpen(true)}>
-                <Share2 className="h-5 w-5" />
+              <Button variant="outline" size="sm" aria-label={t('carDetail.shareCar')} className="rounded-full h-10 px-4 gap-2 border-zinc-200" onClick={() => setIsShareModalOpen(true)}>
+                <Share2 className="h-4 w-4" />
+                <span className="text-sm">{t('carDetail.shareCar')}</span>
               </Button>
             </div>
           </div>
@@ -510,6 +508,9 @@ export default function CarDetail() {
                       {carData.location}
                     </CardDescription>
                   </div>
+                  <Button variant="ghost" size="icon" onClick={handleFavoriteClick} aria-label={t('carDetail.saveCar')} className="rounded-full h-10 w-10 flex-shrink-0 transition-colors -mt-1 -mr-2">
+                    <Heart className={`h-5 w-5 transition-colors ${isFavorite(carData.id) ? 'fill-red-500 text-red-500' : 'hover:text-red-500'}`} />
+                  </Button>
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">

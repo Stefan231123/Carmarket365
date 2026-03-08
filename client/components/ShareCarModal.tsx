@@ -4,22 +4,18 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { useTranslation } from "@/hooks/useTranslation";
-import { 
-  Share2, 
-  Copy, 
-  Mail, 
-  MessageCircle, 
-  Facebook, 
-  Twitter, 
-  Car,
+import {
+  Share2,
+  Copy,
+  Mail,
+  MessageCircle,
+  Facebook,
+  Twitter,
   CheckCircle,
-  ExternalLink
+  ExternalLink,
 } from "lucide-react";
 
 interface Car {
@@ -54,59 +50,44 @@ export function ShareCarModal({ car, isOpen, onClose }: ShareCarModalProps) {
   };
 
   const getCarImage = (car: Car) => {
-    if (car.images && car.images.length > 0) {
-      return car.images[0];
-    }
+    if (car.images && car.images.length > 0) return car.images[0];
     return "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400&h=300&fit=crop";
   };
 
-  // Generate the car URL and share text
   const carUrl = `${window.location.origin}/cars/${car.id}`;
-  const shareText = `Check out this ${car.year} ${car.make} ${car.model} for ${formatPrice(car.price)} in ${car.location}!`;
-  const shareTitle = `${car.year} ${car.make} ${car.model} - Car Market`;
+  const shareText = `${car.year} ${car.make} ${car.model} - ${formatPrice(car.price)}`;
 
   const handleCopyLink = async () => {
     try {
       await navigator.clipboard.writeText(carUrl);
-      setCopySuccess(true);
-      setTimeout(() => setCopySuccess(false), 2000);
-    } catch (error) {
-      console.error("Failed to copy link:", error);
-      // Fallback for older browsers
-      const textArea = document.createElement("textarea");
-      textArea.value = carUrl;
-      document.body.appendChild(textArea);
-      textArea.select();
+    } catch {
+      const ta = document.createElement("textarea");
+      ta.value = carUrl;
+      document.body.appendChild(ta);
+      ta.select();
       document.execCommand("copy");
-      document.body.removeChild(textArea);
-      setCopySuccess(true);
-      setTimeout(() => setCopySuccess(false), 2000);
+      document.body.removeChild(ta);
     }
+    setCopySuccess(true);
+    setTimeout(() => setCopySuccess(false), 2000);
   };
 
   const handleEmailShare = () => {
-    const subject = encodeURIComponent(shareTitle);
-    const body = encodeURIComponent(`${shareText}\n\n${car.description}\n\nView details: ${carUrl}`);
-    const mailtoUrl = `mailto:?subject=${subject}&body=${body}`;
-    window.open(mailtoUrl, "_blank");
+    const subject = encodeURIComponent(shareText);
+    const body = encodeURIComponent(`${shareText}\n\n${car.description}\n\n${carUrl}`);
+    window.open(`mailto:?subject=${subject}&body=${body}`, "_blank");
   };
 
   const handleWhatsAppShare = () => {
-    const text = encodeURIComponent(`${shareText}\n${carUrl}`);
-    const whatsappUrl = `https://wa.me/?text=${text}`;
-    window.open(whatsappUrl, "_blank");
+    window.open(`https://wa.me/?text=${encodeURIComponent(`${shareText}\n${carUrl}`)}`, "_blank");
   };
 
   const handleFacebookShare = () => {
-    const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(carUrl)}`;
-    window.open(fbUrl, "_blank", "width=600,height=400");
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(carUrl)}`, "_blank", "width=600,height=400");
   };
 
   const handleTwitterShare = () => {
-    const text = encodeURIComponent(shareText);
-    const url = encodeURIComponent(carUrl);
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
-    window.open(twitterUrl, "_blank", "width=600,height=400");
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(carUrl)}`, "_blank", "width=600,height=400");
   };
 
   const handleClose = () => {
@@ -116,21 +97,21 @@ export function ShareCarModal({ car, isOpen, onClose }: ShareCarModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-md">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Share2 className="h-5 w-5" />
-            {t('modals.share.title')}
-          </DialogTitle>
-          <DialogDescription>
-            {t('modals.share.description')}
-          </DialogDescription>
-        </DialogHeader>
+      <DialogContent className="w-[calc(100%-2rem)] sm:w-full max-w-md p-0 overflow-hidden bg-white rounded-2xl sm:rounded-2xl border-0 shadow-2xl">
 
-        {/* Car Information */}
-        <div className="bg-muted/50 rounded-lg p-4 space-y-3">
-          <div className="flex gap-3">
-            <div className="w-16 h-12 rounded-lg overflow-hidden flex-shrink-0">
+        {/* Header */}
+        <div className="bg-zinc-900 px-6 pt-6 pb-5">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-white text-base font-semibold">
+              <Share2 className="h-4 w-4" />
+              {t('modals.share.title')}
+            </DialogTitle>
+            <p className="text-zinc-400 text-sm mt-0.5">{t('modals.share.description')}</p>
+          </DialogHeader>
+
+          {/* Car info */}
+          <div className="flex gap-3 mt-4 bg-white/10 rounded-xl p-3">
+            <div className="w-16 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-zinc-700">
               <img
                 src={getCarImage(car)}
                 alt={`${car.year} ${car.make} ${car.model}`}
@@ -138,99 +119,59 @@ export function ShareCarModal({ car, isOpen, onClose }: ShareCarModalProps) {
               />
             </div>
             <div className="flex-1 min-w-0">
-              <h3 className="font-semibold text-sm leading-tight">
+              <span className="text-white font-semibold text-sm leading-tight block">
                 {car.year} {car.make} {car.model}
-              </h3>
-              <div className="flex items-center justify-between">
-                <span className="text-lg font-bold text-primary">
-                  {formatPrice(car.price)}
-                </span>
-              </div>
-              <div className="text-xs text-muted-foreground">
-                {car.location}
-              </div>
+              </span>
+              <span className="text-white font-bold text-lg block mt-0.5">
+                {formatPrice(car.price)}
+              </span>
+              <span className="text-zinc-400 text-xs">{car.location}</span>
             </div>
           </div>
         </div>
 
-        <Separator />
+        {/* Body */}
+        <div className="px-6 py-5 bg-white space-y-2">
+          {copySuccess && (
+            <div className="bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3 text-sm text-emerald-700 flex items-center gap-2 mb-3">
+              <CheckCircle className="h-4 w-4 flex-shrink-0" />
+              {t('modals.share.linkCopiedToClipboard')}
+            </div>
+          )}
 
-        {/* Copy Link Success Message */}
-        {copySuccess && (
-          <div className="bg-success/10 border border-success/20 rounded-lg p-3 text-center">
-            <CheckCircle className="h-5 w-5 text-success mx-auto mb-1" />
-            <p className="text-sm text-success font-medium">{t('modals.share.linkCopiedToClipboard')}</p>
-          </div>
-        )}
-
-        {/* Share Options */}
-        <div className="space-y-3">
-          {/* Copy Link */}
-          <Button
-            onClick={handleCopyLink}
-            variant="outline"
-            className="w-full justify-start gap-3 h-12"
-            disabled={copySuccess}
-          >
+          <Button onClick={handleCopyLink} variant="outline" className="w-full justify-start gap-3 h-11 rounded-xl border-gray-200 bg-gray-50 hover:bg-white" disabled={copySuccess}>
             <Copy className="h-4 w-4" />
             {copySuccess ? t('modals.share.linkCopied') : t('modals.share.copyLink')}
           </Button>
 
-          {/* Email */}
-          <Button
-            onClick={handleEmailShare}
-            variant="outline"
-            className="w-full justify-start gap-3 h-12"
-          >
+          <Button onClick={handleEmailShare} variant="outline" className="w-full justify-start gap-3 h-11 rounded-xl border-gray-200 bg-gray-50 hover:bg-white">
             <Mail className="h-4 w-4" />
             {t('modals.share.shareViaEmail')}
+            <ExternalLink className="h-3 w-3 ml-auto opacity-40" />
           </Button>
 
-          {/* WhatsApp */}
-          <Button
-            onClick={handleWhatsAppShare}
-            variant="outline"
-            className="w-full justify-start gap-3 h-12"
-          >
+          <Button onClick={handleWhatsAppShare} variant="outline" className="w-full justify-start gap-3 h-11 rounded-xl border-gray-200 bg-gray-50 hover:bg-white">
             <MessageCircle className="h-4 w-4" />
             {t('modals.share.shareOnWhatsApp')}
-            <ExternalLink className="h-3 w-3 ml-auto opacity-50" />
+            <ExternalLink className="h-3 w-3 ml-auto opacity-40" />
           </Button>
 
-          <Separator />
-
-          {/* Social Media */}
-          <div className="grid grid-cols-2 gap-2">
-            <Button
-              onClick={handleFacebookShare}
-              variant="outline"
-              className="justify-center gap-2 h-12"
-            >
+          <div className="grid grid-cols-2 gap-2 pt-1">
+            <Button onClick={handleFacebookShare} variant="outline" className="justify-center gap-2 h-11 rounded-xl border-gray-200 bg-gray-50 hover:bg-white">
               <Facebook className="h-4 w-4" />
               {t('modals.share.facebook')}
-              <ExternalLink className="h-3 w-3 opacity-50" />
             </Button>
-            <Button
-              onClick={handleTwitterShare}
-              variant="outline"
-              className="justify-center gap-2 h-12"
-            >
+            <Button onClick={handleTwitterShare} variant="outline" className="justify-center gap-2 h-11 rounded-xl border-gray-200 bg-gray-50 hover:bg-white">
               <Twitter className="h-4 w-4" />
               {t('modals.share.twitter')}
-              <ExternalLink className="h-3 w-3 opacity-50" />
             </Button>
           </div>
-        </div>
 
-        {/* Close Button */}
-        <div className="pt-2">
-          <Button
-            onClick={handleClose}
-            variant="ghost"
-            className="w-full"
-          >
-            {t('modals.share.close')}
-          </Button>
+          <div className="pt-2">
+            <Button onClick={handleClose} variant="ghost" className="w-full h-11 rounded-xl text-gray-600 hover:bg-gray-50">
+              {t('modals.share.close')}
+            </Button>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
