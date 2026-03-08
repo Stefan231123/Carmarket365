@@ -173,7 +173,7 @@ export function LastSearch({ onCarClick }: LastSearchProps) {
                 <ImageWithFallback
                   src={car.image}
                   alt={car.title}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-56 object-cover"
                   width={400}
                   height={250}
                 />

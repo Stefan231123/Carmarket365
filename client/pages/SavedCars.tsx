@@ -187,10 +187,10 @@ export default function SavedCars() {
                     <ImageWithFallback
                       src={imageUrl}
                       alt={`${car.year} ${car.make} ${car.model}`}
-                      className="w-full h-48 object-cover rounded-t-2xl"
+                      className="w-full h-56 object-cover rounded-t-2xl"
                     />
                   ) : (
-                    <div className="w-full h-48 bg-zinc-100 rounded-t-2xl flex items-center justify-center">
+                    <div className="w-full h-56 bg-zinc-100 rounded-t-2xl flex items-center justify-center">
                       <ImageOff className="h-10 w-10 text-zinc-300" />
                     </div>
                   )}

@@ -126,7 +126,7 @@ export function InterestingSuggestions({ onCarClick }: InterestingSuggestionsPro
                   <ImageWithFallback
                     src={image}
                     alt={`${car.year} ${car.make} ${car.model}`}
-                    className="w-full h-48 object-cover"
+                    className="w-full h-56 object-cover"
                     width={400}
                     height={250}
                   />
