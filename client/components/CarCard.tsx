@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Heart, MapPin, Fuel, Gauge, Calendar, Users, Camera } from "lucide-react";
+import { Heart, MapPin, Fuel, Gauge, Calendar, Users, Camera, ImageOff } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
@@ -105,8 +105,8 @@ export function CarCard({ car, layout }: CarCardProps) {
         ) : (
           <div className="aspect-[4/3] bg-gray-100 rounded-lg flex items-center justify-center">
             <div className="text-center text-gray-400">
-              <Camera className="h-8 w-8 mx-auto mb-2" />
-              <p className="text-sm">{t('common.images')}</p>
+              <ImageOff className="h-8 w-8 mx-auto mb-2 opacity-50" />
+              <p className="text-xs">{t('carDetail.noImages')}</p>
             </div>
           </div>
         )}

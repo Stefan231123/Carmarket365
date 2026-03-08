@@ -577,7 +577,7 @@ placeholder={t('browseCars.filters.anyLocation')}
                                 }}
                               >
                                 <Phone className="h-4 w-4 mr-2" />
-                                <span className="truncate">{t('browseCars.carCard.contactSeller')}</span>
+                                <span className="whitespace-nowrap">{t('browseCars.carCard.contactSeller')}</span>
                               </Button>
                               <Button
                                 className="bg-black text-white hover:bg-black/90 rounded-full shadow-md h-10 min-h-[44px] px-4"
@@ -587,7 +587,7 @@ placeholder={t('browseCars.filters.anyLocation')}
                                 }}
                               >
                                 <Eye className="h-4 w-4 mr-2" />
-                                <span className="truncate">{t('browseCars.carCard.viewDetails')}</span>
+                                <span className="whitespace-nowrap">{t('browseCars.carCard.viewDetails')}</span>
                               </Button>
                             </div>
                           </div>
