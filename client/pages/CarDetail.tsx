@@ -8,7 +8,6 @@ import { useCar } from "@/hooks/useCars";
 import { GET_CARS, Car } from "@/lib/graphql/operations";
 import { ContactCarModal } from "@/components/ContactCarModal";
 import { ShareCarModal } from "@/components/ShareCarModal";
-import { ScheduleTestDriveModal } from "@/components/ScheduleTestDriveModal";
 
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
@@ -48,7 +47,7 @@ export default function CarDetail() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-  const [isTestDriveModalOpen, setIsTestDriveModalOpen] = useState(false);
+
 
   const [isFullscreenModalOpen, setIsFullscreenModalOpen] = useState(false);
   const [fullscreenImageIndex, setFullscreenImageIndex] = useState(0);
@@ -534,9 +533,7 @@ export default function CarDetail() {
                     <Mail className="h-4 w-4 mr-2" />
                     {t('carDetail.actions.sendMessage')}
                   </Button>
-                  <Button onClick={() => setIsTestDriveModalOpen(true)} variant="outline" className="w-full border-zinc-100 rounded-full h-12">
-                    {t('carDetail.actions.scheduleTestDrive')}
-                  </Button>
+
                 </div>
 
                 {/* Share Buttons */}
@@ -743,20 +740,6 @@ export default function CarDetail() {
         onClose={() => setIsShareModalOpen(false)}
       />
 
-      {/* Schedule Test Drive Modal */}
-      <ScheduleTestDriveModal
-        car={{
-          id: carData.id,
-          make: carData.make,
-          model: carData.model,
-          year: carData.year,
-          price: carData.price,
-          images: carData.images,
-          dealer: carData.dealer
-        }}
-        isOpen={isTestDriveModalOpen}
-        onClose={() => setIsTestDriveModalOpen(false)}
-      />
 
 
       {/* Fullscreen Image Modal */}
