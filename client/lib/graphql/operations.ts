@@ -781,6 +781,7 @@ export interface AdvancedSearchFiltersInput extends FilterCarsInput {
   sellerType?: string; // Tier 3: 'private' | 'dealer'
   numberOfDoors?: string; // '2'|'3'|'4'|'5'
   countryCode?: string;
+  ids?: string[];
 }
 
 export interface PaginationInput {

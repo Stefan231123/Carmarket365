@@ -662,4 +662,11 @@ export class CarFilterInput {
   @IsOptional()
   @IsString()
   sellerType?: string;
+
+  @Field(() => [String], { nullable: true })
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(200)
+  @IsString({ each: true })
+  ids?: string[];
 }

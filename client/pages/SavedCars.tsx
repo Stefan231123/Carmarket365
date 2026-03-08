@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { useQuery } from "@apollo/client/react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -10,7 +11,7 @@ import { ContactCarModal } from "@/components/ContactCarModal";
 import { useTranslation } from '../hooks/useTranslation';
 import { mkTranslations } from '../../shared/translations/mk';
 import { SEO } from "@/components/SEO";
-
+import { GET_CARS, Car } from "@/lib/graphql/operations";
 
 export default function SavedCars() {
   const navigate = useNavigate();
@@ -21,20 +22,33 @@ export default function SavedCars() {
   const [contactCar, setContactCar] = useState(null);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
+  const favoriteIds = useMemo(() => favorites.map(f => f.id), [favorites]);
+
+  // Fetch fresh car data (including images) for all saved car IDs
+  const { data: freshCarsData } = useQuery<{ getCars: Car[] }>(GET_CARS, {
+    variables: { filters: { ids: favoriteIds } },
+    skip: favoriteIds.length === 0,
+    fetchPolicy: 'cache-and-network',
+  });
+
+  // Build a map from car ID to fresh image URL
+  const freshImageMap = useMemo(() => {
+    const map: Record<string, string> = {};
+    freshCarsData?.getCars?.forEach(car => {
+      const url = car.images?.[0]?.url || car.images?.[0]?.thumbnailUrl || '';
+      if (url) map[car.id] = url;
+    });
+    return map;
+  }, [freshCarsData]);
+
   // Translation helper function with Macedonian fallback
   const getSavedCarsText = (key: string, fallback: string) => {
     if (currentLanguage === 'mk' && mkTranslations?.savedCars) {
       const value = mkTranslations.savedCars[key as keyof typeof mkTranslations.savedCars];
-      if (value) {
-        return value;
-      }
+      if (value) return value;
     }
-    
     const translated = t(`savedCars.${key}`);
-    if (translated && translated !== `savedCars.${key}`) {
-      return translated;
-    }
-    
+    if (translated && translated !== `savedCars.${key}`) return translated;
     return fallback;
   };
 
@@ -65,14 +79,10 @@ export default function SavedCars() {
       })
       .sort((a, b) => {
         switch (sortBy) {
-          case "price-low":
-            return a.price - b.price;
-          case "price-high":
-            return b.price - a.price;
-          case "year-new":
-            return b.year - a.year;
-          case "year-old":
-            return a.year - b.year;
+          case "price-low": return a.price - b.price;
+          case "price-high": return b.price - a.price;
+          case "year-new": return b.year - a.year;
+          case "year-old": return a.year - b.year;
           case "saved-date":
           default:
             return new Date(b.dateAdded).getTime() - new Date(a.dateAdded).getTime();
@@ -168,85 +178,73 @@ export default function SavedCars() {
         {/* Cars Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredAndSortedCars.map((car) => {
-            // Handle both string URLs and legacy CarImage objects stored in localStorage
-            // Exclude Unsplash placeholder URLs that may have been stored in old data
-            const isPlaceholder = (url: string) => url.includes('unsplash.com');
-            const firstImage = car.images?.[0];
-            const rawUrl: string | undefined =
-              typeof firstImage === 'string' && firstImage
-                ? firstImage
-                : firstImage && typeof firstImage === 'object' && (firstImage as any).url
-                ? (firstImage as any).url
-                : typeof car.image === 'string' && car.image
-                ? car.image
-                : undefined;
-            const imageUrl = rawUrl && !isPlaceholder(rawUrl) ? rawUrl : undefined;
+            const imageUrl = freshImageMap[car.id] || undefined;
 
             return (
-            <Card key={car.id} className="group border-zinc-100 rounded-2xl hover:shadow-xl hover:scale-105 transition-all duration-300">
-              <div className="relative">
-                {imageUrl ? (
-                  <ImageWithFallback
-                    src={imageUrl}
-                    alt={`${car.year} ${car.make} ${car.model}`}
-                    className="w-full h-48 object-cover rounded-t-2xl"
-                  />
-                ) : (
-                  <div className="w-full h-48 bg-zinc-100 rounded-t-2xl flex items-center justify-center">
-                    <ImageOff className="h-10 w-10 text-zinc-300" />
-                  </div>
-                )}
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="absolute top-2 right-2 bg-white/80 hover:bg-white rounded-full text-red-500 hover:text-red-600"
-                  onClick={() => handleRemoveCar(car.id)}
-                >
-                  <Heart className="h-4 w-4 fill-current" />
-                </Button>
-              </div>
-              <CardContent className="p-4">
-                <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">
-                  {car.year} {car.make} {car.model}
-                </h3>
-                <p className="text-2xl font-bold text-primary mb-3">
-                  €{car.price.toLocaleString()}
-                </p>
-                
-                <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
-                  <div className="flex items-center gap-1">
-                    <Calendar className="h-4 w-4" />
-                    {car.year}
-                  </div>
-                </div>
-
-                <div className="flex justify-between items-center text-sm mb-3">
-                  <span className="text-muted-foreground">
-                    {getSavedCarsText('savedDate', 'Saved on')} {new Date(car.dateAdded).toLocaleDateString()}
-                  </span>
-                </div>
-
-                <div className="flex gap-2">
-                  <Button 
-                    variant="outline"
+              <Card key={car.id} className="group border-zinc-100 rounded-2xl hover:shadow-xl hover:scale-105 transition-all duration-300">
+                <div className="relative">
+                  {imageUrl ? (
+                    <ImageWithFallback
+                      src={imageUrl}
+                      alt={`${car.year} ${car.make} ${car.model}`}
+                      className="w-full h-48 object-cover rounded-t-2xl"
+                    />
+                  ) : (
+                    <div className="w-full h-48 bg-zinc-100 rounded-t-2xl flex items-center justify-center">
+                      <ImageOff className="h-10 w-10 text-zinc-300" />
+                    </div>
+                  )}
+                  <Button
+                    variant="ghost"
                     size="sm"
-                    className="flex-1 border-zinc-100 rounded-full hover:bg-zinc-50"
-                    onClick={() => handleContactClick(car)}
+                    className="absolute top-2 right-2 bg-white/80 hover:bg-white rounded-full text-red-500 hover:text-red-600"
+                    onClick={() => handleRemoveCar(car.id)}
                   >
-                    <Phone className="h-4 w-4 mr-2" />
-                    {getSavedCarsText('contact', 'Contact')}
-                  </Button>
-                  <Button 
-                    className="flex-1 bg-black text-white hover:bg-black/90 rounded-full"
-                    size="sm"
-                    onClick={() => navigate(`/cars/${car.id}`)}
-                  >
-                    <Eye className="h-4 w-4 mr-2" />
-                    {getSavedCarsText('view', 'View')}
+                    <Heart className="h-4 w-4 fill-current" />
                   </Button>
                 </div>
-              </CardContent>
-            </Card>
+                <CardContent className="p-4">
+                  <h3 className="font-semibold mb-2 group-hover:text-primary transition-colors">
+                    {car.year} {car.make} {car.model}
+                  </h3>
+                  <p className="text-2xl font-bold text-primary mb-3">
+                    €{car.price.toLocaleString()}
+                  </p>
+
+                  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
+                    <div className="flex items-center gap-1">
+                      <Calendar className="h-4 w-4" />
+                      {car.year}
+                    </div>
+                  </div>
+
+                  <div className="flex justify-between items-center text-sm mb-3">
+                    <span className="text-muted-foreground">
+                      {getSavedCarsText('savedDate', 'Saved on')} {new Date(car.dateAdded).toLocaleDateString()}
+                    </span>
+                  </div>
+
+                  <div className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex-1 border-zinc-100 rounded-full hover:bg-zinc-50"
+                      onClick={() => handleContactClick(car)}
+                    >
+                      <Phone className="h-4 w-4 mr-2" />
+                      {getSavedCarsText('contact', 'Contact')}
+                    </Button>
+                    <Button
+                      className="flex-1 bg-black text-white hover:bg-black/90 rounded-full"
+                      size="sm"
+                      onClick={() => navigate(`/cars/${car.id}`)}
+                    >
+                      <Eye className="h-4 w-4 mr-2" />
+                      {getSavedCarsText('view', 'View')}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
             );
           })}
         </div>

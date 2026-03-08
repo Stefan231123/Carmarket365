@@ -335,5 +335,9 @@ export class CarsService {
     } else if (filters.sellerType === 'dealer') {
       query.andWhere('seller.role = :sellerRole', { sellerRole: 'DEALER' });
     }
+
+    if (filters.ids && filters.ids.length > 0) {
+      query.andWhere('car.id IN (:...ids)', { ids: filters.ids });
+    }
   }
 }
