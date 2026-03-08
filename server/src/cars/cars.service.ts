@@ -212,7 +212,11 @@ export class CarsService {
     }
 
     if (filters.countryCode) {
-      query.andWhere('(car.countryCode = :countryCode OR car.countryCode IS NULL OR car.countryCode = \'\')', { countryCode: filters.countryCode });
+      // 'global' means visible in every country; also do case-insensitive match for legacy uppercase codes (e.g. 'MK' vs 'mk')
+      query.andWhere(
+        "(LOWER(car.countryCode) = LOWER(:countryCode) OR car.countryCode IS NULL OR car.countryCode = '' OR LOWER(car.countryCode) = 'global')",
+        { countryCode: filters.countryCode },
+      );
     }
 
     if (filters.isFeatured !== undefined) {
