@@ -373,7 +373,8 @@ export const mkTranslations: TranslationStrings = {
   // Interesting Suggestions Section
   suggestions: {
     title: 'Ова може да ве интересира',
-    description: 'Свежи BMW огласи што се совпаѓаат со вашите критериуми • Неодамна додадени на платформата',
+    description: 'Истакнати огласи неодамна додадени на платформата',
+    personalizedDescription: 'Врз основа на вашето последно пребарување',
     seeMore: 'Прикажи повеќе предлози',
     daysAgo: 'д. пред'
   },

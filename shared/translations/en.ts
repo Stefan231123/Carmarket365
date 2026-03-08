@@ -342,7 +342,8 @@ export const enTranslations: TranslationStrings = {
   // Interesting Suggestions Section
   suggestions: {
     title: 'This might interest you',
-    description: 'Fresh BMW listings matching your criteria • Recently added to the platform',
+    description: 'Featured listings recently added to the platform',
+    personalizedDescription: 'Based on your last search',
     seeMore: 'Show more suggestions',
     daysAgo: 'd ago',
   },

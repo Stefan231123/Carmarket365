@@ -358,7 +358,8 @@ export const sqTranslations: TranslationStrings = {
   // Interesting Suggestions Section
   suggestions: {
     title: 'Kjo mund t\'ju interesojë',
-    description: 'Shpallje të reja BMW që përputhen me kriteret tuaja • Sapo të shtuar në platformë',
+    description: 'Shpallje të veçuara të shtuara së fundmi në platformë',
+    personalizedDescription: 'Bazuar në kërkimin tuaj të fundit',
     seeMore: 'Shiko më shumë sugjerime',
     daysAgo: 'd më parë',
   },

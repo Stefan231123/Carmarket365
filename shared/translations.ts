@@ -124,6 +124,7 @@ export interface TranslationStrings {
   suggestions: {
     title: string;
     description: string;
+    personalizedDescription: string;
     seeMore: string;
     daysAgo: string;
   };

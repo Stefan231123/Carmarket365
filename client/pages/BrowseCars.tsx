@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { saveLastSearch } from "@/hooks/useLastSearch";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -87,6 +88,20 @@ export default function BrowseCars() {
     if (locationParam) setLocationFilter(locationParam);
     if (fuelType) setFuelTypeFilter(fuelType);
     if (transmission) setTransmissionFilter(transmission);
+
+    // Persist meaningful search params for homepage personalization
+    saveLastSearch({
+      make: make || undefined,
+      model: model || undefined,
+      minPrice: priceFrom ? parseInt(priceFrom) : undefined,
+      maxPrice: priceTo ? parseInt(priceTo) : undefined,
+      minYear: yearFrom ? parseInt(yearFrom) : undefined,
+      maxMileage: mileage ? parseInt(mileage) : undefined,
+      fuelType: fuelType || undefined,
+      transmission: transmission || undefined,
+      vehicleType: type || undefined,
+      location: locationParam || undefined,
+    });
   }, [location.search]);
 
   // Create filters object for the API call — field names match backend CarFilterInput schema

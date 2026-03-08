@@ -8,8 +8,10 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { useVehicleSpecTranslator } from '../utils/vehicleSpecTranslations';
 import { useFavorites } from "@/hooks/useFavorites";
 import { useNavigate } from "react-router-dom";
-import { useFeaturedCars } from "@/hooks/useFeaturedCars";
-import { Car, CarImage } from "@/lib/graphql/operations";
+import { useQuery } from "@apollo/client/react";
+import { GET_CARS, GET_FEATURED_CARS, Car, CarImage } from "@/lib/graphql/operations";
+import { getLastSearch } from "@/hooks/useLastSearch";
+import { useCountry } from "@/contexts/CountryContext";
 
 interface InterestingSuggestionsProps {
   onCarClick?: () => void;
@@ -20,11 +22,40 @@ export function InterestingSuggestions({ onCarClick }: InterestingSuggestionsPro
   const vehicleTranslator = useVehicleSpecTranslator(t);
   const { isFavorite, toggleFavorite } = useFavorites();
   const navigate = useNavigate();
-  const { cars, isLoading } = useFeaturedCars();
+  const { country } = useCountry();
+
+  const lastSearch = getLastSearch();
+  const hasLastSearch = !!lastSearch && Object.values(lastSearch).some(v => v !== undefined);
+
+  // Build filters from last search + country
+  const searchFilters = hasLastSearch ? {
+    ...lastSearch,
+    ...(country && country.code !== 'global' ? { countryCode: country.code } : {}),
+  } : {};
+
+  // Personalized: cars matching last search (skipped if no history)
+  const { data: searchData, loading: searchLoading } = useQuery<{ getCars: Car[] }>(GET_CARS, {
+    variables: { filters: searchFilters },
+    skip: !hasLastSearch,
+    errorPolicy: 'all',
+    fetchPolicy: 'cache-and-network',
+  });
+
+  // Fallback: featured cars (skipped if we have a last search)
+  const { data: featuredData, loading: featuredLoading } = useQuery<{ getFeaturedCars: Car[] }>(GET_FEATURED_CARS, {
+    skip: hasLastSearch,
+    errorPolicy: 'all',
+    fetchPolicy: 'cache-and-network',
+  });
+
+  const isLoading = hasLastSearch ? searchLoading : featuredLoading;
+  const rawCars: Car[] = hasLastSearch
+    ? (searchData?.getCars ?? [])
+    : (featuredData?.getFeaturedCars ?? []);
+
+  const cars = rawCars.slice(0, 4);
 
   if (isLoading || cars.length === 0) return null;
-
-  const displayCars = cars.slice(0, 4);
 
   const formatPrice = (price: number) =>
     new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(price);
@@ -57,6 +88,25 @@ export function InterestingSuggestions({ onCarClick }: InterestingSuggestionsPro
     });
   };
 
+  const sectionDescription = hasLastSearch
+    ? t('suggestions.personalizedDescription')
+    : t('suggestions.description');
+
+  const handleSeeMore = () => {
+    if (hasLastSearch && lastSearch) {
+      const params = new URLSearchParams();
+      if (lastSearch.make) params.set('make', lastSearch.make);
+      if (lastSearch.model) params.set('model', lastSearch.model);
+      if (lastSearch.minPrice) params.set('priceFrom', String(lastSearch.minPrice));
+      if (lastSearch.maxPrice) params.set('priceTo', String(lastSearch.maxPrice));
+      if (lastSearch.minYear) params.set('yearFrom', String(lastSearch.minYear));
+      if (lastSearch.fuelType) params.set('fuelType', lastSearch.fuelType);
+      navigate(`/cars?${params.toString()}`);
+    } else {
+      navigate('/cars');
+    }
+  };
+
   return (
     <section className="py-16 bg-muted/30">
       <div className="container mx-auto px-4">
@@ -67,16 +117,19 @@ export function InterestingSuggestions({ onCarClick }: InterestingSuggestionsPro
               <h2 className="text-3xl">{t('suggestions.title')}</h2>
             </div>
             <p className="text-muted-foreground max-w-2xl">
-              {t('suggestions.description')}
+              {sectionDescription}
+              {hasLastSearch && lastSearch?.make && (
+                <span className="ml-1 font-medium text-foreground">• {lastSearch.make}{lastSearch.model ? ` ${lastSearch.model}` : ''}</span>
+              )}
             </p>
           </div>
-          <Button variant="outline" className="border-zinc-100 rounded-full px-6" onClick={() => navigate('/cars')}>
+          <Button variant="outline" className="border-zinc-100 rounded-full px-6" onClick={handleSeeMore}>
             {t('suggestions.seeMore')}
           </Button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {displayCars.map((car) => {
+          {cars.map((car) => {
             const daysListed = getDaysListed(car.createdAt);
             const dealerLabel = car.seller?.dealerName || car.seller?.name || '';
             const image = getMainImage(car.images);
