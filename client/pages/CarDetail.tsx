@@ -288,9 +288,9 @@ export default function CarDetail() {
       </div>
 
       <div className="container mx-auto px-4 py-4 sm:py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Left Column - Images and Details */}
-          <div className="lg:col-span-2 space-y-6">
+          <div className="md:col-span-2 space-y-6">
             {/* Image Gallery */}
             <div className="space-y-4">
               {carData.images.length > 0 ? (

@@ -168,7 +168,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
                 variant="ghost"
                 size="lg"
                 onClick={previousImage}
-                className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white hover:bg-opacity-20"
+                className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white hover:bg-opacity-20 min-w-[44px] min-h-[44px]"
               >
                 <ChevronLeft className="h-6 w-6" />
               </Button>
@@ -177,7 +177,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({
                 variant="ghost"
                 size="lg"
                 onClick={nextImage}
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white hover:bg-opacity-20"
+                className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 text-white hover:bg-white hover:bg-opacity-20 min-w-[44px] min-h-[44px]"
               >
                 <ChevronRight className="h-6 w-6" />
               </Button>
@@ -322,7 +322,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
           variant="ghost"
           size="sm"
           onClick={previousImage}
-          className="absolute left-2 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-black bg-opacity-50 text-white hover:bg-black hover:bg-opacity-70"
+          className="absolute left-2 top-1/2 transform -translate-y-1/2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity bg-black bg-opacity-50 text-white hover:bg-black hover:bg-opacity-70"
         >
           <ChevronLeft className="h-4 w-4" />
         </Button>
@@ -331,7 +331,7 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
           variant="ghost"
           size="sm"
           onClick={nextImage}
-          className="absolute right-2 top-1/2 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-black bg-opacity-50 text-white hover:bg-black hover:bg-opacity-70"
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity bg-black bg-opacity-50 text-white hover:bg-black hover:bg-opacity-70"
         >
           <ChevronRight className="h-4 w-4" />
         </Button>

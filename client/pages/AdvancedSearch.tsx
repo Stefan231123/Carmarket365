@@ -183,18 +183,26 @@ interface CheckboxGroupProps {
   onSelectionChange?: (values: string[]) => void;
 }
 
+const CHECKBOX_COLS: Record<number, string> = {
+  1: 'grid-cols-1',
+  2: 'grid-cols-1 sm:grid-cols-2',
+  3: 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3',
+};
+
 function CheckboxGroup({ options, selectedValues, filterKey, columns = 2, onSelectionChange }: CheckboxGroupProps) {
   const handleCheckboxChange = (option: string, checked: boolean) => {
     if (onSelectionChange) {
-      const newValues = checked 
+      const newValues = checked
         ? [...selectedValues, option]
         : selectedValues.filter(value => value !== option);
       onSelectionChange(newValues);
     }
   };
-  
+
+  const colClass = CHECKBOX_COLS[columns] ?? CHECKBOX_COLS[2];
+
   return (
-    <div className={`grid grid-cols-${columns} gap-3`}>
+    <div className={`grid ${colClass} gap-3`}>
       {options.map(option => (
         <div key={option} className="flex items-center space-x-3 p-2 rounded-lg hover:bg-muted/30 transition-colors">
           <Checkbox
