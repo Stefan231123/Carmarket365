@@ -365,7 +365,7 @@ export default function CarDetail() {
                     <CardTitle>{t('carDetail.overview.vehicleDetails')}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6 sm:gap-4">
                       <div className="space-y-1">
                         <div className="text-sm text-muted-foreground">{t('carDetail.overview.mileage')}</div>
                         <div className="flex items-center gap-2">

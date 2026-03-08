@@ -80,7 +80,7 @@ export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSe
         <Card className="max-w-5xl mx-auto p-4 sm:p-6 md:p-8 rounded-2xl border border-zinc-100 shadow-xl bg-white">
           {/* Vehicle Type Selector */}
           <div className="flex justify-center mb-6">
-            <div className="flex flex-wrap items-center justify-center gap-1 rounded-full p-1">
+            <div className="flex flex-wrap items-center justify-center gap-2 rounded-full p-1">
               {vehicleTypes.map((type) => {
                 const IconComponent = type.icon;
                 const isActive = searchForm.vehicleType === type.id;

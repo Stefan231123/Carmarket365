@@ -506,7 +506,7 @@ placeholder={t('browseCars.filters.anyLocation')}
                   <Card key={car.id} className="border-zinc-100 rounded-2xl hover:shadow-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer" onClick={() => handleCarClick(car.id)}>
                     <CardContent className={viewMode === "list" ? "p-6" : "p-4"}>
                       <div className={viewMode === "list" ? "flex flex-col sm:flex-row gap-6" : ""}>
-                        <div className={`relative overflow-hidden rounded-2xl ${viewMode === "list" ? "w-full sm:w-64 h-48 sm:h-40" : "w-full h-48"} mb-4`}>
+                        <div className={`relative overflow-hidden rounded-2xl ${viewMode === "list" ? "w-full aspect-video sm:aspect-auto sm:w-64 sm:h-40" : "w-full aspect-video"} mb-4`}>
                           <img
                             src={car.images?.[0]?.url || car.images?.[0]?.thumbnailUrl || "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400&h=300&fit=crop"}
                             alt={`${car.make} ${car.model}`}

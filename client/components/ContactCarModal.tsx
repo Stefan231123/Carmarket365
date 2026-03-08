@@ -169,12 +169,12 @@ export function ContactCarModal({ car, isOpen, onClose }: ContactCarModalProps) 
                   {car.year} {car.make} {car.model}
                 </span>
                 {car.isNew && (
-                  <Badge className="text-[10px] bg-emerald-500 text-white border-0 px-1.5 py-0">
+                  <Badge className="text-xs bg-emerald-500 text-white border-0 px-1.5 py-0">
                     {t('modals.badges.new')}
                   </Badge>
                 )}
                 {car.isCertified && (
-                  <Badge className="text-[10px] bg-blue-500 text-white border-0 px-1.5 py-0">
+                  <Badge className="text-xs bg-blue-500 text-white border-0 px-1.5 py-0">
                     {t('modals.badges.certified')}
                   </Badge>
                 )}
