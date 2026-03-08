@@ -251,7 +251,7 @@ placeholder={t('browseCars.searchPlaceholder')}
 <label className="text-sm font-medium text-foreground mb-3 block">{t('browseCars.filters.priceRange')}</label>
                   <div className="space-y-2">
                     <Select value={priceFromFilter} onValueChange={setPriceFromFilter}>
-<SelectTrigger className="h-10 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
+<SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
                         <SelectValue placeholder={t('browseCars.filters.minPrice')} />
                       </SelectTrigger>
                       <SelectContent className="rounded-3xl border border-zinc-100 bg-white shadow-lg overflow-hidden p-2">
@@ -264,7 +264,7 @@ placeholder={t('browseCars.searchPlaceholder')}
                       </SelectContent>
                     </Select>
                     <Select value={priceToFilter} onValueChange={setPriceToFilter}>
-<SelectTrigger className="h-10 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
+<SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
                         <SelectValue placeholder={t('browseCars.filters.maxPrice')} />
                       </SelectTrigger>
                       <SelectContent className="rounded-3xl border border-zinc-100 bg-white shadow-lg overflow-hidden p-2">
@@ -442,9 +442,9 @@ placeholder={t('browseCars.filters.anyLocation')}
                       variant="ghost"
                       size="sm"
                       onClick={() => setViewMode("list")}
-                      className={`rounded-full h-10 px-3 ${
-                        viewMode === "list" 
-                          ? "bg-black text-white shadow-sm hover:bg-black/90" 
+                      className={`rounded-full h-11 px-3 ${
+                        viewMode === "list"
+                          ? "bg-black text-white shadow-sm hover:bg-black/90"
                           : "bg-transparent text-muted-foreground hover:bg-zinc-200"
                       }`}
                     >
@@ -454,9 +454,9 @@ placeholder={t('browseCars.filters.anyLocation')}
                       variant="ghost"
                       size="sm"
                       onClick={() => setViewMode("grid")}
-                      className={`rounded-full h-10 px-3 ${
-                        viewMode === "grid" 
-                          ? "bg-black text-white shadow-sm hover:bg-black/90" 
+                      className={`rounded-full h-11 px-3 ${
+                        viewMode === "grid"
+                          ? "bg-black text-white shadow-sm hover:bg-black/90"
                           : "bg-transparent text-muted-foreground hover:bg-zinc-200"
                       }`}
                     >
