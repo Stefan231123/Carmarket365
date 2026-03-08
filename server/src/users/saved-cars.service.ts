@@ -33,7 +33,7 @@ export class SavedCarsService {
   async getUserSavedCars(userId: string): Promise<SavedCar[]> {
     return this.savedCarRepository.find({
       where: { userId },
-      relations: ['car', 'car.seller'],
+      relations: ['car', 'car.images', 'car.seller'],
       order: { createdAt: 'DESC' },
     });
   }
