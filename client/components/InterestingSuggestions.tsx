@@ -113,7 +113,7 @@ export function InterestingSuggestions({ onCarClick }: InterestingSuggestionsPro
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {rawCars.map((car) => {
             const daysListed = getDaysListed(car.createdAt);
-            const dealerLabel = car.seller?.dealerName || car.seller?.name || '';
+            const dealerLabel = car.seller?.dealerName || '';
             const image = getMainImage(car.images);
 
             return (

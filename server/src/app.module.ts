@@ -16,6 +16,7 @@ import { AdminModule } from './admin/admin.module';
 import { EmailModule } from './common/email/email.module';
 import { RecaptchaModule } from './common/recaptcha/recaptcha.module';
 import { HealthModule } from './health/health.module';
+import { SubscribersModule } from './common/subscribers/subscribers.module';
 
 @Module({
   imports: [
@@ -101,6 +102,7 @@ import { HealthModule } from './health/health.module';
     CarsModule,
     AdminModule,
     HealthModule,
+    SubscribersModule,
   ],
   providers: [
     {

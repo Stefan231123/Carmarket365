@@ -175,6 +175,10 @@ export class CarsService {
       query.andWhere('car.price <= :maxPrice', { maxPrice: filters.maxPrice });
     }
 
+    if (filters.minMileage) {
+      query.andWhere('car.mileage >= :minMileage', { minMileage: filters.minMileage });
+    }
+
     if (filters.maxMileage) {
       query.andWhere('car.mileage <= :maxMileage', { maxMileage: filters.maxMileage });
     }
@@ -277,6 +281,55 @@ export class CarsService {
 
     if (filters.sellerId) {
       query.andWhere('car.sellerId = :sellerId', { sellerId: filters.sellerId });
+    }
+
+    if (filters.minFuelConsumption !== undefined) {
+      query.andWhere('car.fuelConsumption >= :minFuelConsumption', { minFuelConsumption: filters.minFuelConsumption });
+    }
+
+    if (filters.maxFuelConsumption !== undefined) {
+      query.andWhere('car.fuelConsumption <= :maxFuelConsumption', { maxFuelConsumption: filters.maxFuelConsumption });
+    }
+
+    if (filters.hasWarranty !== undefined) {
+      if (filters.hasWarranty) {
+        query.andWhere('car.warrantyMonths > 0');
+      } else {
+        query.andWhere('(car.warrantyMonths IS NULL OR car.warrantyMonths = 0)');
+      }
+    }
+
+    if (filters.allowTestDrive !== undefined) {
+      query.andWhere('car.allowTestDrive = :allowTestDrive', { allowTestDrive: filters.allowTestDrive });
+    }
+
+    if (filters.acceptsTradeIn !== undefined) {
+      query.andWhere('car.acceptsTradeIn = :acceptsTradeIn', { acceptsTradeIn: filters.acceptsTradeIn });
+    }
+
+    if (filters.priceNegotiable !== undefined) {
+      query.andWhere('car.priceNegotiable = :priceNegotiable', { priceNegotiable: filters.priceNegotiable });
+    }
+
+    if (filters.quickSale !== undefined) {
+      if (filters.quickSale) {
+        query.andWhere('car.quickSale = true');
+      } else {
+        query.andWhere('(car.quickSale = false OR car.quickSale IS NULL)');
+      }
+    }
+
+    if (filters.features?.length) {
+      // Each selected feature must appear in the car's features array
+      filters.features.forEach((feature, i) => {
+        query.andWhere(`:feat${i} = ANY(car.features)`, { [`feat${i}`]: feature });
+      });
+    }
+
+    if (filters.sellerType === 'private') {
+      query.andWhere('seller.role = :sellerRole', { sellerRole: 'USER' });
+    } else if (filters.sellerType === 'dealer') {
+      query.andWhere('seller.role = :sellerRole', { sellerRole: 'DEALER' });
     }
   }
 }

@@ -56,7 +56,7 @@ export function CarCard({ car, layout }: CarCardProps) {
   const carModel = car.model;
   const fuelType = car.fuelType;
   const transmission = car.transmission;
-  const dealer = 'seller' in car ? (car.seller?.dealerName || car.seller?.name) : ('dealer' in car ? car.dealer : '');
+  const dealer = 'seller' in car ? (car.seller?.dealerName || '') : ('dealer' in car ? car.dealer : '');
   const currency = 'EUR';
 
   // Extract image URLs from CarImage objects or string arrays

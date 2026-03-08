@@ -484,6 +484,11 @@ export class CarFilterInput {
   @Field(() => Int, { nullable: true })
   @IsOptional()
   @IsNumber()
+  minMileage?: number;
+
+  @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
   maxMileage?: number;
 
   @Field(() => FuelType, { nullable: true })
@@ -610,4 +615,51 @@ export class CarFilterInput {
   @IsOptional()
   @IsString()
   sellerId?: string;
+
+  @Field(() => Float, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  minFuelConsumption?: number;
+
+  @Field(() => Float, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  maxFuelConsumption?: number;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsBoolean()
+  hasWarranty?: boolean;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsBoolean()
+  allowTestDrive?: boolean;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsBoolean()
+  acceptsTradeIn?: boolean;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsBoolean()
+  priceNegotiable?: boolean;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsBoolean()
+  quickSale?: boolean;
+
+  @Field(() => [String], { nullable: true })
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(50)
+  @IsString({ each: true })
+  features?: string[];
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  sellerType?: string;
 }

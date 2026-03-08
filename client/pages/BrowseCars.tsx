@@ -564,7 +564,7 @@ placeholder={t('browseCars.filters.anyLocation')}
                                 €{(car.price || 0).toLocaleString()}
                               </div>
 <div className="text-sm text-muted-foreground">
-                                {car.seller?.dealerName || car.seller?.name || t('auth.privatePerson')}
+                                {car.seller?.dealerName || t('auth.privatePerson')}
                               </div>
                             </div>
                             <div className="flex flex-wrap gap-2">

@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useMutation } from '@apollo/client/react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { X, Smartphone, Bell, Download, CheckCircle } from "lucide-react";
 import { useTranslation } from "@/hooks/useTranslation";
+import { SUBSCRIBE_TO_MOBILE_APP } from "@/lib/graphql/operations";
 
 interface MobileAppAnnouncementProps {
   variant?: 'banner' | 'modal' | 'section';
@@ -16,34 +18,27 @@ export function MobileAppAnnouncement({
   const { t } = useTranslation();
   const [email, setEmail] = useState('');
   const [isSubscribed, setIsSubscribed] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [subscribeToMobileApp, { loading: isSubmitting }] = useMutation<{ subscribeToMobileApp: boolean }>(
+    SUBSCRIBE_TO_MOBILE_APP
+  );
 
   const handleNotifyMe = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
 
-    setIsSubmitting(true);
-    
     try {
-      // TODO: Integrate with real email service
-      console.log('Mobile app notification signup:', email);
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      setIsSubscribed(true);
-      setEmail('');
-      
-      // Store in localStorage to prevent showing again
-      localStorage.setItem('carmarket365_mobile_app_signup', JSON.stringify({
-        email,
-        timestamp: Date.now()
-      }));
-      
+      const { data } = await subscribeToMobileApp({ variables: { email: email.trim() } });
+      if (data?.subscribeToMobileApp) {
+        setIsSubscribed(true);
+        setEmail('');
+        localStorage.setItem('carmarket365_mobile_app_signup', JSON.stringify({
+          email,
+          timestamp: Date.now()
+        }));
+      }
     } catch (error) {
       console.error('Failed to subscribe:', error);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 

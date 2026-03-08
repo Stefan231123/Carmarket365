@@ -91,6 +91,14 @@ export class User {
   @Column({ nullable: true })
   countryPreference?: string;
 
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  cookieConsent?: boolean;
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  cookieConsentAt?: Date;
+
   @Field()
   @Column({ default: false })
   marketingEmailsEnabled: boolean;

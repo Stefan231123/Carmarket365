@@ -47,7 +47,7 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
       setIsLoaded(true);
     }
 
-    // Try to load from backend (cookie-based auth sent automatically)
+    // Try to sync with backend (only succeeds for logged-in users)
     apiClient.getUserSavedCars().then((savedCars) => {
       if (savedCars && savedCars.length > 0) {
         const backendFavorites: FavoriteCar[] = savedCars.map((sc: any) => ({
@@ -63,8 +63,11 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
         setFavorites(backendFavorites);
         localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(backendFavorites));
       }
-    }).catch(() => {
-      // Silently fall back to localStorage data
+    }).catch((err) => {
+      // Not logged in or network error — localStorage data is used as fallback
+      if (err?.message && !err.message.includes('401') && !err.message.includes('Unauthorized')) {
+        console.warn('Favorites backend sync failed:', err.message);
+      }
     });
   }, []);
 
@@ -95,18 +98,22 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
       return [newFavorite, ...prev];
     });
 
-    // Sync with backend (cookie-based auth sent automatically; silently fails if not logged in)
-    apiClient.saveCar(car.id).catch(() => {
-      // Silently fail — localStorage is the source of truth
+    // Sync with backend — silent for 401 (not logged in), log real errors
+    apiClient.saveCar(car.id).catch((err) => {
+      if (err?.message && !err.message.includes('401') && !err.message.includes('Unauthorized')) {
+        console.warn('Failed to sync saved car to backend:', err.message);
+      }
     });
   };
 
   const removeFromFavorites = (carId: string) => {
     setFavorites(prev => prev.filter(fav => fav.id !== carId));
 
-    // Sync with backend (cookie-based auth sent automatically; silently fails if not logged in)
-    apiClient.unsaveCar(carId).catch(() => {
-      // Silently fail
+    // Sync with backend — silent for 401 (not logged in), log real errors
+    apiClient.unsaveCar(carId).catch((err) => {
+      if (err?.message && !err.message.includes('401') && !err.message.includes('Unauthorized')) {
+        console.warn('Failed to sync removed car from backend:', err.message);
+      }
     });
   };
 

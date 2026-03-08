@@ -276,6 +276,32 @@ export class UsersService {
     }
   }
 
+  // --- Preferences ---
+
+  async updateLanguagePreference(
+    userId: string,
+    languageCode: string,
+    countryCode?: string,
+  ): Promise<User> {
+    await this.userRepository.update(userId, {
+      languagePreference: languageCode,
+      ...(countryCode ? { countryPreference: countryCode } : {}),
+    });
+    const user = await this.findById(userId);
+    if (!user) throw new NotFoundException('User not found');
+    return user;
+  }
+
+  async updateCookieConsent(userId: string, accepted: boolean): Promise<User> {
+    await this.userRepository.update(userId, {
+      cookieConsent: accepted,
+      cookieConsentAt: new Date(),
+    });
+    const user = await this.findById(userId);
+    if (!user) throw new NotFoundException('User not found');
+    return user;
+  }
+
   // --- GDPR: Marketing Preferences ---
 
   async updateMarketingPreferences(

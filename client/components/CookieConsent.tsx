@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import apolloClient from "@/lib/apollo-client";
+import { UPDATE_COOKIE_CONSENT } from "@/lib/graphql/operations";
 
 const COOKIE_CONSENT_KEY = "carmarket365_cookie_consent";
 
@@ -25,13 +27,22 @@ export function CookieConsent() {
     }
   }, []);
 
+  const syncConsentToBackend = (accepted: boolean) => {
+    apolloClient.mutate({
+      mutation: UPDATE_COOKIE_CONSENT,
+      variables: { accepted },
+    }).catch(() => { /* not logged in — no-op */ });
+  };
+
   const handleAccept = () => {
     try { localStorage.setItem(COOKIE_CONSENT_KEY, "accepted"); } catch {}
+    syncConsentToBackend(true);
     setIsVisible(false);
   };
 
   const handleDecline = () => {
     try { localStorage.setItem(COOKIE_CONSENT_KEY, "declined"); } catch {}
+    syncConsentToBackend(false);
     setIsVisible(false);
   };
 

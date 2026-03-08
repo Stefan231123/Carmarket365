@@ -47,39 +47,18 @@ interface AdvancedSearchFilters {
   powerMaxPS: number;
   gear: string;
   numberOfSeats: string;
-  
+  numberOfDoors: string;
+
   // Engine Technical Specifications
   engineDisplacementMin: number;
   engineDisplacementMax: number;
-  turboSupercharging: string;
-  enginePosition: string;
-  
-  // Advanced Vehicle History
+
+  // History & Service
   serviceBookAvailable: string;
-  accidentDamageRepaired: string;
-  importVehicle: string;
-  taxiRentalHistory: string;
-  roadworthinessTest: string;
-  
-  // Financing & Insurance
-  financingAvailable: string;
-  leasingAvailable: string;
-  insuranceCategory: string;
-  vatDeductible: string;
-  
-  // Advanced Safety Features
-  safetyRating: string;
-  advancedDriverAssistance: string[];
-  collisionAvoidance: string;
-  emergencyCallSystem: string;
-  
+
   // Environmental Extended
-  co2EmissionsMin: number;
-  co2EmissionsMax: number;
   fuelConsumptionMin: number;
   fuelConsumptionMax: number;
-  environmentalBadge: string;
-  electricRange: string;
   
   
   // Seller & Condition
@@ -101,7 +80,13 @@ interface AdvancedSearchFilters {
   guarantee: string;
   fullServiceHistory: string;
   nonSmokingVehicle: string;
-  
+
+  // Seller Options
+  allowTestDrive: string;
+  acceptsTradeIn: string;
+  priceNegotiable: string;
+  quickSale: string;
+
   // Environmental
   euroEmissionClass: string;
 }
@@ -169,31 +154,6 @@ const fallbackGuaranteeOptions = ['No Guarantee', 'Dealer Guarantee', 'Manufactu
 
 const fallbackEuroEmissionClasses = ['Euro 1', 'Euro 2', 'Euro 3', 'Euro 4', 'Euro 5', 'Euro 6', 'Euro 6c', 'Euro 6d-TEMP', 'Euro 6d'];
 
-// Engine Technical Specifications
-const fallbackTurboOptions = ['Naturally Aspirated', 'Turbocharged', 'Supercharged', 'Twin Turbo', 'Bi-Turbo'];
-const fallbackEnginePositions = ['Front', 'Mid', 'Rear'];
-
-// Advanced Vehicle History
-const fallbackServiceBookOptions = ['Yes', 'No', 'Digital', 'Partial'];
-const fallbackYesNoUnknownOptions = ['Да', 'Не', 'Непознато'];
-const fallbackRoadworthinessOptions = ['Valid', 'Expired', 'New', 'Not Required'];
-
-// Financing & Insurance
-const insuranceCategories = Array.from({ length: 25 }, (_, i) => (i + 1).toString());
-
-// Advanced Safety Features
-const safetyRatings = ['1 Star', '2 Stars', '3 Stars', '4 Stars', '5 Stars', 'Not Rated'];
-const fallbackAdvancedSafetyFeatures = [
-  'Адаптивен круз контрол', 'Предупредување за напуштање на лента', 'Помош за задржување во лента',
-  'Асистент за итно сопирање', 'Монитор за слепа точка', 'Препознавање на сообраќајни знаци',
-  'Предупредување за внимание на возачот', 'Предупредување за вкрстен сообраќај', 'Автоматски долги светла',
-  'Ублажување на судир', 'Откривање пешаци', 'Откривање велосипедисти'
-];
-const emergencyCallOptions = ['eCall Available', 'Private Emergency Service', 'Not Available'];
-
-// Environmental Extended
-const fallbackEnvironmentalBadges = ['Green Badge', 'Yellow Badge', 'Red Badge', 'Blue Badge', 'No Badge'];
-const fallbackElectricRangeOptions = ['0-50 km', '51-100 km', '101-200 km', '201-300 km', '300+ km', 'Not Applicable'];
 
 
 // Create years array: individual years from current year down to 1990, then decades from 1980s down to 1950s
@@ -205,7 +165,6 @@ const priceRanges = [0, 1000, 2000, 3000, 4000, 5000, 7500, 10000, 12500, 15000,
 const mileageRanges = [0, 50000, 100000, 150000, 200000, 250000, 300000, 350000, 400000];
 const powerRanges = [0, 30, 50, 70, 90, 110, 130, 150, 170, 200, 220, 250, 280, 300, 350, 400, 450, 500, 550, 600];
 const engineDisplacementRanges = [0.5, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.5, 2.8, 3.0, 3.5, 4.0, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 8.0];
-const co2EmissionsRanges = [0, 50, 75, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280, 300, 320, 340, 360, 380, 400];
 const fuelConsumptionRanges = [0, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
 interface FilterSectionProps {
@@ -616,8 +575,7 @@ export default function AdvancedSearch() {
   const fuelTypes = getTranslatedArray('fuelTypes', fallbackFuelTypes);
   const gearTypes = getTranslatedArray('transmissions', fallbackGearTypes);
   const optionalEquipment = getTranslatedArray('optionalEquipment', fallbackOptionalEquipment);
-  const advancedSafetyFeatures = getTranslatedArray('advancedSafetyFeatures', fallbackAdvancedSafetyFeatures);
-  
+
   // Get translated options arrays
   const sellerTypes = getTranslatedArray('sellerTypes', fallbackSellerTypes);
   const vehicleConditionTypes = getTranslatedArray('conditions', fallbackVehicleConditionTypes);
@@ -626,16 +584,7 @@ export default function AdvancedSearch() {
   const paintWorkTypes = getTranslatedArray('paintworkTypes', fallbackPaintWorkTypes);
   const upholsteryTypes = getTranslatedArray('upholsteryTypes', fallbackUpholsteryTypes);
   const guaranteeOptions = getTranslatedArray('guaranteeOptions', fallbackGuaranteeOptions);
-  
-  // Get translated advanced options arrays
   const previousOwnersOptions = getTranslatedArray('previousOwnersOptions', fallbackPreviousOwnersOptions);
-  const turboOptions = getTranslatedArray('turboOptions', fallbackTurboOptions);
-  const enginePositions = getTranslatedArray('enginePositions', fallbackEnginePositions);
-  const serviceBookOptions = getTranslatedArray('serviceBookOptions', fallbackServiceBookOptions);
-  const yesNoUnknownOptions = getTranslatedArray('yesNoUnknownOptions', fallbackYesNoUnknownOptions);
-  const roadworthinessOptions = getTranslatedArray('roadworthinessOptions', fallbackRoadworthinessOptions);
-  const environmentalBadges = getTranslatedArray('environmentalBadges', fallbackEnvironmentalBadges);
-  const electricRangeOptions = getTranslatedArray('electricRangeOptions', fallbackElectricRangeOptions);
   
   // Arrays that don't have translations yet (keep as fallback)
   const numberOfSeatsOptions = fallbackNumberOfSeatsOptions;
@@ -691,39 +640,18 @@ export default function AdvancedSearch() {
     powerMaxPS: 680,
     gear: '',
     numberOfSeats: '',
-    
+    numberOfDoors: '',
+
     // Engine Technical Specifications
     engineDisplacementMin: 0.5,
     engineDisplacementMax: 8.0,
-    turboSupercharging: '',
-    enginePosition: '',
-    
-    // Advanced Vehicle History
+
+    // History & Service
     serviceBookAvailable: '',
-    accidentDamageRepaired: '',
-    importVehicle: '',
-    taxiRentalHistory: '',
-    roadworthinessTest: '',
-    
-    // Financing & Insurance
-    financingAvailable: '',
-    leasingAvailable: '',
-    insuranceCategory: '',
-    vatDeductible: '',
-    
-    // Advanced Safety Features
-    safetyRating: '',
-    advancedDriverAssistance: [],
-    collisionAvoidance: '',
-    emergencyCallSystem: '',
-    
+
     // Environmental Extended
-    co2EmissionsMin: 0,
-    co2EmissionsMax: 400,
     fuelConsumptionMin: 0,
     fuelConsumptionMax: 20,
-    environmentalBadge: '',
-    electricRange: '',
     
     
     // Seller & Condition
@@ -745,7 +673,13 @@ export default function AdvancedSearch() {
     guarantee: '',
     fullServiceHistory: '',
     nonSmokingVehicle: '',
-    
+
+    // Seller Options
+    allowTestDrive: '',
+    acceptsTradeIn: '',
+    priceNegotiable: '',
+    quickSale: '',
+
     // Environmental
     euroEmissionClass: ''
   });
@@ -780,11 +714,19 @@ export default function AdvancedSearch() {
       mileageMin: localFilters.mileageMin > 0 ? localFilters.mileageMin : undefined,
       mileageMax: localFilters.mileageMax < 400000 ? localFilters.mileageMax : undefined,
       powerKwMin: localFilters.powerMinKW > 0 ? localFilters.powerMinKW : undefined,
+      powerMaxKW: localFilters.powerMaxKW < 500 ? localFilters.powerMaxKW : undefined,
+      powerMinPS: localFilters.powerMinPS > 0 ? localFilters.powerMinPS : undefined,
+      powerMaxPS: localFilters.powerMaxPS < 680 ? localFilters.powerMaxPS : undefined,
+      engineDisplacementMin: localFilters.engineDisplacementMin > 0.5 ? Math.round(localFilters.engineDisplacementMin * 1000) : undefined,
+      engineDisplacementMax: localFilters.engineDisplacementMax < 8.0 ? Math.round(localFilters.engineDisplacementMax * 1000) : undefined,
+      fuelConsumptionMin: localFilters.fuelConsumptionMin > 0 ? localFilters.fuelConsumptionMin : undefined,
+      fuelConsumptionMax: localFilters.fuelConsumptionMax < 20 ? localFilters.fuelConsumptionMax : undefined,
       gear: localFilters.gear || undefined,
       numberOfSeats: localFilters.numberOfSeats || undefined,
-      seller: localFilters.seller || undefined,
+      numberOfDoors: localFilters.numberOfDoors || undefined,
+      sellerType: localFilters.seller || undefined,
       vehicleCondition: localFilters.vehicleCondition || undefined,
-      optionalEquipment: localFilters.optionalEquipment?.length ? localFilters.optionalEquipment : undefined,
+      features: localFilters.optionalEquipment?.length ? localFilters.optionalEquipment : undefined,
       bodyColor: localFilters.bodyColor || undefined,
       paintWork: localFilters.paintWork || undefined,
       interiorColor: localFilters.interiorColor || undefined,
@@ -792,8 +734,13 @@ export default function AdvancedSearch() {
       previousOwners: localFilters.previousOwners || undefined,
       hadAccident: localFilters.hadAccident || undefined,
       guarantee: localFilters.guarantee || undefined,
+      serviceBookAvailable: localFilters.fullServiceHistory || undefined,
       fullServiceHistory: localFilters.fullServiceHistory || undefined,
       nonSmokingVehicle: localFilters.nonSmokingVehicle || undefined,
+      allowTestDrive: localFilters.allowTestDrive === 'yes' ? true : localFilters.allowTestDrive === 'no' ? false : undefined,
+      acceptsTradeIn: localFilters.acceptsTradeIn === 'yes' ? true : localFilters.acceptsTradeIn === 'no' ? false : undefined,
+      priceNegotiable: localFilters.priceNegotiable === 'yes' ? true : localFilters.priceNegotiable === 'no' ? false : undefined,
+      quickSale: localFilters.quickSale === 'yes' ? true : localFilters.quickSale === 'no' ? false : undefined,
       euroEmissionClass: localFilters.euroEmissionClass || undefined
     };
     
@@ -802,8 +749,8 @@ export default function AdvancedSearch() {
   
   // Track search analytics when results change
   useEffect(() => {
-    if (searchResults && searchResults.totalCount > 0) {
-      trackSearch(filters, searchResults.totalCount);
+    if (searchResults && (searchResults.totalCount ?? 0) > 0) {
+      trackSearch(filters, searchResults.totalCount ?? 0);
     }
   }, [searchResults, filters, trackSearch]);
 
@@ -859,39 +806,18 @@ export default function AdvancedSearch() {
       powerMaxPS: 680,
       gear: '',
       numberOfSeats: '',
-      
+      numberOfDoors: '',
+
       // Engine Technical Specifications
       engineDisplacementMin: 0.5,
       engineDisplacementMax: 8.0,
-      turboSupercharging: '',
-      enginePosition: '',
-      
-      // Advanced Vehicle History
+
+      // History & Service
       serviceBookAvailable: '',
-      accidentDamageRepaired: '',
-      importVehicle: '',
-      taxiRentalHistory: '',
-      roadworthinessTest: '',
-      
-      // Financing & Insurance
-      financingAvailable: '',
-      leasingAvailable: '',
-      insuranceCategory: '',
-      vatDeductible: '',
-      
-      // Advanced Safety Features
-      safetyRating: '',
-      advancedDriverAssistance: [],
-      collisionAvoidance: '',
-      emergencyCallSystem: '',
-      
+
       // Environmental Extended
-      co2EmissionsMin: 0,
-      co2EmissionsMax: 400,
       fuelConsumptionMin: 0,
       fuelConsumptionMax: 20,
-      environmentalBadge: '',
-      electricRange: '',
       
       
       // Seller & Condition
@@ -913,7 +839,13 @@ export default function AdvancedSearch() {
       guarantee: '',
       fullServiceHistory: '',
       nonSmokingVehicle: '',
-      
+
+      // Seller Options
+      allowTestDrive: '',
+      acceptsTradeIn: '',
+      priceNegotiable: '',
+      quickSale: '',
+
       // Environmental
       euroEmissionClass: ''
     });
@@ -934,16 +866,15 @@ export default function AdvancedSearch() {
         switch (filterKey) {
           case 'firstRegistrationFrom': return 1990;
           case 'firstRegistrationTo': return new Date().getFullYear();
-          case 'priceMin': case 'mileageMin': case 'powerMinKW': case 'powerMinPS': case 'co2EmissionsMin': case 'fuelConsumptionMin': return 0;
+          case 'priceMin': case 'mileageMin': case 'powerMinKW': case 'powerMinPS': case 'fuelConsumptionMin': return 0;
           case 'priceMax': return 200000;
           case 'mileageMax': return 400000;
           case 'powerMaxKW': return 500;
           case 'powerMaxPS': return 680;
           case 'engineDisplacementMin': return 0.5;
           case 'engineDisplacementMax': return 8.0;
-          case 'co2EmissionsMax': return 400;
           case 'fuelConsumptionMax': return 20;
-          case 'additionalProperties': case 'optionalEquipment': case 'advancedDriverAssistance': return [];
+          case 'additionalProperties': case 'optionalEquipment': return [];
           default: return '';
         }
       })();
@@ -1437,6 +1368,21 @@ export default function AdvancedSearch() {
                       </SelectContent>
                     </Select>
                   </div>
+
+                  <div>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getSimpleText('Врати', 'Dyert', 'Doors')}</label>
+                    <Select value={localFilters.numberOfDoors} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, numberOfDoors: value }))}>
+                      <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
+                        {['2', '3', '4', '5'].map(d => (
+                          <SelectItem key={d} value={d}>{d}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
               </div>
             </FilterSection>
@@ -1658,6 +1604,70 @@ export default function AdvancedSearch() {
                     </SelectContent>
                   </Select>
                 </div>
+
+                <div>
+                  <label className="block text-sm mb-2 text-muted-foreground">
+                    {getSimpleText('Тест вожња', 'Provë Drejtimi', 'Test Drive')}
+                  </label>
+                  <Select value={localFilters.allowTestDrive} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, allowTestDrive: value }))}>
+                    <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
+                      <SelectItem value="yes">{getSimpleText('Да', 'Po', 'Yes')}</SelectItem>
+                      <SelectItem value="no">{getSimpleText('Не', 'Jo', 'No')}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="block text-sm mb-2 text-muted-foreground">
+                    {getSimpleText('Замена', 'Ndërrimi', 'Trade-In')}
+                  </label>
+                  <Select value={localFilters.acceptsTradeIn} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, acceptsTradeIn: value }))}>
+                    <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
+                      <SelectItem value="yes">{getSimpleText('Да', 'Po', 'Yes')}</SelectItem>
+                      <SelectItem value="no">{getSimpleText('Не', 'Jo', 'No')}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="block text-sm mb-2 text-muted-foreground">
+                    {getSimpleText('Цената е по договор', 'Çmimi është i negociueshëm', 'Price Negotiable')}
+                  </label>
+                  <Select value={localFilters.priceNegotiable} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, priceNegotiable: value }))}>
+                    <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
+                      <SelectItem value="yes">{getSimpleText('Да', 'Po', 'Yes')}</SelectItem>
+                      <SelectItem value="no">{getSimpleText('Не', 'Jo', 'No')}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <label className="block text-sm mb-2 text-muted-foreground">
+                    {getSimpleText('Брза продажба', 'Shitje e shpejtë', 'Quick Sale')}
+                  </label>
+                  <Select value={localFilters.quickSale} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, quickSale: value }))}>
+                    <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
+                      <SelectItem value="yes">{getSimpleText('Да', 'Po', 'Yes')}</SelectItem>
+                      <SelectItem value="no">{getSimpleText('Не', 'Jo', 'No')}</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
             </FilterSection>
 
@@ -1720,323 +1730,17 @@ export default function AdvancedSearch() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Турбо/Суперпуњач</label>
-                    <Select value={localFilters.turboSupercharging} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, turboSupercharging: value }))}>
-                      <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="Било кое" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="any">Било кое</SelectItem>
-                        {turboOptions.map(turbo => (
-                          <SelectItem key={turbo} value={turbo}>{turbo}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Позиција на моторот</label>
-                    <Select value={localFilters.enginePosition} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, enginePosition: value }))}>
-                      <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="Било кое" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="any">Било кое</SelectItem>
-                        {enginePositions.map(position => (
-                          <SelectItem key={position} value={position}>{position} Мотор</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
               </div>
             </FilterSection>
 
-            {/* Advanced Vehicle History - PURE HARDCODED MACEDONIAN */}
-            <FilterSection 
-              title="Напредна историја на возилото" 
-              sectionKey="advanced-history"
-              icon={<Shield className="h-5 w-5 text-blue-600" />}
-              description="Детална историја и документација на возилото"
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">Достапна сервисна книшка</label>
-                  <Select value={localFilters.serviceBookAvailable} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, serviceBookAvailable: value }))}>
-                    <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Било кое" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="any">Било кое</SelectItem>
-                      {serviceBookOptions.map(option => (
-                        <SelectItem key={option} value={option}>{option}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">Поправена штета од незгода</label>
-                  <Select value={localFilters.accidentDamageRepaired} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, accidentDamageRepaired: value }))}>
-                    <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Било кое" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="any">Било кое</SelectItem>
-                      {yesNoUnknownOptions.map(option => (
-                        <SelectItem key={option} value={option}>{option}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">Увезено возило</label>
-                  <Select value={localFilters.importVehicle} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, importVehicle: value }))}>
-                    <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Било кое" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="any">Било кое</SelectItem>
-                      {yesNoUnknownOptions.map(option => (
-                        <SelectItem key={option} value={option}>{option}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">Историја како такси/рент</label>
-                  <Select value={localFilters.taxiRentalHistory} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, taxiRentalHistory: value }))}>
-                    <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Било кое" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="any">Било кое</SelectItem>
-                      {yesNoUnknownOptions.map(option => (
-                        <SelectItem key={option} value={option}>{option}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">Тест за безбедност</label>
-                  <Select value={localFilters.roadworthinessTest} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, roadworthinessTest: value }))}>
-                    <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Било кое" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="any">Било кое</SelectItem>
-                      {roadworthinessOptions.map(option => (
-                        <SelectItem key={option} value={option}>{option}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            </FilterSection>
-
-            {/* Financing & Insurance - PURE HARDCODED MACEDONIAN */}
-            <FilterSection 
-              title="Финансирање и осигурување" 
-              sectionKey="financing"
-              icon={<Star className="h-5 w-5 text-green-600" />}
-              description="Опции за финансирање и детали за осигурување"
-            >
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">Достапно финансирање</label>
-                  <Select value={localFilters.financingAvailable} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, financingAvailable: value }))}>
-                    <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Било кое" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="any">Било кое</SelectItem>
-                      {yesNoOptions.map(option => (
-                        <SelectItem key={option} value={option}>{option}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">Достапно лизинг</label>
-                  <Select value={localFilters.leasingAvailable} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, leasingAvailable: value }))}>
-                    <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Било кое" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="any">Било кое</SelectItem>
-                      {yesNoOptions.map(option => (
-                        <SelectItem key={option} value={option}>{option}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">Категорија на осигурување</label>
-                  <Select value={localFilters.insuranceCategory} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, insuranceCategory: value }))}>
-                    <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Било кое" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="any">Било кое</SelectItem>
-                      {insuranceCategories.map(category => (
-                        <SelectItem key={category} value={category}>Категорија {category}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">Одбиток од ДДВ</label>
-                  <Select value={localFilters.vatDeductible} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, vatDeductible: value }))}>
-                    <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Било кое" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="any">Било кое</SelectItem>
-                      {yesNoOptions.map(option => (
-                        <SelectItem key={option} value={option}>{option}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            </FilterSection>
-
-            {/* Advanced Safety Features - PURE HARDCODED MACEDONIAN */}
-            <FilterSection 
-              title="Напредни безбедносни карактеристики" 
-              sectionKey="safety"
-              icon={<Shield className="h-5 w-5 text-red-600" />}
-              description="Безбедносни рангирања и напредни системи за помош на возачот"
-            >
-              <div className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Безбедносно рангирање</label>
-                    <Select value={localFilters.safetyRating} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, safetyRating: value }))}>
-                      <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="Било какво рангирање" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="any">Било какво рангирање</SelectItem>
-                        {safetyRatings.map(rating => (
-                          <SelectItem key={rating} value={rating}>{rating}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Избегнување на судир</label>
-                    <Select value={localFilters.collisionAvoidance} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, collisionAvoidance: value }))}>
-                      <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="Било кое" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="any">Било кое</SelectItem>
-                        {yesNoOptions.map(option => (
-                          <SelectItem key={option} value={option}>{option}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Систем за спешни повици</label>
-                    <Select value={localFilters.emergencyCallSystem} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, emergencyCallSystem: value }))}>
-                      <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="Било кое" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="any">Било кое</SelectItem>
-                        {emergencyCallOptions.map(option => (
-                          <SelectItem key={option} value={option}>{option}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.advancedDriverAssistance', 'Advanced Driver Assistance Systems')}</label>
-                  <CheckboxGroup
-                    options={advancedSafetyFeatures}
-                    selectedValues={localFilters.advancedDriverAssistance}
-                    filterKey="advancedDriverAssistance"
-                    columns={2}
-                    onSelectionChange={(values) => setLocalFilters(prev => ({ ...prev, advancedDriverAssistance: values }))}
-                  />
-                </div>
-              </div>
-            </FilterSection>
-
-            {/* Environmental Extended - PURE HARDCODED MACEDONIAN */}
-            <FilterSection 
-              title="Еколошки проширени" 
-              sectionKey="environmental-extended"
+            {/* Environmental */}
+            <FilterSection
+              title="Еколошки"
+              sectionKey="environmental"
               icon={<Filter className="h-5 w-5 text-emerald-600" />}
-              description="Детални еколошки влијанија и ефикасност"
+              description="Потрошувачка на гориво и еколошка класа"
             >
               <div className="space-y-6">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">CO2 емисии од (g/km)</label>
-                    <Select 
-                      value={localFilters.co2EmissionsMin?.toString() || '0'} 
-                      onValueChange={(value) => {
-                        const newCO2Min = parseInt(value);
-                        const validCO2Max = co2EmissionsRanges.find(range => range >= Math.max(localFilters.co2EmissionsMax, newCO2Min)) || co2EmissionsRanges[co2EmissionsRanges.length - 1];
-                        setLocalFilters(prev => ({ 
-                          ...prev, 
-                          co2EmissionsMin: newCO2Min,
-                          co2EmissionsMax: validCO2Max
-                        }));
-                      }}
-                    >
-                      <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="Од" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="0">0 g/km</SelectItem>
-                        {co2EmissionsRanges.slice(1).map(co2 => (
-                          <SelectItem key={co2} value={co2.toString()}>{co2} g/km</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">CO2 емисии до (g/km)</label>
-                    <Select 
-                      value={localFilters.co2EmissionsMax?.toString() || '400'} 
-                      onValueChange={(value) => {
-                        const newCO2Max = parseInt(value);
-                        const validCO2Min = co2EmissionsRanges.slice().reverse().find(range => range <= Math.min(localFilters.co2EmissionsMin, newCO2Max)) || co2EmissionsRanges[0];
-                        setLocalFilters(prev => ({ 
-                          ...prev, 
-                          co2EmissionsMax: newCO2Max,
-                          co2EmissionsMin: validCO2Min
-                        }));
-                      }}
-                    >
-                      <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="До" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {co2EmissionsRanges.map(co2 => (
-                          <SelectItem key={co2} value={co2.toString()}>{co2} g/km</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm mb-2 text-muted-foreground">Потрошувачка на гориво од (l/100km)</label>
@@ -2083,38 +1787,6 @@ export default function AdvancedSearch() {
                       <SelectContent>
                         {fuelConsumptionRanges.map(fuel => (
                           <SelectItem key={fuel} value={fuel.toString()}>{fuel} l/100km</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Еколошка значка</label>
-                    <Select value={localFilters.environmentalBadge} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, environmentalBadge: value }))}>
-                      <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="Било која значка" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="any">Било која значка</SelectItem>
-                        {environmentalBadges.map(badge => (
-                          <SelectItem key={badge} value={badge}>{badge}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Електричен домет</label>
-                    <Select value={localFilters.electricRange} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, electricRange: value }))}>
-                      <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="Било кој домет" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="any">Било кој домет</SelectItem>
-                        {electricRangeOptions.map(range => (
-                          <SelectItem key={range} value={range}>{range}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -2202,7 +1874,7 @@ export default function AdvancedSearch() {
                     <div className="bg-blue-50 rounded-2xl p-4 mt-4">
                       <div className="text-center">
                         <div className="text-2xl font-bold text-blue-600">
-                          {searchResults.totalCount.toLocaleString()}
+                          {(searchResults.totalCount ?? 0).toLocaleString()}
                         </div>
                         <div className="text-sm text-blue-600 font-medium">
                           {getAdvancedSearchText('carsFound', 'Cars Found')}

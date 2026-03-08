@@ -80,14 +80,20 @@ export const GET_CARS = gql`
       doors
       seats
       drivetrain
+      interiorColor
       fuelConsumption
       emissionClass
+      warrantyMonths
       previousOwners
       hadAccident
       nonSmokingVehicle
       fullServiceHistory
       upholsteryType
       paintWorkType
+      allowTestDrive
+      acceptsTradeIn
+      priceNegotiable
+      quickSale
       location
       city
       countryCode
@@ -425,6 +431,32 @@ export const DELETE_MY_ACCOUNT = gql`
   }
 `;
 
+export const SUBSCRIBE_TO_MOBILE_APP = gql`
+  mutation SubscribeToMobileApp($email: String!) {
+    subscribeToMobileApp(email: $email)
+  }
+`;
+
+export const UPDATE_LANGUAGE_PREFERENCE = gql`
+  mutation UpdateLanguagePreference($languageCode: String!, $countryCode: String) {
+    updateLanguagePreference(languageCode: $languageCode, countryCode: $countryCode) {
+      id
+      languagePreference
+      countryPreference
+    }
+  }
+`;
+
+export const UPDATE_COOKIE_CONSENT = gql`
+  mutation UpdateCookieConsent($accepted: Boolean!) {
+    updateCookieConsent(accepted: $accepted) {
+      id
+      cookieConsent
+      cookieConsentAt
+    }
+  }
+`;
+
 export const UPDATE_MARKETING_PREFERENCES = gql`
   mutation UpdateMarketingPreferences($marketingEmails: Boolean!, $smsNotifications: Boolean!) {
     updateMarketingPreferences(marketingEmails: $marketingEmails, smsNotifications: $smsNotifications) {
@@ -623,9 +655,11 @@ export interface Car {
   isCertified: boolean;
   contactPhone?: string;
   contactEmail?: string;
+  warrantyMonths?: number;
   allowTestDrive?: boolean;
   acceptsTradeIn?: boolean;
   priceNegotiable?: boolean;
+  quickSale?: boolean;
   originalPrice?: number;
   viewCount: number;
   favoriteCount: number;
@@ -730,6 +764,23 @@ export interface AdvancedSearchFiltersInput extends FilterCarsInput {
   model?: string; // Used by useAdvancedSearch hook
   fuelType?: string; // Used by useAdvancedSearch hook (single value)
   bodyType?: string; // Override to allow string values
+  // Tier 1 additions — map to backend CarFilterInput
+  engineDisplacementMin?: number; // → minEngineSize (cc)
+  engineDisplacementMax?: number; // → maxEngineSize (cc)
+  powerMinPS?: number; // → minHorsePower (PS ≈ hp)
+  powerMaxPS?: number; // → maxHorsePower (PS ≈ hp)
+  fuelConsumptionMin?: number; // → minFuelConsumption (L/100km)
+  fuelConsumptionMax?: number; // → maxFuelConsumption (L/100km)
+  guarantee?: string; // 'yes'|'no'|'any' → hasWarranty boolean
+  serviceBookAvailable?: string; // 'yes'|'no'|'any' → fullServiceHistory boolean
+  allowTestDrive?: boolean; // direct map
+  acceptsTradeIn?: boolean; // direct map
+  priceNegotiable?: boolean; // direct map
+  quickSale?: boolean; // Tier 2: direct map
+  features?: string[]; // Tier 3: optional equipment → backend features array
+  sellerType?: string; // Tier 3: 'private' | 'dealer'
+  numberOfDoors?: string; // '2'|'3'|'4'|'5'
+  countryCode?: string;
 }
 
 export interface PaginationInput {

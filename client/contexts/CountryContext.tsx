@@ -1,9 +1,9 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { 
-  CountryConfig, 
-  Language, 
-  getCurrentCountry, 
-  getDefaultLanguage, 
+import {
+  CountryConfig,
+  Language,
+  getCurrentCountry,
+  getDefaultLanguage,
   getCurrentLanguages,
   hasMultipleLanguages,
   COUNTRIES,
@@ -11,6 +11,8 @@ import {
 } from '@shared/country-config';
 import { geolocationService } from '@shared/geolocation-service';
 import { redirectService } from '@shared/redirect-service';
+import apolloClient from '@/lib/apollo-client';
+import { UPDATE_LANGUAGE_PREFERENCE } from '@/lib/graphql/operations';
 
 interface CountryContextType {
   country: CountryConfig | null;
@@ -202,12 +204,18 @@ export function CountryProvider({ children }: CountryProviderProps) {
       const validLanguages = country.languages.map(lang => lang.code);
       if (validLanguages.includes(languageCode)) {
         setCurrentLanguage(languageCode);
-        
-        // Store language preference
-        const storageKey = isValidCountry 
-          ? `selectedLanguage_${country.code}` 
+
+        // Persist to localStorage
+        const storageKey = isValidCountry
+          ? `selectedLanguage_${country.code}`
           : 'selectedLanguage';
         localStorage.setItem(storageKey, languageCode);
+
+        // Persist to backend for logged-in users (JWT guard rejects silently if not authed)
+        apolloClient.mutate({
+          mutation: UPDATE_LANGUAGE_PREFERENCE,
+          variables: { languageCode, countryCode: country.code },
+        }).catch(() => { /* not logged in — no-op */ });
       }
     }
   };

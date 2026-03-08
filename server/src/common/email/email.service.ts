@@ -54,6 +54,67 @@ export class EmailService {
     }
   }
 
+  async subscribeToAudience(email: string): Promise<boolean> {
+    const audienceId = process.env.RESEND_AUDIENCE_ID;
+
+    if (!audienceId || !this.resend) {
+      this.logger.log(`[DEV] Would subscribe ${email} to mobile app audience`);
+      return true;
+    }
+
+    try {
+      const { error } = await this.resend.contacts.create({
+        email,
+        audienceId,
+        unsubscribed: false,
+      });
+
+      if (error) {
+        this.logger.warn(`Failed to add ${email} to audience: ${error.message}`);
+        return false;
+      }
+
+      // Send confirmation email to subscriber
+      await this.sendEmail({
+        to: email,
+        subject: "You're on the list — CarMarket365 Mobile App",
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <div style="background: #000; padding: 24px; text-align: center;">
+              <h1 style="color: #fff; margin: 0; font-size: 24px;">CarMarket365</h1>
+            </div>
+            <div style="padding: 32px 24px;">
+              <h2 style="color: #111;">You're on the list!</h2>
+              <p style="color: #555; line-height: 1.6;">
+                Thanks for signing up! We'll notify you as soon as the CarMarket365 mobile app is available for download.
+              </p>
+              <p style="color: #555; line-height: 1.6;">
+                In the meantime, you can browse thousands of car listings on our website.
+              </p>
+              <div style="text-align: center; margin: 32px 0;">
+                <a href="${this.frontendUrl}" style="background: #2563eb; color: #fff; padding: 12px 32px; text-decoration: none; border-radius: 6px; font-weight: bold;">
+                  Browse Cars
+                </a>
+              </div>
+            </div>
+            <div style="background: #f5f5f5; padding: 16px 24px; text-align: center;">
+              <p style="color: #999; font-size: 12px; margin: 0;">
+                © 2025 CarMarket365. You received this because you signed up for mobile app notifications.
+              </p>
+            </div>
+          </div>
+        `,
+        text: `You're on the list! We'll notify you when the CarMarket365 mobile app launches.`,
+      });
+
+      this.logger.log(`Subscribed ${email} to mobile app audience`);
+      return true;
+    } catch (err) {
+      this.logger.error(`Error subscribing to audience: ${err}`);
+      return false;
+    }
+  }
+
   async sendWelcomeEmail(email: string, name: string): Promise<boolean> {
     return this.sendEmail({
       to: email,

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { useCountry } from "@/contexts/CountryContext";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -66,6 +66,21 @@ interface VehicleDetails {
   paintWorkType: string;
 }
 
+const SELL_CAR_DRAFT_KEY = 'sellcar_draft';
+
+function loadDraft(): Partial<VehicleDetails> | null {
+  try {
+    const raw = localStorage.getItem(SELL_CAR_DRAFT_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    // Never restore image files (they can't be serialized)
+    delete parsed.images;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
 export default function SellCar() {
   const navigate = useNavigate();
   const { country } = useCountry();
@@ -75,8 +90,29 @@ export default function SellCar() {
   const [submitError, setSubmitError] = useState('');
   const [uploadProgress, setUploadProgress] = useState('');
   const [locationOpen, setLocationOpen] = useState(false);
+  const [draftRestored, setDraftRestored] = useState(false);
   const locations = getLocationsForCountry(country?.code || 'mk');
-  const [vehicleDetails, setVehicleDetails] = useState<VehicleDetails>({
+  const saveTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const [vehicleDetails, setVehicleDetails] = useState<VehicleDetails>(() => {
+    const draft = loadDraft();
+    if (draft && Object.keys(draft).some(k => draft[k as keyof typeof draft])) {
+      return {
+        type: null,
+        make: "", model: "", year: "", mileage: "", condition: "",
+        fuelType: "", transmission: "", exteriorColor: "", interiorColor: "",
+        price: "", description: "", features: [], location: "",
+        countryCode: 'global', contactName: "", contactPhone: "", contactEmail: "",
+        images: [], bodyType: "", engineSizeFrom: "", engineSizeTo: "",
+        horsePower: "", doors: "", seats: "", drivetrain: "", safetyFeatures: [],
+        fuelConsumption: "", emissionClass: "", warrantyMonths: "", previousOwners: "",
+        hadAccident: "", nonSmokingVehicle: false, fullServiceHistory: false,
+        allowTestDrive: false, acceptsTradeIn: false, priceNegotiable: false,
+        upholsteryType: "", paintWorkType: "",
+        ...draft,
+      };
+    }
+    return {
     type: null,
     make: "",
     model: "",
@@ -116,7 +152,25 @@ export default function SellCar() {
     priceNegotiable: false,
     upholsteryType: "",
     paintWorkType: "",
+    };
   });
+
+  // Show "draft restored" banner on mount if a draft was found
+  useEffect(() => {
+    if (loadDraft()) setDraftRestored(true);
+  }, []);
+
+  // Debounced auto-save on every vehicleDetails change (skip images — can't serialize File objects)
+  useEffect(() => {
+    if (saveTimerRef.current) clearTimeout(saveTimerRef.current);
+    saveTimerRef.current = setTimeout(() => {
+      try {
+        const { images: _images, ...saveable } = vehicleDetails;
+        localStorage.setItem(SELL_CAR_DRAFT_KEY, JSON.stringify(saveable));
+      } catch { /* storage full or blocked */ }
+    }, 1500);
+    return () => { if (saveTimerRef.current) clearTimeout(saveTimerRef.current); };
+  }, [vehicleDetails]);
 
   const handleVehicleTypeSelect = (type: VehicleType) => {
     setVehicleDetails(prev => ({ ...prev, type }));
@@ -378,6 +432,8 @@ export default function SellCar() {
         console.warn('[SellCar] No images to upload! vehicleDetails.images:', JSON.stringify(vehicleDetails.images.map((img: any) => ({ hasFile: !!img.file, hasCompressed: !!img.compressed, hasPreview: !!img.preview, id: img.id }))));
       }
 
+      localStorage.removeItem(SELL_CAR_DRAFT_KEY);
+
       trackEvent('create_listing', {
         vehicle_type: vehicleDetails.type || 'car',
         make: vehicleDetails.make || '',
@@ -401,6 +457,20 @@ export default function SellCar() {
   return (
     <div className="min-h-screen bg-muted/30">
       <SEO title={t('meta.pages.sellCar')} canonical="/sell" />
+      {draftRestored && (
+        <div className="bg-blue-50 border-b border-blue-200 px-4 py-2 flex items-center justify-between text-sm text-blue-700">
+          <span>Draft restored — your previous progress has been loaded.</span>
+          <button
+            className="underline ml-4"
+            onClick={() => {
+              localStorage.removeItem(SELL_CAR_DRAFT_KEY);
+              window.location.reload();
+            }}
+          >
+            Start fresh
+          </button>
+        </div>
+      )}
       {/* Header */}
       <div className="bg-white border-b border-zinc-100">
         <div className="container mx-auto px-4 py-4">

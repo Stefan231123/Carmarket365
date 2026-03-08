@@ -74,6 +74,25 @@ export class UsersResolver {
     return this.usersService.deleteAccount(user.id);
   }
 
+  @Mutation(() => User, { description: 'Update the authenticated user\'s language and country preference.' })
+  @UseGuards(JwtAuthGuard)
+  async updateLanguagePreference(
+    @Args('languageCode') languageCode: string,
+    @Args('countryCode', { nullable: true }) countryCode: string,
+    @CurrentUser() user: User,
+  ): Promise<User> {
+    return this.usersService.updateLanguagePreference(user.id, languageCode, countryCode);
+  }
+
+  @Mutation(() => User, { description: 'Record cookie / analytics consent decision for the authenticated user.' })
+  @UseGuards(JwtAuthGuard)
+  async updateCookieConsent(
+    @Args('accepted') accepted: boolean,
+    @CurrentUser() user: User,
+  ): Promise<User> {
+    return this.usersService.updateCookieConsent(user.id, accepted);
+  }
+
   @Mutation(() => User, { description: 'Update marketing communication preferences.' })
   @UseGuards(JwtAuthGuard)
   async updateMarketingPreferences(
