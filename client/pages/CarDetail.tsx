@@ -6,6 +6,7 @@ import { SEO } from "@/components/SEO";
 import { useFavorites } from "@/hooks/useFavorites";
 import { useCar } from "@/hooks/useCars";
 import { GET_CARS, Car } from "@/lib/graphql/operations";
+import { getWatermarkedUrl } from "@/lib/cloudinary";
 import { ContactCarModal } from "@/components/ContactCarModal";
 import { ShareCarModal } from "@/components/ShareCarModal";
 
@@ -101,9 +102,9 @@ export default function CarDetail() {
   }
 
   // Map API data to display format using real fields
-  const imageUrls = car.images && car.images.length > 0
+  const imageUrls = (car.images && car.images.length > 0
     ? car.images.map((img: any) => typeof img === 'string' ? img : img.url)
-    : [];
+    : []).map(getWatermarkedUrl);
 
   const sellerName = car.seller?.dealerName || car.seller?.name || t('carDetail.seller.privateSeller');
   const sellerPhone = car.contactPhone || car.seller?.dealerPhoneNumber;

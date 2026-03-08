@@ -62,11 +62,10 @@ export async function uploadToCloudinary(file: File): Promise<CloudinaryUploadRe
 /**
  * Injects a Cloudinary text-overlay watermark transformation into a CDN URL.
  * Works for both old (unwatermarked) and new (canvas-baked) images.
- * Only applied to URLs in the carmarket365 folder to avoid affecting logos etc.
  */
 export function getWatermarkedUrl(url: string): string {
   if (!url?.includes('res.cloudinary.com')) return url;
-  if (!url.includes('/carmarket365/')) return url; // skip non-listing images
+  if (!url.includes('/image/upload/')) return url; // only image URLs
   if (url.includes('l_text')) return url; // already has text overlay
 
   const watermark = 'l_text:Arial_36_bold:carmarket365.com,o_35,co_white,g_center';
