@@ -345,6 +345,11 @@ export default function SellCar() {
       setIsSubmitting(false);
       return;
     }
+    if (vehicleDetails.images.length === 0) {
+      setSubmitError(t('sell.validation.imageRequired') || 'At least one photo is required');
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       const input = {

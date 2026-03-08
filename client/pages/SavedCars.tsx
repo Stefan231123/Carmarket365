@@ -1,28 +1,15 @@
 import { useState, useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
-import { Heart, Fuel, Calendar, Gauge, ArrowLeft, Trash2, Filter, SortAsc, X, Phone, Eye } from "lucide-react";
+import { Heart, Calendar, ArrowLeft, Filter, SortAsc, Phone, Eye, ImageOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useFavorites } from "@/hooks/useFavorites";
 import { ContactCarModal } from "@/components/ContactCarModal";
 import { useTranslation } from '../hooks/useTranslation';
 import { mkTranslations } from '../../shared/translations/mk';
 import { SEO } from "@/components/SEO";
-
-// Use the same interface as FavoritesContext
-interface SavedCar {
-  id: string;
-  make: string;
-  model: string;
-  year: number;
-  price: number;
-  image?: string;
-  images?: string[];
-  dateAdded: string;
-}
 
 
 export default function SavedCars() {
@@ -180,14 +167,35 @@ export default function SavedCars() {
 
         {/* Cars Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredAndSortedCars.map((car) => (
+          {filteredAndSortedCars.map((car) => {
+            // Handle both string URLs and legacy CarImage objects stored in localStorage
+            // Exclude Unsplash placeholder URLs that may have been stored in old data
+            const isPlaceholder = (url: string) => url.includes('unsplash.com');
+            const firstImage = car.images?.[0];
+            const rawUrl: string | undefined =
+              typeof firstImage === 'string' && firstImage
+                ? firstImage
+                : firstImage && typeof firstImage === 'object' && (firstImage as any).url
+                ? (firstImage as any).url
+                : typeof car.image === 'string' && car.image
+                ? car.image
+                : undefined;
+            const imageUrl = rawUrl && !isPlaceholder(rawUrl) ? rawUrl : undefined;
+
+            return (
             <Card key={car.id} className="group border-zinc-100 rounded-2xl hover:shadow-xl hover:scale-105 transition-all duration-300">
               <div className="relative">
-                <ImageWithFallback
-                  src={car.images?.[0] || car.image || "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400&h=250&fit=crop"}
-                  alt={`${car.year} ${car.make} ${car.model}`}
-                  className="w-full h-48 object-cover rounded-t-2xl"
-                />
+                {imageUrl ? (
+                  <ImageWithFallback
+                    src={imageUrl}
+                    alt={`${car.year} ${car.make} ${car.model}`}
+                    className="w-full h-48 object-cover rounded-t-2xl"
+                  />
+                ) : (
+                  <div className="w-full h-48 bg-zinc-100 rounded-t-2xl flex items-center justify-center">
+                    <ImageOff className="h-10 w-10 text-zinc-300" />
+                  </div>
+                )}
                 <Button
                   variant="ghost"
                   size="sm"
@@ -239,7 +247,8 @@ export default function SavedCars() {
                 </div>
               </CardContent>
             </Card>
-          ))}
+            );
+          })}
         </div>
       </div>
 

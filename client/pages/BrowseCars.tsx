@@ -508,7 +508,7 @@ placeholder={t('browseCars.filters.anyLocation')}
                       <div className={viewMode === "list" ? "flex flex-col sm:flex-row gap-6" : ""}>
                         <div className={`relative overflow-hidden rounded-2xl ${viewMode === "list" ? "w-full aspect-video sm:aspect-auto sm:w-64 sm:h-40" : "w-full aspect-video"} mb-4`}>
                           <img
-                            src={car.images?.[0]?.url || car.images?.[0]?.thumbnailUrl || "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400&h=300&fit=crop"}
+                            src={car.images?.[0]?.url || car.images?.[0]?.thumbnailUrl || ''}
                             alt={`${car.make} ${car.model}`}
                             className="w-full h-full object-cover"
                           />

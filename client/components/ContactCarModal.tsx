@@ -84,10 +84,10 @@ export function ContactCarModal({ car, isOpen, onClose }: ContactCarModalProps) 
     }).format(price);
   };
 
-  const getCarImage = (car: Car) => {
+  const getCarImage = (car: Car): string | undefined => {
     if (car.images && car.images.length > 0) return car.images[0];
     if (car.image) return car.image;
-    return "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400&h=300&fit=crop";
+    return undefined;
   };
 
   const onSubmit = async (data: ContactFormData) => {
@@ -157,11 +157,13 @@ export function ContactCarModal({ car, isOpen, onClose }: ContactCarModalProps) 
           {/* Car info inside header */}
           <div className="flex gap-3 mt-4 bg-white/10 rounded-xl p-3">
             <div className="w-16 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-zinc-700">
-              <img
-                src={getCarImage(car)}
-                alt={`${car.year} ${car.make} ${car.model}`}
-                className="w-full h-full object-cover"
-              />
+              {getCarImage(car) && (
+                <img
+                  src={getCarImage(car)}
+                  alt={`${car.year} ${car.make} ${car.model}`}
+                  className="w-full h-full object-cover"
+                />
+              )}
             </div>
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2 flex-wrap">

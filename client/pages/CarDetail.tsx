@@ -229,13 +229,15 @@ export default function CarDetail() {
   };
 
   const handleFavoriteClick = () => {
+    const imageUrls = carData.images?.map((img: any) => img.url || img).filter((url: any) => typeof url === 'string' && url) || [];
     toggleFavorite({
       id: carData.id,
       make: carData.make,
       model: carData.model,
       year: carData.year,
       price: carData.price,
-      images: carData.images,
+      image: imageUrls[0] || '',
+      images: imageUrls,
     });
   };
 
