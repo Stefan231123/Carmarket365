@@ -16,9 +16,14 @@ export class CarsService {
     const query = this.carRepository
       .createQueryBuilder('car')
       .leftJoinAndSelect('car.seller', 'seller')
-      .leftJoinAndSelect('car.images', 'images')
-      .where('car.isAvailable = :isAvailable', { isAvailable: true })
-      .andWhere('(car.quickSale = false OR car.quickSale IS NULL)');
+      .leftJoinAndSelect('car.images', 'images');
+
+    // When fetching by explicit IDs (e.g. saved cars), skip availability filters
+    if (!filters?.ids || filters.ids.length === 0) {
+      query
+        .where('car.isAvailable = :isAvailable', { isAvailable: true })
+        .andWhere('(car.quickSale = false OR car.quickSale IS NULL)');
+    }
 
     this.applyFilters(query, filters);
 
