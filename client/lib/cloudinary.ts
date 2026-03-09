@@ -60,15 +60,18 @@ export async function uploadToCloudinary(file: File): Promise<CloudinaryUploadRe
 }
 
 /**
- * Injects a Cloudinary text-overlay watermark transformation into a CDN URL.
+ * Injects a Cloudinary logo-overlay watermark transformation into a CDN URL.
+ * Uses l_fetch to overlay the CarMarket365 logo (bottom-right, 30% of width, 65% opacity).
  * Works for both old (unwatermarked) and new (canvas-baked) images.
  */
+// base64 of 'https://carmarket365.com/logo-watermark.png'
+const LOGO_OVERLAY = 'l_fetch:aHR0cHM6Ly9jYXJtYXJrZXQzNjUuY29tL2xvZ28td2F0ZXJtYXJrLnBuZw==,w_0.3,g_south_east,fl_relative,o_65';
+
 export function getWatermarkedUrl(url: string): string {
   if (!url?.includes('res.cloudinary.com')) return url;
   if (!url.includes('/image/upload/')) return url; // only image URLs
-  if (url.includes('l_text')) return url; // already has text overlay
+  if (url.includes('l_fetch') || url.includes('l_text')) return url; // already watermarked
 
-  const watermark = 'l_text:Arial_36_bold:carmarket365.com,o_35,co_white,g_center';
   const uploadMarker = '/upload/';
   const idx = url.indexOf(uploadMarker);
   if (idx === -1) return url;
@@ -83,14 +86,14 @@ export function getWatermarkedUrl(url: string): string {
       return (
         url.slice(0, idx + uploadMarker.length) +
         afterUpload.slice(0, slashIdx + 1) +
-        watermark + '/' +
+        LOGO_OVERLAY + '/' +
         afterUpload.slice(slashIdx + 1)
       );
     }
   }
 
   // No existing transformations — inject before the path
-  return url.slice(0, idx + uploadMarker.length) + watermark + '/' + afterUpload;
+  return url.slice(0, idx + uploadMarker.length) + LOGO_OVERLAY + '/' + afterUpload;
 }
 
 export async function uploadMultipleToCloudinary(
