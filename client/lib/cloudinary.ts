@@ -65,7 +65,7 @@ export async function uploadToCloudinary(file: File): Promise<CloudinaryUploadRe
  * Works for both old (unwatermarked) and new (canvas-baked) images.
  */
 // base64 of 'https://carmarket365.com/logo-watermark.png'
-const LOGO_OVERLAY = 'l_fetch:aHR0cHM6Ly9jYXJtYXJrZXQzNjUuY29tL2xvZ28td2F0ZXJtYXJrLnBuZw==,w_0.3,g_south_east,fl_relative,o_65';
+const LOGO_OVERLAY = 'l_fetch:aHR0cHM6Ly9jYXJtYXJrZXQzNjUuY29tL2xvZ28td2F0ZXJtYXJrLnBuZw==,w_0.35,g_south_east,fl_relative,o_90';
 
 export function getWatermarkedUrl(url: string): string {
   if (!url?.includes('res.cloudinary.com')) return url;
