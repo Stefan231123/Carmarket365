@@ -41,16 +41,16 @@ export async function applyWatermark(file: File): Promise<File> {
     ctx.drawImage(carImg, 0, 0);
     URL.revokeObjectURL(carImg.src);
 
-    // 2 — Scale logo to ~35% of image width, placed in bottom-right corner
-    const logoWidth = Math.round(w * 0.35);
+    // 2 — Scale logo to ~38% of image width
+    const logoWidth = Math.round(w * 0.38);
     const logoHeight = Math.round((logo.naturalHeight / logo.naturalWidth) * logoWidth);
     const margin = Math.round(w * 0.025); // 2.5% margin from edges
 
-    const x = w - logoWidth - margin;
-    const y = h - logoHeight - margin;
-
-    ctx.globalAlpha = 0.85;
-    ctx.drawImage(logo, x, y, logoWidth, logoHeight);
+    ctx.globalAlpha = 0.92;
+    // Bottom-right
+    ctx.drawImage(logo, w - logoWidth - margin, h - logoHeight - margin, logoWidth, logoHeight);
+    // Top-left
+    ctx.drawImage(logo, margin, margin, logoWidth, logoHeight);
     ctx.globalAlpha = 1.0;
 
     // 3 — Convert back to File
