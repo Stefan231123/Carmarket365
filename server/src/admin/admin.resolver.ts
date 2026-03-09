@@ -4,6 +4,7 @@ import { AdminService } from './admin.service';
 import { AdminStats, RecentActivity, SystemHealth, UserStats } from './dto/admin-stats.dto';
 import { User, UserRole } from '../users/user.entity';
 import { Car } from '../cars/car.entity';
+import { CarImage } from '../cars/car-image.entity';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
@@ -65,5 +66,19 @@ export class AdminResolver {
     @Args('carId') carId: string
   ): Promise<Car> {
     return this.adminService.unflagListing(carId);
+  }
+
+  @Query(() => [CarImage], { description: 'Get all car images for bulk re-watermarking. Admin only.' })
+  async getAllCarImages(): Promise<CarImage[]> {
+    return this.adminService.getAllCarImages();
+  }
+
+  @Mutation(() => CarImage, { description: 'Update a car image URL after re-watermarking. Admin only.' })
+  async updateCarImageUrl(
+    @Args('id') id: string,
+    @Args('url') url: string,
+    @Args('thumbnailUrl', { nullable: true }) thumbnailUrl?: string,
+  ): Promise<CarImage> {
+    return this.adminService.updateCarImageUrl(id, url, thumbnailUrl);
   }
 }

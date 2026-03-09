@@ -1,5 +1,6 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import { Car } from './car.entity';
 import { CarsService } from './cars.service';
 import { CreateCarInput, UpdateCarInput, CarFilterInput } from './dto/car.input';
@@ -12,6 +13,7 @@ import { CAR_MAKES, getModelsForMake } from '../shared/car-data';
 export class CarsResolver {
   constructor(private readonly carsService: CarsService) {}
 
+  @Throttle({ scrape: { limit: 10, ttl: 60000 } }) // 10 bulk listing fetches per minute
   @Query(() => [Car], { name: 'getCars', description: 'Browse available car listings with optional filters' })
   async getCars(
     @Args('filters', { type: () => CarFilterInput, nullable: true }) filters?: CarFilterInput,

@@ -467,6 +467,27 @@ export const UPDATE_MARKETING_PREFERENCES = gql`
   }
 `;
 
+export const GET_ALL_CAR_IMAGES = gql`
+  query GetAllCarImages {
+    getAllCarImages {
+      id
+      url
+      thumbnailUrl
+      carId
+    }
+  }
+`;
+
+export const UPDATE_CAR_IMAGE_URL = gql`
+  mutation UpdateCarImageUrl($id: String!, $url: String!, $thumbnailUrl: String) {
+    updateCarImageUrl(id: $id, url: $url, thumbnailUrl: $thumbnailUrl) {
+      id
+      url
+      thumbnailUrl
+    }
+  }
+`;
+
 // Type definitions for TypeScript
 export interface LoginParams {
   email: string;

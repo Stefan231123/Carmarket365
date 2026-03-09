@@ -38,6 +38,7 @@ const UserSignUp = lazy(() => import("@/pages/UserSignUp"));
 const DealerDashboard = lazy(() => import("@/pages/DealerDashboard"));
 const AdminDashboard = lazy(() => import("@/pages/AdminDashboard"));
 const AdminSEODashboard = lazy(() => import("@/pages/AdminSEODashboard"));
+const AdminRewatermark = lazy(() => import("@/pages/AdminRewatermark"));
 const PrivateDashboard = lazy(() => import("@/pages/PrivateDashboard"));
 const CarReviews = lazy(() => import("@/pages/CarReviews"));
 const SafetyTips = lazy(() => import("@/pages/SafetyTips"));
@@ -115,13 +116,21 @@ function AppContent() {
                 </ProtectedRoute>
               } 
             />
-            <Route 
-              path="/admin/seo" 
+            <Route
+              path="/admin/seo"
               element={
                 <ProtectedRoute requiredRole="ADMIN">
                   <AdminSEODashboard />
                 </ProtectedRoute>
-              } 
+              }
+            />
+            <Route
+              path="/admin/rewatermark"
+              element={
+                <ProtectedRoute requiredRole="ADMIN">
+                  <AdminRewatermark />
+                </ProtectedRoute>
+              }
             />
             <Route 
               path="/private-dashboard" 

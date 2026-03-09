@@ -4,6 +4,7 @@ import { Repository, Between, DataSource } from 'typeorm';
 import * as os from 'os';
 import { User, UserRole } from '../users/user.entity';
 import { Car } from '../cars/car.entity';
+import { CarImage } from '../cars/car-image.entity';
 import { CarInquiry } from '../cars/car-inquiry.entity';
 import { CarView } from '../cars/car-view.entity';
 import { AdminStats, RecentActivity, SystemHealth, UserStats } from './dto/admin-stats.dto';
@@ -15,6 +16,8 @@ export class AdminService {
     private userRepository: Repository<User>,
     @InjectRepository(Car)
     private carRepository: Repository<Car>,
+    @InjectRepository(CarImage)
+    private carImageRepository: Repository<CarImage>,
     @InjectRepository(CarInquiry)
     private carInquiryRepository: Repository<CarInquiry>,
     @InjectRepository(CarView)
@@ -312,5 +315,20 @@ export class AdminService {
     car.flagReason = undefined;
     car.flaggedAt = undefined;
     return this.carRepository.save(car);
+  }
+
+  async getAllCarImages(): Promise<CarImage[]> {
+    return this.carImageRepository.find({
+      select: ['id', 'url', 'thumbnailUrl', 'carId'],
+      order: { carId: 'ASC' },
+    });
+  }
+
+  async updateCarImageUrl(id: string, url: string, thumbnailUrl?: string): Promise<CarImage> {
+    const image = await this.carImageRepository.findOne({ where: { id } });
+    if (!image) throw new Error(`CarImage ${id} not found`);
+    image.url = url;
+    if (thumbnailUrl !== undefined) image.thumbnailUrl = thumbnailUrl;
+    return this.carImageRepository.save(image);
   }
 }

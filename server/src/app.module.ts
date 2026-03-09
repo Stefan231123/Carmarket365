@@ -85,12 +85,17 @@ import { SubscribersModule } from './common/subscribers/subscribers.module';
       {
         name: 'default',
         ttl: 60000,
-        limit: 60, // 60 requests per minute per IP (general)
+        limit: 30, // 30 requests per minute per IP (halved from 60)
       },
       {
         name: 'auth',
         ttl: 60000,
         limit: 5, // 5 requests per minute per IP (auth endpoints)
+      },
+      {
+        name: 'scrape', // Very tight limit for bulk listing queries
+        ttl: 60000,
+        limit: 10,
       },
     ]),
 
