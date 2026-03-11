@@ -62,6 +62,27 @@ export default function AdminBulkImport() {
     ? import.meta.env.VITE_API_URL.replace('/graphql', '')
     : (import.meta.env.DEV ? 'http://localhost:3002' : '');
 
+  async function downloadTemplate() {
+    try {
+      const res = await fetch(`${baseUrl}/api/admin/bulk-import/template`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+        credentials: 'include',
+      });
+      if (!res.ok) throw new Error(`Server returned ${res.status}`);
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'bulk-import-template.xlsx';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch (e: any) {
+      setError(`Template download failed: ${e.message}`);
+    }
+  }
+
   async function callEndpoint(endpoint: string): Promise<any> {
     if (!file) return;
     const form = new FormData();
@@ -147,15 +168,10 @@ export default function AdminBulkImport() {
                 Required Excel columns
               </CardTitle>
             </div>
-            <a
-              href={`${baseUrl}/api/admin/bulk-import/template`}
-              download="bulk-import-template.xlsx"
-            >
-              <Button variant="outline" size="sm" className="shrink-0">
-                <Download className="h-4 w-4 mr-2" />
-                Download Template
-              </Button>
-            </a>
+            <Button variant="outline" size="sm" className="shrink-0" onClick={downloadTemplate}>
+              <Download className="h-4 w-4 mr-2" />
+              Download Template
+            </Button>
           </CardHeader>
           <CardContent className="space-y-3">
             <div>
