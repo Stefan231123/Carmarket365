@@ -66,9 +66,7 @@ export class BulkImportController {
    * GET /api/admin/bulk-import/template
    */
   @Get('template')
-  async downloadTemplate(@Req() req: Request, @Res() res: Response): Promise<void> {
-    this.requireAdmin(req);
-
+  async downloadTemplate(@Res() res: Response): Promise<void> {
     const headers = [
       // Required
       'make', 'model', 'year', 'price', 'mileage', 'fuelType', 'transmission', 'location', 'seller_email',
