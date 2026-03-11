@@ -62,25 +62,40 @@ export default function AdminBulkImport() {
     ? import.meta.env.VITE_API_URL.replace('/graphql', '')
     : (import.meta.env.DEV ? 'http://localhost:3002' : '');
 
-  async function downloadTemplate() {
-    try {
-      const res = await fetch(`${baseUrl}/api/admin/bulk-import/template`, {
-        headers: token ? { Authorization: `Bearer ${token}` } : {},
-        credentials: 'include',
-      });
-      if (!res.ok) throw new Error(`Server returned ${res.status}`);
-      const blob = await res.blob();
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'bulk-import-template.xlsx';
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-    } catch (e: any) {
-      setError(`Template download failed: ${e.message}`);
-    }
+  function downloadTemplate() {
+    const headers = [
+      'make', 'model', 'year', 'price', 'mileage', 'fuelType', 'transmission', 'location', 'seller_email',
+      'vehicleType', 'condition', 'variant', 'color', 'engineSize', 'horsePower',
+      'doors', 'seats', 'drivetrain', 'vin',
+      'features', 'safetyFeatures',
+      'description', 'priceNegotiable', 'previousOwners', 'hadAccident',
+      'contactPhone', 'image_urls', 'seller_name', 'seller_phone',
+    ];
+    const examples = [
+      ['Volkswagen', 'Golf', 2019, 13500, 87000, 'diesel', 'manual', 'Skopje', 'seller@example.com',
+       'hatchback', 'used', 'Comfortline', 'Silver', 1968, 115, 5, 5, 'fwd', '',
+       'Air Conditioning,Bluetooth,Cruise Control', 'ABS,Driver Airbag,Passenger Airbag',
+       'Well maintained, one owner, full service history.', 'yes', 1, 'no',
+       '+38970123456', 'https://example.com/img1.jpg,https://example.com/img2.jpg',
+       'Marko Petrovski', '+38970123456'],
+      ['BMW', '3 Series', 2021, 28900, 42000, 'benzin', 'automatic', 'Bitola', 'dealer@showroom.com',
+       'sedan', 'used', '320i M-Sport', 'Black', 1998, 184, 4, 5, 'rwd', 'WBA1A2C55FV271000',
+       'Leather Seats,GPS Navigation,Sunroof,Keyless Entry,Heated Seats', 'ABS,ESP/ESC,Driver Airbag,Passenger Airbag,Lane Departure Warning',
+       'Ex-company car, immaculate condition, panoramic roof.', 'no', 1, 'no',
+       '+38971987654', 'https://example.com/bmw1.jpg',
+       'Auto Showroom Bitola', '+38971987654'],
+    ];
+    const escape = (v: unknown) => `"${String(v ?? '').replace(/"/g, '""')}"`;
+    const lines = [headers.join(','), ...examples.map(r => r.map(escape).join(','))];
+    const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'bulk-import-template.csv';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
   }
 
   async function callEndpoint(endpoint: string): Promise<any> {
@@ -170,7 +185,7 @@ export default function AdminBulkImport() {
             </div>
             <Button variant="outline" size="sm" className="shrink-0" onClick={downloadTemplate}>
               <Download className="h-4 w-4 mr-2" />
-              Download Template
+              Download Template (.csv)
             </Button>
           </CardHeader>
           <CardContent className="space-y-3">
