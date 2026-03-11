@@ -143,14 +143,16 @@ export class BulkImportController {
     wsRef['!cols'] = [{ wch: 28 }, { wch: 100 }];
     XLSX.utils.book_append_sheet(wb, wsRef, 'Reference');
 
-    const buffer = XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' });
+    // Use 'binary' + manual Buffer conversion — more reliable than type:'buffer'
+    const binaryStr = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+    const buffer = Buffer.from(binaryStr, 'binary');
 
     res.set({
       'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
       'Content-Disposition': 'attachment; filename="bulk-import-template.xlsx"',
-      'Content-Length': buffer.length,
+      'Content-Length': String(buffer.length),
     });
-    res.send(buffer);
+    res.end(buffer);
   }
 
   // ── Helpers ────────────────────────────────────────────────────────────────
