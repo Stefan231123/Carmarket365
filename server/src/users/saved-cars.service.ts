@@ -77,4 +77,11 @@ export class SavedCarsService {
     const result = await this.savedCarRepository.delete({ userId });
     return result.affected > 0;
   }
+
+  async getUsersWhoSavedCar(carId: string): Promise<SavedCar[]> {
+    return this.savedCarRepository.find({
+      where: { carId },
+      relations: ['user'],
+    });
+  }
 }

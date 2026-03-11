@@ -1204,7 +1204,7 @@ export default function SellCar() {
                               <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
                           </PopoverTrigger>
-                          <PopoverContent className="w-[--radix-popover-trigger-width] p-0 bg-white border border-gray-200 shadow-lg rounded-xl overflow-hidden" align="start">
+                          <PopoverContent className="w-[--radix-popover-trigger-width] p-0 bg-white border border-gray-200 shadow-lg rounded-2xl overflow-hidden" align="start">
                             <Command className="bg-white">
                               <CommandInput placeholder={t('sell.placeholders.searchLocation')} className="bg-white" />
                               <CommandList className="bg-white max-h-60">

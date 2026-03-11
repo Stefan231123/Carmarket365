@@ -180,7 +180,14 @@ export class AuthService {
     inquiryType: string,
     message: string,
   ): Promise<boolean> {
-    return this.emailService.sendContactFormEmail(name, email, phone, subject, inquiryType, message);
+    const result = await this.emailService.sendContactFormEmail(name, email, phone, subject, inquiryType, message);
+
+    // Send auto-reply confirmation to sender (fire-and-forget)
+    this.emailService.sendContactAutoReplyEmail(email, name).catch(err =>
+      this.logger.warn(`Failed to send contact auto-reply: ${err.message}`),
+    );
+
+    return result;
   }
 
   async requestPasswordReset(email: string): Promise<boolean> {
@@ -225,6 +232,11 @@ export class AuthService {
     // Hash new password and save
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     await this.usersService.updatePassword(user.id, hashedPassword);
+
+    // Notify user that their password was changed (security notice)
+    this.emailService.sendPasswordChangedEmail(user.email, user.name || '').catch(err =>
+      this.logger.warn(`Failed to send password changed email: ${err.message}`),
+    );
 
     return true;
   }

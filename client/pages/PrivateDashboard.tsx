@@ -9,6 +9,15 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
   ArrowLeft,
   Heart,
   Search,
@@ -45,6 +54,26 @@ export default function PrivateDashboard() {
   const [listingsLoading, setListingsLoading] = useState(false);
   const [deletingAccount, setDeletingAccount] = useState(false);
   const [exportingData, setExportingData] = useState(false);
+  const [savingProfile, setSavingProfile] = useState(false);
+  const [profileSaveError, setProfileSaveError] = useState('');
+
+  // Change password modal state
+  const [showChangePassword, setShowChangePassword] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
+  const [changingPassword, setChangingPassword] = useState(false);
+  const [passwordError, setPasswordError] = useState('');
+  const [passwordSuccess, setPasswordSuccess] = useState(false);
+
+  // Notification / privacy switch state
+  const [notifEmail, setNotifEmail] = useState(true);
+  const [notifNewListings, setNotifNewListings] = useState(true);
+  const [notifPriceDrop, setNotifPriceDrop] = useState(false);
+  const [notifInquiries, setNotifInquiries] = useState(true);
+  const [privacyProfile, setPrivacyProfile] = useState(false);
+  const [privacyContact, setPrivacyContact] = useState(true);
+  const [privacyAnalytics, setPrivacyAnalytics] = useState(true);
 
   // Helper function to translate status values
   const translateStatus = (status: string) => {
@@ -177,9 +206,50 @@ export default function PrivateDashboard() {
     createdDate: listing.createdAt,
   }));
 
-  const handleProfileUpdate = () => {
-    // Profile update is stored locally for now
-    alert(t('privateDashboard.profileUpdatedSuccessfully'));
+  const handleProfileUpdate = async () => {
+    setSavingProfile(true);
+    setProfileSaveError('');
+    try {
+      await apiClient.updateMyProfile({
+        firstName: userProfile.firstName || undefined,
+        lastName: userProfile.lastName || undefined,
+        phone: userProfile.phone || undefined,
+      });
+    } catch (err) {
+      setProfileSaveError(err instanceof Error ? err.message : t('common.error') || 'Failed to save');
+    } finally {
+      setSavingProfile(false);
+    }
+  };
+
+  const handleChangePassword = async () => {
+    setPasswordError('');
+    if (newPassword.length < 6) {
+      setPasswordError(t('forms.validation.passwordMinLength') || 'Password must be at least 6 characters');
+      return;
+    }
+    if (newPassword !== confirmNewPassword) {
+      setPasswordError(t('forms.validation.passwordMismatch') || 'Passwords do not match');
+      return;
+    }
+    setChangingPassword(true);
+    try {
+      await apiClient.changePassword(currentPassword, newPassword);
+      setPasswordSuccess(true);
+    } catch (err) {
+      setPasswordError(err instanceof Error ? err.message : t('common.error') || 'Failed to change password');
+    } finally {
+      setChangingPassword(false);
+    }
+  };
+
+  const handleCloseChangePassword = () => {
+    setShowChangePassword(false);
+    setCurrentPassword('');
+    setNewPassword('');
+    setConfirmNewPassword('');
+    setPasswordError('');
+    setPasswordSuccess(false);
   };
 
   const handleRemoveSaved = (carId: string) => {
@@ -516,7 +586,7 @@ export default function PrivateDashboard() {
                 <h2 className="text-xl sm:text-2xl">{t('privateDashboard.expressSaleListings')}</h2>
                 <p className="text-muted-foreground text-sm">{t('privateDashboard.quickSaleRequests')}</p>
               </div>
-              <Button size="sm" className="bg-black text-white hover:bg-black/90 rounded-full px-6 h-12 shadow-md">
+              <Button size="sm" onClick={() => navigate('/sell-car')} className="bg-black text-white hover:bg-black/90 rounded-full px-6 h-12 shadow-md">
                 <Zap className="h-4 w-4 mr-2" />
                 <span className="hidden sm:inline">{t('privateDashboard.newExpressSale')}</span>
                 <span className="sm:hidden">{t('privateDashboard.newExpress')}</span>
@@ -618,7 +688,13 @@ export default function PrivateDashboard() {
                   </div>
                 </div>
 
-                <Button onClick={handleProfileUpdate} className="w-full sm:w-auto bg-black text-white hover:bg-black/90 rounded-full px-6 h-12 shadow-md">
+                {profileSaveError && (
+                  <Alert variant="destructive">
+                    <AlertDescription>{profileSaveError}</AlertDescription>
+                  </Alert>
+                )}
+                <Button onClick={handleProfileUpdate} disabled={savingProfile} className="w-full sm:w-auto bg-black text-white hover:bg-black/90 rounded-full px-6 h-12 shadow-md">
+                  {savingProfile ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : null}
 {t('privateDashboard.saveChanges')}
                 </Button>
               </CardContent>
@@ -646,7 +722,7 @@ export default function PrivateDashboard() {
                       <div className="font-medium">{t('privateDashboard.emailNotifications')}</div>
                       <div className="text-sm text-muted-foreground">{t('privateDashboard.receiveUpdatesViaEmail')}</div>
                     </div>
-                    <Switch defaultChecked />
+                    <Switch checked={notifEmail} onCheckedChange={setNotifEmail} />
                   </div>
                   <Separator />
                   <div className="flex items-center justify-between">
@@ -654,7 +730,7 @@ export default function PrivateDashboard() {
                       <div className="font-medium">{t('privateDashboard.newListingsAlerts')}</div>
                       <div className="text-sm text-muted-foreground">{t('privateDashboard.notifyNewCarsMatching')}</div>
                     </div>
-                    <Switch defaultChecked />
+                    <Switch checked={notifNewListings} onCheckedChange={setNotifNewListings} />
                   </div>
                   <Separator />
                   <div className="flex items-center justify-between">
@@ -662,7 +738,7 @@ export default function PrivateDashboard() {
                       <div className="font-medium">{t('privateDashboard.priceDropAlerts')}</div>
                       <div className="text-sm text-muted-foreground">{t('privateDashboard.notifyPriceDrops')}</div>
                     </div>
-                    <Switch />
+                    <Switch checked={notifPriceDrop} onCheckedChange={setNotifPriceDrop} />
                   </div>
                   <Separator />
                   <div className="flex items-center justify-between">
@@ -670,7 +746,7 @@ export default function PrivateDashboard() {
                       <div className="font-medium">{t('privateDashboard.inquiryNotifications')}</div>
                       <div className="text-sm text-muted-foreground">{t('privateDashboard.notifyInquiries')}</div>
                     </div>
-                    <Switch defaultChecked />
+                    <Switch checked={notifInquiries} onCheckedChange={setNotifInquiries} />
                   </div>
                 </CardContent>
               </Card>
@@ -686,7 +762,7 @@ export default function PrivateDashboard() {
                       <div className="font-medium">{t('privateDashboard.profileVisibility')}</div>
                       <div className="text-sm text-muted-foreground">{t('privateDashboard.makeProfileVisible')}</div>
                     </div>
-                    <Switch />
+                    <Switch checked={privacyProfile} onCheckedChange={setPrivacyProfile} />
                   </div>
                   <Separator />
                   <div className="flex items-center justify-between">
@@ -694,7 +770,7 @@ export default function PrivateDashboard() {
                       <div className="font-medium">{t('privateDashboard.showContactInfo')}</div>
                       <div className="text-sm text-muted-foreground">{t('privateDashboard.displayContactOnListings')}</div>
                     </div>
-                    <Switch defaultChecked />
+                    <Switch checked={privacyContact} onCheckedChange={setPrivacyContact} />
                   </div>
                   <Separator />
                   <div className="flex items-center justify-between">
@@ -702,7 +778,7 @@ export default function PrivateDashboard() {
                       <div className="font-medium">{t('privateDashboard.dataAnalytics')}</div>
                       <div className="text-sm text-muted-foreground">{t('privateDashboard.helpImproveService')}</div>
                     </div>
-                    <Switch defaultChecked />
+                    <Switch checked={privacyAnalytics} onCheckedChange={setPrivacyAnalytics} />
                   </div>
                 </CardContent>
               </Card>
@@ -722,7 +798,7 @@ export default function PrivateDashboard() {
                     {exportingData ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Download className="h-4 w-4 mr-2" />}
                     {t('privateDashboard.downloadMyData')}
                   </Button>
-                  <Button variant="outline" className="w-full bg-zinc-100 border-none rounded-full h-12 hover:bg-zinc-200">
+                  <Button variant="outline" onClick={() => setShowChangePassword(true)} className="w-full bg-zinc-100 border-none rounded-full h-12 hover:bg-zinc-200">
                     <Shield className="h-4 w-4 mr-2" />
 {t('privateDashboard.changePassword')}
                   </Button>
@@ -748,6 +824,96 @@ export default function PrivateDashboard() {
         </p>
       </div>
     </section>
+
+    {/* Change Password Dialog */}
+    <Dialog open={showChangePassword} onOpenChange={handleCloseChangePassword}>
+      <DialogContent className="sm:max-w-md">
+        {!passwordSuccess ? (
+          <>
+            <DialogHeader>
+              <DialogTitle>
+                <Shield className="h-5 w-5 inline mr-2" />
+                {t('privateDashboard.changePassword')}
+              </DialogTitle>
+              <DialogDescription>
+                {t('privateDashboard.changePasswordDescription') || 'Enter your current password and choose a new one.'}
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="current-password">{t('privateDashboard.currentPassword') || 'Current Password'}</Label>
+                <Input
+                  id="current-password"
+                  type="password"
+                  placeholder="••••••••"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                  className="h-10"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="new-password-modal">{t('auth.newPassword') || 'New Password'}</Label>
+                <Input
+                  id="new-password-modal"
+                  type="password"
+                  placeholder="••••••••"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  minLength={6}
+                  className="h-10"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="confirm-new-password">{t('auth.confirmPassword') || 'Confirm New Password'}</Label>
+                <Input
+                  id="confirm-new-password"
+                  type="password"
+                  placeholder="••••••••"
+                  value={confirmNewPassword}
+                  onChange={(e) => setConfirmNewPassword(e.target.value)}
+                  minLength={6}
+                  className="h-10"
+                />
+              </div>
+              {passwordError && (
+                <Alert variant="destructive">
+                  <AlertDescription>{passwordError}</AlertDescription>
+                </Alert>
+              )}
+            </div>
+            <DialogFooter className="gap-2">
+              <Button variant="outline" onClick={handleCloseChangePassword} disabled={changingPassword}>
+                {t('common.cancel')}
+              </Button>
+              <Button
+                onClick={handleChangePassword}
+                disabled={changingPassword || !currentPassword || !newPassword || !confirmNewPassword}
+              >
+                {changingPassword ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : null}
+                {t('privateDashboard.changePassword')}
+              </Button>
+            </DialogFooter>
+          </>
+        ) : (
+          <>
+            <DialogHeader className="text-center">
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-green-50">
+                <Shield className="h-6 w-6 text-green-600" />
+              </div>
+              <DialogTitle>{t('privateDashboard.passwordChanged') || 'Password Changed'}</DialogTitle>
+              <DialogDescription>
+                {t('privateDashboard.passwordChangedSuccess') || 'Your password has been updated successfully.'}
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter>
+              <Button onClick={handleCloseChangePassword} className="w-full">
+                {t('common.close')}
+              </Button>
+            </DialogFooter>
+          </>
+        )}
+      </DialogContent>
+    </Dialog>
     </>
       );
   }

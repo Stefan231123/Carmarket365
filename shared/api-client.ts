@@ -945,6 +945,22 @@ class ApiClient {
     }
   }
 
+  async updateCarInquiry(id: string, input: { status?: string; response?: string }): Promise<any> {
+    const mutation = `
+      mutation UpdateCarInquiry($id: String!, $input: UpdateCarInquiryInput!) {
+        updateCarInquiry(id: $id, input: $input) {
+          id
+          status
+          sellerResponse
+          repliedAt
+        }
+      }
+    `;
+    const response = await this.request<{ updateCarInquiry: any }>(mutation, { id, input });
+    if (response.errors) throw new Error(response.errors[0]?.message || 'Failed to update inquiry');
+    return response.data?.updateCarInquiry;
+  }
+
   async getUserSavedCars(): Promise<any[]> {
     const query = `
       query GetUserSavedCars {
@@ -1480,6 +1496,62 @@ class ApiClient {
     if (response.errors) {
       throw new Error(response.errors[0].message);
     }
+  }
+
+  async getApprovedDealers(): Promise<any[]> {
+    const query = `
+      query GetApprovedDealers {
+        getApprovedDealers {
+          id
+          firstName
+          lastName
+          email
+          phone
+          dealerName
+          dealerDescription
+          dealerAddress
+          dealerCity
+          dealerRegion
+          dealerCountry
+          dealerLogoUrl
+          dealerPhoneNumber
+          dealerWebsite
+          dealerStatus
+          createdAt
+        }
+      }
+    `;
+    const response = await this.request<{ getApprovedDealers: any[] }>(query);
+    if (response.errors) throw new Error(response.errors[0].message);
+    return response.data?.getApprovedDealers ?? [];
+  }
+
+  async updateMyProfile(data: { firstName?: string; lastName?: string; phone?: string }): Promise<any> {
+    const mutation = `
+      mutation UpdateMyProfile($firstName: String, $lastName: String, $phone: String) {
+        updateMyProfile(firstName: $firstName, lastName: $lastName, phone: $phone) {
+          id
+          firstName
+          lastName
+          phone
+          name
+        }
+      }
+    `;
+    const response = await this.request<{ updateMyProfile: any }>(mutation, data);
+    if (response.errors) throw new Error(response.errors[0].message);
+    return response.data?.updateMyProfile;
+  }
+
+  async changePassword(currentPassword: string, newPassword: string): Promise<boolean> {
+    const mutation = `
+      mutation ChangePassword($currentPassword: String!, $newPassword: String!) {
+        changePassword(currentPassword: $currentPassword, newPassword: $newPassword)
+      }
+    `;
+    const response = await this.request<{ changePassword: boolean }>(mutation, { currentPassword, newPassword });
+    if (response.errors) throw new Error(response.errors[0].message);
+    return response.data?.changePassword ?? false;
   }
 }
 

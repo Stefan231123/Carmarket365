@@ -2923,6 +2923,18 @@ export interface TranslationStrings {
       // Actions
       actions: {
         respond: string;
+        replied: string;
+      };
+
+      respondModal: {
+        title: string;
+        description: string;
+        from: string;
+        about: string;
+        message: string;
+        yourResponse: string;
+        responsePlaceholder: string;
+        send: string;
       };
 
       // Time indicators

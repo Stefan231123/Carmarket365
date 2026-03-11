@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, ConflictException, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DataSource } from 'typeorm';
-import { User, UserRole } from './user.entity';
+import { User, UserRole, DealerStatus } from './user.entity';
 import { SavedCar } from './saved-car.entity';
 import { SearchAlert } from './search-alert.entity';
 import { Car } from '../cars/car.entity';
@@ -316,5 +316,44 @@ export class UsersService {
     const user = await this.findById(userId);
     if (!user) throw new NotFoundException('User not found');
     return user;
+  }
+
+  async getApprovedDealers(): Promise<User[]> {
+    return this.userRepository.find({
+      where: { role: UserRole.DEALER, dealerStatus: DealerStatus.APPROVED, isActive: true },
+      order: { createdAt: 'DESC' },
+    });
+  }
+
+  async updateProfile(
+    userId: string,
+    data: { firstName?: string; lastName?: string; phone?: string },
+  ): Promise<User> {
+    await this.userRepository.update(userId, data);
+    const user = await this.findById(userId);
+    if (!user) throw new NotFoundException('User not found');
+    return user;
+  }
+
+  async changePassword(
+    userId: string,
+    currentPassword: string,
+    newPassword: string,
+  ): Promise<boolean> {
+    const user = await this.userRepository.findOne({ where: { id: userId } });
+    if (!user) throw new NotFoundException('User not found');
+
+    if (!user.password) {
+      throw new Error('Cannot change password for OAuth accounts');
+    }
+
+    const isValid = await bcrypt.compare(currentPassword, user.password);
+    if (!isValid) {
+      throw new Error('Current password is incorrect');
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await this.userRepository.update(userId, { password: hashedPassword });
+    return true;
   }
 }

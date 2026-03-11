@@ -125,7 +125,21 @@ export class CarInquiriesService {
     }
 
     await this.carInquiryRepository.update(id, updateData);
-    return this.findById(id);
+    const updated = await this.findById(id);
+
+    // Notify the inquirer when the seller replies
+    if (updateData.status === InquiryStatus.REPLIED && updateData.response) {
+      const carTitle = `${inquiry.car.year} ${inquiry.car.make} ${inquiry.car.model}`;
+      this.emailService.sendInquiryReplyEmail(
+        inquiry.email,
+        inquiry.name,
+        carTitle,
+        updateData.response,
+        inquiry.carId,
+      ).catch(err => this.logger.warn(`Failed to send inquiry reply email: ${err.message}`));
+    }
+
+    return updated;
   }
 
   async remove(id: string, user: User): Promise<boolean> {

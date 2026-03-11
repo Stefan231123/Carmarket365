@@ -1761,6 +1761,10 @@ export const enTranslations: TranslationStrings = {
     manageAccountAndData: 'Manage your account and data',
     downloadMyData: 'Download My Data',
     changePassword: 'Change Password',
+    changePasswordDescription: 'Enter your current password and choose a new one.',
+    currentPassword: 'Current Password',
+    passwordChanged: 'Password Changed',
+    passwordChangedSuccess: 'Your password has been updated successfully.',
     deleteAccount: 'Delete Account',
     // Success/Error Messages
     profileUpdatedSuccessfully: 'Profile updated successfully!',
@@ -2163,6 +2167,17 @@ export const enTranslations: TranslationStrings = {
       },
       actions: {
         respond: 'Respond',
+        replied: 'Replied',
+      },
+      respondModal: {
+        title: 'Respond to Inquiry',
+        description: 'Your response will be sent to the customer by email.',
+        from: 'From',
+        about: 'About',
+        message: 'Message',
+        yourResponse: 'Your Response',
+        responsePlaceholder: 'Write your response here...',
+        send: 'Send Response',
       },
       time: {
         hoursAgo: 'hours ago',

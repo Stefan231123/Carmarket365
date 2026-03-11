@@ -307,6 +307,217 @@ export class EmailService {
     });
   }
 
+  async sendListingLiveEmail(email: string, name: string, carTitle: string, carId: string): Promise<boolean> {
+    const carUrl = `${this.frontendUrl}/cars/${carId}`;
+    return this.sendEmail({
+      to: email,
+      subject: `Your listing is live: ${carTitle}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <div style="background: #000; padding: 24px; text-align: center;">
+            <h1 style="color: #fff; margin: 0; font-size: 24px;">CarMarket365</h1>
+          </div>
+          <div style="padding: 32px 24px;">
+            <h2 style="color: #111;">Your listing is live!</h2>
+            <p style="color: #555; line-height: 1.6;">Hi${name ? ' ' + name : ''},</p>
+            <p style="color: #555; line-height: 1.6;">
+              Your car <strong>${carTitle}</strong> is now live on CarMarket365 and visible to thousands of buyers.
+            </p>
+            <div style="text-align: center; margin: 32px 0;">
+              <a href="${carUrl}" style="display: inline-block; background: #000; color: #fff; padding: 14px 40px; border-radius: 24px; text-decoration: none; font-weight: bold;">
+                View Your Listing
+              </a>
+            </div>
+            <p style="color: #999; font-size: 13px; line-height: 1.6;">
+              You can edit or remove your listing at any time from your dashboard.
+            </p>
+          </div>
+          <div style="background: #f5f5f5; padding: 16px 24px; text-align: center; color: #999; font-size: 12px;">
+            &copy; ${new Date().getFullYear()} CarMarket365. All rights reserved.
+          </div>
+        </div>
+      `,
+      text: `Your listing "${carTitle}" is now live on CarMarket365. View it here: ${carUrl}`,
+    });
+  }
+
+  async sendPriceDropEmail(
+    email: string,
+    name: string,
+    carTitle: string,
+    oldPrice: number,
+    newPrice: number,
+    carId: string,
+  ): Promise<boolean> {
+    const carUrl = `${this.frontendUrl}/cars/${carId}`;
+    const savings = Math.round(oldPrice - newPrice);
+    const pct = Math.round(((oldPrice - newPrice) / oldPrice) * 100);
+    return this.sendEmail({
+      to: email,
+      subject: `Price drop on a saved car: ${carTitle}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <div style="background: #000; padding: 24px; text-align: center;">
+            <h1 style="color: #fff; margin: 0; font-size: 24px;">CarMarket365</h1>
+          </div>
+          <div style="padding: 32px 24px;">
+            <h2 style="color: #111;">Price dropped on a car you saved!</h2>
+            <p style="color: #555; line-height: 1.6;">Hi${name ? ' ' + name : ''},</p>
+            <p style="color: #555; line-height: 1.6;">
+              The price on <strong>${carTitle}</strong>, which you saved, has been reduced.
+            </p>
+            <div style="background: #f0fdf4; border-radius: 12px; padding: 20px; margin: 20px 0; text-align: center;">
+              <p style="margin: 0 0 4px; color: #999; text-decoration: line-through; font-size: 18px;">€${oldPrice.toLocaleString()}</p>
+              <p style="margin: 0; color: #16a34a; font-size: 28px; font-weight: bold;">€${newPrice.toLocaleString()}</p>
+              <p style="margin: 8px 0 0; color: #16a34a; font-size: 14px;">Save €${savings.toLocaleString()} (${pct}% off)</p>
+            </div>
+            <div style="text-align: center; margin: 32px 0;">
+              <a href="${carUrl}" style="display: inline-block; background: #000; color: #fff; padding: 14px 40px; border-radius: 24px; text-decoration: none; font-weight: bold;">
+                View Listing
+              </a>
+            </div>
+          </div>
+          <div style="background: #f5f5f5; padding: 16px 24px; text-align: center; color: #999; font-size: 12px;">
+            &copy; ${new Date().getFullYear()} CarMarket365. All rights reserved.
+          </div>
+        </div>
+      `,
+      text: `Price drop on "${carTitle}": was €${oldPrice.toLocaleString()}, now €${newPrice.toLocaleString()} (save €${savings.toLocaleString()}). View: ${carUrl}`,
+    });
+  }
+
+  async sendSavedCarUnavailableEmail(email: string, name: string, carTitle: string): Promise<boolean> {
+    return this.sendEmail({
+      to: email,
+      subject: `A saved car is no longer available: ${carTitle}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <div style="background: #000; padding: 24px; text-align: center;">
+            <h1 style="color: #fff; margin: 0; font-size: 24px;">CarMarket365</h1>
+          </div>
+          <div style="padding: 32px 24px;">
+            <h2 style="color: #111;">A saved car is no longer available</h2>
+            <p style="color: #555; line-height: 1.6;">Hi${name ? ' ' + name : ''},</p>
+            <p style="color: #555; line-height: 1.6;">
+              Unfortunately, <strong>${carTitle}</strong>, which you had saved, has been removed from CarMarket365.
+            </p>
+            <p style="color: #555; line-height: 1.6;">
+              There are thousands of other cars waiting for you — find your next match below.
+            </p>
+            <div style="text-align: center; margin: 32px 0;">
+              <a href="${this.frontendUrl}/cars" style="display: inline-block; background: #000; color: #fff; padding: 14px 40px; border-radius: 24px; text-decoration: none; font-weight: bold;">
+                Browse Cars
+              </a>
+            </div>
+          </div>
+          <div style="background: #f5f5f5; padding: 16px 24px; text-align: center; color: #999; font-size: 12px;">
+            &copy; ${new Date().getFullYear()} CarMarket365. All rights reserved.
+          </div>
+        </div>
+      `,
+      text: `"${carTitle}", which you had saved on CarMarket365, has been removed. Browse more cars: ${this.frontendUrl}/cars`,
+    });
+  }
+
+  async sendContactAutoReplyEmail(email: string, name: string): Promise<boolean> {
+    return this.sendEmail({
+      to: email,
+      subject: "We've received your message — CarMarket365",
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <div style="background: #000; padding: 24px; text-align: center;">
+            <h1 style="color: #fff; margin: 0; font-size: 24px;">CarMarket365</h1>
+          </div>
+          <div style="padding: 32px 24px;">
+            <h2 style="color: #111;">We got your message!</h2>
+            <p style="color: #555; line-height: 1.6;">Hi${name ? ' ' + name : ''},</p>
+            <p style="color: #555; line-height: 1.6;">
+              Thanks for reaching out. We've received your message and will get back to you as soon as possible.
+            </p>
+            <p style="color: #555; line-height: 1.6;">
+              In the meantime, feel free to browse our listings.
+            </p>
+            <a href="${this.frontendUrl}" style="display: inline-block; background: #000; color: #fff; padding: 12px 32px; border-radius: 24px; text-decoration: none; margin-top: 16px;">
+              Browse Cars
+            </a>
+          </div>
+          <div style="background: #f5f5f5; padding: 16px 24px; text-align: center; color: #999; font-size: 12px;">
+            &copy; ${new Date().getFullYear()} CarMarket365. All rights reserved.
+          </div>
+        </div>
+      `,
+      text: `Hi${name ? ' ' + name : ''}, we've received your message and will get back to you shortly.`,
+    });
+  }
+
+  async sendPasswordChangedEmail(email: string, name: string): Promise<boolean> {
+    return this.sendEmail({
+      to: email,
+      subject: 'Your CarMarket365 password has been changed',
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <div style="background: #000; padding: 24px; text-align: center;">
+            <h1 style="color: #fff; margin: 0; font-size: 24px;">CarMarket365</h1>
+          </div>
+          <div style="padding: 32px 24px;">
+            <h2 style="color: #111;">Password Changed</h2>
+            <p style="color: #555; line-height: 1.6;">Hi${name ? ' ' + name : ''},</p>
+            <p style="color: #555; line-height: 1.6;">
+              Your CarMarket365 password was successfully changed. If you made this change, no further action is needed.
+            </p>
+            <p style="color: #555; line-height: 1.6;">
+              If you didn't change your password, your account may be compromised. Please
+              <a href="${this.frontendUrl}/reset-password" style="color: #2563eb;">reset your password immediately</a>
+              and contact support.
+            </p>
+          </div>
+          <div style="background: #f5f5f5; padding: 16px 24px; text-align: center; color: #999; font-size: 12px;">
+            &copy; ${new Date().getFullYear()} CarMarket365. All rights reserved.
+          </div>
+        </div>
+      `,
+      text: `Your CarMarket365 password was successfully changed. If you didn't do this, reset your password immediately at ${this.frontendUrl}/reset-password`,
+    });
+  }
+
+  async sendInquiryReplyEmail(
+    inquirerEmail: string,
+    inquirerName: string,
+    carTitle: string,
+    response: string,
+    carId: string,
+  ): Promise<boolean> {
+    const carUrl = `${this.frontendUrl}/cars/${carId}`;
+    return this.sendEmail({
+      to: inquirerEmail,
+      subject: `Reply to your inquiry: ${carTitle}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <div style="background: #000; padding: 24px; text-align: center;">
+            <h1 style="color: #fff; margin: 0; font-size: 24px;">CarMarket365</h1>
+          </div>
+          <div style="padding: 32px 24px;">
+            <h2 style="color: #111;">The seller has replied to your inquiry</h2>
+            <p style="color: #555; line-height: 1.6;">Hi${inquirerName ? ' ' + inquirerName : ''},</p>
+            <p style="color: #555; line-height: 1.6;">
+              The seller of <strong>${carTitle}</strong> has responded to your inquiry:
+            </p>
+            <div style="background: #f9f9f9; border-radius: 12px; padding: 20px; margin: 20px 0; border-left: 4px solid #000;">
+              <p style="margin: 0; color: #333; line-height: 1.6;">"${response}"</p>
+            </div>
+            <a href="${carUrl}" style="display: inline-block; background: #000; color: #fff; padding: 12px 32px; border-radius: 24px; text-decoration: none; margin-top: 16px;">
+              View Listing
+            </a>
+          </div>
+          <div style="background: #f5f5f5; padding: 16px 24px; text-align: center; color: #999; font-size: 12px;">
+            &copy; ${new Date().getFullYear()} CarMarket365. All rights reserved.
+          </div>
+        </div>
+      `,
+      text: `The seller of "${carTitle}" has replied to your inquiry: "${response}". View the listing: ${carUrl}`,
+    });
+  }
+
   async sendSearchAlertEmail(email: string, alertName: string, newCars: number): Promise<boolean> {
     return this.sendEmail({
       to: email,

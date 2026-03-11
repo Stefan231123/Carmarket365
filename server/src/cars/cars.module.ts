@@ -12,9 +12,10 @@ import { CarInquiriesService } from './car-inquiries.service';
 import { CarImagesResolver } from './car-images.resolver';
 import { CarViewsResolver } from './car-views.resolver';
 import { CarInquiriesResolver } from './car-inquiries.resolver';
+import { UsersModule } from '../users/users.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Car, CarImage, CarView, CarInquiry])],
+  imports: [TypeOrmModule.forFeature([Car, CarImage, CarView, CarInquiry]), UsersModule],
   providers: [
     CarsService,
     CarsResolver,

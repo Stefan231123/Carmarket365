@@ -1,15 +1,24 @@
-import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
+import { Injectable, NotFoundException, ForbiddenException, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, SelectQueryBuilder } from 'typeorm';
 import { Car } from './car.entity';
 import { User } from '../users/user.entity';
 import { CreateCarInput, UpdateCarInput, CarFilterInput } from './dto/car.input';
+import { SearchAlertsService } from '../users/search-alerts.service';
+import { SearchAlert, AlertFrequency } from '../users/search-alert.entity';
+import { SavedCarsService } from '../users/saved-cars.service';
+import { EmailService } from '../common/email/email.service';
 
 @Injectable()
 export class CarsService {
+  private readonly logger = new Logger(CarsService.name);
+
   constructor(
     @InjectRepository(Car)
     private readonly carRepository: Repository<Car>,
+    private readonly searchAlertsService: SearchAlertsService,
+    private readonly savedCarsService: SavedCarsService,
+    private readonly emailService: EmailService,
   ) {}
 
   async findAll(filters?: CarFilterInput): Promise<Car[]> {
@@ -126,7 +135,55 @@ export class CarsService {
       seller,
     });
 
-    return this.carRepository.save(car);
+    const saved = await this.carRepository.save(car);
+
+    // Notify seller their listing is live (fire-and-forget)
+    const carTitle = `${saved.year} ${saved.make} ${saved.model}`;
+    this.emailService.sendListingLiveEmail(seller.email, seller.name || '', carTitle, saved.id).catch(err =>
+      this.logger.warn(`Failed to send listing live email: ${err.message}`),
+    );
+
+    // Notify users with matching INSTANT search alerts (fire-and-forget)
+    this.notifyMatchingAlerts(saved).catch(err =>
+      this.logger.warn(`Failed to process search alert notifications: ${err.message}`),
+    );
+
+    return saved;
+  }
+
+  private async notifyMatchingAlerts(car: Car): Promise<void> {
+    const alerts = await this.searchAlertsService.getAlertsByFrequency(AlertFrequency.INSTANT);
+
+    for (const alert of alerts) {
+      if (!alert.emailNotifications || !alert.user?.email) continue;
+      if (!this.carMatchesAlert(car, alert)) continue;
+
+      await this.emailService.sendSearchAlertEmail(alert.user.email, alert.name, 1).catch(err =>
+        this.logger.warn(`Failed to send search alert email for alert ${alert.id}: ${err.message}`),
+      );
+      await this.searchAlertsService.updateLastTriggered(alert.id).catch(() => {});
+    }
+  }
+
+  private carMatchesAlert(car: Car, alert: SearchAlert): boolean {
+    if (alert.make && car.make?.toLowerCase() !== alert.make.toLowerCase()) return false;
+    if (alert.model && car.model?.toLowerCase() !== alert.model.toLowerCase()) return false;
+    if (alert.vehicleType && car.vehicleType !== alert.vehicleType) return false;
+    if (alert.yearFrom && car.year < alert.yearFrom) return false;
+    if (alert.yearTo && car.year > alert.yearTo) return false;
+    if (alert.priceFrom && car.price < alert.priceFrom) return false;
+    if (alert.priceTo && car.price > alert.priceTo) return false;
+    if (alert.mileageFrom && car.mileage < alert.mileageFrom) return false;
+    if (alert.mileageTo && car.mileage > alert.mileageTo) return false;
+    if (alert.fuelType && car.fuelType !== alert.fuelType) return false;
+    if (alert.transmission && car.transmission !== alert.transmission) return false;
+    if (alert.countryCode && car.countryCode?.toLowerCase() !== alert.countryCode.toLowerCase()) return false;
+    if (alert.location && !car.location?.toLowerCase().includes(alert.location.toLowerCase())) return false;
+    if (alert.features?.length) {
+      const carFeatures = car.features || [];
+      if (!alert.features.every(f => carFeatures.includes(f))) return false;
+    }
+    return true;
   }
 
   async update(id: string, updateCarInput: UpdateCarInput, user: User): Promise<Car> {
@@ -137,8 +194,19 @@ export class CarsService {
       throw new ForbiddenException('You can only update your own cars');
     }
 
+    const oldPrice = car.price;
     await this.carRepository.update(id, updateCarInput);
-    return this.findById(id);
+    const updated = await this.findById(id);
+
+    // Notify users who saved this car if price dropped (fire-and-forget)
+    if (updateCarInput.price !== undefined && updateCarInput.price < oldPrice) {
+      const carTitle = `${car.year} ${car.make} ${car.model}`;
+      this.notifyPriceDrop(id, carTitle, oldPrice, updated.price).catch(err =>
+        this.logger.warn(`Failed to process price drop notifications: ${err.message}`),
+      );
+    }
+
+    return updated;
   }
 
   async remove(id: string, user: User): Promise<boolean> {
@@ -149,8 +217,40 @@ export class CarsService {
       throw new ForbiddenException('You can only delete your own cars');
     }
 
+    // Get savers before cascade-delete removes saved_car records
+    const savedBy = await this.savedCarsService.getUsersWhoSavedCar(id);
+
     await this.carRepository.delete(id);
+
+    // Notify users who had this car saved (fire-and-forget)
+    if (savedBy.length > 0) {
+      const carTitle = `${car.year} ${car.make} ${car.model}`;
+      for (const saved of savedBy) {
+        if (saved.user?.email) {
+          this.emailService.sendSavedCarUnavailableEmail(saved.user.email, saved.user.name || '', carTitle).catch(err =>
+            this.logger.warn(`Failed to send saved car unavailable email: ${err.message}`),
+          );
+        }
+      }
+    }
+
     return true;
+  }
+
+  private async notifyPriceDrop(carId: string, carTitle: string, oldPrice: number, newPrice: number): Promise<void> {
+    const savedBy = await this.savedCarsService.getUsersWhoSavedCar(carId);
+    for (const saved of savedBy) {
+      if (saved.user?.email) {
+        await this.emailService.sendPriceDropEmail(
+          saved.user.email,
+          saved.user.name || '',
+          carTitle,
+          oldPrice,
+          newPrice,
+          carId,
+        ).catch(err => this.logger.warn(`Failed to send price drop email: ${err.message}`));
+      }
+    }
   }
 
   private applyFilters(query: SelectQueryBuilder<Car>, filters?: CarFilterInput): void {

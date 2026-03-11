@@ -23,7 +23,7 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Car, Users, Euro, TrendingUp, Plus, Search, Filter, Download, Eye, Edit, Trash2, MoreHorizontal, Zap, Heart, MapPin, Fuel, Gauge, Calendar } from 'lucide-react';
+import { Car, Users, Euro, TrendingUp, Plus, Search, Filter, Download, Eye, Edit, Trash2, MoreHorizontal, Zap, Heart, MapPin, Fuel, Gauge, Calendar, MessageSquare } from 'lucide-react';
 import { useTranslation } from '../hooks/useTranslation';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/card';
@@ -33,11 +33,16 @@ import { Badge } from '../components/ui/badge';
 import { Progress } from '../components/ui/progress';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../components/ui/table';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../components/ui/dropdown-menu';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '../components/ui/dialog';
+import { Label } from '../components/ui/label';
+import { Textarea } from '../components/ui/textarea';
 import { ImageWithFallback } from '../components/ImageWithFallback';
 import { CarCard } from '../components/CarCard';
 import { AdminBreadcrumb } from '../components/AdminBreadcrumb';
 import { useDealerListings, useDealerDashboardData, useExpressSaleOpportunities, useDealerInquiries } from '../hooks/useDealerDashboard';
 import { LoadingSpinner } from '../components/LoadingSpinner';
+import { apiClient } from '@shared/api-client';
+import type { CarInquiry } from '../lib/graphql/dealer-operations';
 
 // Types are now imported from dealer-operations.ts
 
@@ -47,17 +52,47 @@ export default function DealerDashboard() {
   const [activeTab, setActiveTab] = useState('overview');
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [expressStatusFilter, setExpressStatusFilter] = useState('all');
+  const [expressSearchTerm, setExpressSearchTerm] = useState('');
+  const [respondingInquiry, setRespondingInquiry] = useState<CarInquiry | null>(null);
+  const [responseText, setResponseText] = useState('');
+  const [isResponding, setIsResponding] = useState(false);
 
   // GraphQL queries
   const { stats, performance, recentInquiries, popularListings, loading: dashboardLoading, error: dashboardError } = useDealerDashboardData();
   const { data: listingsData, loading: listingsLoading, error: listingsError } = useDealerListings(statusFilter !== 'all' ? statusFilter.toUpperCase() : undefined, searchTerm || undefined);
   const { data: expressData, loading: expressLoading, error: expressError } = useExpressSaleOpportunities();
-  const { data: inquiriesData, loading: inquiriesLoading, error: inquiriesError } = useDealerInquiries();
+  const { data: inquiriesData, loading: inquiriesLoading, error: inquiriesError, refetch: refetchInquiries } = useDealerInquiries();
 
   // Extract data with fallbacks
   const listings = listingsData?.getDealerListings || [];
   const expressListings = expressData?.getExpressSaleOpportunities || [];
   const allInquiries = inquiriesData?.getDealerInquiries || [];
+
+  // Filtered express listings
+  const filteredExpressListings = expressListings.filter(listing => {
+    const matchesStatus = expressStatusFilter === 'all' ||
+      (expressStatusFilter === 'new' && listing.status === 'ACTIVE') ||
+      (expressStatusFilter === 'sold' && listing.status === 'SOLD');
+    const matchesSearch = !expressSearchTerm ||
+      listing.vehicleDescription.toLowerCase().includes(expressSearchTerm.toLowerCase());
+    return matchesStatus && matchesSearch;
+  });
+
+  const handleRespond = async () => {
+    if (!respondingInquiry || !responseText.trim()) return;
+    setIsResponding(true);
+    try {
+      await apiClient.updateCarInquiry(respondingInquiry.id, { status: 'REPLIED', response: responseText.trim() });
+      setRespondingInquiry(null);
+      setResponseText('');
+      refetchInquiries();
+    } catch (err) {
+      console.error('Failed to send response:', err);
+    } finally {
+      setIsResponding(false);
+    }
+  };
 
   // Filter listings based on search term
   const filteredListings = listings.filter(listing => {
@@ -544,8 +579,14 @@ export default function DealerDashboard() {
                           </div>
                         </div>
                       </div>
-                      <Button size="sm" className="bg-black text-white hover:bg-black/90 rounded-full h-12 shadow-md w-full sm:w-auto">
-                        {t('dealerDashboard.inquiries.actions.respond')}
+                      <Button
+                        size="sm"
+                        className="bg-black text-white hover:bg-black/90 rounded-full h-12 shadow-md w-full sm:w-auto"
+                        onClick={() => { setRespondingInquiry(inquiry); setResponseText(''); }}
+                        disabled={inquiry.status === 'RESPONDED' || inquiry.status === 'CLOSED'}
+                      >
+                        <MessageSquare className="h-4 w-4 mr-2" />
+                        {inquiry.status === 'RESPONDED' ? t('dealerDashboard.inquiries.actions.replied') : t('dealerDashboard.inquiries.actions.respond')}
                       </Button>
                     </div>
                   )) : (
@@ -590,9 +631,11 @@ export default function DealerDashboard() {
                 <Input
                   placeholder={t('dealerDashboard.expressListings.searchPlaceholder')}
                   className="pl-10 w-full sm:w-64 h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0"
+                  value={expressSearchTerm}
+                  onChange={(e) => setExpressSearchTerm(e.target.value)}
                 />
               </div>
-              <Select>
+              <Select value={expressStatusFilter} onValueChange={setExpressStatusFilter}>
                 <SelectTrigger className="w-full sm:w-40 h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
                   <Filter className="h-4 w-4 mr-2" />
                   <SelectValue placeholder={t('dealerDashboard.expressListings.filterByStatus')} />
@@ -613,7 +656,7 @@ export default function DealerDashboard() {
                 <div className="col-span-full text-center py-8">
                   <LoadingSpinner />
                 </div>
-              ) : expressListings.length > 0 ? expressListings.map((listing) => (
+              ) : filteredExpressListings.length > 0 ? filteredExpressListings.map((listing) => (
                 <div key={listing.id} className="bg-card rounded-xl border border-border shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden cursor-pointer" onClick={() => navigate(`/cars/${listing.id}`)}>
                   {/* Image */}
                   <div className="relative">
@@ -790,6 +833,62 @@ export default function DealerDashboard() {
         </p>
       </div>
     </section>
+
+      {/* Respond to Inquiry Dialog */}
+      <Dialog open={!!respondingInquiry} onOpenChange={(open) => { if (!open) { setRespondingInquiry(null); setResponseText(''); } }}>
+        <DialogContent className="sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle>{t('dealerDashboard.inquiries.respondModal.title')}</DialogTitle>
+            <DialogDescription>{t('dealerDashboard.inquiries.respondModal.description')}</DialogDescription>
+          </DialogHeader>
+
+          {respondingInquiry && (
+            <div className="space-y-4">
+              {/* Inquiry details */}
+              <div className="bg-muted/30 rounded-xl p-4 space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">{t('dealerDashboard.inquiries.respondModal.from')}</span>
+                  <span className="font-medium">{respondingInquiry.customerName}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground">{t('dealerDashboard.inquiries.respondModal.about')}</span>
+                  <span className="font-medium">{respondingInquiry.car?.carMake?.name} {respondingInquiry.car?.carModel?.name}</span>
+                </div>
+                <div className="pt-2 border-t border-border">
+                  <p className="text-muted-foreground mb-1">{t('dealerDashboard.inquiries.respondModal.message')}</p>
+                  <p className="text-foreground">{respondingInquiry.message}</p>
+                </div>
+              </div>
+
+              {/* Response textarea */}
+              <div className="space-y-2">
+                <Label htmlFor="response">{t('dealerDashboard.inquiries.respondModal.yourResponse')}</Label>
+                <Textarea
+                  id="response"
+                  placeholder={t('dealerDashboard.inquiries.respondModal.responsePlaceholder')}
+                  value={responseText}
+                  onChange={(e) => setResponseText(e.target.value)}
+                  rows={4}
+                  className="resize-none"
+                />
+              </div>
+            </div>
+          )}
+
+          <DialogFooter className="gap-2">
+            <Button variant="outline" onClick={() => { setRespondingInquiry(null); setResponseText(''); }} disabled={isResponding} className="rounded-full">
+              {t('common.cancel')}
+            </Button>
+            <Button
+              onClick={handleRespond}
+              disabled={isResponding || !responseText.trim()}
+              className="bg-black text-white hover:bg-black/90 rounded-full"
+            >
+              {isResponding ? t('common.sending') : t('dealerDashboard.inquiries.respondModal.send')}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

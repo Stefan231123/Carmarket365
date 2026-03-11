@@ -2239,6 +2239,17 @@ export const mkTranslations: TranslationStrings = {
       },
       actions: {
         respond: 'Одговори',
+        replied: 'Одговорено',
+      },
+      respondModal: {
+        title: 'Одговори на барање',
+        description: 'Вашиот одговор ќе биде испратен до клиентот по е-пошта.',
+        from: 'Од',
+        about: 'За',
+        message: 'Порака',
+        yourResponse: 'Вашиот одговор',
+        responsePlaceholder: 'Напишете го вашиот одговор овде...',
+        send: 'Испрати одговор',
       },
       time: {
         hoursAgo: 'часа',
@@ -2750,6 +2761,10 @@ export const mkTranslations: TranslationStrings = {
     manageAccountAndData: 'Управувај со твојата сметка и податоци',
     downloadMyData: 'Преземи ги моите податоци',
     changePassword: 'Смени лозинка',
+    changePasswordDescription: 'Внеси ја тековната лозинка и избери нова.',
+    currentPassword: 'Тековна лозинка',
+    passwordChanged: 'Лозинката е сменета',
+    passwordChangedSuccess: 'Твојата лозинка е успешно ажурирана.',
     deleteAccount: 'Избриши сметка',
     // Success/Error Messages
     profileUpdatedSuccessfully: 'Профилот е успешно ажуриран!',

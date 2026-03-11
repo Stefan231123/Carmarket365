@@ -2310,6 +2310,10 @@ export const sqTranslations: TranslationStrings = {
     manageAccountAndData: 'Menaxho llogarinë dhe të dhënat',
     downloadMyData: 'Shkarko të dhënat e mia',
     changePassword: 'Ndrysho fjalëkalimin',
+    changePasswordDescription: 'Vendos fjalëkalimin aktual dhe zgjidhni një të ri.',
+    currentPassword: 'Fjalëkalimi aktual',
+    passwordChanged: 'Fjalëkalimi u ndryshua',
+    passwordChangedSuccess: 'Fjalëkalimi juaj u përditësua me sukses.',
     deleteAccount: 'Fshi llogarinë',
     // Success/Error Messages
     profileUpdatedSuccessfully: 'Profili u përditësua me sukses!',
@@ -2870,8 +2874,19 @@ export const sqTranslations: TranslationStrings = {
       // Veprimet
       actions: {
         respond: 'Përgjigju',
+        replied: 'U përgjigj',
       },
-      
+      respondModal: {
+        title: 'Përgjigju Pyetjes',
+        description: 'Përgjigja juaj do t\'i dërgohet klientit me email.',
+        from: 'Nga',
+        about: 'Rreth',
+        message: 'Mesazhi',
+        yourResponse: 'Përgjigja Juaj',
+        responsePlaceholder: 'Shkruani përgjigjen tuaj këtu...',
+        send: 'Dërgo Përgjigje',
+      },
+
       // Treguesit e kohës
       time: {
         hoursAgo: 'orë më parë',

@@ -42,6 +42,11 @@ export class UsersResolver {
     return user;
   }
 
+  @Query(() => [User], { name: 'getApprovedDealers', description: 'List all approved dealers visible to the public.' })
+  async getApprovedDealers(): Promise<User[]> {
+    return this.usersService.getApprovedDealers();
+  }
+
   @Mutation(() => User)
   @UseGuards(JwtAuthGuard)
   async addToSavedListings(
@@ -101,5 +106,26 @@ export class UsersResolver {
     @CurrentUser() user: User,
   ): Promise<User> {
     return this.usersService.updateMarketingPreferences(user.id, marketingEmails, smsNotifications);
+  }
+
+  @Mutation(() => User, { description: "Update the current user's basic profile (name, phone)." })
+  @UseGuards(JwtAuthGuard)
+  async updateMyProfile(
+    @Args('firstName', { nullable: true }) firstName: string | undefined,
+    @Args('lastName', { nullable: true }) lastName: string | undefined,
+    @Args('phone', { nullable: true }) phone: string | undefined,
+    @CurrentUser() user: User,
+  ): Promise<User> {
+    return this.usersService.updateProfile(user.id, { firstName, lastName, phone });
+  }
+
+  @Mutation(() => Boolean, { description: 'Change the current user\'s password (requires current password).' })
+  @UseGuards(JwtAuthGuard)
+  async changePassword(
+    @Args('currentPassword') currentPassword: string,
+    @Args('newPassword') newPassword: string,
+    @CurrentUser() user: User,
+  ): Promise<boolean> {
+    return this.usersService.changePassword(user.id, currentPassword, newPassword);
   }
 }
