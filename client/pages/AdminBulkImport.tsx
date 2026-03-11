@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   ArrowLeft, Upload, CheckCircle2, AlertCircle, AlertTriangle,
-  Loader2, FileSpreadsheet, Users, Car, X,
+  Loader2, FileSpreadsheet, Users, Car, X, Download,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -140,11 +140,36 @@ export default function AdminBulkImport() {
 
         {/* Column reference */}
         <Card>
-          <CardHeader>
-            <CardTitle className="text-base flex items-center gap-2">
-              <FileSpreadsheet className="h-4 w-4" />
-              Required Excel columns
-            </CardTitle>
+          <CardHeader className="flex flex-row items-start justify-between gap-4">
+            <div>
+              <CardTitle className="text-base flex items-center gap-2">
+                <FileSpreadsheet className="h-4 w-4" />
+                Required Excel columns
+              </CardTitle>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              className="shrink-0"
+              onClick={() => {
+                const url = `${baseUrl}/api/admin/bulk-import/template`;
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'bulk-import-template.xlsx';
+                // Send auth header via fetch, then create blob URL
+                fetch(url, {
+                  headers: token ? { Authorization: `Bearer ${token}` } : {},
+                  credentials: 'include',
+                }).then(r => r.blob()).then(blob => {
+                  a.href = URL.createObjectURL(blob);
+                  a.click();
+                  URL.revokeObjectURL(a.href);
+                });
+              }}
+            >
+              <Download className="h-4 w-4 mr-2" />
+              Download Template
+            </Button>
           </CardHeader>
           <CardContent className="space-y-3">
             <div>
