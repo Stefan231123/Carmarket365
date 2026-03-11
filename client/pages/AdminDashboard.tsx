@@ -377,6 +377,10 @@ export default function AdminDashboard() {
                   <TrendingUp className="h-4 w-4 mr-2" />
                   SEO Dashboard
                 </Button>
+                <Button size="lg" onClick={() => navigate('/admin/bulk-import')} className="bg-emerald-600 text-white hover:bg-emerald-700 px-8 h-12 rounded-full shadow-md">
+                  <Car className="h-4 w-4 mr-2" />
+                  Bulk Import
+                </Button>
               </div>
               <button onClick={() => setActiveTab("reports")} className="text-sm text-foreground/70 underline-offset-4 hover:underline">
                 {t('adminDashboard.overview.actions.viewReports')}

@@ -39,6 +39,7 @@ const DealerDashboard = lazy(() => import("@/pages/DealerDashboard"));
 const AdminDashboard = lazy(() => import("@/pages/AdminDashboard"));
 const AdminSEODashboard = lazy(() => import("@/pages/AdminSEODashboard"));
 const AdminRewatermark = lazy(() => import("@/pages/AdminRewatermark"));
+const AdminBulkImport = lazy(() => import("@/pages/AdminBulkImport"));
 const PrivateDashboard = lazy(() => import("@/pages/PrivateDashboard"));
 const CarReviews = lazy(() => import("@/pages/CarReviews"));
 const SafetyTips = lazy(() => import("@/pages/SafetyTips"));
@@ -129,6 +130,14 @@ function AppContent() {
               element={
                 <ProtectedRoute requiredRole="ADMIN">
                   <AdminRewatermark />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/admin/bulk-import"
+              element={
+                <ProtectedRoute requiredRole="ADMIN">
+                  <AdminBulkImport />
                 </ProtectedRoute>
               }
             />

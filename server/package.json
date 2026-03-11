@@ -58,11 +58,13 @@
     "pino-http": "^11.0.0",
     "reflect-metadata": "^0.2.2",
     "resend": "^6.9.1",
-    "typeorm": "^0.3.27"
+    "typeorm": "^0.3.27",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
     "@types/jsonwebtoken": "^9.0.10",
+    "@types/multer": "^2.1.0",
     "@types/node": "^24.2.1",
     "@types/passport": "^1.0.17",
     "@types/passport-facebook": "^3.0.3",
