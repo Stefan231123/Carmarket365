@@ -147,29 +147,15 @@ export default function AdminBulkImport() {
                 Required Excel columns
               </CardTitle>
             </div>
-            <Button
-              variant="outline"
-              size="sm"
-              className="shrink-0"
-              onClick={() => {
-                const url = `${baseUrl}/api/admin/bulk-import/template`;
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = 'bulk-import-template.xlsx';
-                // Send auth header via fetch, then create blob URL
-                fetch(url, {
-                  headers: token ? { Authorization: `Bearer ${token}` } : {},
-                  credentials: 'include',
-                }).then(r => r.blob()).then(blob => {
-                  a.href = URL.createObjectURL(blob);
-                  a.click();
-                  URL.revokeObjectURL(a.href);
-                });
-              }}
+            <a
+              href={`${baseUrl}/api/admin/bulk-import/template`}
+              download="bulk-import-template.xlsx"
             >
-              <Download className="h-4 w-4 mr-2" />
-              Download Template
-            </Button>
+              <Button variant="outline" size="sm" className="shrink-0">
+                <Download className="h-4 w-4 mr-2" />
+                Download Template
+              </Button>
+            </a>
           </CardHeader>
           <CardContent className="space-y-3">
             <div>

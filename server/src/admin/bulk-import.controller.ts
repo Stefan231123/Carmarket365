@@ -10,8 +10,8 @@ import { RestJwtAuthGuard } from '../auth/guards/rest-jwt-auth.guard';
 import { User, UserRole } from '../users/user.entity';
 import { BulkImportService, ImportPreview, ImportResult } from './bulk-import.service';
 
+// NOTE: No class-level guard — template is public; preview/execute guard individually.
 @Controller('api/admin/bulk-import')
-@UseGuards(RestJwtAuthGuard)
 export class BulkImportController {
   constructor(private readonly bulkImportService: BulkImportService) {}
 
@@ -21,6 +21,7 @@ export class BulkImportController {
    * Body: multipart/form-data  field name: "file"
    */
   @Post('preview')
+  @UseGuards(RestJwtAuthGuard)
   @UseInterceptors(FileInterceptor('file', { storage: memoryStorage() }))
   async preview(
     @UploadedFile() file: Express.Multer.File,
@@ -43,6 +44,7 @@ export class BulkImportController {
    * Body: multipart/form-data  field name: "file"
    */
   @Post('execute')
+  @UseGuards(RestJwtAuthGuard)
   @UseInterceptors(FileInterceptor('file', { storage: memoryStorage() }))
   async execute(
     @UploadedFile() file: Express.Multer.File,
