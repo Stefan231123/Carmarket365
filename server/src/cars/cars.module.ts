@@ -4,6 +4,7 @@ import { Car } from './car.entity';
 import { CarImage } from './car-image.entity';
 import { CarView } from './car-view.entity';
 import { CarInquiry } from './car-inquiry.entity';
+import { SavedCar } from '../users/saved-car.entity';
 import { CarsService } from './cars.service';
 import { CarsResolver } from './cars.resolver';
 import { CarImagesService } from './car-images.service';
@@ -15,7 +16,7 @@ import { CarInquiriesResolver } from './car-inquiries.resolver';
 import { UsersModule } from '../users/users.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Car, CarImage, CarView, CarInquiry]), UsersModule],
+  imports: [TypeOrmModule.forFeature([Car, CarImage, CarView, CarInquiry, SavedCar]), UsersModule],
   providers: [
     CarsService,
     CarsResolver,

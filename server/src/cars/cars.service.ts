@@ -2,6 +2,10 @@ import { Injectable, NotFoundException, ForbiddenException, Logger } from '@nest
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, SelectQueryBuilder } from 'typeorm';
 import { Car } from './car.entity';
+import { CarImage } from './car-image.entity';
+import { CarInquiry } from './car-inquiry.entity';
+import { CarView } from './car-view.entity';
+import { SavedCar } from '../users/saved-car.entity';
 import { User } from '../users/user.entity';
 import { CreateCarInput, UpdateCarInput, CarFilterInput } from './dto/car.input';
 import { SearchAlertsService } from '../users/search-alerts.service';
@@ -16,6 +20,14 @@ export class CarsService {
   constructor(
     @InjectRepository(Car)
     private readonly carRepository: Repository<Car>,
+    @InjectRepository(CarImage)
+    private readonly carImageRepository: Repository<CarImage>,
+    @InjectRepository(CarInquiry)
+    private readonly carInquiryRepository: Repository<CarInquiry>,
+    @InjectRepository(CarView)
+    private readonly carViewRepository: Repository<CarView>,
+    @InjectRepository(SavedCar)
+    private readonly savedCarRepository: Repository<SavedCar>,
     private readonly searchAlertsService: SearchAlertsService,
     private readonly savedCarsService: SavedCarsService,
     private readonly emailService: EmailService,
@@ -217,10 +229,18 @@ export class CarsService {
       throw new ForbiddenException('You can only delete your own cars');
     }
 
-    // Get savers before cascade-delete removes saved_car records
+    // Get savers before we delete saved_car records
     const savedBy = await this.savedCarsService.getUsersWhoSavedCar(id);
 
+    // Explicitly delete all related rows to avoid FK constraint errors
+    // (production DB may not have CASCADE constraints applied)
+    await this.carInquiryRepository.delete({ carId: id });
+    await this.carViewRepository.delete({ carId: id });
+    await this.savedCarRepository.delete({ carId: id });
+    await this.carImageRepository.delete({ carId: id });
     await this.carRepository.delete(id);
+
+    this.logger.log(`Car ${id} deleted by user ${user.id} (role: ${user.role})`);
 
     // Notify users who had this car saved (fire-and-forget)
     if (savedBy.length > 0) {
