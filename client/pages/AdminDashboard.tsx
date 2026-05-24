@@ -114,15 +114,18 @@ export default function AdminDashboard() {
     navigate(`/cars/${listingId}`);
   };
 
-  const onDeleteListing = async (listingId: string) => {
-    if (!confirm(t('adminDashboard.allListings.confirmDelete') || 'Are you sure you want to delete this listing?')) return;
-    try {
-      await apiClient.deleteCar(listingId);
-      setAllListings(prev => prev.filter(l => l.id !== listingId));
-    } catch (error) {
-      console.error('Failed to delete listing:', error);
-      alert(error instanceof Error ? error.message : 'Failed to delete listing. Please try again.');
-    }
+  const onDeleteListing = (listingId: string) => {
+    // Use setTimeout to escape Radix dropdown's event lifecycle before showing confirm dialog
+    setTimeout(async () => {
+      if (!confirm(t('adminDashboard.allListings.confirmDelete') || 'Are you sure you want to delete this listing?')) return;
+      try {
+        await apiClient.deleteCar(listingId);
+        setAllListings(prev => prev.filter(l => l.id !== listingId));
+      } catch (error) {
+        console.error('Failed to delete listing:', error);
+        alert(error instanceof Error ? error.message : 'Failed to delete listing. Please try again.');
+      }
+    }, 0);
   };
 
   const getRoleBadge = (role: string) => {
@@ -466,7 +469,7 @@ export default function AdminDashboard() {
                               <Edit className="h-4 w-4 mr-2" />
                               {t('adminDashboard.allListings.actions.editListing')}
                             </DropdownMenuItem>
-                            <DropdownMenuItem className="text-red-600" onClick={() => onDeleteListing(listing.id)}>
+                            <DropdownMenuItem className="text-red-600" onSelect={() => onDeleteListing(listing.id)}>
                               <Trash2 className="h-4 w-4 mr-2" />
                               {t('adminDashboard.allListings.actions.deleteListing')}
                             </DropdownMenuItem>
@@ -540,7 +543,7 @@ export default function AdminDashboard() {
                                   <Edit className="h-4 w-4 mr-2" />
                                   {t('adminDashboard.allListings.actions.editListing')}
                                 </DropdownMenuItem>
-                                <DropdownMenuItem className="text-red-600" onClick={() => onDeleteListing(listing.id)}>
+                                <DropdownMenuItem className="text-red-600" onSelect={() => onDeleteListing(listing.id)}>
                                   <Trash2 className="h-4 w-4 mr-2" />
                                   {t('adminDashboard.allListings.actions.deleteListing')}
                                 </DropdownMenuItem>
