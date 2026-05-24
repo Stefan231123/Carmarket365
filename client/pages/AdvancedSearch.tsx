@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SEO } from '@/components/SEO';
 import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
@@ -15,7 +15,7 @@ import { mkTranslations } from '../../shared/translations/mk';
 import { sqTranslations } from '../../shared/translations/sq';
 import { AdvancedSearchFiltersInput } from '../lib/graphql/operations';
 import { trackEvent } from '../components/Analytics';
-import { CAR_MAKES, CAR_MODELS_BY_MAKE } from '@shared/car-data';
+import { CAR_MAKES_SORTED, CAR_MODELS_BY_MAKE, POPULAR_MAKE_NAMES } from '@shared/car-data';
 import { useCountry } from '@/contexts/CountryContext';
 import { getLocationsForCountry } from '@shared/locations';
 
@@ -92,7 +92,7 @@ interface AdvancedSearchFilters {
 }
 
 // Data arrays
-const carMakes = CAR_MAKES;
+const carMakes = CAR_MAKES_SORTED;
 
 const carModelsByMake = CAR_MODELS_BY_MAKE;
 
@@ -953,8 +953,13 @@ export default function AdvancedSearch() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="all">{getAdvancedSearchText('placeholders.anyMake', 'All Makes')}</SelectItem>
-                      {carMakes.map(make => (
-                        <SelectItem key={make} value={make}>{make}</SelectItem>
+                      {carMakes.map((make, idx) => (
+                        <React.Fragment key={make}>
+                          {idx === POPULAR_MAKE_NAMES.length && (
+                            <SelectSeparator />
+                          )}
+                          <SelectItem value={make}>{make}</SelectItem>
+                        </React.Fragment>
                       ))}
                     </SelectContent>
                   </Select>

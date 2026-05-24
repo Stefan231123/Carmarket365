@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { useCountry } from "@/contexts/CountryContext";
 import { useTranslation } from "@/hooks/useTranslation";
 import { SEO } from "@/components/SEO";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -16,7 +16,7 @@ import ImageUpload from "@/components/ImageUpload";
 import { trackEvent } from "@/components/Analytics";
 import { apiClient } from '@shared/api-client';
 import { uploadToCloudinary } from '@/lib/cloudinary';
-import { CAR_MAKES, getModelsForMake } from '@shared/car-data';
+import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, getModelsForMake } from '@shared/car-data';
 import { getLocationsForCountry } from '@shared/locations';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
@@ -216,7 +216,7 @@ export default function SellCar() {
     }
   ];
 
-  const carMakes = CAR_MAKES;
+  const carMakes = CAR_MAKES_SORTED;
   const carModels = vehicleDetails.make ? getModelsForMake(vehicleDetails.make) : [];
   const fuelTypes = [t('sell.fuelTypes.gasoline'), t('sell.fuelTypes.electric'), t('sell.fuelTypes.hybrid'), t('sell.fuelTypes.diesel')];
   const transmissions = [t('sell.transmissions.automatic'), t('sell.transmissions.manual'), t('sell.transmissions.cvt')];
@@ -620,8 +620,11 @@ export default function SellCar() {
                             <SelectValue placeholder={t('sell.placeholders.selectMake')} />
                           </SelectTrigger>
                           <SelectContent>
-                            {carMakes.map((make) => (
-                              <SelectItem key={make} value={make}>{make}</SelectItem>
+                            {carMakes.map((make, idx) => (
+                              <React.Fragment key={make}>
+                                {idx === POPULAR_MAKE_NAMES.length && <SelectSeparator />}
+                                <SelectItem value={make}>{make}</SelectItem>
+                              </React.Fragment>
                             ))}
                           </SelectContent>
                         </Select>

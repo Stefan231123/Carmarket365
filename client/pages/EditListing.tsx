@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -12,7 +12,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { useCountry } from "@/contexts/CountryContext";
 import { useCar } from "@/hooks/useCars";
 import { apiClient } from "@shared/api-client";
-import { CAR_MAKES, getModelsForMake } from "@shared/car-data";
+import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, getModelsForMake } from "@shared/car-data";
 import { getLocationsForCountry } from "@shared/locations";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
@@ -292,8 +292,11 @@ export default function EditListing() {
                   <Select value={make} onValueChange={(v) => { setMake(v); setModel(""); }}>
                     <SelectTrigger className="rounded-xl"><SelectValue /></SelectTrigger>
                     <SelectContent>
-                      {CAR_MAKES.map((m) => (
-                        <SelectItem key={m} value={m}>{m}</SelectItem>
+                      {CAR_MAKES_SORTED.map((m, idx) => (
+                        <React.Fragment key={m}>
+                          {idx === POPULAR_MAKE_NAMES.length && <SelectSeparator />}
+                          <SelectItem value={m}>{m}</SelectItem>
+                        </React.Fragment>
                       ))}
                     </SelectContent>
                   </Select>

@@ -4,7 +4,7 @@ import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Input } from '../components/ui/input';
 import { Textarea } from '../components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
+import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger, SelectValue } from '../components/ui/select';
 import { Badge } from '../components/ui/badge';
 import { Alert, AlertDescription } from '../components/ui/alert';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +14,7 @@ import ImageUpload from '../components/ImageUpload';
 import { trackEvent } from '../components/Analytics';
 import { apiClient } from '@shared/api-client';
 import { uploadToCloudinary } from '../lib/cloudinary';
-import { CAR_MAKES, getModelsForMake } from '@shared/car-data';
+import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, getModelsForMake } from '@shared/car-data';
 import { useCountry } from '../contexts/CountryContext';
 
 interface CarData {
@@ -244,10 +244,11 @@ export default function ExpressSell() {
                       <SelectValue placeholder={t('finalFixes.expressSell.selectMake')} />
                     </SelectTrigger>
                     <SelectContent>
-                      {CAR_MAKES.map((brand) => (
-                        <SelectItem key={brand} value={brand}>
-                          {brand}
-                        </SelectItem>
+                      {CAR_MAKES_SORTED.map((brand, idx) => (
+                        <React.Fragment key={brand}>
+                          {idx === POPULAR_MAKE_NAMES.length && <SelectSeparator />}
+                          <SelectItem value={brand}>{brand}</SelectItem>
+                        </React.Fragment>
                       ))}
                     </SelectContent>
                   </Select>

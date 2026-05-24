@@ -1,7 +1,7 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Slider } from "@/components/ui/slider";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -16,7 +16,7 @@ import {
 import { useTranslation } from "@/hooks/useTranslation";
 import { mkTranslations } from "../../shared/translations/mk";
 import { sqTranslations } from "../../shared/translations/sq";
-import { CAR_MAKES } from "@shared/car-data";
+import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES } from "@shared/car-data";
 
 interface AdvancedSearchProps {
   onSearch: (filters: SearchFilters) => void;
@@ -230,7 +230,7 @@ export function AdvancedSearch({ onSearch, onClose }: AdvancedSearchProps) {
     const getMinimalFallback = (dataKey: string): string[] => {
       switch(dataKey) {
         case 'makes':
-          return CAR_MAKES;
+          return CAR_MAKES_SORTED;
         case 'bodyTypes':
           if (currentLanguage === 'mk') return ['Седан', 'SUV', 'Хечбек', 'Караван', 'Купе'];
           if (currentLanguage === 'sq') return ['Sedan', 'SUV', 'Hatchback', 'Karavan', 'Kupé'];
@@ -458,8 +458,11 @@ export function AdvancedSearch({ onSearch, onClose }: AdvancedSearchProps) {
                   </SelectTrigger>
                   <SelectContent>
 <SelectItem value="any-make">{getAdvancedSearchText('placeholders.anyMake', 'Any Make')}</SelectItem>
-                    {carMakes.length > 0 ? carMakes.map((make) => (
-                      <SelectItem key={make} value={make}>{make}</SelectItem>
+                    {carMakes.length > 0 ? carMakes.map((make, idx) => (
+                      <React.Fragment key={make}>
+                        {idx === POPULAR_MAKE_NAMES.length && <SelectSeparator />}
+                        <SelectItem value={make}>{make}</SelectItem>
+                      </React.Fragment>
                     )) : (
                       <SelectItem value="" disabled>No makes available</SelectItem>
                     )}
