@@ -1,10 +1,10 @@
 import { Button } from "./ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger, SelectValue } from "./ui/select";
 import { Card } from "./ui/card";
 import { Search, Car, Bike, Truck } from "lucide-react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
-import { CAR_MAKES, CAR_MODELS_BY_MAKE } from "@shared/car-data";
+import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, CAR_MODELS_BY_MAKE } from "@shared/car-data";
 import { useCountry } from "@/contexts/CountryContext";
 import { getLocationsForCountry } from "@shared/locations";
 
@@ -112,8 +112,11 @@ export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSe
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="any-make">{t('hero.searchForm.anyMake')}</SelectItem>
-                  {CAR_MAKES.map(make => (
-                    <SelectItem key={make} value={make}>{make}</SelectItem>
+                  {CAR_MAKES_SORTED.map((make, idx) => (
+                    <React.Fragment key={make}>
+                      {idx === POPULAR_MAKE_NAMES.length && <SelectSeparator />}
+                      <SelectItem value={make}>{make}</SelectItem>
+                    </React.Fragment>
                   ))}
                 </SelectContent>
               </Select>

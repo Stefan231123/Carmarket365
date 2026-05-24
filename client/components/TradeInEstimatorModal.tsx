@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -18,6 +18,7 @@ import {
   Select,
   SelectContent,
   SelectItem,
+  SelectSeparator,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -42,7 +43,7 @@ import {
   AlertTriangle
 } from "lucide-react";
 import { useTranslation } from '../hooks/useTranslation';
-import { CAR_MAKES } from '@shared/car-data';
+import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES } from '@shared/car-data';
 
 interface TradeInEstimatorModalProps {
   isOpen: boolean;
@@ -78,7 +79,7 @@ interface TradeInEstimate {
   recommendations: string[];
 }
 
-const popularMakes = CAR_MAKES;
+const popularMakes = CAR_MAKES_SORTED;
 
 // Condition options are now translated dynamically inside the component
 
@@ -275,10 +276,11 @@ export function TradeInEstimatorModal({
                                 </SelectTrigger>
                               </FormControl>
                               <SelectContent>
-                                {popularMakes.map((make) => (
-                                  <SelectItem key={make} value={make}>
-                                    {make}
-                                  </SelectItem>
+                                {popularMakes.map((make, idx) => (
+                                  <React.Fragment key={make}>
+                                    {idx === POPULAR_MAKE_NAMES.length && <SelectSeparator />}
+                                    <SelectItem value={make}>{make}</SelectItem>
+                                  </React.Fragment>
                                 ))}
                               </SelectContent>
                             </Select>

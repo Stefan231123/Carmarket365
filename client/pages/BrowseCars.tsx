@@ -1,9 +1,9 @@
-import { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { saveLastSearch } from "@/hooks/useLastSearch";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -23,6 +23,7 @@ import {
   AlertCircle
 } from "lucide-react";
 import { useCars, useCarMakes } from "@/hooks/useCars";
+import { POPULAR_MAKE_NAMES } from "@shared/car-data";
 import { useFavorites } from "@/hooks/useFavorites";
 import { ContactCarModal } from "@/components/ContactCarModal";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -149,7 +150,12 @@ export default function BrowseCars() {
 
   // Fetch cars and makes from API
   const { cars, isLoading, error, refetch } = useCars(filters);
-  const { makes: carMakes, isLoading: makesLoading } = useCarMakes();
+  const { makes: rawMakes, isLoading: makesLoading } = useCarMakes();
+  const carMakes = useMemo(() => {
+    const popular = POPULAR_MAKE_NAMES.filter(m => rawMakes.includes(m));
+    const rest = rawMakes.filter(m => !POPULAR_MAKE_NAMES.includes(m)).sort();
+    return [...popular, ...rest];
+  }, [rawMakes]);
   const { isFavorite, toggleFavorite } = useFavorites();
 
   const handleBackToHome = () => {
@@ -239,8 +245,11 @@ placeholder={t('browseCars.searchPlaceholder')}
                     </SelectTrigger>
                     <SelectContent className="rounded-3xl border border-zinc-100 bg-white shadow-lg overflow-hidden p-2">
                       <SelectItem value="any-make">{t('filters.anyMake')}</SelectItem>
-                      {carMakes.map((make) => (
-                        <SelectItem key={make} value={make}>{make}</SelectItem>
+                      {carMakes.map((make, idx) => (
+                        <React.Fragment key={make}>
+                          {idx === POPULAR_MAKE_NAMES.filter(m => carMakes.includes(m)).length && <SelectSeparator />}
+                          <SelectItem value={make}>{make}</SelectItem>
+                        </React.Fragment>
                       ))}
                     </SelectContent>
                   </Select>
@@ -382,8 +391,11 @@ placeholder={t('browseCars.searchPlaceholder')}
                       </SelectTrigger>
                       <SelectContent className="rounded-3xl border border-zinc-100 bg-white shadow-lg overflow-hidden p-2">
 <SelectItem value="any-make">{t('filters.anyMake')}</SelectItem>
-                        {carMakes.map((make) => (
-                          <SelectItem key={make} value={make}>{make}</SelectItem>
+                        {carMakes.map((make, idx) => (
+                          <React.Fragment key={make}>
+                            {idx === POPULAR_MAKE_NAMES.filter(m => carMakes.includes(m)).length && <SelectSeparator />}
+                            <SelectItem value={make}>{make}</SelectItem>
+                          </React.Fragment>
                         ))}
                       </SelectContent>
                     </Select>
