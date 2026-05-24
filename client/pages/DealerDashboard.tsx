@@ -60,7 +60,7 @@ export default function DealerDashboard() {
 
   // GraphQL queries
   const { stats, performance, recentInquiries, popularListings, loading: dashboardLoading, error: dashboardError } = useDealerDashboardData();
-  const { data: listingsData, loading: listingsLoading, error: listingsError } = useDealerListings(statusFilter !== 'all' ? statusFilter.toUpperCase() : undefined, searchTerm || undefined);
+  const { data: listingsData, loading: listingsLoading, error: listingsError, refetch: refetchListings } = useDealerListings(statusFilter !== 'all' ? statusFilter.toUpperCase() : undefined, searchTerm || undefined);
   const { data: expressData, loading: expressLoading, error: expressError } = useExpressSaleOpportunities();
   const { data: inquiriesData, loading: inquiriesLoading, error: inquiriesError, refetch: refetchInquiries } = useDealerInquiries();
 
@@ -148,6 +148,17 @@ export default function DealerDashboard() {
 
   const onEditListing = (listingId: string) => {
     navigate(`/edit-listing/${listingId}`);
+  };
+
+  const onDeleteListing = async (listingId: string) => {
+    if (!confirm(t('dealer.confirmDeleteListing') || 'Are you sure you want to delete this listing?')) return;
+    try {
+      await apiClient.deleteCar(listingId);
+      refetchListings();
+    } catch (error) {
+      console.error('Failed to delete listing:', error);
+      alert('Failed to delete listing. Please try again.');
+    }
   };
 
   const getStatusBadge = (status: string) => {
@@ -458,7 +469,7 @@ export default function DealerDashboard() {
                                   <Edit className="h-4 w-4 mr-2" />
                                   {t('dealer.editListing')}
                                 </DropdownMenuItem>
-                                <DropdownMenuItem className="text-red-600">
+                                <DropdownMenuItem className="text-red-600" onClick={() => onDeleteListing(listing.id)}>
                                   <Trash2 className="h-4 w-4 mr-2" />
                                   {t('dealer.deleteListing')}
                                 </DropdownMenuItem>
@@ -528,7 +539,7 @@ export default function DealerDashboard() {
                               <Edit className="h-4 w-4 mr-2" />
                               {t('dealerDashboard.myListings.actions.editListing')}
                             </DropdownMenuItem>
-                            <DropdownMenuItem className="text-red-600">
+                            <DropdownMenuItem className="text-red-600" onClick={() => onDeleteListing(listing.id)}>
                               <Trash2 className="h-4 w-4 mr-2" />
                               {t('dealerDashboard.myListings.actions.deleteListing')}
                             </DropdownMenuItem>
