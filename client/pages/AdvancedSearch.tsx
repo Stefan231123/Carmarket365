@@ -15,7 +15,7 @@ import { mkTranslations } from '../../shared/translations/mk';
 import { sqTranslations } from '../../shared/translations/sq';
 import { AdvancedSearchFiltersInput } from '../lib/graphql/operations';
 import { trackEvent } from '../components/Analytics';
-import { CAR_MAKES_SORTED, CAR_MODELS_BY_MAKE, POPULAR_MAKE_NAMES, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, MOTORCYCLE_MODELS_BY_MAKE, MOTORCYCLE_BODY_TYPES } from '@shared/car-data';
+import { CAR_MAKES_SORTED, CAR_MODELS_BY_MAKE, POPULAR_MAKE_NAMES, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, MOTORCYCLE_MODELS_BY_MAKE, MOTORCYCLE_BODY_TYPES, TRUCK_MAKES_SORTED, POPULAR_TRUCK_MAKES, TRUCK_MODELS_BY_MAKE, TRUCK_BODY_TYPES } from '@shared/car-data';
 import { useCountry } from '@/contexts/CountryContext';
 import { getLocationsForCountry } from '@shared/locations';
 
@@ -697,9 +697,10 @@ export default function AdvancedSearch() {
 
   // Dynamic data based on vehicle type
   const isMotorbike = localFilters.vehicleType === 'motorbike';
-  const carMakes = isMotorbike ? MOTORCYCLE_MAKES_SORTED : CAR_MAKES_SORTED;
-  const activePopularMakes = isMotorbike ? POPULAR_MOTORCYCLE_MAKES : POPULAR_MAKE_NAMES;
-  const carModelsByMake = isMotorbike ? MOTORCYCLE_MODELS_BY_MAKE : CAR_MODELS_BY_MAKE;
+  const isTruck = localFilters.vehicleType === 'truck';
+  const carMakes = isMotorbike ? MOTORCYCLE_MAKES_SORTED : isTruck ? TRUCK_MAKES_SORTED : CAR_MAKES_SORTED;
+  const activePopularMakes = isMotorbike ? POPULAR_MOTORCYCLE_MAKES : isTruck ? POPULAR_TRUCK_MAKES : POPULAR_MAKE_NAMES;
+  const carModelsByMake = isMotorbike ? MOTORCYCLE_MODELS_BY_MAKE : isTruck ? TRUCK_MODELS_BY_MAKE : CAR_MODELS_BY_MAKE;
 
   // Clear model when make changes
   useEffect(() => {
@@ -1036,7 +1037,7 @@ export default function AdvancedSearch() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="any">{getAdvancedSearchText('placeholders.anyType', 'Any Body Type')}</SelectItem>
-                      {(isMotorbike ? MOTORCYCLE_BODY_TYPES : bodyTypes).map(type => (
+                      {(isMotorbike ? MOTORCYCLE_BODY_TYPES : isTruck ? TRUCK_BODY_TYPES : bodyTypes).map(type => (
                         <SelectItem key={type} value={type}>{type}</SelectItem>
                       ))}
                     </SelectContent>
@@ -1401,7 +1402,7 @@ export default function AdvancedSearch() {
                     </Select>
                   </div>
 
-                  {!isMotorbike && (
+                  {!isMotorbike && !isTruck && (
                   <div>
                     <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.numberOfSeats', 'Nr. of Seats')}</label>
                     <Select value={localFilters.numberOfSeats} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, numberOfSeats: value }))}>
@@ -1418,7 +1419,7 @@ export default function AdvancedSearch() {
                   </div>
                   )}
 
-                  {!isMotorbike && (
+                  {!isMotorbike && !isTruck && (
                   <div>
                     <label className="block text-sm mb-2 text-muted-foreground">{getSimpleText('Врати', 'Dyert', 'Doors')}</label>
                     <Select value={localFilters.numberOfDoors} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, numberOfDoors: value }))}>

@@ -16,7 +16,7 @@ import ImageUpload from "@/components/ImageUpload";
 import { trackEvent } from "@/components/Analytics";
 import { apiClient } from '@shared/api-client';
 import { uploadToCloudinary } from '@/lib/cloudinary';
-import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, getModelsForMake, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, getMotorcycleModelsForMake, MOTORCYCLE_BODY_TYPES } from '@shared/car-data';
+import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, getModelsForMake, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, getMotorcycleModelsForMake, MOTORCYCLE_BODY_TYPES, TRUCK_MAKES_SORTED, POPULAR_TRUCK_MAKES, getTruckModelsForMake, TRUCK_BODY_TYPES } from '@shared/car-data';
 import { getLocationsForCountry } from '@shared/locations';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
@@ -217,10 +217,11 @@ export default function SellCar() {
   ];
 
   const isMotorbike = vehicleDetails.type === 'motorbike';
-  const carMakes = isMotorbike ? MOTORCYCLE_MAKES_SORTED : CAR_MAKES_SORTED;
-  const popularMakes = isMotorbike ? POPULAR_MOTORCYCLE_MAKES : POPULAR_MAKE_NAMES;
+  const isTruck = vehicleDetails.type === 'truck';
+  const carMakes = isMotorbike ? MOTORCYCLE_MAKES_SORTED : isTruck ? TRUCK_MAKES_SORTED : CAR_MAKES_SORTED;
+  const popularMakes = isMotorbike ? POPULAR_MOTORCYCLE_MAKES : isTruck ? POPULAR_TRUCK_MAKES : POPULAR_MAKE_NAMES;
   const carModels = vehicleDetails.make
-    ? (isMotorbike ? getMotorcycleModelsForMake(vehicleDetails.make) : getModelsForMake(vehicleDetails.make))
+    ? (isMotorbike ? getMotorcycleModelsForMake(vehicleDetails.make) : isTruck ? getTruckModelsForMake(vehicleDetails.make) : getModelsForMake(vehicleDetails.make))
     : [];
   const fuelTypes = [t('sell.fuelTypes.gasoline'), t('sell.fuelTypes.electric'), t('sell.fuelTypes.hybrid'), t('sell.fuelTypes.diesel')];
   const transmissions = [t('sell.transmissions.automatic'), t('sell.transmissions.manual'), t('sell.transmissions.cvt')];
@@ -715,33 +716,35 @@ export default function SellCar() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {(vehicleDetails.type === 'car' || vehicleDetails.type === 'motorbike') && (
-                        <div>
-                          <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.bodyType')}</label>
-                          <Select value={vehicleDetails.bodyType} onValueChange={(value) => setVehicleDetails({...vehicleDetails, bodyType: value})}>
-                            <SelectTrigger>
-                              <SelectValue placeholder={t('sell.placeholders.selectBodyType')} />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {isMotorbike ? (
-                                MOTORCYCLE_BODY_TYPES.map((type) => (
-                                  <SelectItem key={type} value={type}>{type}</SelectItem>
-                                ))
-                              ) : (
-                                <>
-                                  <SelectItem value="sedan">{t('sell.bodyTypes.sedan')}</SelectItem>
-                                  <SelectItem value="suv">{t('sell.bodyTypes.suv')}</SelectItem>
-                                  <SelectItem value="coupe">{t('sell.bodyTypes.coupe')}</SelectItem>
-                                  <SelectItem value="convertible">{t('sell.bodyTypes.convertible')}</SelectItem>
-                                  <SelectItem value="wagon">{t('sell.bodyTypes.wagon')}</SelectItem>
-                                  <SelectItem value="hatchback">{t('sell.bodyTypes.hatchback')}</SelectItem>
-                                  <SelectItem value="van">{t('sell.bodyTypes.van')}</SelectItem>
-                                </>
-                              )}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      )}
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.bodyType')}</label>
+                        <Select value={vehicleDetails.bodyType} onValueChange={(value) => setVehicleDetails({...vehicleDetails, bodyType: value})}>
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('sell.placeholders.selectBodyType')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {isMotorbike ? (
+                              MOTORCYCLE_BODY_TYPES.map((type) => (
+                                <SelectItem key={type} value={type}>{type}</SelectItem>
+                              ))
+                            ) : isTruck ? (
+                              TRUCK_BODY_TYPES.map((type) => (
+                                <SelectItem key={type} value={type}>{type}</SelectItem>
+                              ))
+                            ) : (
+                              <>
+                                <SelectItem value="sedan">{t('sell.bodyTypes.sedan')}</SelectItem>
+                                <SelectItem value="suv">{t('sell.bodyTypes.suv')}</SelectItem>
+                                <SelectItem value="coupe">{t('sell.bodyTypes.coupe')}</SelectItem>
+                                <SelectItem value="convertible">{t('sell.bodyTypes.convertible')}</SelectItem>
+                                <SelectItem value="wagon">{t('sell.bodyTypes.wagon')}</SelectItem>
+                                <SelectItem value="hatchback">{t('sell.bodyTypes.hatchback')}</SelectItem>
+                                <SelectItem value="van">{t('sell.bodyTypes.van')}</SelectItem>
+                              </>
+                            )}
+                          </SelectContent>
+                        </Select>
+                      </div>
 
                       {!isMotorbike && (
                       <div>
@@ -822,7 +825,7 @@ export default function SellCar() {
                         />
                       </div>
 
-                      {!isMotorbike && (
+                      {!isMotorbike && !isTruck && (
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.doors')}</label>
                         <div className="flex rounded-2xl border border-input overflow-hidden h-11">
@@ -849,7 +852,7 @@ export default function SellCar() {
                       </div>
                       )}
 
-                      {!isMotorbike && (
+                      {!isMotorbike && !isTruck && (
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.seats')}</label>
                         <Select value={vehicleDetails.seats} onValueChange={(value) => setVehicleDetails({...vehicleDetails, seats: value})}>

@@ -23,7 +23,7 @@ import {
   AlertCircle
 } from "lucide-react";
 import { useCars, useCarMakes } from "@/hooks/useCars";
-import { POPULAR_MAKE_NAMES, POPULAR_MOTORCYCLE_MAKES } from "@shared/car-data";
+import { POPULAR_MAKE_NAMES, POPULAR_MOTORCYCLE_MAKES, POPULAR_TRUCK_MAKES } from "@shared/car-data";
 import { useFavorites } from "@/hooks/useFavorites";
 import { ContactCarModal } from "@/components/ContactCarModal";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -152,7 +152,8 @@ export default function BrowseCars() {
   const { cars, isLoading, error, refetch } = useCars(filters);
   const { makes: rawMakes, isLoading: makesLoading } = useCarMakes();
   const isMotorbikeFilter = vehicleTypeFilter === 'motorbikes' || vehicleTypeFilter === 'MOTORCYCLE';
-  const activePopularMakes = isMotorbikeFilter ? POPULAR_MOTORCYCLE_MAKES : POPULAR_MAKE_NAMES;
+  const isTruckFilter = vehicleTypeFilter === 'trucks' || vehicleTypeFilter === 'TRUCK';
+  const activePopularMakes = isMotorbikeFilter ? POPULAR_MOTORCYCLE_MAKES : isTruckFilter ? POPULAR_TRUCK_MAKES : POPULAR_MAKE_NAMES;
   const carMakes = useMemo(() => {
     const popular = activePopularMakes.filter(m => rawMakes.includes(m));
     const rest = rawMakes.filter(m => !activePopularMakes.includes(m)).sort();

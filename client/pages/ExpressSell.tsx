@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Car, Bike, Upload, Euro, Camera, Check, User, AlertCircle } from 'lucide-react';
+import { ArrowLeft, Car, Bike, Truck, Upload, Euro, Camera, Check, User, AlertCircle } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Input } from '../components/ui/input';
@@ -14,10 +14,10 @@ import ImageUpload from '../components/ImageUpload';
 import { trackEvent } from '../components/Analytics';
 import { apiClient } from '@shared/api-client';
 import { uploadToCloudinary } from '../lib/cloudinary';
-import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, getModelsForMake, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, getMotorcycleModelsForMake } from '@shared/car-data';
+import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, getModelsForMake, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, getMotorcycleModelsForMake, TRUCK_MAKES_SORTED, POPULAR_TRUCK_MAKES, getTruckModelsForMake } from '@shared/car-data';
 import { useCountry } from '../contexts/CountryContext';
 
-type ExpressVehicleType = 'car' | 'motorbike';
+type ExpressVehicleType = 'car' | 'motorbike' | 'truck';
 
 interface CarData {
   vehicleType: ExpressVehicleType;
@@ -68,10 +68,11 @@ export default function ExpressSell() {
   });
 
   const isMotorbike = carData.vehicleType === 'motorbike';
-  const activeMakes = isMotorbike ? MOTORCYCLE_MAKES_SORTED : CAR_MAKES_SORTED;
-  const activePopularMakes = isMotorbike ? POPULAR_MOTORCYCLE_MAKES : POPULAR_MAKE_NAMES;
+  const isTruck = carData.vehicleType === 'truck';
+  const activeMakes = isMotorbike ? MOTORCYCLE_MAKES_SORTED : isTruck ? TRUCK_MAKES_SORTED : CAR_MAKES_SORTED;
+  const activePopularMakes = isMotorbike ? POPULAR_MOTORCYCLE_MAKES : isTruck ? POPULAR_TRUCK_MAKES : POPULAR_MAKE_NAMES;
   const carModels = carData.make
-    ? (isMotorbike ? getMotorcycleModelsForMake(carData.make) : getModelsForMake(carData.make))
+    ? (isMotorbike ? getMotorcycleModelsForMake(carData.make) : isTruck ? getTruckModelsForMake(carData.make) : getModelsForMake(carData.make))
     : [];
 
   const handleImagesChange = (images: any[]) => {
@@ -152,7 +153,7 @@ export default function ExpressSell() {
         year: parseInt(carData.year) || new Date().getFullYear(),
         price: parseFloat(carData.price) || 0,
         mileage: parseInt(carData.mileage) || 0,
-        vehicleType: isMotorbike ? 'MOTORCYCLE' : 'CAR',
+        vehicleType: isMotorbike ? 'MOTORCYCLE' : isTruck ? 'TRUCK' : 'CAR',
         fuelType: mapFuelType(carData.fuel),
         transmission: mapTransmission(carData.transmission),
         condition: mapCondition(carData.condition),
@@ -249,6 +250,7 @@ export default function ExpressSell() {
                 {([
                   { id: 'car' as const, label: t('hero.vehicleTypes.cars', 'Car'), icon: Car },
                   { id: 'motorbike' as const, label: t('hero.vehicleTypes.motorbikes', 'Motorbike'), icon: Bike },
+                  { id: 'truck' as const, label: t('hero.vehicleTypes.trucks', 'Truck'), icon: Truck },
                 ] as const).map(({ id, label, icon: Icon }) => (
                   <button
                     key={id}

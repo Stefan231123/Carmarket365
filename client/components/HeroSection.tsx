@@ -4,7 +4,7 @@ import { Card } from "./ui/card";
 import { Search, Car, Bike, Truck } from "lucide-react";
 import React, { useState } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
-import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, CAR_MODELS_BY_MAKE, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, MOTORCYCLE_MODELS_BY_MAKE } from "@shared/car-data";
+import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, CAR_MODELS_BY_MAKE, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, MOTORCYCLE_MODELS_BY_MAKE, TRUCK_MAKES_SORTED, POPULAR_TRUCK_MAKES, TRUCK_MODELS_BY_MAKE } from "@shared/car-data";
 import { useCountry } from "@/contexts/CountryContext";
 import { getLocationsForCountry } from "@shared/locations";
 
@@ -58,9 +58,10 @@ export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSe
   };
 
   const isMotorbike = searchForm.vehicleType === 'motorbikes';
-  const activeMakes = isMotorbike ? MOTORCYCLE_MAKES_SORTED : CAR_MAKES_SORTED;
-  const activePopularMakes = isMotorbike ? POPULAR_MOTORCYCLE_MAKES : POPULAR_MAKE_NAMES;
-  const activeModelsMap = isMotorbike ? MOTORCYCLE_MODELS_BY_MAKE : CAR_MODELS_BY_MAKE;
+  const isTruck = searchForm.vehicleType === 'trucks';
+  const activeMakes = isMotorbike ? MOTORCYCLE_MAKES_SORTED : isTruck ? TRUCK_MAKES_SORTED : CAR_MAKES_SORTED;
+  const activePopularMakes = isMotorbike ? POPULAR_MOTORCYCLE_MAKES : isTruck ? POPULAR_TRUCK_MAKES : POPULAR_MAKE_NAMES;
+  const activeModelsMap = isMotorbike ? MOTORCYCLE_MODELS_BY_MAKE : isTruck ? TRUCK_MODELS_BY_MAKE : CAR_MODELS_BY_MAKE;
 
   const availableModels = searchForm.make && searchForm.make !== 'any-make'
     ? (activeModelsMap[searchForm.make] || [])

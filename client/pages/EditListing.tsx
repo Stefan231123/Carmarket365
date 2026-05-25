@@ -12,7 +12,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { useCountry } from "@/contexts/CountryContext";
 import { useCar } from "@/hooks/useCars";
 import { apiClient } from "@shared/api-client";
-import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, getModelsForMake, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, getMotorcycleModelsForMake } from "@shared/car-data";
+import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, getModelsForMake, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, getMotorcycleModelsForMake, TRUCK_MAKES_SORTED, POPULAR_TRUCK_MAKES, getTruckModelsForMake } from "@shared/car-data";
 import { getLocationsForCountry } from "@shared/locations";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
@@ -113,10 +113,11 @@ export default function EditListing() {
   }, [car]);
 
   const isMotorbike = car?.vehicleType === 'MOTORCYCLE';
-  const activeMakes = isMotorbike ? MOTORCYCLE_MAKES_SORTED : CAR_MAKES_SORTED;
-  const activePopularMakes = isMotorbike ? POPULAR_MOTORCYCLE_MAKES : POPULAR_MAKE_NAMES;
+  const isTruck = car?.vehicleType === 'TRUCK';
+  const activeMakes = isMotorbike ? MOTORCYCLE_MAKES_SORTED : isTruck ? TRUCK_MAKES_SORTED : CAR_MAKES_SORTED;
+  const activePopularMakes = isMotorbike ? POPULAR_MOTORCYCLE_MAKES : isTruck ? POPULAR_TRUCK_MAKES : POPULAR_MAKE_NAMES;
   const carModels = make
-    ? (isMotorbike ? getMotorcycleModelsForMake(make) : getModelsForMake(make))
+    ? (isMotorbike ? getMotorcycleModelsForMake(make) : isTruck ? getTruckModelsForMake(make) : getModelsForMake(make))
     : [];
 
   const currentYear = new Date().getFullYear();
