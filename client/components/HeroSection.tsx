@@ -4,7 +4,7 @@ import { Card } from "./ui/card";
 import { Search, Car, Bike, Truck } from "lucide-react";
 import React, { useState } from "react";
 import { useTranslation } from "@/hooks/useTranslation";
-import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, CAR_MODELS_BY_MAKE } from "@shared/car-data";
+import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, CAR_MODELS_BY_MAKE, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, MOTORCYCLE_MODELS_BY_MAKE } from "@shared/car-data";
 import { useCountry } from "@/contexts/CountryContext";
 import { getLocationsForCountry } from "@shared/locations";
 
@@ -48,15 +48,22 @@ export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSe
   const activeTypeLabel = vehicleTypes.find(v => v.id === searchForm.vehicleType)?.label ?? 'Cars';
 
   const handleFormChange = (field: keyof SearchFormData, value: string) => {
-    if (field === 'make') {
+    if (field === 'vehicleType') {
+      setSearchForm(prev => ({ ...prev, vehicleType: value as SearchFormData['vehicleType'], make: '', model: '' }));
+    } else if (field === 'make') {
       setSearchForm(prev => ({ ...prev, make: value, model: '' }));
     } else {
       setSearchForm(prev => ({ ...prev, [field]: value }));
     }
   };
 
+  const isMotorbike = searchForm.vehicleType === 'motorbikes';
+  const activeMakes = isMotorbike ? MOTORCYCLE_MAKES_SORTED : CAR_MAKES_SORTED;
+  const activePopularMakes = isMotorbike ? POPULAR_MOTORCYCLE_MAKES : POPULAR_MAKE_NAMES;
+  const activeModelsMap = isMotorbike ? MOTORCYCLE_MODELS_BY_MAKE : CAR_MODELS_BY_MAKE;
+
   const availableModels = searchForm.make && searchForm.make !== 'any-make'
-    ? (CAR_MODELS_BY_MAKE[searchForm.make] || [])
+    ? (activeModelsMap[searchForm.make] || [])
     : [];
 
   const handleSearch = () => {
@@ -112,9 +119,9 @@ export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSe
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="any-make">{t('hero.searchForm.anyMake')}</SelectItem>
-                  {CAR_MAKES_SORTED.map((make, idx) => (
+                  {activeMakes.map((make, idx) => (
                     <React.Fragment key={make}>
-                      {idx === POPULAR_MAKE_NAMES.length && <SelectSeparator />}
+                      {idx === activePopularMakes.length && <SelectSeparator />}
                       <SelectItem value={make}>{make}</SelectItem>
                     </React.Fragment>
                   ))}

@@ -6,7 +6,7 @@ import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger, Sele
 import { Slider } from '@/components/ui/slider';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
-import { ChevronDown, ChevronUp, ArrowLeft, Settings, Filter, Car, Zap, Shield, Star, Palette, Search, Loader2, X } from 'lucide-react';
+import { ChevronDown, ChevronUp, ArrowLeft, Settings, Filter, Car, Bike, Truck, Zap, Shield, Star, Palette, Search, Loader2, X } from 'lucide-react';
 import { useAdvancedSearch, useSearchAnalytics } from '../hooks/useAdvancedSearch';
 import { FilterChips } from '../components/FilterChips';
 import { SearchResults } from '../components/SearchResults';
@@ -15,12 +15,16 @@ import { mkTranslations } from '../../shared/translations/mk';
 import { sqTranslations } from '../../shared/translations/sq';
 import { AdvancedSearchFiltersInput } from '../lib/graphql/operations';
 import { trackEvent } from '../components/Analytics';
-import { CAR_MAKES_SORTED, CAR_MODELS_BY_MAKE, POPULAR_MAKE_NAMES } from '@shared/car-data';
+import { CAR_MAKES_SORTED, CAR_MODELS_BY_MAKE, POPULAR_MAKE_NAMES, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, MOTORCYCLE_MODELS_BY_MAKE, MOTORCYCLE_BODY_TYPES } from '@shared/car-data';
 import { useCountry } from '@/contexts/CountryContext';
 import { getLocationsForCountry } from '@shared/locations';
 
 // Filter interfaces
+type VehicleTypeFilter = 'car' | 'motorbike' | 'truck';
+
 interface AdvancedSearchFilters {
+  // Vehicle Type
+  vehicleType: VehicleTypeFilter;
   // Basic Information
   make: string;
   model: string;
@@ -91,10 +95,7 @@ interface AdvancedSearchFilters {
   euroEmissionClass: string;
 }
 
-// Data arrays
-const carMakes = CAR_MAKES_SORTED;
-
-const carModelsByMake = CAR_MODELS_BY_MAKE;
+// Data arrays — now dynamic based on vehicle type (set in component body)
 
 // Macedonian arrays (will be used by getTranslatedArray for MK language)
 const fallbackAdditionalProperties = ['Сертифициран предпродажен', 'Еден сопственик', 'Без незгоди', 'Достапни сервисни записи', 'Во гаранција', 'Неодамна сервисиран', 'Мал пробег', 'Чуван во гаража', 'Зимски пакет', 'Спортски пакет'];
@@ -622,6 +623,8 @@ export default function AdvancedSearch() {
   
   // Local state for the original static filters structure
   const [localFilters, setLocalFilters] = useState<AdvancedSearchFilters>({
+    // Vehicle Type
+    vehicleType: 'car',
     // Basic Information
     make: '',
     model: '',
@@ -692,6 +695,12 @@ export default function AdvancedSearch() {
     euroEmissionClass: ''
   });
 
+  // Dynamic data based on vehicle type
+  const isMotorbike = localFilters.vehicleType === 'motorbike';
+  const carMakes = isMotorbike ? MOTORCYCLE_MAKES_SORTED : CAR_MAKES_SORTED;
+  const activePopularMakes = isMotorbike ? POPULAR_MOTORCYCLE_MAKES : POPULAR_MAKE_NAMES;
+  const carModelsByMake = isMotorbike ? MOTORCYCLE_MODELS_BY_MAKE : CAR_MODELS_BY_MAKE;
+
   // Clear model when make changes
   useEffect(() => {
     if (localFilters.make === '' || localFilters.make === 'all') {
@@ -703,7 +712,7 @@ export default function AdvancedSearch() {
         setLocalFilters(prev => ({ ...prev, model: 'all' }));
       }
     }
-  }, [localFilters.make]);
+  }, [localFilters.make, carModelsByMake]);
 
   // Sync local filters with advanced search filters
   useEffect(() => {
@@ -772,6 +781,7 @@ export default function AdvancedSearch() {
 
   const handleSearchSubmit = useCallback(() => {
     const params = new URLSearchParams();
+    if (localFilters.vehicleType && localFilters.vehicleType !== 'car') params.set('vehicleType', localFilters.vehicleType);
     if (localFilters.make && localFilters.make !== 'all') params.set('make', localFilters.make);
     if (localFilters.model && localFilters.model !== 'all') params.set('model', localFilters.model);
     if (localFilters.bodyType && localFilters.bodyType !== 'any') params.set('type', localFilters.bodyType);
@@ -788,6 +798,8 @@ export default function AdvancedSearch() {
 
   const clearAllFilters = useCallback(() => {
     setLocalFilters({
+      // Vehicle Type
+      vehicleType: 'car',
       // Basic Information
       make: '',
       model: '',
@@ -937,9 +949,31 @@ export default function AdvancedSearch() {
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           <div className="lg:col-span-3">
             
+            {/* Vehicle Type Selector */}
+            <div className="flex gap-2 mb-6">
+              {([
+                { id: 'car' as const, label: t('hero.vehicleTypes.cars', 'Cars'), icon: Car },
+                { id: 'motorbike' as const, label: t('hero.vehicleTypes.motorbikes', 'Motorbikes'), icon: Bike },
+                { id: 'truck' as const, label: t('hero.vehicleTypes.trucks', 'Trucks'), icon: Truck },
+              ]).map(({ id, label, icon: Icon }) => (
+                <button
+                  key={id}
+                  onClick={() => setLocalFilters(prev => ({ ...prev, vehicleType: id, make: '', model: '', bodyType: '' }))}
+                  className={`flex items-center gap-2 px-5 py-3 rounded-full font-medium transition-all duration-200 ${
+                    localFilters.vehicleType === id
+                      ? 'bg-black text-white shadow-md'
+                      : 'bg-zinc-100 text-gray-600 hover:bg-zinc-200'
+                  }`}
+                >
+                  <Icon className="h-4 w-4" />
+                  {label}
+                </button>
+              ))}
+            </div>
+
             {/* Basic Information */}
-            <FilterSection 
-              title={getAdvancedSearchText('sections.vehicleDetails.title', 'Basic Information')} 
+            <FilterSection
+              title={getAdvancedSearchText('sections.vehicleDetails.title', 'Basic Information')}
               sectionKey="basic"
               icon={<Car className="h-5 w-5 text-blue-600" />}
               description={getAdvancedSearchText('sections.vehicleDetails.description', 'Vehicle make, model, and basic properties')}
@@ -955,7 +989,7 @@ export default function AdvancedSearch() {
                       <SelectItem value="all">{getAdvancedSearchText('placeholders.anyMake', 'All Makes')}</SelectItem>
                       {carMakes.map((make, idx) => (
                         <React.Fragment key={make}>
-                          {idx === POPULAR_MAKE_NAMES.length && (
+                          {idx === activePopularMakes.length && (
                             <SelectSeparator />
                           )}
                           <SelectItem value={make}>{make}</SelectItem>
@@ -1002,7 +1036,7 @@ export default function AdvancedSearch() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="any">{getAdvancedSearchText('placeholders.anyType', 'Any Body Type')}</SelectItem>
-                      {bodyTypes.map(type => (
+                      {(isMotorbike ? MOTORCYCLE_BODY_TYPES : bodyTypes).map(type => (
                         <SelectItem key={type} value={type}>{type}</SelectItem>
                       ))}
                     </SelectContent>
@@ -1367,6 +1401,7 @@ export default function AdvancedSearch() {
                     </Select>
                   </div>
 
+                  {!isMotorbike && (
                   <div>
                     <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.numberOfSeats', 'Nr. of Seats')}</label>
                     <Select value={localFilters.numberOfSeats} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, numberOfSeats: value }))}>
@@ -1381,7 +1416,9 @@ export default function AdvancedSearch() {
                       </SelectContent>
                     </Select>
                   </div>
+                  )}
 
+                  {!isMotorbike && (
                   <div>
                     <label className="block text-sm mb-2 text-muted-foreground">{getSimpleText('Врати', 'Dyert', 'Doors')}</label>
                     <Select value={localFilters.numberOfDoors} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, numberOfDoors: value }))}>
@@ -1396,6 +1433,7 @@ export default function AdvancedSearch() {
                       </SelectContent>
                     </Select>
                   </div>
+                  )}
                 </div>
               </div>
             </FilterSection>

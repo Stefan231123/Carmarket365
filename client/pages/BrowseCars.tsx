@@ -23,7 +23,7 @@ import {
   AlertCircle
 } from "lucide-react";
 import { useCars, useCarMakes } from "@/hooks/useCars";
-import { POPULAR_MAKE_NAMES } from "@shared/car-data";
+import { POPULAR_MAKE_NAMES, POPULAR_MOTORCYCLE_MAKES } from "@shared/car-data";
 import { useFavorites } from "@/hooks/useFavorites";
 import { ContactCarModal } from "@/components/ContactCarModal";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -151,11 +151,13 @@ export default function BrowseCars() {
   // Fetch cars and makes from API
   const { cars, isLoading, error, refetch } = useCars(filters);
   const { makes: rawMakes, isLoading: makesLoading } = useCarMakes();
+  const isMotorbikeFilter = vehicleTypeFilter === 'motorbikes' || vehicleTypeFilter === 'MOTORCYCLE';
+  const activePopularMakes = isMotorbikeFilter ? POPULAR_MOTORCYCLE_MAKES : POPULAR_MAKE_NAMES;
   const carMakes = useMemo(() => {
-    const popular = POPULAR_MAKE_NAMES.filter(m => rawMakes.includes(m));
-    const rest = rawMakes.filter(m => !POPULAR_MAKE_NAMES.includes(m)).sort();
+    const popular = activePopularMakes.filter(m => rawMakes.includes(m));
+    const rest = rawMakes.filter(m => !activePopularMakes.includes(m)).sort();
     return [...popular, ...rest];
-  }, [rawMakes]);
+  }, [rawMakes, activePopularMakes]);
   const { isFavorite, toggleFavorite } = useFavorites();
 
   const handleBackToHome = () => {
@@ -247,7 +249,7 @@ placeholder={t('browseCars.searchPlaceholder')}
                       <SelectItem value="any-make">{t('filters.anyMake')}</SelectItem>
                       {carMakes.map((make, idx) => (
                         <React.Fragment key={make}>
-                          {idx === POPULAR_MAKE_NAMES.filter(m => carMakes.includes(m)).length && <SelectSeparator />}
+                          {idx === activePopularMakes.filter(m => carMakes.includes(m)).length && <SelectSeparator />}
                           <SelectItem value={make}>{make}</SelectItem>
                         </React.Fragment>
                       ))}
@@ -393,7 +395,7 @@ placeholder={t('browseCars.searchPlaceholder')}
 <SelectItem value="any-make">{t('filters.anyMake')}</SelectItem>
                         {carMakes.map((make, idx) => (
                           <React.Fragment key={make}>
-                            {idx === POPULAR_MAKE_NAMES.filter(m => carMakes.includes(m)).length && <SelectSeparator />}
+                            {idx === activePopularMakes.filter(m => carMakes.includes(m)).length && <SelectSeparator />}
                             <SelectItem value={make}>{make}</SelectItem>
                           </React.Fragment>
                         ))}

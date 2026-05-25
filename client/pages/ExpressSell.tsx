@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Car, Upload, Euro, Camera, Check, User, AlertCircle } from 'lucide-react';
+import { ArrowLeft, Car, Bike, Upload, Euro, Camera, Check, User, AlertCircle } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Input } from '../components/ui/input';
@@ -14,10 +14,13 @@ import ImageUpload from '../components/ImageUpload';
 import { trackEvent } from '../components/Analytics';
 import { apiClient } from '@shared/api-client';
 import { uploadToCloudinary } from '../lib/cloudinary';
-import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, getModelsForMake } from '@shared/car-data';
+import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, getModelsForMake, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, getMotorcycleModelsForMake } from '@shared/car-data';
 import { useCountry } from '../contexts/CountryContext';
 
+type ExpressVehicleType = 'car' | 'motorbike';
+
 interface CarData {
+  vehicleType: ExpressVehicleType;
   make: string;
   model: string;
   year: string;
@@ -45,6 +48,7 @@ export default function ExpressSell() {
   const [submitError, setSubmitError] = useState('');
   const [uploadProgress, setUploadProgress] = useState('');
   const [carData, setCarData] = useState<CarData>({
+    vehicleType: 'car',
     make: '',
     model: '',
     year: '',
@@ -63,7 +67,12 @@ export default function ExpressSell() {
     images: [],
   });
 
-  const carModels = carData.make ? getModelsForMake(carData.make) : [];
+  const isMotorbike = carData.vehicleType === 'motorbike';
+  const activeMakes = isMotorbike ? MOTORCYCLE_MAKES_SORTED : CAR_MAKES_SORTED;
+  const activePopularMakes = isMotorbike ? POPULAR_MOTORCYCLE_MAKES : POPULAR_MAKE_NAMES;
+  const carModels = carData.make
+    ? (isMotorbike ? getMotorcycleModelsForMake(carData.make) : getModelsForMake(carData.make))
+    : [];
 
   const handleImagesChange = (images: any[]) => {
     setCarData(prev => ({ ...prev, images }));
@@ -143,7 +152,7 @@ export default function ExpressSell() {
         year: parseInt(carData.year) || new Date().getFullYear(),
         price: parseFloat(carData.price) || 0,
         mileage: parseInt(carData.mileage) || 0,
-        vehicleType: 'CAR',
+        vehicleType: isMotorbike ? 'MOTORCYCLE' : 'CAR',
         fuelType: mapFuelType(carData.fuel),
         transmission: mapTransmission(carData.transmission),
         condition: mapCondition(carData.condition),
@@ -236,6 +245,25 @@ export default function ExpressSell() {
               </p>
             </CardHeader>
             <CardContent className="space-y-4">
+              <div className="flex gap-2 mb-2">
+                {([
+                  { id: 'car' as const, label: t('hero.vehicleTypes.cars', 'Car'), icon: Car },
+                  { id: 'motorbike' as const, label: t('hero.vehicleTypes.motorbikes', 'Motorbike'), icon: Bike },
+                ] as const).map(({ id, label, icon: Icon }) => (
+                  <button
+                    key={id}
+                    onClick={() => setCarData(prev => ({ ...prev, vehicleType: id, make: '', model: '' }))}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all ${
+                      carData.vehicleType === id
+                        ? 'bg-black text-white'
+                        : 'bg-zinc-100 text-gray-600 hover:bg-zinc-200'
+                    }`}
+                  >
+                    <Icon className="h-4 w-4" />
+                    {label}
+                  </button>
+                ))}
+              </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm mb-2 text-muted-foreground">{t('finalFixes.expressSell.makeRequired')}</label>
@@ -244,9 +272,9 @@ export default function ExpressSell() {
                       <SelectValue placeholder={t('finalFixes.expressSell.selectMake')} />
                     </SelectTrigger>
                     <SelectContent>
-                      {CAR_MAKES_SORTED.map((brand, idx) => (
+                      {activeMakes.map((brand, idx) => (
                         <React.Fragment key={brand}>
-                          {idx === POPULAR_MAKE_NAMES.length && <SelectSeparator />}
+                          {idx === activePopularMakes.length && <SelectSeparator />}
                           <SelectItem value={brand}>{brand}</SelectItem>
                         </React.Fragment>
                       ))}

@@ -12,7 +12,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { useCountry } from "@/contexts/CountryContext";
 import { useCar } from "@/hooks/useCars";
 import { apiClient } from "@shared/api-client";
-import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, getModelsForMake } from "@shared/car-data";
+import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, getModelsForMake, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, getMotorcycleModelsForMake } from "@shared/car-data";
 import { getLocationsForCountry } from "@shared/locations";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
@@ -112,7 +112,12 @@ export default function EditListing() {
     }
   }, [car]);
 
-  const carModels = make ? getModelsForMake(make) : [];
+  const isMotorbike = car?.vehicleType === 'MOTORCYCLE';
+  const activeMakes = isMotorbike ? MOTORCYCLE_MAKES_SORTED : CAR_MAKES_SORTED;
+  const activePopularMakes = isMotorbike ? POPULAR_MOTORCYCLE_MAKES : POPULAR_MAKE_NAMES;
+  const carModels = make
+    ? (isMotorbike ? getMotorcycleModelsForMake(make) : getModelsForMake(make))
+    : [];
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({ length: currentYear - 1989 }, (_, i) => String(currentYear + 1 - i));
@@ -292,9 +297,9 @@ export default function EditListing() {
                   <Select value={make} onValueChange={(v) => { setMake(v); setModel(""); }}>
                     <SelectTrigger className="rounded-xl"><SelectValue /></SelectTrigger>
                     <SelectContent>
-                      {CAR_MAKES_SORTED.map((m, idx) => (
+                      {activeMakes.map((m, idx) => (
                         <React.Fragment key={m}>
-                          {idx === POPULAR_MAKE_NAMES.length && <SelectSeparator />}
+                          {idx === activePopularMakes.length && <SelectSeparator />}
                           <SelectItem value={m}>{m}</SelectItem>
                         </React.Fragment>
                       ))}
