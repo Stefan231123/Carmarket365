@@ -150,15 +150,17 @@ export default function DealerDashboard() {
     navigate(`/edit-listing/${listingId}`);
   };
 
-  const onDeleteListing = async (listingId: string) => {
-    if (!confirm(t('dealer.confirmDeleteListing') || 'Are you sure you want to delete this listing?')) return;
-    try {
-      await apiClient.deleteCar(listingId);
-      refetchListings();
-    } catch (error) {
-      console.error('Failed to delete listing:', error);
-      alert('Failed to delete listing. Please try again.');
-    }
+  const onDeleteListing = (listingId: string) => {
+    setTimeout(async () => {
+      if (!confirm(t('dealer.confirmDeleteListing') || 'Are you sure you want to delete this listing?')) return;
+      try {
+        await apiClient.deleteCar(listingId);
+        refetchListings();
+      } catch (error) {
+        console.error('Failed to delete listing:', error);
+        alert('Failed to delete listing. Please try again.');
+      }
+    }, 0);
   };
 
   const getStatusBadge = (status: string) => {
@@ -469,7 +471,7 @@ export default function DealerDashboard() {
                                   <Edit className="h-4 w-4 mr-2" />
                                   {t('dealer.editListing')}
                                 </DropdownMenuItem>
-                                <DropdownMenuItem className="text-red-600" onClick={() => onDeleteListing(listing.id)}>
+                                <DropdownMenuItem className="text-red-600" onSelect={() => onDeleteListing(listing.id)}>
                                   <Trash2 className="h-4 w-4 mr-2" />
                                   {t('dealer.deleteListing')}
                                 </DropdownMenuItem>
@@ -539,7 +541,7 @@ export default function DealerDashboard() {
                               <Edit className="h-4 w-4 mr-2" />
                               {t('dealerDashboard.myListings.actions.editListing')}
                             </DropdownMenuItem>
-                            <DropdownMenuItem className="text-red-600" onClick={() => onDeleteListing(listing.id)}>
+                            <DropdownMenuItem className="text-red-600" onSelect={() => onDeleteListing(listing.id)}>
                               <Trash2 className="h-4 w-4 mr-2" />
                               {t('dealerDashboard.myListings.actions.deleteListing')}
                             </DropdownMenuItem>
