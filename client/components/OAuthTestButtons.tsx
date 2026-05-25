@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { SocialLoginModal } from './SocialLoginModal';
 
 export function OAuthTestButtons() {
-  const [activeModal, setActiveModal] = useState<'google' | 'facebook' | null>(null);
+  const [showGoogle, setShowGoogle] = useState(false);
 
   return (
     <div className="flex gap-4 p-4 border rounded-lg bg-muted/30">
@@ -13,34 +13,18 @@ export function OAuthTestButtons() {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setActiveModal('google')}
+            onClick={() => setShowGoogle(true)}
             className="text-xs"
           >
             Test Google Login
           </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setActiveModal('facebook')}
-            className="text-xs"
-          >
-            Test Facebook Login
-          </Button>
         </div>
       </div>
 
-      {/* Google Modal */}
       <SocialLoginModal
-        isOpen={activeModal === 'google'}
-        onClose={() => setActiveModal(null)}
+        isOpen={showGoogle}
+        onClose={() => setShowGoogle(false)}
         provider="google"
-      />
-
-      {/* Facebook Modal */}
-      <SocialLoginModal
-        isOpen={activeModal === 'facebook'}
-        onClose={() => setActiveModal(null)}
-        provider="facebook"
       />
     </div>
   );

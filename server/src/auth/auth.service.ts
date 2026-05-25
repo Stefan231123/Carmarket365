@@ -127,27 +127,6 @@ export class AuthService {
         this.logger.warn(`Google token verification failed: ${err}`);
         throw new UnauthorizedException('Invalid Google token');
       }
-    } else if (provider === 'facebook') {
-      try {
-        // Verify token by calling Facebook Graph API
-        const fbUrl = `https://graph.facebook.com/me?fields=id,name,email,picture.type(large)&access_token=${encodeURIComponent(token)}`;
-        const fbResponse = await fetch(fbUrl);
-        const fbData = await fbResponse.json() as any;
-
-        if (fbData.error) {
-          throw new Error(fbData.error.message);
-        }
-        if (!fbData.email) {
-          throw new UnauthorizedException('Facebook account must have a verified email address');
-        }
-        verifiedEmail = fbData.email;
-        verifiedName = fbData.name || name;
-        avatarUrl = fbData.picture?.data?.url;
-      } catch (err) {
-        if (err instanceof UnauthorizedException) throw err;
-        this.logger.warn(`Facebook token verification failed: ${err}`);
-        throw new UnauthorizedException('Invalid Facebook token');
-      }
     } else {
       throw new UnauthorizedException(`Unsupported OAuth provider: ${provider}`);
     }

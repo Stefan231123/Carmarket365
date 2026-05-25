@@ -67,7 +67,7 @@ export interface RegisterInput {
 }
 
 export interface OAuthLoginInput {
-  provider: 'google' | 'facebook';
+  provider: 'google';
   token: string;
   email?: string;
   name?: string;
@@ -98,15 +98,6 @@ export interface CarFilterInput {
 export interface GoogleTokenResponse {
   credential: string;
   select_by: string;
-}
-
-export interface FacebookLoginResponse {
-  authResponse: {
-    accessToken: string;
-    userID: string;
-    expiresIn: number;
-  };
-  status: string;
 }
 
 class ApiClient {

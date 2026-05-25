@@ -27,7 +27,7 @@ export default function SignIn() {
   const [userType, setUserType] = useState<'private' | 'dealer'>('private');
   const [showForgotPassword, setShowForgotPassword] = useState(false);
   const [showSocialLogin, setShowSocialLogin] = useState(false);
-  const [socialProvider, setSocialProvider] = useState<'google' | 'facebook'>('google');
+  const [socialProvider, setSocialProvider] = useState<'google'>('google');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,7 +62,7 @@ export default function SignIn() {
     setShowForgotPassword(true);
   };
 
-  const handleSocialLogin = (provider: 'google' | 'facebook') => {
+  const handleSocialLogin = (provider: 'google') => {
     setSocialProvider(provider);
     setShowSocialLogin(true);
   };

@@ -36,7 +36,7 @@ export class User {
 
   @Field({ nullable: true })
   @Column({ nullable: true, default: 'local' })
-  authProvider?: string; // 'local' | 'google' | 'facebook'
+  authProvider?: string; // 'local' | 'google'
 
   @Field({ nullable: true })
   @Column({ nullable: true })

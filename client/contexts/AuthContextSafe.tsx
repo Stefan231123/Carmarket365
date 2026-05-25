@@ -94,7 +94,7 @@ function authReducer(state: AuthState, action: AuthAction): AuthState {
 interface AuthContextType extends AuthState {
   login: (credentials: { email: string; password: string }, captchaToken?: string) => Promise<void>;
   register: (userData: { email: string; password: string; name?: string; dealerName?: string; dealerAddress?: string; dealerCity?: string; dealerPhoneNumber?: string }, captchaToken?: string) => Promise<void>;
-  loginWithOAuth: (input: { provider: 'google' | 'facebook'; token: string; email?: string; name?: string }) => Promise<void>;
+  loginWithOAuth: (input: { provider: 'google'; token: string; email?: string; name?: string }) => Promise<void>;
   logout: () => Promise<void>;
   clearError: () => void;
 }
@@ -213,7 +213,7 @@ export function SafeAuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const loginWithOAuth = async (input: { provider: 'google' | 'facebook'; token: string; email?: string; name?: string }) => {
+  const loginWithOAuth = async (input: { provider: 'google'; token: string; email?: string; name?: string }) => {
     dispatch({ type: 'AUTH_START' });
 
     try {

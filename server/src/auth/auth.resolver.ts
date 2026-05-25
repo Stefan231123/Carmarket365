@@ -62,7 +62,7 @@ export class AuthResolver {
     return result;
   }
 
-  @Mutation(() => AuthResponse, { description: 'Login or register via Google/Facebook OAuth.' })
+  @Mutation(() => AuthResponse, { description: 'Login or register via Google OAuth.' })
   @Throttle({ auth: { ttl: 60000, limit: 5 } })
   async socialLogin(
     @Args('provider') provider: string,

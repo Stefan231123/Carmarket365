@@ -59,7 +59,7 @@ export class RegisterInput {
 export class SocialAuthInput {
   @Field()
   @IsString()
-  provider: string; // 'google' | 'facebook'
+  provider: string; // 'google'
 
   @Field()
   @IsString()
