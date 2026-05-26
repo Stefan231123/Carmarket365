@@ -7,13 +7,13 @@ import { ArrowLeft, Trash2, AlertTriangle, CheckCircle, Loader2, LogIn } from "l
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "@/hooks/useTranslation";
 import { SEO } from "@/components/SEO";
-import { useAuth } from "@/contexts/AuthContext";
+import { useSafeAuth } from "@/contexts/AuthContextSafe";
 import { apiClient } from "@shared/api-client";
 
 export default function DeleteAccount() {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { user, isAuthenticated, logout } = useAuth();
+  const { user, isAuthenticated, logout } = useSafeAuth();
   const [email, setEmail] = useState("");
   const [reason, setReason] = useState("");
   const [submitted, setSubmitted] = useState(false);
