@@ -45,6 +45,7 @@ const CarReviews = lazy(() => import("@/pages/CarReviews"));
 const SafetyTips = lazy(() => import("@/pages/SafetyTips"));
 const DealerSupport = lazy(() => import("@/pages/DealerSupport"));
 const PrivacyPolicy = lazy(() => import("@/pages/PrivacyPolicy"));
+const DeleteAccount = lazy(() => import("@/pages/DeleteAccount"));
 const TermsOfService = lazy(() => import("@/pages/TermsOfService"));
 const CookiePolicy = lazy(() => import("@/pages/CookiePolicy"));
 const Imprint = lazy(() => import("@/pages/Imprint"));
@@ -168,6 +169,7 @@ function AppContent() {
             <Route path="/safety-tips" element={<SafetyTips />} />
             <Route path="/dealer-support" element={<DealerSupport />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/delete-account" element={<DeleteAccount />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/cookie-policy" element={<CookiePolicy />} />
             <Route path="/imprint" element={<Imprint />} />

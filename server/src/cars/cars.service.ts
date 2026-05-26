@@ -464,5 +464,37 @@ export class CarsService {
     if (filters.ids && filters.ids.length > 0) {
       query.andWhere('car.id IN (:...ids)', { ids: filters.ids });
     }
+
+    if (filters.bodyType) {
+      query.andWhere('car.bodyType = :bodyType', { bodyType: filters.bodyType });
+    }
+
+    if (filters.maxCo2Emissions !== undefined) {
+      query.andWhere('car.co2Emissions <= :maxCo2Emissions', { maxCo2Emissions: filters.maxCo2Emissions });
+    }
+
+    if (filters.numberOfGears !== undefined) {
+      query.andWhere('car.numberOfGears = :numberOfGears', { numberOfGears: filters.numberOfGears });
+    }
+
+    if (filters.maxWeight !== undefined) {
+      query.andWhere('car.weight <= :maxWeight', { maxWeight: filters.maxWeight });
+    }
+
+    if (filters.coolingType) {
+      query.andWhere('car.coolingType = :coolingType', { coolingType: filters.coolingType });
+    }
+
+    if (filters.starterType) {
+      query.andWhere('car.starterType = :starterType', { starterType: filters.starterType });
+    }
+
+    if (filters.licenseClass) {
+      query.andWhere('car.licenseClass = :licenseClass', { licenseClass: filters.licenseClass });
+    }
+
+    if (filters.cylinders) {
+      query.andWhere('car.cylinders = :cylinders', { cylinders: filters.cylinders });
+    }
   }
 }

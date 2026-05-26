@@ -90,6 +90,14 @@ export const GET_CARS = gql`
       fullServiceHistory
       upholsteryType
       paintWorkType
+      bodyType
+      co2Emissions
+      numberOfGears
+      weight
+      coolingType
+      starterType
+      licenseClass
+      cylinders
       allowTestDrive
       acceptsTradeIn
       priceNegotiable
@@ -159,6 +167,14 @@ export const GET_CAR_BY_ID = gql`
       fullServiceHistory
       upholsteryType
       paintWorkType
+      bodyType
+      co2Emissions
+      numberOfGears
+      weight
+      coolingType
+      starterType
+      licenseClass
+      cylinders
       location
       city
       countryCode
@@ -803,6 +819,15 @@ export interface AdvancedSearchFiltersInput extends FilterCarsInput {
   numberOfDoors?: string; // '2'|'3'|'4'|'5'
   countryCode?: string;
   ids?: string[];
+  // New car fields
+  numberOfGears?: string;
+  co2Emissions?: string;
+  weight?: string;
+  // Motorcycle-specific
+  coolingType?: string;
+  starterType?: string;
+  licenseClass?: string;
+  cylinders?: string;
 }
 
 export interface PaginationInput {

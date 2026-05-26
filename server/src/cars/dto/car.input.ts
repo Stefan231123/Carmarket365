@@ -217,6 +217,50 @@ export class CreateCarInput {
   @IsOptional()
   @IsString()
   paintWorkType?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  bodyType?: string;
+
+  @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  co2Emissions?: number;
+
+  @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  @Min(1)
+  @Max(10)
+  numberOfGears?: number;
+
+  @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  weight?: number;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  coolingType?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  starterType?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  licenseClass?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  cylinders?: string;
 }
 
 @InputType()
@@ -442,6 +486,50 @@ export class UpdateCarInput {
   @IsOptional()
   @IsString()
   paintWorkType?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  bodyType?: string;
+
+  @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  co2Emissions?: number;
+
+  @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  @Min(1)
+  @Max(10)
+  numberOfGears?: number;
+
+  @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  @Min(0)
+  weight?: number;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  coolingType?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  starterType?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  licenseClass?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  cylinders?: string;
 }
 
 @InputType()
@@ -669,4 +757,44 @@ export class CarFilterInput {
   @ArrayMaxSize(200)
   @IsString({ each: true })
   ids?: string[];
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  bodyType?: string;
+
+  @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  maxCo2Emissions?: number;
+
+  @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  numberOfGears?: number;
+
+  @Field(() => Int, { nullable: true })
+  @IsOptional()
+  @IsNumber()
+  maxWeight?: number;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  coolingType?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  starterType?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  licenseClass?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
+  cylinders?: string;
 }

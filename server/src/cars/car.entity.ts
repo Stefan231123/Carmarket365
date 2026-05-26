@@ -253,6 +253,39 @@ export class Car {
   @Column({ nullable: true })
   paintWorkType?: string;
 
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  bodyType?: string; // e.g., "Sedan", "SUV", "Naked Bike", "Panel Van"
+
+  @Field(() => Int, { nullable: true })
+  @Column({ nullable: true })
+  co2Emissions?: number; // g/km
+
+  @Field(() => Int, { nullable: true })
+  @Column({ nullable: true })
+  numberOfGears?: number;
+
+  @Field(() => Int, { nullable: true })
+  @Column({ nullable: true })
+  weight?: number; // kg (curb weight)
+
+  // Motorcycle-specific fields
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  coolingType?: string; // Air-cooled, Water-cooled, Oil-cooled
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  starterType?: string; // Electric, Kick, Both
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  licenseClass?: string; // AM, A1, A2, A
+
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  cylinders?: string; // Single, Twin, Triple, Four, Six
+
   @Field(() => Int)
   @Column({ default: 0 })
   viewCount: number;

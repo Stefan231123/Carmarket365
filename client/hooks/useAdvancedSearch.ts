@@ -254,6 +254,17 @@ function mapFiltersToBackend(filters: AdvancedSearchFiltersInput): Record<string
   // Drivetrain type (already enum values in UI)
   if (filters.drivetrain) backendFilters.drivetrain = filters.drivetrain;
 
+  // New car fields
+  if ((filters as any).numberOfGears && (filters as any).numberOfGears !== 'any') backendFilters.numberOfGears = parseInt(String((filters as any).numberOfGears));
+  if ((filters as any).co2Emissions && (filters as any).co2Emissions !== 'any') backendFilters.maxCo2Emissions = parseInt(String((filters as any).co2Emissions));
+  if ((filters as any).weight && (filters as any).weight !== 'any') backendFilters.maxWeight = parseInt(String((filters as any).weight));
+
+  // Motorcycle-specific
+  if ((filters as any).coolingType && (filters as any).coolingType !== 'any') backendFilters.coolingType = (filters as any).coolingType;
+  if ((filters as any).starterType && (filters as any).starterType !== 'any') backendFilters.starterType = (filters as any).starterType;
+  if ((filters as any).licenseClass && (filters as any).licenseClass !== 'any') backendFilters.licenseClass = (filters as any).licenseClass;
+  if ((filters as any).cylinders && (filters as any).cylinders !== 'any') backendFilters.cylinders = (filters as any).cylinders;
+
   return backendFilters;
 }
 

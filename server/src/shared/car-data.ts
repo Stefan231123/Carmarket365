@@ -1320,6 +1320,26 @@ export function getYearOptions(): number[] {
   return years;
 }
 
+/** Car body types (aligned with AutoScout24) */
+export const CAR_BODY_TYPES: string[] = [
+  'Sedan',
+  'Hatchback',
+  'Station Wagon',
+  'SUV',
+  'Coupe',
+  'Convertible',
+  'Van',
+  'Small Car',
+  'Compact',
+  'Sports Car',
+  'Off-Road',
+  'Limousine',
+  'Other',
+];
+
+/** Number of gears options */
+export const GEARS_OPTIONS: number[] = [3, 4, 5, 6, 7, 8, 9, 10];
+
 /** Popular brands shown on the homepage (subset of all makes) */
 export const POPULAR_BRANDS = [
   { name: 'BMW', initials: 'BMW', color: '#0066B1', logo: '/brands/bmw.png' },
@@ -1435,6 +1455,37 @@ export function getMotorcycleModelsForMake(make: string): string[] {
   return MOTORCYCLE_MODELS_BY_MAKE[make] ?? [];
 }
 
+/** Motorcycle cooling types */
+export const MOTORCYCLE_COOLING_TYPES: string[] = [
+  'Air-cooled',
+  'Water-cooled',
+  'Oil-cooled',
+];
+
+/** Motorcycle starter types */
+export const MOTORCYCLE_STARTER_TYPES: string[] = [
+  'Electric',
+  'Kick',
+  'Both',
+];
+
+/** Motorcycle license classes (EU) */
+export const MOTORCYCLE_LICENSE_CLASSES: string[] = [
+  'AM',  // Moped ≤50cc / ≤45 km/h
+  'A1',  // ≤125cc / ≤11kW
+  'A2',  // ≤35kW
+  'A',   // Unrestricted
+];
+
+/** Motorcycle cylinder configurations */
+export const MOTORCYCLE_CYLINDER_TYPES: string[] = [
+  'Single',
+  'Twin',
+  'Triple',
+  'Four',
+  'Six',
+];
+
 /** Motorcycle body types / categories */
 export const MOTORCYCLE_BODY_TYPES: string[] = [
   'Naked Bike',
@@ -1488,6 +1539,7 @@ export const TRUCK_DATA: TruckMakeData[] = [
   { name: 'Renault', country: 'FR', models: ['D', 'D Wide', 'Express Van', 'Kangoo Van', 'Master', 'Master E-Tech', 'T', 'Trafic', 'Trafic E-Tech'] },
   { name: 'Scania', country: 'SE', models: ['G-series', 'L-series', 'P-series', 'R-series', 'S-series'] },
   { name: 'SsangYong', country: 'KR', models: ['Musso', 'Musso Grand', 'Rexton Sports'] },
+  { name: 'Tata', country: 'IN', models: ['Ace', 'Prima', 'Signa', 'Ultra', 'Winger', 'Xenon'] },
   { name: 'Toyota', country: 'JP', models: ['Dyna', 'Hilux', 'Land Cruiser Pickup', 'ProAce', 'ProAce City', 'ProAce Electric'] },
   { name: 'Volkswagen', country: 'DE', models: ['Amarok', 'Caddy Cargo', 'Crafter', 'e-Crafter', 'ID. Buzz Cargo', 'Transporter'] },
   { name: 'Volvo', country: 'SE', models: ['FE', 'FH', 'FH16', 'FL', 'FM', 'FMX'] },
@@ -1496,10 +1548,10 @@ export const TRUCK_DATA: TruckMakeData[] = [
 /** All truck make names sorted alphabetically */
 export const TRUCK_MAKES: string[] = TRUCK_DATA.map((m) => m.name).sort();
 
-/** Most frequent truck brands — shown first in dropdowns */
+/** Most frequent truck brands — shown first in dropdowns (aligned with AutoScout24) */
 export const POPULAR_TRUCK_MAKES: string[] = [
   'Mercedes-Benz', 'Volkswagen', 'Ford', 'Iveco', 'MAN',
-  'Renault', 'Fiat', 'Peugeot', 'Toyota', 'Scania',
+  'Renault', 'Fiat', 'Peugeot', 'Citroën', 'Opel',
 ];
 
 /** Truck makes ordered with popular brands first, then rest alphabetically */
@@ -1518,22 +1570,30 @@ export function getTruckModelsForMake(make: string): string[] {
   return TRUCK_MODELS_BY_MAKE[make] ?? [];
 }
 
-/** Truck / commercial vehicle body types */
+/** Truck / commercial vehicle body types (aligned with AutoScout24 transporter categories) */
 export const TRUCK_BODY_TYPES: string[] = [
   'Panel Van',
-  'Box Van',
+  'High-Roof Van',
+  'Box Body',
   'Pickup',
   'Flatbed',
-  'Chassis Cab',
+  'Flatbed + Tarpaulin',
   'Tipper',
+  'Three-Way Tipper',
+  'Chassis Cab',
+  'Crew Cab',
+  'Minibus',
+  'Combi Van',
   'Refrigerated',
   'Curtainsider',
-  'Dropside',
-  'Luton Van',
-  'Minibus',
   'Car Transporter',
-  'Tanker',
+  'Breakdown Truck',
+  'Truck-Mounted Crane',
+  'Roll-Off Tipper',
+  'Dumper',
+  'Food Truck / Mobile Shop',
   'Tractor Unit',
-  'Crew Cab',
+  'Tanker',
   'Platform',
+  'Other',
 ];

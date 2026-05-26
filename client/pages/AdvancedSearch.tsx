@@ -15,7 +15,7 @@ import { mkTranslations } from '../../shared/translations/mk';
 import { sqTranslations } from '../../shared/translations/sq';
 import { AdvancedSearchFiltersInput } from '../lib/graphql/operations';
 import { trackEvent } from '../components/Analytics';
-import { CAR_MAKES_SORTED, CAR_MODELS_BY_MAKE, POPULAR_MAKE_NAMES, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, MOTORCYCLE_MODELS_BY_MAKE, MOTORCYCLE_BODY_TYPES, TRUCK_MAKES_SORTED, POPULAR_TRUCK_MAKES, TRUCK_MODELS_BY_MAKE, TRUCK_BODY_TYPES } from '@shared/car-data';
+import { CAR_MAKES_SORTED, CAR_MODELS_BY_MAKE, POPULAR_MAKE_NAMES, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, MOTORCYCLE_MODELS_BY_MAKE, MOTORCYCLE_BODY_TYPES, TRUCK_MAKES_SORTED, POPULAR_TRUCK_MAKES, TRUCK_MODELS_BY_MAKE, TRUCK_BODY_TYPES, CAR_BODY_TYPES, GEARS_OPTIONS, MOTORCYCLE_COOLING_TYPES, MOTORCYCLE_STARTER_TYPES, MOTORCYCLE_LICENSE_CLASSES, MOTORCYCLE_CYLINDER_TYPES } from '@shared/car-data';
 import { useCountry } from '@/contexts/CountryContext';
 import { getLocationsForCountry } from '@shared/locations';
 
@@ -93,6 +93,17 @@ interface AdvancedSearchFilters {
 
   // Environmental
   euroEmissionClass: string;
+
+  // New car fields
+  numberOfGears: string;
+  co2Emissions: string;
+  weight: string;
+
+  // Motorcycle-specific
+  coolingType: string;
+  starterType: string;
+  licenseClass: string;
+  cylinders: string;
 }
 
 // Data arrays — now dynamic based on vehicle type (set in component body)
@@ -692,7 +703,18 @@ export default function AdvancedSearch() {
     quickSale: '',
 
     // Environmental
-    euroEmissionClass: ''
+    euroEmissionClass: '',
+
+    // New car fields
+    numberOfGears: '',
+    co2Emissions: '',
+    weight: '',
+
+    // Motorcycle-specific
+    coolingType: '',
+    starterType: '',
+    licenseClass: '',
+    cylinders: '',
   });
 
   // Dynamic data based on vehicle type
@@ -759,9 +781,16 @@ export default function AdvancedSearch() {
       acceptsTradeIn: localFilters.acceptsTradeIn === 'yes' ? true : localFilters.acceptsTradeIn === 'no' ? false : undefined,
       priceNegotiable: localFilters.priceNegotiable === 'yes' ? true : localFilters.priceNegotiable === 'no' ? false : undefined,
       quickSale: localFilters.quickSale === 'yes' ? true : localFilters.quickSale === 'no' ? false : undefined,
-      euroEmissionClass: localFilters.euroEmissionClass || undefined
+      euroEmissionClass: localFilters.euroEmissionClass || undefined,
+      numberOfGears: localFilters.numberOfGears && localFilters.numberOfGears !== 'any' ? localFilters.numberOfGears : undefined,
+      co2Emissions: localFilters.co2Emissions && localFilters.co2Emissions !== 'any' ? localFilters.co2Emissions : undefined,
+      weight: localFilters.weight && localFilters.weight !== 'any' ? localFilters.weight : undefined,
+      coolingType: localFilters.coolingType && localFilters.coolingType !== 'any' ? localFilters.coolingType : undefined,
+      starterType: localFilters.starterType && localFilters.starterType !== 'any' ? localFilters.starterType : undefined,
+      licenseClass: localFilters.licenseClass && localFilters.licenseClass !== 'any' ? localFilters.licenseClass : undefined,
+      cylinders: localFilters.cylinders && localFilters.cylinders !== 'any' ? localFilters.cylinders : undefined,
     };
-    
+
     updateFilters(advancedFilters);
   }, [localFilters, updateFilters]);
   
@@ -1434,6 +1463,121 @@ export default function AdvancedSearch() {
                       </SelectContent>
                     </Select>
                   </div>
+                  )}
+
+                  {/* Number of gears — cars & trucks */}
+                  {!isMotorbike && (
+                  <div>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getSimpleText('Број на брзини', 'Numri i marsheve', 'Number of Gears')}</label>
+                    <Select value={localFilters.numberOfGears} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, numberOfGears: value }))}>
+                      <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
+                        {GEARS_OPTIONS.map(g => (
+                          <SelectItem key={g} value={String(g)}>{g}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  )}
+
+                  {/* CO2 Emissions */}
+                  <div>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getSimpleText('CO₂ емисии (g/km)', 'Emetimet CO₂ (g/km)', 'CO₂ Emissions (g/km)')}</label>
+                    <Select value={localFilters.co2Emissions} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, co2Emissions: value }))}>
+                      <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
+                        {['50', '100', '120', '150', '200', '250', '300'].map(v => (
+                          <SelectItem key={v} value={v}>≤ {v} g/km</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Weight */}
+                  <div>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getSimpleText('Тежина (кг)', 'Pesha (kg)', 'Weight (kg)')}</label>
+                    <Select value={localFilters.weight} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, weight: value }))}>
+                      <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
+                        {['500', '750', '1000', '1250', '1500', '1750', '2000', '2500', '3000'].map(v => (
+                          <SelectItem key={v} value={v}>≤ {v} kg</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Motorcycle-specific filters */}
+                  {isMotorbike && (
+                  <>
+                  <div>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getSimpleText('Возачка категорија', 'Kategoria e patentës', 'License Class')}</label>
+                    <Select value={localFilters.licenseClass} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, licenseClass: value }))}>
+                      <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
+                        {MOTORCYCLE_LICENSE_CLASSES.map(lc => (
+                          <SelectItem key={lc} value={lc}>{lc}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getSimpleText('Цилиндри', 'Cilindrat', 'Cylinders')}</label>
+                    <Select value={localFilters.cylinders} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, cylinders: value }))}>
+                      <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
+                        {MOTORCYCLE_CYLINDER_TYPES.map(c => (
+                          <SelectItem key={c} value={c}>{c}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getSimpleText('Ладење', 'Ftohja', 'Cooling Type')}</label>
+                    <Select value={localFilters.coolingType} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, coolingType: value }))}>
+                      <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
+                        {MOTORCYCLE_COOLING_TYPES.map(ct => (
+                          <SelectItem key={ct} value={ct}>{ct}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getSimpleText('Стартер', 'Starteri', 'Starter Type')}</label>
+                    <Select value={localFilters.starterType} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, starterType: value }))}>
+                      <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.any', 'Any')} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="any">{getAdvancedSearchText('placeholders.any', 'Any')}</SelectItem>
+                        {MOTORCYCLE_STARTER_TYPES.map(st => (
+                          <SelectItem key={st} value={st}>{st}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  </>
                   )}
                 </div>
               </div>

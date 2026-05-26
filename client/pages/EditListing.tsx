@@ -12,7 +12,7 @@ import { useTranslation } from "@/hooks/useTranslation";
 import { useCountry } from "@/contexts/CountryContext";
 import { useCar } from "@/hooks/useCars";
 import { apiClient } from "@shared/api-client";
-import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, getModelsForMake, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, getMotorcycleModelsForMake, TRUCK_MAKES_SORTED, POPULAR_TRUCK_MAKES, getTruckModelsForMake } from "@shared/car-data";
+import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, getModelsForMake, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, getMotorcycleModelsForMake, TRUCK_MAKES_SORTED, POPULAR_TRUCK_MAKES, getTruckModelsForMake, CAR_BODY_TYPES, MOTORCYCLE_BODY_TYPES, TRUCK_BODY_TYPES, GEARS_OPTIONS, MOTORCYCLE_COOLING_TYPES, MOTORCYCLE_STARTER_TYPES, MOTORCYCLE_LICENSE_CLASSES, MOTORCYCLE_CYLINDER_TYPES } from "@shared/car-data";
 import { getLocationsForCountry } from "@shared/locations";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
@@ -65,6 +65,14 @@ export default function EditListing() {
   const [hadAccident, setHadAccident] = useState("");
   const [upholsteryType, setUpholsteryType] = useState("");
   const [paintWorkType, setPaintWorkType] = useState("");
+  const [bodyType, setBodyType] = useState("");
+  const [co2Emissions, setCo2Emissions] = useState("");
+  const [numberOfGears, setNumberOfGears] = useState("");
+  const [weight, setWeight] = useState("");
+  const [coolingType, setCoolingType] = useState("");
+  const [starterType, setStarterType] = useState("");
+  const [licenseClass, setLicenseClass] = useState("");
+  const [cylinders, setCylinders] = useState("");
   const [nonSmokingVehicle, setNonSmokingVehicle] = useState(false);
   const [fullServiceHistory, setFullServiceHistory] = useState(false);
   const [priceNegotiable, setPriceNegotiable] = useState(false);
@@ -104,6 +112,14 @@ export default function EditListing() {
       setHadAccident(car.hadAccident || "");
       setUpholsteryType(car.upholsteryType || "");
       setPaintWorkType(car.paintWorkType || "");
+      setBodyType(car.bodyType || "");
+      setCo2Emissions(car.co2Emissions ? String(car.co2Emissions) : "");
+      setNumberOfGears(car.numberOfGears ? String(car.numberOfGears) : "");
+      setWeight(car.weight ? String(car.weight) : "");
+      setCoolingType(car.coolingType || "");
+      setStarterType(car.starterType || "");
+      setLicenseClass(car.licenseClass || "");
+      setCylinders(car.cylinders || "");
       setNonSmokingVehicle(car.nonSmokingVehicle || false);
       setFullServiceHistory(car.fullServiceHistory || false);
       setPriceNegotiable(car.priceNegotiable || false);
@@ -185,6 +201,14 @@ export default function EditListing() {
         hadAccident: hadAccident || undefined,
         upholsteryType: upholsteryType || undefined,
         paintWorkType: paintWorkType || undefined,
+        bodyType: bodyType || undefined,
+        co2Emissions: co2Emissions ? parseInt(co2Emissions) : undefined,
+        numberOfGears: numberOfGears ? parseInt(numberOfGears) : undefined,
+        weight: weight ? parseInt(weight) : undefined,
+        coolingType: coolingType || undefined,
+        starterType: starterType || undefined,
+        licenseClass: licenseClass || undefined,
+        cylinders: cylinders || undefined,
         nonSmokingVehicle: nonSmokingVehicle || undefined,
         fullServiceHistory: fullServiceHistory || undefined,
         priceNegotiable: priceNegotiable || undefined,

@@ -16,7 +16,7 @@ import ImageUpload from "@/components/ImageUpload";
 import { trackEvent } from "@/components/Analytics";
 import { apiClient } from '@shared/api-client';
 import { uploadToCloudinary } from '@/lib/cloudinary';
-import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, getModelsForMake, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, getMotorcycleModelsForMake, MOTORCYCLE_BODY_TYPES, TRUCK_MAKES_SORTED, POPULAR_TRUCK_MAKES, getTruckModelsForMake, TRUCK_BODY_TYPES } from '@shared/car-data';
+import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, getModelsForMake, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, getMotorcycleModelsForMake, MOTORCYCLE_BODY_TYPES, TRUCK_MAKES_SORTED, POPULAR_TRUCK_MAKES, getTruckModelsForMake, TRUCK_BODY_TYPES, CAR_BODY_TYPES, GEARS_OPTIONS, MOTORCYCLE_COOLING_TYPES, MOTORCYCLE_STARTER_TYPES, MOTORCYCLE_LICENSE_CLASSES, MOTORCYCLE_CYLINDER_TYPES } from '@shared/car-data';
 import { getLocationsForCountry } from '@shared/locations';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
@@ -64,6 +64,14 @@ interface VehicleDetails {
   priceNegotiable: boolean;
   upholsteryType: string;
   paintWorkType: string;
+  co2Emissions: string;
+  numberOfGears: string;
+  weight: string;
+  // Motorcycle-specific
+  coolingType: string;
+  starterType: string;
+  licenseClass: string;
+  cylinders: string;
 }
 
 const SELL_CAR_DRAFT_KEY = 'sellcar_draft';
@@ -109,6 +117,8 @@ export default function SellCar() {
         hadAccident: "", nonSmokingVehicle: false, fullServiceHistory: false,
         allowTestDrive: false, acceptsTradeIn: false, priceNegotiable: false,
         upholsteryType: "", paintWorkType: "",
+        co2Emissions: "", numberOfGears: "", weight: "",
+        coolingType: "", starterType: "", licenseClass: "", cylinders: "",
         ...draft,
       };
     }
@@ -152,6 +162,13 @@ export default function SellCar() {
     priceNegotiable: false,
     upholsteryType: "",
     paintWorkType: "",
+    co2Emissions: "",
+    numberOfGears: "",
+    weight: "",
+    coolingType: "",
+    starterType: "",
+    licenseClass: "",
+    cylinders: "",
     };
   });
 
@@ -312,11 +329,11 @@ export default function SellCar() {
   };
 
   const mapVehicleType = (type: VehicleType, bodyType?: string): string => {
-    if (bodyType) {
+    if (bodyType && type === 'car') {
       const bodyTypeMap: Record<string, string> = {
-        sedan: 'SEDAN', suv: 'SUV', coupe: 'COUPE',
-        convertible: 'CONVERTIBLE', wagon: 'WAGON',
-        hatchback: 'HATCHBACK', van: 'VAN',
+        'sedan': 'SEDAN', 'suv': 'SUV', 'coupe': 'COUPE',
+        'convertible': 'CONVERTIBLE', 'station wagon': 'WAGON',
+        'hatchback': 'HATCHBACK', 'van': 'VAN',
       };
       if (bodyTypeMap[bodyType.toLowerCase()]) return bodyTypeMap[bodyType.toLowerCase()];
     }
@@ -394,6 +411,14 @@ export default function SellCar() {
         priceNegotiable: vehicleDetails.priceNegotiable || undefined,
         upholsteryType: vehicleDetails.upholsteryType || undefined,
         paintWorkType: vehicleDetails.paintWorkType || undefined,
+        bodyType: vehicleDetails.bodyType || undefined,
+        co2Emissions: vehicleDetails.co2Emissions ? parseInt(vehicleDetails.co2Emissions) : undefined,
+        numberOfGears: vehicleDetails.numberOfGears ? parseInt(vehicleDetails.numberOfGears) : undefined,
+        weight: vehicleDetails.weight ? parseInt(vehicleDetails.weight) : undefined,
+        coolingType: vehicleDetails.coolingType || undefined,
+        starterType: vehicleDetails.starterType || undefined,
+        licenseClass: vehicleDetails.licenseClass || undefined,
+        cylinders: vehicleDetails.cylinders || undefined,
       };
 
       // Step 1: Create the car listing
@@ -732,15 +757,9 @@ export default function SellCar() {
                                 <SelectItem key={type} value={type}>{type}</SelectItem>
                               ))
                             ) : (
-                              <>
-                                <SelectItem value="sedan">{t('sell.bodyTypes.sedan')}</SelectItem>
-                                <SelectItem value="suv">{t('sell.bodyTypes.suv')}</SelectItem>
-                                <SelectItem value="coupe">{t('sell.bodyTypes.coupe')}</SelectItem>
-                                <SelectItem value="convertible">{t('sell.bodyTypes.convertible')}</SelectItem>
-                                <SelectItem value="wagon">{t('sell.bodyTypes.wagon')}</SelectItem>
-                                <SelectItem value="hatchback">{t('sell.bodyTypes.hatchback')}</SelectItem>
-                                <SelectItem value="van">{t('sell.bodyTypes.van')}</SelectItem>
-                              </>
+                              CAR_BODY_TYPES.map((type) => (
+                                <SelectItem key={type} value={type}>{type}</SelectItem>
+                              ))
                             )}
                           </SelectContent>
                         </Select>
@@ -870,6 +889,106 @@ export default function SellCar() {
                           </SelectContent>
                         </Select>
                       </div>
+                      )}
+
+                      {/* Number of gears — cars & trucks */}
+                      {!isMotorbike && (
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.numberOfGears', 'Number of Gears')}</label>
+                        <Select value={vehicleDetails.numberOfGears} onValueChange={(value) => setVehicleDetails({...vehicleDetails, numberOfGears: value})}>
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('sell.placeholders.selectGears', 'Select gears')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {GEARS_OPTIONS.map((g) => (
+                              <SelectItem key={g} value={String(g)}>{g}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      )}
+
+                      {/* CO2 Emissions — all vehicle types */}
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.co2Emissions', 'CO₂ Emissions (g/km)')}</label>
+                        <Input
+                          type="number"
+                          placeholder="e.g. 120"
+                          value={vehicleDetails.co2Emissions}
+                          onChange={(e) => setVehicleDetails({...vehicleDetails, co2Emissions: e.target.value})}
+                        />
+                      </div>
+
+                      {/* Weight — all vehicle types */}
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.weight', 'Weight (kg)')}</label>
+                        <Input
+                          type="number"
+                          placeholder="e.g. 1450"
+                          value={vehicleDetails.weight}
+                          onChange={(e) => setVehicleDetails({...vehicleDetails, weight: e.target.value})}
+                        />
+                      </div>
+
+                      {/* Motorcycle-specific fields */}
+                      {isMotorbike && (
+                      <>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.licenseClass', 'License Class')}</label>
+                        <Select value={vehicleDetails.licenseClass} onValueChange={(value) => setVehicleDetails({...vehicleDetails, licenseClass: value})}>
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('sell.placeholders.selectLicenseClass', 'Select license class')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {MOTORCYCLE_LICENSE_CLASSES.map((lc) => (
+                              <SelectItem key={lc} value={lc}>{lc}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.cylinders', 'Cylinders')}</label>
+                        <Select value={vehicleDetails.cylinders} onValueChange={(value) => setVehicleDetails({...vehicleDetails, cylinders: value})}>
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('sell.placeholders.selectCylinders', 'Select cylinders')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {MOTORCYCLE_CYLINDER_TYPES.map((c) => (
+                              <SelectItem key={c} value={c}>{c}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.coolingType', 'Cooling Type')}</label>
+                        <Select value={vehicleDetails.coolingType} onValueChange={(value) => setVehicleDetails({...vehicleDetails, coolingType: value})}>
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('sell.placeholders.selectCoolingType', 'Select cooling type')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {MOTORCYCLE_COOLING_TYPES.map((ct) => (
+                              <SelectItem key={ct} value={ct}>{ct}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.starterType', 'Starter Type')}</label>
+                        <Select value={vehicleDetails.starterType} onValueChange={(value) => setVehicleDetails({...vehicleDetails, starterType: value})}>
+                          <SelectTrigger>
+                            <SelectValue placeholder={t('sell.placeholders.selectStarterType', 'Select starter type')} />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {MOTORCYCLE_STARTER_TYPES.map((st) => (
+                              <SelectItem key={st} value={st}>{st}</SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      </>
                       )}
                     </div>
 
