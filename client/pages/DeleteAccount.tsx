@@ -123,14 +123,14 @@ export default function DeleteAccount() {
 
           {/* Logged-in user: direct delete */}
           {!deleted && isAuthenticated && user && (
-            <Card className="mb-8 border-red-200 rounded-2xl">
+            <Card className="mb-8 border-2 border-red-300 bg-red-50/50 rounded-2xl shadow-md">
               <CardHeader>
-                <CardTitle className="flex items-center gap-3">
-                  <Trash2 className="h-5 w-5 text-red-600" />
+                <CardTitle className="flex items-center gap-3 text-xl text-red-900">
+                  <Trash2 className="h-6 w-6 text-red-600" />
                   Delete your account
                 </CardTitle>
-                <CardDescription>
-                  You are logged in as <strong>{user.email}</strong>. You can delete your account and all data immediately.
+                <CardDescription className="text-base">
+                  You are logged in as <strong className="text-foreground">{user.email}</strong>. You can delete your account and all data immediately.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -141,7 +141,7 @@ export default function DeleteAccount() {
                 )}
                 <Button
                   variant="destructive"
-                  className="w-full rounded-full h-12"
+                  className="w-full rounded-full h-14 text-lg font-semibold bg-red-600 hover:bg-red-700 text-white shadow-lg"
                   onClick={handleDeleteLoggedIn}
                   disabled={deleting}
                 >
