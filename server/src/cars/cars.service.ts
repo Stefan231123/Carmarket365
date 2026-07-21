@@ -198,6 +198,17 @@ export class CarsService {
     return true;
   }
 
+  /**
+   * Set or clear featured placement. Deliberately separate from update(): the
+   * seller-facing DTO must not expose isFeatured, or sellers could promote
+   * their own listings for free.
+   */
+  async setFeatured(id: string, isFeatured: boolean): Promise<Car> {
+    await this.findById(id); // 404 if missing
+    await this.carRepository.update(id, { isFeatured });
+    return this.findById(id);
+  }
+
   async update(id: string, updateCarInput: UpdateCarInput, user: User): Promise<Car> {
     const car = await this.findById(id);
 

@@ -22,6 +22,11 @@ class CreateCarImageInput {
   @Field({ nullable: true })
   @IsOptional()
   @IsString()
+  thumbnailUrl?: string;
+
+  @Field({ nullable: true })
+  @IsOptional()
+  @IsString()
   fileName?: string;
 
   @Field(() => Int, { nullable: true })

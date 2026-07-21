@@ -92,6 +92,16 @@ export class CarsResolver {
     return this.carsService.update(id, updateCarInput, user);
   }
 
+  @Mutation(() => Car, { description: 'Set or clear featured placement on a listing. Admin only.' })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  async setCarFeatured(
+    @Args('id') id: string,
+    @Args('isFeatured') isFeatured: boolean,
+  ): Promise<Car> {
+    return this.carsService.setFeatured(id, isFeatured);
+  }
+
   @Mutation(() => Boolean, { description: 'Delete a car listing. Only the owner or admin can delete.' })
   @UseGuards(JwtAuthGuard)
   async deleteCar(
