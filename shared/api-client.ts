@@ -303,112 +303,6 @@ class ApiClient {
   }
 
   // Car Methods
-  async getCars(filters?: CarFilterInput): Promise<Car[]> {
-    try {
-      // First attempt: Try with the correct schema
-      const hasFilters = filters && Object.keys(filters).length > 0;
-      
-      const query = `
-        query GetCars${hasFilters ? '($filters: FilterCarsInput!)' : ''} {
-          cars${hasFilters ? '(filters: $filters)' : ''} {
-            id
-            title
-            description
-            price
-            currency
-            location
-            countryCode
-            imageUrls
-            status
-            year
-            mileage
-            fuelType
-            transmissionType
-            bodyType
-            exteriorColor
-            user {
-              id
-              email
-              name
-              role
-              dealerName
-              dealerLogoUrl
-              dealerPhoneNumber
-            }
-            carMake {
-              name
-            }
-            carModel {
-              name
-            }
-            createdAt
-            updatedAt
-          }
-        }
-      `;
-
-      // Only pass filters if they exist and have properties
-      const variables: any = {};
-      if (hasFilters) {
-        variables.filters = filters;
-      }
-
-      const response = await this.request<{ cars: any[] }>(query, variables);
-
-      if (response.errors) {
-        console.warn('GraphQL errors:', response.errors);
-        if (this.isProduction) return [];
-        return this.getMockCars(filters);
-      }
-
-      // Transform backend data to frontend Car interface
-      const backendCars = response.data?.cars || [];
-      if (backendCars.length === 0) {
-        if (this.isProduction) return [];
-        console.log('No cars returned from backend, using mock data');
-        return this.getMockCars(filters);
-      }
-
-      return backendCars.map(car => ({
-        id: car.id,
-        make: car.carMake?.name || 'Unknown',
-        model: car.carModel?.name || 'Unknown', 
-        year: car.year,
-        price: parseFloat(car.price),
-        mileage: car.mileage,
-        fuelType: car.fuelType,
-        transmission: car.transmissionType,
-        bodyType: car.bodyType,
-        color: car.exteriorColor,
-        description: car.description,
-        images: car.imageUrls || [],
-        location: car.location,
-        countryCode: car.countryCode,
-        isAvailable: car.status === 'ACTIVE',
-        isFeatured: car.promotedAt != null,
-        sellerId: car.user.id,
-        seller: {
-          id: car.user.id,
-          email: car.user.email,
-          name: car.user.name,
-          role: car.user.role,
-          dealerName: car.user.dealerName,
-          dealerLogoUrl: car.user.dealerLogoUrl,
-          dealerAddress: car.user.dealerAddress,
-          dealerCity: car.user.dealerCity,
-          dealerPhoneNumber: car.user.dealerPhoneNumber,
-          savedListingIds: []
-        },
-        createdAt: car.createdAt,
-        updatedAt: car.updatedAt
-      }));
-
-    } catch (error) {
-      console.warn('Backend connection failed:', error);
-      if (this.isProduction) return [];
-      return this.getMockCars(filters);
-    }
-  }
 
   // Temporary mock data while backend integration is being resolved
   private getMockCars(filters?: CarFilterInput): Car[] {
@@ -616,100 +510,6 @@ class ApiClient {
     });
   }
 
-  async getCarById(id: string): Promise<Car | null> {
-    try {
-      const query = `
-        query GetCar($id: ID!) {
-          car(id: $id) {
-            id
-            title
-            description
-            price
-            currency
-            location
-            imageUrls
-            status
-            year
-            mileage
-            fuelType
-            transmissionType
-            bodyType
-            exteriorColor
-            user {
-              id
-              email
-              name
-              role
-              dealerName
-              dealerLogoUrl
-              dealerPhoneNumber
-            }
-            carMake {
-              name
-            }
-            carModel {
-              name
-            }
-            createdAt
-            updatedAt
-          }
-        }
-      `;
-
-      const response = await this.request<{ car: any }>(query, { id });
-
-      if (response.errors) {
-        console.warn('GraphQL errors for single car:', response.errors);
-        if (this.isProduction) return null;
-        return this.getMockCarById(id);
-      }
-
-      const car = response.data?.car;
-      if (!car) {
-        if (this.isProduction) return null;
-        return this.getMockCarById(id);
-      }
-
-      // Transform backend data to frontend Car interface
-      return {
-        id: car.id,
-        make: car.carMake?.name || 'Unknown',
-        model: car.carModel?.name || 'Unknown', 
-        year: car.year,
-        price: parseFloat(car.price),
-        mileage: car.mileage,
-        fuelType: car.fuelType,
-        transmission: car.transmissionType,
-        bodyType: car.bodyType,
-        color: car.exteriorColor,
-        description: car.description,
-        images: car.imageUrls || [],
-        location: car.location,
-        isAvailable: car.status === 'ACTIVE',
-        isFeatured: car.promotedAt != null,
-        sellerId: car.user.id,
-        seller: {
-          id: car.user.id,
-          email: car.user.email,
-          name: car.user.name,
-          role: car.user.role,
-          dealerName: car.user.dealerName,
-          dealerLogoUrl: car.user.dealerLogoUrl,
-          dealerAddress: car.user.dealerAddress,
-          dealerCity: car.user.dealerCity,
-          dealerPhoneNumber: car.user.dealerPhoneNumber,
-          savedListingIds: []
-        },
-        createdAt: car.createdAt,
-        updatedAt: car.updatedAt
-      };
-
-    } catch (error) {
-      console.warn('Backend connection failed for single car:', error);
-      if (this.isProduction) return null;
-      return this.getMockCarById(id);
-    }
-  }
 
   private getMockCarById(id: string): Car | null {
     const mockCars = this.getMockCars();
@@ -839,6 +639,7 @@ class ApiClient {
   async createCarImage(input: {
     carId: string;
     url: string;
+    thumbnailUrl?: string;
     fileName?: string;
     fileSize?: number;
     mimeType?: string;
@@ -1086,37 +887,7 @@ class ApiClient {
   }
 
   // Car Makes & Models
-  async getCarMakes(): Promise<Array<{ id: string; name: string }>> {
-    const query = `
-      query GetCarMakes {
-        carMakes {
-          id
-          name
-        }
-      }
-    `;
 
-    const response = await this.request<{ carMakes: Array<{ id: string; name: string }> }>(query);
-    return response.data?.carMakes || [];
-  }
-
-  async getCarModels(carMakeId: string): Promise<Array<{ id: string; name: string }>> {
-    const query = `
-      query GetCarModelsByMake($carMakeId: ID!) {
-        carModelsByMake(carMakeId: $carMakeId) {
-          id
-          name
-          carMake {
-            id
-            name
-          }
-        }
-      }
-    `;
-
-    const response = await this.request<{ carModelsByMake: Array<{ id: string; name: string }> }>(query, { carMakeId });
-    return response.data?.carModelsByMake || [];
-  }
 
   // Auth state is managed by httpOnly cookies — use getCurrentUser() to check
   isAuthenticated(): boolean {

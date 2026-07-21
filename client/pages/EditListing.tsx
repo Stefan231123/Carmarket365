@@ -231,6 +231,7 @@ export default function EditListing() {
             await apiClient.createCarImage({
               carId: id!,
               url: uploadResult.url,
+              thumbnailUrl: uploadResult.thumbnailUrl,
               fileName: uploadResult.originalFileName,
               fileSize: uploadResult.fileSize,
               sortOrder: i + (car?.images?.length || 0),

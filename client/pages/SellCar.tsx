@@ -450,6 +450,7 @@ export default function SellCar() {
             await apiClient.createCarImage({
               carId: car.id,
               url: uploadResult.url,
+              thumbnailUrl: uploadResult.thumbnailUrl,
               fileName: uploadResult.originalFileName,
               fileSize: uploadResult.fileSize,
               sortOrder: i,
