@@ -25,6 +25,8 @@
     "db:schema": "pg_dump --schema-only $DATABASE_URL > schema.sql"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1091.0",
+    "@aws-sdk/s3-request-presigner": "^3.1091.0",
     "@nestjs/apollo": "^13.1.0",
     "@nestjs/common": "^11.1.6",
     "@nestjs/config": "^4.0.2",
