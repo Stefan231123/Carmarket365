@@ -13,7 +13,7 @@ import { SEO } from '../components/SEO';
 import ImageUpload from '../components/ImageUpload';
 import { trackEvent } from '../components/Analytics';
 import { apiClient } from '@shared/api-client';
-import { uploadToCloudinary } from '../lib/cloudinary';
+import { uploadImage } from '../lib/image-upload';
 import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, getModelsForMake, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, getMotorcycleModelsForMake, TRUCK_MAKES_SORTED, POPULAR_TRUCK_MAKES, getTruckModelsForMake } from '@shared/car-data';
 import { useCountry } from '../contexts/CountryContext';
 
@@ -190,7 +190,7 @@ export default function ExpressSell() {
           );
 
           try {
-            const uploadResult = await uploadToCloudinary(file);
+            const uploadResult = await uploadImage(file);
             console.log(`[ExpressSell] Cloudinary upload success:`, uploadResult.url);
             await apiClient.createCarImage({
               carId: car.id,

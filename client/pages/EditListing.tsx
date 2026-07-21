@@ -18,7 +18,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
 import ImageUpload from "@/components/ImageUpload";
-import { uploadToCloudinary } from "@/lib/cloudinary";
+import { uploadImage } from "@/lib/image-upload";
 
 export default function EditListing() {
   const { id } = useParams<{ id: string }>();
@@ -227,7 +227,7 @@ export default function EditListing() {
           const file = img.compressed || img.file;
           setUploadProgress(`${t("sell.progress.uploadingImage") || "Uploading image"} ${i + 1}/${imagesToUpload.length}...`);
           try {
-            const uploadResult = await uploadToCloudinary(file);
+            const uploadResult = await uploadImage(file);
             await apiClient.createCarImage({
               carId: id!,
               url: uploadResult.url,

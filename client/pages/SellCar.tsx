@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import ImageUpload from "@/components/ImageUpload";
 import { trackEvent } from "@/components/Analytics";
 import { apiClient } from '@shared/api-client';
-import { uploadToCloudinary } from '@/lib/cloudinary';
+import { uploadImage } from '@/lib/image-upload';
 import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, getModelsForMake, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, getMotorcycleModelsForMake, MOTORCYCLE_BODY_TYPES, TRUCK_MAKES_SORTED, POPULAR_TRUCK_MAKES, getTruckModelsForMake, TRUCK_BODY_TYPES, CAR_BODY_TYPES, GEARS_OPTIONS, MOTORCYCLE_COOLING_TYPES, MOTORCYCLE_STARTER_TYPES, MOTORCYCLE_LICENSE_CLASSES, MOTORCYCLE_CYLINDER_TYPES } from '@shared/car-data';
 import { getLocationsForCountry } from '@shared/locations';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -445,7 +445,7 @@ export default function SellCar() {
           );
 
           try {
-            const uploadResult = await uploadToCloudinary(file);
+            const uploadResult = await uploadImage(file);
             console.log(`[SellCar] Cloudinary upload success:`, uploadResult.url);
             await apiClient.createCarImage({
               carId: car.id,

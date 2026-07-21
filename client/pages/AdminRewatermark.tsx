@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, ShieldCheck, AlertCircle, CheckCircle2, Loader2 } from 'lucide-react';
 import { GET_ALL_CAR_IMAGES, UPDATE_CAR_IMAGE_URL } from '@/lib/graphql/operations';
 import { applyWatermark } from '@/lib/watermark';
-import { uploadToCloudinary } from '@/lib/cloudinary';
+import { uploadImage } from '@/lib/image-upload';
 
 interface ImageRecord { id: string; url: string; thumbnailUrl?: string; carId: string; }
 type JobStatus = 'idle' | 'running' | 'done' | 'error';
@@ -58,7 +58,7 @@ export default function AdminRewatermark() {
         const watermarkedFile = await applyWatermark(file);
 
         // Upload to Cloudinary (new URL, new file with watermark baked in)
-        const result = await uploadToCloudinary(watermarkedFile);
+        const result = await uploadImage(watermarkedFile);
 
         // Update DB record
         await updateUrl({ variables: { id: img.id, url: result.url, thumbnailUrl: result.thumbnailUrl } });

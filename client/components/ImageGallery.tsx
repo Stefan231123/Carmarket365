@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight, X, ZoomIn, ZoomOut, RotateCw } from 'lucide-
 import { Button } from './ui/button';
 import { Dialog, DialogContent } from './ui/dialog';
 import { ImageWithFallback } from './ImageWithFallback';
-import { getWatermarkedUrl } from '@/lib/cloudinary';
+import { getDisplayUrl } from '@/lib/image-upload';
 
 interface ImageGalleryProps {
   images: string[];
@@ -230,8 +230,8 @@ const ImageGallery: React.FC<ImageGalleryProps> = ({
   const [showViewer, setShowViewer] = useState(false);
 
   const rawDisplayImages = thumbnails && thumbnails.length === images.length ? thumbnails : images;
-  const displayImages = rawDisplayImages.map(getWatermarkedUrl);
-  const watermarkedImages = images.map(getWatermarkedUrl);
+  const displayImages = rawDisplayImages.map(getDisplayUrl);
+  const watermarkedImages = images.map(getDisplayUrl);
 
   const handleImageClick = (index: number) => {
     if (onImageClick) {
