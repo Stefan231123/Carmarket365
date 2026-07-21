@@ -22,16 +22,23 @@ const URL_TTL_SECONDS = 300; // 5 minutes
 @Injectable()
 export class S3Service {
   private readonly logger = new Logger(S3Service.name);
-  private readonly bucket = process.env.S3_BUCKET;
+  // Accept either name: AWS_S3_BUCKET is consistent with the other AWS_*
+  // variables, S3_BUCKET is kept for backwards compatibility.
+  private readonly bucket = process.env.AWS_S3_BUCKET || process.env.S3_BUCKET;
   private readonly region = process.env.AWS_REGION;
   private client: S3Client | null = null;
 
   constructor() {
     if (!this.bucket || !this.region) {
-      this.logger.warn('S3_BUCKET / AWS_REGION not set — image uploads will fail until configured');
+      this.logger.warn(
+        `S3 not configured — image uploads will fail. ` +
+          `bucket(AWS_S3_BUCKET|S3_BUCKET)=${this.bucket ? 'set' : 'MISSING'}, ` +
+          `AWS_REGION=${this.region ? 'set' : 'MISSING'}`,
+      );
       return;
     }
     this.client = new S3Client({ region: this.region });
+    this.logger.log(`S3 configured — bucket "${this.bucket}" in ${this.region}`);
   }
 
   isConfigured(): boolean {
