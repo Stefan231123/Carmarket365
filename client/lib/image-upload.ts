@@ -68,7 +68,18 @@ async function getPresignedUpload(fileName: string, contentType: string): Promis
     if (response.status === 401) {
       throw new Error('You must be logged in to upload images.');
     }
-    throw new Error('Failed to prepare image upload.');
+    // Surface the server's actual reason — a bare "failed" message makes
+    // misconfiguration (missing bucket/credentials) impossible to diagnose.
+    let detail = '';
+    try {
+      const body = await response.json();
+      detail = Array.isArray(body?.message) ? body.message.join(', ') : (body?.message || '');
+    } catch {
+      /* non-JSON error body */
+    }
+    throw new Error(
+      `Failed to prepare image upload (HTTP ${response.status}${detail ? `: ${detail}` : ''})`,
+    );
   }
 
   return response.json();
