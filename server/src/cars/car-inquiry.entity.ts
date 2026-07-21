@@ -82,11 +82,11 @@ export class CarInquiry {
   @Column('decimal', { precision: 12, scale: 2, nullable: true })
   offerPrice?: number; // For price negotiations
 
-  @Field({ nullable: true })
+  // Internal-only (abuse investigation / GDPR). NOT exposed via GraphQL so sellers
+  // cannot harvest the IP address / user-agent of people who inquire.
   @Column({ nullable: true })
   ipAddress?: string;
 
-  @Field({ nullable: true })
   @Column({ nullable: true })
   userAgent?: string;
 

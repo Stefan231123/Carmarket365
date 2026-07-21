@@ -163,10 +163,8 @@ export class CreateCarInput {
   @IsBoolean()
   quickSale?: boolean;
 
-  @Field({ nullable: true })
-  @IsOptional()
-  @IsBoolean()
-  isFeatured?: boolean;
+  // NOTE: isFeatured is intentionally NOT settable here — featured placement is
+  // an admin/paid-promotion action, not something a seller can grant themselves.
 
   @Field(() => Float, { nullable: true })
   @IsOptional()
@@ -432,10 +430,8 @@ export class UpdateCarInput {
   @IsBoolean()
   isAvailable?: boolean;
 
-  @Field({ nullable: true })
-  @IsOptional()
-  @IsBoolean()
-  isFeatured?: boolean;
+  // NOTE: isFeatured is intentionally NOT settable here — featured placement is
+  // an admin/paid-promotion action, not something a seller can grant themselves.
 
   @Field(() => Float, { nullable: true })
   @IsOptional()

@@ -86,12 +86,24 @@ export class CarInquiriesService {
     return inquiry;
   }
 
-  async findByCarId(carId: string): Promise<CarInquiry[]> {
+  async findByCarId(carId: string, user: User): Promise<CarInquiry[]> {
+    await this.assertCanViewCarInquiries(carId, user);
+
     return this.carInquiryRepository.find({
       where: { carId },
       order: { createdAt: 'DESC' },
       relations: ['user'],
     });
+  }
+
+  async assertCanViewCarInquiries(carId: string, user: User): Promise<void> {
+    const car = await this.carRepository.findOne({ where: { id: carId } });
+    if (!car) {
+      throw new NotFoundException(`Car with ID ${carId} not found`);
+    }
+    if (car.sellerId !== user.id && user.role !== 'ADMIN') {
+      throw new ForbiddenException('You can only view inquiries for your own cars');
+    }
   }
 
   async findByUserId(userId: string): Promise<CarInquiry[]> {

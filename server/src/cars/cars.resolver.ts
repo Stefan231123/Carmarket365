@@ -5,8 +5,10 @@ import { Car } from './car.entity';
 import { CarsService } from './cars.service';
 import { CreateCarInput, UpdateCarInput, CarFilterInput } from './dto/car.input';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { Roles } from '../auth/decorators/roles.decorator';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { User } from '../users/user.entity';
+import { User, UserRole } from '../users/user.entity';
 import { CAR_MAKES, getModelsForMake } from '../shared/car-data';
 
 @Resolver(() => Car)
@@ -65,7 +67,8 @@ export class CarsResolver {
   }
 
   @Query(() => [Car], { name: 'getExpressSaleOpportunities', description: 'Get express/quick sale listings (dealer-only visibility)' })
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.DEALER, UserRole.ADMIN)
   async getExpressSaleOpportunities(): Promise<Car[]> {
     return this.carsService.findQuickSaleListings();
   }

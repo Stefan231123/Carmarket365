@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, ForbiddenException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CarView } from './car-view.entity';
+import { Car } from './car.entity';
+import { User, UserRole } from '../users/user.entity';
 
 export interface CreateCarViewData {
   carId: string;
@@ -19,6 +21,8 @@ export class CarViewsService {
   constructor(
     @InjectRepository(CarView)
     private readonly carViewRepository: Repository<CarView>,
+    @InjectRepository(Car)
+    private readonly carRepository: Repository<Car>,
   ) {}
 
   async recordView(viewData: CreateCarViewData): Promise<CarView> {
@@ -44,7 +48,15 @@ export class CarViewsService {
     return this.carViewRepository.save(carView);
   }
 
-  async getViewsByCarId(carId: string): Promise<CarView[]> {
+  async getViewsByCarId(carId: string, user: User): Promise<CarView[]> {
+    const car = await this.carRepository.findOne({ where: { id: carId } });
+    if (!car) {
+      throw new NotFoundException(`Car with ID ${carId} not found`);
+    }
+    if (car.sellerId !== user.id && user.role !== UserRole.ADMIN) {
+      throw new ForbiddenException('You can only view views for your own cars');
+    }
+
     return this.carViewRepository.find({
       where: { carId },
       order: { createdAt: 'DESC' },

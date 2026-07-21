@@ -73,7 +73,7 @@ type Car {
   region: String
   safetyFeatures: [String!]!
   seats: Int
-  seller: User!
+  seller: PublicSeller!
   soldAt: DateTime
   transmission: TransmissionType!
   updatedAt: DateTime!
@@ -135,7 +135,6 @@ type CarInquiry {
   createdAt: DateTime!
   email: String!
   id: ID!
-  ipAddress: String
   message: String!
   name: String!
   offerPrice: Float
@@ -149,7 +148,6 @@ type CarInquiry {
   type: InquiryType!
   updatedAt: DateTime!
   user: User
-  userAgent: String
 }
 
 type CarView {
@@ -199,7 +197,6 @@ input CreateCarInput {
   fuelType: FuelType!
   horsePower: Int
   interiorColor: String
-  isFeatured: Boolean
   location: String!
   make: String!
   mileage: Int!
@@ -342,6 +339,30 @@ type PopularSavedCar {
   saveCount: Int!
 }
 
+"""Public-safe subset of a seller/dealer profile, exposed on car listings"""
+type PublicSeller {
+  avatarUrl: String
+  createdAt: DateTime!
+  dealerAddress: String
+  dealerCity: String
+  dealerCountry: String
+  dealerDescription: String
+  dealerLogoUrl: String
+  dealerName: String
+  dealerPhoneNumber: String
+  dealerPostalCode: String
+  dealerRegion: String
+  dealerServices: [String!]!
+  dealerStatus: DealerStatus
+  dealerWebsite: String
+  dealerWorkingHours: [String!]!
+  email: String!
+  id: ID!
+  name: String
+  phone: String
+  role: UserRole!
+}
+
 type Query {
   getActiveSearchAlerts: [SearchAlert!]!
   getAdminStats: AdminStats!
@@ -397,10 +418,8 @@ input RecordCarViewInput {
   carId: String!
   city: String
   countryCode: String
-  ipAddress: String
   referrer: String
   sessionId: String
-  userAgent: String
 }
 
 input RegisterInput {
@@ -506,7 +525,6 @@ input UpdateCarInput {
   horsePower: Int
   interiorColor: String
   isAvailable: Boolean
-  isFeatured: Boolean
   location: String
   make: String
   mileage: Int
@@ -559,7 +577,6 @@ type User {
   dealerWebsite: String
   dealerWorkingHours: [String!]!
   email: String!
-  emailVerificationToken: String
   firstName: String
   id: ID!
   isActive: Boolean!
@@ -569,8 +586,6 @@ type User {
   lastName: String
   marketingEmailsEnabled: Boolean!
   name: String
-  passwordResetExpires: DateTime
-  passwordResetToken: String
   phone: String
   role: UserRole!
   savedCars: [SavedCar!]!

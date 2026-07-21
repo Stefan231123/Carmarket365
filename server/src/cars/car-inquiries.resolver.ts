@@ -1,11 +1,14 @@
 import { Resolver, Query, Mutation, Args, Int, ObjectType, Field } from '@nestjs/graphql';
-import { UseGuards, UnauthorizedException } from '@nestjs/common';
+import { UseGuards, UnauthorizedException, ForbiddenException } from '@nestjs/common';
+import { Throttle } from '@nestjs/throttler';
 import { CarInquiry, InquiryType, InquiryStatus } from './car-inquiry.entity';
 import { CarInquiriesService, CreateCarInquiryData, UpdateCarInquiryData } from './car-inquiries.service';
 import { RecaptchaService } from '../common/recaptcha/recaptcha.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { Roles } from '../auth/decorators/roles.decorator';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { User } from '../users/user.entity';
+import { User, UserRole } from '../users/user.entity';
 import { InputType } from '@nestjs/graphql';
 import { IsString, IsEmail, IsOptional, IsEnum, IsNotEmpty } from 'class-validator';
 
@@ -72,6 +75,7 @@ export class CarInquiriesResolver {
   ) {}
 
   @Mutation(() => CarInquiry)
+  @Throttle({ auth: { ttl: 60000, limit: 5 } })
   async createCarInquiry(
     @Args('input') createCarInquiryInput: CreateCarInquiryInput,
     @Args('captchaToken', { nullable: true }) captchaToken?: string,
@@ -92,14 +96,28 @@ export class CarInquiriesResolver {
 
   @Query(() => CarInquiry, { name: 'getCarInquiryById' })
   @UseGuards(JwtAuthGuard)
-  async getCarInquiryById(@Args('id') id: string): Promise<CarInquiry> {
-    return this.carInquiriesService.findById(id);
+  async getCarInquiryById(
+    @Args('id') id: string,
+    @CurrentUser() user: User,
+  ): Promise<CarInquiry> {
+    const inquiry = await this.carInquiriesService.findById(id);
+    const canView =
+      inquiry.car.sellerId === user.id ||
+      inquiry.userId === user.id ||
+      user.role === UserRole.ADMIN;
+    if (!canView) {
+      throw new ForbiddenException('You can only view your own inquiries');
+    }
+    return inquiry;
   }
 
   @Query(() => [CarInquiry], { name: 'getCarInquiries' })
   @UseGuards(JwtAuthGuard)
-  async getCarInquiries(@Args('carId') carId: string): Promise<CarInquiry[]> {
-    return this.carInquiriesService.findByCarId(carId);
+  async getCarInquiries(
+    @Args('carId') carId: string,
+    @CurrentUser() user: User,
+  ): Promise<CarInquiry[]> {
+    return this.carInquiriesService.findByCarId(carId, user);
   }
 
   @Query(() => [CarInquiry], { name: 'getUserInquiries' })
@@ -115,7 +133,8 @@ export class CarInquiriesResolver {
   }
 
   @Query(() => [CarInquiry], { name: 'getRecentInquiries' })
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
   async getRecentInquiries(
     @Args('limit', { type: () => Int, defaultValue: 20 }) limit: number,
   ): Promise<CarInquiry[]> {
@@ -125,8 +144,14 @@ export class CarInquiriesResolver {
   @Query(() => InquiryStats, { name: 'getInquiryStats' })
   @UseGuards(JwtAuthGuard)
   async getInquiryStats(
+    @CurrentUser() user: User,
     @Args('carId', { nullable: true }) carId?: string,
   ): Promise<InquiryStats> {
+    if (carId) {
+      await this.carInquiriesService.assertCanViewCarInquiries(carId, user);
+    } else if (user.role !== UserRole.ADMIN) {
+      throw new ForbiddenException('Only admins can view platform-wide inquiry stats');
+    }
     return this.carInquiriesService.getInquiryStats(carId);
   }
 

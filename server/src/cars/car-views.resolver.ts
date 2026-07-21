@@ -1,10 +1,13 @@
-import { Resolver, Query, Mutation, Args, Int, ObjectType, Field } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, ObjectType, Field, Context } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
+import { Request } from 'express';
 import { CarView } from './car-view.entity';
 import { CarViewsService, CreateCarViewData } from './car-views.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { Roles } from '../auth/decorators/roles.decorator';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { User } from '../users/user.entity';
+import { User, UserRole } from '../users/user.entity';
 import { InputType } from '@nestjs/graphql';
 
 @InputType()
@@ -12,11 +15,8 @@ class RecordCarViewInput {
   @Field()
   carId: string;
 
-  @Field({ nullable: true })
-  ipAddress?: string;
-
-  @Field({ nullable: true })
-  userAgent?: string;
+  // ipAddress and userAgent are intentionally NOT accepted from the client —
+  // they are derived server-side from the request so analytics can't be spoofed.
 
   @Field({ nullable: true })
   referrer?: string;
@@ -59,10 +59,18 @@ export class CarViewsResolver {
   @Mutation(() => CarView)
   async recordCarView(
     @Args('input') recordCarViewInput: RecordCarViewInput,
+    @Context() ctx: { req: Request },
     @CurrentUser() user?: User,
   ): Promise<CarView> {
+    const req = ctx.req;
+    const forwardedFor = (req.headers['x-forwarded-for'] as string | undefined)
+      ?.split(',')[0]
+      ?.trim();
+
     const viewData: CreateCarViewData = {
       ...recordCarViewInput,
+      ipAddress: forwardedFor || req.ip,
+      userAgent: req.headers['user-agent'],
       userId: user?.id,
     };
 
@@ -71,8 +79,11 @@ export class CarViewsResolver {
 
   @Query(() => [CarView], { name: 'getCarViews' })
   @UseGuards(JwtAuthGuard)
-  async getCarViews(@Args('carId') carId: string): Promise<CarView[]> {
-    return this.carViewsService.getViewsByCarId(carId);
+  async getCarViews(
+    @Args('carId') carId: string,
+    @CurrentUser() user: User,
+  ): Promise<CarView[]> {
+    return this.carViewsService.getViewsByCarId(carId, user);
   }
 
   @Query(() => CarViewStats, { name: 'getCarViewStats' })
@@ -90,7 +101,8 @@ export class CarViewsResolver {
   }
 
   @Query(() => [CarView], { name: 'getRecentCarViews' })
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
   async getRecentCarViews(
     @Args('limit', { type: () => Int, defaultValue: 50 }) limit: number,
   ): Promise<CarView[]> {

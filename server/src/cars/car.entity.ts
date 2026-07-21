@@ -4,6 +4,7 @@ import { User } from '../users/user.entity';
 import { CarImage } from './car-image.entity';
 import { CarView } from './car-view.entity';
 import { CarInquiry } from './car-inquiry.entity';
+import { PublicSeller } from './public-seller.type';
 
 export enum VehicleType {
   CAR = 'CAR',
@@ -329,7 +330,7 @@ export class Car {
   @Column()
   sellerId: string;
 
-  @Field(() => User)
+  @Field(() => PublicSeller, { description: 'Public-safe seller profile (see PublicSeller type for excluded fields)' })
   @ManyToOne(() => User, user => user.cars, { eager: true })
   @JoinColumn({ name: 'sellerId' })
   seller: User;
