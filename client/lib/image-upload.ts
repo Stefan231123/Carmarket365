@@ -56,12 +56,18 @@ function buildAuthHeaders(): Record<string, string> {
   return headers;
 }
 
-async function getPresignedUpload(fileName: string, contentType: string): Promise<PresignedUpload> {
+type UploadKind = 'image' | 'thumbnail' | 'avatar';
+
+async function getPresignedUpload(
+  fileName: string,
+  contentType: string,
+  kind: UploadKind = 'image',
+): Promise<PresignedUpload> {
   const response = await fetch(`${getApiBaseUrl()}/api/uploads/presign`, {
     method: 'POST',
     credentials: 'include', // send httpOnly auth cookie when the browser allows it
     headers: buildAuthHeaders(),
-    body: JSON.stringify({ fileName, contentType }),
+    body: JSON.stringify({ fileName, contentType, kind }),
   });
 
   if (!response.ok) {
@@ -171,7 +177,7 @@ export async function uploadImage(file: File): Promise<ImageUploadResult> {
   try {
     const thumb = await makeThumbnail(watermarked);
     if (thumb) {
-      const thumbTarget = await getPresignedUpload(`thumb-${file.name}`, 'image/jpeg');
+      const thumbTarget = await getPresignedUpload(`thumb-${file.name}`, 'image/jpeg', 'thumbnail');
       await putToS3(thumbTarget.uploadUrl, thumb, 'image/jpeg');
       thumbnailUrl = thumbTarget.publicUrl;
     }

@@ -1,7 +1,7 @@
 import { Controller, Post, Body, Req, UseGuards, BadRequestException, UnauthorizedException } from '@nestjs/common';
 import { Request } from 'express';
 import { Throttle } from '@nestjs/throttler';
-import { IsIn, IsString, IsNotEmpty } from 'class-validator';
+import { IsIn, IsString, IsNotEmpty, IsOptional } from 'class-validator';
 import { RestJwtAuthGuard } from '../../auth/guards/rest-jwt-auth.guard';
 import { User } from '../../users/user.entity';
 import { S3Service, PresignedUpload } from './s3.service';
@@ -13,7 +13,19 @@ class PresignRequestDto {
 
   @IsIn(['image/jpeg', 'image/png', 'image/webp'])
   contentType: string;
+
+  /** Which public prefix to store under. Must match the bucket policy. */
+  @IsOptional()
+  @IsIn(['image', 'thumbnail', 'avatar'])
+  kind?: 'image' | 'thumbnail' | 'avatar';
 }
+
+/** Prefixes granted public read by the bucket policy. */
+const FOLDER_BY_KIND: Record<string, string> = {
+  image: 'images',
+  thumbnail: 'thumbnails',
+  avatar: 'avatars',
+};
 
 @Controller('api/uploads')
 export class S3UploadController {
@@ -36,7 +48,9 @@ export class S3UploadController {
       throw new BadRequestException('Image uploads are not configured on the server');
     }
 
-    // Namespace uploads per user — makes abuse traceable and cleanup easy.
-    return this.s3Service.createPresignedUpload(`listings/${user.id}`, body.fileName, body.contentType);
+    // Store under a publicly-readable prefix, namespaced per user so abuse is
+    // traceable and cleanup is easy.
+    const folder = `${FOLDER_BY_KIND[body.kind ?? 'image']}/${user.id}`;
+    return this.s3Service.createPresignedUpload(folder, body.fileName, body.contentType);
   }
 }
