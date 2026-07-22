@@ -6,12 +6,20 @@
   "framework": null,
   "rewrites": [
     {
+      "source": "/graphql",
+      "destination": "https://carmarket365-production.up.railway.app/graphql"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "https://carmarket365-production.up.railway.app/api/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
   ],
   "env": {
     "VITE_APP_NAME": "CarMarket365",
-    "VITE_GRAPHQL_ENDPOINT": "https://carmarket365-production.up.railway.app/graphql"
+    "VITE_GRAPHQL_ENDPOINT": "/graphql"
   }
 }
