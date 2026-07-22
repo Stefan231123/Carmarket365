@@ -7,12 +7,21 @@ import { RecaptchaService } from '../common/recaptcha/recaptcha.service';
 import { LoginInput, RegisterInput } from './dto/auth.input';
 import { AuthResponse } from './dto/auth.response';
 
+// In production the API is served from api.carmarket365.com while the site is
+// on www.carmarket365.com. Scoping the cookie to the parent domain makes it
+// valid on both, so it counts as first-party rather than a third-party cookie
+// (which Safari's tracking prevention and Chrome's 3p-cookie phase-out block).
+const COOKIE_DOMAIN =
+  process.env.COOKIE_DOMAIN ||
+  (process.env.NODE_ENV === 'production' ? '.carmarket365.com' : undefined);
+
 const COOKIE_OPTIONS = {
   httpOnly: true,
   secure: process.env.NODE_ENV === 'production',
   sameSite: (process.env.NODE_ENV === 'production' ? 'none' : 'lax') as 'none' | 'lax',
   maxAge: 90 * 24 * 60 * 60 * 1000, // 90 days
   path: '/',
+  ...(COOKIE_DOMAIN ? { domain: COOKIE_DOMAIN } : {}),
 };
 
 @Resolver()
@@ -27,7 +36,12 @@ export class AuthResolver {
   }
 
   private clearAuthCookie(res: Response) {
-    res.clearCookie('access_token', { path: '/', httpOnly: true });
+    // Domain must match how the cookie was set, or the browser won't clear it.
+    res.clearCookie('access_token', {
+      path: '/',
+      httpOnly: true,
+      ...(COOKIE_DOMAIN ? { domain: COOKIE_DOMAIN } : {}),
+    });
   }
 
   @Mutation(() => AuthResponse, { description: 'Authenticate with email and password. Sets httpOnly cookie.' })
