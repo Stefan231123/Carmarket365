@@ -29,7 +29,7 @@ function getApiBaseUrl(): string {
   const graphqlEndpoint = import.meta.env.VITE_GRAPHQL_ENDPOINT;
   if (graphqlEndpoint) return graphqlEndpoint.replace(/\/graphql\/?$/, '');
   if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
-    return 'https://carmarket365-production.up.railway.app';
+    return 'https://api.carmarket365.com';
   }
   return 'http://localhost:3002';
 }

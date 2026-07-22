@@ -4,7 +4,7 @@ function getGraphQLEndpoint(): string {
   const envEndpoint = import.meta.env.VITE_GRAPHQL_ENDPOINT;
   if (envEndpoint) return envEndpoint;
   if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
-    return 'https://carmarket365-production.up.railway.app/graphql';
+    return 'https://api.carmarket365.com/graphql';
   }
   return 'http://localhost:3002/graphql';
 }

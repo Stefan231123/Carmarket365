@@ -116,7 +116,7 @@ class ApiClient {
       this.baseUrl = envEndpoint;
     } else if (typeof window !== 'undefined' && window.location.hostname !== 'localhost') {
       // Production: connect to Railway backend
-      this.baseUrl = 'https://carmarket365-production.up.railway.app/graphql';
+      this.baseUrl = 'https://api.carmarket365.com/graphql';
     } else {
       this.baseUrl = 'http://localhost:3002/graphql';
     }
