@@ -120,21 +120,19 @@ class ApiClient {
       this.baseUrl = 'http://localhost:3002/graphql';
     }
 
-    // Restore token from localStorage so it survives page reloads
+    // Deliberately NOT restoring a JWT from storage. The API is proxied
+    // same-origin (see vercel.json), so the httpOnly auth cookie is
+    // first-party and sent reliably — a stored copy would only add an
+    // XSS-readable credential. Clear any token left by earlier versions.
     try {
-      this.accessToken = localStorage.getItem(ApiClient.TOKEN_KEY);
+      localStorage.removeItem(ApiClient.TOKEN_KEY);
+      localStorage.removeItem('authToken');
     } catch {}
   }
 
+  /** In-memory only — never persisted, so XSS cannot exfiltrate it. */
   setAccessToken(token: string | null) {
     this.accessToken = token;
-    try {
-      if (token) {
-        localStorage.setItem(ApiClient.TOKEN_KEY, token);
-      } else {
-        localStorage.removeItem(ApiClient.TOKEN_KEY);
-      }
-    } catch {}
   }
 
   private async request<T>(query: string, variables?: any): Promise<ApiResponse<T>> {

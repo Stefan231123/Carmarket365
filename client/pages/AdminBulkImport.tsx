@@ -50,7 +50,6 @@ const OPTIONAL_COLS = [
 export default function AdminBulkImport() {
   const navigate = useNavigate();
   const fileRef = useRef<HTMLInputElement>(null);
-  const token = localStorage.getItem('authToken');
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<ImportPreview | null>(null);
   const [result, setResult] = useState<ImportResult | null>(null);
@@ -104,7 +103,6 @@ export default function AdminBulkImport() {
     form.append('file', file);
     const res = await fetch(`${baseUrl}/api/admin/bulk-import/${endpoint}`, {
       method: 'POST',
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
       credentials: 'include',
       body: form,
     });

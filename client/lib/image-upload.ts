@@ -34,28 +34,6 @@ function getApiBaseUrl(): string {
   return 'http://localhost:3002';
 }
 
-/**
- * Auth headers for calls to our own API.
- *
- * The frontend and backend are on different sites, so the httpOnly auth cookie
- * is third-party and gets blocked by Safari's tracking prevention and Chrome's
- * third-party cookie restrictions. We therefore also send the JWT as a Bearer
- * token — the same belt-and-braces approach shared/api-client.ts uses. Sending
- * only the cookie makes uploads fail with 401 for a large share of users.
- */
-function buildAuthHeaders(): Record<string, string> {
-  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
-  try {
-    // 'cm365_token' is what api-client persists on login; 'authToken' is the
-    // legacy key still written by secureTokenManager.
-    const token = localStorage.getItem('cm365_token') || localStorage.getItem('authToken');
-    if (token) headers['Authorization'] = `Bearer ${token}`;
-  } catch {
-    // localStorage unavailable (private mode) — fall back to the cookie alone.
-  }
-  return headers;
-}
-
 type UploadKind = 'image' | 'thumbnail' | 'avatar';
 
 async function getPresignedUpload(
@@ -65,8 +43,8 @@ async function getPresignedUpload(
 ): Promise<PresignedUpload> {
   const response = await fetch(`${getApiBaseUrl()}/api/uploads/presign`, {
     method: 'POST',
-    credentials: 'include', // send httpOnly auth cookie when the browser allows it
-    headers: buildAuthHeaders(),
+    credentials: 'include', // first-party auth cookie (API is proxied same-origin)
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ fileName, contentType, kind }),
   });
 
