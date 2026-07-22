@@ -51,7 +51,6 @@ export const GET_CURRENT_USER = gql`
       dealerAddress
       dealerCity
       dealerPhoneNumber
-      savedListingIds
     }
   }
 `;
@@ -428,7 +427,6 @@ export const GET_USERS = gql`
       dealerAddress
       dealerCity
       dealerPhoneNumber
-      savedListingIds
       createdAt
     }
   }

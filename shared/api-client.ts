@@ -25,7 +25,8 @@ export interface User {
   dealerAddress?: string;
   dealerCity?: string;
   dealerPhoneNumber?: string;
-  savedListingIds: string[];
+  /** Not returned by the API — saved cars come from getUserSavedCars. */
+  savedListingIds?: string[];
 }
 
 export interface Car {
@@ -277,7 +278,6 @@ class ApiClient {
           dealerAddress
           dealerCity
           dealerPhoneNumber
-          savedListingIds
         }
       }
     `;

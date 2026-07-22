@@ -18,6 +18,26 @@
       "destination": "/index.html"
     }
   ],
+  "headers": [
+    {
+      "source": "/(js|css|assets)/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/index.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ],
   "env": {
     "VITE_APP_NAME": "CarMarket365",
     "VITE_GRAPHQL_ENDPOINT": "/graphql"
