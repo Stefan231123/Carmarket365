@@ -80,4 +80,31 @@ export async function registerUser(
   return { token: data.access_token, userId: data.user.id, email };
 }
 
+export const BASE_CAR = {
+  make: 'Audi',
+  model: 'A3',
+  year: 2018,
+  price: 15000,
+  mileage: 60000,
+  fuelType: 'GASOLINE',
+  transmission: 'MANUAL',
+  location: 'Skopje',
+};
+
+/** Create a listing as the given user and return the created car. */
+export async function createCar(
+  t: TestApp,
+  token: string,
+  extra: Record<string, unknown> = {},
+): Promise<{ id: string; make: string; model: string }> {
+  const res = await t.gql(
+    `mutation C($input: CreateCarInput!) { createCar(input: $input) { id make model } }`,
+    { token, variables: { input: { ...BASE_CAR, ...extra } } },
+  );
+  if (!res.body?.data?.createCar) {
+    throw new Error(`createCar failed: ${JSON.stringify(res.body)}`);
+  }
+  return res.body.data.createCar;
+}
+
 export { VALID_PASSWORD };

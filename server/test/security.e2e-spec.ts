@@ -1,4 +1,4 @@
-import { createTestApp, TestApp, registerUser } from './app.helper';
+import { createTestApp, TestApp, registerUser, BASE_CAR, createCar as createCarHelper } from './app.helper';
 
 /**
  * Regression tests for the access-control fixes. Each of these guards a hole
@@ -17,24 +17,8 @@ describe('Security / access control', () => {
     createCar(input: $input) { id make model isFeatured }
   }`;
 
-  const baseCar = {
-    make: 'Audi',
-    model: 'A3',
-    year: 2018,
-    price: 15000,
-    mileage: 60000,
-    fuelType: 'GASOLINE',
-    transmission: 'MANUAL',
-    location: 'Skopje',
-  };
-
-  async function createCar(token: string, extra: Record<string, unknown> = {}) {
-    const res = await t.gql(CREATE_CAR, { token, variables: { input: { ...baseCar, ...extra } } });
-    if (!res.body?.data?.createCar) {
-      throw new Error(`createCar failed: ${JSON.stringify(res.body)}`);
-    }
-    return res.body.data.createCar;
-  }
+  const baseCar = BASE_CAR;
+  const createCar = (token: string, extra: Record<string, unknown> = {}) => createCarHelper(t, token, extra);
 
   it('requires authentication to create a listing', async () => {
     const res = await t.gql(CREATE_CAR, { variables: { input: baseCar } });
