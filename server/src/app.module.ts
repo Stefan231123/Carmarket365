@@ -82,23 +82,27 @@ import { SubscribersModule } from './common/subscribers/subscribers.module';
     }),
 
     // Rate limiting
-    ThrottlerModule.forRoot([
-      {
-        name: 'default',
-        ttl: 60000,
-        limit: 30, // 30 requests per minute per IP (halved from 60)
-      },
-      {
-        name: 'auth',
-        ttl: 60000,
-        limit: 5, // 5 requests per minute per IP (auth endpoints)
-      },
-      {
-        name: 'scrape', // Very tight limit for bulk listing queries
-        ttl: 60000,
-        limit: 10,
-      },
-    ]),
+    ThrottlerModule.forRoot({
+      // Disabled under test so the integration suite can make many auth calls.
+      skipIf: () => process.env.NODE_ENV === 'test',
+      throttlers: [
+        {
+          name: 'default',
+          ttl: 60000,
+          limit: 30, // 30 requests per minute per IP (halved from 60)
+        },
+        {
+          name: 'auth',
+          ttl: 60000,
+          limit: 5, // 5 requests per minute per IP (auth endpoints)
+        },
+        {
+          name: 'scrape', // Very tight limit for bulk listing queries
+          ttl: 60000,
+          limit: 10,
+        },
+      ],
+    }),
 
     // Feature modules
     RecaptchaModule,
