@@ -2,7 +2,6 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import request from 'supertest';
 import { AppModule } from '../src/app.module';
-import { GqlThrottlerGuard } from '../src/common/guards/gql-throttler.guard';
 
 type Agent = ReturnType<typeof request>;
 
@@ -23,14 +22,11 @@ interface GqlOpts {
  * stubbed out so repeated auth calls in tests don't trip the throttle.
  */
 export async function createTestApp(): Promise<TestApp> {
+  // Rate limiting is disabled under NODE_ENV=test (see ThrottlerModule.skipIf
+  // in app.module), so repeated auth calls here aren't throttled.
   const moduleRef = await Test.createTestingModule({
     imports: [AppModule],
-  })
-    // The app registers GqlThrottlerGuard as a global (APP_GUARD) guard; stub it
-    // so repeated auth calls in tests aren't rate-limited.
-    .overrideGuard(GqlThrottlerGuard)
-    .useValue({ canActivate: () => true })
-    .compile();
+  }).compile();
 
   const app = moduleRef.createNestApplication();
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true }));
