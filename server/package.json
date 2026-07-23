@@ -22,7 +22,8 @@
     "db:validate": "psql $DATABASE_URL -f ./scripts/validate-database.sql",
     "db:seed": "psql $DATABASE_URL -f ./src/database/seeds.sql",
     "db:maintenance": "./scripts/database-maintenance.sh",
-    "db:schema": "pg_dump --schema-only $DATABASE_URL > schema.sql"
+    "db:schema": "pg_dump --schema-only $DATABASE_URL > schema.sql",
+    "schema:check": "node dist/src/database/check-schema-sync.js"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1091.0",

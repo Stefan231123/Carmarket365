@@ -6,48 +6,104 @@ on:
   pull_request:
     branches: [main]
 
+# Cancel superseded runs on the same branch/PR to save minutes.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   frontend:
-    name: Frontend Build & Lint
+    name: Frontend build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Type check
+      - run: npm ci
+      # Type check is informational for now — the repo has known pre-existing
+      # errors in the translation files. The build is the hard gate.
+      - name: Type check (non-blocking)
         run: npx tsc --noEmit
         continue-on-error: true
-
       - name: Build
         run: npx vite build
 
   backend:
-    name: Backend Build & Lint
+    name: Backend build & test
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: server
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
           cache-dependency-path: server/package-lock.json
-
-      - name: Install dependencies
-        run: npm ci
-
+      - run: npm ci
       - name: Type check
         run: npx tsc --noEmit
-
       - name: Build
         run: npm run build
+      # Runs the test suite once it exists (Plan phase W2). No-op until then.
+      - name: Test
+        run: npm test --if-present
+
+  migrations:
+    name: DB migrations & schema sync
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: server
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: carmarket365_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/carmarket365_ci
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: server/package-lock.json
+      - run: npm ci
+      - name: Build
+        run: npm run build
+      # Hard gate: every migration must apply cleanly on a fresh database.
+      - name: Run migrations
+        run: npx typeorm migration:run -d dist/src/database/data-source.js
+      # Catches the "entity has a column no migration adds" outage class.
+      # Informational at first; promote to a required check once it's proven
+      # clean over a few runs (TypeORM's diff can be noisy on defaults/indexes).
+      - name: Schema drift check (non-blocking)
+        run: npm run schema:check
+        continue-on-error: true
+
+  security-audit:
+    name: Dependency audit (informational)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Audit frontend deps
+        run: npm audit --audit-level=high || true
+      - name: Audit backend deps
+        run: cd server && npm audit --audit-level=high || true
