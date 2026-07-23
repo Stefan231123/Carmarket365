@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   frontend:
-    name: Frontend build
+    name: Frontend Build & Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
