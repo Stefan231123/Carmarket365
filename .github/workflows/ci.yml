@@ -30,6 +30,25 @@ jobs:
       - name: Build
         run: npx vite build
 
+  e2e:
+    name: E2E (Playwright)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+      # Scaffold only for now: a smoke test against the deployed site. Real
+      # critical-path flows land in W3; point E2E_BASE_URL at a preview then.
+      - name: Run E2E
+        run: npm run e2e
+        env:
+          E2E_BASE_URL: https://www.carmarket365.com
+
   backend:
     name: Backend build & test
     runs-on: ubuntu-latest
