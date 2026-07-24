@@ -2588,7 +2588,8 @@ export const mkTranslations: TranslationStrings = {
     // Action Buttons
     actions: {
       callDealer: 'Повикај продавач',
-      sendMessage: 'Испрати порака',
+      messageSeller: 'Порака на CarMarket365',
+      sendMessage: 'Испрати е-пошта',
       scheduleTestDrive: 'Закажи тест возење',
       getPreApproved: 'Добиј претходно одобрување',
       calculatePayment: 'Пресметај плаќање',

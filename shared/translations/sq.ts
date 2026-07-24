@@ -4403,7 +4403,8 @@ export const sqTranslations: TranslationStrings = {
     // Action Buttons
     actions: {
       callDealer: 'Telefono Dilerin',
-      sendMessage: 'Dërgo Mesazh',
+      messageSeller: 'Mesazh në CarMarket365',
+      sendMessage: 'Dërgo Email',
       scheduleTestDrive: 'Programo Test Drive',
       getPreApproved: 'Merr Paraprovim',
       calculatePayment: 'Llogarit Pagesën',

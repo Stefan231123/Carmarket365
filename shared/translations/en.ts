@@ -3034,7 +3034,8 @@ export const enTranslations: TranslationStrings = {
     // Action Buttons
     actions: {
       callDealer: 'Call Seller',
-      sendMessage: 'Send Message',
+      messageSeller: 'Message on CarMarket365',
+      sendMessage: 'Send Email',
       scheduleTestDrive: 'Schedule Test Drive',
       getPreApproved: 'Get Pre-Approved',
       calculatePayment: 'Calculate Payment',
