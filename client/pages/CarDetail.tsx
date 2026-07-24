@@ -559,16 +559,18 @@ export default function CarDetail() {
                     <Phone className="h-4 w-4 mr-2" />
                     {t('carDetail.actions.callDealer')}
                   </Button>
-                  <Button onClick={() => setIsContactModalOpen(true)} variant="outline" className="w-full border-zinc-100 rounded-full h-12" size="lg">
+                  {/* In-app messenger — the native channel, shown first */}
+                  {!isOwnListing && (
+                    <Button onClick={handleMessageSeller} disabled={startingChat} className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-12" size="lg">
+                      <MessageSquare className="h-4 w-4 mr-2" />
+                      {startingChat ? t('common.loading') : t('carDetail.actions.messageSeller')}
+                    </Button>
+                  )}
+                  {/* Email inquiry — clearly distinct from in-app messaging */}
+                  <Button onClick={() => setIsContactModalOpen(true)} variant="outline" className="w-full border-zinc-200 rounded-full h-12" size="lg">
                     <Mail className="h-4 w-4 mr-2" />
                     {t('carDetail.actions.sendMessage')}
                   </Button>
-                  {!isOwnListing && (
-                    <Button onClick={handleMessageSeller} disabled={startingChat} variant="outline" className="w-full border-zinc-100 rounded-full h-12" size="lg">
-                      <MessageSquare className="h-4 w-4 mr-2" />
-                      {startingChat ? 'Starting…' : 'Message Seller'}
-                    </Button>
-                  )}
 
                 </div>
 
