@@ -13,6 +13,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { CarsModule } from './cars/cars.module';
 import { AdminModule } from './admin/admin.module';
+import { MessagingModule } from './messaging/messaging.module';
 import { EmailModule } from './common/email/email.module';
 import { RecaptchaModule } from './common/recaptcha/recaptcha.module';
 import { S3Module } from './common/s3/s3.module';
@@ -112,6 +113,7 @@ import { SubscribersModule } from './common/subscribers/subscribers.module';
     UsersModule,
     CarsModule,
     AdminModule,
+    MessagingModule,
     HealthModule,
     SubscribersModule,
   ],
