@@ -306,9 +306,22 @@ export function Header({
                           );
                         })()}
                       </Button>
-                      <Button 
-                        variant="outline" 
-                        className="w-full justify-start h-12 text-base text-red-600 border-red-200 hover:bg-red-50" 
+                      <Button
+                        variant="outline"
+                        className="w-full justify-start h-12 text-sm relative"
+                        onClick={() => handleNavClick(() => navigate('/messages'))}
+                      >
+                        <MessageSquare className="h-5 w-5 mr-3" />
+                        Messages
+                        {unreadMessages > 0 && (
+                          <span className="ml-auto min-w-[20px] h-5 px-1.5 rounded-full bg-red-500 text-white text-xs font-bold flex items-center justify-center">
+                            {unreadMessages > 9 ? '9+' : unreadMessages}
+                          </span>
+                        )}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className="w-full justify-start h-12 text-base text-red-600 border-red-200 hover:bg-red-50"
                         onClick={() => handleNavClick(logout)}
                       >
                         <LogOut className="h-5 w-5 mr-3" />
