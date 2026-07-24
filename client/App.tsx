@@ -13,6 +13,7 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { AutoRedirectDialog } from "@/components/RedirectDialog";
 import { CookieConsent } from "@/components/CookieConsent";
+import { MessengerWidget } from "@/components/MessengerWidget";
 import { Analytics } from "@/components/Analytics";
 import { useTranslation } from "@/hooks/useTranslation";
 
@@ -189,6 +190,7 @@ function AppContent() {
       />
       <AutoRedirectDialog />
       <CookieConsent />
+      <MessengerWidget />
       <Analytics />
     </div>
   );
