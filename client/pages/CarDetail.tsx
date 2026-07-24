@@ -37,8 +37,11 @@ import {
   ChevronLeft,
   ChevronRight,
   Link2,
-  Check
+  Check,
+  MessageSquare
 } from "lucide-react";
+import { apiClient } from "@shared/api-client";
+import { useSafeAuth } from "@/contexts/AuthContextSafe";
 
 export default function CarDetail() {
   const { id } = useParams();
@@ -48,6 +51,8 @@ export default function CarDetail() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [startingChat, setStartingChat] = useState(false);
+  const { user, isAuthenticated } = useSafeAuth();
 
 
   const [isFullscreenModalOpen, setIsFullscreenModalOpen] = useState(false);
@@ -248,6 +253,27 @@ export default function CarDetail() {
       window.location.href = `tel:${cleanPhone}`;
     } else {
       setIsContactModalOpen(true);
+    }
+  };
+
+  const isOwnListing = isAuthenticated && user?.id && car.seller?.id === user.id;
+
+  const handleMessageSeller = async () => {
+    if (!isAuthenticated) {
+      navigate(`/signin?redirect=/cars/${car.id}`);
+      return;
+    }
+    if (startingChat) return;
+    setStartingChat(true);
+    try {
+      const opener = `Hi, I'm interested in your ${car.year} ${car.make} ${car.model}. Is it still available?`;
+      const conv = await apiClient.startConversation(car.id, opener);
+      navigate(`/messages?c=${conv.id}`);
+    } catch {
+      // Fall back to the inquiry form if messaging is unavailable.
+      setIsContactModalOpen(true);
+    } finally {
+      setStartingChat(false);
     }
   };
 
@@ -537,6 +563,12 @@ export default function CarDetail() {
                     <Mail className="h-4 w-4 mr-2" />
                     {t('carDetail.actions.sendMessage')}
                   </Button>
+                  {!isOwnListing && (
+                    <Button onClick={handleMessageSeller} disabled={startingChat} variant="outline" className="w-full border-zinc-100 rounded-full h-12" size="lg">
+                      <MessageSquare className="h-4 w-4 mr-2" />
+                      {startingChat ? 'Starting…' : 'Message Seller'}
+                    </Button>
+                  )}
 
                 </div>
 

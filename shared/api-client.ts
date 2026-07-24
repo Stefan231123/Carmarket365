@@ -1313,6 +1313,89 @@ class ApiClient {
     if (response.errors) throw new Error(response.errors[0].message);
     return response.data?.changePassword ?? false;
   }
+
+  // ─── Messaging ──────────────────────────────────────────────────────────────
+
+  async getUnreadMessageCount(): Promise<number> {
+    try {
+      const res = await this.request<{ getUnreadMessageCount: number }>(
+        `query { getUnreadMessageCount }`,
+      );
+      return res.data?.getUnreadMessageCount ?? 0;
+    } catch {
+      return 0;
+    }
+  }
+
+  async getMyConversations(): Promise<any[]> {
+    const query = `
+      query GetMyConversations {
+        getMyConversations {
+          id
+          unreadCount
+          lastMessageAt
+          car { id make model year images { thumbnailUrl url } }
+          buyer { id name avatarUrl }
+          seller { id name avatarUrl }
+        }
+      }
+    `;
+    const res = await this.request<{ getMyConversations: any[] }>(query);
+    if (res.errors) return [];
+    return res.data?.getMyConversations ?? [];
+  }
+
+  async getConversation(id: string): Promise<any | null> {
+    const query = `
+      query GetConversation($id: String!) {
+        getConversation(id: $id) {
+          id
+          unreadCount
+          car { id make model year }
+          buyer { id name avatarUrl }
+          seller { id name avatarUrl }
+          messages { id content isRead createdAt sender { id name avatarUrl } }
+        }
+      }
+    `;
+    const res = await this.request<{ getConversation: any }>(query, { id });
+    if (res.errors) throw new Error(res.errors[0].message);
+    return res.data?.getConversation ?? null;
+  }
+
+  async startConversation(carId: string, content: string): Promise<any> {
+    const mutation = `
+      mutation StartConversation($carId: String!, $content: String!) {
+        startConversation(carId: $carId, content: $content) { id }
+      }
+    `;
+    const res = await this.request<{ startConversation: any }>(mutation, { carId, content });
+    if (res.errors) throw new Error(res.errors[0].message);
+    return res.data?.startConversation;
+  }
+
+  async sendMessage(conversationId: string, content: string): Promise<any> {
+    const mutation = `
+      mutation SendMessage($conversationId: String!, $content: String!) {
+        sendMessage(conversationId: $conversationId, content: $content) {
+          id content isRead createdAt sender { id name avatarUrl }
+        }
+      }
+    `;
+    const res = await this.request<{ sendMessage: any }>(mutation, { conversationId, content });
+    if (res.errors) throw new Error(res.errors[0].message);
+    return res.data?.sendMessage;
+  }
+
+  async markConversationRead(conversationId: string): Promise<number> {
+    const mutation = `
+      mutation MarkRead($conversationId: String!) {
+        markConversationRead(conversationId: $conversationId)
+      }
+    `;
+    const res = await this.request<{ markConversationRead: number }>(mutation, { conversationId });
+    return res.data?.markConversationRead ?? 0;
+  }
 }
 
 // Export singleton instance
