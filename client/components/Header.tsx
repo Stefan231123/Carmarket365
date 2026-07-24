@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
-import { Menu, User, Heart, Car, Building2, Settings, LogOut, Search } from "lucide-react";
+import { Menu, User, Heart, Car, Building2, Settings, LogOut, Search, MessageSquare } from "lucide-react";
+import { apiClient } from "@shared/api-client";
 import { useSafeAuth } from "@/contexts/AuthContextSafe";
 import { useTranslation } from "@/hooks/useTranslation";
 import { CountrySwitcher } from "@/components/CountrySwitcher";
@@ -35,6 +36,23 @@ export function Header({
   const { t, currentLanguage } = useTranslation();
   
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [unreadMessages, setUnreadMessages] = useState(0);
+
+  // Poll the unread-message count while signed in (lightweight, every 45s).
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setUnreadMessages(0);
+      return;
+    }
+    let cancelled = false;
+    const load = () => apiClient.getUnreadMessageCount().then((n) => !cancelled && setUnreadMessages(n));
+    load();
+    const timer = setInterval(load, 45000);
+    return () => {
+      cancelled = true;
+      clearInterval(timer);
+    };
+  }, [isAuthenticated]);
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
@@ -131,6 +149,22 @@ export function Header({
             
             {isAuthenticated && user ? (
               <div className="flex items-center gap-3">
+                {/* Messages */}
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => navigate('/messages')}
+                  aria-label="Messages"
+                  className="relative text-white hover:bg-white/10 hover:text-white rounded-full px-3"
+                >
+                  <MessageSquare className="h-4 w-4" />
+                  {unreadMessages > 0 && (
+                    <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center">
+                      {unreadMessages > 9 ? '9+' : unreadMessages}
+                    </span>
+                  )}
+                </Button>
+
                 {/* Dashboard Button */}
                 <Button 
                   variant="secondary" 

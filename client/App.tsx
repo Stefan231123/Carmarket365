@@ -54,6 +54,7 @@ const Accessibility = lazyWithRetry(() => import("@/pages/Accessibility"));
 const DashboardSelector = lazyWithRetry(() => import("@/pages/DashboardSelector"));
 const ResetPassword = lazyWithRetry(() => import("@/pages/ResetPassword"));
 const EditListing = lazyWithRetry(() => import("@/pages/EditListing"));
+const Messages = lazyWithRetry(() => import("@/pages/Messages"));
 
 function AppContent() {
   const navigate = useNavigate();
@@ -93,6 +94,7 @@ function AppContent() {
             <Route path="/express-sell" element={<ProtectedRoute><ExpressSell /></ProtectedRoute>} />
             <Route path="/edit-listing/:id" element={<ProtectedRoute><EditListing /></ProtectedRoute>} />
             <Route path="/saved" element={<SavedCars />} />
+            <Route path="/messages" element={<ProtectedRoute><Messages /></ProtectedRoute>} />
             <Route path="/registered-dealers" element={<RegisteredDealers />} />
             <Route path="/dealers" element={<Navigate to="/registered-dealers" replace />} />
             <Route path="/dealer/:id" element={<DealerProfile />} />
