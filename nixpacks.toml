@@ -5,7 +5,9 @@ nixPkgs = ['nodejs_20']
 
 [phases.install]
 cmds = [
-  '(cd server && npm ci)'
+  # --include=dev is required: Railway sets NODE_ENV=production, which would
+  # otherwise omit devDependencies, but the build (tsc + @types/*) needs them.
+  '(cd server && npm ci --include=dev)'
 ]
 
 [phases.build]
