@@ -42,6 +42,8 @@ import {
 } from "lucide-react";
 import { apiClient } from "@shared/api-client";
 import { useSafeAuth } from "@/contexts/AuthContextSafe";
+import { useActiveListing } from "@/contexts/ActiveListingContext";
+import { useEffect } from "react";
 
 export default function CarDetail() {
   const { id } = useParams();
@@ -53,6 +55,21 @@ export default function CarDetail() {
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [startingChat, setStartingChat] = useState(false);
   const { user, isAuthenticated } = useSafeAuth();
+  const { setActiveListing } = useActiveListing();
+
+  // Tell the floating messenger which listing/seller is being viewed, so it can
+  // default to composing a message to this seller. Cleared on leave.
+  useEffect(() => {
+    if (car?.id) {
+      setActiveListing({
+        carId: car.id,
+        sellerId: car.seller?.id,
+        sellerName: car.seller?.dealerName || car.seller?.name,
+        title: `${car.year} ${car.make} ${car.model}`,
+      });
+    }
+    return () => setActiveListing(null);
+  }, [car?.id, car?.seller?.id, setActiveListing]);
 
 
   const [isFullscreenModalOpen, setIsFullscreenModalOpen] = useState(false);

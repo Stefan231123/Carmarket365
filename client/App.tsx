@@ -14,6 +14,7 @@ import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { AutoRedirectDialog } from "@/components/RedirectDialog";
 import { CookieConsent } from "@/components/CookieConsent";
 import { MessengerWidget } from "@/components/MessengerWidget";
+import { ActiveListingProvider } from "@/contexts/ActiveListingContext";
 import { Analytics } from "@/components/Analytics";
 import { useTranslation } from "@/hooks/useTranslation";
 
@@ -209,9 +210,11 @@ function App() {
           <CountryProvider>
             <SafeAuthProvider>
               <FavoritesProvider>
-                <ErrorBoundary>
-                  <AppContent />
-                </ErrorBoundary>
+                <ActiveListingProvider>
+                  <ErrorBoundary>
+                    <AppContent />
+                  </ErrorBoundary>
+                </ActiveListingProvider>
               </FavoritesProvider>
             </SafeAuthProvider>
           </CountryProvider>
