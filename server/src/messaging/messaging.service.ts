@@ -70,11 +70,14 @@ export class MessagingService {
   }
 
   private async postMessage(conversationId: string, senderId: string, content: string): Promise<Message> {
-    const msg = await this.messages.save(
+    const saved = await this.messages.save(
       this.messages.create({ conversationId, senderId, content, isRead: false }),
     );
     await this.conversations.update(conversationId, { lastMessageAt: new Date() });
-    return msg;
+    // Reload with the sender relation: `save()` doesn't populate relations, and
+    // Message.sender is a non-nullable GraphQL field, so returning the bare
+    // entity makes `sendMessage { sender { ... } }` fail to resolve.
+    return this.messages.findOneOrFail({ where: { id: saved.id }, relations: ['sender'] });
   }
 
   /** Conversations the user participates in, newest activity first, with unread counts. */

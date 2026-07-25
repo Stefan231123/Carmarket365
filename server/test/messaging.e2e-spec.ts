@@ -34,15 +34,32 @@ describe('Messaging', () => {
     expect(forSeller).toBeTruthy();
     expect(forSeller.unreadCount).toBe(1);
 
-    // Seller replies; buyer now has an unread.
+    // Seller replies; buyer now has an unread. Select `sender` so the
+    // non-nullable relation must resolve (regression guard for a reply whose
+    // sender wasn't loaded after save).
     const reply = await t.gql(
-      `mutation M($id: String!, $c: String!) { sendMessage(conversationId: $id, content: $c) { content } }`,
+      `mutation M($id: String!, $c: String!) {
+         sendMessage(conversationId: $id, content: $c) { content sender { id name } }
+       }`,
       { token: seller.token, variables: { id: conv.id, c: 'Yes, still available.' } },
     );
+    expect(reply.body.errors).toBeUndefined();
     expect(reply.body.data.sendMessage.content).toBe('Yes, still available.');
+    expect(reply.body.data.sendMessage.sender.id).toBe(seller.userId);
 
+    // A second reply must also work (the bug only surfaced on replies).
+    const reply2 = await t.gql(
+      `mutation M($id: String!, $c: String!) {
+         sendMessage(conversationId: $id, content: $c) { content sender { id } }
+       }`,
+      { token: seller.token, variables: { id: conv.id, c: 'Let me know.' } },
+    );
+    expect(reply2.body.errors).toBeUndefined();
+    expect(reply2.body.data.sendMessage.sender.id).toBe(seller.userId);
+
+    // Two seller replies → two unread for the buyer.
     const buyerUnread = await t.gql(`query { getUnreadMessageCount }`, { token: buyer.token });
-    expect(buyerUnread.body.data.getUnreadMessageCount).toBe(1);
+    expect(buyerUnread.body.data.getUnreadMessageCount).toBe(2);
   });
 
   it('reuses the same conversation for repeat messages on one listing', async () => {
