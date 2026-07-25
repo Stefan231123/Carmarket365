@@ -1,16 +1,24 @@
-import { Injectable, NotFoundException, ForbiddenException, BadRequestException } from '@nestjs/common';
+import { Injectable, NotFoundException, ForbiddenException, BadRequestException, Logger } from '@nestjs/common';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, LessThanOrEqual, In } from 'typeorm';
 import { Conversation } from './conversation.entity';
 import { Message } from './message.entity';
 import { Car } from '../cars/car.entity';
+import { EmailService } from '../common/email/email.service';
+
+/** Email the recipient if a message stays unread this long. */
+const UNREAD_EMAIL_AFTER_MS = 6 * 60 * 60 * 1000; // 6 hours
 
 @Injectable()
 export class MessagingService {
+  private readonly logger = new Logger(MessagingService.name);
+
   constructor(
     @InjectRepository(Conversation) private readonly conversations: Repository<Conversation>,
     @InjectRepository(Message) private readonly messages: Repository<Message>,
     @InjectRepository(Car) private readonly cars: Repository<Car>,
+    private readonly emailService: EmailService,
   ) {}
 
   private assertParticipant(conv: Conversation, userId: string): void {
@@ -131,5 +139,65 @@ export class MessagingService {
       .andWhere('m.senderId != :userId', { userId })
       .andWhere('m.isRead = false')
       .getCount();
+  }
+
+  /**
+   * Email recipients who have had a message sitting unread for over 6 hours and
+   * haven't yet been notified. One email per conversation+recipient; the covered
+   * messages are then flagged so we never email about them again. Returns the
+   * number of notification emails sent (used by tests).
+   */
+  @Cron(CronExpression.EVERY_30_MINUTES)
+  async handleUnreadNotifications(): Promise<void> {
+    try {
+      await this.notifyStaleUnread();
+    } catch (err) {
+      this.logger.error(`Unread-notification job failed: ${(err as Error).message}`);
+    }
+  }
+
+  async notifyStaleUnread(now: Date = new Date()): Promise<number> {
+    const cutoff = new Date(now.getTime() - UNREAD_EMAIL_AFTER_MS);
+
+    const pending = await this.messages.find({
+      where: { isRead: false, emailNotified: false, createdAt: LessThanOrEqual(cutoff) },
+      relations: ['conversation', 'conversation.buyer', 'conversation.seller', 'conversation.car'],
+      order: { createdAt: 'ASC' },
+    });
+
+    // Group by conversation + recipient (the participant who is NOT the sender).
+    const groups = new Map<string, { recipient: { email: string; name: string }; carTitle: string; conversationId: string; ids: string[] }>();
+    for (const m of pending) {
+      const conv = m.conversation;
+      if (!conv) continue;
+      const recipientUser = m.senderId === conv.buyerId ? conv.seller : conv.buyer;
+      if (!recipientUser?.email) continue;
+      const key = `${conv.id}:${recipientUser.id}`;
+      const carTitle = conv.car ? `${conv.car.year} ${conv.car.make} ${conv.car.model}` : 'your listing';
+      const group = groups.get(key) ?? {
+        recipient: { email: recipientUser.email, name: recipientUser.name || '' },
+        carTitle,
+        conversationId: conv.id,
+        ids: [],
+      };
+      group.ids.push(m.id);
+      groups.set(key, group);
+    }
+
+    let sent = 0;
+    for (const group of groups.values()) {
+      const ok = await this.emailService
+        .sendNewMessageEmail(group.recipient.email, group.recipient.name, group.carTitle, group.conversationId, group.ids.length)
+        .catch((err) => {
+          this.logger.warn(`Failed to send unread-message email: ${err.message}`);
+          return false;
+        });
+      if (ok) {
+        await this.messages.update({ id: In(group.ids) }, { emailNotified: true });
+        sent += 1;
+      }
+    }
+    if (sent > 0) this.logger.log(`Sent ${sent} unread-message notification email(s)`);
+    return sent;
   }
 }

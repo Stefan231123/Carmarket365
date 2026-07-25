@@ -580,4 +580,49 @@ export class EmailService {
       text: `${newCars} new cars match your alert "${alertName}". View them at ${this.frontendUrl}/cars`,
     });
   }
+
+  /** Nudge a recipient who has unread message(s) about a listing they haven't opened. */
+  async sendNewMessageEmail(
+    recipientEmail: string,
+    recipientName: string,
+    carTitle: string,
+    conversationId: string,
+    unreadCount: number,
+  ): Promise<boolean> {
+    const replyUrl = `${this.frontendUrl}/messages?c=${encodeURIComponent(conversationId)}`;
+    const safeName = this.escapeHtml(recipientName);
+    const safeCarTitle = this.escapeHtml(carTitle);
+    const countLabel = unreadCount > 1 ? `${unreadCount} new messages` : 'a new message';
+    return this.sendEmail({
+      to: recipientEmail,
+      subject: `You have ${unreadCount > 1 ? `${unreadCount} new messages` : 'a new message'} about ${carTitle}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <div style="background: #000; padding: 24px; text-align: center;">
+            <h1 style="color: #fff; margin: 0; font-size: 24px;">CarMarket365</h1>
+          </div>
+          <div style="padding: 32px 24px;">
+            <h2 style="color: #111;">You have ${countLabel}</h2>
+            <p style="color: #555; line-height: 1.6;">Hi${safeName ? ' ' + safeName : ''},</p>
+            <p style="color: #555; line-height: 1.6;">
+              Someone messaged you about <strong>${safeCarTitle}</strong> and is waiting to hear back.
+              Reply directly on CarMarket365 to keep the conversation going.
+            </p>
+            <div style="text-align: center; margin: 32px 0;">
+              <a href="${replyUrl}" style="display: inline-block; background: #2563eb; color: #fff; padding: 14px 40px; border-radius: 24px; text-decoration: none; font-weight: bold;">
+                Reply on CarMarket365
+              </a>
+            </div>
+            <p style="color: #999; font-size: 13px; line-height: 1.6;">
+              You're receiving this because a buyer messaged you through the platform.
+            </p>
+          </div>
+          <div style="background: #f5f5f5; padding: 16px 24px; text-align: center; color: #999; font-size: 12px;">
+            &copy; ${new Date().getFullYear()} CarMarket365. All rights reserved.
+          </div>
+        </div>
+      `,
+      text: `You have ${countLabel} about "${carTitle}" on CarMarket365. Reply here: ${replyUrl}`,
+    });
+  }
 }

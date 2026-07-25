@@ -107,6 +107,33 @@ describe('Messaging', () => {
     expect(res.body.errors).toBeDefined();
   });
 
+  it('emails the recipient about a message left unread for over 6 hours (once)', async () => {
+    const { MessagingService } = await import('../src/messaging/messaging.service');
+    const svc = t.app.get(MessagingService);
+
+    const seller = await registerUser(t);
+    const buyer = await registerUser(t);
+    const car = await createCar(t, seller.token);
+    const start = await t.gql(START, { token: buyer.token, variables: { carId: car.id, content: 'still there?' } });
+    const convId = start.body.data.startConversation.id;
+
+    // Not yet 6h old → no email.
+    expect(await svc.notifyStaleUnread()).toBe(0);
+
+    // Pretend the message was sent 7 hours ago.
+    const sevenHoursAgo = new Date(Date.now() - 7 * 60 * 60 * 1000);
+    await (svc as any).messages
+      .createQueryBuilder()
+      .update()
+      .set({ createdAt: sevenHoursAgo })
+      .where('conversationId = :convId', { convId })
+      .execute();
+
+    // Now it notifies exactly one recipient (the seller), and only once.
+    expect(await svc.notifyStaleUnread()).toBe(1);
+    expect(await svc.notifyStaleUnread()).toBe(0);
+  });
+
   it('marks messages read', async () => {
     const seller = await registerUser(t);
     const buyer = await registerUser(t);
