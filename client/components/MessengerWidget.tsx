@@ -2,9 +2,11 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiClient } from "@shared/api-client";
 import { useSafeAuth } from "@/contexts/AuthContextSafe";
+import { useActiveListing } from "@/contexts/ActiveListingContext";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { MessageSquare, X, ChevronLeft, Send, Loader2, Maximize2 } from "lucide-react";
 
@@ -37,6 +39,7 @@ const timeLabel = (iso: string) => {
  */
 export function MessengerWidget() {
   const { user, isAuthenticated } = useSafeAuth();
+  const { activeListing } = useActiveListing();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [unread, setUnread] = useState(0);
@@ -46,7 +49,14 @@ export function MessengerWidget() {
   const [loadingThread, setLoadingThread] = useState(false);
   const [draft, setDraft] = useState("");
   const [sending, setSending] = useState(false);
+  // Compose-to-seller state (used when opened on a listing).
+  const [composing, setComposing] = useState(false);
+  const [composeDraft, setComposeDraft] = useState("");
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  const onOwnListing =
+    !!activeListing?.sellerId && !!user?.id && activeListing.sellerId === user.id;
+  const canComposeToListing = !!activeListing && !onOwnListing;
 
   // Poll unread count while signed in.
   useEffect(() => {
@@ -64,10 +74,20 @@ export function MessengerWidget() {
     finally { setLoadingList(false); }
   }, []);
 
-  // Load the list when the panel is opened at the list level.
+  // On open: load the list, and if the user is on someone's listing, default to
+  // composing a message to that seller (pre-filled and editable).
   useEffect(() => {
-    if (open && !active) loadList();
-  }, [open, active, loadList]);
+    if (!open) {
+      setComposing(false);
+      return;
+    }
+    loadList();
+    if (!active && canComposeToListing && activeListing) {
+      setComposing(true);
+      setComposeDraft(`Hi, I'm interested in your ${activeListing.title}. Is it still available?`);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
 
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [active?.messages?.length]);
 
@@ -93,15 +113,28 @@ export function MessengerWidget() {
     } finally { setSending(false); }
   };
 
+  // Send the pre-filled message to the seller of the listing being viewed.
+  const sendCompose = async () => {
+    const content = composeDraft.trim();
+    if (!content || !activeListing || sending) return;
+    setSending(true);
+    try {
+      const conv = await apiClient.startConversation(activeListing.carId, content);
+      setComposing(false);
+      setComposeDraft("");
+      await openThread(conv.id);
+    } finally { setSending(false); }
+  };
+
   if (!isAuthenticated || !user) return null;
 
   const other = (c: Conversation): Participant => (c.buyer.id === user.id ? c.seller : c.buyer);
 
   return (
-    <div className="fixed bottom-4 left-4 z-50 flex flex-col items-start gap-3">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
       {/* Panel */}
       {open && (
-        <div className="w-[92vw] max-w-[360px] h-[520px] max-h-[75vh] bg-white rounded-2xl shadow-2xl border flex flex-col overflow-hidden">
+        <div className="w-[92vw] max-w-[380px] h-[540px] max-h-[75vh] bg-white rounded-2xl shadow-2xl border flex flex-col overflow-hidden">
           {/* Header */}
           <div className="flex items-center gap-2 px-3 py-2.5 bg-primary text-primary-foreground">
             {active ? (
@@ -114,6 +147,15 @@ export function MessengerWidget() {
                   <AvatarFallback className="text-xs text-foreground">{initials(other(active))}</AvatarFallback>
                 </Avatar>
                 <span className="font-medium truncate flex-1 text-sm">{other(active).name || "User"}</span>
+              </>
+            ) : composing ? (
+              <>
+                <button onClick={() => setComposing(false)} aria-label="Back to conversations" className="p-1 hover:bg-white/10 rounded-full">
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <span className="font-semibold flex-1 text-sm truncate">
+                  Message {activeListing?.sellerName || "seller"}
+                </span>
               </>
             ) : (
               <>
@@ -130,7 +172,30 @@ export function MessengerWidget() {
           </div>
 
           {/* Body */}
-          {!active ? (
+          {!active && composing ? (
+            <div className="flex-1 flex flex-col p-3 gap-3">
+              <p className="text-xs text-muted-foreground">
+                To <span className="font-medium text-foreground">{activeListing?.sellerName || "the seller"}</span>
+                {activeListing?.title ? <> · {activeListing.title}</> : null}
+              </p>
+              <Textarea
+                value={composeDraft}
+                onChange={(e) => setComposeDraft(e.target.value)}
+                placeholder="Write your message…"
+                className="flex-1 resize-none"
+                autoFocus
+              />
+              <Button onClick={sendCompose} disabled={sending || !composeDraft.trim()} className="w-full">
+                {sending ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Send className="h-4 w-4 mr-2" />}
+                Send to seller
+              </Button>
+              {conversations.length > 0 && (
+                <button onClick={() => setComposing(false)} className="text-xs text-primary hover:underline text-center">
+                  View all conversations
+                </button>
+              )}
+            </div>
+          ) : !active ? (
             <ScrollArea className="flex-1">
               {loadingList ? (
                 <div className="flex items-center justify-center h-40 text-muted-foreground"><Loader2 className="h-5 w-5 animate-spin" /></div>
@@ -202,15 +267,15 @@ export function MessengerWidget() {
         </div>
       )}
 
-      {/* Floating bubble */}
+      {/* Floating bubble — large, bold, high-contrast */}
       <button
         onClick={() => setOpen((o) => !o)}
         aria-label="Messenger"
-        className="relative h-14 w-14 rounded-full bg-primary text-primary-foreground shadow-lg hover:scale-105 transition-transform flex items-center justify-center"
+        className="relative h-16 w-16 rounded-full bg-primary text-primary-foreground shadow-xl ring-4 ring-primary/20 hover:scale-105 active:scale-95 transition-transform flex items-center justify-center"
       >
-        {open ? <X className="h-6 w-6" /> : <MessageSquare className="h-6 w-6" />}
+        {open ? <X className="h-8 w-8" strokeWidth={2.5} /> : <MessageSquare className="h-8 w-8" strokeWidth={2.5} />}
         {!open && unread > 0 && (
-          <span className="absolute -top-1 -right-1 min-w-[20px] h-5 px-1 rounded-full bg-red-500 text-white text-[11px] font-bold flex items-center justify-center border-2 border-white">
+          <span className="absolute -top-1 -right-1 min-w-[24px] h-6 px-1.5 rounded-full bg-red-500 text-white text-xs font-extrabold flex items-center justify-center border-2 border-white shadow">
             {unread > 9 ? "9+" : unread}
           </span>
         )}
