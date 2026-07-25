@@ -5,8 +5,10 @@ import { Conversation } from './conversation.entity';
 import { Message } from './message.entity';
 import { MessagingService } from './messaging.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
+import { Roles } from '../auth/decorators/roles.decorator';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { User } from '../users/user.entity';
+import { User, UserRole } from '../users/user.entity';
 
 @Resolver(() => Conversation)
 @UseGuards(JwtAuthGuard)
@@ -51,5 +53,16 @@ export class MessagingResolver {
   @Mutation(() => Int, { description: 'Mark all messages in a conversation as read; returns how many were updated' })
   markConversationRead(@Args('conversationId') conversationId: string, @CurrentUser() user: User): Promise<number> {
     return this.messaging.markRead(conversationId, user.id);
+  }
+
+  @Mutation(() => Int, {
+    description: 'Admin: immediately run the unread-message email job (bypasses the 6h wait). Returns emails sent.',
+  })
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  runUnreadNotifications(
+    @Args('maxAgeMinutes', { type: () => Int, nullable: true, defaultValue: 0 }) maxAgeMinutes: number,
+  ): Promise<number> {
+    return this.messaging.notifyStaleUnread(Math.max(0, maxAgeMinutes) * 60 * 1000);
   }
 }
