@@ -50,13 +50,15 @@ export function MessengerWidget() {
   const [draft, setDraft] = useState("");
   const [sending, setSending] = useState(false);
   // Compose-to-seller state (used when opened on a listing).
-  const [composing, setComposing] = useState(false);
+  const [composeDismissed, setComposeDismissed] = useState(false);
   const [composeDraft, setComposeDraft] = useState("");
   const bottomRef = useRef<HTMLDivElement>(null);
 
   const onOwnListing =
     !!activeListing?.sellerId && !!user?.id && activeListing.sellerId === user.id;
   const canComposeToListing = !!activeListing && !onOwnListing;
+  // Derived so it stays correct even if the listing loads after the panel opens.
+  const showCompose = open && !active && canComposeToListing && !composeDismissed;
 
   // Poll unread count while signed in.
   useEffect(() => {
@@ -74,20 +76,23 @@ export function MessengerWidget() {
     finally { setLoadingList(false); }
   }, []);
 
-  // On open: load the list, and if the user is on someone's listing, default to
-  // composing a message to that seller (pre-filled and editable).
+  // Load the conversation list whenever the panel opens; reset any dismissal.
   useEffect(() => {
-    if (!open) {
-      setComposing(false);
-      return;
+    if (open) {
+      loadList();
+      setComposeDismissed(false);
+    } else {
+      setActive(null);
     }
-    loadList();
-    if (!active && canComposeToListing && activeListing) {
-      setComposing(true);
+  }, [open, loadList]);
+
+  // Pre-fill the compose box for the listing being viewed (re-fills per listing).
+  useEffect(() => {
+    if (showCompose && activeListing) {
       setComposeDraft(`Hi, I'm interested in your ${activeListing.title}. Is it still available?`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open]);
+  }, [showCompose, activeListing?.carId]);
 
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [active?.messages?.length]);
 
@@ -120,7 +125,7 @@ export function MessengerWidget() {
     setSending(true);
     try {
       const conv = await apiClient.startConversation(activeListing.carId, content);
-      setComposing(false);
+      setComposeDismissed(true);
       setComposeDraft("");
       await openThread(conv.id);
     } finally { setSending(false); }
@@ -131,6 +136,9 @@ export function MessengerWidget() {
   const other = (c: Conversation): Participant => (c.buyer.id === user.id ? c.seller : c.buyer);
 
   return (
+    <>
+      {/* Lift the reCAPTCHA v3 badge above the messenger bubble so they don't overlap. */}
+      <style>{`.grecaptcha-badge{bottom:96px!important;}`}</style>
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
       {/* Panel */}
       {open && (
@@ -148,11 +156,13 @@ export function MessengerWidget() {
                 </Avatar>
                 <span className="font-medium truncate flex-1 text-sm">{other(active).name || "User"}</span>
               </>
-            ) : composing ? (
+            ) : showCompose ? (
               <>
-                <button onClick={() => setComposing(false)} aria-label="Back to conversations" className="p-1 hover:bg-white/10 rounded-full">
-                  <ChevronLeft className="h-5 w-5" />
-                </button>
+                {conversations.length > 0 && (
+                  <button onClick={() => setComposeDismissed(true)} aria-label="Back to conversations" className="p-1 hover:bg-white/10 rounded-full">
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
+                )}
                 <span className="font-semibold flex-1 text-sm truncate">
                   Message {activeListing?.sellerName || "seller"}
                 </span>
@@ -172,7 +182,7 @@ export function MessengerWidget() {
           </div>
 
           {/* Body */}
-          {!active && composing ? (
+          {showCompose ? (
             <div className="flex-1 flex flex-col p-3 gap-3">
               <p className="text-xs text-muted-foreground">
                 To <span className="font-medium text-foreground">{activeListing?.sellerName || "the seller"}</span>
@@ -190,7 +200,7 @@ export function MessengerWidget() {
                 Send to seller
               </Button>
               {conversations.length > 0 && (
-                <button onClick={() => setComposing(false)} className="text-xs text-primary hover:underline text-center">
+                <button onClick={() => setComposeDismissed(true)} className="text-xs text-primary hover:underline text-center">
                   View all conversations
                 </button>
               )}
@@ -281,5 +291,6 @@ export function MessengerWidget() {
         )}
       </button>
     </div>
+    </>
   );
 }
