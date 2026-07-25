@@ -57,8 +57,9 @@ describe('Messaging', () => {
     expect(reply2.body.errors).toBeUndefined();
     expect(reply2.body.data.sendMessage.sender.id).toBe(seller.userId);
 
+    // Two seller replies → two unread for the buyer.
     const buyerUnread = await t.gql(`query { getUnreadMessageCount }`, { token: buyer.token });
-    expect(buyerUnread.body.data.getUnreadMessageCount).toBe(1);
+    expect(buyerUnread.body.data.getUnreadMessageCount).toBe(2);
   });
 
   it('reuses the same conversation for repeat messages on one listing', async () => {
