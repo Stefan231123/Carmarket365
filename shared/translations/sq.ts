@@ -1,6 +1,21 @@
 import { TranslationStrings } from '../translations';
 
 export const sqTranslations: TranslationStrings = {
+  messenger: {
+    title: 'Mesazhet',
+    empty: 'Ende nuk keni biseda. Dërgoni një mesazh një shitësi nga një njoftim për të filluar.',
+    messageTo: 'Mesazh për {name}',
+    seller: 'shitësin',
+    toLabel: 'Për',
+    writeMessage: 'Shkruani mesazhin tuaj…',
+    sendToSeller: 'Dërgo te shitësi',
+    viewAll: 'Shiko të gjitha bisedat',
+    typeMessage: 'Shkruani një mesazh…',
+    conversation: 'Bisedë',
+    selectConversation: 'Zgjidhni një bisedë',
+    user: 'Përdorues',
+    opener: 'Përshëndetje, jam i interesuar për {title} tuaj. A është ende në dispozicion?',
+  },
   common: {
     loading: 'Po ngarkohet...',
     error: 'Gabim',

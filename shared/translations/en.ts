@@ -1,6 +1,21 @@
 import { TranslationStrings } from '../translations';
 
 export const enTranslations: TranslationStrings = {
+  messenger: {
+    title: 'Messages',
+    empty: 'No conversations yet. Message a seller from a listing to start one.',
+    messageTo: 'Message {name}',
+    seller: 'seller',
+    toLabel: 'To',
+    writeMessage: 'Write your message…',
+    sendToSeller: 'Send to seller',
+    viewAll: 'View all conversations',
+    typeMessage: 'Type a message…',
+    conversation: 'Conversation',
+    selectConversation: 'Select a conversation',
+    user: 'User',
+    opener: "Hi, I'm interested in your {title}. Is it still available?",
+  },
   brand: {
     name: 'CarMarket365'
   },

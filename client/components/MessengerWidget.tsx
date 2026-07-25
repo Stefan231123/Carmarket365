@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { apiClient } from "@shared/api-client";
 import { useSafeAuth } from "@/contexts/AuthContextSafe";
 import { useActiveListing } from "@/contexts/ActiveListingContext";
+import { useTranslation } from "@/hooks/useTranslation";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -40,6 +41,7 @@ const timeLabel = (iso: string) => {
 export function MessengerWidget() {
   const { user, isAuthenticated } = useSafeAuth();
   const { activeListing } = useActiveListing();
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
   const [unread, setUnread] = useState(0);
@@ -89,7 +91,7 @@ export function MessengerWidget() {
   // Pre-fill the compose box for the listing being viewed (re-fills per listing).
   useEffect(() => {
     if (showCompose && activeListing) {
-      setComposeDraft(`Hi, I'm interested in your ${activeListing.title}. Is it still available?`);
+      setComposeDraft(t("messenger.opener", { title: activeListing.title }));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showCompose, activeListing?.carId]);
@@ -154,7 +156,7 @@ export function MessengerWidget() {
                   <AvatarImage src={other(active).avatarUrl} />
                   <AvatarFallback className="text-xs text-foreground">{initials(other(active))}</AvatarFallback>
                 </Avatar>
-                <span className="font-medium truncate flex-1 text-sm">{other(active).name || "User"}</span>
+                <span className="font-medium truncate flex-1 text-sm">{other(active).name || t("messenger.user")}</span>
               </>
             ) : showCompose ? (
               <>
@@ -164,13 +166,13 @@ export function MessengerWidget() {
                   </button>
                 )}
                 <span className="font-semibold flex-1 text-sm truncate">
-                  Message {activeListing?.sellerName || "seller"}
+                  {t("messenger.messageTo", { name: activeListing?.sellerName || t("messenger.seller") })}
                 </span>
               </>
             ) : (
               <>
                 <MessageSquare className="h-5 w-5" />
-                <span className="font-semibold flex-1 text-sm">Messages</span>
+                <span className="font-semibold flex-1 text-sm">{t("messenger.title")}</span>
                 <button onClick={() => navigate("/messages")} aria-label="Open full messages" className="p-1 hover:bg-white/10 rounded-full">
                   <Maximize2 className="h-4 w-4" />
                 </button>
@@ -185,23 +187,23 @@ export function MessengerWidget() {
           {showCompose ? (
             <div className="flex-1 flex flex-col p-3 gap-3">
               <p className="text-xs text-muted-foreground">
-                To <span className="font-medium text-foreground">{activeListing?.sellerName || "the seller"}</span>
+                {t("messenger.toLabel")} <span className="font-medium text-foreground">{activeListing?.sellerName || t("messenger.seller")}</span>
                 {activeListing?.title ? <> · {activeListing.title}</> : null}
               </p>
               <Textarea
                 value={composeDraft}
                 onChange={(e) => setComposeDraft(e.target.value)}
-                placeholder="Write your message…"
+                placeholder={t("messenger.writeMessage")}
                 className="flex-1 resize-none"
                 autoFocus
               />
               <Button onClick={sendCompose} disabled={sending || !composeDraft.trim()} className="w-full">
                 {sending ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Send className="h-4 w-4 mr-2" />}
-                Send to seller
+                {t("messenger.sendToSeller")}
               </Button>
               {conversations.length > 0 && (
                 <button onClick={() => setComposeDismissed(true)} className="text-xs text-primary hover:underline text-center">
-                  View all conversations
+                  {t("messenger.viewAll")}
                 </button>
               )}
             </div>
@@ -212,7 +214,7 @@ export function MessengerWidget() {
               ) : conversations.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-40 text-muted-foreground gap-2 p-4 text-center text-sm">
                   <MessageSquare className="h-7 w-7" />
-                  <p>No conversations yet. Message a seller from a listing to start one.</p>
+                  <p>{t("messenger.empty")}</p>
                 </div>
               ) : (
                 conversations.map((c) => {
@@ -222,11 +224,11 @@ export function MessengerWidget() {
                       <Avatar className="h-9 w-9 shrink-0"><AvatarImage src={o.avatarUrl} /><AvatarFallback>{initials(o)}</AvatarFallback></Avatar>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-2">
-                          <span className="font-medium truncate text-sm">{o.name || "User"}</span>
+                          <span className="font-medium truncate text-sm">{o.name || t("messenger.user")}</span>
                           <span className="text-[11px] text-muted-foreground shrink-0">{timeLabel(c.lastMessageAt)}</span>
                         </div>
                         <div className="flex items-center justify-between gap-2">
-                          <span className="text-xs text-muted-foreground truncate">{c.car ? `${c.car.year} ${c.car.make} ${c.car.model}` : "Conversation"}</span>
+                          <span className="text-xs text-muted-foreground truncate">{c.car ? `${c.car.year} ${c.car.make} ${c.car.model}` : t("messenger.conversation")}</span>
                           {c.unreadCount > 0 && (
                             <span className="shrink-0 min-w-[18px] h-[18px] px-1 rounded-full bg-red-500 text-white text-[10px] font-bold flex items-center justify-center">{c.unreadCount}</span>
                           )}
@@ -264,7 +266,7 @@ export function MessengerWidget() {
                   value={draft}
                   onChange={(e) => setDraft(e.target.value)}
                   onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
-                  placeholder="Type a message…"
+                  placeholder={t("messenger.typeMessage")}
                   disabled={sending}
                   className="h-9"
                 />

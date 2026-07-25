@@ -1,6 +1,21 @@
 import { TranslationStrings } from '../translations';
 
 export const mkTranslations: TranslationStrings = {
+  messenger: {
+    title: 'Пораки',
+    empty: 'Сè уште немате разговори. Испратете порака до продавач од оглас за да започнете.',
+    messageTo: 'Порака до {name}',
+    seller: 'продавачот',
+    toLabel: 'До',
+    writeMessage: 'Напишете ја вашата порака…',
+    sendToSeller: 'Испрати до продавач',
+    viewAll: 'Види ги сите разговори',
+    typeMessage: 'Напишете порака…',
+    conversation: 'Разговор',
+    selectConversation: 'Изберете разговор',
+    user: 'Корисник',
+    opener: 'Здраво, заинтересиран сум за вашиот {title}. Дали е сè уште достапен?',
+  },
   brand: {
     name: 'CarMarket365'
   },
