@@ -37,6 +37,11 @@ export class Message {
   @Column({ default: false })
   isRead: boolean;
 
+  // Internal: set once the recipient has been emailed a "you have an unread
+  // message" nudge, so the scheduled job never emails about it twice.
+  @Column({ default: false })
+  emailNotified: boolean;
+
   @Field()
   @CreateDateColumn()
   createdAt: Date;

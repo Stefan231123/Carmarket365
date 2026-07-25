@@ -5,6 +5,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriverConfig, ApolloDriver } from '@nestjs/apollo';
 import { ConfigModule } from '@nestjs/config';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { ScheduleModule } from '@nestjs/schedule';
 import { LoggerModule } from 'nestjs-pino';
 import { join } from 'path';
 
@@ -22,6 +23,8 @@ import { SubscribersModule } from './common/subscribers/subscribers.module';
 
 @Module({
   imports: [
+    // Scheduled jobs (e.g. unread-message email notifications)
+    ScheduleModule.forRoot(),
     // Environment configuration
     ConfigModule.forRoot({
       isGlobal: true,
