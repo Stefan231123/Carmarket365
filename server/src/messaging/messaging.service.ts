@@ -156,8 +156,8 @@ export class MessagingService {
     }
   }
 
-  async notifyStaleUnread(now: Date = new Date()): Promise<number> {
-    const cutoff = new Date(now.getTime() - UNREAD_EMAIL_AFTER_MS);
+  async notifyStaleUnread(maxAgeMs: number = UNREAD_EMAIL_AFTER_MS, now: Date = new Date()): Promise<number> {
+    const cutoff = new Date(now.getTime() - maxAgeMs);
 
     const pending = await this.messages.find({
       where: { isRead: false, emailNotified: false, createdAt: LessThanOrEqual(cutoff) },
