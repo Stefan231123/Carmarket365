@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import { apiClient } from "@shared/api-client";
 import { useSafeAuth } from "@/contexts/AuthContextSafe";
+import { useTranslation } from "@/hooks/useTranslation";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -50,6 +51,7 @@ function timeLabel(iso: string): string {
 
 export default function Messages() {
   const { user } = useSafeAuth();
+  const { t } = useTranslation();
   const [params, setParams] = useSearchParams();
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loadingList, setLoadingList] = useState(true);
@@ -126,7 +128,7 @@ export default function Messages() {
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
       <main className="flex-1 container mx-auto px-4 py-6">
-        <h1 className="text-2xl font-bold mb-4">Messages</h1>
+        <h1 className="text-2xl font-bold mb-4">{t("messenger.title")}</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-[70vh]">
           {/* Conversation list */}
@@ -139,7 +141,7 @@ export default function Messages() {
               ) : conversations.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-40 text-muted-foreground gap-2 p-4 text-center">
                   <MessageSquare className="h-8 w-8" />
-                  <p>No conversations yet. Message a seller from a listing to start one.</p>
+                  <p>{t("messenger.empty")}</p>
                 </div>
               ) : (
                 conversations.map((c) => {
@@ -158,12 +160,12 @@ export default function Messages() {
                       </Avatar>
                       <div className="min-w-0 flex-1">
                         <div className="flex items-center justify-between gap-2">
-                          <span className="font-medium truncate">{o.name || "User"}</span>
+                          <span className="font-medium truncate">{o.name || t("messenger.user")}</span>
                           <span className="text-xs text-muted-foreground shrink-0">{timeLabel(c.lastMessageAt)}</span>
                         </div>
                         <div className="flex items-center justify-between gap-2">
                           <span className="text-sm text-muted-foreground truncate">
-                            {c.car ? `${c.car.year} ${c.car.make} ${c.car.model}` : "Conversation"}
+                            {c.car ? `${c.car.year} ${c.car.make} ${c.car.model}` : t("messenger.conversation")}
                           </span>
                           {c.unreadCount > 0 && <Badge className="shrink-0">{c.unreadCount}</Badge>}
                         </div>
@@ -179,7 +181,7 @@ export default function Messages() {
           <div className="md:col-span-2 border rounded-lg overflow-hidden flex flex-col">
             {!activeId ? (
               <div className="flex-1 flex items-center justify-center text-muted-foreground">
-                Select a conversation
+                {t("messenger.selectConversation")}
               </div>
             ) : (
               <>
@@ -228,7 +230,7 @@ export default function Messages() {
                         send();
                       }
                     }}
-                    placeholder="Type a message…"
+                    placeholder={t("messenger.typeMessage")}
                     disabled={sending}
                   />
                   <Button onClick={send} disabled={sending || !draft.trim()} size="icon" aria-label="Send">
