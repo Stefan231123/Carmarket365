@@ -132,6 +132,20 @@ describe('Messaging', () => {
     // Now it notifies exactly one recipient (the seller), and only once.
     expect(await svc.notifyStaleUnread()).toBe(1);
     expect(await svc.notifyStaleUnread()).toBe(0);
+
+    // A SECOND unread message in the same thread must NOT trigger another email
+    // — the seller is emailed only once per conversation.
+    await t.gql(`mutation M($id: String!, $c: String!) { sendMessage(conversationId: $id, content: $c) { id } }`, {
+      token: buyer.token,
+      variables: { id: convId, c: 'still interested, any update?' },
+    });
+    await (svc as any).messages
+      .createQueryBuilder()
+      .update()
+      .set({ createdAt: sevenHoursAgo })
+      .where('conversationId = :convId', { convId })
+      .execute();
+    expect(await svc.notifyStaleUnread()).toBe(0);
   });
 
   it('marks messages read', async () => {

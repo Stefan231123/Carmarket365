@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException, ForbiddenException, BadRequestException, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, LessThanOrEqual, In } from 'typeorm';
+import { Repository, LessThanOrEqual, In, Not } from 'typeorm';
 import { Conversation } from './conversation.entity';
 import { Message } from './message.entity';
 import { Car } from '../cars/car.entity';
@@ -166,7 +166,7 @@ export class MessagingService {
     });
 
     // Group by conversation + recipient (the participant who is NOT the sender).
-    const groups = new Map<string, { recipient: { email: string; name: string }; carTitle: string; conversationId: string; ids: string[] }>();
+    const groups = new Map<string, { recipient: { id: string; email: string; name: string }; carTitle: string; conversationId: string; ids: string[] }>();
     for (const m of pending) {
       const conv = m.conversation;
       if (!conv) continue;
@@ -175,7 +175,7 @@ export class MessagingService {
       const key = `${conv.id}:${recipientUser.id}`;
       const carTitle = conv.car ? `${conv.car.year} ${conv.car.make} ${conv.car.model}` : 'your listing';
       const group = groups.get(key) ?? {
-        recipient: { email: recipientUser.email, name: recipientUser.name || '' },
+        recipient: { id: recipientUser.id, email: recipientUser.email, name: recipientUser.name || '' },
         carTitle,
         conversationId: conv.id,
         ids: [],
@@ -186,6 +186,17 @@ export class MessagingService {
 
     let sent = 0;
     for (const group of groups.values()) {
+      // Only ever email a recipient once per thread: if any earlier message from
+      // the other party in this conversation was already notified, don't send a
+      // second email — just flag these so they aren't reconsidered.
+      const priorEmail = await this.messages.count({
+        where: { conversationId: group.conversationId, senderId: Not(group.recipient.id), emailNotified: true },
+      });
+      if (priorEmail > 0) {
+        await this.messages.update({ id: In(group.ids) }, { emailNotified: true });
+        continue;
+      }
+
       const ok = await this.emailService
         .sendNewMessageEmail(group.recipient.email, group.recipient.name, group.carTitle, group.conversationId, group.ids.length)
         .catch((err) => {
