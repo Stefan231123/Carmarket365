@@ -62,14 +62,23 @@ export function MessengerWidget() {
   // Derived so it stays correct even if the listing loads after the panel opens.
   const showCompose = open && !active && canComposeToListing && !composeDismissed;
 
-  // Poll unread count while signed in.
+  // Poll unread count while signed in — responsive, and refreshed the moment
+  // the tab regains focus so the badge feels near-realtime.
   useEffect(() => {
     if (!isAuthenticated) { setUnread(0); return; }
     let cancelled = false;
-    const load = () => apiClient.getUnreadMessageCount().then((n) => !cancelled && setUnread(n));
+    const load = () => apiClient.getUnreadMessageCount().then((n) => !cancelled && setUnread(n)).catch(() => {});
     load();
-    const t = setInterval(load, 30000);
-    return () => { cancelled = true; clearInterval(t); };
+    const t = setInterval(load, 10000);
+    const onFocus = () => { if (!document.hidden) load(); };
+    window.addEventListener("focus", onFocus);
+    document.addEventListener("visibilitychange", onFocus);
+    return () => {
+      cancelled = true;
+      clearInterval(t);
+      window.removeEventListener("focus", onFocus);
+      document.removeEventListener("visibilitychange", onFocus);
+    };
   }, [isAuthenticated]);
 
   const loadList = useCallback(async () => {
@@ -97,6 +106,32 @@ export function MessengerWidget() {
   }, [showCompose, activeListing?.carId]);
 
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [active?.messages?.length]);
+
+  // Keep the open conversation list fresh in near-realtime (silent — no spinner).
+  useEffect(() => {
+    if (!open || active || showCompose) return;
+    const id = setInterval(() => {
+      apiClient.getMyConversations().then(setConversations).catch(() => {});
+    }, 5000);
+    return () => clearInterval(id);
+  }, [open, active, showCompose]);
+
+  // Poll the open thread for new incoming messages in near-realtime, clearing
+  // unread as they arrive while it's on screen.
+  useEffect(() => {
+    const id = active?.id;
+    if (!id) return;
+    let cancelled = false;
+    const timer = setInterval(async () => {
+      try {
+        const conv = await apiClient.getConversation(id);
+        if (cancelled) return;
+        setActive((prev) => (prev && prev.id === id ? { ...prev, messages: conv.messages } : prev));
+        if ((conv.unreadCount ?? 0) > 0) await apiClient.markConversationRead(id);
+      } catch { /* transient error — the next tick retries */ }
+    }, 4000);
+    return () => { cancelled = true; clearInterval(timer); };
+  }, [active?.id]);
 
   const openThread = async (id: string) => {
     setLoadingThread(true);
@@ -139,8 +174,9 @@ export function MessengerWidget() {
 
   return (
     <>
-      {/* Lift the reCAPTCHA v3 badge above the messenger bubble so they don't overlap. */}
-      <style>{`.grecaptcha-badge{bottom:96px!important;}`}</style>
+      {/* Move the reCAPTCHA v3 badge to the opposite (left) corner so it never
+          overlaps the messenger bubble/panel on the right. */}
+      <style>{`.grecaptcha-badge{left:14px!important;right:auto!important;}`}</style>
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
       {/* Panel */}
       {open && (

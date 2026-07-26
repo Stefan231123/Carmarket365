@@ -108,6 +108,30 @@ export default function Messages() {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [active?.messages?.length]);
 
+  // Near-realtime: silently refresh the conversation list every 5s.
+  useEffect(() => {
+    const id = setInterval(() => {
+      apiClient.getMyConversations().then(setConversations).catch(() => {});
+    }, 5000);
+    return () => clearInterval(id);
+  }, []);
+
+  // Near-realtime: poll the open thread for new messages every 4s.
+  useEffect(() => {
+    if (!activeId) return;
+    const id = activeId;
+    let cancelled = false;
+    const timer = setInterval(async () => {
+      try {
+        const conv = await apiClient.getConversation(id);
+        if (cancelled) return;
+        setActive((prev) => (prev && prev.id === id ? { ...prev, messages: conv.messages } : prev));
+        if ((conv.unreadCount ?? 0) > 0) await apiClient.markConversationRead(id);
+      } catch { /* transient error — next tick retries */ }
+    }, 4000);
+    return () => { cancelled = true; clearInterval(timer); };
+  }, [activeId]);
+
   const send = async () => {
     const content = draft.trim();
     if (!content || !activeId || sending) return;
