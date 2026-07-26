@@ -42,8 +42,9 @@ jobs:
       - run: npm ci
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
-      # Scaffold only for now: a smoke test against the deployed site. Real
-      # critical-path flows land in W3; point E2E_BASE_URL at a preview then.
+      # Read-only smoke/browse/navigation flows against production. The
+      # write-flow specs are isStaging()-guarded and skip here; they run against
+      # the staging environment in the e2e-staging workflow.
       - name: Run E2E
         run: npm run e2e
         env:

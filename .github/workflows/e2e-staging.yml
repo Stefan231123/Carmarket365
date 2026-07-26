@@ -1,0 +1,43 @@
+name: E2E (staging write-flows)
+
+# Runs the full Playwright suite — including the write-flow specs that create
+# accounts, listings and messages — against the isolated STAGING environment.
+# Kept separate from the per-PR merge gate: these tests write data and depend on
+# staging being deployed, so they must not block merges. They run on demand, on
+# a nightly schedule, and whenever the staging branch is deployed.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * *' # daily at 06:00 UTC
+  push:
+    branches: [staging]
+
+# Never run two staging E2E runs at once (they share the staging database).
+concurrency:
+  group: e2e-staging
+  cancel-in-progress: false
+
+jobs:
+  e2e-staging:
+    name: E2E write-flows (staging)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+      - name: Run E2E against staging
+        run: npm run e2e
+        env:
+          E2E_BASE_URL: https://staging.carmarket365.com
+      - name: Upload report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
