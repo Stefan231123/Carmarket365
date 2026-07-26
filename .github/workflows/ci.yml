@@ -147,3 +147,16 @@ jobs:
         run: npm audit --audit-level=high || true
       - name: Audit backend deps
         run: cd server && npm audit --audit-level=high || true
+
+  secret-scan:
+    name: Secret scan (gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Full history so PR commits can be diffed and scanned.
+          fetch-depth: 0
+      - name: Run gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
