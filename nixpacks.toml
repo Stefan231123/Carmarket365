@@ -1,7 +1,8 @@
 # Nixpacks configuration for Railway deployment
 
 [phases.setup]
-nixPkgs = ['nodejs_20']
+# postgresql_16 provides the `pg_dump` binary used by the nightly DB backup job.
+nixPkgs = ['nodejs_20', 'postgresql_16']
 
 [phases.install]
 cmds = [

@@ -1,5 +1,5 @@
 import { Injectable, Logger, InternalServerErrorException } from '@nestjs/common';
-import { S3Client, PutObjectCommand, DeleteObjectCommand } from '@aws-sdk/client-s3';
+import { S3Client, PutObjectCommand, DeleteObjectCommand, ListObjectsV2Command } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { randomUUID } from 'crypto';
 
@@ -85,6 +85,35 @@ export class S3Service {
     } catch (err) {
       this.logger.warn(`Failed to delete S3 object ${key}: ${err}`);
     }
+  }
+
+  /**
+   * Upload bytes from the server directly (used for database backups — the
+   * `backups/` prefix is NOT in the bucket's public-read policy, so it stays
+   * private). Buffers the whole body; fine for the small dumps we produce.
+   */
+  async uploadBuffer(key: string, body: Buffer, contentType: string): Promise<void> {
+    if (!this.client) {
+      throw new InternalServerErrorException('S3 is not configured on the server');
+    }
+    await this.client.send(
+      new PutObjectCommand({ Bucket: this.bucket, Key: key, Body: body, ContentType: contentType }),
+    );
+  }
+
+  /** List object keys under a prefix (newest sorting is left to the caller). */
+  async listKeys(prefix: string): Promise<string[]> {
+    if (!this.client) return [];
+    const keys: string[] = [];
+    let token: string | undefined;
+    do {
+      const res = await this.client.send(
+        new ListObjectsV2Command({ Bucket: this.bucket, Prefix: prefix, ContinuationToken: token }),
+      );
+      for (const obj of res.Contents ?? []) if (obj.Key) keys.push(obj.Key);
+      token = res.IsTruncated ? res.NextContinuationToken : undefined;
+    } while (token);
+    return keys;
   }
 
   private extensionFor(contentType: string): string {
