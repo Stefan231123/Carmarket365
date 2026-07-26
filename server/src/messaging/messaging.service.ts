@@ -5,7 +5,9 @@ import { Repository, LessThanOrEqual, In, Not } from 'typeorm';
 import { Conversation } from './conversation.entity';
 import { Message } from './message.entity';
 import { Car } from '../cars/car.entity';
+import { User } from '../users/user.entity';
 import { EmailService } from '../common/email/email.service';
+import { PushService } from '../common/push/push.service';
 
 /** Email the recipient if a message stays unread this long. */
 const UNREAD_EMAIL_AFTER_MS = 6 * 60 * 60 * 1000; // 6 hours
@@ -18,7 +20,9 @@ export class MessagingService {
     @InjectRepository(Conversation) private readonly conversations: Repository<Conversation>,
     @InjectRepository(Message) private readonly messages: Repository<Message>,
     @InjectRepository(Car) private readonly cars: Repository<Car>,
+    @InjectRepository(User) private readonly users: Repository<User>,
     private readonly emailService: EmailService,
+    private readonly pushService: PushService,
   ) {}
 
   private assertParticipant(conv: Conversation, userId: string): void {
@@ -82,10 +86,29 @@ export class MessagingService {
       this.messages.create({ conversationId, senderId, content, isRead: false }),
     );
     await this.conversations.update(conversationId, { lastMessageAt: new Date() });
+    // Fire a push to the recipient — best-effort, never blocks the reply.
+    void this.pushNewMessage(conversationId, senderId, content).catch(() => {});
     // Reload with the sender relation: `save()` doesn't populate relations, and
     // Message.sender is a non-nullable GraphQL field, so returning the bare
     // entity makes `sendMessage { sender { ... } }` fail to resolve.
     return this.messages.findOneOrFail({ where: { id: saved.id }, relations: ['sender'] });
+  }
+
+  /** Push-notify the other participant about a new message (best-effort). */
+  private async pushNewMessage(conversationId: string, senderId: string, content: string): Promise<void> {
+    const conv = await this.conversations.findOne({ where: { id: conversationId } });
+    if (!conv) return;
+    const recipientId = senderId === conv.buyerId ? conv.sellerId : conv.buyerId;
+    const [recipient, sender] = await Promise.all([
+      this.users.findOne({ where: { id: recipientId } }),
+      this.users.findOne({ where: { id: senderId } }),
+    ]);
+    if (!recipient?.expoPushToken) return;
+    await this.pushService.sendToTokens([recipient.expoPushToken], {
+      title: sender?.name || 'New message',
+      body: content.length > 120 ? `${content.slice(0, 117)}…` : content,
+      data: { type: 'message', conversationId },
+    });
   }
 
   /** Conversations the user participates in, newest activity first, with unread counts. */

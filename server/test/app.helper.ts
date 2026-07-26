@@ -1,5 +1,5 @@
 import { INestApplication, ValidationPipe } from '@nestjs/common';
-import { Test } from '@nestjs/testing';
+import { Test, TestingModuleBuilder } from '@nestjs/testing';
 import request from 'supertest';
 import { AppModule } from '../src/app.module';
 
@@ -21,12 +21,12 @@ interface GqlOpts {
  * Boot the real AppModule against the test database. The rate-limiting guard is
  * stubbed out so repeated auth calls in tests don't trip the throttle.
  */
-export async function createTestApp(): Promise<TestApp> {
+export async function createTestApp(configure?: (builder: TestingModuleBuilder) => void): Promise<TestApp> {
   // Rate limiting is disabled under NODE_ENV=test (see ThrottlerModule.skipIf
   // in app.module), so repeated auth calls here aren't throttled.
-  const moduleRef = await Test.createTestingModule({
-    imports: [AppModule],
-  }).compile();
+  const builder = Test.createTestingModule({ imports: [AppModule] });
+  configure?.(builder); // e.g. override external services (push, email) with mocks
+  const moduleRef = await builder.compile();
 
   const app = moduleRef.createNestApplication();
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true, transform: true }));

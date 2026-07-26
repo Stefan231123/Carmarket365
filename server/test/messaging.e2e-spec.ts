@@ -1,9 +1,11 @@
 import { createTestApp, TestApp, registerUser, createCar } from './app.helper';
+import { PushService } from '../src/common/push/push.service';
 
 describe('Messaging', () => {
   let t: TestApp;
+  const pushMock = { sendToTokens: jest.fn().mockResolvedValue(undefined) };
   beforeAll(async () => {
-    t = await createTestApp();
+    t = await createTestApp((b) => b.overrideProvider(PushService).useValue(pushMock));
   });
   afterAll(async () => {
     await t.close();
@@ -146,6 +148,26 @@ describe('Messaging', () => {
       .where('conversationId = :convId', { convId })
       .execute();
     expect(await svc.notifyStaleUnread()).toBe(0);
+  });
+
+  it('pushes a notification to the recipient when they have a saved push token', async () => {
+    const seller = await registerUser(t);
+    const buyer = await registerUser(t);
+    const car = await createCar(t, seller.token);
+
+    // Seller registers an Expo push token for their device.
+    await t.gql(`mutation P($tk: String!) { savePushToken(expoPushToken: $tk) }`, {
+      token: seller.token,
+      variables: { tk: 'ExponentPushToken[seller-device]' },
+    });
+
+    pushMock.sendToTokens.mockClear();
+    await t.gql(START, { token: buyer.token, variables: { carId: car.id, content: 'Is this available?' } });
+
+    // The push is fire-and-forget — give it a tick to run.
+    await new Promise((r) => setTimeout(r, 100));
+    expect(pushMock.sendToTokens).toHaveBeenCalledTimes(1);
+    expect(pushMock.sendToTokens.mock.calls[0][0]).toEqual(['ExponentPushToken[seller-device]']);
   });
 
   it('marks messages read', async () => {
