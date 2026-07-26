@@ -46,6 +46,11 @@ export class UsersService {
     });
   }
 
+  /** Store (or clear) a user's Expo push token for mobile notifications. */
+  async setPushToken(userId: string, token: string): Promise<void> {
+    await this.userRepository.update(userId, { expoPushToken: token });
+  }
+
   async create(registerInput: RegisterInput, role: UserRole = UserRole.USER): Promise<User> {
     // Check if user already exists
     const existingUser = await this.findByEmail(registerInput.email);

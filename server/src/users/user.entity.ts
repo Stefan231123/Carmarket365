@@ -79,6 +79,9 @@ export class User {
   @Column({ nullable: true })
   passwordResetExpires?: Date;
 
+  @Column({ nullable: true })
+  expoPushToken?: string; // Mobile Expo push token — internal, never exposed via GraphQL
+
   @Field({ nullable: true })
   @Column({ nullable: true })
   lastLoginAt?: Date;

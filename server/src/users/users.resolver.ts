@@ -47,6 +47,16 @@ export class UsersResolver {
     return this.usersService.getApprovedDealers();
   }
 
+  @Mutation(() => Boolean, { description: "Store the current user's Expo push token for mobile notifications." })
+  @UseGuards(JwtAuthGuard)
+  async savePushToken(
+    @Args('expoPushToken') expoPushToken: string,
+    @CurrentUser() user: User,
+  ): Promise<boolean> {
+    await this.usersService.setPushToken(user.id, expoPushToken);
+    return true;
+  }
+
   @Mutation(() => User)
   @UseGuards(JwtAuthGuard)
   async addToSavedListings(
