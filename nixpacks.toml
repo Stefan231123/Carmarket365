@@ -1,8 +1,9 @@
 # Nixpacks configuration for Railway deployment
 
 [phases.setup]
-# postgresql_16 provides the `pg_dump` binary used by the nightly DB backup job.
-nixPkgs = ['nodejs_20', 'postgresql_16']
+# postgresql_18 provides `pg_dump` for the nightly DB backup job. It must be
+# >= the Railway Postgres server major (currently 18) or pg_dump refuses to run.
+nixPkgs = ['nodejs_20', 'postgresql_18']
 
 [phases.install]
 cmds = [
