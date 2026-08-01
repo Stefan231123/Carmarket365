@@ -1,7 +1,7 @@
 import { Resolver, Mutation, Args, Context } from '@nestjs/graphql';
 import { UnauthorizedException } from '@nestjs/common';
 import { Throttle, SkipThrottle } from '@nestjs/throttler';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 import { AuthService } from './auth.service';
 import { RecaptchaService } from '../common/recaptcha/recaptcha.service';
 import { LoginInput, RegisterInput } from './dto/auth.input';
@@ -44,14 +44,24 @@ export class AuthResolver {
     });
   }
 
+  /**
+   * reCAPTCHA v3 is web-only, so the first-party mobile app can't produce a
+   * token. It identifies itself with a header; requests from it skip the CAPTCHA
+   * check. Brute force is still bounded by the 5/min auth rate limiter.
+   */
+  private isTrustedMobileClient(req?: Request): boolean {
+    const expected = process.env.MOBILE_APP_CLIENT || 'carmarket365-mobile';
+    return req?.headers?.['x-app-client'] === expected;
+  }
+
   @Mutation(() => AuthResponse, { description: 'Authenticate with email and password. Sets httpOnly cookie.' })
   @Throttle({ auth: { ttl: 60000, limit: 5 } })
   async login(
     @Args('input') loginInput: LoginInput,
     @Args('captchaToken', { nullable: true }) captchaToken: string | undefined,
-    @Context() ctx: { res: Response },
+    @Context() ctx: { req: Request; res: Response },
   ): Promise<AuthResponse> {
-    const isHuman = await this.recaptchaService.verify(captchaToken, 'login');
+    const isHuman = this.isTrustedMobileClient(ctx.req) || (await this.recaptchaService.verify(captchaToken, 'login'));
     if (!isHuman) {
       throw new UnauthorizedException('CAPTCHA verification failed');
     }
@@ -65,9 +75,9 @@ export class AuthResolver {
   async register(
     @Args('input') registerInput: RegisterInput,
     @Args('captchaToken', { nullable: true }) captchaToken: string | undefined,
-    @Context() ctx: { res: Response },
+    @Context() ctx: { req: Request; res: Response },
   ): Promise<AuthResponse> {
-    const isHuman = await this.recaptchaService.verify(captchaToken, 'register');
+    const isHuman = this.isTrustedMobileClient(ctx.req) || (await this.recaptchaService.verify(captchaToken, 'register'));
     if (!isHuman) {
       throw new UnauthorizedException('CAPTCHA verification failed');
     }
