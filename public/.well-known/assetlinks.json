@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.carmarket.app",
+      "sha256_cert_fingerprints": [
+        "8E:2D:EE:0E:34:63:11:7C:DB:67:75:5B:85:B1:BE:F4:7E:E6:6F:D4:DA:A8:46:90:8D:CE:C6:53:09:09:32:EC"
+      ]
+    }
+  }
+]
