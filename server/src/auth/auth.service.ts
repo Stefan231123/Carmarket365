@@ -105,16 +105,27 @@ export class AuthService {
     let avatarUrl: string | undefined;
 
     if (provider === 'google') {
-      const googleClientId = process.env.GOOGLE_CLIENT_ID;
-      if (!googleClientId) {
+      // Accept any of the configured client IDs as a valid audience. The mobile
+      // app (expo-auth-session) issues per-platform ID tokens whose `aud` is the
+      // web, iOS, or Android client ID, so we verify against all of them.
+      // GOOGLE_CLIENT_IDS is a comma-separated list; GOOGLE_CLIENT_ID kept for back-compat.
+      const googleClientIds = (
+        process.env.GOOGLE_CLIENT_IDS ||
+        process.env.GOOGLE_CLIENT_ID ||
+        ''
+      )
+        .split(',')
+        .map((id) => id.trim())
+        .filter(Boolean);
+      if (googleClientIds.length === 0) {
         throw new UnauthorizedException('Google OAuth is not configured');
       }
 
-      const client = new OAuth2Client(googleClientId);
+      const client = new OAuth2Client(googleClientIds[0]);
       try {
         const ticket = await client.verifyIdToken({
           idToken: token,
-          audience: googleClientId,
+          audience: googleClientIds,
         });
         const payload = ticket.getPayload();
         if (!payload || !payload.email) {
