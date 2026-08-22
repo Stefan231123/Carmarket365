@@ -50,10 +50,9 @@ const timeLabel = (iso: string) => {
  */
 export function MessengerWidget() {
   const { user, isAuthenticated } = useSafeAuth();
-  const { activeListing } = useActiveListing();
+  const { activeListing, isMessengerOpen: open, setMessengerOpen: setOpen } = useActiveListing();
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
   const [unread, setUnread] = useState(0);
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loadingList, setLoadingList] = useState(false);
