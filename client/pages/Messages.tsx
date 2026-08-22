@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, Send, MessageSquare } from "lucide-react";
+import { Loader2, Send, MessageSquare, ChevronRight, Car as CarIcon } from "lucide-react";
 
 interface Participant {
   id: string;
@@ -221,26 +221,33 @@ export default function Messages() {
             ) : (
               <>
                 {active?.car && (
-                  <button
-                    onClick={() => navigate(`/cars/${active.car!.id}`)}
-                    className="flex items-center gap-3 px-4 py-3 border-b bg-muted/30 hover:bg-muted/50 text-left w-full"
-                  >
-                    {active.car.images?.[0] && (
-                      <img
-                        src={active.car.images[0].thumbnailUrl || active.car.images[0].url}
-                        alt=""
-                        className="h-12 w-12 rounded-md object-cover shrink-0"
-                      />
-                    )}
-                    <div className="min-w-0">
-                      <span className="font-medium block truncate">
-                        {active.car.year} {active.car.make} {active.car.model}
-                      </span>
-                      {typeof active.car.price === 'number' && (
-                        <span className="text-sm text-muted-foreground">{formatPrice(active.car.price)}</span>
+                  <div className="px-4 pt-4 pb-2 shrink-0">
+                    <button
+                      onClick={() => navigate(`/cars/${active.car!.id}`)}
+                      className="flex items-center gap-3 p-2.5 w-full rounded-xl border bg-white shadow-sm hover:shadow-md hover:border-primary/40 transition-all text-left"
+                    >
+                      {active.car.images?.[0] ? (
+                        <img
+                          src={active.car.images[0].thumbnailUrl || active.car.images[0].url}
+                          alt=""
+                          className="h-14 w-14 rounded-lg object-cover shrink-0"
+                        />
+                      ) : (
+                        <div className="h-14 w-14 rounded-lg bg-muted flex items-center justify-center shrink-0">
+                          <CarIcon className="h-6 w-6 text-muted-foreground" />
+                        </div>
                       )}
-                    </div>
-                  </button>
+                      <div className="min-w-0 flex-1">
+                        <span className="font-semibold block truncate">
+                          {active.car.year} {active.car.make} {active.car.model}
+                        </span>
+                        {typeof active.car.price === 'number' && (
+                          <span className="text-sm text-primary font-medium">{formatPrice(active.car.price)}</span>
+                        )}
+                      </div>
+                      <ChevronRight className="h-4 w-4 text-muted-foreground shrink-0" />
+                    </button>
+                  </div>
                 )}
                 <ScrollArea className="flex-1 p-4">
                   {loadingThread ? (
