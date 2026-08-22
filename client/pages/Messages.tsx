@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { apiClient } from "@shared/api-client";
 import { useSafeAuth } from "@/contexts/AuthContextSafe";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -28,11 +28,21 @@ interface Conversation {
   id: string;
   unreadCount: number;
   lastMessageAt: string;
-  car?: { id: string; make: string; model: string; year: number };
+  car?: {
+    id: string;
+    make: string;
+    model: string;
+    year: number;
+    price?: number;
+    images?: { thumbnailUrl?: string; url: string }[];
+  };
   buyer: Participant;
   seller: Participant;
   messages?: Message[];
 }
+
+const formatPrice = (price: number) =>
+  new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(price);
 
 function initials(p?: Participant): string {
   const n = p?.name?.trim();
@@ -52,6 +62,7 @@ function timeLabel(iso: string): string {
 export default function Messages() {
   const { user } = useSafeAuth();
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [params, setParams] = useSearchParams();
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [loadingList, setLoadingList] = useState(true);
@@ -210,11 +221,26 @@ export default function Messages() {
             ) : (
               <>
                 {active?.car && (
-                  <div className="px-4 py-3 border-b bg-muted/30">
-                    <span className="font-medium">
-                      {active.car.year} {active.car.make} {active.car.model}
-                    </span>
-                  </div>
+                  <button
+                    onClick={() => navigate(`/cars/${active.car!.id}`)}
+                    className="flex items-center gap-3 px-4 py-3 border-b bg-muted/30 hover:bg-muted/50 text-left w-full"
+                  >
+                    {active.car.images?.[0] && (
+                      <img
+                        src={active.car.images[0].thumbnailUrl || active.car.images[0].url}
+                        alt=""
+                        className="h-12 w-12 rounded-md object-cover shrink-0"
+                      />
+                    )}
+                    <div className="min-w-0">
+                      <span className="font-medium block truncate">
+                        {active.car.year} {active.car.make} {active.car.model}
+                      </span>
+                      {typeof active.car.price === 'number' && (
+                        <span className="text-sm text-muted-foreground">{formatPrice(active.car.price)}</span>
+                      )}
+                    </div>
+                  </button>
                 )}
                 <ScrollArea className="flex-1 p-4">
                   {loadingThread ? (
