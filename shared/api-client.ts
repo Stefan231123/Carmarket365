@@ -1334,7 +1334,7 @@ class ApiClient {
           id
           unreadCount
           lastMessageAt
-          car { id make model year images { thumbnailUrl url } }
+          car { id make model year price images { thumbnailUrl url } }
           buyer { id name avatarUrl }
           seller { id name avatarUrl }
         }
@@ -1351,7 +1351,7 @@ class ApiClient {
         getConversation(id: $id) {
           id
           unreadCount
-          car { id make model year }
+          car { id make model year price images { thumbnailUrl url } }
           buyer { id name avatarUrl }
           seller { id name avatarUrl }
           messages { id content isRead createdAt sender { id name avatarUrl } }

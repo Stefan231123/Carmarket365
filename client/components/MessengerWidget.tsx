@@ -17,11 +17,21 @@ interface Conversation {
   id: string;
   unreadCount: number;
   lastMessageAt: string;
-  car?: { id: string; make: string; model: string; year: number };
+  car?: {
+    id: string;
+    make: string;
+    model: string;
+    year: number;
+    price?: number;
+    images?: { thumbnailUrl?: string; url: string }[];
+  };
   buyer: Participant;
   seller: Participant;
   messages?: Message[];
 }
+
+const formatPrice = (price: number) =>
+  new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(price);
 
 const initials = (p?: Participant) =>
   (p?.name?.trim()?.split(/\s+/).map((s) => s[0]).slice(0, 2).join("") || "?").toUpperCase();
@@ -277,6 +287,28 @@ export function MessengerWidget() {
             </ScrollArea>
           ) : (
             <>
+              {active?.car && (
+                <button
+                  onClick={() => { setOpen(false); navigate(`/cars/${active.car!.id}`); }}
+                  className="flex items-center gap-2 px-3 py-2 border-b bg-muted/30 hover:bg-muted/50 text-left w-full"
+                >
+                  {active.car.images?.[0] && (
+                    <img
+                      src={active.car.images[0].thumbnailUrl || active.car.images[0].url}
+                      alt=""
+                      className="h-9 w-9 rounded-md object-cover shrink-0"
+                    />
+                  )}
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-medium truncate">
+                      {active.car.year} {active.car.make} {active.car.model}
+                    </p>
+                    {typeof active.car.price === 'number' && (
+                      <p className="text-xs text-muted-foreground">{formatPrice(active.car.price)}</p>
+                    )}
+                  </div>
+                </button>
+              )}
               <ScrollArea className="flex-1 p-3">
                 {loadingThread ? (
                   <div className="flex items-center justify-center h-40 text-muted-foreground"><Loader2 className="h-5 w-5 animate-spin" /></div>
