@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { MessageSquare, X, ChevronLeft, Send, Loader2, Maximize2 } from "lucide-react";
+import { MessageSquare, X, ChevronLeft, ChevronRight, Send, Loader2, Maximize2, Car as CarIcon } from "lucide-react";
 
 interface Participant { id: string; name?: string; avatarUrl?: string; }
 interface Message { id: string; content: string; createdAt: string; sender: Participant; }
@@ -288,26 +288,33 @@ export function MessengerWidget() {
           ) : (
             <>
               {active?.car && (
-                <button
-                  onClick={() => { setOpen(false); navigate(`/cars/${active.car!.id}`); }}
-                  className="flex items-center gap-2 px-3 py-2 border-b bg-muted/30 hover:bg-muted/50 text-left w-full"
-                >
-                  {active.car.images?.[0] && (
-                    <img
-                      src={active.car.images[0].thumbnailUrl || active.car.images[0].url}
-                      alt=""
-                      className="h-9 w-9 rounded-md object-cover shrink-0"
-                    />
-                  )}
-                  <div className="min-w-0 flex-1">
-                    <p className="text-sm font-medium truncate">
-                      {active.car.year} {active.car.make} {active.car.model}
-                    </p>
-                    {typeof active.car.price === 'number' && (
-                      <p className="text-xs text-muted-foreground">{formatPrice(active.car.price)}</p>
+                <div className="px-3 pt-3 pb-1 shrink-0">
+                  <button
+                    onClick={() => { setOpen(false); navigate(`/cars/${active.car!.id}`); }}
+                    className="flex items-center gap-3 p-2 w-full rounded-xl border bg-white shadow-sm hover:shadow-md hover:border-primary/40 transition-all text-left"
+                  >
+                    {active.car.images?.[0] ? (
+                      <img
+                        src={active.car.images[0].thumbnailUrl || active.car.images[0].url}
+                        alt=""
+                        className="h-12 w-12 rounded-lg object-cover shrink-0"
+                      />
+                    ) : (
+                      <div className="h-12 w-12 rounded-lg bg-muted flex items-center justify-center shrink-0">
+                        <CarIcon className="h-5 w-5 text-muted-foreground" />
+                      </div>
                     )}
-                  </div>
-                </button>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-semibold truncate">
+                        {active.car.year} {active.car.make} {active.car.model}
+                      </p>
+                      {typeof active.car.price === 'number' && (
+                        <p className="text-xs text-primary font-medium">{formatPrice(active.car.price)}</p>
+                      )}
+                    </div>
+                    <ChevronRight className="h-4 w-4 text-muted-foreground shrink-0" />
+                  </button>
+                </div>
               )}
               <ScrollArea className="flex-1 p-3">
                 {loadingThread ? (
