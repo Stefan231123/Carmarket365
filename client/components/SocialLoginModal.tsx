@@ -4,7 +4,7 @@ import { X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Info, Loader2 } from 'lucide-react';
 import { useSafeAuth } from '@/contexts/AuthContextSafe';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '@/hooks/useTranslation';
 
@@ -26,10 +26,16 @@ export function SocialLoginModal({ isOpen, onClose, provider }: SocialLoginModal
   const { loginWithOAuth } = useSafeAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [sdkReady, setSdkReady] = useState(false);
+  const buttonContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isOpen) {
-      loadGoogleSDK();
+      setError(null);
+      setSdkReady(false);
+      loadGoogleSDK()
+        .then(() => setSdkReady(true))
+        .catch((err) => setError(err instanceof Error ? err.message : 'Failed to load Google SDK'));
     }
   }, [isOpen]);
 
@@ -60,73 +66,53 @@ export function SocialLoginModal({ isOpen, onClose, provider }: SocialLoginModal
     });
   };
 
-  const handleGoogleLogin = async () => {
+  const handleCredentialResponse = async (response: any) => {
     setIsLoading(true);
     setError(null);
-
     try {
-      await loadGoogleSDK();
+      const payload = JSON.parse(atob(response.credential.split('.')[1]));
 
-      if (!window.google) {
-        throw new Error('Google SDK failed to load');
-      }
-
-      const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-      window.google.accounts.id.initialize({
-        client_id: googleClientId,
-        callback: async (response: any) => {
-          try {
-            const payload = JSON.parse(atob(response.credential.split('.')[1]));
-
-            await loginWithOAuth({
-              provider: 'google',
-              token: response.credential,
-              email: payload.email,
-              name: payload.name,
-            });
-
-            onClose();
-            navigate('/');
-          } catch (error) {
-            console.error('Google OAuth callback error:', error);
-            setError(error instanceof Error ? error.message : 'Google login failed');
-          } finally {
-            setIsLoading(false);
-          }
-        },
-        auto_select: false,
-        cancel_on_tap_outside: false
+      await loginWithOAuth({
+        provider: 'google',
+        token: response.credential,
+        email: payload.email,
+        name: payload.name,
       });
 
-      window.google.accounts.id.prompt((notification: any) => {
-        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-          const buttonDiv = document.createElement('div');
-          buttonDiv.id = 'google-signin-button';
-          document.body.appendChild(buttonDiv);
-
-          window.google.accounts.id.renderButton(buttonDiv, {
-            theme: 'outline',
-            size: 'large',
-            text: 'continue_with',
-            shape: 'rectangular'
-          });
-
-          setTimeout(() => {
-            const button = buttonDiv.querySelector('div[role="button"]') as HTMLElement;
-            if (button) {
-              button.click();
-            }
-            document.body.removeChild(buttonDiv);
-          }, 100);
-        }
-      });
-
+      onClose();
+      navigate('/');
     } catch (error) {
-      console.error('Google login error:', error);
-      setError(error instanceof Error ? error.message : 'Failed to initialize Google login');
+      console.error('Google OAuth callback error:', error);
+      setError(error instanceof Error ? error.message : 'Google login failed');
+    } finally {
       setIsLoading(false);
     }
   };
+
+  // Render Google's own button once the SDK is ready. A genuine click on
+  // Google's button (not a synthetic/programmatic one) is required for the
+  // sign-in popup to open — browsers block popups triggered outside a real
+  // user gesture, which is why the previous auto-click approach silently failed.
+  useEffect(() => {
+    if (!sdkReady || !window.google || !buttonContainerRef.current) return;
+
+    const googleClientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+    window.google.accounts.id.initialize({
+      client_id: googleClientId,
+      callback: handleCredentialResponse,
+      auto_select: false,
+      cancel_on_tap_outside: false,
+    });
+
+    buttonContainerRef.current.innerHTML = '';
+    window.google.accounts.id.renderButton(buttonContainerRef.current, {
+      theme: 'outline',
+      size: 'large',
+      text: 'continue_with',
+      shape: 'rectangular',
+      width: 328,
+    });
+  }, [sdkReady]);
 
   const googleIcon = (
     <svg className="h-5 w-5" viewBox="0 0 24 24">
@@ -202,25 +188,25 @@ export function SocialLoginModal({ isOpen, onClose, provider }: SocialLoginModal
             </div>
 
             <div className="space-y-4">
-              <Button
-                onClick={handleGoogleLogin}
-                disabled={isLoading}
-                className="w-full h-12 text-white font-medium rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl bg-red-500 hover:bg-red-600"
-              >
+              <div className="flex justify-center items-center min-h-[44px]">
                 {isLoading ? (
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 text-gray-600">
                     <Loader2 className="h-5 w-5 animate-spin" />
                     <span>{t('auth.socialLogin.signingIn')}</span>
                   </div>
                 ) : (
-                  <div className="flex items-center gap-3">
-                    <div className="text-white">
-                      {googleIcon}
-                    </div>
-                    <span>Continue with Google</span>
-                  </div>
+                  <>
+                    {!sdkReady && !error && (
+                      <div className="flex items-center gap-2 text-gray-400">
+                        <Loader2 className="h-5 w-5 animate-spin" />
+                      </div>
+                    )}
+                    {/* Google renders its own real, clickable button here — required
+                        so the sign-in popup opens as a direct user gesture. */}
+                    <div ref={buttonContainerRef} />
+                  </>
                 )}
-              </Button>
+              </div>
 
               <div className="text-center">
                 <Button
