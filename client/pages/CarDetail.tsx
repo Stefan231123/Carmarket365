@@ -40,7 +40,6 @@ import {
   Check,
   MessageSquare
 } from "lucide-react";
-import { apiClient } from "@shared/api-client";
 import { useSafeAuth } from "@/contexts/AuthContextSafe";
 import { useActiveListing } from "@/contexts/ActiveListingContext";
 import { useEffect } from "react";
@@ -53,9 +52,8 @@ export default function CarDetail() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-  const [startingChat, setStartingChat] = useState(false);
   const { user, isAuthenticated } = useSafeAuth();
-  const { setActiveListing } = useActiveListing();
+  const { setActiveListing, setMessengerOpen } = useActiveListing();
 
   // Tell the floating messenger which listing/seller is being viewed, so it can
   // default to composing a message to this seller. Cleared on leave.
@@ -275,23 +273,15 @@ export default function CarDetail() {
 
   const isOwnListing = isAuthenticated && user?.id && car.seller?.id === user.id;
 
-  const handleMessageSeller = async () => {
+  const handleMessageSeller = () => {
     if (!isAuthenticated) {
       navigate(`/signin?redirect=/cars/${car.id}`);
       return;
     }
-    if (startingChat) return;
-    setStartingChat(true);
-    try {
-      const opener = `Hi, I'm interested in your ${car.year} ${car.make} ${car.model}. Is it still available?`;
-      const conv = await apiClient.startConversation(car.id, opener);
-      navigate(`/messages?c=${conv.id}`);
-    } catch {
-      // Fall back to the inquiry form if messaging is unavailable.
-      setIsContactModalOpen(true);
-    } finally {
-      setStartingChat(false);
-    }
+    // Open the floating messenger's compose panel (pre-filled but editable)
+    // rather than sending a message immediately — the buyer should be able to
+    // read/edit the opener before it's sent.
+    setMessengerOpen(true);
   };
 
   const handleViewDealerCars = () => {
@@ -578,9 +568,9 @@ export default function CarDetail() {
                   </Button>
                   {/* In-app messenger — the native channel, shown first */}
                   {!isOwnListing && (
-                    <Button onClick={handleMessageSeller} disabled={startingChat} className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-12" size="lg">
+                    <Button onClick={handleMessageSeller} className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-12" size="lg">
                       <MessageSquare className="h-4 w-4 mr-2" />
-                      {startingChat ? t('common.loading') : t('carDetail.actions.messageSeller')}
+                      {t('carDetail.actions.messageSeller')}
                     </Button>
                   )}
                   {/* Email inquiry — clearly distinct from in-app messaging */}
