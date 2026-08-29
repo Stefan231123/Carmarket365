@@ -142,7 +142,7 @@ export class AuthService {
     } else if (provider === 'apple') {
       // Apple's identity token audience is the app's bundle ID for native Sign in
       // with Apple (as opposed to a web client ID for the browser flow).
-      const appleClientIds = (process.env.APPLE_CLIENT_IDS || 'com.carmarket.app')
+      const appleClientIds = (process.env.APPLE_CLIENT_IDS || 'com.carmarket365.app')
         .split(',')
         .map((id) => id.trim())
         .filter(Boolean);
