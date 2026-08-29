@@ -1,6 +1,7 @@
 import { Injectable, UnauthorizedException, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { OAuth2Client } from 'google-auth-library';
+import appleSignin from 'apple-signin-auth';
 import * as crypto from 'crypto';
 import * as bcrypt from 'bcryptjs';
 import { UsersService } from '../users/users.service';
@@ -137,6 +138,27 @@ export class AuthService {
       } catch (err) {
         this.logger.warn(`Google token verification failed: ${err}`);
         throw new UnauthorizedException('Invalid Google token');
+      }
+    } else if (provider === 'apple') {
+      // Apple's identity token audience is the app's bundle ID for native Sign in
+      // with Apple (as opposed to a web client ID for the browser flow).
+      const appleClientIds = (process.env.APPLE_CLIENT_IDS || 'com.carmarket.app')
+        .split(',')
+        .map((id) => id.trim())
+        .filter(Boolean);
+
+      try {
+        const payload = await appleSignin.verifyIdToken(token, {
+          audience: appleClientIds,
+        });
+        if (!payload.email) {
+          throw new Error('Invalid Apple token payload');
+        }
+        verifiedEmail = payload.email;
+        verifiedName = name;
+      } catch (err) {
+        this.logger.warn(`Apple token verification failed: ${err}`);
+        throw new UnauthorizedException('Invalid Apple token');
       }
     } else {
       throw new UnauthorizedException(`Unsupported OAuth provider: ${provider}`);
