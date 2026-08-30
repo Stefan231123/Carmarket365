@@ -52,16 +52,18 @@ export class AuthService {
       this.logger.warn(`Failed to send verification email: ${err.message}`),
     );
 
-    // Push new dealers into the CRM (fire-and-forget, no-ops if unconfigured)
-    if (role === UserRole.DEALER) {
-      this.crmService.createDealerCompany({
-        name: registerInput.dealerName!,
-        address: registerInput.dealerAddress,
-        city: registerInput.dealerCity,
-        phone: registerInput.dealerPhoneNumber,
-        email: registerInput.email,
-      }).catch(err => this.logger.warn(`Failed to push dealer to CRM: ${err.message}`));
-    }
+    // Push every new signup into the CRM as a Person; dealers also get a
+    // Company linked to that Person (fire-and-forget, no-ops if unconfigured)
+    this.crmService.syncUserRegistration({
+      email: user.email,
+      firstName: registerInput.name?.split(' ')[0],
+      lastName: registerInput.name?.split(' ').slice(1).join(' ') || undefined,
+      phone: registerInput.dealerPhoneNumber,
+      dealerName: registerInput.dealerName,
+      dealerAddress: registerInput.dealerAddress,
+      dealerCity: registerInput.dealerCity,
+      dealerPhoneNumber: registerInput.dealerPhoneNumber,
+    }).catch(err => this.logger.warn(`Failed to sync user to CRM: ${err.message}`));
 
     return {
       user,
@@ -192,6 +194,14 @@ export class AuthService {
       this.emailService.sendWelcomeEmail(user.email, user.name || '').catch(err =>
         this.logger.warn(`Failed to send welcome email: ${err.message}`),
       );
+
+      // New OAuth signup — sync to CRM as a Person (deduped by email)
+      this.crmService.syncUserRegistration({
+        email: user.email,
+        firstName: user.firstName ?? undefined,
+        lastName: user.lastName ?? undefined,
+        phone: user.phone ?? undefined,
+      }).catch(err => this.logger.warn(`Failed to sync OAuth user to CRM: ${err.message}`));
     }
 
     return { user, access_token };
