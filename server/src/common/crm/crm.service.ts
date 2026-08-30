@@ -81,6 +81,8 @@ export class CrmService {
         ...(input.city ? { addressCity: input.city } : {}),
       };
     }
+    // Mirror city into its own top-level column for filter/group views.
+    if (input.city) body.city = input.city;
     if (input.phone) body.phone1 = { primaryPhoneNumber: input.phone };
     if (input.email) body.email = { primaryEmail: input.email };
 
