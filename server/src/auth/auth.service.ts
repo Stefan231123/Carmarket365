@@ -6,6 +6,7 @@ import * as crypto from 'crypto';
 import * as bcrypt from 'bcryptjs';
 import { UsersService } from '../users/users.service';
 import { EmailService } from '../common/email/email.service';
+import { CrmService } from '../common/crm/crm.service';
 import { LoginInput, RegisterInput } from './dto/auth.input';
 import { AuthResponse } from './dto/auth.response';
 import { User, UserRole } from '../users/user.entity';
@@ -18,6 +19,7 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
     private readonly emailService: EmailService,
+    private readonly crmService: CrmService,
   ) {}
 
   async login(loginInput: LoginInput): Promise<AuthResponse> {
@@ -49,6 +51,19 @@ export class AuthService {
     this.sendVerificationToken(user).catch(err =>
       this.logger.warn(`Failed to send verification email: ${err.message}`),
     );
+
+    // Push every new signup into the CRM as a Person; dealers also get a
+    // Company linked to that Person (fire-and-forget, no-ops if unconfigured)
+    this.crmService.syncUserRegistration({
+      email: user.email,
+      firstName: registerInput.name?.split(' ')[0],
+      lastName: registerInput.name?.split(' ').slice(1).join(' ') || undefined,
+      phone: registerInput.dealerPhoneNumber,
+      dealerName: registerInput.dealerName,
+      dealerAddress: registerInput.dealerAddress,
+      dealerCity: registerInput.dealerCity,
+      dealerPhoneNumber: registerInput.dealerPhoneNumber,
+    }).catch(err => this.logger.warn(`Failed to sync user to CRM: ${err.message}`));
 
     return {
       user,
@@ -179,6 +194,14 @@ export class AuthService {
       this.emailService.sendWelcomeEmail(user.email, user.name || '').catch(err =>
         this.logger.warn(`Failed to send welcome email: ${err.message}`),
       );
+
+      // New OAuth signup — sync to CRM as a Person (deduped by email)
+      this.crmService.syncUserRegistration({
+        email: user.email,
+        firstName: user.firstName ?? undefined,
+        lastName: user.lastName ?? undefined,
+        phone: user.phone ?? undefined,
+      }).catch(err => this.logger.warn(`Failed to sync OAuth user to CRM: ${err.message}`));
     }
 
     return { user, access_token };

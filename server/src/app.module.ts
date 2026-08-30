@@ -17,6 +17,7 @@ import { AdminModule } from './admin/admin.module';
 import { MessagingModule } from './messaging/messaging.module';
 import { EmailModule } from './common/email/email.module';
 import { RecaptchaModule } from './common/recaptcha/recaptcha.module';
+import { CrmModule } from './common/crm/crm.module';
 import { S3Module } from './common/s3/s3.module';
 import { HealthModule } from './health/health.module';
 import { SubscribersModule } from './common/subscribers/subscribers.module';
@@ -111,6 +112,7 @@ import { SubscribersModule } from './common/subscribers/subscribers.module';
     // Feature modules
     RecaptchaModule,
     EmailModule,
+    CrmModule,
     S3Module,
     AuthModule,
     UsersModule,
