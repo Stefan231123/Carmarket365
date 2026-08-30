@@ -6,6 +6,7 @@ import * as crypto from 'crypto';
 import * as bcrypt from 'bcryptjs';
 import { UsersService } from '../users/users.service';
 import { EmailService } from '../common/email/email.service';
+import { CrmService } from '../common/crm/crm.service';
 import { LoginInput, RegisterInput } from './dto/auth.input';
 import { AuthResponse } from './dto/auth.response';
 import { User, UserRole } from '../users/user.entity';
@@ -18,6 +19,7 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly jwtService: JwtService,
     private readonly emailService: EmailService,
+    private readonly crmService: CrmService,
   ) {}
 
   async login(loginInput: LoginInput): Promise<AuthResponse> {
@@ -49,6 +51,17 @@ export class AuthService {
     this.sendVerificationToken(user).catch(err =>
       this.logger.warn(`Failed to send verification email: ${err.message}`),
     );
+
+    // Push new dealers into the CRM (fire-and-forget, no-ops if unconfigured)
+    if (role === UserRole.DEALER) {
+      this.crmService.createDealerCompany({
+        name: registerInput.dealerName!,
+        address: registerInput.dealerAddress,
+        city: registerInput.dealerCity,
+        phone: registerInput.dealerPhoneNumber,
+        email: registerInput.email,
+      }).catch(err => this.logger.warn(`Failed to push dealer to CRM: ${err.message}`));
+    }
 
     return {
       user,
