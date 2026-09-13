@@ -1003,6 +1003,9 @@ class ApiClient {
           fuelType
           transmission
           condition
+          viewCount
+          inquiryCount
+          favoriteCount
           seller {
             id
             name

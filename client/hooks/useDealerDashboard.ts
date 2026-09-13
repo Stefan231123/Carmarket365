@@ -134,13 +134,23 @@ export const useDealerPerformance = () => {
       ? Math.round(repliedInquiries.reduce((a: number, b: number) => a + b, 0) / repliedInquiries.length)
       : 0;
 
+    // Average views per listing -- Car entity carries a viewCount column
+    // that increments on every recordCarView call, so we can just aggregate.
+    const listingsWithViews = (listings || []).filter((l: any) => typeof l.viewCount === 'number');
+    const averageListingViews = listingsWithViews.length > 0
+      ? Math.round(
+          listingsWithViews.reduce((sum: number, l: any) => sum + (l.viewCount || 0), 0)
+            / listingsWithViews.length
+        )
+      : 0;
+
     return {
       getDealerPerformance: {
         salesThisMonth,
         salesLastMonth,
         averageTimeToSell,
         conversionRate,
-        averageListingViews: 0, // No per-listing view tracking yet
+        averageListingViews,
         averageResponseTime,
       },
     };
