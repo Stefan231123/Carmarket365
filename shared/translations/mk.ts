@@ -851,8 +851,14 @@ export const mkTranslations: TranslationStrings = {
       hatchback: 'Хечбек',
       convertible: 'Кабриолет',
       wagon: 'Караван',
-      van: 'Фургон',
-      crossover: 'Кросовер'
+      van: 'Комби',
+      crossover: 'Кросовер',
+      limousine: 'Лимузина',
+      smallCar: 'Мал автомобил',
+      compact: 'Компакт',
+      sportsCar: 'Спортски автомобил',
+      offRoad: 'Теренско',
+      other: 'Друго'
     },
 
     // Drivetrains
