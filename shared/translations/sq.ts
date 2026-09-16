@@ -663,6 +663,8 @@ export const sqTranslations: TranslationStrings = {
       horsePower: 'Fuqia (KF)',
       doors: 'Dyert',
       seats: 'Ulëset',
+      co2Emissions: 'Emetimet CO₂ (g/km)',
+      weight: 'Pesha (kg)',
       safetyFeatures: 'Pajisjet e sigurisë',
       upholsteryType: 'Tapiceria',
       paintWorkType: 'Lloji i bojës',
@@ -782,6 +784,7 @@ export const sqTranslations: TranslationStrings = {
     // Transmissions
     transmissions: {
       automatic: 'Automatike',
+      semiAutomatic: 'Gjysmë-automatike',
       manual: 'Manuale',
       cvt: 'CVT',
     },

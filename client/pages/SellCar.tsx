@@ -241,7 +241,7 @@ export default function SellCar() {
     ? (isMotorbike ? getMotorcycleModelsForMake(vehicleDetails.make) : isTruck ? getTruckModelsForMake(vehicleDetails.make) : getModelsForMake(vehicleDetails.make))
     : [];
   const fuelTypes = [t('sell.fuelTypes.gasoline'), t('sell.fuelTypes.electric'), t('sell.fuelTypes.hybrid'), t('sell.fuelTypes.diesel')];
-  const transmissions = [t('sell.transmissions.automatic'), t('sell.transmissions.manual'), t('sell.transmissions.cvt')];
+  const transmissions = [t('sell.transmissions.automatic'), t('sell.transmissions.semiAutomatic'), t('sell.transmissions.manual')];
   const conditions = [t('sell.conditions.excellent'), t('sell.conditions.veryGood'), t('sell.conditions.good'), t('sell.conditions.fair')];
 
   const colorOptions = [
@@ -312,8 +312,8 @@ export default function SellCar() {
   const mapTransmission = (trans: string): string => {
     const map: Record<string, string> = {
       [t('sell.transmissions.automatic')]: 'AUTOMATIC',
+      [t('sell.transmissions.semiAutomatic')]: 'SEMI_AUTOMATIC',
       [t('sell.transmissions.manual')]: 'MANUAL',
-      [t('sell.transmissions.cvt')]: 'CVT',
     };
     return map[trans] || 'MANUAL';
   };
@@ -777,7 +777,7 @@ export default function SellCar() {
                             <SelectItem value="FWD">{t('sell.drivetrains.fwd')}</SelectItem>
                             <SelectItem value="RWD">{t('sell.drivetrains.rwd')}</SelectItem>
                             <SelectItem value="AWD">{t('sell.drivetrains.awd')}</SelectItem>
-                            <SelectItem value="4WD">{t('sell.drivetrains.fourwd')}</SelectItem>
+                            <SelectItem value="FOUR_WD">{t('sell.drivetrains.fourwd')}</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -892,29 +892,14 @@ export default function SellCar() {
                       </div>
                       )}
 
-                      {/* Number of gears — cars & trucks */}
-                      {!isMotorbike && (
-                      <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.numberOfGears', 'Number of Gears')}</label>
-                        <Select value={vehicleDetails.numberOfGears} onValueChange={(value) => setVehicleDetails({...vehicleDetails, numberOfGears: value})}>
-                          <SelectTrigger>
-                            <SelectValue placeholder={t('sell.placeholders.selectGears', 'Select gears')} />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {GEARS_OPTIONS.map((g) => (
-                              <SelectItem key={g} value={String(g)}>{g}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      )}
+                      {/* Number of gears removed -- transmission type is captured on step 3 instead */}
 
                       {/* CO2 Emissions — all vehicle types */}
                       <div>
                         <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.co2Emissions', 'CO₂ Emissions (g/km)')}</label>
                         <Input
                           type="number"
-                          placeholder="e.g. 120"
+                          placeholder="120"
                           value={vehicleDetails.co2Emissions}
                           onChange={(e) => setVehicleDetails({...vehicleDetails, co2Emissions: e.target.value})}
                         />
@@ -925,7 +910,7 @@ export default function SellCar() {
                         <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.weight', 'Weight (kg)')}</label>
                         <Input
                           type="number"
-                          placeholder="e.g. 1450"
+                          placeholder="1450"
                           value={vehicleDetails.weight}
                           onChange={(e) => setVehicleDetails({...vehicleDetails, weight: e.target.value})}
                         />

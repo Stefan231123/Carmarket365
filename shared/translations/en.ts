@@ -735,6 +735,8 @@ export const enTranslations: TranslationStrings = {
       horsePower: 'Horsepower (HP)',
       doors: 'Doors',
       seats: 'Seats',
+      co2Emissions: 'CO₂ Emissions (g/km)',
+      weight: 'Weight (kg)',
       safetyFeatures: 'Safety Features',
       upholsteryType: 'Upholstery',
       paintWorkType: 'Paint Work',
@@ -826,6 +828,7 @@ export const enTranslations: TranslationStrings = {
     // Transmissions
     transmissions: {
       automatic: 'Automatic',
+      semiAutomatic: 'Semi-automatic',
       manual: 'Manual',
       cvt: 'CVT',
     },
