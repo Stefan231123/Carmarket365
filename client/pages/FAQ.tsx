@@ -6,15 +6,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { 
-  Search, 
-  Car, 
-  Euro, 
-  Shield, 
-  Users, 
-  MessageCircle,
-  Phone,
-  Mail,
+import {
+  Search,
+  Car,
+  Euro,
+  Shield,
+  Users,
   HelpCircle,
   ArrowLeft
 } from "lucide-react";
@@ -241,46 +238,6 @@ export default function FAQ() {
             </Card>
           )}
 
-          {/* Still Need Help */}
-          <Card className="mb-8 border-zinc-100 rounded-2xl">
-            <CardHeader>
-              <CardTitle>{t('pages.faq.content.stillNeedHelp')}</CardTitle>
-              <CardDescription>
-                {t('pages.faq.content.stillNeedHelpDescription')}
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <Button variant="outline" className="h-auto p-4 justify-start rounded-2xl">
-                  <div className="flex items-center gap-3">
-                    <Phone className="h-5 w-5 text-primary" />
-                    <div className="text-left">
-                      <div className="font-medium">{t('pages.faq.content.callSupport')}</div>
-                      <div className="text-sm text-muted-foreground">{t('pages.faq.content.supportPhoneNumber')}</div>
-                    </div>
-                  </div>
-                </Button>
-                <Button variant="outline" className="h-auto p-4 justify-start rounded-2xl">
-                  <div className="flex items-center gap-3">
-                    <Mail className="h-5 w-5 text-primary" />
-                    <div className="text-left">
-                      <div className="font-medium">{t('pages.faq.content.emailUs')}</div>
-                      <div className="text-sm text-muted-foreground">{t('pages.faq.content.supportEmail')}</div>
-                    </div>
-                  </div>
-                </Button>
-                <Button variant="outline" className="h-auto p-4 justify-start rounded-2xl">
-                  <div className="flex items-center gap-3">
-                    <MessageCircle className="h-5 w-5 text-primary" />
-                    <div className="text-left">
-                      <div className="font-medium">{t('pages.faq.content.liveChat')}</div>
-                      <div className="text-sm text-muted-foreground">{t('pages.faq.content.available247')}</div>
-                    </div>
-                  </div>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </div>
