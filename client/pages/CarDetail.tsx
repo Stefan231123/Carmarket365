@@ -9,6 +9,7 @@ import { GET_CARS, Car } from "@/lib/graphql/operations";
 import { getDisplayUrl } from "@/lib/image-upload";
 import { ContactCarModal } from "@/components/ContactCarModal";
 import { ShareCarModal } from "@/components/ShareCarModal";
+import { normalizeEquipmentValue, getEquipmentLabel, type EquipmentLang } from "@shared/equipmentOptions";
 
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { Button } from "@/components/ui/button";
@@ -47,7 +48,8 @@ import { useEffect } from "react";
 export default function CarDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
+  const equipLang: EquipmentLang = (['en', 'mk', 'sq'].includes(currentLanguage) ? currentLanguage : 'en') as EquipmentLang;
   const { car, isLoading, error } = useCar(id || '');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
@@ -489,12 +491,15 @@ export default function CarDetail() {
                   <CardContent>
                     {carData.features.length > 0 ? (
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                        {carData.features.map((feature) => (
-                          <div key={feature} className="flex items-center gap-2">
-                            <CheckCircle className="h-4 w-4 text-success" />
-                            <span className="text-sm">{feature}</span>
-                          </div>
-                        ))}
+                        {carData.features.map((feature) => {
+                          const normalized = normalizeEquipmentValue(feature);
+                          return (
+                            <div key={feature} className="flex items-center gap-2">
+                              <CheckCircle className="h-4 w-4 text-success" />
+                              <span className="text-sm">{getEquipmentLabel(normalized, equipLang)}</span>
+                            </div>
+                          );
+                        })}
                       </div>
                     ) : (
                       <p className="text-muted-foreground text-sm">

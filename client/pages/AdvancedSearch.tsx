@@ -18,6 +18,7 @@ import { trackEvent } from '../components/Analytics';
 import { CAR_MAKES_SORTED, CAR_MODELS_BY_MAKE, POPULAR_MAKE_NAMES, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, MOTORCYCLE_MODELS_BY_MAKE, MOTORCYCLE_BODY_TYPES, TRUCK_MAKES_SORTED, POPULAR_TRUCK_MAKES, TRUCK_MODELS_BY_MAKE, TRUCK_BODY_TYPES, CAR_BODY_TYPES, GEARS_OPTIONS, MOTORCYCLE_COOLING_TYPES, MOTORCYCLE_STARTER_TYPES, MOTORCYCLE_LICENSE_CLASSES, MOTORCYCLE_CYLINDER_TYPES } from '@shared/car-data';
 import { useCountry } from '@/contexts/CountryContext';
 import { getLocationsForCountry } from '@shared/locations';
+import { EQUIPMENT_CATEGORIES, EQUIPMENT_CATEGORY_LABELS, ALL_SAFETY_KEYS, ALL_FEATURE_KEYS, getEquipmentLabel, type EquipmentLang } from '@shared/equipmentOptions';
 
 // Filter interfaces
 type VehicleTypeFilter = 'car' | 'motorbike' | 'truck';
@@ -69,8 +70,9 @@ interface AdvancedSearchFilters {
   seller: string;
   vehicleCondition: string;
   
-  // Equipment & Features
-  optionalEquipment: string[];
+  // Equipment & Features (stored as canonical English keys from shared/equipmentOptions)
+  optionalEquipment: string[]; // non-safety keys → backend `features` filter
+  safetyEquipment: string[];   // safety keys → backend `safetyFeatures` filter
   
   // Appearance
   bodyColor: string;
@@ -126,29 +128,7 @@ const fallbackVehicleConditionTypes = ['Нов', 'Користен', 'Предр
 
 const fallbackRadiusOptions = ['5', '10', '25', '50', '100', '200', '300', '500', 'Nationwide'];
 
-// Optional Equipment fallback (will be translated by getTranslatedArray)
-const fallbackOptionalEquipment = [
-  // Safety & Assistance - Macedonian
-  'ABS', 'ESP', 'Воздушна перничка - возач', 'Воздушна перничка - патник', 'Странични воздушни пернички', 'Воздушни пернички за глава',
-  'Предупредување за напуштање лента', 'Помош за задржување лента', 'Адаптивен круиз контрол', 'Асистент за итно сопирање',
-  'Мониторинг на слепи агол', 'Сензори за паркирање напред', 'Сензори за паркирање назад', 'Камера за паркирање', '360° камера',
-  'Ноќно видување', 'Препознавање на сообраќајни знаци', 'Следење на притисок во гуми',
-  
-  // Comfort & Convenience - Macedonian
-  'Клима уред', 'Автоматска клима', 'Мултизонска клима', 'Греани седишта',
-  'Ладени/вентилирани седишта', 'Електрични седишта', 'Седишта со меморија', 'Седишта со масажа', 'Кожни седишта',
-  'Греан волан', 'Безклучен влез', 'Безклучно стартување', 'Далечинско стартување', 'Круиз контрол',
-  'Ограничувач на брзина', 'Електрични прозорци', 'Електрични огледала', 'Самозатемнувачки огледала', 'Сензор за дожд',
-  'Светлосен сензор', 'Автоматски светла', 'Отворен кров', 'Панорамски кров', 'Електричен багажник',
-  
-  // Entertainment & Technology - Macedonian
-  'Навигациски систем', 'Екран на допир', 'Apple CarPlay', 'Android Auto', 'Bluetooth', 'WiFi точка',
-  'Премиум аудио систем', 'Head-up дисплеј', 'Дигитален кокпит', 'Гласовна контрола', 'USB врска',
-  
-  // Exterior & Wheels - Macedonian
-  'Алуминиумски тркала', 'Спортски тркала', 'Зимски гуми', 'Металик боја', 'Перла боја', 'Кров носачи',
-  'Пакет за влечење', 'Спојлер', 'Спортски пакет', 'Хром пакет'
-];
+// Optional equipment lives in shared/equipmentOptions.ts (categorized + translated).
 
 const fallbackBodyColors = ['Црна', 'Бела', 'Сребрена', 'Сива', 'Сина', 'Црвена', 'Зелена', 'Кафена', 'Жолта', 'Портокалова', 'Бежова', 'Златна', 'Виолетова', 'Бронзена', 'Друго'];
 
@@ -314,7 +294,7 @@ export default function AdvancedSearch() {
         'sections.vehicleDetails.description': 'Марка на возилото, модел и основни својства',
         'sections.priceLocation.title': 'Прва регистрација и цена',
         'sections.priceLocation.description': 'Датум на регистрација и ценовен опсег',
-        'sections.technicalSpecs.title': 'Пробег и снага',
+        'sections.technicalSpecs.title': 'Изминати километри и снага',
         'sections.technicalSpecs.description': 'Спецификации за изведување и употреба на возилото',
         'sections.sellerCondition.title': 'Продавач и состојба на возилото',
         'sections.sellerCondition.description': 'Тип на продавач и состојба на возилото',
@@ -331,8 +311,8 @@ export default function AdvancedSearch() {
         'fields.priceMax': 'Цена до (€)',
         'fields.location': 'Град/Поштенски код',
         'fields.radius': 'Радиус (км)',
-        'fields.mileageMin': 'Пробег од (км)',
-        'fields.mileageMax': 'Пробег до (км)',
+        'fields.mileageMin': 'Изминати километри од',
+        'fields.mileageMax': 'Изминати километри до',
         'fields.powerFrom': 'Снага од (kW)',
         'fields.powerTo': 'Снага до (kW)',
         'fields.gear': 'Менувач',
@@ -377,7 +357,7 @@ export default function AdvancedSearch() {
         'distances.nationwide': 'Низ цела земја',
         
         // Optional Equipment section
-        'sections.optionalEquipment.title': 'Опциска опрема',
+        'sections.optionalEquipment.title': 'Дополнителна опрема',
         'sections.optionalEquipment.description': 'Дополнителни карактеристики и опрема',
         
         // Appearance section
@@ -514,27 +494,6 @@ export default function AdvancedSearch() {
       if (arrayType === 'fuelTypes') {
         return ['Benzinë', 'Dizel', 'Elektrik', 'Hibrid (Benzinë/Elektrik)', 'Hibrid (Dizel/Elektrik)', 'Gaz natyror (CNG)', 'Gaz i lëngshëm (LPG)', 'Etanol', 'Hidrogjen'];
       }
-      if (arrayType === 'optionalEquipment') {
-        return [
-          // Safety & Assistance - Albanian
-          'ABS', 'ESP', 'Airbag - shofer', 'Airbag - pasagjer', 'Airbag anësor', 'Airbag koke',
-          'Paralajmërim ndryshimi korsi', 'Ndihmë mbajtje korsi', 'Kontroll kroçje adaptiv', 'Asistent frenimi emergjent',
-          'Monitor pika të verbër', 'Sensorë parkimi përpara', 'Sensorë parkimi prapa', 'Kamerë parkimi', 'Kamerë 360°',
-          'Shikim natë', 'Njohja e shenjave', 'Monitorim presion gomash',
-          // Comfort & Convenience - Albanian
-          'Ajër kondicionuar', 'Klimë automatike', 'Klimë multi-zonë', 'Ulëse të ngrohta',
-          'Ulëse të ftohta/të ajrosura', 'Ulëse elektrike', 'Ulëse me kujtesë', 'Ulëse masazhimi', 'Ulëse lëkure',
-          'Timon i ngrohtë', 'Hyrje pa çelës', 'Nisje pa çelës', 'Nisje me distancë', 'Kontroll kroçjeje',
-          'Kufizues shpejtësie', 'Dritare elektrike', 'Pasqyra elektrike', 'Pasqyra vetë-errësuese', 'Sensor shiu',
-          'Sensor drite', 'Dritat automatike', 'Çati e hapur', 'Çati panoramike', 'Bagazh elektrik',
-          // Technology - Albanian
-          'Sistem navigimi', 'Ekran prekjeje', 'Apple CarPlay', 'Android Auto', 'Bluetooth', 'WiFi hotspot',
-          'Sistem audio premium', 'Head-up display', 'Kokpit digjital', 'Kontroll zëri', 'Lidhje USB',
-          // Exterior - Albanian
-          'Rrotat alumin', 'Rrotat sportive', 'Goma dimri', 'Bojë metalike', 'Bojë perlë', 'Mbështetës çatie',
-          'Paketa tërheqje', 'Spoiler', 'Paketa sportive', 'Paketa krom'
-        ];
-      }
       if (arrayType === 'colors') {
         return ['E zezë', 'E bardhë', 'Argjend', 'Gri', 'Blu', 'E kuqe', 'E gjelbër', 'Kafe', 'E verdhë', 'Portokalli', 'Bezhë', 'Ari', 'Vjollcë', 'Bronz', 'Tjetër'];
       }
@@ -594,7 +553,9 @@ export default function AdvancedSearch() {
   const bodyTypes = getTranslatedArray('bodyTypes', fallbackBodyTypes);
   const fuelTypes = getTranslatedArray('fuelTypes', fallbackFuelTypes);
   const gearTypes = getTranslatedArray('transmissions', fallbackGearTypes);
-  const optionalEquipment = getTranslatedArray('optionalEquipment', fallbackOptionalEquipment);
+  // optionalEquipment list is now sourced from @shared/equipmentOptions and rendered inline below,
+  // grouped by category and with per-key translations.
+  const equipLang: EquipmentLang = (['en', 'mk', 'sq'].includes(currentLanguage) ? currentLanguage : 'en') as EquipmentLang;
 
   // Get translated options arrays
   const sellerTypes = getTranslatedArray('sellerTypes', fallbackSellerTypes);
@@ -682,13 +643,14 @@ export default function AdvancedSearch() {
     
     // Equipment & Features
     optionalEquipment: [],
-    
+    safetyEquipment: [],
+
     // Appearance
     bodyColor: '',
     paintWork: '',
     interiorColor: '',
     upholstery: '',
-    
+
     // History & Condition
     previousOwners: '',
     hadAccident: '',
@@ -767,6 +729,7 @@ export default function AdvancedSearch() {
       sellerType: localFilters.seller || undefined,
       vehicleCondition: localFilters.vehicleCondition || undefined,
       features: localFilters.optionalEquipment?.length ? localFilters.optionalEquipment : undefined,
+      safetyFeatures: localFilters.safetyEquipment?.length ? localFilters.safetyEquipment : undefined,
       bodyColor: localFilters.bodyColor || undefined,
       paintWork: localFilters.paintWork || undefined,
       interiorColor: localFilters.interiorColor || undefined,
@@ -873,10 +836,11 @@ export default function AdvancedSearch() {
       // Seller & Condition
       seller: '',
       vehicleCondition: '',
-      
+
       // Equipment & Features
       optionalEquipment: [],
-      
+      safetyEquipment: [],
+
       // Appearance
       bodyColor: '',
       paintWork: '',
@@ -924,7 +888,7 @@ export default function AdvancedSearch() {
           case 'engineDisplacementMin': return 0.5;
           case 'engineDisplacementMax': return 8.0;
           case 'fuelConsumptionMax': return 20;
-          case 'additionalProperties': case 'optionalEquipment': return [];
+          case 'additionalProperties': case 'optionalEquipment': case 'safetyEquipment': return [];
           default: return '';
         }
       })();
@@ -1624,18 +1588,49 @@ export default function AdvancedSearch() {
             </FilterSection>
 
             {/* Optional Equipment */}
-            <FilterSection 
-              title={getAdvancedSearchText('sections.optionalEquipment.title', 'Optional Equipment')} 
+            <FilterSection
+              title={getAdvancedSearchText('sections.optionalEquipment.title', 'Optional Equipment')}
               sectionKey="equipment"
               icon={<Star className="h-5 w-5 text-amber-600" />}
               description={getAdvancedSearchText('sections.optionalEquipment.description', 'Additional features and equipment')}
             >
-              <CheckboxGroup
-                options={optionalEquipment}
-                selectedValues={localFilters.optionalEquipment}
-                filterKey="optionalEquipment"
-                columns={3}
-              />
+              <div className="space-y-4">
+                {EQUIPMENT_CATEGORIES.map((cat) => {
+                  const filterKey: keyof AdvancedSearchFilters = cat.isSafety ? 'safetyEquipment' : 'optionalEquipment';
+                  const selected = (localFilters[filterKey] as string[]) ?? [];
+                  const toggle = (key: string, checked: boolean) => {
+                    const next = checked ? [...selected, key] : selected.filter(v => v !== key);
+                    setLocalFilters(prev => ({ ...prev, [filterKey]: next }));
+                  };
+                  return (
+                    <details key={cat.key} open className="rounded-lg border border-border bg-card">
+                      <summary className="cursor-pointer select-none px-4 py-3 text-sm font-semibold text-foreground hover:bg-muted/40 flex items-center justify-between">
+                        <span>{EQUIPMENT_CATEGORY_LABELS[equipLang][cat.key]}</span>
+                        <span className="text-xs font-normal text-muted-foreground">
+                          {cat.items.filter(k => selected.includes(k)).length} / {cat.items.length}
+                        </span>
+                      </summary>
+                      <div className="px-4 pb-4 pt-1 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                        {cat.items.map((key) => {
+                          const inputId = `advfilter-${cat.key}-${key}`;
+                          return (
+                            <div key={key} className="flex items-center space-x-3 p-2 rounded-lg hover:bg-muted/30 transition-colors">
+                              <Checkbox
+                                id={inputId}
+                                checked={selected.includes(key)}
+                                onCheckedChange={(checked) => toggle(key, checked as boolean)}
+                              />
+                              <label htmlFor={inputId} className="text-sm font-medium text-foreground cursor-pointer select-none">
+                                {getEquipmentLabel(key, equipLang)}
+                              </label>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </details>
+                  );
+                })}
+              </div>
             </FilterSection>
 
             {/* Appearance */}
@@ -2084,7 +2079,7 @@ export default function AdvancedSearch() {
                   
                   <div className="grid grid-cols-2 gap-2 mt-4 text-xs text-muted-foreground">
                     <div className="text-center">
-                      <div className="font-semibold text-foreground">{optionalEquipment.length}</div>
+                      <div className="font-semibold text-foreground">{ALL_FEATURE_KEYS.length + ALL_SAFETY_KEYS.length}</div>
                       <div>{getAdvancedSearchText('equipment', 'Equipment')}</div>
                     </div>
                     <div className="text-center">

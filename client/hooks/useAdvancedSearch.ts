@@ -226,6 +226,10 @@ function mapFiltersToBackend(filters: AdvancedSearchFiltersInput): Record<string
   // Optional equipment → features array
   if (filters.features?.length) backendFilters.features = filters.features;
 
+  // Safety equipment → safetyFeatures array (stored in a separate DB column)
+  const safetyFeatures = (filters as { safetyFeatures?: string[] }).safetyFeatures;
+  if (safetyFeatures?.length) (backendFilters as { safetyFeatures?: string[] }).safetyFeatures = safetyFeatures;
+
   // Seller type (private vs dealer)
   const seller = (filters as any).sellerType;
   if (seller && seller !== 'any') {

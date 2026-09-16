@@ -742,6 +742,13 @@ export class CarFilterInput {
   @IsString({ each: true })
   features?: string[];
 
+  @Field(() => [String], { nullable: true })
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(50)
+  @IsString({ each: true })
+  safetyFeatures?: string[];
+
   @Field({ nullable: true })
   @IsOptional()
   @IsString()

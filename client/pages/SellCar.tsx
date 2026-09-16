@@ -18,6 +18,7 @@ import { apiClient } from '@shared/api-client';
 import { uploadImage } from '@/lib/image-upload';
 import { CAR_MAKES_SORTED, POPULAR_MAKE_NAMES, getModelsForMake, MOTORCYCLE_MAKES_SORTED, POPULAR_MOTORCYCLE_MAKES, getMotorcycleModelsForMake, MOTORCYCLE_BODY_TYPES, TRUCK_MAKES_SORTED, POPULAR_TRUCK_MAKES, getTruckModelsForMake, TRUCK_BODY_TYPES, CAR_BODY_TYPES, GEARS_OPTIONS, MOTORCYCLE_COOLING_TYPES, MOTORCYCLE_STARTER_TYPES, MOTORCYCLE_LICENSE_CLASSES, MOTORCYCLE_CYLINDER_TYPES } from '@shared/car-data';
 import { getLocationsForCountry } from '@shared/locations';
+import { EQUIPMENT_CATEGORIES, EQUIPMENT_CATEGORY_LABELS, getEquipmentLabel, type EquipmentLang } from '@shared/equipmentOptions';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
@@ -92,7 +93,8 @@ function loadDraft(): Partial<VehicleDetails> | null {
 export default function SellCar() {
   const navigate = useNavigate();
   const { country } = useCountry();
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
+  const equipLang: EquipmentLang = (['en', 'mk', 'sq'].includes(currentLanguage) ? currentLanguage : 'en') as EquipmentLang;
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState('');
@@ -258,12 +260,6 @@ export default function SellCar() {
     { value: 'Purple', label: t('sell.colors.purple') },
     { value: 'Yellow', label: t('sell.colors.yellow') },
     { value: 'Beige', label: t('sell.colors.beige') },
-  ];
-
-  const features = [
-    t('sell.features.airConditioning'), t('sell.features.leatherSeats'), t('sell.features.heatedSeats'), t('sell.features.sunroof'), t('sell.features.gpsNavigation'),
-    t('sell.features.backupCamera'), t('sell.features.bluetooth'), t('sell.features.usbPorts'), t('sell.features.premiumSound'), t('sell.features.keylessEntry'),
-    t('sell.features.remoteStart'), t('sell.features.cruiseControl'), t('sell.features.parkingSensors'), t('sell.features.blindSpotMonitoring')
   ];
 
   const handleFeatureChange = (feature: string, checked: boolean) => {
@@ -1192,51 +1188,39 @@ export default function SellCar() {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-4">{t('sell.fields.featuresAndOptions')}</label>
-                      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                        {features.map((feature) => (
-                          <div key={feature} className="flex items-center space-x-2">
-                            <Checkbox
-                              id={feature}
-                              checked={vehicleDetails.features.includes(feature)}
-                              onCheckedChange={(checked) => handleFeatureChange(feature, checked as boolean)}
-                            />
-                            <label htmlFor={feature} className="text-sm text-gray-700">
-                              {feature}
-                            </label>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-4">{t('sell.fields.safetyFeatures')}</label>
-                      <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                        {[
-                          t('sell.safetyFeaturesList.abs'),
-                          t('sell.safetyFeaturesList.esp'),
-                          t('sell.safetyFeaturesList.driverAirbag'),
-                          t('sell.safetyFeaturesList.passengerAirbag'),
-                          t('sell.safetyFeaturesList.sideAirbags'),
-                          t('sell.safetyFeaturesList.curtainAirbags'),
-                          t('sell.safetyFeaturesList.blindSpotMonitor'),
-                          t('sell.safetyFeaturesList.laneDepartureWarning'),
-                          t('sell.safetyFeaturesList.emergencyBraking'),
-                          t('sell.safetyFeaturesList.parkingSensors'),
-                          t('sell.safetyFeaturesList.backupCamera'),
-                          t('sell.safetyFeaturesList.camera360'),
-                          t('sell.safetyFeaturesList.tirePressureMonitor'),
-                        ].map((safetyFeature) => (
-                          <div key={safetyFeature} className="flex items-center space-x-2">
-                            <Checkbox
-                              id={safetyFeature}
-                              checked={vehicleDetails.safetyFeatures.includes(safetyFeature)}
-                              onCheckedChange={(checked) => handleSafetyFeatureChange(safetyFeature, checked as boolean)}
-                            />
-                            <label htmlFor={safetyFeature} className="text-sm text-gray-700">
-                              {safetyFeature}
-                            </label>
-                          </div>
-                        ))}
+                      <div className="space-y-4">
+                        {EQUIPMENT_CATEGORIES.map((cat) => {
+                          const isSafety = cat.isSafety;
+                          const selected = isSafety ? vehicleDetails.safetyFeatures : vehicleDetails.features;
+                          const onChange = isSafety ? handleSafetyFeatureChange : handleFeatureChange;
+                          return (
+                            <details key={cat.key} className="rounded-lg border border-gray-200 bg-white">
+                              <summary className="cursor-pointer select-none px-4 py-3 text-sm font-semibold text-gray-800 hover:bg-gray-50 flex items-center justify-between">
+                                <span>{EQUIPMENT_CATEGORY_LABELS[equipLang][cat.key]}</span>
+                                <span className="text-xs font-normal text-gray-500">
+                                  {cat.items.filter(k => selected.includes(k)).length} / {cat.items.length}
+                                </span>
+                              </summary>
+                              <div className="px-4 pb-4 pt-1 grid grid-cols-2 md:grid-cols-3 gap-3">
+                                {cat.items.map((key) => {
+                                  const inputId = `equip-${cat.key}-${key}`;
+                                  return (
+                                    <div key={key} className="flex items-center space-x-2">
+                                      <Checkbox
+                                        id={inputId}
+                                        checked={selected.includes(key)}
+                                        onCheckedChange={(checked) => onChange(key, checked as boolean)}
+                                      />
+                                      <label htmlFor={inputId} className="text-sm text-gray-700 cursor-pointer">
+                                        {getEquipmentLabel(key, equipLang)}
+                                      </label>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            </details>
+                          );
+                        })}
                       </div>
                     </div>
 

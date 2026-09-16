@@ -746,6 +746,7 @@ export interface FilterCarsInput {
   location?: string;
   exteriorColor?: string;
   features?: string[];
+  safetyFeatures?: string[];
   fullServiceHistory?: string | boolean; // Allow string to support 'any' option
   
   // Additional properties used by FilterChips component
@@ -813,6 +814,7 @@ export interface AdvancedSearchFiltersInput extends FilterCarsInput {
   priceNegotiable?: boolean; // direct map
   quickSale?: boolean; // Tier 2: direct map
   features?: string[]; // Tier 3: optional equipment → backend features array
+  safetyFeatures?: string[]; // Tier 3: safety equipment → backend safetyFeatures array
   sellerType?: string; // Tier 3: 'private' | 'dealer'
   numberOfDoors?: string; // '2'|'3'|'4'|'5'
   countryCode?: string;
