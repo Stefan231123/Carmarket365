@@ -744,6 +744,8 @@ export const mkTranslations: TranslationStrings = {
       horsePower: 'Коњски сили (КС)',
       doors: 'Врати',
       seats: 'Седишта',
+      co2Emissions: 'CO₂ емисии (g/km)',
+      weight: 'Тежина (kg)',
       safetyFeatures: 'Безбедносна опрема',
       upholsteryType: 'Тапацирање',
       paintWorkType: 'Тип на боја',
@@ -835,6 +837,7 @@ export const mkTranslations: TranslationStrings = {
     // Transmissions
     transmissions: {
       automatic: 'Автоматски',
+      semiAutomatic: 'Полу-автоматски',
       manual: 'Рачен',
       cvt: 'CVT'
     },

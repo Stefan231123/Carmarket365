@@ -495,7 +495,7 @@ export default function EditListing() {
                       <SelectItem value="FWD">{t("sell.drivetrains.fwd")}</SelectItem>
                       <SelectItem value="RWD">{t("sell.drivetrains.rwd")}</SelectItem>
                       <SelectItem value="AWD">{t("sell.drivetrains.awd")}</SelectItem>
-                      <SelectItem value="4WD">{t("sell.drivetrains.fourwd")}</SelectItem>
+                      <SelectItem value="FOUR_WD">{t("sell.drivetrains.fourwd")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
