@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { FilterCarsInput } from '../lib/graphql/operations';
 import { useTranslation } from '../hooks/useTranslation';
+import { getEquipmentLabel, type EquipmentLang } from '@shared/equipmentOptions';
 
 interface FilterChipsProps {
   filters: FilterCarsInput;
@@ -20,7 +21,8 @@ interface FilterChip {
 }
 
 export function FilterChips({ filters, onRemoveFilter, onClearAll, className = '' }: FilterChipsProps) {
-  const { t } = useTranslation();
+  const { t, currentLanguage } = useTranslation();
+  const equipLang: EquipmentLang = (['en', 'mk', 'sq'].includes(currentLanguage) ? currentLanguage : 'en') as EquipmentLang;
 
   // Convert filters to chip data
   const getFilterChips = (): FilterChip[] => {
@@ -204,12 +206,27 @@ export function FilterChips({ filters, onRemoveFilter, onClearAll, className = '
       });
     }
 
-    // Optional Equipment
-    if (filters.optionalEquipment && filters.optionalEquipment.length > 0) {
-      filters.optionalEquipment.forEach(equipment => {
+    // Optional Equipment (comfort/tech/exterior — stored as canonical keys on `features`)
+    const featureList = (filters as { features?: string[]; optionalEquipment?: string[] }).features
+      ?? (filters as { optionalEquipment?: string[] }).optionalEquipment;
+    if (featureList && featureList.length > 0) {
+      featureList.forEach(equipment => {
         chips.push({
           key: 'optionalEquipment',
-          label: t(`vehicleData.features.${equipment}`, equipment),
+          label: getEquipmentLabel(equipment, equipLang),
+          value: equipment,
+          removable: true
+        });
+      });
+    }
+
+    // Safety features (stored as canonical keys on `safetyFeatures`)
+    const safetyList = (filters as { safetyFeatures?: string[] }).safetyFeatures;
+    if (safetyList && safetyList.length > 0) {
+      safetyList.forEach(equipment => {
+        chips.push({
+          key: 'safetyEquipment',
+          label: getEquipmentLabel(equipment, equipLang),
           value: equipment,
           removable: true
         });

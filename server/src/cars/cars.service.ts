@@ -466,6 +466,13 @@ export class CarsService {
       });
     }
 
+    if (filters.safetyFeatures?.length) {
+      // Each selected safety feature must appear in the car's safetyFeatures array
+      filters.safetyFeatures.forEach((feature, i) => {
+        query.andWhere(`:safetyFeat${i} = ANY(car.safetyFeatures)`, { [`safetyFeat${i}`]: feature });
+      });
+    }
+
     if (filters.sellerType === 'private') {
       query.andWhere('seller.role = :sellerRole', { sellerRole: 'USER' });
     } else if (filters.sellerType === 'dealer') {
