@@ -37,13 +37,49 @@ interface CarFilterParams {
   maxYear?: number;
   minPrice?: number;
   maxPrice?: number;
+  minMileage?: number;
   maxMileage?: number;
+  minPowerKW?: number;
+  maxPowerKW?: number;
+  minEngineSize?: number;
+  maxEngineSize?: number;
+  minFuelConsumption?: number;
+  maxFuelConsumption?: number;
   fuelType?: string;
   transmission?: string;
   location?: string;
   vehicleType?: string;
+  bodyType?: string;
+  seats?: number;
+  doors?: number;
+  drivetrain?: string;
+  condition?: string;
+  color?: string;
+  interiorColor?: string;
+  upholsteryType?: string;
+  paintWorkType?: string;
+  emissionClass?: string;
+  maxCo2Emissions?: number;
+  maxWeight?: number;
+  numberOfGears?: number;
+  coolingType?: string;
+  starterType?: string;
+  licenseClass?: string;
+  cylinders?: string;
+  maxPreviousOwners?: number;
+  hadAccident?: string;
+  hasWarranty?: boolean;
+  fullServiceHistory?: boolean;
+  nonSmokingVehicle?: boolean;
+  allowTestDrive?: boolean;
+  acceptsTradeIn?: boolean;
+  priceNegotiable?: boolean;
+  quickSale?: boolean;
+  sellerType?: string;
   features?: string[];
   safetyFeatures?: string[];
+  additionalProperties?: string[];
+  radiusKm?: string;
 }
 
 export default function BrowseCars() {
@@ -61,29 +97,55 @@ export default function BrowseCars() {
   const [vehicleTypeFilter, setVehicleTypeFilter] = useState("");
   const [fuelTypeFilter, setFuelTypeFilter] = useState("");
   const [transmissionFilter, setTransmissionFilter] = useState("");
-  const [featuresFilter, setFeaturesFilter] = useState<string[]>([]);
-  const [safetyFeaturesFilter, setSafetyFeaturesFilter] = useState<string[]>([]);
+  // Filters that come in from Advanced Search via URL but have no BrowseCars UI
+  // control — they're carried through to the API as-is.
+  const [carriedFilters, setCarriedFilters] = useState<CarFilterParams>({});
   const [viewMode, setViewMode] = useState<"grid" | "list">("list");
   const [showFilters, setShowFilters] = useState(false);
   const [contactCar, setContactCar] = useState(null);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
-  // Parse URL parameters on component mount
+  // Parse URL parameters on component mount.
+  // Two param name families coexist for backward compat:
+  //   OLD (Index.tsx, InterestingSuggestions, LastSearch): type, yearFrom,
+  //     priceFrom, priceTo, mileage
+  //   NEW (AdvancedSearch handleSearchSubmit): vehicleType, minYear, maxYear,
+  //     minPrice, maxPrice, maxMileage, plus ~30 more fields with no UI
+  //     control in BrowseCars — those flow into `carriedFilters`.
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-    
-    const type = params.get('type');
-    const make = params.get('make');
-    const model = params.get('model');
-    const priceFrom = params.get('priceFrom');
-    const priceTo = params.get('priceTo');
-    const yearFrom = params.get('yearFrom');
-    const mileage = params.get('mileage');
-    const locationParam = params.get('location');
-    const fuelType = params.get('fuelType');
-    const transmission = params.get('transmission');
+    const s = (k: string) => params.get(k) || undefined;
+    const n = (k: string) => {
+      const v = params.get(k);
+      if (v === null || v === '') return undefined;
+      const num = Number(v);
+      return Number.isFinite(num) ? num : undefined;
+    };
+    const b = (k: string) => {
+      const v = params.get(k);
+      if (v === null) return undefined;
+      if (v === 'true') return true;
+      if (v === 'false') return false;
+      return undefined;
+    };
+    const list = (k: string) => {
+      const v = params.get(k);
+      return v ? v.split(',').filter(Boolean) : undefined;
+    };
 
-    if (type) setVehicleTypeFilter(type);
+    // Fields that BrowseCars has UI controls for (accept old or new param names)
+    const vehicleType = s('vehicleType') || s('type');
+    const make = s('make');
+    const model = s('model');
+    const priceFrom = s('minPrice') || s('priceFrom');
+    const priceTo = s('maxPrice') || s('priceTo');
+    const yearFrom = s('minYear') || s('yearFrom');
+    const mileage = s('maxMileage') || s('mileage');
+    const locationParam = s('location');
+    const fuelType = s('fuelType');
+    const transmission = s('transmission');
+
+    if (vehicleType) setVehicleTypeFilter(vehicleType);
     if (make) setMakeFilter(make);
     if (model) setModelFilter(model);
     if (priceFrom) setPriceFromFilter(priceFrom);
@@ -94,10 +156,49 @@ export default function BrowseCars() {
     if (fuelType) setFuelTypeFilter(fuelType);
     if (transmission) setTransmissionFilter(transmission);
 
-    const featuresCsv = params.get('features');
-    const safetyCsv = params.get('safetyFeatures');
-    setFeaturesFilter(featuresCsv ? featuresCsv.split(',').filter(Boolean) : []);
-    setSafetyFeaturesFilter(safetyCsv ? safetyCsv.split(',').filter(Boolean) : []);
+    // Fields carried straight through from Advanced Search — no UI here,
+    // but they must reach the API so filter results are correct.
+    setCarriedFilters({
+      maxYear: n('maxYear'),
+      minMileage: n('minMileage'),
+      minPowerKW: n('minPowerKW'),
+      maxPowerKW: n('maxPowerKW'),
+      minEngineSize: n('minEngineSize'),
+      maxEngineSize: n('maxEngineSize'),
+      minFuelConsumption: n('minFuelConsumption'),
+      maxFuelConsumption: n('maxFuelConsumption'),
+      bodyType: s('bodyType'),
+      seats: n('seats'),
+      doors: n('doors'),
+      drivetrain: s('drivetrain'),
+      condition: s('condition'),
+      color: s('color'),
+      interiorColor: s('interiorColor'),
+      upholsteryType: s('upholsteryType'),
+      paintWorkType: s('paintWorkType'),
+      emissionClass: s('emissionClass'),
+      maxCo2Emissions: n('maxCo2Emissions'),
+      maxWeight: n('maxWeight'),
+      numberOfGears: n('numberOfGears'),
+      coolingType: s('coolingType'),
+      starterType: s('starterType'),
+      licenseClass: s('licenseClass'),
+      cylinders: s('cylinders'),
+      maxPreviousOwners: n('maxPreviousOwners'),
+      hadAccident: s('hadAccident'),
+      hasWarranty: b('hasWarranty'),
+      fullServiceHistory: b('fullServiceHistory'),
+      nonSmokingVehicle: b('nonSmokingVehicle'),
+      allowTestDrive: b('allowTestDrive'),
+      acceptsTradeIn: b('acceptsTradeIn'),
+      priceNegotiable: b('priceNegotiable'),
+      quickSale: b('quickSale'),
+      sellerType: s('sellerType'),
+      features: list('features'),
+      safetyFeatures: list('safetyFeatures'),
+      additionalProperties: list('additionalProperties'),
+      radiusKm: s('radiusKm'),
+    });
 
     // Persist meaningful search params for homepage personalization
     saveLastSearch({
@@ -109,7 +210,7 @@ export default function BrowseCars() {
       maxMileage: mileage ? parseInt(mileage) : undefined,
       fuelType: fuelType || undefined,
       transmission: transmission || undefined,
-      vehicleType: type || undefined,
+      vehicleType: vehicleType || undefined,
       location: locationParam || undefined,
     });
   }, [location.search]);
@@ -154,16 +255,16 @@ export default function BrowseCars() {
       apiFilters.transmission = transmissionFilter;
     }
 
-    if (featuresFilter.length > 0) {
-      apiFilters.features = featuresFilter;
-    }
-
-    if (safetyFeaturesFilter.length > 0) {
-      apiFilters.safetyFeatures = safetyFeaturesFilter;
+    // Merge all filters that came in from Advanced Search but have no UI here.
+    // Drop undefined entries so we don't stomp anything the API cares about.
+    for (const [k, v] of Object.entries(carriedFilters)) {
+      if (v === undefined || v === null || v === '') continue;
+      if (Array.isArray(v) && v.length === 0) continue;
+      (apiFilters as Record<string, unknown>)[k] = v;
     }
 
     return apiFilters;
-  }, [makeFilter, modelFilter, priceFromFilter, priceToFilter, yearFromFilter, mileageFilter, locationFilter, fuelTypeFilter, transmissionFilter, featuresFilter, safetyFeaturesFilter]);
+  }, [makeFilter, modelFilter, priceFromFilter, priceToFilter, yearFromFilter, mileageFilter, locationFilter, fuelTypeFilter, transmissionFilter, carriedFilters]);
 
   // Fetch cars and makes from API
   const { cars, isLoading, error, refetch } = useCars(filters);

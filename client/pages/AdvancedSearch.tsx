@@ -773,20 +773,89 @@ export default function AdvancedSearch() {
   };
 
   const handleSearchSubmit = useCallback(() => {
+    // Serialize the entire advancedFilters object into URL params, so /cars
+    // (BrowseCars) can reconstruct the same filter for its API call. Keys mirror
+    // the backend CarFilterInput field names, so BrowseCars can pass them through
+    // to useCars() with no name-mapping layer.
     const params = new URLSearchParams();
-    if (localFilters.vehicleType && localFilters.vehicleType !== 'car') params.set('vehicleType', localFilters.vehicleType);
-    if (localFilters.make && localFilters.make !== 'all') params.set('make', localFilters.make);
-    if (localFilters.model && localFilters.model !== 'all') params.set('model', localFilters.model);
-    if (localFilters.bodyType && localFilters.bodyType !== 'any') params.set('type', localFilters.bodyType);
-    if (localFilters.fuelType && localFilters.fuelType !== 'any') params.set('fuelType', localFilters.fuelType);
-    if (localFilters.gear && localFilters.gear !== 'any') params.set('transmission', localFilters.gear);
-    if (localFilters.firstRegistrationFrom && localFilters.firstRegistrationFrom > 1990) params.set('yearFrom', String(localFilters.firstRegistrationFrom));
-    if (localFilters.priceMin && localFilters.priceMin > 0) params.set('priceFrom', String(localFilters.priceMin));
-    if (localFilters.priceMax && localFilters.priceMax < 200000) params.set('priceTo', String(localFilters.priceMax));
-    if (localFilters.mileageMax && localFilters.mileageMax < 400000) params.set('mileage', String(localFilters.mileageMax));
-    if (localFilters.cityZipCode) params.set('location', localFilters.cityZipCode);
-    if (localFilters.optionalEquipment?.length) params.set('features', localFilters.optionalEquipment.join(','));
-    if (localFilters.safetyEquipment?.length) params.set('safetyFeatures', localFilters.safetyEquipment.join(','));
+    const set = (k: string, v: string | number | boolean | null | undefined) => {
+      if (v === undefined || v === null || v === '') return;
+      params.set(k, String(v));
+    };
+    const setList = (k: string, v?: string[] | null) => {
+      if (v && v.length > 0) params.set(k, v.join(','));
+    };
+    const yn = (v: string): boolean | undefined => v === 'yes' ? true : v === 'no' ? false : undefined;
+
+    // Vehicle Type
+    if (localFilters.vehicleType && localFilters.vehicleType !== 'car') set('vehicleType', localFilters.vehicleType);
+    // Basic
+    if (localFilters.make && localFilters.make !== 'all') set('make', localFilters.make);
+    if (localFilters.model && localFilters.model !== 'all') set('model', localFilters.model);
+    setList('additionalProperties', localFilters.additionalProperties);
+    if (localFilters.bodyType && localFilters.bodyType !== 'any') set('bodyType', localFilters.bodyType);
+    if (localFilters.fuelType && localFilters.fuelType !== 'any') set('fuelType', localFilters.fuelType);
+    // Registration & Price
+    if (localFilters.firstRegistrationFrom > 1990) set('minYear', localFilters.firstRegistrationFrom);
+    if (localFilters.firstRegistrationTo < new Date().getFullYear()) set('maxYear', localFilters.firstRegistrationTo);
+    if (localFilters.priceMin > 0) set('minPrice', localFilters.priceMin);
+    if (localFilters.priceMax < 200000) set('maxPrice', localFilters.priceMax);
+    // Location
+    if (localFilters.cityZipCode) set('location', localFilters.cityZipCode);
+    if (localFilters.radiusKm) set('radiusKm', localFilters.radiusKm as string);
+    // Technical
+    if (localFilters.mileageMin > 0) set('minMileage', localFilters.mileageMin);
+    if (localFilters.mileageMax < 400000) set('maxMileage', localFilters.mileageMax);
+    if (localFilters.powerMinKW > 0) set('minPowerKW', localFilters.powerMinKW);
+    if (localFilters.powerMaxKW < 500) set('maxPowerKW', localFilters.powerMaxKW);
+    if (localFilters.engineDisplacementMin > 0.5) set('minEngineSize', Math.round(localFilters.engineDisplacementMin * 1000));
+    if (localFilters.engineDisplacementMax < 8.0) set('maxEngineSize', Math.round(localFilters.engineDisplacementMax * 1000));
+    if (localFilters.fuelConsumptionMin > 0) set('minFuelConsumption', localFilters.fuelConsumptionMin);
+    if (localFilters.fuelConsumptionMax < 20) set('maxFuelConsumption', localFilters.fuelConsumptionMax);
+    if (localFilters.gear && localFilters.gear !== 'any') set('transmission', localFilters.gear);
+    if (localFilters.numberOfSeats && localFilters.numberOfSeats !== 'any') set('seats', localFilters.numberOfSeats);
+    if (localFilters.numberOfDoors && localFilters.numberOfDoors !== 'any') set('doors', localFilters.numberOfDoors);
+    // Seller & Condition
+    if (localFilters.seller && localFilters.seller !== 'any') set('sellerType', localFilters.seller);
+    if (localFilters.vehicleCondition && localFilters.vehicleCondition !== 'any') set('condition', localFilters.vehicleCondition);
+    // Equipment
+    setList('features', localFilters.optionalEquipment);
+    setList('safetyFeatures', localFilters.safetyEquipment);
+    // Appearance
+    if (localFilters.bodyColor && localFilters.bodyColor !== 'any') set('color', localFilters.bodyColor);
+    if (localFilters.paintWork && localFilters.paintWork !== 'any') set('paintWorkType', localFilters.paintWork);
+    if (localFilters.interiorColor && localFilters.interiorColor !== 'any') set('interiorColor', localFilters.interiorColor);
+    if (localFilters.upholstery && localFilters.upholstery !== 'any') set('upholsteryType', localFilters.upholstery);
+    // History & Condition
+    if (localFilters.previousOwners && localFilters.previousOwners !== 'any') set('maxPreviousOwners', localFilters.previousOwners);
+    if (localFilters.hadAccident && localFilters.hadAccident !== 'any') set('hadAccident', localFilters.hadAccident);
+    const guarantee = yn(localFilters.guarantee);
+    if (guarantee !== undefined) set('hasWarranty', guarantee);
+    const fullService = yn(localFilters.fullServiceHistory);
+    if (fullService !== undefined) set('fullServiceHistory', fullService);
+    const nonSmoking = yn(localFilters.nonSmokingVehicle);
+    if (nonSmoking !== undefined) set('nonSmokingVehicle', nonSmoking);
+    // Seller Options
+    const testDrive = yn(localFilters.allowTestDrive);
+    if (testDrive !== undefined) set('allowTestDrive', testDrive);
+    const tradeIn = yn(localFilters.acceptsTradeIn);
+    if (tradeIn !== undefined) set('acceptsTradeIn', tradeIn);
+    const negotiable = yn(localFilters.priceNegotiable);
+    if (negotiable !== undefined) set('priceNegotiable', negotiable);
+    const quickSale = yn(localFilters.quickSale);
+    if (quickSale !== undefined) set('quickSale', quickSale);
+    // Environmental
+    if (localFilters.euroEmissionClass && localFilters.euroEmissionClass !== 'any') set('emissionClass', localFilters.euroEmissionClass);
+    // New car fields
+    if (localFilters.numberOfGears && localFilters.numberOfGears !== 'any') set('numberOfGears', localFilters.numberOfGears);
+    if (localFilters.co2Emissions && localFilters.co2Emissions !== 'any') set('maxCo2Emissions', localFilters.co2Emissions);
+    if (localFilters.weight && localFilters.weight !== 'any') set('maxWeight', localFilters.weight);
+    // Motorcycle-specific
+    if (localFilters.coolingType && localFilters.coolingType !== 'any') set('coolingType', localFilters.coolingType);
+    if (localFilters.starterType && localFilters.starterType !== 'any') set('starterType', localFilters.starterType);
+    if (localFilters.licenseClass && localFilters.licenseClass !== 'any') set('licenseClass', localFilters.licenseClass);
+    if (localFilters.cylinders && localFilters.cylinders !== 'any') set('cylinders', localFilters.cylinders);
+
     trackEvent('search', { filter_count: getActiveFilterCount() });
     navigate(`/cars?${params.toString()}`);
   }, [localFilters, getActiveFilterCount, navigate]);
