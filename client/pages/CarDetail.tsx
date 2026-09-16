@@ -75,12 +75,15 @@ export default function CarDetail() {
   const [linkCopied, setLinkCopied] = useState(false);
   const { isFavorite, toggleFavorite } = useFavorites();
 
-  // Fetch other listings from the same seller (must be before early returns)
+  // Fetch other listings from the same seller (must be before early returns).
+  // cache-and-network so a deleted listing does not linger from a prior page's
+  // cached response; we still show cached results first for snappy UX but
+  // refresh in the background.
   const sellerId = car?.seller?.id;
   const { data: sellerCarsData } = useQuery<{ getCars: Car[] }>(GET_CARS, {
     variables: { filters: { sellerId } },
     skip: !sellerId,
-    fetchPolicy: 'cache-first',
+    fetchPolicy: 'cache-and-network',
   });
   const sellerOtherCars = (sellerCarsData?.getCars || []).filter(c => c.id !== car?.id).slice(0, 6);
 

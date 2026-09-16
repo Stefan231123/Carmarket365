@@ -31,11 +31,36 @@ export class SavedCarsService {
   }
 
   async getUserSavedCars(userId: string): Promise<SavedCar[]> {
-    return this.savedCarRepository.find({
-      where: { userId },
-      relations: ['car', 'car.images', 'car.seller'],
-      order: { createdAt: 'DESC' },
-    });
+    // Inner-join car so rows whose car has been hard-deleted are dropped from
+    // the result, and require car.isAvailable so cars that were marked
+    // hidden/sold stop showing up in the saved list. Also opportunistically
+    // clean up any orphan SavedCar rows we find (legacy data from before the
+    // cars.service delete path was cascading to saved_car).
+    const rows = await this.savedCarRepository
+      .createQueryBuilder('saved')
+      .innerJoinAndSelect('saved.car', 'car')
+      .leftJoinAndSelect('car.images', 'images')
+      .leftJoinAndSelect('car.seller', 'seller')
+      .where('saved.userId = :userId', { userId })
+      .andWhere('car.isAvailable = :isAvailable', { isAvailable: true })
+      .orderBy('saved.createdAt', 'DESC')
+      .addOrderBy('images.sortOrder', 'ASC')
+      .getMany();
+
+    // Fire-and-forget orphan cleanup: any saved_car whose carId no longer
+    // points at a real car (or points at an unavailable one). Keeps the DB
+    // tidy without blocking the response.
+    this.savedCarRepository
+      .createQueryBuilder()
+      .delete()
+      .where('userId = :userId', { userId })
+      .andWhere(
+        `carId NOT IN (SELECT id FROM cars WHERE "isAvailable" = true)`,
+      )
+      .execute()
+      .catch(() => { /* best-effort cleanup */ });
+
+    return rows;
   }
 
   async isCarSaved(userId: string, carId: string): Promise<boolean> {
