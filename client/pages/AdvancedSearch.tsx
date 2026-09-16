@@ -785,6 +785,8 @@ export default function AdvancedSearch() {
     if (localFilters.priceMax && localFilters.priceMax < 200000) params.set('priceTo', String(localFilters.priceMax));
     if (localFilters.mileageMax && localFilters.mileageMax < 400000) params.set('mileage', String(localFilters.mileageMax));
     if (localFilters.cityZipCode) params.set('location', localFilters.cityZipCode);
+    if (localFilters.optionalEquipment?.length) params.set('features', localFilters.optionalEquipment.join(','));
+    if (localFilters.safetyEquipment?.length) params.set('safetyFeatures', localFilters.safetyEquipment.join(','));
     trackEvent('search', { filter_count: getActiveFilterCount() });
     navigate(`/cars?${params.toString()}`);
   }, [localFilters, getActiveFilterCount, navigate]);
