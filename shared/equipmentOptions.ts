@@ -337,7 +337,29 @@ export const EQUIPMENT_LABELS: Record<EquipmentLang, Record<string, string>> = {
   sq: LABELS_SQ,
 };
 
-// Reverse lookup: any known label string (any language) -> canonical key.
+// Legacy aliases for display fallback: strings observed in existing DB rows
+// that predate this canonical list. Keep additions here small — the right
+// long-term fix is a one-time DB normalization, not an ever-growing alias map.
+const LEGACY_LABEL_ALIASES: Record<string, string> = {
+  // MK — safety
+  'странични ербези': 'AIRBAG_SIDE',
+  'ербег - возач': 'AIRBAG_DRIVER',
+  'ербег - патник': 'AIRBAG_PASSENGER',
+  'ербези за глава': 'AIRBAG_CURTAIN',
+  'предупредување за излегување од лента': 'LANE_DEPARTURE_WARNING',
+  'мониторинг на слепа точка': 'BLIND_SPOT_MONITORING',
+  'сензори за паркирање': 'REAR_PARKING_SENSORS',
+  // MK — comfort/tech
+  'usb порти': 'USB_PORTS',
+  'климатизација': 'AIR_CONDITIONING',
+  'gps навигација': 'NAVIGATION_SYSTEM',
+  'темпомат': 'CRUISE_CONTROL',
+  'шибер': 'SUNROOF',
+  'влез без клуч': 'KEYLESS_ENTRY',
+  'далечинско палење': 'REMOTE_START',
+};
+
+// Reverse lookup: any known label string (any language, plus legacy aliases) -> canonical key.
 // Used to migrate/normalize legacy listings that stored translated labels.
 const LABEL_TO_KEY: Record<string, string> = (() => {
   const map: Record<string, string> = {};
@@ -346,6 +368,7 @@ const LABEL_TO_KEY: Record<string, string> = (() => {
       map[label.toLowerCase()] = key;
     }
   }
+  Object.assign(map, LEGACY_LABEL_ALIASES);
   return map;
 })();
 

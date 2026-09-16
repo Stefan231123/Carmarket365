@@ -42,6 +42,8 @@ interface CarFilterParams {
   transmission?: string;
   location?: string;
   vehicleType?: string;
+  features?: string[];
+  safetyFeatures?: string[];
 }
 
 export default function BrowseCars() {
@@ -59,6 +61,8 @@ export default function BrowseCars() {
   const [vehicleTypeFilter, setVehicleTypeFilter] = useState("");
   const [fuelTypeFilter, setFuelTypeFilter] = useState("");
   const [transmissionFilter, setTransmissionFilter] = useState("");
+  const [featuresFilter, setFeaturesFilter] = useState<string[]>([]);
+  const [safetyFeaturesFilter, setSafetyFeaturesFilter] = useState<string[]>([]);
   const [viewMode, setViewMode] = useState<"grid" | "list">("list");
   const [showFilters, setShowFilters] = useState(false);
   const [contactCar, setContactCar] = useState(null);
@@ -89,6 +93,11 @@ export default function BrowseCars() {
     if (locationParam) setLocationFilter(locationParam);
     if (fuelType) setFuelTypeFilter(fuelType);
     if (transmission) setTransmissionFilter(transmission);
+
+    const featuresCsv = params.get('features');
+    const safetyCsv = params.get('safetyFeatures');
+    setFeaturesFilter(featuresCsv ? featuresCsv.split(',').filter(Boolean) : []);
+    setSafetyFeaturesFilter(safetyCsv ? safetyCsv.split(',').filter(Boolean) : []);
 
     // Persist meaningful search params for homepage personalization
     saveLastSearch({
@@ -145,8 +154,16 @@ export default function BrowseCars() {
       apiFilters.transmission = transmissionFilter;
     }
 
+    if (featuresFilter.length > 0) {
+      apiFilters.features = featuresFilter;
+    }
+
+    if (safetyFeaturesFilter.length > 0) {
+      apiFilters.safetyFeatures = safetyFeaturesFilter;
+    }
+
     return apiFilters;
-  }, [makeFilter, modelFilter, priceFromFilter, priceToFilter, yearFromFilter, mileageFilter, locationFilter, fuelTypeFilter, transmissionFilter]);
+  }, [makeFilter, modelFilter, priceFromFilter, priceToFilter, yearFromFilter, mileageFilter, locationFilter, fuelTypeFilter, transmissionFilter, featuresFilter, safetyFeaturesFilter]);
 
   // Fetch cars and makes from API
   const { cars, isLoading, error, refetch } = useCars(filters);
