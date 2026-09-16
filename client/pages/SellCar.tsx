@@ -262,6 +262,28 @@ export default function SellCar() {
     { value: 'Beige', label: t('sell.colors.beige') },
   ];
 
+  // Display the body-type dropdown labels in the current language while
+  // keeping the stored value in English (so downstream code + DB stay stable).
+  const translateBodyTypeLabel = (raw: string): string => {
+    const key = raw.toLowerCase().replace(/[\s-]+/g, '');
+    const map: Record<string, string> = {
+      sedan: t('sell.bodyTypes.sedan'),
+      hatchback: t('sell.bodyTypes.hatchback'),
+      stationwagon: t('sell.bodyTypes.wagon'),
+      suv: t('sell.bodyTypes.suv'),
+      coupe: t('sell.bodyTypes.coupe'),
+      convertible: t('sell.bodyTypes.convertible'),
+      van: t('sell.bodyTypes.van'),
+      smallcar: t('sell.bodyTypes.smallCar'),
+      compact: t('sell.bodyTypes.compact'),
+      sportscar: t('sell.bodyTypes.sportsCar'),
+      offroad: t('sell.bodyTypes.offRoad'),
+      limousine: t('sell.bodyTypes.limousine'),
+      other: t('sell.bodyTypes.other'),
+    };
+    return map[key] || raw;
+  };
+
   const handleFeatureChange = (feature: string, checked: boolean) => {
     if (checked) {
       setVehicleDetails(prev => ({
@@ -755,7 +777,7 @@ export default function SellCar() {
                               ))
                             ) : (
                               CAR_BODY_TYPES.map((type) => (
-                                <SelectItem key={type} value={type}>{type}</SelectItem>
+                                <SelectItem key={type} value={type}>{translateBodyTypeLabel(type)}</SelectItem>
                               ))
                             )}
                           </SelectContent>
