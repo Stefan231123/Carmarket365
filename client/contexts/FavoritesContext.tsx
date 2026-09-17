@@ -47,22 +47,25 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
       setIsLoaded(true);
     }
 
-    // Try to sync with backend (only succeeds for logged-in users)
+    // Try to sync with backend (only succeeds for logged-in users).
+    // A successful response is authoritative — including an empty list, which
+    // means every previously-saved car has been deleted/hidden/sold. Overwrite
+    // localStorage in that case too, otherwise stale entries pointing at gone
+    // listings keep rendering as broken cards.
     apiClient.getUserSavedCars().then((savedCars) => {
-      if (savedCars && savedCars.length > 0) {
-        const backendFavorites: FavoriteCar[] = savedCars.map((sc: any) => ({
-          id: sc.car?.id || sc.id,
-          make: sc.car?.make || '',
-          model: sc.car?.model || '',
-          year: sc.car?.year || 0,
-          price: sc.car?.price || 0,
-          image: sc.car?.images?.[0]?.url || sc.car?.images?.[0]?.thumbnailUrl || '',
-          images: sc.car?.images?.map((img: any) => img.url) || [],
-          dateAdded: sc.createdAt || new Date().toISOString(),
-        }));
-        setFavorites(backendFavorites);
-        localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(backendFavorites));
-      }
+      const list = Array.isArray(savedCars) ? savedCars : [];
+      const backendFavorites: FavoriteCar[] = list.map((sc: any) => ({
+        id: sc.car?.id || sc.id,
+        make: sc.car?.make || '',
+        model: sc.car?.model || '',
+        year: sc.car?.year || 0,
+        price: sc.car?.price || 0,
+        image: sc.car?.images?.[0]?.url || sc.car?.images?.[0]?.thumbnailUrl || '',
+        images: sc.car?.images?.map((img: any) => img.url) || [],
+        dateAdded: sc.createdAt || new Date().toISOString(),
+      }));
+      setFavorites(backendFavorites);
+      localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(backendFavorites));
     }).catch((err) => {
       // Not logged in or network error — localStorage data is used as fallback
       if (err?.message && !err.message.includes('401') && !err.message.includes('Unauthorized')) {
