@@ -20,9 +20,10 @@ export const enTranslations: TranslationStrings = {
     name: 'CarMarket365'
   },
   contact: {
-    phone: '+49 (0) 30 12345678',
+    phone: '',
     email: 'info@carmarket365.com',
-    address: 'Berlin, Germany'
+    address: 'Sheridan, WY, USA',
+    companyName: 'Car Market 365 LLC'
   },
   common: {
     loading: 'Loading...',
@@ -1200,7 +1201,7 @@ export const enTranslations: TranslationStrings = {
         'Copyright infringement policies'
       ],
       questionsAboutTerms: 'Questions about these terms?',
-      questionsText: 'If you have questions about these terms or need clarification on any provisions, please contact our legal team at legal@carmarket365.com',
+      questionsText: 'If you have questions about these terms or need clarification on any provisions, please contact us at info@carmarket365.com',
       returnToPlatform: 'Return to Platform',
       contactLegalTeam: 'Contact Legal Team'
     },
@@ -1326,6 +1327,59 @@ export const enTranslations: TranslationStrings = {
       questionsMessage: 'If you have questions about our cookie policy or how we use tracking technologies, please contact our team at privacy@carmarket365.com',
       returnToPlatform: 'Return to Platform',
       cookieSupport: 'Cookie Support'
+    },
+
+    imprint: {
+      title: 'Legal Information',
+      subtitle: 'Legal information and details about our company.',
+      backToHome: 'Back to Home',
+      legalInfoTitle: 'Legal Information',
+      legalInfoDescription: 'Required legal information for transparency and accountability.',
+      legalInfoText: 'This page contains the legally required information for Car Market 365 LLC, provided in accordance with applicable transparency laws.',
+      companyDetails: {
+        title: 'Company Details',
+        companyName: 'Company Name',
+        companyNameValue: 'Car Market 365 LLC',
+        registrationNumber: 'Registration Number',
+        registrationNumberValue: '2026-002070923',
+        vatId: 'Entity Type',
+        vatIdValue: 'Close Limited Liability Company (LLC)',
+        commercialRegister: 'Registry',
+        commercialRegisterValue: 'Wyoming Secretary of State'
+      },
+      businessAddress: {
+        title: 'Registered Address',
+        registeredAddress: 'Registered Address',
+        addressLine1: '30 N Gould St Ste N',
+        addressLine2: 'Sheridan, WY 82801',
+        addressLine3: 'United States'
+      },
+      management: {
+        title: 'Registered Agent',
+        managingDirector: 'Registered Agent',
+        managingDirectorValue: 'Northwest Registered Agent Service Inc',
+        authorizedRepresentative: 'Authorized Representative',
+        authorizedRepresentativeValue: 'Northwest Registered Agent Service Inc'
+      },
+      contactInfo: {
+        title: 'Contact Information',
+        phone: 'Phone',
+        phoneValue: '',
+        email: 'Email',
+        emailValue: 'info@carmarket365.com',
+        businessHours: 'Formation Date',
+        businessHoursValue: 'September 1, 2026'
+      },
+      legalNotice: {
+        title: 'Legal Notice',
+        paragraph1: 'The content of this website has been created with the greatest possible care. However, we cannot guarantee the accuracy, completeness, or currency of the content.',
+        paragraph2: 'As a service provider, we are responsible for our own content on these pages under general laws. However, we are not obligated to monitor transmitted or stored third-party information.',
+        paragraph3: 'Obligations to remove or block the use of information under general laws remain unaffected. Liability in this respect is possible only from the moment of knowledge of a specific violation of the law.'
+      },
+      questionsTitle: 'Legal Questions?',
+      questionsText: 'If you have questions about legal aspects of our service or this imprint, please contact us at info@carmarket365.com',
+      returnToPlatform: 'Return to Platform',
+      contactLegal: 'Contact Us'
     },
 
     accessibility: {

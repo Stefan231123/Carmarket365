@@ -1184,7 +1184,7 @@ export const mkTranslations: TranslationStrings = {
         'Политики за нарушување авторски права'
       ],
       questionsAboutTerms: 'Прашања за овие услови?',
-      questionsText: 'Ако имате прашања за овие услови или ви требаат појаснувања за некои одредби, ве молиме контактирајте го нашиот правен тим на legal@carmarket365.com',
+      questionsText: 'Ако имате прашања за овие услови или ви требаат појаснувања за некои одредби, ве молиме контактирајте нè на info@carmarket365.com',
       returnToPlatform: 'Назад на платформата',
       contactLegalTeam: 'Контактирај го правниот тим'
     },
@@ -1319,41 +1319,41 @@ export const mkTranslations: TranslationStrings = {
       subtitle: 'Правни информации и детали за нашата компанија.',
       backToHome: 'Назад на почетна',
       legalInfoTitle: 'Правни информации',
-      legalInfoDescription: 'Задолжителни правни информации според законите во ЕУ.',
-      legalInfoText: 'Овие информации се обезбедуваат според законските обврски за транспарентност и ги содржат клучните детали за нашата компанија CarMarket365.',
+      legalInfoDescription: 'Задолжителни правни информации за транспарентност и веродостојност.',
+      legalInfoText: 'Овие информации се обезбедуваат согласно законските обврски за транспарентност и ги содржат клучните детали за нашата компанија Car Market 365 LLC.',
       companyDetails: {
         title: 'Детали за компанијата',
         companyName: 'Име на компанијата',
-        companyNameValue: 'CarMarket365 GmbH',
+        companyNameValue: 'Car Market 365 LLC',
         registrationNumber: 'Регистрационен број',
-        registrationNumberValue: 'HRB 123456',
-        vatId: 'ДДВ број',
-        vatIdValue: 'DE123456789',
-        commercialRegister: 'Трговски регистар',
-        commercialRegisterValue: 'Амтсгерихт Берлин'
+        registrationNumberValue: '2026-002070923',
+        vatId: 'Тип на ентитет',
+        vatIdValue: 'Close Limited Liability Company (LLC)',
+        commercialRegister: 'Регистар',
+        commercialRegisterValue: 'Wyoming Secretary of State'
       },
       businessAddress: {
-        title: 'Деловна адреса',
+        title: 'Регистрирана адреса',
         registeredAddress: 'Регистрирана адреса',
-        addressLine1: 'Главна улица 123',
-        addressLine2: '10115 Берлин',
-        addressLine3: 'Германија'
+        addressLine1: '30 N Gould St Ste N',
+        addressLine2: 'Sheridan, WY 82801',
+        addressLine3: 'САД'
       },
       management: {
-        title: 'Раководство',
-        managingDirector: 'Управен директор',
-        managingDirectorValue: 'Стефан Коцевски',
+        title: 'Регистриран агент',
+        managingDirector: 'Регистриран агент',
+        managingDirectorValue: 'Northwest Registered Agent Service Inc',
         authorizedRepresentative: 'Овластен претставник',
-        authorizedRepresentativeValue: 'Ана Петровска'
+        authorizedRepresentativeValue: 'Northwest Registered Agent Service Inc'
       },
       contactInfo: {
         title: 'Контакт информации',
         phone: 'Телефон',
-        phoneValue: '+49 30 123 456 78',
+        phoneValue: '',
         email: 'Е-пошта',
-        emailValue: 'legal@carmarket365.com',
-        businessHours: 'Работно време',
-        businessHoursValue: 'Понеделник - Петок: 09:00 - 17:00'
+        emailValue: 'info@carmarket365.com',
+        businessHours: 'Датум на регистрација',
+        businessHoursValue: '01 септември 2026'
       },
       legalNotice: {
         title: 'Правно известување',
@@ -1741,6 +1741,11 @@ export const mkTranslations: TranslationStrings = {
 
   // Contact page
   contact: {
+    // Footer contact block (referenced as t('contact.phone'), t('contact.email'), etc.)
+    phone: '',
+    email: 'info@carmarket365.com',
+    address: 'Sheridan, WY, САД',
+    companyName: 'Car Market 365 LLC',
     title: 'Контактирај не',
     subtitle: 'Ние сме тука за да помогнеме. Контактирајте не за било какви прашања или поддршка.',
     backToHome: 'Назад на почетна',

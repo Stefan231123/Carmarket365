@@ -1068,7 +1068,7 @@ export const sqTranslations: TranslationStrings = {
         'Politikat e shkeljes së të drejtave të autorit'
       ],
       questionsAboutTerms: 'Pyetje Rreth Këtyre Kushteve?',
-      questionsText: 'Nëse keni pyetje rreth këtyre kushteve ose keni nevojë për sqarime në çdo dispozitë, ju lutemi kontaktoni ekipin tonë ligjor në legal@carmarket365.com',
+      questionsText: 'Nëse keni pyetje rreth këtyre kushteve ose keni nevojë për sqarime në çdo dispozitë, ju lutemi kontaktoni në info@carmarket365.com',
       returnToPlatform: 'Kthehu në Platformë',
       contactLegalTeam: 'Kontakto Ekipin Ligjor'
     },
@@ -1972,6 +1972,11 @@ export const sqTranslations: TranslationStrings = {
 
   // Contact Us Page
   contact: {
+    // Footer contact block (referenced as t('contact.phone'), t('contact.email'), etc.)
+    phone: '',
+    email: 'info@carmarket365.com',
+    address: 'Sheridan, WY, SHBA',
+    companyName: 'Car Market 365 LLC',
     hero: {
       title: 'Na kontaktoni',
       subtitle: 'Kontaktoni ekipin tonë. Ne jemi këtu për t\'ju ndihmojmë të gjeni makinën tuaj të përkryer ose të përgjigjemi çdo pyetjeje që mund të keni.',
@@ -2675,45 +2680,45 @@ export const sqTranslations: TranslationStrings = {
       subtitle: 'Informacione ligjore dhe detaje të kompanisë siç kërkohet nga ligji.',
       backToHome: 'Kthehu te faqja kryesore',
       legalInfoTitle: 'Informacione Ligjore (Impressum)',
-      legalInfoDescription: 'Informacione të kompanisë dhe detaje ligjore siç kërkohet nga ligji.',
-      legalInfoText: 'Kjo faqe përmban informacionet e kërkuara ligjërisht për CarMarket365 siç urdhërohet nga ligjet dhe rregulloret në fuqi. Të gjitha informacionet e dhëna janë aktuale dhe të sakta.',
-      
+      legalInfoDescription: 'Informacione ligjore për transparencë dhe besueshmëri.',
+      legalInfoText: 'Kjo faqe përmban informacionet e kërkuara ligjërisht për Car Market 365 LLC siç urdhërohet nga ligjet dhe rregulloret në fuqi.',
+
       companyDetails: {
         title: 'Detajet e Kompanisë',
         companyName: 'Emri i Kompanisë',
-        companyNameValue: 'CarMarket365 GmbH',
+        companyNameValue: 'Car Market 365 LLC',
         registrationNumber: 'Numri i Regjistrimit',
-        registrationNumberValue: 'HRB 123456 B',
-        vatId: 'ID e TVSH-së',
-        vatIdValue: 'DE123456789',
-        commercialRegister: 'Regjistri Tregtar',
-        commercialRegisterValue: 'Amtsgericht Berlin'
+        registrationNumberValue: '2026-002070923',
+        vatId: 'Lloji i Entitetit',
+        vatIdValue: 'Close Limited Liability Company (LLC)',
+        commercialRegister: 'Regjistri',
+        commercialRegisterValue: 'Wyoming Secretary of State'
       },
-      
+
       businessAddress: {
-        title: 'Adresa e Biznesit',
+        title: 'Adresa e Regjistruar',
         registeredAddress: 'Adresa e Regjistruar',
-        street: 'Unter den Linden 1',
-        city: '10117 Berlin',
-        country: 'Gjermani'
+        addressLine1: '30 N Gould St Ste N',
+        addressLine2: 'Sheridan, WY 82801',
+        addressLine3: 'SHBA'
       },
-      
+
       management: {
-        title: 'Drejtimi',
-        managingDirector: 'Drejtor Ekzekutiv',
-        managingDirectorValue: 'Max Mustermann',
+        title: 'Agjenti i Regjistruar',
+        managingDirector: 'Agjenti i Regjistruar',
+        managingDirectorValue: 'Northwest Registered Agent Service Inc',
         authorizedRepresentative: 'Përfaqësues i Autorizuar',
-        authorizedRepresentativeValue: 'Anna Schmidt'
+        authorizedRepresentativeValue: 'Northwest Registered Agent Service Inc'
       },
-      
+
       contactInfo: {
         title: 'Informacione Kontakti',
         phone: 'Telefon',
-        phoneValue: '+49 (0) 30 12345678',
+        phoneValue: '',
         email: 'Email',
         emailValue: 'info@carmarket365.com',
-        businessHours: 'Orari i Biznesit',
-        businessHoursValue: 'Hën-Pre: 9:00 - 18:00 CET'
+        businessHours: 'Data e Regjistrimit',
+        businessHoursValue: '1 Shtator 2026'
       },
       
       legalNotice: {
@@ -2724,7 +2729,7 @@ export const sqTranslations: TranslationStrings = {
       },
       
       questionsTitle: 'Pyetje Ligjore?',
-      questionsText: 'Për pyetje ligjore ose për të raportuar shqetësime, ju lutemi kontaktoni departamentin tonë ligjor në legal@carmarket365.com',
+      questionsText: 'Për pyetje ligjore ose për të raportuar shqetësime, ju lutemi kontaktoni në info@carmarket365.com',
       returnToPlatform: 'Kthehu te Platforma',
       contactLegal: 'Kontakto Ekipin Ligjor'
     },

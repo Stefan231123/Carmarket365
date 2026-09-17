@@ -259,9 +259,13 @@ export class EmailService {
     const safeMessage = this.escapeHtml(message);
     return this.sendEmail({
       to: (() => {
+        // Fall back to the public info@ address so a missing env var can't
+        // silently break the contact form for real users. If CONTACT_EMAIL
+        // is set, that overrides.
+        const fallback = 'info@carmarket365.com';
         if (!this.contactEmail) {
-          this.logger.error('CONTACT_EMAIL environment variable is not set. Contact form email cannot be sent.');
-          throw new Error('CONTACT_EMAIL environment variable is required.');
+          this.logger.warn(`CONTACT_EMAIL not set — routing contact form to fallback ${fallback}`);
+          return fallback;
         }
         return this.contactEmail;
       })(),

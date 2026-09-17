@@ -3,8 +3,9 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { apiClient } from "@shared/api-client";
 import { useSafeAuth } from "@/contexts/AuthContextSafe";
 import { useTranslation } from "@/hooks/useTranslation";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+// Header + Footer are rendered globally by App.tsx -- rendering them again
+// here caused the doubled nav bar that appeared on /messages. Do not
+// re-import them.
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -73,11 +74,20 @@ export default function Messages() {
   const [sending, setSending] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
 
+  const [loadError, setLoadError] = useState<string | null>(null);
+
   const loadList = useCallback(async () => {
     setLoadingList(true);
+    setLoadError(null);
     try {
       const list = await apiClient.getMyConversations();
       setConversations(list);
+    } catch (err) {
+      // Previously silent -- user saw an empty list with no explanation
+      // when auth expired or the network hiccupped. Now surface it so the
+      // messenger doesn't appear "empty" on transient failure.
+      console.error('Failed to load conversations:', err);
+      setLoadError((err as Error)?.message || 'Could not load conversations.');
     } finally {
       setLoadingList(false);
     }
@@ -94,6 +104,9 @@ export default function Messages() {
         await apiClient.markConversationRead(id);
         // reflect read state locally
         setConversations((prev) => prev.map((c) => (c.id === id ? { ...c, unreadCount: 0 } : c)));
+      } catch (err) {
+        console.error('Failed to open conversation:', err);
+        setLoadError((err as Error)?.message || 'Could not open this conversation.');
       } finally {
         setLoadingThread(false);
       }
@@ -161,7 +174,6 @@ export default function Messages() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <Header />
       <main className="flex-1 container mx-auto px-4 py-6">
         <h1 className="text-2xl font-bold mb-4">{t("messenger.title")}</h1>
 
@@ -172,6 +184,12 @@ export default function Messages() {
               {loadingList ? (
                 <div className="flex items-center justify-center h-40 text-muted-foreground">
                   <Loader2 className="h-5 w-5 animate-spin" />
+                </div>
+              ) : loadError ? (
+                <div className="flex flex-col items-center justify-center h-40 text-muted-foreground gap-2 p-4 text-center">
+                  <MessageSquare className="h-8 w-8 text-red-500" />
+                  <p className="text-red-600 text-sm">{loadError}</p>
+                  <Button size="sm" variant="outline" onClick={() => loadList()}>Retry</Button>
                 </div>
               ) : conversations.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-40 text-muted-foreground gap-2 p-4 text-center">
@@ -299,7 +317,6 @@ export default function Messages() {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 }
