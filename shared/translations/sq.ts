@@ -797,9 +797,15 @@ export const sqTranslations: TranslationStrings = {
       coupe: 'Kupë',
       hatchback: 'Hatchback',
       convertible: 'Kabriolet',
-      wagon: 'Vagon',
+      wagon: 'Karavan',
       van: 'Furgon',
       crossover: 'Crossover',
+      limousine: 'Limuzinë',
+      smallCar: 'Makinë e vogël',
+      compact: 'Kompakte',
+      sportsCar: 'Makinë sportive',
+      offRoad: 'Terreni',
+      other: 'Tjetër',
     },
 
     // Drivetrains

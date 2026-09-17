@@ -841,9 +841,15 @@ export const enTranslations: TranslationStrings = {
       coupe: 'Coupe',
       hatchback: 'Hatchback',
       convertible: 'Convertible',
-      wagon: 'Wagon',
+      wagon: 'Station Wagon',
       van: 'Van',
       crossover: 'Crossover',
+      limousine: 'Limousine',
+      smallCar: 'Small Car',
+      compact: 'Compact',
+      sportsCar: 'Sports Car',
+      offRoad: 'Off-Road',
+      other: 'Other',
     },
 
     // Drivetrains

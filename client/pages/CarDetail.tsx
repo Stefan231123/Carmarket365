@@ -168,18 +168,43 @@ export default function CarDetail() {
   };
 
   const translateBodyType = (value: string) => {
+    if (!value) return value;
+    // Accepts both raw body-type strings from the Sell form ("Limousine",
+    // "Station Wagon", ...) and the mapped VehicleType enum values ("SEDAN",
+    // "CAR", ...). Case-insensitive key lookup with a fallback to the raw value.
+    const key = value.toLowerCase().replace(/[\s-]+/g, '');
     const map: Record<string, string> = {
-      CAR: t('sell.vehicleTypes.car.name'),
-      TRUCK: t('sell.vehicleTypes.truck.name'),
-      MOTORBIKE: t('sell.vehicleTypes.motorbike.name'),
-      SEDAN: t('sell.bodyTypes.sedan'),
-      SUV: t('sell.bodyTypes.suv'),
-      COUPE: t('sell.bodyTypes.coupe'),
-      HATCHBACK: t('sell.bodyTypes.hatchback'),
-      CONVERTIBLE: t('sell.bodyTypes.convertible'),
-      WAGON: t('sell.bodyTypes.wagon'),
-      VAN: t('sell.bodyTypes.van'),
-      CROSSOVER: t('sell.bodyTypes.crossover'),
+      car: t('sell.vehicleTypes.car.name'),
+      truck: t('sell.vehicleTypes.truck.name'),
+      motorbike: t('sell.vehicleTypes.motorbike.name'),
+      motorcycle: t('sell.vehicleTypes.motorbike.name'),
+      sedan: t('sell.bodyTypes.sedan'),
+      limousine: t('sell.bodyTypes.limousine'),
+      suv: t('sell.bodyTypes.suv'),
+      coupe: t('sell.bodyTypes.coupe'),
+      hatchback: t('sell.bodyTypes.hatchback'),
+      convertible: t('sell.bodyTypes.convertible'),
+      wagon: t('sell.bodyTypes.wagon'),
+      stationwagon: t('sell.bodyTypes.wagon'),
+      van: t('sell.bodyTypes.van'),
+      crossover: t('sell.bodyTypes.crossover'),
+      smallcar: t('sell.bodyTypes.smallCar'),
+      compact: t('sell.bodyTypes.compact'),
+      sportscar: t('sell.bodyTypes.sportsCar'),
+      offroad: t('sell.bodyTypes.offRoad'),
+      other: t('sell.bodyTypes.other'),
+    };
+    return map[key] || value;
+  };
+
+  const translateDrivetrain = (value: string) => {
+    if (!value) return value;
+    const map: Record<string, string> = {
+      FWD: t('sell.drivetrains.fwd'),
+      RWD: t('sell.drivetrains.rwd'),
+      AWD: t('sell.drivetrains.awd'),
+      FOUR_WD: t('sell.drivetrains.fourwd'),
+      '4WD': t('sell.drivetrains.fourwd'),
     };
     return map[value] || value;
   };
@@ -220,7 +245,7 @@ export default function CarDetail() {
     transmission: car.transmission,
     exteriorColor: car.color,
     interiorColor: car.interiorColor,
-    bodyType: car.vehicleType,
+    bodyType: (car as any).bodyType || car.vehicleType,
     drivetrain: car.drivetrain,
     description: car.description,
     features: [...(car.features || []), ...(car.safetyFeatures || [])],
@@ -456,7 +481,7 @@ export default function CarDetail() {
                       {carData.drivetrain && (
                         <div className="space-y-1">
                           <div className="text-sm text-muted-foreground">{t('carDetail.overview.drivetrain')}</div>
-                          <span>{carData.drivetrain}</span>
+                          <span>{translateDrivetrain(carData.drivetrain)}</span>
                         </div>
                       )}
                       {carData.vin && (
