@@ -113,7 +113,9 @@ interface AdvancedSearchFilters {
 // Macedonian arrays (will be used by getTranslatedArray for MK language)
 const fallbackAdditionalProperties = ['Сертифициран предпродажен', 'Еден сопственик', 'Без незгоди', 'Достапни сервисни записи', 'Во гаранција', 'Неодамна сервисиран', 'Мал пробег', 'Чуван во гаража', 'Зимски пакет', 'Спортски пакет'];
 
-const fallbackBodyTypes = ['Мал автомобил', 'Комби', 'SUV/Теренски/Пикап', 'Купе', 'Кабрио', 'Седан', 'Хечбек', 'Караван', 'Минивен', 'Пикап камион', 'Друго'];
+// Body types come from shared/car-data CAR_BODY_TYPES (canonical English strings
+// the sell form stores in the DB). Translated at render time via
+// translateBodyTypeLabel below.
 
 const fallbackFuelTypes = ['Бензин', 'Дизел', 'Електричен', 'Хибрид (Бензин/Електричен)', 'Хибрид (Дизел/Електричен)', 'Природен гас (CNG)', 'Течен гас (LPG)', 'Етанол', 'Водород'];
 
@@ -488,9 +490,6 @@ export default function AdvancedSearch() {
       if (arrayType === 'additionalProperties') {
         return ['E çertifikuar para-shitjes', 'Një pronar', 'Pa aksidente', 'Rekordet e servisit të disponueshme', 'Në garanci', 'Kohët e fundit i servisuar', 'Kilometrazh i ulët', 'Ruajtur në garazh', 'Paketa dimërore', 'Paketa sportive'];
       }
-      if (arrayType === 'bodyTypes') {
-        return ['Makinë e vogël', 'Karroceri', 'SUV/Terren/Pickup', 'Kupe', 'Kabriolet', 'Sedan', 'Hatchback', 'Karavan', 'Minivan', 'Kamion pickup', 'Tjetër'];
-      }
       if (arrayType === 'fuelTypes') {
         return ['Benzinë', 'Dizel', 'Elektrik', 'Hibrid (Benzinë/Elektrik)', 'Hibrid (Dizel/Elektrik)', 'Gaz natyror (CNG)', 'Gaz i lëngshëm (LPG)', 'Etanol', 'Hidrogjen'];
       }
@@ -548,9 +547,32 @@ export default function AdvancedSearch() {
     return fallbackArray;
   };
 
+  // Localizes a body-type canonical value (CAR_BODY_TYPES entries such as
+  // 'Sedan', 'Limousine') for display. Kept as a case-insensitive lookup so
+  // legacy DB rows with variant casing still render translated.
+  const translateBodyTypeLabel = (raw: string): string => {
+    if (!raw) return raw;
+    const key = raw.toLowerCase().replace(/[\s-]+/g, '');
+    const map: Record<string, string> = {
+      sedan: t('sell.bodyTypes.sedan'),
+      hatchback: t('sell.bodyTypes.hatchback'),
+      stationwagon: t('sell.bodyTypes.wagon'),
+      suv: t('sell.bodyTypes.suv'),
+      coupe: t('sell.bodyTypes.coupe'),
+      convertible: t('sell.bodyTypes.convertible'),
+      van: t('sell.bodyTypes.van'),
+      smallcar: t('sell.bodyTypes.smallCar'),
+      compact: t('sell.bodyTypes.compact'),
+      sportscar: t('sell.bodyTypes.sportsCar'),
+      offroad: t('sell.bodyTypes.offRoad'),
+      limousine: t('sell.bodyTypes.limousine'),
+      other: t('sell.bodyTypes.other'),
+    };
+    return map[key] || raw;
+  };
+
   // Get translated filter arrays
   const additionalProperties = getTranslatedArray('additionalProperties', fallbackAdditionalProperties);
-  const bodyTypes = getTranslatedArray('bodyTypes', fallbackBodyTypes);
   const fuelTypes = getTranslatedArray('fuelTypes', fallbackFuelTypes);
   const gearTypes = getTranslatedArray('transmissions', fallbackGearTypes);
   // optionalEquipment list is now sourced from @shared/equipmentOptions and rendered inline below,
@@ -1101,8 +1123,10 @@ export default function AdvancedSearch() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="any">{getAdvancedSearchText('placeholders.anyType', 'Any Body Type')}</SelectItem>
-                      {(isMotorbike ? MOTORCYCLE_BODY_TYPES : isTruck ? TRUCK_BODY_TYPES : bodyTypes).map(type => (
-                        <SelectItem key={type} value={type}>{type}</SelectItem>
+                      {(isMotorbike ? MOTORCYCLE_BODY_TYPES : isTruck ? TRUCK_BODY_TYPES : CAR_BODY_TYPES).map(type => (
+                        <SelectItem key={type} value={type}>
+                          {isMotorbike || isTruck ? type : translateBodyTypeLabel(type)}
+                        </SelectItem>
                       ))}
                     </SelectContent>
                   </Select>
