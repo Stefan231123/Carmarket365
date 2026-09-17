@@ -118,9 +118,12 @@ function mapFiltersToBackend(filters: AdvancedSearchFiltersInput): Record<string
   if (filters.make) backendFilters.make = filters.make;
   if (filters.model) backendFilters.model = filters.model;
 
-  // Body type → vehicleType enum
+  // Body type is a free-form string on the car row (Sedan, Limousine, Hatchback, …)
+  // — send it verbatim so the backend's `car.bodyType = :bodyType` clause matches
+  // what the sell form stored. Do NOT remap it to the VehicleType enum
+  // (CAR/TRUCK/MOTORBIKE) — that field is separate and represents a different concept.
   if (filters.bodyType && filters.bodyType !== 'any') {
-    backendFilters.vehicleType = BODY_TYPE_MAP[filters.bodyType] || filters.bodyType;
+    backendFilters.bodyType = filters.bodyType;
   }
 
   // Fuel type → enum
