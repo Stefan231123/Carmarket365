@@ -844,20 +844,20 @@ export const mkTranslations: TranslationStrings = {
 
     // Body Types
     bodyTypes: {
-      sedan: 'Седан',
-      suv: 'SUV',
+      sedan: 'Лимузина',
+      suv: 'SUV/Теренско/Пикап',
       truck: 'Камион',
       coupe: 'Купе',
       hatchback: 'Хечбек',
-      convertible: 'Кабриолет',
+      convertible: 'Кабрио',
       wagon: 'Караван',
-      van: 'Комби',
+      van: 'Ван/Минивен',
       crossover: 'Кросовер',
       limousine: 'Лимузина',
       smallCar: 'Мал автомобил',
-      compact: 'Компакт',
+      compact: 'Мал автомобил',
       sportsCar: 'Спортски автомобил',
-      offRoad: 'Теренско',
+      offRoad: 'SUV/Теренско/Пикап',
       other: 'Друго'
     },
 

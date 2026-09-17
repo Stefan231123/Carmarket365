@@ -1321,6 +1321,11 @@ export function getYearOptions(): number[] {
 }
 
 /** Car body types (aligned with AutoScout24) */
+// Canonical body-type list (AutoScout24-style, deduped).
+// "Sedan" covers what German/MK call "Limousine".
+// "SUV" covers off-road and pickup — display label combines them.
+// "Small Car" covers Compact.
+// Stored in DB as-is; translated at render time.
 export const CAR_BODY_TYPES: string[] = [
   'Sedan',
   'Hatchback',
@@ -1330,10 +1335,7 @@ export const CAR_BODY_TYPES: string[] = [
   'Convertible',
   'Van',
   'Small Car',
-  'Compact',
   'Sports Car',
-  'Off-Road',
-  'Limousine',
   'Other',
 ];
 
