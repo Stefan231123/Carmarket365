@@ -3,7 +3,6 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { apiClient } from "@shared/api-client";
 import { useSafeAuth } from "@/contexts/AuthContextSafe";
 import { useTranslation } from "@/hooks/useTranslation";
-import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -161,7 +160,6 @@ export default function Messages() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
-      <Header />
       <main className="flex-1 container mx-auto px-4 py-6">
         <h1 className="text-2xl font-bold mb-4">{t("messenger.title")}</h1>
 
