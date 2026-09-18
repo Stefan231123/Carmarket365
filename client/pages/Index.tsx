@@ -8,6 +8,7 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 // Lazy load below-the-fold sections
 const InterestingSuggestions = lazy(() => import("@/components/InterestingSuggestions").then(m => ({ default: m.InterestingSuggestions })));
 const PopularBrands = lazy(() => import("@/components/PopularBrands").then(m => ({ default: m.PopularBrands })));
+const AppDownloadModal = lazy(() => import("@/components/AppDownloadModal").then(m => ({ default: m.AppDownloadModal })));
 
 interface IndexProps {
   onAdvancedSearchClick?: () => void;
@@ -92,6 +93,9 @@ export default function Index({ onAdvancedSearchClick }: IndexProps) {
           <InterestingSuggestions />
         </ErrorBoundary>
         <PopularBrands />
+        <ErrorBoundary fallback={null}>
+          <AppDownloadModal />
+        </ErrorBoundary>
       </Suspense>
     </div>
   );
