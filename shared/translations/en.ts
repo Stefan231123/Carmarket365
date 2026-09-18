@@ -311,7 +311,7 @@ export const enTranslations: TranslationStrings = {
       noMax: 'No Max',
       enterLocation: 'Enter city or postal code',
     },
-    availableCars: 'Over 50,000 cars available nationwide',
+    availableCars: 'Buy and sell cars safely in North Macedonia',
   },
 
   // Features Section

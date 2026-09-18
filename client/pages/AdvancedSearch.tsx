@@ -372,7 +372,21 @@ export default function AdvancedSearch() {
         
         // History section
         'sections.history.title': 'Претходни сопственици и историја',
-        'sections.ownershipHistory.description': 'Детали за сопственоста и историјата на возилото'
+        'sections.ownershipHistory.description': 'Детали за сопственоста и историјата на возилото',
+
+        // Search controls sidebar
+        'searchControls': 'Контроли за пребарување',
+        'refineSearchCriteria': 'Прилагоди ги критериумите за пребарување',
+        'searchCars': 'Пребарај автомобили',
+        'clearAll': 'Исчисти ги филтрите',
+        'activeFilters': 'Активни филтри',
+        'realTimeSearch': 'Резултати во реално време',
+        'carsFound': 'Најдени автомобили',
+        'equipment': 'Опрема',
+        'colors': 'Бои',
+        'emissions': 'Емисиони класи',
+        'hasMore': 'Уште е достапно',
+        'allShown': 'Сите се прикажани',
       };
       
       if (mkTranslations[key]) {
@@ -463,9 +477,23 @@ export default function AdvancedSearch() {
         'sections.optionalEquipment.title': 'Pajisje të zgjedhshme',
         'sections.optionalEquipment.description': 'Veçori dhe pajisje shtesë',
         
-        // Appearance section  
+        // Appearance section
         'sections.appearance.title': 'Ngjyra e karocerisë dhe puna e bojës',
-        'sections.exteriorAppearance.description': 'Pamja e jashtme e automjetit'
+        'sections.exteriorAppearance.description': 'Pamja e jashtme e automjetit',
+
+        // Search controls sidebar
+        'searchControls': 'Kontrollet e kërkimit',
+        'refineSearchCriteria': 'Përshtat kriteret e kërkimit',
+        'searchCars': 'Kërko makina',
+        'clearAll': 'Pastro filtrat',
+        'activeFilters': 'Filtrat aktivë',
+        'realTimeSearch': 'Rezultate në kohë reale',
+        'carsFound': 'Makina të gjetura',
+        'equipment': 'Pajisje',
+        'colors': 'Ngjyra',
+        'emissions': 'Klasa emetimi',
+        'hasMore': 'Ka më shumë',
+        'allShown': 'Të gjitha të shfaqura',
       };
       
       if (sqTranslations[key]) {
