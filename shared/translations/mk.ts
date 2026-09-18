@@ -342,7 +342,7 @@ export const mkTranslations: TranslationStrings = {
       noMax: 'Без макс',
       enterLocation: 'Внесете град или поштенски код'
     },
-    availableCars: 'Над 50,000 автомобили достапни низ целата земја'
+    availableCars: 'Купувај и продавај автомобили безбедно во Македонија'
   },
 
   // Features Section

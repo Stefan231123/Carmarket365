@@ -359,7 +359,7 @@ export const sqTranslations: TranslationStrings = {
       noMax: 'Pa Maksimum',
       enterLocation: 'Shkruani qytetin ose kodin postar',
     },
-    availableCars: 'Mbi 50,000 makina të disponueshme në mbarë vendin',
+    availableCars: 'Blej dhe shit makina në mënyrë të sigurt në Maqedoni',
   },
 
   // Last Search Section
