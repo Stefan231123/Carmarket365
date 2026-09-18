@@ -7,7 +7,7 @@ import { Zap, Bell, Smartphone } from "lucide-react";
 // TODO: paste the real store URLs once each listing goes live.
 // Leave both empty ("") to disable the popup entirely.
 // Set only one to publish for a single platform; the other button hides.
-const IOS_URL = "";      // e.g. "https://apps.apple.com/mk/app/carmarket365/id0000000000"
+const IOS_URL = "https://apps.apple.com/mk/app/carmarket365/id6806650849";
 const ANDROID_URL = "https://play.google.com/store/apps/details?id=com.carmarket.app&hl=mk&gl=MK";
 // ═════════════════════════════════════════════════════════════════════════
 
