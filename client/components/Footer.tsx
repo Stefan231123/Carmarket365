@@ -223,8 +223,30 @@ export function Footer({ onAdvancedSearchClick, onSellClick, onContactUsClick, o
           </div>
           </div>
 
-          <div className="border-t border-white/10 mt-10 pt-6 text-center text-sm text-white/60">
+          <div className="border-t border-white/10 mt-10 pt-6 text-center text-sm text-white/60 space-y-2">
             <p>&copy; {currentYear} {t('brand.name')}. {t('footer.allRightsReserved')}</p>
+            {/* Required by Google when hiding the reCAPTCHA v3 badge */}
+            <p className="text-xs text-white/40">
+              {t('footer.recaptchaNotice', 'Оваа страна е заштитена со reCAPTCHA — важат ')}
+              <a
+                href="https://policies.google.com/privacy"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-white/70"
+              >
+                {t('footer.googlePrivacy', 'Политиката за приватност')}
+              </a>
+              {' '}{t('footer.and', 'и')}{' '}
+              <a
+                href="https://policies.google.com/terms"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-white/70"
+              >
+                {t('footer.googleTerms', 'Условите за користење')}
+              </a>
+              {' '}{t('footer.ofGoogle', 'на Google.')}
+            </p>
           </div>
         </div>
       </div>

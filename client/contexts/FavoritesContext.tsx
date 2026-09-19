@@ -1,5 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { toast } from "sonner";
 import { apiClient } from '@shared/api-client';
+
+// One-shot per session: after showing the "sign in to keep favorites" nudge
+// once, don't nag the user again on subsequent hearts.
+const NUDGE_KEY = "cm365_fav_signin_nudge_shown";
 
 interface FavoriteCar {
   id: string;
@@ -103,7 +108,25 @@ export function FavoritesProvider({ children }: FavoritesProviderProps) {
 
     // Sync with backend — silent for 401 (not logged in), log real errors
     apiClient.saveCar(car.id).catch((err) => {
-      if (err?.message && !err.message.includes('401') && !err.message.includes('Unauthorized')) {
+      const isUnauth = err?.message?.includes('401') || err?.message?.includes('Unauthorized');
+      if (isUnauth) {
+        // Anonymous save — favorites live in localStorage. Nudge them to sign
+        // in once per session so they know these won't follow them to
+        // another device / a cleared browser.
+        try {
+          if (!sessionStorage.getItem(NUDGE_KEY)) {
+            sessionStorage.setItem(NUDGE_KEY, "1");
+            toast("Зачувано локално", {
+              description: "Најави се за да ги задржиш омилените на сите уреди.",
+              action: {
+                label: "Најави се",
+                onClick: () => { window.location.href = "/signin"; },
+              },
+              duration: 6000,
+            });
+          }
+        } catch { /* private-mode / disabled storage — fail quietly */ }
+      } else if (err?.message) {
         console.warn('Failed to sync saved car to backend:', err.message);
       }
     });
