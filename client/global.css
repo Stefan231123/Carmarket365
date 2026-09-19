@@ -153,3 +153,10 @@
 html {
   font-size: var(--font-size);
 }
+
+/* Hide the reCAPTCHA v3 badge — Google allows it as long as the terms
+   are shown elsewhere. A "protected by reCAPTCHA" line is rendered
+   inside each form that actually invokes reCAPTCHA (see Footer). */
+.grecaptcha-badge {
+  visibility: hidden !important;
+}

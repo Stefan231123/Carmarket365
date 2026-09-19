@@ -75,6 +75,7 @@ export default function CarDetail() {
   const [isFullscreenModalOpen, setIsFullscreenModalOpen] = useState(false);
   const [fullscreenImageIndex, setFullscreenImageIndex] = useState(0);
   const [linkCopied, setLinkCopied] = useState(false);
+  const [phoneRevealed, setPhoneRevealed] = useState(false);
   const { isFavorite, toggleFavorite } = useFavorites();
 
   // Fetch other listings from the same seller (must be before early returns).
@@ -248,7 +249,10 @@ export default function CarDetail() {
     transmission: car.transmission,
     exteriorColor: car.color,
     interiorColor: car.interiorColor,
-    bodyType: (car as any).bodyType || car.vehicleType,
+    // Only surface bodyType when the seller actually set one — falling back to
+    // the vehicleType enum (CAR/TRUCK/MOTORBIKE) reads as a meaningless
+    // "Автомобил" for every unedited car listing.
+    bodyType: (car as any).bodyType || undefined,
     drivetrain: car.drivetrain,
     description: car.description,
     features: [...(car.features || []), ...(car.safetyFeatures || [])],
@@ -572,8 +576,8 @@ export default function CarDetail() {
                     <CardTitle className="text-2xl">
                       {carData.year} {carData.make} {carData.model}
                     </CardTitle>
-                    <CardDescription className="flex items-center gap-2 mt-1">
-                      <MapPin className="h-4 w-4" />
+                    <CardDescription className="flex items-center gap-1.5 mt-1.5 text-sm text-foreground/80 font-medium">
+                      <MapPin className="h-4 w-4 text-primary" />
                       {carData.location}
                     </CardDescription>
                   </div>
@@ -707,10 +711,30 @@ export default function CarDetail() {
 
                 <div className="space-y-2 text-sm">
                   {carData.dealerInfo.phone && (
-                    <div className="flex items-center gap-2">
-                      <Phone className="h-4 w-4 text-muted-foreground" />
-                      {carData.dealerInfo.phone}
-                    </div>
+                    phoneRevealed ? (
+                      <a
+                        href={`tel:${carData.dealerInfo.phone.replace(/\s/g, '')}`}
+                        className="flex items-center gap-2 text-foreground hover:text-primary transition-colors"
+                      >
+                        <Phone className="h-4 w-4 text-muted-foreground" />
+                        {carData.dealerInfo.phone}
+                      </a>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => setPhoneRevealed(true)}
+                        className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors group"
+                      >
+                        <Phone className="h-4 w-4" />
+                        <span className="tracking-wider">
+                          {carData.dealerInfo.phone.slice(0, 3)}
+                          {"•".repeat(Math.max(0, carData.dealerInfo.phone.replace(/\D/g, '').length - 3))}
+                        </span>
+                        <span className="text-xs underline underline-offset-2 group-hover:no-underline">
+                          {t('carDetail.actions.showPhone', 'Прикажи')}
+                        </span>
+                      </button>
+                    )
                   )}
                   {isDealer && (dealerAddress || dealerCity) && (
                     <div className="flex items-start gap-2">

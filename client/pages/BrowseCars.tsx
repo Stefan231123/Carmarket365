@@ -753,6 +753,18 @@ placeholder={t('browseCars.filters.anyLocation')}
                   }} className="bg-black text-white hover:bg-black/90 rounded-full px-6 h-12 shadow-md">
 {t('browseCars.filters.clearAll')}
                   </Button>
+                  <div className="mt-6 pt-6 border-t border-zinc-100 max-w-md mx-auto">
+                    <p className="text-sm text-muted-foreground mb-3">
+                      {t('browseCars.results.sellCta', 'Имаш возило за продажба? Додај го твојот оглас бесплатно.')}
+                    </p>
+                    <Button
+                      onClick={() => navigate('/sell')}
+                      variant="outline"
+                      className="rounded-full px-6 h-11 border-zinc-200"
+                    >
+                      {t('sell.buttons.startSelling', 'Продај го твоето возило')}
+                    </Button>
+                  </div>
                 </div>
               )}
             </Card>

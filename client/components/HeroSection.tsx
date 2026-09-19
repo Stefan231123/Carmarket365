@@ -86,9 +86,10 @@ export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSe
         </div>
 
         <Card className="max-w-5xl mx-auto p-4 sm:p-6 md:p-8 rounded-2xl border border-zinc-100 shadow-xl bg-white">
-          {/* Vehicle Type Selector */}
+          {/* Vehicle Type Selector — single row that keeps all three tabs
+              visible on narrow screens instead of wrapping "Камиони" underneath. */}
           <div className="flex justify-center mb-6">
-            <div className="flex flex-wrap items-center justify-center gap-2 rounded-full p-1">
+            <div className="inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-full p-1 w-full sm:w-auto">
               {vehicleTypes.map((type) => {
                 const IconComponent = type.icon;
                 const isActive = searchForm.vehicleType === type.id;
@@ -97,14 +98,14 @@ export function HeroSection({ onAdvancedSearchClick, onSearchCarsClick }: HeroSe
                     key={type.id}
                     onClick={() => handleFormChange('vehicleType', type.id)}
                     aria-pressed={isActive}
-                    className={`flex items-center gap-2 px-4 py-3 min-h-[44px] rounded-full transition-colors ${
+                    className={`flex-1 sm:flex-none flex items-center justify-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-3 min-h-[44px] rounded-full transition-colors ${
                       isActive
                         ? 'bg-black text-white'
                         : 'bg-zinc-100 text-muted-foreground hover:bg-zinc-200'
                     }`}
                   >
-                    <IconComponent className="h-4 w-4" />
-                    <span className="text-sm font-medium">{type.label}</span>
+                    <IconComponent className="h-4 w-4 shrink-0" />
+                    <span className="text-xs sm:text-sm font-medium whitespace-nowrap">{type.label}</span>
                   </button>
                 );
               })}

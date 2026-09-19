@@ -244,6 +244,15 @@ export function Header({
 
           {/* Mobile Actions */}
           <div className="flex md:hidden items-center space-x-2">
+            {/* Compact "Sell" pill — mobile visitors shouldn't have to open
+                the hamburger to find how to list their car. */}
+            <Button
+              onClick={onSellClick}
+              aria-label={t('header.sellCar')}
+              className="bg-white text-black hover:bg-white/90 rounded-full h-9 px-3 text-xs font-semibold min-h-[36px]"
+            >
+              {t('header.sellCar')}
+            </Button>
             <Button
               variant="ghost"
               size="lg"
