@@ -1276,7 +1276,7 @@ export const sqTranslations: TranslationStrings = {
         },
         {
           question: 'Si kontaktoj mbështetjen për klientë?',
-          answer: 'Përdorni faqen tonë Na Kontaktoni, telefononi (555) 123-HELP, email-o support@carmarket365.com, ose përdorni funksionin e chat-it në këndin e poshtëm djathtas të çdo faqe.'
+          answer: 'Përdorni faqen tonë Na Kontaktoni ose na shkruani në info@carmarket365.com dhe do t\'ju përgjigjemi sa më shpejt që të jetë e mundur.'
         },
       ],
     },

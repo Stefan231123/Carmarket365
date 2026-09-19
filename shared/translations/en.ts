@@ -1526,7 +1526,7 @@ export const enTranslations: TranslationStrings = {
         },
         {
           question: 'How do I contact customer support?',
-          answer: 'Use the "Contact Us" page, call (555) 123-HELP, email support@carmaket365.com or use the chat function in the lower right corner of any page.'
+          answer: 'Use the "Contact Us" page or email us at info@carmarket365.com and we will get back to you as soon as possible.'
         }
       ]
     },
