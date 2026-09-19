@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowLeft, Building, MapPin, Phone, Mail, Users, FileText } from "lucide-react";
+import { ArrowLeft, Building, MapPin, Phone, Mail, Users, FileText, Info } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from '../hooks/useTranslation';
 import { SEO } from "@/components/SEO";
@@ -133,24 +133,28 @@ export default function Imprint() {
             <Card className="border-zinc-100 rounded-2xl">
               <CardHeader>
                 <div className="flex items-center gap-3">
-                  <Phone className="h-5 w-5 text-primary" />
+                  <Info className="h-5 w-5 text-primary" />
                   <CardTitle className="text-lg">{t('pages.imprint.contactInfo.title')}</CardTitle>
                 </div>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3 text-sm">
-                  <div>
-                    <p className="font-medium">{t('pages.imprint.contactInfo.phone')}</p>
-                    <p className="text-muted-foreground">{t('pages.imprint.contactInfo.phoneValue')}</p>
-                  </div>
+                  {t('pages.imprint.contactInfo.phoneValue') ? (
+                    <div>
+                      <p className="font-medium">{t('pages.imprint.contactInfo.phone')}</p>
+                      <p className="text-muted-foreground">{t('pages.imprint.contactInfo.phoneValue')}</p>
+                    </div>
+                  ) : null}
                   <div>
                     <p className="font-medium">{t('pages.imprint.contactInfo.email')}</p>
                     <p className="text-muted-foreground">{t('pages.imprint.contactInfo.emailValue')}</p>
                   </div>
-                  <div>
-                    <p className="font-medium">{t('pages.imprint.contactInfo.businessHours')}</p>
-                    <p className="text-muted-foreground">{t('pages.imprint.contactInfo.businessHoursValue')}</p>
-                  </div>
+                  {t('pages.imprint.contactInfo.businessHoursValue') ? (
+                    <div>
+                      <p className="font-medium">{t('pages.imprint.contactInfo.businessHours')}</p>
+                      <p className="text-muted-foreground">{t('pages.imprint.contactInfo.businessHoursValue')}</p>
+                    </div>
+                  ) : null}
                 </div>
               </CardContent>
             </Card>

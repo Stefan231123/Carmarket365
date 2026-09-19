@@ -53,12 +53,14 @@ export function Footer({ onAdvancedSearchClick, onSellClick, onContactUsClick, o
             </p>
             <div className="space-y-2 text-sm">
               <div className="flex items-center justify-center text-white/80">
-                <Phone className="h-4 w-4 mr-2" />
-                {t('contact.phone')}
+                <Building2 className="h-4 w-4 mr-2" />
+                {t('contact.companyName')}
               </div>
               <div className="flex items-center justify-center text-white/80">
                 <Mail className="h-4 w-4 mr-2" />
-                {t('contact.email')}
+                <a href="mailto:info@carmarket365.com" className="hover:text-white transition-colors">
+                  info@carmarket365.com
+                </a>
               </div>
               <div className="flex items-center justify-center text-white/80">
                 <MapPin className="h-4 w-4 mr-2" />
@@ -93,14 +95,6 @@ export function Footer({ onAdvancedSearchClick, onSellClick, onContactUsClick, o
                   className="text-white/80 hover:text-white transition-colors text-center w-full"
                 >
                   {t('footer.registeredDealers')}
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => navigate('/car-reviews')}
-                  className="text-white/80 hover:text-white transition-colors text-center w-full"
-                >
-                  {t('footer.carReviews')}
                 </button>
               </li>
             </ul>

@@ -119,33 +119,8 @@ export default function ContactUs() {
             </CardContent>
           </Card>
 
-          {/* Contact Methods */}
+          {/* Contact Methods (phone-support block removed -- email-only) */}
           <div className="grid md:grid-cols-2 gap-6 mb-8">
-            <Card className="border-zinc-100 rounded-2xl">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <Phone className="h-5 w-5 text-primary" />
-                  <CardTitle className="text-lg">{t('contact.phoneSupport.title')}</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div>
-                    <div className="font-medium">{t('contact.phoneSupport.salesDepartment')}</div>
-                    <div className="text-muted-foreground">+49 (0) 30 123-CARS</div>
-                  </div>
-                  <div>
-                    <div className="font-medium">{t('contact.phoneSupport.customerService')}</div>
-                    <div className="text-muted-foreground">+49 (0) 30 123-HELP</div>
-                  </div>
-                  <div>
-                    <div className="font-medium">{t('contact.phoneSupport.financingDepartment')}</div>
-                    <div className="text-muted-foreground">+49 (0) 30 123-LOAN</div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
             <Card className="border-zinc-100 rounded-2xl">
               <CardHeader>
                 <div className="flex items-center gap-3">
@@ -158,14 +133,6 @@ export default function ContactUs() {
                   <div>
                     <div className="font-medium">{t('contact.emailSupport.generalInquiries')}</div>
                     <div className="text-muted-foreground">info@carmarket365.com</div>
-                  </div>
-                  <div>
-                    <div className="font-medium">{t('contact.emailSupport.salesQuestions')}</div>
-                    <div className="text-muted-foreground">sales@carmarket365.com</div>
-                  </div>
-                  <div>
-                    <div className="font-medium">{t('contact.emailSupport.support')}</div>
-                    <div className="text-muted-foreground">support@carmarket365.com</div>
                   </div>
                 </div>
               </CardContent>
@@ -411,28 +378,8 @@ export default function ContactUs() {
               </CardContent>
             </Card>
 
-            {/* Urgent Support */}
-            <Card className="border-blue-200 bg-blue-50 rounded-2xl">
-              <CardContent className="pt-6">
-                <div className="text-center">
-                  <h3 className="font-semibold text-blue-900 mb-2">{t('contact.urgentSupport.title')}</h3>
-                  <p className="text-sm text-blue-700 mb-4">
-                    {t('contact.urgentSupport.message')}
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                    <Button onClick={handleBackToHome} variant="outline" className="bg-white rounded-full">
-                      {t('contact.urgentSupport.browseCars')}
-                    </Button>
-                    <Button 
-                      onClick={() => window.location.href = 'tel:+49-30-123-HELP'}
-                      className="bg-blue-700 text-white hover:bg-blue-800 rounded-full"
-                    >
-                      {t('contact.urgentSupport.callNow')}
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            {/* "Urgent Support / Need more help?" block removed --
+                duplicated FAQ + phone-only CTA; email-only support now. */}
         </div>
       </div>
     </div>
