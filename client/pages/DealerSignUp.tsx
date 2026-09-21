@@ -77,7 +77,8 @@ export default function DealerSignUp({ onBackToSignIn, onSignUpSuccess }: Dealer
     city: '',
     state: '',
     postalCode: '',
-    country: '',
+    // Locked to Macedonia — the marketplace only serves MK for now.
+    country: 'MK',
     
     // Account
     password: '',
@@ -454,21 +455,14 @@ export default function DealerSignUp({ onBackToSignIn, onSignUpSuccess }: Dealer
 
                 <div>
                   <label className="block text-sm mb-2 text-muted-foreground">{t('auth.country')}</label>
-                  <Select onValueChange={(value) => updateFormData('country', value)}>
-                    <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder={t('auth.selectCountry')} />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="DE">{t('auth.germany')}</SelectItem>
-                      <SelectItem value="AT">{t('auth.austria')}</SelectItem>
-                      <SelectItem value="CH">{t('auth.switzerland')}</SelectItem>
-                      <SelectItem value="NL">{t('auth.netherlands')}</SelectItem>
-                      <SelectItem value="BE">{t('auth.belgium')}</SelectItem>
-                      <SelectItem value="FR">{t('auth.france')}</SelectItem>
-                      <SelectItem value="IT">{t('auth.italy')}</SelectItem>
-                      <SelectItem value="ES">{t('auth.spain')}</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  {/* Locked to Macedonia for now — CarMarket365 only serves the MK
+                      market until we open other regions. Rendered as a
+                      disabled input so the field still looks consistent with
+                      the rest of the form, no dropdown affordance. */}
+                  <div className="h-12 bg-zinc-100 rounded-full border-none flex items-center px-4 text-foreground">
+                    {t('countries.northMacedonia', 'Северна Македонија')}
+                  </div>
+                  <input type="hidden" name="country" value="MK" />
                 </div>
               </CardContent>
             </Card>
