@@ -332,9 +332,15 @@ export class UsersService {
 
   async updateProfile(
     userId: string,
-    data: { firstName?: string; lastName?: string; phone?: string },
+    data: { firstName?: string; lastName?: string; phone?: string; avatarUrl?: string },
   ): Promise<User> {
-    await this.userRepository.update(userId, data);
+    // Strip undefined so we don't stomp existing fields with null.
+    const patch: Partial<User> = {};
+    if (data.firstName !== undefined) patch.firstName = data.firstName;
+    if (data.lastName !== undefined) patch.lastName = data.lastName;
+    if (data.phone !== undefined) patch.phone = data.phone;
+    if (data.avatarUrl !== undefined) patch.avatarUrl = data.avatarUrl;
+    await this.userRepository.update(userId, patch);
     const user = await this.findById(userId);
     if (!user) throw new NotFoundException('User not found');
     return user;

@@ -118,15 +118,16 @@ export class UsersResolver {
     return this.usersService.updateMarketingPreferences(user.id, marketingEmails, smsNotifications);
   }
 
-  @Mutation(() => User, { description: "Update the current user's basic profile (name, phone)." })
+  @Mutation(() => User, { description: "Update the current user's basic profile (name, phone, avatar)." })
   @UseGuards(JwtAuthGuard)
   async updateMyProfile(
     @Args('firstName', { nullable: true }) firstName: string | undefined,
     @Args('lastName', { nullable: true }) lastName: string | undefined,
     @Args('phone', { nullable: true }) phone: string | undefined,
+    @Args('avatarUrl', { nullable: true }) avatarUrl: string | undefined,
     @CurrentUser() user: User,
   ): Promise<User> {
-    return this.usersService.updateProfile(user.id, { firstName, lastName, phone });
+    return this.usersService.updateProfile(user.id, { firstName, lastName, phone, avatarUrl });
   }
 
   @Mutation(() => Boolean, { description: 'Change the current user\'s password (requires current password).' })

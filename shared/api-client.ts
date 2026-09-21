@@ -20,6 +20,7 @@ export interface User {
   email: string;
   name?: string;
   role: 'USER' | 'DEALER' | 'ADMIN';
+  avatarUrl?: string;
   dealerName?: string;
   dealerLogoUrl?: string;
   dealerAddress?: string;
@@ -273,6 +274,7 @@ class ApiClient {
           email
           name
           role
+          avatarUrl
           dealerName
           dealerLogoUrl
           dealerAddress
@@ -1286,15 +1288,16 @@ class ApiClient {
     return response.data?.getApprovedDealers ?? [];
   }
 
-  async updateMyProfile(data: { firstName?: string; lastName?: string; phone?: string }): Promise<any> {
+  async updateMyProfile(data: { firstName?: string; lastName?: string; phone?: string; avatarUrl?: string }): Promise<any> {
     const mutation = `
-      mutation UpdateMyProfile($firstName: String, $lastName: String, $phone: String) {
-        updateMyProfile(firstName: $firstName, lastName: $lastName, phone: $phone) {
+      mutation UpdateMyProfile($firstName: String, $lastName: String, $phone: String, $avatarUrl: String) {
+        updateMyProfile(firstName: $firstName, lastName: $lastName, phone: $phone, avatarUrl: $avatarUrl) {
           id
           firstName
           lastName
           phone
           name
+          avatarUrl
         }
       }
     `;

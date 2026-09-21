@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -43,6 +43,8 @@ import { AdminBreadcrumb } from '../components/AdminBreadcrumb';
 import { useSafeAuth } from '../contexts/AuthContextSafe';
 import { useFavorites } from '../contexts/FavoritesContext';
 import { apiClient } from '@shared/api-client';
+import { uploadImage } from "@/lib/image-upload";
+import { toast } from "sonner";
 
 export default function PrivateDashboard() {
   const navigate = useNavigate();
@@ -107,8 +109,10 @@ export default function PrivateDashboard() {
     phone: user?.dealerPhoneNumber || "",
     city: user?.dealerCity || "",
     country: "",
-    avatar: ""
+    avatar: user?.avatarUrl || ""
   });
+  const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
+  const avatarInputRef = useRef<HTMLInputElement>(null);
 
   // Update profile state when user data changes
   useEffect(() => {
@@ -121,10 +125,45 @@ export default function PrivateDashboard() {
         phone: user.dealerPhoneNumber || "",
         city: user.dealerCity || "",
         country: "",
-        avatar: ""
+        avatar: user.avatarUrl || ""
       });
     }
   }, [user]);
+
+  const handleAvatarPick = () => {
+    avatarInputRef.current?.click();
+  };
+
+  const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    // Reset the input so picking the same file twice still fires onChange.
+    e.target.value = "";
+
+    if (!/^image\//.test(file.type)) {
+      toast.error(t('privateDashboard.avatarBadType', 'Изберете слика.'));
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error(t('privateDashboard.avatarTooLarge', 'Сликата треба да е под 5MB.'));
+      return;
+    }
+
+    setIsUploadingAvatar(true);
+    try {
+      const uploaded = await uploadImage(file);
+      const url = uploaded.url || uploaded.thumbnailUrl;
+      if (!url) throw new Error('upload returned no URL');
+      await apiClient.updateMyProfile({ avatarUrl: url });
+      setUserProfile((p) => ({ ...p, avatar: url }));
+      toast.success(t('privateDashboard.avatarSaved', 'Профилната слика е ажурирана.'));
+    } catch (err: any) {
+      console.error('avatar update failed', err);
+      toast.error(t('privateDashboard.avatarFailed', 'Неуспешно качување — пробај повторно.'));
+    } finally {
+      setIsUploadingAvatar(false);
+    }
+  };
 
   // Load user's own listings from backend
   useEffect(() => {
@@ -619,9 +658,24 @@ export default function PrivateDashboard() {
                     <AvatarImage src={userProfile.avatar} />
                     <AvatarFallback className="text-lg">{userProfile.firstName?.[0] || ''}{userProfile.lastName?.[0] || ''}</AvatarFallback>
                   </Avatar>
-                  <Button variant="outline" size="sm" className="bg-zinc-100 border-none rounded-full h-12 hover:bg-zinc-200">
+                  <input
+                    ref={avatarInputRef}
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={handleAvatarChange}
+                  />
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={handleAvatarPick}
+                    disabled={isUploadingAvatar}
+                    className="bg-zinc-100 border-none rounded-full h-12 hover:bg-zinc-200"
+                  >
                     <Upload className="h-4 w-4 mr-2" />
-{t('privateDashboard.changePhoto')}
+                    {isUploadingAvatar
+                      ? t('privateDashboard.uploadingPhoto', 'Се качува…')
+                      : t('privateDashboard.changePhoto')}
                   </Button>
                 </div>
 
