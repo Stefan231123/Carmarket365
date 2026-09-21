@@ -47,10 +47,16 @@ export class AuthService {
     const user = await this.usersService.create(registerInput, role);
     const access_token = this.generateJwtToken(user);
 
-    // Send verification email (fire-and-forget)
-    this.sendVerificationToken(user).catch(err =>
-      this.logger.warn(`Failed to send verification email: ${err.message}`),
-    );
+    // Send welcome email (fire-and-forget). The old verification link flow is
+    // parked — the verify-email UI still exists for OAuth/legacy paths, but
+    // password signup no longer forces a click-through step users complained
+    // was broken. Owners can re-enable sendVerificationToken() here when the
+    // verify flow is polished.
+    this.emailService
+      .sendWelcomeEmail(user.email, user.name || '')
+      .catch((err) =>
+        this.logger.warn(`Failed to send welcome email: ${err.message}`),
+      );
 
     // Push every new signup into the CRM as a Person; dealers also get a
     // Company linked to that Person (fire-and-forget, no-ops if unconfigured)

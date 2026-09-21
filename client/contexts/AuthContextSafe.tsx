@@ -6,6 +6,7 @@ interface SafeUser {
   email: string;
   name?: string;
   role: 'USER' | 'DEALER' | 'ADMIN';
+  avatarUrl?: string;
   dealerName?: string;
   dealerLogoUrl?: string;
   dealerAddress?: string;
