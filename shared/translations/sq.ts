@@ -330,6 +330,7 @@ export const sqTranslations: TranslationStrings = {
     contact: 'Kontakt',
     faq: 'Pyetje të shpeshta',
     help: 'Ndihmë',
+    userMenu: 'Menyja e përdoruesit',
   },
 
   hero: {
@@ -361,6 +362,7 @@ export const sqTranslations: TranslationStrings = {
       noMin: 'Pa Minimum',
       noMax: 'Pa Maksimum',
       enterLocation: 'Shkruani qytetin ose kodin postar',
+      anyLocation: 'Çdo vendndodhje',
     },
     availableCars: 'Blej dhe shit makina në mënyrë të sigurt në Maqedoni',
   },
@@ -629,7 +631,7 @@ export const sqTranslations: TranslationStrings = {
     vehicleTypes: {
       car: {
         name: 'Makinë',
-        description: 'Sedan, SUV, Coupe, Hatchback',
+        description: 'Sedan, SUV, Kupe, Hatchback',
       },
       truck: {
         name: 'Kamion',
@@ -681,8 +683,12 @@ export const sqTranslations: TranslationStrings = {
       priceNegotiable: 'Çmim i negociueshëm',
       acceptsTradeIn: 'Pranon shkëmbim',
       allowTestDrive: 'Lejon provë drejtimi',
+      coolingType: 'Lloji i ftohjes',
+      starterType: 'Lloji i starterit',
+      licenseClass: 'Kategoria e patentës',
+      cylinders: 'Cilindra',
     },
-    
+
     // Placeholders
     placeholders: {
       selectMake: 'Zgjidh markën',
@@ -692,6 +698,10 @@ export const sqTranslations: TranslationStrings = {
       enterMileage: 'Shkruaj kilometrazhen',
       selectFuelType: 'Zgjidh llojin e karburantit',
       selectTransmission: 'Zgjidh transmisionin',
+      selectCoolingType: 'Zgjidhni llojin e ftohjes',
+      selectStarterType: 'Zgjidhni llojin e starterit',
+      selectLicenseClass: 'Zgjidhni kategorinë e patentës',
+      selectCylinders: 'Zgjidhni cilindrat',
       exteriorColorExample: 'p.sh. e bardhë, e zezë, argjendi',
       interiorColorExample: 'p.sh. e zezë, bezh, gri',
       priceExample: '25.000',
@@ -845,8 +855,9 @@ export const sqTranslations: TranslationStrings = {
       good: 'Të mira',
       fair: 'Të pranueshme',
       poor: 'Të dobëta',
+      needsWork: 'Ka nevojë për ndreqje',
     },
-    
+
     // Features list
     features: {
       airConditioning: 'Kondicionimi i ajrit',
@@ -923,6 +934,16 @@ export const sqTranslations: TranslationStrings = {
     // Progress messages
     progress: {
       creatingListing: 'Duke krijuar shpalljen...',
+      uploadingImage: 'Duke ngarkuar imazhin',
+    },
+
+    // Validation errors on the sell / express-sell forms
+    validation: {
+      makeModelRequired: 'Marka dhe modeli janë të detyrueshme',
+      priceRequired: 'Vendosni një çmim të vlefshëm',
+      mileageRequired: 'Vendosni kilometrat e vlefshme',
+      locationRequired: 'Vendndodhja është e detyrueshme',
+      imageRequired: 'Ngarkoni të paktën një imazh',
     },
   },
 
@@ -1580,6 +1601,11 @@ export const sqTranslations: TranslationStrings = {
     subscribe: 'Abonohu',
     copyright: 'E drejta e autorit',
     allRightsReserved: 'Të gjitha të drejtat e rezervuara',
+    recaptchaNotice: 'Kjo faqe është e mbrojtur me reCAPTCHA — zbatohen ',
+    googlePrivacy: 'Politika e privatësisë',
+    and: 'dhe',
+    googleTerms: 'Kushtet e shërbimit',
+    ofGoogle: 'të Google.',
   },
 
   errors: {
@@ -1975,6 +2001,9 @@ export const sqTranslations: TranslationStrings = {
 
   // Contact Us Page
   contact: {
+    phone: 'Telefoni',
+    email: 'Email',
+    address: 'Adresa',
     hero: {
       title: 'Na kontaktoni',
       subtitle: 'Kontaktoni ekipin tonë. Ne jemi këtu për t\'ju ndihmojmë të gjeni makinën tuaj të përkryer ose të përgjigjemi çdo pyetjeje që mund të keni.',
