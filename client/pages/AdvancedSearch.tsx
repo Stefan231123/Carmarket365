@@ -495,6 +495,10 @@ export default function AdvancedSearch() {
         'sections.appearance.title': 'Ngjyra e karocerisë dhe puna e bojës',
         'sections.exteriorAppearance.description': 'Pamja e jashtme e automjetit',
 
+        // History section
+        'sections.history.title': 'Pronarët e mëparshëm dhe historia',
+        'sections.ownershipHistory.description': 'Detajet e pronësisë dhe historia e automjetit',
+
         // Search controls sidebar
         'searchControls': 'Kontrollet e kërkimit',
         'refineSearchCriteria': 'Përshtat kriteret e kërkimit',
