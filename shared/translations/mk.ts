@@ -3111,7 +3111,7 @@ export const mkTranslations: TranslationStrings = {
       selectModel: 'Изберете модел',
       yearRequired: 'Година *',
       selectYear: 'Изберете година',
-      mileageRequired: 'Пробег *',
+      mileageRequired: 'Километража *',
       fuelTypeRequired: 'Тип на гориво *',
       selectFuelType: 'Изберете тип на гориво',
       transmissionRequired: 'Менувач на брзини *',
