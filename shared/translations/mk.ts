@@ -74,7 +74,9 @@ export const mkTranslations: TranslationStrings = {
     option: 'Опција',
     sending: 'Праќа...',
     processing: 'Процесирање...',
-    errorLoadingImage: 'Грешка при вчитување слика'
+    errorLoadingImage: 'Грешка при вчитување слика',
+    backToHome: 'Назад на почетна',
+    saving: 'Се зачувува…'
   },
 
   // Forms - validation, labels, placeholders, actions
@@ -91,6 +93,7 @@ export const mkTranslations: TranslationStrings = {
       passwordMinLength: 'Лозинката мора да има најмалку 8 знаци',
       confirmPasswordRequired: 'Потврдете ја лозинката',
       passwordsNotMatch: 'Лозинките не се совпаѓаат',
+      passwordMismatch: 'Лозинките не се совпаѓаат',
       lastNameRequired: 'Презимето е задолжително',
       fullNameRequired: 'Целосното име е задолжително',
       loanAmountRequired: 'Износот на кредитот е задолжителен',
@@ -486,6 +489,12 @@ export const mkTranslations: TranslationStrings = {
     email: 'Е-пошта',
     password: 'Лозинка',
     confirmPassword: 'Потврди лозинка',
+    newPassword: 'Нова лозинка',
+    resetPassword: 'Ресетирај лозинка',
+    createNewPassword: 'Постави нова лозинка',
+    enterNewPassword: 'Внеси ја твојата нова лозинка подолу.',
+    passwordResetSuccess: 'Лозинката е успешно променета',
+    passwordResetSuccessMessage: 'Твојата лозинка е ажурирана. Можеш да се најавиш со новата лозинка.',
     firstName: 'Име',
     lastName: 'Презиме',
     phoneNumber: 'Телефонски број',
@@ -785,7 +794,7 @@ export const mkTranslations: TranslationStrings = {
       priceExample: '25.000',
       descriptionExample: 'Опишете ја состојбата на возилото, историјата и дополнителни детали...',
       yourFullName: 'Вашето полно име',
-      phoneExample: '(02) 123-4567',
+      phoneExample: '+389 70 123 456',
       emailExample: 'vasa.email@primer.com',
       cityState: 'Град, Држава',
       yourName: 'Вашето име',
@@ -816,7 +825,8 @@ export const mkTranslations: TranslationStrings = {
     buttons: {
       nextStep: 'Следен чекор',
       previous: 'Претходно',
-      createListing: 'Создај оглас'
+      createListing: 'Создај оглас',
+      startSelling: 'Продај го твоето возило',
     },
 
     noLocationFound: 'Не е пронајдена локација',
@@ -1011,6 +1021,37 @@ export const mkTranslations: TranslationStrings = {
       locationRequired: 'Локацијата е задолжителна',
       imageRequired: 'Прикачете барем една слика',
     },
+
+    // Flat labels used by EditListing
+    makeLabel: 'Марка',
+    modelLabel: 'Модел',
+    yearLabel: 'Година',
+    mileageLabel: 'Километража',
+    priceLabel: 'Цена',
+    conditionLabel: 'Состојба',
+    fuelTypeLabel: 'Тип на гориво',
+    transmissionLabel: 'Менувач',
+    exteriorColorLabel: 'Надворешна боја',
+    interiorColorLabel: 'Внатрешна боја',
+    descriptionLabel: 'Опис',
+    locationLabel: 'Локација',
+    phoneLabel: 'Телефон',
+    emailLabel: 'Е-пошта',
+    contactInfoTitle: 'Контакт информации',
+    addPhotosTitle: 'Додајте фотографии',
+    existingPhotos: 'Постојни фотографии',
+    success: 'Успешно',
+  },
+
+  dealer: {
+    editListing: 'Уреди оглас',
+    viewListing: 'Прикажи оглас',
+    deleteListing: 'Избриши оглас',
+    confirmDeleteListing: 'Дали сте сигурни дека сакате да го избришете овој оглас?',
+    businessHours: 'Работно време',
+    information: 'Информации',
+    notFound: 'Дилерот не е пронајден',
+    vehicleInventory: 'Инвентар на возила',
   },
 
   countries: {
@@ -1705,6 +1746,25 @@ export const mkTranslations: TranslationStrings = {
     searchPlaceholder: 'Марка, модел или клучен збор',
     filtersButton: 'Прикажи филтри',
     sortBy: 'Сортирај по',
+    filters: {
+      title: 'Филтри',
+      location: 'Локација',
+      anyLocation: 'Која било локација',
+      priceRange: 'Ценовен опсег',
+      minPrice: 'Мин. цена',
+      maxPrice: 'Макс. цена',
+      noMin: 'Без мин.',
+      noMax: 'Без макс.',
+      yearRange: 'Опсег на година',
+      clearAll: 'Исчисти филтри',
+    },
+    results: {
+      results: 'резултати',
+      showing: 'прикажани',
+      noResults: 'Нема резултати',
+      noResultsMessage: 'Ниту еден оглас не одговара на филтрите. Пробајте поширок опсег.',
+      sellCta: 'Имаш возило за продажба? Додај го твојот оглас бесплатно.',
+    },
     sortOptions: {
       relevance: 'Релевантност',
       priceLowToHigh: 'Цена: од ниска кон висока',
@@ -1922,6 +1982,7 @@ export const mkTranslations: TranslationStrings = {
     totalSales: 'Вкупна продажба:',
     viewDealerProfile: 'Прикажи профил на дилер',
     years: 'години',
+    noDealers: 'Сè уште нема регистрирани дилери. Провери подоцна.',
 
     specialties: {
       luxuryCars: 'Луксузни автомобили',
@@ -2651,6 +2712,7 @@ export const mkTranslations: TranslationStrings = {
       shareVehicle: 'Сподели возило',
       saveToFavorites: 'Зачувај во омилени',
       removeFromFavorites: 'Отстрани од омилени',
+      showPhone: 'Прикажи',
     },
 
     // Seller Information
@@ -2823,7 +2885,42 @@ export const mkTranslations: TranslationStrings = {
     // Success/Error Messages
     profileUpdatedSuccessfully: 'Профилот е успешно ажуриран!',
     carRemovedFromSaved: 'Автомобилот е отстранет од зачувани!',
-    listingDeletedSuccessfully: 'Огласот е успешно избришан!'
+    listingDeletedSuccessfully: 'Огласот е успешно избришан!',
+
+    // Avatar upload
+    avatarBadType: 'Изберете слика.',
+    avatarTooLarge: 'Сликата треба да е под 5MB.',
+    avatarSaved: 'Профилната слика е ажурирана.',
+    avatarFailed: 'Неуспешно качување — пробај повторно.',
+    uploadingPhoto: 'Се качува…',
+
+    // Confirm / error dialogs
+    confirmDeleteListing: 'Дали сте сигурни дека сакате да го избришете овој оглас?',
+    deleteAccountConfirmation: 'Дали сте сигурни? Оваа акција не може да се врати.',
+    deleteAccountError: 'Неуспешно бришење на сметката. Обидете се повторно.',
+    exportDataError: 'Неуспешен експорт на податоците. Обидете се повторно.',
+    expressSaleComingSoon: 'Експресна продажба доаѓа наскоро.',
+
+    // Fuel type badges
+    fuelDiesel: 'Дизел',
+    fuelElectric: 'Електричен',
+    fuelGas: 'Гас',
+    fuelHybrid: 'Хибрид',
+    fuelPetrol: 'Бензин',
+
+    // Empty states
+    noListingsYet: 'Сè уште немате огласи.',
+    noRecentSearches: 'Нема неодамнешни пребарувања.',
+    noSavedCars: 'Нема зачувани автомобили.',
+    startBrowsing: 'Започнете со прегледување.',
+
+    // Listing status badges
+    statusActive: 'Активен',
+    statusExpired: 'Истечен',
+    statusSold: 'Продаден',
+    statusUnderReview: 'Во преглед',
+
+    welcomeBackMessage: 'Добредојде назад, {name}!'
   },
 
   savedCars: {
@@ -2981,6 +3078,10 @@ export const mkTranslations: TranslationStrings = {
 
   // Final fixes section
   finalFixes: {
+    dealerSignUp: {
+      firstNamePlaceholder: 'Стефан',
+      lastNamePlaceholder: 'Стојановски',
+    },
     expressSell: {
       title: 'Експрес продажба',
       listMyCarQuickly: 'Ставете го вашиот автомобил на продажба брзо и лесно',
