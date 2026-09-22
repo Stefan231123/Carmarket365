@@ -38,6 +38,7 @@ export const mkTranslations: TranslationStrings = {
     'delete': 'Избриши',
     add: 'Додај',
     view: 'Погледни',
+    viewAll: 'Види ги сите',
     contact: 'Контакт',
     phone: 'Телефон',
     email: 'Е-пошта',
@@ -74,7 +75,9 @@ export const mkTranslations: TranslationStrings = {
     option: 'Опција',
     sending: 'Праќа...',
     processing: 'Процесирање...',
-    errorLoadingImage: 'Грешка при вчитување слика'
+    errorLoadingImage: 'Грешка при вчитување слика',
+    backToHome: 'Назад на почетна',
+    saving: 'Се зачувува…'
   },
 
   // Forms - validation, labels, placeholders, actions
@@ -91,6 +94,7 @@ export const mkTranslations: TranslationStrings = {
       passwordMinLength: 'Лозинката мора да има најмалку 8 знаци',
       confirmPasswordRequired: 'Потврдете ја лозинката',
       passwordsNotMatch: 'Лозинките не се совпаѓаат',
+      passwordMismatch: 'Лозинките не се совпаѓаат',
       lastNameRequired: 'Презимето е задолжително',
       fullNameRequired: 'Целосното име е задолжително',
       loanAmountRequired: 'Износот на кредитот е задолжителен',
@@ -486,6 +490,12 @@ export const mkTranslations: TranslationStrings = {
     email: 'Е-пошта',
     password: 'Лозинка',
     confirmPassword: 'Потврди лозинка',
+    newPassword: 'Нова лозинка',
+    resetPassword: 'Ресетирај лозинка',
+    createNewPassword: 'Постави нова лозинка',
+    enterNewPassword: 'Внеси ја твојата нова лозинка подолу.',
+    passwordResetSuccess: 'Лозинката е успешно променета',
+    passwordResetSuccessMessage: 'Твојата лозинка е ажурирана. Можеш да се најавиш со новата лозинка.',
     firstName: 'Име',
     lastName: 'Презиме',
     phoneNumber: 'Телефонски број',
@@ -603,7 +613,7 @@ export const mkTranslations: TranslationStrings = {
     rentalCompany: 'Компанија за изнајмување',
     other: 'Друго',
     vatNumber: 'ДДВ број',
-    vatNumberPlaceholder: 'МК123456789',
+    vatNumberPlaceholder: 'MK1234567890123',
     taxId: 'Даночен број',
     optional: 'Опционално',
     yearEstablished: 'Година на основање',
@@ -661,7 +671,7 @@ export const mkTranslations: TranslationStrings = {
     passwordRequired: 'Лозинката е задолжителна',
     confirmPasswordRequired: 'Ве молиме потврдете ја лозинката',
     validEmailRequired: 'Ве молиме внесете валидна е-пошта адреса',
-    validVatNumber: 'Ве молиме внесете валиден ДДВ број (нпр. МК123456789)',
+    validVatNumber: 'Ве молиме внесете валиден ДДВ број (нпр. MK1234567890123)',
     passwordMinEightChars: 'Лозинката мора да содржи најмалку 8 знаци',
     acceptTermsRequired: 'Морате да ги прифатите условите и одредбите',
     acceptPrivacyRequired: 'Морате да ја прифатите политиката за приватност'
@@ -785,7 +795,7 @@ export const mkTranslations: TranslationStrings = {
       priceExample: '25.000',
       descriptionExample: 'Опишете ја состојбата на возилото, историјата и дополнителни детали...',
       yourFullName: 'Вашето полно име',
-      phoneExample: '(02) 123-4567',
+      phoneExample: '+389 70 123 456',
       emailExample: 'vasa.email@primer.com',
       cityState: 'Град, Држава',
       yourName: 'Вашето име',
@@ -816,7 +826,8 @@ export const mkTranslations: TranslationStrings = {
     buttons: {
       nextStep: 'Следен чекор',
       previous: 'Претходно',
-      createListing: 'Создај оглас'
+      createListing: 'Создај оглас',
+      startSelling: 'Продај го твоето возило',
     },
 
     noLocationFound: 'Не е пронајдена локација',
@@ -1011,6 +1022,37 @@ export const mkTranslations: TranslationStrings = {
       locationRequired: 'Локацијата е задолжителна',
       imageRequired: 'Прикачете барем една слика',
     },
+
+    // Flat labels used by EditListing
+    makeLabel: 'Марка',
+    modelLabel: 'Модел',
+    yearLabel: 'Година',
+    mileageLabel: 'Километража',
+    priceLabel: 'Цена',
+    conditionLabel: 'Состојба',
+    fuelTypeLabel: 'Тип на гориво',
+    transmissionLabel: 'Менувач',
+    exteriorColorLabel: 'Надворешна боја',
+    interiorColorLabel: 'Внатрешна боја',
+    descriptionLabel: 'Опис',
+    locationLabel: 'Локација',
+    phoneLabel: 'Телефон',
+    emailLabel: 'Е-пошта',
+    contactInfoTitle: 'Контакт информации',
+    addPhotosTitle: 'Додајте фотографии',
+    existingPhotos: 'Постојни фотографии',
+    success: 'Успешно',
+  },
+
+  dealer: {
+    editListing: 'Уреди оглас',
+    viewListing: 'Прикажи оглас',
+    deleteListing: 'Избриши оглас',
+    confirmDeleteListing: 'Дали сте сигурни дека сакате да го избришете овој оглас?',
+    businessHours: 'Работно време',
+    information: 'Информации',
+    notFound: 'Дилерот не е пронајден',
+    vehicleInventory: 'Инвентар на возила',
   },
 
   countries: {
@@ -1060,7 +1102,7 @@ export const mkTranslations: TranslationStrings = {
     registeredDealers: 'Регистрирани дилери',
     carReviews: 'Рецензии за автомобили',
     support: 'Поддршка',
-    contactUs: 'Контактирај не',
+    contactUs: 'Контактирај нè',
     safetyTips: 'Совети за безбедност',
     dealerSupport: 'Поддршка за дилери',
     faq: 'Често поставувани прашања',
@@ -1092,7 +1134,15 @@ export const mkTranslations: TranslationStrings = {
   errors: {
     generic: 'Нешто тргна наопаку. Ве молиме обидете се повторно.',
     network: 'Мрежна грешка. Ве молиме проверете ја вашата конекција.',
-    notFound: 'Бараната ставка не е најдена.',
+    itemNotFound: 'Бараната ставка не е најдена.',
+    notFound: {
+      title: '404',
+      heading: 'Страницата не е пронајдена',
+      message: 'Страницата што ја бараш не постои или е преместена.',
+      goHome: 'Оди на почетна',
+      goBack: 'Назад',
+      supportMessage: 'Ако мислиш дека ова е грешка, контактирај нè на support@carmarket365.com',
+    },
     unauthorized: 'Немате дозвола за пристап до овој ресурс.',
     forbidden: 'Пристапот до овој ресурс е забранет.',
     serverError: 'Серверска грешка. Ве молиме обидете се повторно подоцна.',
@@ -1155,7 +1205,7 @@ export const mkTranslations: TranslationStrings = {
     underConstruction: 'Во изградба',
     underConstructionMessage: 'Оваа страница е во изградба. Напорно работиме на создавање неверојатни функции. Ве молиме зајдете подоцна или продолжете со истражување на нашата главна страница.',
     backToHome: 'Назад на почетна',
-    contactUs: 'Контактирај не',
+    contactUs: 'Контактирај нè',
 
     // Terms of Service
     termsOfService: {
@@ -1350,20 +1400,20 @@ export const mkTranslations: TranslationStrings = {
       companyDetails: {
         title: 'Детали за компанијата',
         companyName: 'Име на компанијата',
-        companyNameValue: 'CarMarket365 GmbH',
+        companyNameValue: 'CarMarket365 ДОО',
         registrationNumber: 'Регистрационен број',
         registrationNumberValue: 'HRB 123456',
         vatId: 'ДДВ број',
-        vatIdValue: 'DE123456789',
+        vatIdValue: 'MK1234567890123',
         commercialRegister: 'Трговски регистар',
-        commercialRegisterValue: 'Амтсгерихт Берлин'
+        commercialRegisterValue: 'Основен суд Скопје'
       },
       businessAddress: {
         title: 'Деловна адреса',
         registeredAddress: 'Регистрирана адреса',
         addressLine1: 'Главна улица 123',
-        addressLine2: '10115 Берлин',
-        addressLine3: 'Германија'
+        addressLine2: '1000 Скопје',
+        addressLine3: 'Северна Македонија'
       },
       management: {
         title: 'Раководство',
@@ -1375,7 +1425,7 @@ export const mkTranslations: TranslationStrings = {
       contactInfo: {
         title: 'Контакт информации',
         phone: 'Телефон',
-        phoneValue: '+49 30 123 456 78',
+        phoneValue: '+389 2 123 456',
         email: 'Е-пошта',
         emailValue: 'legal@carmarket365.com',
         businessHours: 'Работно време',
@@ -1705,6 +1755,25 @@ export const mkTranslations: TranslationStrings = {
     searchPlaceholder: 'Марка, модел или клучен збор',
     filtersButton: 'Прикажи филтри',
     sortBy: 'Сортирај по',
+    filters: {
+      title: 'Филтри',
+      location: 'Локација',
+      anyLocation: 'Која било локација',
+      priceRange: 'Ценовен опсег',
+      minPrice: 'Мин. цена',
+      maxPrice: 'Макс. цена',
+      noMin: 'Без мин.',
+      noMax: 'Без макс.',
+      yearRange: 'Опсег на година',
+      clearAll: 'Исчисти филтри',
+    },
+    results: {
+      results: 'резултати',
+      showing: 'прикажани',
+      noResults: 'Нема резултати',
+      noResultsMessage: 'Ниту еден оглас не одговара на филтрите. Пробајте поширок опсег.',
+      sellCta: 'Имаш возило за продажба? Додај го твојот оглас бесплатно.',
+    },
     sortOptions: {
       relevance: 'Релевантност',
       priceLowToHigh: 'Цена: од ниска кон висока',
@@ -1922,6 +1991,7 @@ export const mkTranslations: TranslationStrings = {
     totalSales: 'Вкупна продажба:',
     viewDealerProfile: 'Прикажи профил на дилер',
     years: 'години',
+    noDealers: 'Сè уште нема регистрирани дилери. Провери подоцна.',
 
     specialties: {
       luxuryCars: 'Луксузни автомобили',
@@ -2651,6 +2721,7 @@ export const mkTranslations: TranslationStrings = {
       shareVehicle: 'Сподели возило',
       saveToFavorites: 'Зачувај во омилени',
       removeFromFavorites: 'Отстрани од омилени',
+      showPhone: 'Прикажи',
     },
 
     // Seller Information
@@ -2823,7 +2894,42 @@ export const mkTranslations: TranslationStrings = {
     // Success/Error Messages
     profileUpdatedSuccessfully: 'Профилот е успешно ажуриран!',
     carRemovedFromSaved: 'Автомобилот е отстранет од зачувани!',
-    listingDeletedSuccessfully: 'Огласот е успешно избришан!'
+    listingDeletedSuccessfully: 'Огласот е успешно избришан!',
+
+    // Avatar upload
+    avatarBadType: 'Изберете слика.',
+    avatarTooLarge: 'Сликата треба да е под 5MB.',
+    avatarSaved: 'Профилната слика е ажурирана.',
+    avatarFailed: 'Неуспешно качување — пробај повторно.',
+    uploadingPhoto: 'Се качува…',
+
+    // Confirm / error dialogs
+    confirmDeleteListing: 'Дали сте сигурни дека сакате да го избришете овој оглас?',
+    deleteAccountConfirmation: 'Дали сте сигурни? Оваа акција не може да се врати.',
+    deleteAccountError: 'Неуспешно бришење на сметката. Обидете се повторно.',
+    exportDataError: 'Неуспешен експорт на податоците. Обидете се повторно.',
+    expressSaleComingSoon: 'Експресна продажба доаѓа наскоро.',
+
+    // Fuel type badges
+    fuelDiesel: 'Дизел',
+    fuelElectric: 'Електричен',
+    fuelGas: 'Гас',
+    fuelHybrid: 'Хибрид',
+    fuelPetrol: 'Бензин',
+
+    // Empty states
+    noListingsYet: 'Сè уште немате огласи.',
+    noRecentSearches: 'Нема неодамнешни пребарувања.',
+    noSavedCars: 'Нема зачувани автомобили.',
+    startBrowsing: 'Започнете со прегледување.',
+
+    // Listing status badges
+    statusActive: 'Активен',
+    statusExpired: 'Истечен',
+    statusSold: 'Продаден',
+    statusUnderReview: 'Во преглед',
+
+    welcomeBackMessage: 'Добредојде назад, {name}!'
   },
 
   savedCars: {
@@ -2981,6 +3087,10 @@ export const mkTranslations: TranslationStrings = {
 
   // Final fixes section
   finalFixes: {
+    dealerSignUp: {
+      firstNamePlaceholder: 'Стефан',
+      lastNamePlaceholder: 'Стојановски',
+    },
     expressSell: {
       title: 'Експрес продажба',
       listMyCarQuickly: 'Ставете го вашиот автомобил на продажба брзо и лесно',
@@ -3095,7 +3205,91 @@ export const mkTranslations: TranslationStrings = {
         sixHoursAgo: 'пред 6 часа',
         eightHoursAgo: 'пред 8 часа'
       }
-    }
+    },
+    dealerSupport: {
+      supportCenterText: 'Нашиот тим за поддршка на дилери е тука да ти помогне да го максимизираш успехот на CarMarket365. Добиј помош со менаџирање на инвентарот, прашања од клиенти и функции на платформата.',
+      dashboardSupport: {
+        title: 'Поддршка за контролната табла',
+        items: [
+          'Помош за менаџирање на инвентарот',
+          'Оптимизација на огласите',
+          'Толкување на аналитиката',
+          'Поставување на профилот',
+        ],
+      },
+      customerRelations: {
+        title: 'Односи со клиенти',
+        items: [
+          'Водство за менаџирање на можности',
+          'Најдобри практики за комуникација',
+          'Ракување со прашања од клиенти',
+          'Менаџирање на рецензии',
+        ],
+      },
+      performanceOptimization: {
+        title: 'Оптимизација на перформансите',
+        items: [
+          'Подобрување на видливоста на огласите',
+          'Совети за стратегија на цени',
+          'Упатства за квалитет на фотографии',
+          'Увид во трендовите на пазарот',
+        ],
+      },
+      technicalSupport: {
+        title: 'Техничка поддршка',
+        items: [
+          'Проблеми со функционалноста на платформата',
+          'Помош за мобилната апликација',
+          'Решавање проблеми со интеграција',
+          'Обука за функции',
+        ],
+      },
+      gettingStarted: {
+        title: 'Започни како дилер',
+        description: 'Водство чекор по чекор за создавање на твојот дилерски профил и максимизирање на успехот.',
+        accountSetup: {
+          title: 'Поставување на профил',
+          items: [
+            'Заврши верификација на дилер',
+            'Прикачи бизнис документација',
+            'Постави процесирање на плаќања',
+            'Конфигурирај бизнис профил',
+          ],
+        },
+        inventoryManagement: {
+          title: 'Менаџирање на инвентар',
+          items: [
+            'Додај го твојот прв оглас за возило',
+            'Прикачи фотографии со висок квалитет',
+            'Напиши привлечни описи',
+            'Постави конкурентни цени',
+          ],
+        },
+        performanceTracking: {
+          title: 'Следење на перформанси',
+          items: [
+            'Следи перформанси на огласите',
+            'Следи прашања од клиенти',
+            'Анализирај трендови на пазарот',
+            'Оптимизирај врз основа на податоци',
+          ],
+        },
+      },
+      helpSection: {
+        title: 'Ти треба помош? Ние сме тука за тебе!',
+        message: 'Нашиот тим за поддршка на дилери е достапен да ти помогне да успееш. Контактирај нè на dealers@carmarket365.com или преку твојата дилерска контролна табла.',
+        returnToPlatform: 'Назад на платформата',
+        goToDealerDashboard: 'Оди на дилерската контролна табла',
+      },
+    },
+  },
+
+  dealerSupport: {
+    backToHome: 'Назад на почетна',
+    title: 'Поддршка за дилери',
+    subtitle: 'Посветена поддршка за регистрирани дилери. Добиј помош со твоите огласи, менаџирање на профил и функции на платформата.',
+    supportCenter: 'Центар за поддршка на дилери',
+    supportCenterDescription: 'Целосна поддршка за нашите регистрирани партнери дилери.',
   },
 
   // Mobile App Announcement
@@ -3124,6 +3318,49 @@ export const mkTranslations: TranslationStrings = {
       seamless: 'Безгранично Искуство',
       seamlessDesc: 'Сите твои веб омилени и пребарувања синхронизирани автоматски'
     }
+  },
+
+  about: {
+    stats: {
+      carsSold: 'Продадени автомобили',
+      happyCustomers: 'Задоволни клиенти',
+      dealerPartners: 'Партнери дилери',
+      yearsInBusiness: 'Години во бизнис',
+    },
+    values: {
+      trustTransparency: 'Доверба и транспарентност',
+      trustTransparencyDesc: 'Веруваме во фер цени, јасна комуникација и градење долгорочни односи со нашите клиенти.',
+      customerFirst: 'Клиентот на прво место',
+      customerFirstDesc: 'Секоја одлука што ја носиме е фокусирана на обезбедување на најдоброто можно искуство за нашите клиенти.',
+      qualityAssurance: 'Гаранција на квалитет',
+      qualityAssuranceDesc: 'Ригорозно ги проверуваме и верификуваме сите возила за да обезбедиме квалитет и сигурност.',
+      innovation: 'Иновација',
+      innovationDesc: 'Постојано ја подобруваме нашата платформа со најнова технологија за подобра услуга.',
+    },
+    content: {
+      heroTitle: 'За CarMarket365',
+      heroSubtitle: 'Нашата мисија е да го направиме купувањето и продажбата на автомобили едноставно, транспарентно и пријатно. Од 2009 година, поврзуваме купувачи и продавачи со доверба и иновација.',
+      missionTitle: 'Наша мисија',
+      missionContent: 'Да го револуционираме искуството на купување и продажба на автомобили преку транспарентна, доверлива и лесна за користење платформа која ги поврзува луѓето со нивниот идеален автомобил.',
+      missionDescription: 'Веруваме дека секој заслужува пристап до сигурен транспорт и фер цени, без стресот и неизвесноста што традиционално ја придружуваат куповината на автомобили.',
+      visionTitle: 'Наша визија',
+      visionContent: 'Да станеме најдоверливиот пазар на автомобили во светот, каде секоја трансакција е изградена на транспарентност, квалитет и задоволство на клиентите.',
+      visionDescription: 'Замислуваме иднина каде купувањето или продажбата на автомобил е едноставно колку неколку клика, со целосна доверба во процесот и резултатот.',
+      valuesTitle: 'Наши вредности',
+      valuesDescription: 'Овие основни принципи ја водат сè што правиме и ја обликуваат нашата корпоративна култура',
+      teamTitle: 'Запознај го нашиот тим',
+      teamDescription: 'Страсни професионалци посветени на трансформацијата на автомобилската индустрија',
+      journeyTitle: 'Нашето патување',
+      journeyDescription: 'Клучни пресвртници кои ја обликуваа нашата компанија низ годините',
+      awardsTitle: 'Награди и признанија',
+      awardsDescription: 'Горди сме што сме препознаени од лидерите во индустријата за нашата иновација и услуга',
+      ctaTitle: 'Спреми да се придружиш на нашето патување?',
+      ctaDescription: 'Дали бараш нов автомобил или сакаш да бидеш дел од нашиот тим, сакаме да чуеме од тебе.',
+      joinTeam: 'Придружи се на нашиот тим',
+      contactUs: 'Контактирај нè',
+      browseCars: 'Прегледај автомобили',
+      connect: 'Поврзи се',
+    },
   }
 };
 

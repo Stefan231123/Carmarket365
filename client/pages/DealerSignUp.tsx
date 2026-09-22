@@ -365,7 +365,7 @@ export default function DealerSignUp({ onBackToSignIn, onSignUpSuccess }: Dealer
                   <div>
                     <label className="block text-sm mb-2 text-muted-foreground">{t('auth.phoneNumber')} *</label>
                     <Input
-                      placeholder="+49 123 456 7890"
+                      placeholder={t('sell.placeholders.phoneExample', '+389 70 123 456')}
                       value={formData.phone}
                       onChange={(e) => updateFormData('phone', e.target.value)}
                       className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0"

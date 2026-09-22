@@ -128,7 +128,7 @@ const fallbackSellerTypes = ['Приватен продавач', 'Дилер', 
 const fallbackVehicleConditionTypes = ['Нов', 'Користен', 'Предрегистриран', 'Демонстрационо возило', 'Класик/Винтиџ'];
 
 
-const fallbackRadiusOptions = ['5', '10', '25', '50', '100', '200', '300', '500', 'Nationwide'];
+const fallbackRadiusOptions = ['5', '10', '25', '50', '100', '200', '300', '500'];
 
 // Optional equipment lives in shared/equipmentOptions.ts (categorized + translated).
 
@@ -530,6 +530,9 @@ export default function AdvancedSearch() {
     
     // For Macedonian, return hardcoded Macedonian arrays
     if (effectiveLanguage === 'mk' || currentLanguage === 'mk') {
+      if (arrayType === 'guaranteeOptions') {
+        return ['Без гаранција', 'Гаранција од дилер', 'Гаранција од производител', 'Продолжена гаранција'];
+      }
       return fallbackArray; // Now contains Macedonian translations
     }
     
@@ -566,6 +569,18 @@ export default function AdvancedSearch() {
           'Paralajmërim vëmendjes së shoferit', 'Paralajmërim trafiku kryqëzues', 'Drita të gjata automatike',
           'Zbutje e përplasjes', 'Zbulimi i këmbësorëve', 'Zbulimi i çiklistëve'
         ];
+      }
+      if (arrayType === 'transmissions') {
+        return ['Manuale', 'Automatike', 'Gjysmë-automatike', 'CVT'];
+      }
+      if (arrayType === 'sellerTypes') {
+        return ['Shitës privat', 'Diler', 'Diler i çertifikuar', 'Flotë / Qira'];
+      }
+      if (arrayType === 'conditions') {
+        return ['E re', 'E përdorur', 'E para-regjistruar', 'Automjet demonstrimi', 'Klasike / Vintage'];
+      }
+      if (arrayType === 'guaranteeOptions') {
+        return ['Pa garanci', 'Garanci nga dileri', 'Garanci nga prodhuesi', 'Garanci e zgjatur'];
       }
     }
     
@@ -640,7 +655,7 @@ export default function AdvancedSearch() {
   // Arrays that don't have translations yet (keep as fallback)
   const numberOfSeatsOptions = fallbackNumberOfSeatsOptions;
   const radiusOptions = fallbackRadiusOptions;
-  const yesNoOptions = fallbackYesNoOptions;
+  const yesNoOptions = getTranslatedArray('yesNoUnknownOptions', fallbackYesNoOptions);
   const euroEmissionClasses = fallbackEuroEmissionClasses;
 
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -1825,13 +1840,13 @@ export default function AdvancedSearch() {
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">Боја на ентериер</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.interiorColor', 'Боја на ентериер')}</label>
                   <Select value={localFilters.interiorColor} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, interiorColor: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Било која боја" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.anyColor', 'Било која боја')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">Било која боја</SelectItem>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.anyColor', 'Било која боја')}</SelectItem>
                       {interiorColors.map(color => (
                         <SelectItem key={color} value={color}>{color}</SelectItem>
                       ))}
@@ -1840,13 +1855,13 @@ export default function AdvancedSearch() {
                 </div>
 
                 <div>
-                  <label className="block text-sm mb-2 text-muted-foreground">Тапацирање</label>
+                  <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.upholstery', 'Тапацирање')}</label>
                   <Select value={localFilters.upholstery} onValueChange={(value) => setLocalFilters(prev => ({ ...prev, upholstery: value }))}>
                     <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                      <SelectValue placeholder="Било кој материјал" />
+                      <SelectValue placeholder={getAdvancedSearchText('placeholders.anyMaterial', 'Било кој материјал')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">Било кој материјал</SelectItem>
+                      <SelectItem value="any">{getAdvancedSearchText('placeholders.anyMaterial', 'Било кој материјал')}</SelectItem>
                       {upholsteryTypes.map(material => (
                         <SelectItem key={material} value={material}>{material}</SelectItem>
                       ))}
@@ -2029,7 +2044,7 @@ export default function AdvancedSearch() {
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="Од" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.from', 'Од')} />
                       </SelectTrigger>
                       <SelectContent>
                         {engineDisplacementRanges.map(displacement => (
@@ -2040,20 +2055,20 @@ export default function AdvancedSearch() {
                   </div>
                   <div>
                     <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.engineDisplacementMax', 'Engine displacement to (L)')}</label>
-                    <Select 
-                      value={localFilters.engineDisplacementMax?.toString() || '8.0'} 
+                    <Select
+                      value={localFilters.engineDisplacementMax?.toString() || '8.0'}
                       onValueChange={(value) => {
                         const newEngineMax = parseFloat(value);
                         const validEngineMin = engineDisplacementRanges.slice().reverse().find(range => range <= Math.min(localFilters.engineDisplacementMin, newEngineMax)) || engineDisplacementRanges[0];
-                        setLocalFilters(prev => ({ 
-                          ...prev, 
+                        setLocalFilters(prev => ({
+                          ...prev,
                           engineDisplacementMax: newEngineMax,
                           engineDisplacementMin: validEngineMin
                         }));
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="До" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.to', 'До')} />
                       </SelectTrigger>
                       <SelectContent>
                         {engineDisplacementRanges.map(displacement => (
@@ -2091,7 +2106,7 @@ export default function AdvancedSearch() {
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="Од" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.from', 'Од')} />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="0">0 l/100km</SelectItem>
@@ -2103,20 +2118,20 @@ export default function AdvancedSearch() {
                   </div>
                   <div>
                     <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.fuelConsumptionMax', 'Fuel consumption to (l/100km)')}</label>
-                    <Select 
-                      value={localFilters.fuelConsumptionMax?.toString() || '20'} 
+                    <Select
+                      value={localFilters.fuelConsumptionMax?.toString() || '20'}
                       onValueChange={(value) => {
                         const newFuelMax = parseInt(value);
                         const validFuelMin = fuelConsumptionRanges.slice().reverse().find(range => range <= Math.min(localFilters.fuelConsumptionMin, newFuelMax)) || fuelConsumptionRanges[0];
-                        setLocalFilters(prev => ({ 
-                          ...prev, 
+                        setLocalFilters(prev => ({
+                          ...prev,
                           fuelConsumptionMax: newFuelMax,
                           fuelConsumptionMin: validFuelMin
                         }));
                       }}
                     >
                       <SelectTrigger className="h-12 bg-zinc-100 rounded-full border-none focus-visible:ring-0">
-                        <SelectValue placeholder="До" />
+                        <SelectValue placeholder={getAdvancedSearchText('placeholders.to', 'До')} />
                       </SelectTrigger>
                       <SelectContent>
                         {fuelConsumptionRanges.map(fuel => (
