@@ -387,6 +387,16 @@ export default function AdvancedSearch() {
         'emissions': 'Емисиони класи',
         'hasMore': 'Уште е достапно',
         'allShown': 'Сите се прикажани',
+
+        // Engine tech + environmental (previously hardcoded Macedonian)
+        'sections.engineTech.title': 'Технички спецификации на моторот',
+        'sections.engineTech.description': 'Напредни спецификации и технички детали на моторот',
+        'sections.environmental.title': 'Еколошки',
+        'sections.environmental.description': 'Потрошувачка на гориво и еколошка класа',
+        'fields.engineDisplacementMin': 'Зафатнина на моторот од (L)',
+        'fields.engineDisplacementMax': 'Зафатнина на моторот до (L)',
+        'fields.fuelConsumptionMin': 'Потрошувачка на гориво од (l/100km)',
+        'fields.fuelConsumptionMax': 'Потрошувачка на гориво до (l/100km)',
       };
       
       if (mkTranslations[key]) {
@@ -494,8 +504,18 @@ export default function AdvancedSearch() {
         'emissions': 'Klasa emetimi',
         'hasMore': 'Ka më shumë',
         'allShown': 'Të gjitha të shfaqura',
+
+        // Engine tech + environmental
+        'sections.engineTech.title': 'Specifikimet teknike të motorit',
+        'sections.engineTech.description': 'Specifikime të avancuara dhe detaje teknike të motorit',
+        'sections.environmental.title': 'Ekologjik',
+        'sections.environmental.description': 'Konsumi i karburantit dhe klasa e emetimit',
+        'fields.engineDisplacementMin': 'Kubatura e motorit nga (L)',
+        'fields.engineDisplacementMax': 'Kubatura e motorit deri (L)',
+        'fields.fuelConsumptionMin': 'Konsumi i karburantit nga (l/100km)',
+        'fields.fuelConsumptionMax': 'Konsumi i karburantit deri (l/100km)',
       };
-      
+
       if (sqTranslations[key]) {
         return sqTranslations[key];
       }
@@ -1985,17 +2005,17 @@ export default function AdvancedSearch() {
               </div>
             </FilterSection>
 
-            {/* Engine Technical Specifications - PURE HARDCODED MACEDONIAN */}
-            <FilterSection 
-              title="Технички спецификации на моторот" 
+            {/* Engine Technical Specifications */}
+            <FilterSection
+              title={getAdvancedSearchText('sections.engineTech.title', 'Engine technical specifications')}
               sectionKey="engine-tech"
               icon={<Zap className="h-5 w-5 text-orange-600" />}
-              description="Напредни спецификации и технички детали на моторот"
+              description={getAdvancedSearchText('sections.engineTech.description', 'Advanced engine specifications and technical details')}
             >
               <div className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Зафатнина на моторот од (L)</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.engineDisplacementMin', 'Engine displacement from (L)')}</label>
                     <Select 
                       value={localFilters.engineDisplacementMin?.toString() || '0.5'} 
                       onValueChange={(value) => {
@@ -2019,7 +2039,7 @@ export default function AdvancedSearch() {
                     </Select>
                   </div>
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Зафатнина на моторот до (L)</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.engineDisplacementMax', 'Engine displacement to (L)')}</label>
                     <Select 
                       value={localFilters.engineDisplacementMax?.toString() || '8.0'} 
                       onValueChange={(value) => {
@@ -2049,15 +2069,15 @@ export default function AdvancedSearch() {
 
             {/* Environmental */}
             <FilterSection
-              title="Еколошки"
+              title={getAdvancedSearchText('sections.environmental.title', 'Environmental')}
               sectionKey="environmental"
               icon={<Filter className="h-5 w-5 text-emerald-600" />}
-              description="Потрошувачка на гориво и еколошка класа"
+              description={getAdvancedSearchText('sections.environmental.description', 'Fuel consumption and emission class')}
             >
               <div className="space-y-6">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Потрошувачка на гориво од (l/100km)</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.fuelConsumptionMin', 'Fuel consumption from (l/100km)')}</label>
                     <Select 
                       value={localFilters.fuelConsumptionMin?.toString() || '0'} 
                       onValueChange={(value) => {
@@ -2082,7 +2102,7 @@ export default function AdvancedSearch() {
                     </Select>
                   </div>
                   <div>
-                    <label className="block text-sm mb-2 text-muted-foreground">Потрошувачка на гориво до (l/100km)</label>
+                    <label className="block text-sm mb-2 text-muted-foreground">{getAdvancedSearchText('fields.fuelConsumptionMax', 'Fuel consumption to (l/100km)')}</label>
                     <Select 
                       value={localFilters.fuelConsumptionMax?.toString() || '20'} 
                       onValueChange={(value) => {

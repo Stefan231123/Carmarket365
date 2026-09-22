@@ -340,7 +340,8 @@ export const mkTranslations: TranslationStrings = {
       maxMileage: 'Макс километража',
       noMin: 'Без мин',
       noMax: 'Без макс',
-      enterLocation: 'Внесете град или поштенски код'
+      enterLocation: 'Внесете град или поштенски код',
+      anyLocation: 'Која било локација'
     },
     availableCars: 'Купувај и продавај автомобили безбедно во Македонија'
   },
@@ -415,7 +416,8 @@ export const mkTranslations: TranslationStrings = {
     about: 'За нас',
     contact: 'Контакт',
     faq: 'Често поставувани прашања',
-    help: 'Помош'
+    help: 'Помош',
+    userMenu: 'Кориснички мени'
   },
 
   cars: {
@@ -759,12 +761,20 @@ export const mkTranslations: TranslationStrings = {
       priceNegotiable: 'Цена по договор',
       acceptsTradeIn: 'Прифаќа замена',
       allowTestDrive: 'Дозволува тест возење',
+      coolingType: 'Тип на ладење',
+      starterType: 'Тип на стартер',
+      licenseClass: 'Возачка категорија',
+      cylinders: 'Цилиндри',
     },
 
     // Placeholders
     placeholders: {
       selectMake: 'Изберете марка',
       enterModel: 'Внесете модел',
+      selectCoolingType: 'Изберете тип на ладење',
+      selectStarterType: 'Изберете тип на стартер',
+      selectLicenseClass: 'Изберете возачка категорија',
+      selectCylinders: 'Изберете цилиндри',
       selectYear: 'Изберете година',
       selectCondition: 'Изберете состојба',
       enterMileage: 'Внесете километража (км)',
@@ -894,7 +904,8 @@ export const mkTranslations: TranslationStrings = {
       veryGood: 'Многу добра',
       good: 'Добра',
       fair: 'Задоволителна',
-      poor: 'Лоша'
+      poor: 'Лоша',
+      needsWork: 'Потребен ремонт'
     },
 
     // Vehicle types
@@ -989,6 +1000,16 @@ export const mkTranslations: TranslationStrings = {
     // Progress messages
     progress: {
       creatingListing: 'Се создава огласот...',
+      uploadingImage: 'Се прикачува слика',
+    },
+
+    // Validation errors on the sell / express-sell forms
+    validation: {
+      makeModelRequired: 'Марката и моделот се задолжителни',
+      priceRequired: 'Внесете важечка цена',
+      mileageRequired: 'Внесете важечка километража',
+      locationRequired: 'Локацијата е задолжителна',
+      imageRequired: 'Прикачете барем една слика',
     },
   },
 
@@ -1060,7 +1081,12 @@ export const mkTranslations: TranslationStrings = {
     emailAddress: 'Е-пошта адреса',
     subscribe: 'Претплати се',
     copyright: 'Авторски права',
-    allRightsReserved: 'Сите права се задржани'
+    allRightsReserved: 'Сите права се задржани',
+    recaptchaNotice: 'Оваа страница е заштитена со reCAPTCHA — важат ',
+    googlePrivacy: 'Политиката за приватност',
+    and: 'и',
+    googleTerms: 'Условите за користење',
+    ofGoogle: 'на Google.'
   },
 
   errors: {
@@ -1744,6 +1770,9 @@ export const mkTranslations: TranslationStrings = {
     title: 'Контактирај не',
     subtitle: 'Ние сме тука за да помогнеме. Контактирајте не за било какви прашања или поддршка.',
     backToHome: 'Назад на почетна',
+    phone: 'Телефон',
+    email: 'Е-пошта',
+    address: 'Адреса',
     mainTitle: 'Како можеме да помогнеме?',
     mainDescription: 'Нашиот тим за поддршка на клиенти е тука за да одговори на вашите прашања и да обезбеди помош.',
     contactOverview: 'Без разлика дали барате помош за купување возило, имате прашања за продажба или сакате да дознаете повеќе за нашите услуги, ние сме достапни низ различни канали за комуникација.',
