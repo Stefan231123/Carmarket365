@@ -13,12 +13,12 @@ export default function RegisteredDealers() {
   const { t } = useTranslation();
   const [dealers, setDealers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     apiClient.getApprovedDealers()
       .then(setDealers)
-      .catch(() => setError(t('common.error') || 'Failed to load dealers'))
+      .catch(() => setHasError(true))
       .finally(() => setLoading(false));
   }, []);
 
@@ -69,13 +69,13 @@ export default function RegisteredDealers() {
           </div>
         )}
 
-        {!loading && error && (
+        {!loading && hasError && (
           <div className="text-center py-16">
-            <p className="text-muted-foreground">{error}</p>
+            <p className="text-muted-foreground">{t('common.error')}</p>
           </div>
         )}
 
-        {!loading && !error && dealers.length === 0 && (
+        {!loading && !hasError && dealers.length === 0 && (
           <div className="text-center py-16">
             <Shield className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
             <p className="text-muted-foreground">

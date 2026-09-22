@@ -612,7 +612,7 @@ export const mkTranslations: TranslationStrings = {
     rentalCompany: 'Компанија за изнајмување',
     other: 'Друго',
     vatNumber: 'ДДВ број',
-    vatNumberPlaceholder: 'МК123456789',
+    vatNumberPlaceholder: 'MK1234567890123',
     taxId: 'Даночен број',
     optional: 'Опционално',
     yearEstablished: 'Година на основање',
@@ -670,7 +670,7 @@ export const mkTranslations: TranslationStrings = {
     passwordRequired: 'Лозинката е задолжителна',
     confirmPasswordRequired: 'Ве молиме потврдете ја лозинката',
     validEmailRequired: 'Ве молиме внесете валидна е-пошта адреса',
-    validVatNumber: 'Ве молиме внесете валиден ДДВ број (нпр. МК123456789)',
+    validVatNumber: 'Ве молиме внесете валиден ДДВ број (нпр. MK1234567890123)',
     passwordMinEightChars: 'Лозинката мора да содржи најмалку 8 знаци',
     acceptTermsRequired: 'Морате да ги прифатите условите и одредбите',
     acceptPrivacyRequired: 'Морате да ја прифатите политиката за приватност'
@@ -1101,7 +1101,7 @@ export const mkTranslations: TranslationStrings = {
     registeredDealers: 'Регистрирани дилери',
     carReviews: 'Рецензии за автомобили',
     support: 'Поддршка',
-    contactUs: 'Контактирај не',
+    contactUs: 'Контактирај нè',
     safetyTips: 'Совети за безбедност',
     dealerSupport: 'Поддршка за дилери',
     faq: 'Често поставувани прашања',
@@ -1196,7 +1196,7 @@ export const mkTranslations: TranslationStrings = {
     underConstruction: 'Во изградба',
     underConstructionMessage: 'Оваа страница е во изградба. Напорно работиме на создавање неверојатни функции. Ве молиме зајдете подоцна или продолжете со истражување на нашата главна страница.',
     backToHome: 'Назад на почетна',
-    contactUs: 'Контактирај не',
+    contactUs: 'Контактирај нè',
 
     // Terms of Service
     termsOfService: {

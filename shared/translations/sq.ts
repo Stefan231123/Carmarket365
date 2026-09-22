@@ -327,7 +327,7 @@ export const sqTranslations: TranslationStrings = {
     dashboard: 'Paneli',
     home: 'Fillore',
     browseCars: 'Shfleto makinat',
-    sellCar: 'Shit',
+    sellCar: 'Shit makinën',
     savedCars: 'Makinat e ruajtura',
     financing: 'Financimi',
     about: 'Rreth nesh - Faqja e përmirësuar',
@@ -547,7 +547,7 @@ export const sqTranslations: TranslationStrings = {
     rentalCompany: 'Kompani me qira',
     other: 'Tjetër',
     vatNumber: 'Numri i TVSH-së',
-    vatNumberPlaceholder: 'MK4567890123456',
+    vatNumberPlaceholder: 'MK1234567890123',
     taxId: 'Numri i tatimit',
     optional: 'Opsional',
     yearEstablished: 'Viti i themelimit',
@@ -605,7 +605,7 @@ export const sqTranslations: TranslationStrings = {
     passwordRequired: 'Fjalëkalimi është i detyrueshëm',
     confirmPasswordRequired: 'Ju lutem konfirmoni fjalëkalimin',
     validEmailRequired: 'Ju lutem vendosni një email të vlefshëm',
-    validVatNumber: 'Ju lutem vendosni një numër TVSH-je të vlefshëm (p.sh. MK4567890123456)',
+    validVatNumber: 'Ju lutem vendosni një numër TVSH-je të vlefshëm (p.sh. MK1234567890123)',
     passwordMinEightChars: 'Fjalëkalimi duhet të ketë të paktën 8 karaktere',
     acceptTermsRequired: 'Duhet të pranoni kushtet e përgjithshme',
     acceptPrivacyRequired: 'Duhet të pranoni politikën e privatësisë',
@@ -1694,7 +1694,7 @@ export const sqTranslations: TranslationStrings = {
 
   // Browse Cars Page
   browseCars: {
-    title: 'për shitje',
+    title: 'Makina për shitje',
     searchPlaceholder: 'Marka, modeli ose fjalë kyçe',
     filtersButton: 'Shfaq filtrat',
     sortBy: 'Rendit sipas',
@@ -4636,11 +4636,11 @@ export const sqTranslations: TranslationStrings = {
     
     // Error States
     errors: {
-      carNotFound: 'Makina nuk u gjet',
-      failedToLoad: 'Dështoi ngarkimi',
-      doesntExist: 'Nuk ekziston',
-      hasBeenRemoved: 'Është hequr',
-      backToCars: 'Kthehu te Makinat',
+      carNotFound: 'Automjeti nuk u gjet',
+      failedToLoad: 'Nuk mundëm ta ngarkojmë këtë shpallje. Provo përsëri më vonë.',
+      doesntExist: 'Kjo shpallje nuk ekziston ose është hequr.',
+      hasBeenRemoved: 'Kjo shpallje është hequr.',
+      backToCars: 'Kthehu te makinat',
     },
     
     // Loading States
