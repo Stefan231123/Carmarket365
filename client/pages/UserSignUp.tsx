@@ -203,15 +203,16 @@ export default function UserSignUp() {
                 </div>
               </div>
 
-              <div className="flex items-center space-x-2">
+              <div className="flex items-start gap-2">
                 <Checkbox
                   id="terms"
                   checked={agreeToTerms}
                   onCheckedChange={(checked) => setAgreeToTerms(checked as boolean)}
+                  className="mt-0.5"
                 />
-                <Label 
-                  htmlFor="terms" 
-                  className="text-sm text-muted-foreground cursor-pointer"
+                <label
+                  htmlFor="terms"
+                  className="text-sm text-muted-foreground cursor-pointer leading-relaxed"
                 >
                   {t('auth.agreeToTerms')}{' '}
                   <Link to="/terms-of-service" className="text-primary hover:underline">
@@ -221,7 +222,7 @@ export default function UserSignUp() {
                   <Link to="/privacy-policy" className="text-primary hover:underline">
                     {t('auth.privacyPolicy')}
                   </Link>
-                </Label>
+                </label>
               </div>
 
               <Separator />

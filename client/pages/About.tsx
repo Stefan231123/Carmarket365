@@ -3,26 +3,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ImageWithFallback } from "@/components/ImageWithFallback";
 import { useTranslation } from "@/hooks/useTranslation";
 import { SEO } from "@/components/SEO";
-import { 
-  Users, 
-  Target, 
-  Award, 
-  TrendingUp, 
-  Shield, 
+import {
+  Users,
+  Target,
+  Award,
+  TrendingUp,
+  Shield,
   Heart,
   Car,
-  Globe,
-  Calendar,
   Linkedin,
   Mail
 } from "lucide-react";
-
-const getStats = (t: any) => [
-  { label: t('about.stats.carsSold'), value: "50,000+", icon: Car },
-  { label: t('about.stats.happyCustomers'), value: "45,000+", icon: Users },
-  { label: t('about.stats.dealerPartners'), value: "500+", icon: Globe },
-  { label: t('about.stats.yearsInBusiness'), value: "15+", icon: Calendar }
-];
 
 const getValues = (t: any) => [
   {
@@ -53,7 +44,6 @@ const getValues = (t: any) => [
 
 export default function About() {
   const { t } = useTranslation();
-  const stats = getStats(t);
   const values = getValues(t);
   const aboutData = (t('about') as any) || {};
   const staticContent = aboutData.staticContent || {};
@@ -79,26 +69,6 @@ export default function About() {
           <Button variant="outline" size="lg">
             {t('about.content.contactUs')}
           </Button>
-        </div>
-      </div>
-
-      {/* Stats Section */}
-      <div className="py-16 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <div key={index} className="text-center">
-                  <div className="bg-primary/10 rounded-full p-4 w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <Icon className="h-8 w-8 text-primary" />
-                  </div>
-                  <div className="text-3xl font-bold text-foreground mb-2">{stat.value}</div>
-                  <div className="text-muted-foreground">{stat.label}</div>
-                </div>
-              );
-            })}
-          </div>
         </div>
       </div>
 
@@ -169,6 +139,7 @@ export default function About() {
       </div>
 
       {/* Team Section */}
+      {team.length > 0 && (
       <div className="py-16">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -204,8 +175,10 @@ export default function About() {
           </div>
         </div>
       </div>
+      )}
 
       {/* Timeline Section */}
+      {milestones.length > 0 && (
       <div className="py-16 bg-background">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
@@ -238,8 +211,10 @@ export default function About() {
           </div>
         </div>
       </div>
+      )}
 
       {/* Awards & Recognition */}
+      {awards.length > 0 && (
       <div className="py-16 bg-muted/20">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
@@ -272,6 +247,7 @@ export default function About() {
           </div>
         </div>
       </div>
+      )}
 
       {/* Contact CTA */}
       <div className="py-16 bg-primary">
