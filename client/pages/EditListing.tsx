@@ -321,7 +321,7 @@ export default function EditListing() {
                 <div>
                   <label className="text-sm font-medium mb-1 block">{t("sell.makeLabel") || "Make"}</label>
                   <Select value={make} onValueChange={(v) => { setMake(v); setModel(""); }}>
-                    <SelectTrigger className="rounded-xl"><SelectValue /></SelectTrigger>
+                    <SelectTrigger className="rounded-full"><SelectValue /></SelectTrigger>
                     <SelectContent>
                       {activeMakes.map((m, idx) => (
                         <React.Fragment key={m}>
@@ -335,7 +335,7 @@ export default function EditListing() {
                 <div>
                   <label className="text-sm font-medium mb-1 block">{t("sell.modelLabel") || "Model"}</label>
                   <Select value={model} onValueChange={setModel}>
-                    <SelectTrigger className="rounded-xl"><SelectValue /></SelectTrigger>
+                    <SelectTrigger className="rounded-full"><SelectValue /></SelectTrigger>
                     <SelectContent>
                       {carModels.map((m) => (
                         <SelectItem key={m} value={m}>{m}</SelectItem>
@@ -346,7 +346,7 @@ export default function EditListing() {
                 <div>
                   <label className="text-sm font-medium mb-1 block">{t("sell.yearLabel") || "Year"}</label>
                   <Select value={year} onValueChange={setYear}>
-                    <SelectTrigger className="rounded-xl"><SelectValue /></SelectTrigger>
+                    <SelectTrigger className="rounded-full"><SelectValue /></SelectTrigger>
                     <SelectContent>
                       {years.map((y) => (
                         <SelectItem key={y} value={y}>{y}</SelectItem>
@@ -356,11 +356,11 @@ export default function EditListing() {
                 </div>
                 <div>
                   <label className="text-sm font-medium mb-1 block">{t("sell.priceLabel") || "Price"} (EUR)</label>
-                  <Input type="number" value={price} onChange={(e) => setPrice(e.target.value)} className="rounded-xl" />
+                  <Input type="number" value={price} onChange={(e) => setPrice(e.target.value)} className="rounded-full" />
                 </div>
                 <div>
                   <label className="text-sm font-medium mb-1 block">{t("sell.mileageLabel") || "Mileage"} (km)</label>
-                  <Input type="number" value={mileage} onChange={(e) => setMileage(e.target.value)} className="rounded-xl" />
+                  <Input type="number" value={mileage} onChange={(e) => setMileage(e.target.value)} className="rounded-full" />
                 </div>
                 <div>
                   <label className="text-sm font-medium mb-1 block">{t("sell.locationLabel") || "Location"}</label>
@@ -370,7 +370,7 @@ export default function EditListing() {
                         variant="outline"
                         role="combobox"
                         aria-expanded={locationOpen}
-                        className="w-full justify-between font-normal h-11 rounded-xl bg-white border-gray-200 text-gray-900 hover:bg-gray-50"
+                        className="w-full justify-between font-normal h-11 rounded-full bg-white border-gray-200 text-gray-900 hover:bg-gray-50"
                       >
                         <span className={location ? "text-gray-900" : "text-gray-400"}>
                           {location || t('sell.placeholders.selectLocation')}
@@ -418,7 +418,7 @@ export default function EditListing() {
                 <div>
                   <label className="text-sm font-medium mb-1 block">{t("sell.fuelTypeLabel") || "Fuel Type"}</label>
                   <Select value={fuelType} onValueChange={setFuelType}>
-                    <SelectTrigger className="rounded-xl"><SelectValue /></SelectTrigger>
+                    <SelectTrigger className="rounded-full"><SelectValue /></SelectTrigger>
                     <SelectContent>
                       <SelectItem value="GASOLINE">{t("sell.fuelTypes.gasoline")}</SelectItem>
                       <SelectItem value="DIESEL">{t("sell.fuelTypes.diesel")}</SelectItem>
@@ -430,7 +430,7 @@ export default function EditListing() {
                 <div>
                   <label className="text-sm font-medium mb-1 block">{t("sell.transmissionLabel") || "Transmission"}</label>
                   <Select value={transmission} onValueChange={setTransmission}>
-                    <SelectTrigger className="rounded-xl"><SelectValue /></SelectTrigger>
+                    <SelectTrigger className="rounded-full"><SelectValue /></SelectTrigger>
                     <SelectContent>
                       <SelectItem value="AUTOMATIC">{t("sell.transmissions.automatic")}</SelectItem>
                       <SelectItem value="MANUAL">{t("sell.transmissions.manual")}</SelectItem>
@@ -441,7 +441,7 @@ export default function EditListing() {
                 <div>
                   <label className="text-sm font-medium mb-1 block">{t("sell.conditionLabel") || "Condition"}</label>
                   <Select value={condition} onValueChange={setCondition}>
-                    <SelectTrigger className="rounded-xl"><SelectValue /></SelectTrigger>
+                    <SelectTrigger className="rounded-full"><SelectValue /></SelectTrigger>
                     <SelectContent>
                       <SelectItem value="NEW">{t("sell.conditions.new") || "New"}</SelectItem>
                       <SelectItem value="CERTIFIED">{t("sell.conditions.excellent")}</SelectItem>
@@ -453,7 +453,7 @@ export default function EditListing() {
                 <div>
                   <label className="text-sm font-medium mb-1 block">{t("sell.exteriorColorLabel") || "Exterior Color"}</label>
                   <Select value={exteriorColor} onValueChange={setExteriorColor}>
-                    <SelectTrigger className="rounded-xl"><SelectValue /></SelectTrigger>
+                    <SelectTrigger className="rounded-full"><SelectValue /></SelectTrigger>
                     <SelectContent>
                       {colorOptions.map((c) => (
                         <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>
@@ -464,7 +464,7 @@ export default function EditListing() {
                 <div>
                   <label className="text-sm font-medium mb-1 block">{t("sell.interiorColorLabel") || "Interior Color"}</label>
                   <Select value={interiorColor} onValueChange={setInteriorColor}>
-                    <SelectTrigger className="rounded-xl"><SelectValue /></SelectTrigger>
+                    <SelectTrigger className="rounded-full"><SelectValue /></SelectTrigger>
                     <SelectContent>
                       {colorOptions.map((c) => (
                         <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>
@@ -475,7 +475,7 @@ export default function EditListing() {
               </div>
               <div>
                 <label className="text-sm font-medium mb-1 block">{t("sell.descriptionLabel") || "Description"}</label>
-                <Textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={4} className="rounded-xl" />
+                <Textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={4} className="rounded-2xl" />
               </div>
             </CardContent>
           </Card>
@@ -707,11 +707,11 @@ export default function EditListing() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="text-sm font-medium mb-1 block">{t("sell.phoneLabel") || "Phone"}</label>
-                  <Input value={contactPhone} onChange={(e) => setContactPhone(e.target.value)} className="rounded-xl" />
+                  <Input value={contactPhone} onChange={(e) => setContactPhone(e.target.value)} className="rounded-full" />
                 </div>
                 <div>
                   <label className="text-sm font-medium mb-1 block">{t("sell.emailLabel") || "Email"}</label>
-                  <Input value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} className="rounded-xl" />
+                  <Input value={contactEmail} onChange={(e) => setContactEmail(e.target.value)} className="rounded-full" />
                 </div>
               </div>
             </CardContent>
@@ -746,10 +746,10 @@ export default function EditListing() {
 
           {/* Save Button */}
           <div className="flex gap-4 pb-8">
-            <Button variant="outline" onClick={() => navigate(-1)} className="rounded-xl flex-1" disabled={isSubmitting}>
+            <Button variant="outline" onClick={() => navigate(-1)} className="rounded-full flex-1" disabled={isSubmitting}>
               {t("common.cancel") || "Cancel"}
             </Button>
-            <Button onClick={handleSave} className="rounded-xl flex-1 bg-black text-white hover:bg-black/90" disabled={isSubmitting}>
+            <Button onClick={handleSave} className="rounded-full flex-1 bg-black text-white hover:bg-black/90" disabled={isSubmitting}>
               {isSubmitting ? (
                 <>
                   <Loader2 className="h-4 w-4 mr-2 animate-spin" />

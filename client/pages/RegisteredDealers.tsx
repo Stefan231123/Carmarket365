@@ -27,36 +27,40 @@ export default function RegisteredDealers() {
       <SEO title={t('meta.pages.registeredDealers')} canonical="/registered-dealers" />
 
       {/* Header */}
-      <div className="bg-white border-b border-zinc-100">
-        <div className="container mx-auto px-4 py-4">
-          <Button
-            variant="ghost"
-            onClick={() => navigate('/')}
-            className="flex items-center space-x-2 mb-4 rounded-full px-4"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            <span>{t('registeredDealers.backToHome')}</span>
-          </Button>
-          <div className="flex items-center space-x-3 mb-4">
-            <Shield className="h-8 w-8 text-primary" />
-            <div>
-              <h1 className="text-3xl font-bold text-primary">{t('registeredDealers.title')}</h1>
-              <p className="text-muted-foreground">{t('registeredDealers.subtitle')}</p>
-            </div>
+      <div className="bg-gradient-to-br from-primary/10 to-blue-500/10 py-20">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-center mb-6">
+            <Button
+              variant="ghost"
+              onClick={() => navigate('/')}
+              className="bg-white/10 text-muted-foreground hover:bg-white/20 rounded-full px-6 py-2"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              {t('registeredDealers.backToHome')}
+            </Button>
           </div>
 
-          <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
-            <div className="flex items-center space-x-1">
-              <Shield className="h-4 w-4" />
-              <span>{t('registeredDealers.allDealersVerified')}</span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <Star className="h-4 w-4" />
-              <span>{t('registeredDealers.customerRated')}</span>
-            </div>
-            <div className="flex items-center space-x-1">
-              <Clock className="h-4 w-4" />
-              <span>{t('registeredDealers.supportAvailable')}</span>
+          <div className="text-center max-w-3xl mx-auto">
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+              {t('registeredDealers.title')}
+            </h1>
+            <p className="text-lg text-muted-foreground mb-8">
+              {t('registeredDealers.subtitle')}
+            </p>
+
+            <div className="flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+              <div className="flex items-center space-x-1">
+                <Shield className="h-4 w-4" />
+                <span>{t('registeredDealers.allDealersVerified')}</span>
+              </div>
+              <div className="flex items-center space-x-1">
+                <Star className="h-4 w-4" />
+                <span>{t('registeredDealers.customerRated')}</span>
+              </div>
+              <div className="flex items-center space-x-1">
+                <Clock className="h-4 w-4" />
+                <span>{t('registeredDealers.supportAvailable')}</span>
+              </div>
             </div>
           </div>
         </div>
@@ -71,7 +75,11 @@ export default function RegisteredDealers() {
 
         {!loading && hasError && (
           <div className="text-center py-16">
-            <p className="text-muted-foreground">{t('common.error')}</p>
+            <Shield className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+            <p className="text-muted-foreground mb-4">{t('registeredDealers.loadFailed')}</p>
+            <Button variant="outline" onClick={() => window.location.reload()} className="rounded-full">
+              {t('common.retry')}
+            </Button>
           </div>
         )}
 

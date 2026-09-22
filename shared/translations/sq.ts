@@ -3016,7 +3016,7 @@ export const sqTranslations: TranslationStrings = {
       contactInfo: {
         title: 'Informacione Kontakti',
         phone: 'Telefon',
-        phoneValue: '+49 (0) 30 12345678',
+        phoneValue: '+389 2 123 456',
         email: 'Email',
         emailValue: 'info@carmarket365.com',
         businessHours: 'Orari i Biznesit',
@@ -5108,6 +5108,7 @@ export const sqTranslations: TranslationStrings = {
     viewDealerProfile: 'Shiko Profilin e Dilerit',
     years: 'vite',
     noDealers: 'Ende nuk ka dilerë të regjistruar. Kontrolloni më vonë.',
+    loadFailed: 'Nuk mundëm t\'i ngarkojmë dilerët. Provo përsëri.',
 
     // Specializimet e dilerit
     specialties: {

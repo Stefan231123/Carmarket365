@@ -7,6 +7,10 @@ import { useTranslation } from "@/hooks/useTranslation";
 export default function DealerSupport() {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const items = (key: string): string[] => {
+    const v = t(key) as any;
+    return Array.isArray(v) ? v : [];
+  };
 
   const handleBackToHome = () => {
     navigate('/');
@@ -71,7 +75,7 @@ export default function DealerSupport() {
               </CardHeader>
               <CardContent>
                 <ul className="text-sm text-muted-foreground space-y-2">
-                  {t('hardcodedFixes.dealerSupport.dashboardSupport.items').map((item: string, index: number) => (
+                  {items('hardcodedFixes.dealerSupport.dashboardSupport.items').map((item: string, index: number) => (
                     <li key={index}>• {item}</li>
                   ))}
                 </ul>
@@ -87,7 +91,7 @@ export default function DealerSupport() {
               </CardHeader>
               <CardContent>
                 <ul className="text-sm text-muted-foreground space-y-2">
-                  {t('hardcodedFixes.dealerSupport.customerRelations.items').map((item: string, index: number) => (
+                  {items('hardcodedFixes.dealerSupport.customerRelations.items').map((item: string, index: number) => (
                     <li key={index}>• {item}</li>
                   ))}
                 </ul>
@@ -103,7 +107,7 @@ export default function DealerSupport() {
               </CardHeader>
               <CardContent>
                 <ul className="text-sm text-muted-foreground space-y-2">
-                  {t('hardcodedFixes.dealerSupport.performanceOptimization.items').map((item: string, index: number) => (
+                  {items('hardcodedFixes.dealerSupport.performanceOptimization.items').map((item: string, index: number) => (
                     <li key={index}>• {item}</li>
                   ))}
                 </ul>
@@ -119,7 +123,7 @@ export default function DealerSupport() {
               </CardHeader>
               <CardContent>
                 <ul className="text-sm text-muted-foreground space-y-2">
-                  {t('hardcodedFixes.dealerSupport.technicalSupport.items').map((item: string, index: number) => (
+                  {items('hardcodedFixes.dealerSupport.technicalSupport.items').map((item: string, index: number) => (
                     <li key={index}>• {item}</li>
                   ))}
                 </ul>
@@ -143,7 +147,7 @@ export default function DealerSupport() {
                     {t('hardcodedFixes.dealerSupport.gettingStarted.accountSetup.title')}
                   </h3>
                   <ul className="text-sm text-muted-foreground space-y-1">
-                    {t('hardcodedFixes.dealerSupport.gettingStarted.accountSetup.items').map((item: string, index: number) => (
+                    {items('hardcodedFixes.dealerSupport.gettingStarted.accountSetup.items').map((item: string, index: number) => (
                       <li key={index}>• {item}</li>
                     ))}
                   </ul>
@@ -154,7 +158,7 @@ export default function DealerSupport() {
                     {t('hardcodedFixes.dealerSupport.gettingStarted.inventoryManagement.title')}
                   </h3>
                   <ul className="text-sm text-muted-foreground space-y-1">
-                    {t('hardcodedFixes.dealerSupport.gettingStarted.inventoryManagement.items').map((item: string, index: number) => (
+                    {items('hardcodedFixes.dealerSupport.gettingStarted.inventoryManagement.items').map((item: string, index: number) => (
                       <li key={index}>• {item}</li>
                     ))}
                   </ul>
@@ -165,7 +169,7 @@ export default function DealerSupport() {
                     {t('hardcodedFixes.dealerSupport.gettingStarted.performanceTracking.title')}
                   </h3>
                   <ul className="text-sm text-muted-foreground space-y-1">
-                    {t('hardcodedFixes.dealerSupport.gettingStarted.performanceTracking.items').map((item: string, index: number) => (
+                    {items('hardcodedFixes.dealerSupport.gettingStarted.performanceTracking.items').map((item: string, index: number) => (
                       <li key={index}>• {item}</li>
                     ))}
                   </ul>

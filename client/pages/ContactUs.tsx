@@ -132,15 +132,15 @@ export default function ContactUs() {
                 <div className="space-y-3">
                   <div>
                     <div className="font-medium">{t('contact.phoneSupport.salesDepartment')}</div>
-                    <div className="text-muted-foreground">+49 (0) 30 123-CARS</div>
+                    <div className="text-muted-foreground">+389 2 123 456</div>
                   </div>
                   <div>
                     <div className="font-medium">{t('contact.phoneSupport.customerService')}</div>
-                    <div className="text-muted-foreground">+49 (0) 30 123-HELP</div>
+                    <div className="text-muted-foreground">+389 2 123 457</div>
                   </div>
                   <div>
                     <div className="font-medium">{t('contact.phoneSupport.financingDepartment')}</div>
-                    <div className="text-muted-foreground">+49 (0) 30 123-LOAN</div>
+                    <div className="text-muted-foreground">+389 2 123 458</div>
                   </div>
                 </div>
               </CardContent>

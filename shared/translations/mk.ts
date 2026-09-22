@@ -1508,7 +1508,7 @@ export const mkTranslations: TranslationStrings = {
       underConstruction: 'Во изградба',
       underConstructionMessage: 'Оваа страница е во изградба. Напорно работиме на создавање неверојатни функции. Ве молиме зајдете подоцна или продолжете со истражување на нашата главна страница.',
       backToHome: 'Назад на почетна',
-      contactUs: 'Контактирај не'
+      contactUs: 'Контактирај нè'
     },
 
     // FAQ Page
@@ -1527,7 +1527,7 @@ export const mkTranslations: TranslationStrings = {
         emailUs: 'Испрати ни е-пошта',
         liveChat: 'Жив разговор',
         available247: 'Достапно 24/7',
-        supportPhoneNumber: '+49 30 123-HELP',
+        supportPhoneNumber: '+389 2 123 457',
         supportEmail: 'support@carmarket365.com'
       },
       faqCategories: [
@@ -1836,8 +1836,8 @@ export const mkTranslations: TranslationStrings = {
 
   // Contact page
   contact: {
-    title: 'Контактирај не',
-    subtitle: 'Ние сме тука за да помогнеме. Контактирајте не за било какви прашања или поддршка.',
+    title: 'Контактирај нè',
+    subtitle: 'Ние сме тука за да помогнеме. Контактирајте нè за било какви прашања или поддршка.',
     backToHome: 'Назад на почетна',
     phone: 'Телефон',
     email: 'Е-пошта',
@@ -1992,6 +1992,7 @@ export const mkTranslations: TranslationStrings = {
     viewDealerProfile: 'Прикажи профил на дилер',
     years: 'години',
     noDealers: 'Сè уште нема регистрирани дилери. Провери подоцна.',
+    loadFailed: 'Не можевме да ги вчитаме дилерите. Пробај повторно.',
 
     specialties: {
       luxuryCars: 'Луксузни автомобили',
