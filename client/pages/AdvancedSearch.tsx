@@ -128,7 +128,7 @@ const fallbackSellerTypes = ['Приватен продавач', 'Дилер', 
 const fallbackVehicleConditionTypes = ['Нов', 'Користен', 'Предрегистриран', 'Демонстрационо возило', 'Класик/Винтиџ'];
 
 
-const fallbackRadiusOptions = ['5', '10', '25', '50', '100', '200', '300', '500', 'Nationwide'];
+const fallbackRadiusOptions = ['5', '10', '25', '50', '100', '200', '300', '500'];
 
 // Optional equipment lives in shared/equipmentOptions.ts (categorized + translated).
 
@@ -530,6 +530,9 @@ export default function AdvancedSearch() {
     
     // For Macedonian, return hardcoded Macedonian arrays
     if (effectiveLanguage === 'mk' || currentLanguage === 'mk') {
+      if (arrayType === 'guaranteeOptions') {
+        return ['Без гаранција', 'Гаранција од дилер', 'Гаранција од производител', 'Продолжена гаранција'];
+      }
       return fallbackArray; // Now contains Macedonian translations
     }
     
@@ -566,6 +569,18 @@ export default function AdvancedSearch() {
           'Paralajmërim vëmendjes së shoferit', 'Paralajmërim trafiku kryqëzues', 'Drita të gjata automatike',
           'Zbutje e përplasjes', 'Zbulimi i këmbësorëve', 'Zbulimi i çiklistëve'
         ];
+      }
+      if (arrayType === 'transmissions') {
+        return ['Manuale', 'Automatike', 'Gjysmë-automatike', 'CVT'];
+      }
+      if (arrayType === 'sellerTypes') {
+        return ['Shitës privat', 'Diler', 'Diler i çertifikuar', 'Flotë / Qira'];
+      }
+      if (arrayType === 'conditions') {
+        return ['E re', 'E përdorur', 'E para-regjistruar', 'Automjet demonstrimi', 'Klasike / Vintage'];
+      }
+      if (arrayType === 'guaranteeOptions') {
+        return ['Pa garanci', 'Garanci nga dileri', 'Garanci nga prodhuesi', 'Garanci e zgjatur'];
       }
     }
     
@@ -640,7 +655,7 @@ export default function AdvancedSearch() {
   // Arrays that don't have translations yet (keep as fallback)
   const numberOfSeatsOptions = fallbackNumberOfSeatsOptions;
   const radiusOptions = fallbackRadiusOptions;
-  const yesNoOptions = fallbackYesNoOptions;
+  const yesNoOptions = getTranslatedArray('yesNoUnknownOptions', fallbackYesNoOptions);
   const euroEmissionClasses = fallbackEuroEmissionClasses;
 
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
