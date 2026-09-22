@@ -38,9 +38,11 @@ export const sqTranslations: TranslationStrings = {
     delete: 'Fshi',
     add: 'Shto',
     view: 'Shiko',
+    viewAll: 'Shiko të gjitha',
     contact: 'Kontakt',
     phone: 'Telefon',
-    email: 'Email',
+    email: 'Email-i',
+    address: 'Adresa',
     location: 'Vendndodhja',
     price: 'Çmimi',
     currency: 'Monedha',
@@ -1056,8 +1058,59 @@ export const sqTranslations: TranslationStrings = {
     dealerSupport: 'Mbështetja e dilerëve',
     contactUs: 'Na kontaktoni',
     cookiePolicy: 'Politika e cookies',
-    imprint: 'Impresumi',
     accessibility: 'Aksesueshmëria',
+    imprint: {
+      title: 'Impresumi',
+      subtitle: 'Informacione ligjore dhe detaje për kompaninë tonë.',
+      backToHome: 'Kthehu në faqen kryesore',
+      legalInfoTitle: 'Informacione ligjore',
+      legalInfoDescription: 'Informacione të detyrueshme ligjore sipas ligjeve në fuqi.',
+      legalInfoText: 'Këto informacione ofrohen për transparencë ligjore dhe përmbajnë detajet kryesore për kompaninë tonë CarMarket365.',
+      companyDetails: {
+        title: 'Detajet e kompanisë',
+        companyName: 'Emri i kompanisë',
+        companyNameValue: 'CarMarket365 Sh.p.k.',
+        registrationNumber: 'Numri i regjistrimit',
+        registrationNumberValue: 'HRB 123456',
+        vatId: 'Numri i TVSH-së',
+        vatIdValue: 'MK1234567890123',
+        commercialRegister: 'Regjistri tregtar',
+        commercialRegisterValue: 'Gjykata Themelore Shkup',
+      },
+      businessAddress: {
+        title: 'Adresa e biznesit',
+        registeredAddress: 'Adresa e regjistruar',
+        addressLine1: 'Rruga Kryesore 123',
+        addressLine2: '1000 Shkup',
+        addressLine3: 'Maqedonia e Veriut',
+      },
+      management: {
+        title: 'Menaxhimi',
+        managingDirector: 'Drejtor ekzekutiv',
+        managingDirectorValue: 'Stefan Kocevski',
+        authorizedRepresentative: 'Përfaqësues i autorizuar',
+        authorizedRepresentativeValue: 'Ana Petrovska',
+      },
+      contactInfo: {
+        title: 'Informacione kontakti',
+        phone: 'Telefon',
+        phoneValue: '+389 2 123 456',
+        email: 'Email',
+        emailValue: 'legal@carmarket365.com',
+        businessHours: 'Orari i punës',
+        businessHoursValue: 'E hënë - E premte: 09:00 - 17:00',
+      },
+      legalNotice: {
+        title: 'Njoftim ligjor',
+        paragraph1: 'Përmbajtja e kësaj faqeje interneti është krijuar me kujdesin më të madh të mundshëm. Megjithatë, nuk mund të garantojmë saktësinë, plotësinë ose aktualitetin e përmbajtjes.',
+        paragraph2: 'Si ofrues i shërbimit, jemi përgjegjës për përmbajtjen tonë të këtyre faqeve sipas ligjeve të përgjithshme. Megjithatë, nuk jemi të detyruar të monitorojmë informacionet e transmetuara ose të ruajtura ose të hetojmë rrethana që tregojnë veprimtari të paligjshme.',
+        paragraph3: 'Detyrimet për të hequr ose bllokuar përdorimin e informacioneve sipas ligjeve të përgjithshme mbeten të pandryshuara. Megjithatë, përgjegjësia në këtë drejtim është e mundur vetëm nga momenti i njohjes së një shkelje konkrete të ligjit.',
+      },
+      questionsTitle: 'Pyetje ligjore?',
+      questionsText: 'Nëse keni pyetje në lidhje me aspektet ligjore të shërbimit tonë ose këtë impresum, kontaktoni ekipin tonë ligjor.',
+      returnToPlatform: 'Kthehu në platformë',
+      contactLegal: 'Kontakto ekipin ligjor',
+    },
     signUp: 'Regjistrohu',
     signIn: 'Kyçu',
     dashboard: 'Paneli',
@@ -1207,21 +1260,113 @@ export const sqTranslations: TranslationStrings = {
 
     // Faqja e Pyetjeve të Shpeshta
     faq: {
-      title: 'Pyetje të Shpeshta',
+      title: 'Pyetje të shpeshta',
       subtitle: 'Gjeni përgjigje për pyetjet e zakonshme rreth blerjes, shitjes, financimit dhe përdorimit të CarMarket365.',
       searchPlaceholder: 'Kërkoni në pyetjet e shpeshta...',
-      browseByCategory: 'Shfletoni sipas Kategorisë',
-      allQuestions: 'Të Gjitha Pyetjet',
-      stillNeedHelp: 'Ende Keni Nevojë për Ndihmë?',
+      browseByCategory: 'Shfletoni sipas kategorisë',
+      allQuestions: 'Të gjitha pyetjet',
+      stillNeedHelp: 'Ende keni nevojë për ndihmë?',
       stillNeedHelpDescription: 'Nuk gjeni atë që kërkoni? Ekipi ynë i mbështetjes është këtu për të ndihmuar.',
-      callSupport: 'Telefono Mbështetjen',
-      emailUs: 'Na Dërgoni Email',
-      liveChat: 'Chat i Drejtpërdrejtë',
+      callSupport: 'Telefono mbështetjen',
+      emailUs: 'Na dërgoni email',
+      liveChat: 'Chat i drejtpërdrejtë',
       available247: 'I disponueshëm 24/7',
       noResultsFound: 'Nuk u gjetën rezultate',
       noResultsText: 'Provoni të kërkoni me fjalë kyçe të ndryshme ose shfletoni sipas kategorisë.',
-      clearSearch: 'Pastro Kërkimin',
+      clearSearch: 'Pastro kërkimin',
       commonQuestionsAbout: 'Pyetje të zakonshme rreth',
+
+      content: {
+        browseByCategory: 'Shfletoni sipas kategorisë',
+        browseDescription: 'Zgjidhni një kategori për të gjetur pyetje dhe përgjigje relevante.',
+        allQuestions: 'Të gjitha pyetjet',
+        commonQuestionsAbout: 'Pyetje të shpeshta rreth',
+        noResultsFound: 'Nuk u gjetën rezultate',
+        noResultsText: 'Provoni të kërkoni me fjalë kyçe të tjera ose shfletoni sipas kategorisë.',
+        clearSearch: 'Pastro kërkimin',
+        stillNeedHelp: 'Ende keni nevojë për ndihmë?',
+        stillNeedHelpDescription: 'Nuk gjeni atë që kërkoni? Ekipi ynë i mbështetjes është këtu për t\'ju ndihmuar.',
+        callSupport: 'Telefono mbështetjen',
+        emailUs: 'Na dërgoni email',
+        liveChat: 'Chat i drejtpërdrejtë',
+        available247: 'I disponueshëm 24/7',
+        supportPhoneNumber: '+389 2 123 456',
+        supportEmail: 'support@carmarket365.com',
+      },
+      faqCategories: [
+        {
+          id: 'buying',
+          name: 'Blerja e makinave',
+          icon: 'Car',
+          color: 'bg-blue-100 text-blue-600',
+          faqs: [
+            {
+              question: 'Si mund të gjej makina në CarMarket365?',
+              answer: 'Mund të kërkoni makina duke përdorur formularin e kërkimit në faqen kryesore ose në faqen "Shfleto makinat". Filtroni sipas markës, modelit, vitit, çmimit, vendndodhjes dhe shumë më tepër.'
+            },
+            {
+              question: 'A janë të gjitha shpalljet të verifikuara?',
+              answer: 'Po, të gjitha shpalljet në CarMarket365 janë të verifikuara. Bëjmë kontrolle për të gjithë dilerët dhe shitësit privatë.'
+            },
+            {
+              question: 'A mund të caktoj një provë drejtimi?',
+              answer: 'Sigurisht! Mund ta caktoni një provë drejtimi drejtpërdrejt nga faqja me detajet e makinës. Kontaktoni shitësin për të rënë dakord për kohën dhe vendin.'
+            }
+          ]
+        },
+        {
+          id: 'selling',
+          name: 'Shitja e makinave',
+          icon: 'DollarSign',
+          color: 'bg-green-100 text-green-600',
+          faqs: [
+            {
+              question: 'Si të publikoj një shpallje për makinën time?',
+              answer: 'Përdorni formularin "Shit makinën" për të krijuar një shpallje. Do t\'ju duhen detaje të automjetit, fotografi, informacion mbi gjendjen dhe të dhëna kontakti.'
+            },
+            {
+              question: 'A ka tarifë për të publikuar një shpallje?',
+              answer: 'Shpalljet bazë janë falas për shitësit privatë. Ne ofrojmë opsione premium me shikueshmëri të rritur për një tarifë të vogël.'
+            },
+            {
+              question: 'Sa kohë duhet për të shitur një makinë?',
+              answer: 'Mesatarisht, makinat me çmim të drejtë dhe fotografi të mira shiten brenda 2-4 javëve.'
+            }
+          ]
+        },
+        {
+          id: 'safety',
+          name: 'Siguria dhe mbrojtja',
+          icon: 'Shield',
+          color: 'bg-red-100 text-red-600',
+          faqs: [
+            {
+              question: 'Si të qëndroj i sigurt kur blej një makinë?',
+              answer: 'Takohuni në vende publike, merrni dikë me vete, verifikoni identitetin e shitësit dhe përdorni mënyra të sigurta pagese.'
+            },
+            {
+              question: 'Çfarë të bëj nëse dyshoj për mashtrim?',
+              answer: 'Ndërprisni menjëherë komunikimin dhe raportojeni rastin te ekipi ynë i mbështetjes. Do të hetojmë dhe do të marrim masat e nevojshme.'
+            }
+          ]
+        },
+        {
+          id: 'financing',
+          name: 'Financimi',
+          icon: 'Users',
+          color: 'bg-purple-100 text-purple-600',
+          faqs: [
+            {
+              question: 'A mund të marr financim përmes CarMarket365?',
+              answer: 'Po, bashkëpunojmë me disa institucione financiare për të ofruar opsione konkurruese financimi. Mund të merrni miratim paraprak online për pak minuta.'
+            },
+            {
+              question: 'Çfarë vlerësimi krediti më duhet?',
+              answer: 'Punojmë me institucione që pranojnë vlerësime të ndryshme krediti, nga të shkëlqyera te të dobëta. Kërkesat ndryshojnë sipas institucionit.'
+            }
+          ]
+        }
+      ],
       
       categories: {
         buying: 'Blerja e Makinave',
@@ -1653,7 +1798,15 @@ export const sqTranslations: TranslationStrings = {
   errors: {
     generic: 'Diçka shkoi keq. Ju lutemi provoni përsëri.',
     network: 'Gabim në rrjet. Ju lutemi kontrolloni lidhjen tuaj.',
-    notFound: 'Artikulli i kërkuar nuk u gjet.',
+    itemNotFound: 'Artikulli i kërkuar nuk u gjet.',
+    notFound: {
+      title: '404',
+      heading: 'Faqja nuk u gjet',
+      message: 'Faqja që po kërkoni nuk ekziston ose është zhvendosur.',
+      goHome: 'Shko te faqja kryesore',
+      goBack: 'Kthehu',
+      supportMessage: 'Nëse mendoni se ky është një gabim, na shkruani në support@carmarket365.com',
+    },
     unauthorized: 'Nuk jeni të autorizuar të aksesoni këtë resurs.',
     forbidden: 'Aksesi në këtë resurs është i ndaluar.',
     serverError: 'Gabim në server. Ju lutemi provoni më vonë.',
