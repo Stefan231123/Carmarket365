@@ -513,7 +513,7 @@ export default function SellCar() {
       <SEO title={t('meta.pages.sellCar')} canonical="/sell" />
       {draftRestored && (
         <div className="bg-blue-50 border-b border-blue-200 px-4 py-2 flex items-center justify-between text-sm text-blue-700">
-          <span>Draft restored — your previous progress has been loaded.</span>
+          <span>{t('sell.draftBanner.restored')}</span>
           <button
             className="underline ml-4"
             onClick={() => {
@@ -521,7 +521,7 @@ export default function SellCar() {
               window.location.reload();
             }}
           >
-            Start fresh
+            {t('sell.draftBanner.startFresh')}
           </button>
         </div>
       )}
@@ -658,7 +658,7 @@ export default function SellCar() {
                   <div className="space-y-6">
                     <div>
                       <h2 className="text-xl font-semibold text-gray-900 mb-2">{t('sell.headers.basicInformation')}</h2>
-                      <p className="text-gray-600">{t('sell.headers.basicInfoDescription').replace('{vehicleType}', vehicleDetails.type || t('common.vehicle'))}</p>
+                      <p className="text-gray-600">{t('sell.headers.basicInfoDescription').replace('{vehicleType}', vehicleDetails.type ? t(`sell.vehicleTypes.${vehicleDetails.type}.name`).toLowerCase() : t('common.vehicle'))}</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -867,7 +867,7 @@ export default function SellCar() {
                         <label className="block text-sm font-medium text-gray-700 mb-2">{t('sell.fields.doors')}</label>
                         <div className="flex rounded-2xl border border-input overflow-hidden h-11">
                           {[
-                            { label: 'All', value: '' },
+                            { label: t('common.all'), value: '' },
                             { label: '2/3', value: '2/3' },
                             { label: '4/5', value: '4/5' },
                             { label: '6/7', value: '6/7' },

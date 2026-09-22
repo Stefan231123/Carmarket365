@@ -772,7 +772,7 @@ placeholder={t('browseCars.filters.anyLocation')}
         </div>
 
 <p className="text-center text-muted-foreground mt-8">
-          {t('business.qualityUsedCars')} <span className="font-semibold">{t('business.registeredDealers')}</span> {t('countries.global')}
+          {t('business.qualityUsedCars')} <span className="font-semibold">{t('business.registeredDealers')}</span> {t('countries.northMacedonia')}
         </p>
       </div>
 

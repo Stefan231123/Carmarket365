@@ -59,6 +59,7 @@ export const sqTranslations: TranslationStrings = {
     private: 'Privat',
     yes: 'Po',
     no: 'Jo',
+    all: 'Të gjitha',
     menu: 'Menyja',
     new: 'I ri',
     certified: 'I certifikuar',
@@ -623,6 +624,10 @@ export const sqTranslations: TranslationStrings = {
     contactInformation: 'Informacionet e kontaktit',
     publish: 'Publiko',
     draft: 'Ruaj si draft',
+    draftBanner: {
+      restored: 'Skica u rikthye — të dhënat tuaja të mëparshme u ngarkuan.',
+      startFresh: 'Fillo nga fillimi',
+    },
     required: 'I detyrueshëm',
     optional: 'Opsional',
     addPhotos: 'Shto foto',

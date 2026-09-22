@@ -264,12 +264,14 @@ export default function EditListing() {
 
   if (loadError || !car) {
     return (
-      <div className="min-h-screen bg-muted/30 flex items-center justify-center">
-        <Card className="max-w-md">
-          <CardContent className="p-6 text-center">
-            <AlertCircle className="h-8 w-8 text-red-500 mx-auto mb-4" />
-            <p>{loadError || "Listing not found"}</p>
-            <Button className="mt-4" onClick={() => navigate(-1)}>
+      <div className="min-h-screen bg-muted/30 flex items-center justify-center p-4">
+        <Card className="max-w-md rounded-2xl">
+          <CardContent className="p-6 text-center space-y-3">
+            <AlertCircle className="h-8 w-8 text-red-500 mx-auto" />
+            <p className="text-muted-foreground">
+              {loadError ? t("carDetail.errors.failedToLoad") : t("carDetail.errors.doesntExist")}
+            </p>
+            <Button className="mt-2 rounded-full" onClick={() => navigate(-1)}>
               {t("carDetail.backToSearch")}
             </Button>
           </CardContent>
