@@ -55,9 +55,11 @@ export default function About() {
   const { t } = useTranslation();
   const stats = getStats(t);
   const values = getValues(t);
-  const team = (t('about') as any).team.teamMembers;
-  const milestones = (t('about') as any).milestones;
-  const awards = (t('about') as any).awards;
+  const aboutData = (t('about') as any) || {};
+  const staticContent = aboutData.staticContent || {};
+  const team: any[] = Array.isArray(staticContent.team) ? staticContent.team : [];
+  const milestones: any[] = Array.isArray(staticContent.milestones) ? staticContent.milestones : [];
+  const awards: any[] = Array.isArray(staticContent.awards) ? staticContent.awards : [];
   
   return (
     <div className="min-h-screen bg-background">
