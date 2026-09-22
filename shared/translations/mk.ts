@@ -59,6 +59,7 @@ export const mkTranslations: TranslationStrings = {
     private: 'Приватен',
     yes: 'Да',
     no: 'Не',
+    all: 'Сите',
     menu: 'Мени',
     'new': 'Нов',
     certified: 'Сертифициран',
@@ -689,6 +690,10 @@ export const mkTranslations: TranslationStrings = {
     contactInformation: 'Контакт информации',
     publish: 'Објави',
     draft: 'Зачувај како нацрт',
+    draftBanner: {
+      restored: 'Нацртот е вратен — твоите претходни податоци се вчитани.',
+      startFresh: 'Почни од почеток',
+    },
     preview: {
       title: 'Преглед на огласот',
       yourVehicle: 'Вашето возило',

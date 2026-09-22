@@ -296,6 +296,8 @@ export default function AdvancedSearch() {
         'sections.vehicleDetails.description': 'Марка на возилото, модел и основни својства',
         'sections.priceLocation.title': 'Прва регистрација и цена',
         'sections.priceLocation.description': 'Датум на регистрација и ценовен опсег',
+        'sections.locationDistance.title': 'Локација и радиус',
+        'sections.locationDistance.description': 'Град или поштенски код и радиус за пребарување',
         'sections.technicalSpecs.title': 'Изминати километри и снага',
         'sections.technicalSpecs.description': 'Спецификации за изведување и употреба на возилото',
         'sections.sellerCondition.title': 'Продавач и состојба на возилото',
@@ -417,6 +419,8 @@ export default function AdvancedSearch() {
         'sections.vehicleDetails.description': 'Marka e automjetit, modeli dhe vetitë bazë',
         'sections.priceLocation.title': 'Regjistrimi i parë dhe çmimi',
         'sections.priceLocation.description': 'Data e regjistrimit dhe diapazoni i çmimit',
+        'sections.locationDistance.title': 'Vendndodhja dhe rrezja',
+        'sections.locationDistance.description': 'Qyteti ose kodi postar dhe rrezja e kërkimit',
         'sections.technicalSpecs.title': 'Kilometrazhi dhe fuqia',
         'sections.technicalSpecs.description': 'Specifikimet e performancës dhe përdorimit të automjetit',
         'sections.sellerCondition.title': 'Shitësi dhe gjendja e automjetit',
@@ -1374,11 +1378,11 @@ export default function AdvancedSearch() {
             </FilterSection>
 
             {/* Location */}
-            <FilterSection 
-              title={getAdvancedSearchText('sections.priceLocation.title', 'Location')} 
+            <FilterSection
+              title={getAdvancedSearchText('sections.locationDistance.title', 'Location')}
               sectionKey="location"
               icon={<Car className="h-5 w-5 text-blue-600" />}
-              description={getAdvancedSearchText('sections.priceLocation.description', 'Search area and location preferences')}
+              description={getAdvancedSearchText('sections.locationDistance.description', 'Search area and location preferences')}
             >
               <div className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

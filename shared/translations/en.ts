@@ -62,6 +62,7 @@ export const enTranslations: TranslationStrings = {
     private: 'Private',
     yes: 'Yes',
     no: 'No',
+    all: 'All',
     menu: 'Menu',
     new: 'New',
     certified: 'Certified',
@@ -654,6 +655,10 @@ export const enTranslations: TranslationStrings = {
     contactInformation: 'Contact Information',
     publish: 'Publish',
     draft: 'Save as draft',
+    draftBanner: {
+      restored: 'Draft restored — your previous progress has been loaded.',
+      startFresh: 'Start fresh',
+    },
     preview: {
       title: 'Listing Preview',
       yourVehicle: 'Your Vehicle',
