@@ -365,7 +365,7 @@ export const sqTranslations: TranslationStrings = {
       minYear: 'Viti minimal',
       anyYear: 'Çdo vit',
       anyMileage: 'Çdo kilometrazh',
-      maxMileage: 'Kilometrat e përshkuara maksimal',
+      maxMileage: 'Kilometrat e përshkuara maksimale',
       noMin: 'Pa minimum',
       noMax: 'Pa maksimum',
       enterLocation: 'Shkruani qytetin ose kodin postar',
@@ -394,7 +394,7 @@ export const sqTranslations: TranslationStrings = {
   // Popular Brands Section
   brands: {
     title: 'Blej sipas markës',
-    description: 'Shfletoni makina nga prodhuesit më popullor',
+    description: 'Shfletoni makina nga prodhuesit më të njohur',
     carsCount: 'makina',
   },
 
@@ -445,7 +445,7 @@ export const sqTranslations: TranslationStrings = {
     yearRange: 'Diapazoni i vitit',
     yearMin: 'Viti minimal',
     yearMax: 'Viti maksimal',
-    mileageMax: 'Kilometrat e përshkuara maksimal',
+    mileageMax: 'Kilometrat e përshkuara maksimale',
     mileageRange: 'Kilometrazha',
     anyMileage: 'Çdo kilometrazh',
     location: 'Vendndodhja',
@@ -1764,7 +1764,7 @@ export const sqTranslations: TranslationStrings = {
   },
 
   footer: {
-    aboutUs: 'Tregu juaj i besuar për makina cilësore të përdorura. Gjeni automjetin tuaj të përsosur nga mijëra shpallje.',
+    aboutUs: 'Tregu juaj i besuar për makina cilësore të përdorura. Gjeni automjetin tuaj të përkryer nga mijëra shpallje.',
     quickLinks: 'Lidhje të shpejta',
     searchCars: 'Kërkoni makina',
     sellYourCar: 'Shisni makinën tuaj',
@@ -1879,7 +1879,7 @@ export const sqTranslations: TranslationStrings = {
       from: 'nga',
       to: 'deri',
       yearRange: 'Viti nga',
-      mileageRange: 'Kilometrat e përshkuara maksimal',
+      mileageRange: 'Kilometrat e përshkuara maksimale',
       location: 'Vendndodhja',
       withinRadius: 'brenda rrethit',
       fuelType: 'Lloji i karburantit',
@@ -2024,7 +2024,7 @@ export const sqTranslations: TranslationStrings = {
       priceFrom: 'Çmimi nga',
       minYear: 'Viti minimal',
       maxYear: 'Viti maksimal',
-      maxMileage: 'Kilometrat e përshkuara maksimal',
+      maxMileage: 'Kilometrat e përshkuara maksimale',
       additionalProperties: 'Vetitë shtesë',
     },
     
@@ -4869,7 +4869,7 @@ export const sqTranslations: TranslationStrings = {
         exteriorColor: 'Ngjyra e Jashtme',
         interiorColor: 'Ngjyra e Brendshme',
         priceRange: 'Diapazoni i Çmimit',
-        maxMileage: 'Kilometrat e përshkuara Maksimal',
+        maxMileage: 'Kilometrat e përshkuara Maksimale',
         condition: 'Gjendja',
         location: 'Lokacioni',
         radius: 'Rrezja e Kërkimit',

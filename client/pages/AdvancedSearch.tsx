@@ -411,7 +411,7 @@ export default function AdvancedSearch() {
       const sqTranslations: {[key: string]: string} = {
         // Page titles
         'title': 'Kërkim i avancuar i automjeteve',
-        'subtitle': 'Përdorni filtrat tanë të gjithëpërfshirës të kërkimit për të zbuluar automjetin e saktë që po kërkoni',
+        'subtitle': 'Përdorni filtrat tanë gjithëpërfshirës të kërkimit për të zbuluar automjetin e saktë që po kërkoni',
         'searchingRealTime': 'Duke kërkuar në kohë reale...',
         
         // Section titles and descriptions
@@ -1839,12 +1839,12 @@ export default function AdvancedSearch() {
               </div>
             </FilterSection>
 
-            {/* Interior - PURE HARDCODED MACEDONIAN */}
-            <FilterSection 
-              title="Боја на ентериер и тапацирање" 
+            {/* Interior */}
+            <FilterSection
+              title={getAdvancedSearchText('sections.interior.title', 'Interior Color & Upholstery')}
               sectionKey="interior"
               icon={<Zap className="h-5 w-5 text-indigo-600" />}
-              description="Изглед на ентериерот и материјали"
+              description={getAdvancedSearchText('sections.interiorAppearance.description', 'Interior appearance and materials')}
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
