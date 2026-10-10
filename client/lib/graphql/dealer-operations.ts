@@ -28,6 +28,7 @@ export interface CarListing {
   imageUrls: string[];
   year: number;
   mileage: number;
+  viewCount: number;
   createdAt: string;
   updatedAt: string;
   carMake: {

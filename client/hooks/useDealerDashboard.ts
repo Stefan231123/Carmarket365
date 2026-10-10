@@ -38,7 +38,11 @@ function useApiQuery<T>(fetcher: () => Promise<T>, deps: any[] = []) {
 // Hook for getting dealer's listings
 export const useDealerListings = (_status?: string, _searchTerm?: string) => {
   return useApiQuery<{ getDealerListings: CarListing[] }>(async () => {
-    const listings = await apiClient.getAllListings();
+    // getAllListings is an admin-only query -- a dealer calling it gets a
+    // GraphQL authorization error that the client swallows into an empty
+    // array. getMyListings is the dealer-scoped equivalent and already
+    // carries viewCount/inquiryCount.
+    const listings = await apiClient.getMyListings();
     const mapped: CarListing[] = (listings || []).map((l: any) => ({
       id: l.id,
       title: `${l.make || ''} ${l.model || ''}`.trim(),
@@ -47,6 +51,7 @@ export const useDealerListings = (_status?: string, _searchTerm?: string) => {
       imageUrls: l.images?.map((img: any) => typeof img === 'string' ? img : img.url) || [],
       year: l.year || 0,
       mileage: l.mileage || 0,
+      viewCount: l.viewCount || 0,
       createdAt: l.createdAt || new Date().toISOString(),
       updatedAt: l.updatedAt || new Date().toISOString(),
       carMake: { id: '', name: l.make || '' },
@@ -56,18 +61,28 @@ export const useDealerListings = (_status?: string, _searchTerm?: string) => {
   }, [_status, _searchTerm]);
 };
 
-// Hook for getting dealer dashboard stats — enriched with inquiry data
+// Hook for getting dealer dashboard stats — derived from the dealer's own
+// listings + inquiries. getAdminStats is an admin-only query; using it here
+// meant every stat silently came back 0 for a non-admin dealer.
 export const useDealerStats = () => {
   return useApiQuery<{ getDealerStats: DealerStats }>(async () => {
-    const [stats, inquiries] = await Promise.all([
-      apiClient.getAdminStats(),
+    const [listings, inquiries] = await Promise.all([
+      apiClient.getMyListings(),
       apiClient.getSellerInquiries(),
     ]);
 
     const now = new Date();
     const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
 
+    const allListings = listings || [];
     const allInquiries = inquiries || [];
+
+    const activeListings = allListings.filter((l: any) => l.isAvailable).length;
+    const totalViews = allListings.reduce((sum: number, l: any) => sum + (l.viewCount || 0), 0);
+    const revenue = allListings
+      .filter((l: any) => !l.isAvailable)
+      .reduce((sum: number, l: any) => sum + (l.price || 0), 0);
+
     const newInquiriesThisWeek = allInquiries.filter(
       (inq: any) => new Date(inq.createdAt) >= oneWeekAgo
     ).length;
@@ -79,12 +94,14 @@ export const useDealerStats = () => {
 
     return {
       getDealerStats: {
-        activeListings: stats.activeListings || 0,
-        totalViews: stats.totalViews || 0,
-        totalInquiries: stats.totalInquiries || allInquiries.length,
-        revenue: stats.totalRevenue || 0,
+        activeListings,
+        totalViews,
+        totalInquiries: allInquiries.length,
+        revenue,
         newInquiriesThisWeek,
-        viewsThisMonth: stats.totalViews || 0,
+        // No per-view timestamps are tracked, only a running total per
+        // listing, so "this month" isn't derivable -- same total as above.
+        viewsThisMonth: totalViews,
         responseRate,
       },
     };
@@ -95,7 +112,7 @@ export const useDealerStats = () => {
 export const useDealerPerformance = () => {
   return useApiQuery<{ getDealerPerformance: DealerPerformance }>(async () => {
     const [listings, inquiries] = await Promise.all([
-      apiClient.getAllListings(),
+      apiClient.getMyListings(),
       apiClient.getSellerInquiries(),
     ]);
 
@@ -134,13 +151,23 @@ export const useDealerPerformance = () => {
       ? Math.round(repliedInquiries.reduce((a: number, b: number) => a + b, 0) / repliedInquiries.length)
       : 0;
 
+    // Average views per listing -- getMyListings carries each Car's
+    // viewCount, which increments on every recordCarView call.
+    const listingsWithViews = (listings || []).filter((l: any) => typeof l.viewCount === 'number');
+    const averageListingViews = listingsWithViews.length > 0
+      ? Math.round(
+          listingsWithViews.reduce((sum: number, l: any) => sum + (l.viewCount || 0), 0)
+            / listingsWithViews.length
+        )
+      : 0;
+
     return {
       getDealerPerformance: {
         salesThisMonth,
         salesLastMonth,
         averageTimeToSell,
         conversionRate,
-        averageListingViews: 0, // No per-listing view tracking yet
+        averageListingViews,
         averageResponseTime,
       },
     };
@@ -212,9 +239,10 @@ export const useDealerDashboardData = () => {
   const loading = statsQuery.loading || performanceQuery.loading;
   const error = statsQuery.error || performanceQuery.error;
 
-  // Show most recent active listings as "popular"
+  // Most-viewed active listings, highest view count first
   const popularListings = (listingsQuery.data?.getDealerListings || [])
     .filter((l) => l.status === 'ACTIVE')
+    .sort((a, b) => b.viewCount - a.viewCount)
     .slice(0, 5);
 
   return {
